@@ -1,0 +1,35 @@
+### LenoxBot TODO List
+
+- [ ] ADD a help command which sends you informations about a command or how to use 
+- [ ] ADD for every ban etc a case number
+- [ ] ADD softban
+- [ ] toggles command delete when somebody executes a command
+- [ ] ADD craterole/deleterole command
+- [ ] ADD addrole/removerole command
+- [ ] Add a leave command to leave a guild by id
+- [ ] add a restart command
+- [ ] add setname command
+- [ ] add setstatus command
+- [ ] add bugreport command
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+- [ ]
+

@@ -1,0 +1,5 @@
+node_modules
+settings.json
+score.sqlite
+.eslintrc.json
+package-lock.json
