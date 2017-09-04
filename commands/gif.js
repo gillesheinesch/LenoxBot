@@ -29,7 +29,7 @@ exports.conf = {
 exports.help = {
 	name: 'gif',
 	description: 'Searches for a gif',
-    usage: 'gif {input}',
+    usage: 'gif {query}',
     example: 'gif Discord',
 	category: 'searches'
 };
