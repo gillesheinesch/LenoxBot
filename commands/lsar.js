@@ -5,11 +5,15 @@ exports.run = function(client, msg, args) {
 	const embed = new Discord.RichEmbed()
 	.setColor('#ABCDEF')
 	.setFooter(`You can join a role with the following command: ${tableload.prefix}join {rolename}`);
+	try {
 		for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 			roles.push(msg.guild.roles.get(tableload.selfassignableroles[i]).name);
 		}
 		embed.addField('Self assignable roles', roles.join("\n"), true);
 		return msg.channel.send({ embed: embed });
+	} catch (error) {
+		return msg.channel.send('There are no roles on this server that you can assign yourself!');
+	}
 };
 
 exports.conf = {
