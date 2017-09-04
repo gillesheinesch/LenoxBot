@@ -8,7 +8,7 @@ exports.run = function(client, msg, args) {
 	if (!foundRole) return msg.reply('Höh ... This role does not exist at all!').then(m => m.delete(10000));
 for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 	if (foundRole.id === tableload.selfassignableroles[i]) {
-            author.addRole(foundRole).then(msg.channel.send('Role successfully assigned!').then(m => m.delete(10000))).catch(msg.channel.send('I don\'t have the necessary rights to give you this role. Please take a look at the rights of your roles and the order of your roles!'));
+            author.addRole(foundRole).then(m => m.channel.send('Role successfully assigned!')).catch(msg.channel.send('I don\'t have the necessary rights to give you this role. Please take a look at the rights of your roles and the order of your roles!'));
     }
 }
 };
