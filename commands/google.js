@@ -4,7 +4,7 @@ const { RichEmbed } = require('discord.js');
 
 exports.run = async (client, msg, args) => {
 	if (args.length < 1) {
-		return msg.reply('Bitte gib an, nach was du suchen möchtest');
+		return msg.reply('Please specify what you are looking for');
 	}
 	const config = require('../settings.json').googleKey;
 	const config2 = require('../settings.json').googlekey;
@@ -50,7 +50,7 @@ exports.conf = {
 exports.help = {
 	name: 'google',
 	description: 'Searches something on google',
-	usage: 'google {input}',
+	usage: 'google {query}',
 	example: 'google Discord',
 	category: 'searches'
 };

@@ -7,12 +7,12 @@
 - [ ] ADD craterole/deleterole command
 - [ ] ADD addrole/removerole command
 - [ ] Add a leave command to leave a guild by id
-- [ ] add a restart command
+- [X] add a restart command
 - [ ] add setname command
 - [ ] add setstatus command
 - [ ] add bugreport command
-- [ ]
-- [ ]
+- [ ] check all alias
+- [ ] check all permissions
 - [ ]
 - [ ]
 - [ ]
