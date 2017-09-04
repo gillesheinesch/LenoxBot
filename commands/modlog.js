@@ -8,7 +8,7 @@ exports.run = (client, msg, args) => {
 	} else {
 		tableload.modlog = 'false';
 		client.guildconfs.set(msg.guild.id, tableload);
-		return msg.channel.send(`All moderate actions will no longer be logged!`);
+		return msg.channel.send(`All moderative actions will no longer be logged!`);
 	}
 };
 

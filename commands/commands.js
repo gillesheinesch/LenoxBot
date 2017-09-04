@@ -40,6 +40,7 @@ exports.run = (client, msg, args) => {
 			}
 		}
 	}
+	msg.channel.send(`There was an error. See ${tableload.prefix}modules to get a list of all available modules that you can use!`);
 };
 
 exports.conf = {

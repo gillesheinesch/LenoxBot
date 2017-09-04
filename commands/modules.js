@@ -4,7 +4,7 @@ exports.run = (client, msg, args) => {
 	const embed = new Discord.RichEmbed()
     .setFooter(`You can use ${tableload.prefix}commands {modulename} to get a list of all commands in a module`)
     .setColor('0066CC')
-    .setDescription('**A list of all modules**\n\n► Administration \n► Help \n► Utility \n► Music \n► Fun \n► Searches \n► NSFW');
+    .setDescription('**A list of all modules**\n► Administration \n► Help \n► Utility \n► Music \n► Fun \n► Searches \n► NSFW');
 	msg.channel.send({ embed });
 };
 
