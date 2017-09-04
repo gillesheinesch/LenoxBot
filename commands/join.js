@@ -8,8 +8,8 @@ exports.run = function(client, msg, args) {
 	if (!foundRole) return msg.reply('Höh ... This role does not exist at all!').then(m => m.delete(10000));
 for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 	if (foundRole.id === tableload.selfassignableroles[i]) {
-        author.removeRole(foundRole);
-        return msg.channel.send('Role successfully removed!').then(m => m.delete(10000));
+        author.addRole(foundRole);
+        return msg.channel.send('Role successfully assigned!').then(m => m.delete(10000));
     }
 }
 };
@@ -20,9 +20,9 @@ exports.conf = {
 	aliases: []
 };
 exports.help = {
-	name: 'leave',
-	description: 'Leave a self-assignable role',
-	usage: 'leave {rolename}',
-	example: 'leave Member',
+	name: 'join',
+	description: 'Join a self-assignable role',
+	usage: 'join {rolename}',
+	example: 'join Member',
 	category: 'utility'
 };

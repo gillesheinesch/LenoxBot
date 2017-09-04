@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
+	const tableload = client.guildconfs.get(msg.guild.id);
 	const embed = new Discord.RichEmbed()
-    .setFooter('You can use `?commands Modulename` to get a list of all commands in a module')
+    .setFooter(`You can use ${tableload.prefix}commands {modulename} to get a list of all commands in a module`)
     .setColor('0066CC')
     .setDescription('**A list of all modules**\n\n► Administration \n► Help \n► Utility \n► Music \n► Fun \n► Searches \n► NSFW');
 	msg.channel.send({ embed });

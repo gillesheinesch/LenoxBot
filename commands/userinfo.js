@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
-exports.run = async(client, msg) => {
+exports.run = async(client, msg, args) => {
     const user = msg.mentions.users.first() || msg.author;
     const member = msg.guild.member(user) || await msg.guild.fetchMember(user);
     const userondiscord = moment(user.createdTimestamp).format('MMMM Do YYYY, h:mm:ss a');

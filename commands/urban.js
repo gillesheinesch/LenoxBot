@@ -3,7 +3,7 @@ const snekfetch = require('snekfetch');
 exports.run = async(client, msg, args) => {
     const content = args.slice().join(" ");
     await snekfetch.get(`http://api.urbandictionary.com/v0/define?term=${content}`)
-    .then(r =>{
+    .then(r => {
         let def = r.body.list[0];
         const embed = new Discord.RichEmbed()
             .setTitle("📚 Urban Dictionary")
