@@ -6,7 +6,7 @@ exports.run = function(client, msg, args) {
 
 	if (addedrole.length < 1) return msg.reply('You must specify the name of the role!').then(m => m.delete(10000));
     if (!foundRole) return msg.reply('Höh ... This role does not exist at all!').then(m => m.delete(10000));
-    if (msg.author.has(foundRole.id)) return msg.reply('You already have this role!');
+    if (msg.member.roles.has(foundRole.id)) return msg.reply('You already have this role!');
 
 for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 	if (foundRole.id === tableload.selfassignableroles[i]) {
