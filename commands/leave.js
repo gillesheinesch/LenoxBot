@@ -8,8 +8,12 @@ exports.run = function(client, msg, args) {
 	if (!foundRole) return msg.reply('Höh ... This role does not exist at all!').then(m => m.delete(10000));
 for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 	if (foundRole.id === tableload.selfassignableroles[i]) {
-        author.removeRole(foundRole);
-        return msg.channel.send('Role successfully removed!').then(m => m.delete(10000));
+        try {
+            author.removeRole(foundRole);
+            return msg.channel.send('Role successfully removed!').then(m => m.delete(10000));
+        } catch (error) {
+            return msg.channel.send('I don\'t have the necessary rights to give you this role. Please take a look at the rights of your roles and the order of your roles!');
+        }
     }
 }
 };
