@@ -4,6 +4,7 @@ const token = require('./settings.json').token;
 const fs = require('fs');
 const PersistentCollection = require('djs-collection-persistent');
 client.guildconfs = new PersistentCollection({ name: 'guildsettings' });
+client.botconfs = new PersistentCollection({ name: 'botconfs' });
 
 fs.readdir('./events/', (err, files) => {
 	if (err) return console.error(err);

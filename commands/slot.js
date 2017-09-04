@@ -35,5 +35,6 @@ exports.help = {
 	name: 'slot',
 	description: 'Play with the slot machine',
 	usage: 'slot',
-	example: 'slot'
+	example: 'slot',
+	category: 'fun'
 };

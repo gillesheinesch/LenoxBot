@@ -30,11 +30,12 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: ['k']
 };
 exports.help = {
 	name: 'kick',
 	description: 'Kick a user from the discord server with a certain reason',
 	usage: 'kick @User {reason}',
-	example: 'kick @Monkeyyy11#7584 Spam'
+	example: 'kick @Monkeyyy11#7584 Spam',
+	category: 'administration'
 };

@@ -31,5 +31,6 @@ exports.help = {
 	name: 'calculator',
 	description: 'Calculates for you an calculation',
 	usage: 'calculator {calculation}',
-	example: 'calculator 1*20'
+	example: 'calculator 1*20',
+	category: 'utility'
 };

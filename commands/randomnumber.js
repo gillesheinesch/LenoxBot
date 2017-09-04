@@ -21,5 +21,6 @@ exports.help = {
 	name: 'randomnumber',
 	description: 'Selects a random number between your input and 1',
 	usage: 'randomnumber {input}',
-	example: 'randomnumber 100'
+	example: 'randomnumber 100',
+	category: 'utility'
 };

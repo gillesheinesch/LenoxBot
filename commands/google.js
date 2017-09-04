@@ -51,5 +51,6 @@ exports.help = {
 	name: 'google',
 	description: 'Searches something on google',
 	usage: 'google {input}',
-	example: 'google Discord'
+	example: 'google Discord',
+	category: 'searches'
 };

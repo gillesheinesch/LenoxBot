@@ -30,5 +30,6 @@ exports.help = {
 	name: 'gif',
 	description: 'Searches for a gif',
     usage: 'gif {input}',
-    example: 'gif Discord'
+    example: 'gif Discord',
+	category: 'searches'
 };

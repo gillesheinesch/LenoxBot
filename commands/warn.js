@@ -29,11 +29,12 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: ['w']
 };
 exports.help = {
 	name: 'warn',
 	description: 'Warn a user on the discord server with a certain reason',
 	usage: 'warn @User {reason}',
-	example: 'warn @Monkeyyy11#7584 Spam'
+	example: 'warn @Monkeyyy11#7584 Spam',
+	category: 'administration'
 };

@@ -13,12 +13,13 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['rn']
+	aliases: []
 };
 exports.help = {
 	name: 'prefix',
 	description: 'Changes the prefix of the server',
 	usage: 'prefix {new prefix}',
-	example: 'randomnumber !'
+	example: 'randomnumber !',
+	category: 'administration'
 };
 

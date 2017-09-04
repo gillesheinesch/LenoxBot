@@ -28,5 +28,6 @@ exports.help = {
 	name: 'serverinfo',
 	description: 'Shows you some information about the current discord server',
 	usage: 'serverinfo',
-	example: 'serverinfo'
+	example: 'serverinfo',
+	category: 'utility'
 };

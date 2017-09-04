@@ -19,7 +19,8 @@ exports.conf = {
 };
 exports.help = {
 	name: 'welcome',
-	description: 'Toggles the anouncements on the current channel when a user joins the discord server',
+	description: 'Toggles the announcements on the current channel when a user joins the discord server',
     usage: 'welcome',
-    example: 'welcome'
+    example: 'welcome',
+	category: 'administration'
 };

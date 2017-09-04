@@ -15,11 +15,12 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-    aliases: []
+    aliases: ['ml']
 };
 exports.help = {
 	name: 'modlog',
-	description: 'Toggles the anouncements on the current channel when a user get banned, kicked, warned or unbaned on discord server',
+	description: 'Toggles the anouncements on the current channel when a user get banned, kicked, warned or unbaned',
     usage: 'modlog',
-    example: 'modlog'
+    example: 'modlog',
+	category: 'administration'
 };

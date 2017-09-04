@@ -29,11 +29,12 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: ['u']
 };
 exports.help = {
 	name: 'unban',
 	description: 'Unban a user from the discord server with a certain reason',
 	usage: 'unban {userid} {reason}',
-	example: 'unban 238590234135101440 Mistake'
+	example: 'unban 238590234135101440 Mistake',
+	category: 'administration'
 };

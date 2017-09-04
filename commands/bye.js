@@ -19,7 +19,8 @@ exports.conf = {
 };
 exports.help = {
 	name: 'bye',
-	description: 'Toggles the anouncements on the current channel when a user leaves the discord server',
+	description: 'Toggles the announcements on the current channel when a user leaves the discord server',
     usage: 'bye',
-    example: 'bye'
+    example: 'bye',
+	category: 'administration'
 };
