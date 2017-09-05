@@ -8,16 +8,26 @@ exports.run = (client, guild) => {
 		messagedellogchannel: '',
 		messageupdatelog: 'false',
 		messageupdatelogchannel: '',
-		guildupdatelog: 'false',
-		guildupdatelogchannel: '',
 		channelupdatelog: 'false',
 		channelupdatelogchannel: '',
 		channelcreatelog: 'false',
 		channelcreatelogchannel: '',
 		channeldeletelog: 'false',
 		channeldeletelogchannel: '',
-		userupdatelog: 'false',
-		userupdatelogchannel: '',
+		guildmemberupdatelog: 'false',
+		guildmemberupdatelogchannel: '',
+		presenceupdatelog: 'false',
+		presenceupdatelogchannel: '',
+		welcomelog: 'false',
+		welcomelogchannel: '',
+		byelog: 'false',
+		byelogchannel: '',
+		rolecreatelog: 'false',
+		rolecreatelogchannel: '',
+		roledeletelog: 'false',
+		roledeletelogchannel: '',
+		roleupdatelog: 'false',
+		roleupdatelogchannel: '',
 		welcome: 'false',
 		welcomemsg: '',
 		bye: 'false',
@@ -33,6 +43,7 @@ exports.run = (client, guild) => {
 	const embed = new Discord.RichEmbed()
 	.setTimestamp()
 	.setAuthor(`${guild.name} (${guild.id})`)
+	.addField(`Owner`, `${guild.owner.user.tag} (${guild.ownerID})`)
 	.setColor('#0066CC')
 	.setFooter('Joined guild');
 	client.channels.get('353989483517181962').send({ embed: embed });

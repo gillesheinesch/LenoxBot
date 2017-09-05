@@ -1,7 +1,13 @@
 exports.run = (client, msg, args) => {
-	const validation = ['messagedelete', 'messageupdate', 'guildupdate', 'channelupdate', 'channelcreate', 'channeldelete', 'welcomemessage', 'byemessage', 'modlog'];
+	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
+	
+	const validation = ['modlog', 'messagedelete', 'messageupdate', 'channelupdate', 'channelcreate', 'channeldelete', 'memberupdate', 'presenceupdate', 'userjoin', 'userleft', 'rolecreate', 'roledelete', 'roleupdate'];
 	const tableload = client.guildconfs.get(msg.guild.id);
+	const content = args.slice().join(" ");
 	const margs = msg.content.split(' ');
+
+	if (!content) return msg.channel.send(`You forgot to enter what event you want to have logged in the channel. You can get a list of all available events with ${tableload.prefix}listevents`);
+
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'messagedelete') {
@@ -26,17 +32,6 @@ exports.run = (client, msg, args) => {
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`All updated messages will no longer be logged!`);
 				}
-			} else if (margs[1].toLowerCase() === 'guildupdate') {
-				if (tableload.guildupdatelog === 'false') {
-					tableload.guildupdatelogchannel = `${msg.channel.id}`;
-					tableload.guildupdatelog = 'true';
-					client.guildconfs.set(msg.guild.id, tableload);
-					return msg.channel.send(`All guild updates are now logged in Channel **#${msg.channel.name}**`);
-				} else {
-					tableload.guildupdatelog = 'false';
-					client.guildconfs.set(msg.guild.id, tableload);
-					return msg.channel.send(`All guild updates will no longer be logged!`);
-				}
 			} else if (margs[1].toLowerCase() === 'channelupdate') {
 				if (tableload.channelupdatelog === 'false') {
 					tableload.channelupdatelogchannel = `${msg.channel.id}`;
@@ -47,6 +42,17 @@ exports.run = (client, msg, args) => {
 					tableload.channelupdatelog = 'false';
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`All channel updates will no longer be logged!`);
+				}
+			} else if (margs[1].toLowerCase() === 'memberupdate') {
+				if (tableload.guildmemberupdatelog === 'false') {
+					tableload.guildmemberupdatelogchannel = `${msg.channel.id}`;
+					tableload.guildmemberupdatelog = 'true';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All member updates are now logged in Channel **#${msg.channel.name}**`);
+				} else {
+					tableload.guildmemberupdatelog = 'false';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All member updates will no longer be logged!`);
 				}
 			} else if (margs[1].toLowerCase() === 'channelcreate') {
 				if (tableload.channelcreatelog === 'false') {
@@ -70,25 +76,25 @@ exports.run = (client, msg, args) => {
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`All newly deleted channel will no longer be logged!`);
 				}
-			} else if (margs[1].toLowerCase() === 'welcomemessage') {
-				if (tableload.welcome === 'false') {
-					tableload.welcomebyechannel = `${msg.channel.id}`;
-					tableload.welcome = 'true';
+			} else if (margs[1].toLowerCase() === 'userjoin') {
+				if (tableload.welcomelog === 'false') {
+					tableload.welcomelogchannel = `${msg.channel.id}`;
+					tableload.welcomelog = 'true';
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`Every user who joins the server will now be logged in channel **#${msg.channel.name}**`);
 				} else {
-					tableload.welcome = 'false';
+					tableload.welcomelog = 'false';
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`Every user who joins the server will no longer be logged!`);
 				}
-			} else if (margs[1].toLowerCase() === 'byemessage') {
-				if (tableload.bye === 'false') {
-					tableload.welcomebyechannel = `${msg.channel.id}`;
-					tableload.bye = 'true';
+			} else if (margs[1].toLowerCase() === 'userleft') {
+				if (tableload.byelog === 'false') {
+					tableload.byelogchannel = `${msg.channel.id}`;
+					tableload.byelog = 'true';
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`Every user who leaves the server will now be logged here in channel **#${msg.channel.name}**`);
 				} else {
-					tableload.bye = 'false';
+					tableload.byelog = 'false';
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`Every user who leaves the server will no longer be logged!`);
 				}
@@ -103,8 +109,65 @@ exports.run = (client, msg, args) => {
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`All moderative actions will no longer be logged!`);
 				}
-			}
-		}
+			} else if (margs[1].toLowerCase() === 'rolecreate') {
+				if (tableload.rolecreatelog === 'false') {
+					tableload.rolecreatelogchannel = `${msg.channel.id}`;
+					tableload.rolecreatelog = 'true';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All newly created roles are now logged in Channel **#${msg.channel.name}**`);
+				} else {
+					tableload.rolecreatelog = 'false';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All newly created roles will no longer be logged!`);
+				}
+			} else if (margs[1].toLowerCase() === 'roledelete') {
+				if (tableload.roledeletelog === 'false') {
+					tableload.roledeletelogchannel = `${msg.channel.id}`;
+					tableload.roledeletelog = 'true';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All newly deleted roles are now logged in Channel **#${msg.channel.name}**`);
+				} else {
+					tableload.roledeletelog = 'false';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All newly deleted roles will no longer be logged!`);
+				}
+			} else if (margs[1].toLowerCase() === 'roleupdate') {
+				if (tableload.roleupdatelog === 'false') {
+					tableload.roleupdatelogchannel = `${msg.channel.id}`;
+					tableload.roleupdatelog = 'true';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All channel updates are now logged in Channel **#${msg.channel.name}**`);
+				} else {
+					tableload.roleupdatelog = 'false';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All channel updates will no longer be logged!`);
+				}
+			} else if (margs[1].toLowerCase() === 'presenceupdate') {
+				if (tableload.presenceupdatelog === 'false') {
+					tableload.presenceupdatelogchannel = `${msg.channel.id}`;
+					tableload.presenceupdatelog = 'true';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All member presence changes are now logged in Channel **#${msg.channel.name}**`);
+				} else {
+					tableload.presenceupdatelog = 'false';
+					client.guildconfs.set(msg.guild.id, tableload);
+					return msg.channel.send(`All member presence changes will no longer be logged!`);
+				} 
+		} 
+	}
 	}
 	msg.channel.send(`Hmm, that event doesnt exist. You can check all events that you can log with ${tableload.prefix}listevents`);
+};
+
+exports.conf = {
+	enabled: true,
+	guildOnly: true,
+	aliases: []
+};
+exports.help = {
+	name: 'log',
+	description: 'With this command you can log for different channels, different events. Use ?listevents to get a list of all events',
+	usage: 'log',
+	example: 'log',
+	category: 'administration'
 };
