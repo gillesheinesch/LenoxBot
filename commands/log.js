@@ -136,11 +136,11 @@ exports.run = (client, msg, args) => {
 					tableload.roleupdatelogchannel = `${msg.channel.id}`;
 					tableload.roleupdatelog = 'true';
 					client.guildconfs.set(msg.guild.id, tableload);
-					return msg.channel.send(`All channel updates are now logged in Channel **#${msg.channel.name}**`);
+					return msg.channel.send(`All role updates are now logged in Channel **#${msg.channel.name}**`);
 				} else {
 					tableload.roleupdatelog = 'false';
 					client.guildconfs.set(msg.guild.id, tableload);
-					return msg.channel.send(`All channel updates will no longer be logged!`);
+					return msg.channel.send(`All role updates will no longer be logged!`);
 				}
 			} else if (margs[1].toLowerCase() === 'presenceupdate') {
 				if (tableload.presenceupdatelog === 'false') {

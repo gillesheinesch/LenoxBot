@@ -8,7 +8,7 @@ exports.run = (client, msg) => {
     .setTimestamp()
     .setAuthor('Message deleted!')
     .addField(`🗣 Author:`, msg.author.tag)
-    .addField(`📲 Channel:`, `${msg.channel.guild.name} (${msg.channel.guild.id})`)
+    .addField(`📲 Channel:`, `${msg.channel.name} (${msg.channel.id})`)
     .addField(`📎 MessageID:`, msg.id)
     .addField(`📜 Message:`, msg.cleanContent);
     messagechannel.send({ embed: embed });
