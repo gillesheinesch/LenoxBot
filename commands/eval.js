@@ -8,3 +8,16 @@ exports.run = async (client, msg, args) => {
       message.channel.send(`\`ERROR\` \`\`\`xl\n${await client.clean(client, err)}\n\`\`\``);
     }
   };
+
+  exports.conf = {
+	enabled: true,
+	guildOnly: false,
+	aliases: ['cmds']
+};
+exports.help = {
+	name: 'eval',
+	description: 'All commands of a module',
+	usage: 'commands {Modulename}',
+	example: 'commands Help',
+	category: 'help'
+};
