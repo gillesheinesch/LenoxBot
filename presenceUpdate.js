@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, oldMember, newMember) => {
     const tableconfig = client.guildconfs.get(newMember.guild.id);
+    console.log(tableconfig);
     if (tableconfig.presenceupdatelog === 'false') return;
 
     const messagechannel = client.channels.get(tableconfig.presenceupdatelogchannel);
