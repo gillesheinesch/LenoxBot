@@ -7,8 +7,8 @@ exports.run = (client, role) => {
 				tableconfig.selfassignableroles.splice(i, 1);
 				return client.guildconfs.set(role.guild.id, tableconfig);
 			}
-		}
-
+        }
+    if (role.name === 'LenoxBot') return;
     if (tableconfig.roledeletelog === 'true') return;
 
     const messagechannel = client.channels.get(tableconfig.roledeletelogchannel);

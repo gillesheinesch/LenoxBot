@@ -14,7 +14,8 @@ exports.run = (client, oldRole, newRole) => {
     .addField(`📤 Old Name:`, oldRole.name)
     .addField(`📥 New Name:`, newRole.name);
     return messagechannel.send({ embed: embed });
-} else if (oldRole.hexColor !== newRole.hexColor) {
+} 
+if (oldRole.hexColor !== newRole.hexColor) {
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()
@@ -23,7 +24,8 @@ exports.run = (client, oldRole, newRole) => {
     .addField(`📤 Old HexColor:`, oldRole.hexColor)
     .addField(`📥 New HexColor:`, newRole.hexColor);
     return messagechannel.send({ embed: embed });
-} else if (oldRole.position !== newRole.position) {
+} 
+if (oldRole.position !== newRole.position) {
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()

@@ -16,7 +16,8 @@ exports.run = (client, oldChannel, newChannel) => {
     .addField(`📤 Old Name:`, oldChannel.name)
     .addField(`📥 New Name:`, newChannel.name);
     return messagechannel.send({ embed: embed });
-} else if (oldChannel.topic !== newChannel.topic) {
+}
+if (oldChannel.topic !== newChannel.topic) {
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()
@@ -25,7 +26,8 @@ exports.run = (client, oldChannel, newChannel) => {
     .addField(`📤 Old Topic:`, oldChannel.topic)
     .addField(`📥 New Topic:`, newChannel.topic);
     return messagechannel.send({ embed: embed });
-} else if (oldChannel.position !== newChannel.position) {
+} 
+if (oldChannel.position !== newChannel.position) {
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()

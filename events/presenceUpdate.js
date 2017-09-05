@@ -4,7 +4,7 @@ exports.run = (client, oldMember, newMember) => {
     if (tableconfig.presenceupdatelog === 'false') return;
 
     const messagechannel = client.channels.get(tableconfig.presenceupdatelogchannel);
-if (oldMember.presence !== newMember.presence) {
+if (oldMember.presence.status !== newMember.presence.status) {
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()
