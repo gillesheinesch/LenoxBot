@@ -1,15 +1,23 @@
-exports.run = async (client, msg, args) => { 
-    const code = args.join(" ");
-    try {
-      const evaled = eval(code);
-      const clean = await client.clean(client, evaled);
-      msg.channel.send(`\`\`\`js\n${clean}\n\`\`\``);
-    } catch (err) {
-      msg.channel.send(`\`ERROR\` \`\`\`xl\n${await client.clean(client, err)}\n\`\`\``);
-    }
-  };
+exports.run = async (client, msg, args) => {
+	const clean = text => {
+		if (typeof(text) === "string")
+			return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+		else
+				return text;
+	}
+	try {
+		const code = args.join(" ");
+		let evaled = eval(code);
 
-  exports.conf = {
+		if (typeof evaled !== "string")
+			evaled = require("util").inspect(evaled);
+
+		msg.channel.send(clean(evaled), {code:"xl"});
+	} catch (err) {
+		msg.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+	}
+}
+	exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['cmds']
