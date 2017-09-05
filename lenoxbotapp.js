@@ -2,9 +2,9 @@ const Discord = require('discord.js');
 const client = new Discord.Client();
 const token = require('./settings.json').token;
 const fs = require('fs');
-const PersistentCollection = require('djs-collection-persistent');
-client.guildconfs = new PersistentCollection({ name: 'guildsettings' });
-client.botconfs = new PersistentCollection({ name: 'botconfs' });
+const Enmap = require('enmap');
+client.guildconfs = new Enmap({ name: 'guildsettings', persistent: true });
+client.botconfs = new Enmap({ name: 'botconfs', persistent: true });
 
 fs.readdir('./events/', (err, files) => {
 	if (err) return console.error(err);
