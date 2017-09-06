@@ -3,6 +3,7 @@ exports.run = (client, channel) => {
     if (channel.type !== 'text') return;
 
     const tableconfig = client.guildconfs.get(channel.guild.id);
+    if (!tableconfig) return;
     if (tableconfig.channelcreatelog === 'false') return;
 
     const messagechannel = client.channels.get(tableconfig.channelcreatelogchannel);
