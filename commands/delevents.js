@@ -62,7 +62,7 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['actev']
+	aliases: ['delev']
 };
 exports.help = {
 	name: 'delevents',
