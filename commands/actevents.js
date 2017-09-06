@@ -1,6 +1,9 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
     const tableload = client.guildconfs.get(msg.guild.id);
+    if (tableload.modlog === 'false' && tableload.messagedellog === 'false' && tableload.messageupdatelog === 'false' && tableload.channelupdatelog === 'false' && tableload.channelcreatelog === 'false' && tableload.channeldeletelog === 'false' && tableload.guildmemberupdatelog === 'false' && tableload.presenceupdatelog === 'false' && tableload.welcomelog === 'false' && tableload.byelog === 'false' && tableload.rolecreatelog === 'false' && tableload.roledeletelog === 'false' && tableload.roleupdatelog === 'false') return msg.channel.send('There are no active events!');
+    console.log(tableload.messagedeletelog);
+    console.log(tableload.modlog);
     const embed = new Discord.RichEmbed()
     .setColor('0066CC')
     .setFooter(`You can get a list of all available events with ${tableload.prefix}listevents`)
@@ -84,7 +87,7 @@ exports.run = (client, msg, args) => {
         embed.addField('✅ roleupdate active', `#${channelName} (${channelID})`);
     }
 
-    msg.channel.send({ embed: embed });
+    msg.channel.send({ embed });
 };
 
 exports.conf = {
