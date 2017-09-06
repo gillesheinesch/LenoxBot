@@ -17,7 +17,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'prefix',
-	description: 'Changes the prefix of the server',
+	description: 'Changes the prefix of the server or shows you the current prefix if you just use ?prefix',
 	usage: 'prefix {new prefix}',
 	example: 'randomnumber !',
 	category: 'administration'
