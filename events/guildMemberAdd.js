@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 exports.run = (client, member) => {
 	const tableconfig = client.guildconfs.get(member.guild.id);
-	if (tableconfig.welcome === 'false') return;
-	const messagechannel = client.channels.get(tableconfig.welomechannel);
+	if (tableconfig.welcomelog === 'false') return;
+	const messagechannel = client.channels.get(tableconfig.welcomelogchannel);
 	const embed = new Discord.RichEmbed()
 	.setFooter(`User joined`)
 	.setTimestamp()
