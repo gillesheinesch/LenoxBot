@@ -11,7 +11,7 @@ exports.run = (client, msg, args) => {
         .addField(`⏳ Runtime since the last restart`, `${uptimeserver}`)
         .addField(`📡 Statistics about the bot`, `Online on ${client.guilds.size} guilds for ${client.users.size} User`)
         .addField(`📚 Bot language`, `English`)
-        .addField('📤 You want this bot on your server?', `[Invite the Bot](https://sd.keepcalm-o-matic.co.uk/i-w600/keep-calm-i-m-not-ready-yet-3.jpg)`)
+        .addField('📤 You want this bot on your server?', `[Invite the Bot](https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8)`)
         .addField('📢 Join our Discord Server', '[Discord Server](https://discord.gg/5mpwCr8)')
         .addField(`👤 Bot Programmer`, `Monkeyyy11#7584`);
 
