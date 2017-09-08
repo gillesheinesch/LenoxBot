@@ -37,7 +37,20 @@ exports.run = client => {
 		announcechannel: '',
 		selfassignableroles: []
 	};
+
+	const botconfsdefault = {
+		blacklist: [],
+		banlist: []
+	};
+
+	const botconfs = {
+		activity: false,
+		activitychannel: ''
+	};
+
 	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
 	client.user.setPresence({ game: { name: `?help in ${client.guilds.size} guilds`, type: 0 } });
 	client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
+	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
+	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
 };

@@ -1,8 +1,10 @@
 const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
+const Discord = require('discord.js');
 exports.run = (client, msg) => {
 	if (msg.author.bot) return;
 	if (msg.channel.type !== 'text') return msg.reply('You must run the commands on a Discord server on which the Discord Bot is available');
+
 	sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
 			sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
@@ -11,7 +13,6 @@ exports.run = (client, msg) => {
 			if (curLevel > row.level) {
 				row.level = curLevel;
 				sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
-				msg.reply(`Du bist gerade ein Level aufgestiegen! Du bist jetzt Level **${curLevel}**. Herzlichen Glückwunsch!`);
 			}
 			sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 		}
@@ -32,6 +33,24 @@ exports.run = (client, msg) => {
 		cmd = client.commands.get(client.aliases.get(command));
 	}
 	if (cmd) {
+		const botconfsload = client.botconfs.get('blackbanlist');
+		for (var i = 0; i < botconfsload.banlist.length; i++) {
+			if (msg.guild.id === botconfsload.banlist[i]) return msg.channel.send('Your server is on the banlist');
+	}
+		for (var i = 0; i < botconfsload.blacklist.length; i++) {
+			if (msg.author.id === botconfsload.blacklist[i]) return msg.channel.send('You are on the blacklist');
+	}
+
+	const botconfig = client.botconfs.get('botconfs');
+	const activityembed = new Discord.RichEmbed()
+	.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+	.addField('Command', `${tableload.prefix}${command}`)
+	.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
+	.setTimestamp();
+	if (botconfig.activity === true) {
+		const messagechannel = client.channels.get(botconfig.activitychannel);
+		messagechannel.send({ embed: activityembed });
+	}
 		cmd.run(client, msg, args);
 		if (tableload.commanddel === 'true') {
 			msg.delete();

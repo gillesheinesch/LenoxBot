@@ -1,7 +1,7 @@
 exports.run = (client, msg, args) => {
 	let content = args.slice().join(' ');
 	if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
-	if (isNaN(args)) return msg.channel.send('You must enter a guildid. For example: 783872987443').then(m => m.delete(10000));
+	if (isNaN(args)) return msg.channel.send('You must enter a guildid. For example: `352896116812939264`').then(m => m.delete(10000));
 	if (!content) return msg.channel.send('You must enter a guildid').then(m => m.delete(10000));
 	client.guilds.get(args).leave();
 	return msg.channel.send(`Successfully guild (${content}) left!`).then(m => m.delete(10000));
