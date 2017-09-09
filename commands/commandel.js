@@ -1,4 +1,6 @@
 exports.run = (client, msg, args) => {
+	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));	
+	
 	const tableload = client.guildconfs.get(msg.guild.id);
 	if (tableload.commanddel === 'false') {
 		tableload.commanddel = 'true';

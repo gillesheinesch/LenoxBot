@@ -23,7 +23,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'lsar',
-	description: 'List alle roles that allows users to assign themselves',
+	description: 'shows you a list of all roles that allows users to assign themselves',
 	usage: 'lsar',
 	example: 'lsar',
 	category: 'utility'
