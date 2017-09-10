@@ -5,7 +5,8 @@ exports.run = (client, msg, args) => {
     if (tableload.announce === 'false') return msg.channel.send(`You must first define where announcements should be posted. \nUse the following command \`${tableload.prefix}toggleannounce\` to activate announcements in your current channel!`);
 	if (!text) return msg.channel.send('You forgot to enter a text!').then(m => m.delete(10000));
 	const announcechannel = tableload.announcechannel;
-    client.channels.get(announcechannel).send(text);
+	client.channels.get(announcechannel).send(text);
+	msg.channel.send('Announcement successfully sent!').then(m => m.delete(10000));
 };
 
 exports.conf = {
