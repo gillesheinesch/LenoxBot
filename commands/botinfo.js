@@ -8,12 +8,12 @@ exports.run = (client, msg, args) => {
         .setColor('#0066CC')
         .setThumbnail(client.user.avatarURL)
         .setFooter('LenoxBot informations & statistics')
-        .addField(`⏳ Runtime since the last restart`, `${uptimeserver}`)
+        .addField(`⏳ Runtime since the last restart`, `${uptimeserver}`, true)
+        .addField('🛠 Memory usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
         .addField(`📡 Statistics about the bot`, `Online on ${client.guilds.size} guilds for ${client.users.size} User`)
         .addField(`📚 Bot language`, `English`)
         .addField('📤 You want this bot on your server?', `[Invite the Bot](https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8)`)
-        .addField('📢 Join our Discord Server', '[Discord Server](https://discord.gg/5mpwCr8)')
-        .addField(`👤 Bot Programmer`, `Monkeyyy11#7584`);
+        .addField('📢 Join our Discord Server', '[Discord Server](https://discord.gg/5mpwCr8)');
 
 	msg.channel.send({ embed });
 };
