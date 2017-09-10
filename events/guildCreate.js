@@ -34,7 +34,6 @@ exports.run = (client, guild) => {
 		bye: 'false',
 		byechannel: '',
 		byemsg: '',
-		welcomebyechannel: '',
 		commanddel: 'false',
 		announce: 'false',
 		announcechannel: '',
