@@ -11,7 +11,7 @@ exports.run = (client, msg, args) => {
 	try {
 		answer = math.eval(question);
 	} catch (err) {
-		return msg.channel.send(`Invalid mathematical calculation: ${err}`);
+		return msg.channel.send(`Invalid mathematical calculation!`);
 	}
 
 	const embed = new Discord.RichEmbed()
