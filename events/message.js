@@ -46,7 +46,7 @@ exports.run = (client, msg) => {
 		.setDescription('Unfortunately, you were set to the bot\'s blacklist. You cannot execute commands of this bot anymore.')
 		.addField('If you have any questions, feel free to join our Discord server', 'https://discord.gg/5mpwCr8')
 		.addField('You can also create a ban appeal:', 'http://bit.ly/2gV8WFh')
-		.setAuthor(`${msg.author.user.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
+		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
 		const botconfsload = client.botconfs.get('blackbanlist');
 		for (var i = 0; i < botconfsload.banlist.length; i++) {
