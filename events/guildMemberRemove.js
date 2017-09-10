@@ -10,4 +10,15 @@ exports.run = (client, member) => {
 	.setColor('#FF0000')
 	.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
 	messagechannel.send({ embed: embed });
+
+	if (tableconfig.bye === 'true') {
+		if (tableconfig.byemsg.length < 1) return;
+		const message = tableconfig.byemsg;
+		const msgchannel = client.channels.get(tableconfig.byechannel);
+		const newMessage = message.replace('$username$', member.user.username)
+		.replace('$userid$', member.user.id)
+		.replace('$guildname$', member.guild.name)
+		.replace('$guildid$', member.guild.id);
+		msgchannel.send(newMessage);
+	}
 };
