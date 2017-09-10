@@ -33,12 +33,27 @@ exports.run = (client, msg) => {
 		cmd = client.commands.get(client.aliases.get(command));
 	}
 	if (cmd) {
+
+		const banlistembed = new Discord.RichEmbed()
+		.setColor('#FF0000')
+		.setDescription('Unfortunately, this server was set to the bot\'s banlist. All users on this server cannot execute commands of this bot anymore.')
+		.addField('If you have any questions, feel free to join our Discord server', 'https://discord.gg/5mpwCr8')
+		.addField('You can also create a ban appeal:', 'http://bit.ly/2gV8WFh')
+		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
+
+		const blacklistembed = new Discord.RichEmbed()
+		.setColor('#FF0000')
+		.setDescription('Unfortunately, you were set to the bot\'s blacklist. You cannot execute commands of this bot anymore.')
+		.addField('If you have any questions, feel free to join our Discord server', 'https://discord.gg/5mpwCr8')
+		.addField('You can also create a ban appeal:', 'http://bit.ly/2gV8WFh')
+		.setAuthor(`${msg.author.user.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
+
 		const botconfsload = client.botconfs.get('blackbanlist');
 		for (var i = 0; i < botconfsload.banlist.length; i++) {
-			if (msg.guild.id === botconfsload.banlist[i]) return msg.channel.send('Your server is on the banlist');
+			if (msg.guild.id === botconfsload.banlist[i]) return msg.channel.send({ embed: banlistembed });
 	}
 		for (var i = 0; i < botconfsload.blacklist.length; i++) {
-			if (msg.author.id === botconfsload.blacklist[i]) return msg.channel.send('You are on the blacklist');
+			if (msg.author.id === botconfsload.blacklist[i]) return msg.channel.send({ embed: blacklistembed });
 	}
 
 	const botconfig = client.botconfs.get('botconfs');
