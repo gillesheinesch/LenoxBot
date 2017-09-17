@@ -1,5 +1,5 @@
 exports.run = (client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));	
+	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
     const tableload = client.guildconfs.get(msg.guild.id);
     const text = args.slice().join(' ');
     if (tableload.announce === 'false') return msg.channel.send(`You must first define where announcements should be posted. \nUse the following command \`${tableload.prefix}toggleannounce\` to activate announcements in your current channel!`);

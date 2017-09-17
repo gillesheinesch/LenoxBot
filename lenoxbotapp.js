@@ -5,6 +5,7 @@ const fs = require('fs');
 const Enmap = require('enmap');
 client.guildconfs = new Enmap({ name: 'guildsettings', persistent: true });
 client.botconfs = new Enmap({ name: 'botconfs', persistent: true });
+client.queue = new Map();
 
 fs.readdir('./events/', (err, files) => {
 	if (err) return console.error(err);

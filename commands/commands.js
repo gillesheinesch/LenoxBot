@@ -17,9 +17,8 @@ exports.run = (client, msg, args) => {
 				msg.channel.send(`${client.commands.filter(c => c.help.category === "utility").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
 				return msg.channel.send({ embed: embed });
 			} else if (margs[1].toLowerCase() == "music") {
-				return msg.channel.send('Music commands are not available yet!');
-				// msg.channel.send(`${client.commands.filter(c => c.help.category === "music").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
-		        // return msg.channel.send({ embed: embed });
+				msg.channel.send(`${client.commands.filter(c => c.help.category === "music").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+		        return msg.channel.send({ embed: embed });
 			} else if (margs[1].toLowerCase() == "fun") {
 				msg.channel.send(`${client.commands.filter(c => c.help.category === "fun").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
 				return msg.channel.send({ embed: embed });
