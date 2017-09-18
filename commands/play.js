@@ -39,10 +39,14 @@ exports.run = async(client, msg, args) => {
 				let index = 0;
 				const embed = new Discord.RichEmbed()
 				.setColor('#7BB3FF')
-				.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}
-				\nPlease provide a value to select one of the search results ranging from 1-10.`)
+				.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
 				.setAuthor(`Song selection:`, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
+
+				const embed2 = new Discord.RichEmbed()
+				.setColor('#0066CC')
+				.setDescription('Please provide a value to select one of the search results ranging from 1-10.');
 				msg.channel.send({ embed });
+				msg.channel.send({ embed2 });
 				try {
 					var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
 						maxMatches: 1,
@@ -107,7 +111,7 @@ exports.run = async(client, msg, args) => {
 			const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
 				.on('end', reason => {
 					if (reason === 'Stream is not generating quickly enough.');
-					serverQueue.songs.shift();
+					serverQueue.songs.shift('Stream is not generating quickly enough');
 					play(guild, serverQueue.songs[0]);
 				})
 				.on('error', error => console.error(error));
