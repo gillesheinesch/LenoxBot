@@ -3,8 +3,7 @@ exports.run = (client, msg, args) => {
 	const serverQueue = queue.get(msg.guild.id);
 	if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel, please join a voice channel to play music!');
 	if (!serverQueue) return msg.channel.send('There is nothing playing that I could skip for you.');
-	serverQueue.connection.dispatcher.end();
-	return msg.channel.send('I skipped this song successfully!');
+	return serverQueue.connection.dispatcher.end();
 };
 
 exports.conf = {
