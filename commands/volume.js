@@ -14,12 +14,13 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-    aliases: []
+	aliases: []
 };
+
 exports.help = {
 	name: 'volume',
 	description: 'Changes the volume of the bot',
-    usage: 'volume {1-5}',
-    example: 'volume 3',
+	usage: 'volume {1-5}',
+	example: 'volume 3',
 	category: 'music'
 };
