@@ -4,8 +4,10 @@ exports.run = (client, msg, args) => {
     const tableload = client.guildconfs.get(msg.guild.id);
     if (tableload.welcome === 'false') {
         tableload.welcome = 'true';
+    
         const channelid = msg.channel.id;
         tableload.welcomechannel = channelid;
+    
         msg.channel.send(`Your new users are now welcomed in **${msg.channel.name}**!`);
     } else if (tableload.welcome === 'true') {
         tableload.welcome = 'false';
