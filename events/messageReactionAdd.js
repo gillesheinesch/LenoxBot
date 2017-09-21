@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 exports.run = (client, messageReaction, user) => {
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
 
-	if (user.id === messageReaction.message.author.id) return messageReaction.message.channel.send('You can not give a star on your own message');
 	if (!tableload.starboard) {
 		tableload.starboard === 'false';
 		tableload.starboardchannel === '';
@@ -11,6 +10,7 @@ exports.run = (client, messageReaction, user) => {
 	if (tableload.starboard === 'false') return;
 
 	if (messageReaction.emoji.name === '⭐') {
+		if (user.id === messageReaction.message.author.id) return messageReaction.message.channel.send('You can not give a star on your own message');
 		if (messageReaction.count === 1) {
 			const starboardchannel = client.channels.get(tableload.starboardchannel);
 
