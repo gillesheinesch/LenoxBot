@@ -7,6 +7,7 @@ exports.run = (client, messageReaction, user) => {
 		tableload.starboardchannel === '';
 		client.guildconfs.set(messageReaction.message.guild.id, tableload);
 	}
+	if (tableload.starboardchannel === '') return;
 	if (tableload.starboard === 'false') return;
 
 	if (messageReaction.emoji.name === '⭐') {
@@ -20,7 +21,7 @@ exports.run = (client, messageReaction, user) => {
 		.setFooter(`⭐${messageReaction.count++}`)
 		.setDescription(`**Message:** \n ${messageReaction.message.content}`)
 		.setAuthor(`${messageReaction.message.author.tag} (${messageReaction.message.author.id})`, messageReaction.message.author.displayAvatarURL);
-			starboardchannel.send({ embed }).then(m => client.starboard.set(messageReaction.message.id, {
+			return starboardchannel.send({ embed }).then(m => client.starboard.set(messageReaction.message.id, {
 				msgid: m.id,
 				channel: m.channel.id
 			}));
@@ -35,7 +36,7 @@ exports.run = (client, messageReaction, user) => {
 			.setDescription(`**Message:** \n ${messageReaction.message.content}`)
 			.setAuthor(`${messageReaction.message.author.tag} (${messageReaction.message.author.id})`, messageReaction.message.author.displayAvatarURL);
 
-			starboardch.fetchMessage(table.msgid).then(m => m.edit({ embed }));
+			return starboardch.fetchMessage(table.msgid).then(m => m.edit({ embed }));
 		}
 	}
 };

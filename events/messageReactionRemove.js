@@ -7,6 +7,8 @@ exports.run = (client, messageReaction, user) => {
 		tableload.starboardchannel === '';
 		client.guildconfs.set(messageReaction.message.guild.id, tableload);
 	}
+
+	if (tableload.starboardchannel === '') return;
 	if (tableload.starboard === 'false') return;
 
 	if (messageReaction.emoji.name === '⭐') {
