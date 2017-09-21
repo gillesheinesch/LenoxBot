@@ -9,7 +9,7 @@ exports.run = (client, role) => {
 			}
         }
     if (role.name === 'LenoxBot') return;
-    if (tableconfig.roledeletelog === 'true') return;
+    if (tableconfig.roledeletelog === 'false') return;
 
     const messagechannel = client.channels.get(tableconfig.roledeletelogchannel);
 
