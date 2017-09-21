@@ -21,7 +21,7 @@ exports.run = (client, messageReaction, user) => {
 			.setDescription(`**Message:** \n ${messageReaction.message.content}`)
 			.setAuthor(`${messageReaction.message.author.tag} (${messageReaction.message.author.id})`, messageReaction.message.author.displayAvatarURL);
 
-		starboardch.fetchMessage(table.msgid).then(m => m.edit({ embed }));
+		return starboardch.fetchMessage(table.msgid).then(m => m.edit({ embed }));
 	}
 
 	if (client.starboard.get(messageReaction.message.id)) {
