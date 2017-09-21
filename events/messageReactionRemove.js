@@ -2,6 +2,11 @@ const Discord = require('discord.js');
 exports.run = (client, messageReaction, user) => {
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
 
+	if (!tableload.starboard) {
+		tableload.starboard === 'false';
+		tableload.starboardchannel === '';
+		client.guildconfs.set(messageReaction.message.guild.id, tableload);
+	}
 	if (tableload.starboard === 'false') return;
 
 	if (messageReaction.emoji.name === '⭐') {

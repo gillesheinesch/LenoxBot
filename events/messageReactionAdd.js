@@ -3,7 +3,11 @@ exports.run = (client, messageReaction, user) => {
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
 
 	if (user.id === messageReaction.message.author.id) return messageReaction.message.channel.send('You can not give a star on your own message');
-
+	if (!tableload.starboard) {
+		tableload.starboard === 'false';
+		tableload.starboardchannel === '';
+		client.guildconfs.set(messageReaction.message.guild.id, tableload);
+	}
 	if (tableload.starboard === 'false') return;
 
 	if (messageReaction.emoji.name === '⭐') {
