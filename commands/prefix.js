@@ -15,9 +15,10 @@ exports.conf = {
 	guildOnly: false,
 	aliases: []
 };
+
 exports.help = {
 	name: 'prefix',
-	description: 'Changes the prefix of the server or shows you the current prefix if you just use ?prefix',
+	description: 'Changes the prefixprefix of the server or shows you the current prefix if you just use ?prefix',
 	usage: 'prefix {new prefix}',
 	example: 'prefix !=!',
 	category: 'administration'

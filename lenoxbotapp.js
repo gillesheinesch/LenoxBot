@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const token = require('./settings.json').token;
 const fs = require('fs');
 const Enmap = require('enmap');
+client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({ name: 'guildsettings', persistent: true });
 client.botconfs = new Enmap({ name: 'botconfs', persistent: true });
 client.starboard = new Enmap({ name: 'starboard', persistent: true });
