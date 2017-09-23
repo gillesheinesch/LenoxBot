@@ -108,9 +108,9 @@ exports.conf = {
 	aliases: []
 };
 exports.help = {
-	name: 'ssp',
+	name: 'ssdwdp',
 	description: 'Play a round of scissors & stone & paper',
 	usage: 'ssp {scissors, stone, paper}',
 	example: 'ssp scissors',
-	category: 'fun'
+	category: 'botowner'
 };
