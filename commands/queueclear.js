@@ -1,5 +1,5 @@
 exports.run = (client, msg, args) => {
-	if (!msg.member.hasPermission('BAN_MEMBERS') || !msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('KICK_MEMBERS')) return msg.reply('You dont have permissions to execute this command!');	
+	if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('ADMINISTRATOR') || msg.member.hasPermission('KICK_MEMBERS')) return msg.reply('You dont have permissions to execute this command!');	
     const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
     if (!serverQueue) return msg.channel.send('The queue of the bot is empty!');
