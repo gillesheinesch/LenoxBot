@@ -7,6 +7,7 @@ exports.run = (client, messageReaction, user) => {
 		tableload.starboardchannel === '';
 		client.guildconfs.set(messageReaction.message.guild.id, tableload);
 	}
+
 	if (tableload.starboardchannel === '') return;
 	if (tableload.starboard === 'false') return;
 
@@ -21,7 +22,7 @@ exports.run = (client, messageReaction, user) => {
 		.setFooter(`⭐${messageReaction.count++}`)
 		.setDescription(`**Message:** \n ${messageReaction.message.content}`)
 		.setAuthor(`${messageReaction.message.author.tag} (${messageReaction.message.author.id})`, messageReaction.message.author.displayAvatarURL);
-			return starboardchannel.send({ embed }).then(m => client.starboard.set(messageReaction.message.id, {
+			starboardchannel.send({ embed }).then(m => client.starboard.set(messageReaction.message.id, {
 				msgid: m.id,
 				channel: m.channel.id
 			}));
