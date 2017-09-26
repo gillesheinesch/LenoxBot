@@ -6,7 +6,7 @@ exports.run = (client, msg, args) => {
 	if (!newprefix) return msg.channel.send(`The prefix of this server is \`${tableconfig.prefix}\``);
 	if (newprefix.length > 1) return msg.channel.send('Your new prefix cannot have spaces! \nExample: `---`, `=-=` but **not** like `= = ! =`!').then(m => m.delete(10000));
 
-	tableconfig.prefix = newprefix[0];
+	tableconfig.prefix = newprefix;
 	client.guildconfs.set(msg.guild.id, tableconfig);
 	msg.channel.send(`The prefix has been changed to **${newprefix}**`);
 };
