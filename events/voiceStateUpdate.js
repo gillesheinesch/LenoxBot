@@ -6,8 +6,5 @@ exports.run = (client, oldMember, newMember) => {
 	if (oldMember.voiceChannel.members.size === 1) {
 		serverQueue.songs = [];
 		serverQueue.connection.dispatcher.end();
-	} else if (newMember.voiceChannel.members.size === 1) {
-		serverQueue.songs = [];
-		serverQueue.connection.dispatcher.end();
 	}
 };

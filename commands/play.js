@@ -46,7 +46,7 @@ exports.run = async(client, msg, args) => {
 				.setColor('#0066CC')
 				.setDescription('Please provide a value to select one of the search results ranging from 1-10.');
 				msg.channel.send({ embed });
-				msg.channel.send({ embed2 });
+				msg.channel.send({ embed: embed2 });
 				try {
 					var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
 						maxMatches: 1,

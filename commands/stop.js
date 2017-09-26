@@ -5,7 +5,8 @@ exports.run = (client, msg, args) => {
     if (!serverQueue) return msg.channel.send('There is nothing playing that I could stop for you.');
     serverQueue.songs = [];
     serverQueue.connection.dispatcher.end();
-    return msg.channel.send('I have left the voice channel!');
+	msg.channel.send('I have left the voice channel!');
+	return undefined;
 }
 
 exports.conf = {
