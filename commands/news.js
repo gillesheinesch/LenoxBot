@@ -671,8 +671,8 @@ exports.conf = {
 };
 exports.help = {
 	name: 'news',
-	description: 'news',
-	usage: 'news',
-	example: 'news',
+	description: 'Use this command to request news from different newspaper',
+	usage: 'news {newspaper}',
+	example: 'news bild',
 	category: 'utility'
 };
