@@ -8,7 +8,7 @@ exports.run = (client, msg, args) => {
 
 	tableconfig.prefix = newprefix;
 	client.guildconfs.set(msg.guild.id, tableconfig);
-	msg.channel.send(`The prefix has been changed to **${newprefix}**`);
+	msg.channel.send(`The prefix has been changed to \`${newprefix}\``);
 };
 
 exports.conf = {

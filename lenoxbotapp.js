@@ -3,11 +3,13 @@ const client = new Discord.Client();
 const token = require('./settings.json').token;
 const fs = require('fs');
 const Enmap = require('enmap');
+const NewsAPI = require('newsapi');
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({ name: 'guildsettings', persistent: true });
 client.botconfs = new Enmap({ name: 'botconfs', persistent: true });
 client.starboard = new Enmap({ name: 'starboard', persistent: true });
 client.queue = new Map();
+client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 
 fs.readdir('./events/', (err, files) => {
 	if (err) return console.error(err);
