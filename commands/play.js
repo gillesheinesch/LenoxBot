@@ -5,6 +5,7 @@ exports.run = async(client, msg, args) => {
 	const YouTube = require('simple-youtube-api');
 	const youtube = new YouTube(config.googlekey);
 	const queue = client.queue;
+	const skipvote = client.skipvote;
 	const input = msg.content.split(' ');
 	const ytdl = require('ytdl-core');
 	if (msg.author.bot) return undefined;
@@ -48,7 +49,7 @@ exports.run = async(client, msg, args) => {
 				msg.channel.send({ embed });
 				msg.channel.send({ embed: embed2 });
 				try {
-					var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11, {
+					var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 10000,
 						errors: ['time']
@@ -81,15 +82,22 @@ exports.run = async(client, msg, args) => {
 					playing: true
 				};
 				queue.set(msg.guild.id, queueConstruct);
-		
+
 				queueConstruct.songs.push(song);
-		
+
+				const vote = {
+					users: []
+				};
+
+				skipvote.set(msg.guild.id, vote);
+
 				try {
 					var connection = await voiceChannel.join();
 					queueConstruct.connection = connection;
 					play(msg.guild, queueConstruct.songs[0]);
 				} catch (error) {
 					queue.delete(msg.guild.id);
+					skipvote.delete(msg.guild.id);
 					return msg.channel.send(`I could not join the voice channel: ${error}`);
 				}
 			} else {
@@ -116,10 +124,16 @@ exports.run = async(client, msg, args) => {
 				})
 				.on('error', error => console.error(error));
 			dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-		
+
+			const vote = {
+				users: []
+			};
+
+			skipvote.set(msg.guild.id, vote);
+
 			serverQueue.textChannel.send(`Start playing: **${song.title}**`);
 		}
-	};
+};
 
 exports.conf = {
 	enabled: true,
