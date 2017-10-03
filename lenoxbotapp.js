@@ -9,6 +9,7 @@ client.guildconfs = new Enmap({ name: 'guildsettings', persistent: true });
 client.botconfs = new Enmap({ name: 'botconfs', persistent: true });
 client.starboard = new Enmap({ name: 'starboard', persistent: true });
 client.queue = new Map();
+client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 
 fs.readdir('./events/', (err, files) => {
