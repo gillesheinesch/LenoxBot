@@ -25,7 +25,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'skipvote',
-	description: 'Sets a status of the Discord Bots',
+	description: 'Toggles the skipvote function',
 	usage: 'skipvote',
 	example: 'skipvote ',
 	category: 'administration'
