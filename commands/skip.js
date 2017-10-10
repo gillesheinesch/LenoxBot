@@ -1,8 +1,11 @@
 exports.run = async(client, msg, args) => {
 	const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
+	const tableconfig = client.guildconfs.get(msg.guild.id);
+
+	if (tableconfig.skipvote === 'false') return msg.channel.send('The skipvote function has to be activated before you can use this command');
 	if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel, please join a voice channel to skip music!');
-	if (!serverQueue) return msg.channel.send('There is nothing playing that I could skip for you.');
+	if (!serverQueue) return msg.channel.send('There is nothing playing that I could skip for you!');
 	
 	const map = client.skipvote;
 
@@ -12,7 +15,6 @@ exports.run = async(client, msg, args) => {
 	mapload.users.push(msg.author.id);
 	await map.set(msg.guild.id, mapload);
 
-	const tableconfig = client.guildconfs.get(msg.guild.id);
 	if (!tableconfig.skipnumber) {
 		tableconfig.skipnumber = 1;
 		await client.guildconfs.set(msg.guild.id, tableconfig);
