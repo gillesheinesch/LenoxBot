@@ -4,13 +4,13 @@ exports.run = async(client, msg, args) => {
 
 	var content = args.slice();
 
-	const tableload = client.botconfs.get('donators');
-
-	if (!tableload) {
+	if (!client.botconfs.get('donators')) {
 		client.botconfs.set('donators', {
 			donators: []
 		});
 	}
+
+	const tableload = client.botconfs.get('donators');
 
 	if (content.length > 1) return msg.channel.send('The donator\'s name mustn\'t contain any spaces!').then(m => m.delete(10000));
 
