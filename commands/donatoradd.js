@@ -3,7 +3,14 @@ exports.run = async(client, msg, args) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
 
 	var content = args.slice();
+
 	const tableload = client.botconfs.get('donators');
+
+	if (!tableload) {
+		client.botconfs.set('donators', {
+			donators: []
+		});
+	}
 
 	if (content.length > 1) return msg.channel.send('The donator\'s name mustn\'t contain any spaces!').then(m => m.delete(10000));
 
