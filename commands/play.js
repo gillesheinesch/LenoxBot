@@ -65,7 +65,7 @@ exports.run = async(client, msg, args) => {
 		}
 		return handleVideo(video, msg, voiceChannel);
 	}
-		async function handleVideo(video, msg, voiceChannel, playlist = false) {
+	async function handleVideo(video, msg, voiceChannel, playlist = false) {
 			const serverQueue = queue.get(msg.guild.id);
 			const song = {
 				id: video.id,
@@ -107,7 +107,7 @@ exports.run = async(client, msg, args) => {
 			}
 			return undefined;
 		}
-	
+
 		function play(guild, song) {
 			const serverQueue = queue.get(guild.id);
 		
@@ -115,11 +115,11 @@ exports.run = async(client, msg, args) => {
 				serverQueue.voiceChannel.leave();
 				queue.delete(guild.id);
 				return;
-			}	
+			}
 			const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
-				.on('end', reason => {
+				.on('end', async reason => {
 					if (reason === 'Stream is not generating quickly enough.');
-					serverQueue.songs.shift('Stream is not generating quickly enough');
+					await serverQueue.songs.shift('Stream is not generating quickly enough');
 					play(guild, serverQueue.songs[0]);
 				})
 				.on('error', error => console.error(error));
@@ -128,7 +128,6 @@ exports.run = async(client, msg, args) => {
 			const vote = {
 				users: []
 			};
-
 			skipvote.set(msg.guild.id, vote);
 
 			serverQueue.textChannel.send(`Start playing: **${song.title}**`);
@@ -140,7 +139,7 @@ exports.conf = {
 	guildOnly: false,
 	aliases: []
 };
-	
+
 exports.help = {
 	name: 'play',
 	description: 'Searches for music that matches to your request ',
