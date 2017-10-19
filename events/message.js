@@ -33,7 +33,6 @@ exports.run = (client, msg) => {
 		cmd = client.commands.get(client.aliases.get(command));
 	}
 	if (cmd) {
-
 		const banlistembed = new Discord.RichEmbed()
 		.setColor('#FF0000')
 		.setDescription('Unfortunately, this server was set to the bot\'s banlist. All users on this server cannot execute commands of this bot anymore.')
