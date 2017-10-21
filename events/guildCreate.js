@@ -20,6 +20,8 @@ exports.run = (client, guild) => {
 		presenceupdatelogchannel: '',
 		welcomelog: 'false',
 		welcomelogchannel: '',
+		guildupdatelog: '',
+		guildupdatelogchannel: '',
 		byelog: 'false',
 		byelogchannel: '',
 		rolecreatelog: 'false',

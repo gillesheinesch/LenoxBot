@@ -1,7 +1,7 @@
 exports.run = (client, msg, args) => {
 	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
 	
-	const validation = ['modlog', 'messagedelete', 'messageupdate', 'channelupdate', 'channelcreate', 'channeldelete', 'memberupdate', 'presenceupdate', 'userjoin', 'userleft', 'rolecreate', 'roledelete', 'roleupdate'];
+	const validation = ['modlog', 'messagedelete', 'messageupdate', 'channelupdate', 'channelcreate', 'channeldelete', 'memberupdate', 'presenceupdate', 'userjoin', 'userleft', 'rolecreate', 'roledelete', 'roleupdate', 'guildupdate'];
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const content = args.slice().join(" ");
 	const margs = msg.content.split(' ');
@@ -153,7 +153,18 @@ exports.run = (client, msg, args) => {
 					client.guildconfs.set(msg.guild.id, tableload);
 					return msg.channel.send(`All member presence changes will no longer be logged!`).then(m => m.delete(15000));
 				} 
-		} 
+		} else if (margs[1].toLowerCase() === 'guildupdate') {
+			if (tableload.guildupdatelog === 'false') {
+				tableload.guildupdatelogchannel = `${msg.channel.id}`;
+				tableload.guildupdatelog = 'true';
+				client.guildconfs.set(msg.guild.id, tableload);
+				return msg.channel.send(`All guild updates are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
+			} else {
+				tableload.guildupdatelog = 'false';
+				client.guildconfs.set(msg.guild.id, tableload);
+				return msg.channel.send(`All guild updates will no longer be logged!`).then(m => m.delete(15000));
+			}
+	}
 	}
 	}
 	msg.channel.send(`Hmm, that event doesnt exist. You can check all events that you can log with ${tableload.prefix}listevents`);
