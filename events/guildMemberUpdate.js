@@ -4,6 +4,7 @@ exports.run = (client, oldMember, newMember) => {
 	if (tableconfig.guildmemberupdatelog === 'false') return;
 
 	const messagechannel = client.channels.get(tableconfig.guildmemberupdatelogchannel);
+
 if (oldMember.nickname !== newMember.nickname) {
 	const embed = new Discord.RichEmbed()
 	.setColor('#FE2E2E')
