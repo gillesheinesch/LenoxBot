@@ -12,7 +12,10 @@ exports.run = (client, messageReaction, user) => {
 	if (tableload.starboard === 'false') return;
 
 	if (messageReaction.emoji.name === '⭐') {
-		if (user.id === messageReaction.message.author.id) return messageReaction.message.channel.send('You can not give a star on your own message').then(m => m.delete(20000));
+		if (user.id === messageReaction.message.author.id) {
+			messageReaction.remove(messageReaction.message.author);
+			return messageReaction.message.channel.send('You can not give a star on your own message').then(m => m.delete(20000));
+		}
 		if (messageReaction.count === 1) {
 			const starboardchannel = client.channels.get(tableload.starboardchannel);
 
