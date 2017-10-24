@@ -4,6 +4,8 @@ const token = require('./settings.json').token;
 const fs = require('fs');
 const Enmap = require('enmap');
 const NewsAPI = require('newsapi');
+var Trello = require("trello");
+
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({ name: 'guildsettings', persistent: true });
 client.botconfs = new Enmap({ name: 'botconfs', persistent: true });
@@ -11,6 +13,7 @@ client.starboard = new Enmap({ name: 'starboard', persistent: true });
 client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
+client.trello = new Trello("b5b98adeec332e10639db5473c96c42d", "264056f59d9a13dad78afd5cc2f960c5b410510b142813811bd96788d5687f4c");
 
 fs.readdir('./events/', (err, files) => {
 	if (err) return console.error(err);
