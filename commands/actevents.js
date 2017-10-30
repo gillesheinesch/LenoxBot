@@ -86,6 +86,12 @@ exports.run = (client, msg, args) => {
         embed.addField('✅ roleupdate active', `#${channelName} (${channelID})`);
     }
 
+    if (tableload.guildupdatelog === 'true') {
+        const channelID = tableload.guildupdatelogchannel;
+        const channelName = client.channels.get(channelID).name;
+        embed.addField('✅ guildupdate active', `#${channelName} (${channelID})`);
+    }
+
     msg.channel.send({ embed });
 };
 
