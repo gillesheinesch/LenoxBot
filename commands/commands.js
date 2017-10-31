@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation'];
 	const margs = msg.content.split(" ");
 	const commandNames = Array.from(client.commands.keys());
 	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
@@ -34,6 +34,9 @@ exports.run = (client, msg, args) => {
 				return msg.channel.send({ embed: embed });
 			} else if (margs[1].toLowerCase() == "nsfw") {
 				msg.channel.send(`${client.commands.filter(c => c.help.category === "nsfw").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+                return msg.channel.send({ embed: embed });
+			} else if (margs[1].toLowerCase() == "moderation") {
+				msg.channel.send(`${client.commands.filter(c => c.help.category === "moderation").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
                 return msg.channel.send({ embed: embed });
 			}
 		}

@@ -36,5 +36,5 @@ exports.help = {
 	description: 'Warn a user on the discord server with a certain reason',
 	usage: 'warn @User {reason}',
 	example: 'warn @Monkeyyy11#7584 Spam',
-	category: 'administration'
+	category: 'moderation'
 };

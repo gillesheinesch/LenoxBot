@@ -19,5 +19,5 @@ exports.help = {
 	description: 'Deletes for you the last X messages that were sent in the current channel',
 	usage: 'clear {2-100}',
 	example: 'clear 50',
-	category: 'administration'
+	category: 'moderation'
 };

@@ -18,5 +18,14 @@ exports.run = (client, msg) => {
     .addField(`📲 Channel:`, `${msg.channel.name} (${msg.channel.id})`)
     .addField(`📎 MessageID:`, msg.id)
     .addField(`📜 Message:`, msg.cleanContent);
+
+    if (msg.attachments.size > 0) {
+        var files = [];
+        for (const attachment of msg.attachments.values()) {
+            files.push(attachment.url);
+        }
+        embed.setImage(files.toString());
+    }
+
     messagechannel.send({ embed: embed });
 };

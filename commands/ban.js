@@ -37,6 +37,6 @@ exports.help = {
 	description: 'Ban a user from the discord server with a certain reason',
 	usage: 'ban @User {reason}',
 	example: 'ban @Monkeyyy11#7584 Toxic behavior',
-	category: 'administration'
+	category: 'moderation'
 };
 

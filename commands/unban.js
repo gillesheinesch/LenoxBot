@@ -36,5 +36,5 @@ exports.help = {
 	description: 'Unban a user from the discord server with a certain reason',
 	usage: 'unban {userid} {reason}',
 	example: 'unban 238590234135101440 Mistake',
-	category: 'administration'
+	category: 'moderation'
 };

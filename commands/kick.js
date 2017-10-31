@@ -37,5 +37,5 @@ exports.help = {
 	description: 'Kick a user from the discord server with a certain reason',
 	usage: 'kick @User {reason}',
 	example: 'kick @Monkeyyy11#7584 Spam',
-	category: 'administration'
+	category: 'moderation'
 };
