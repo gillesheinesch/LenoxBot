@@ -47,7 +47,7 @@ exports.run = async client => {
 		activity: false,
 		activitychannel: ''
 	};
-	await client.wait(10000);
+	
 	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
 	client.user.setPresence({ game: { name: `?help in ${client.guilds.size} guilds`, type: 0 } });
 	await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
