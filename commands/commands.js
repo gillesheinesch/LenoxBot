@@ -33,9 +33,8 @@ exports.run = (client, msg, args) => {
 				msg.channel.send(`${client.commands.filter(c => c.help.category === "botowner").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
 				return msg.channel.send({ embed: embed });
 			} else if (margs[1].toLowerCase() == "nsfw") {
-				return msg.channel.send('NSFW commands are not available yet!');
-				// msg.channel.send(`${client.commands.filter(c => c.help.category === "nsfw").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
-                // return msg.channel.send({ embed: embed });
+				msg.channel.send(`${client.commands.filter(c => c.help.category === "nsfw").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+                return msg.channel.send({ embed: embed });
 			}
 		}
 	}
