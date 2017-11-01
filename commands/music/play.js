@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args) => {
-	const config = require('../settings.json');
+	const config = require('../../settings.json');
 	const { Client, Util } = require('discord.js');
 	const YouTube = require('simple-youtube-api');
 	const youtube = new YouTube(config.googlekey);

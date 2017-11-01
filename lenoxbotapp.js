@@ -26,7 +26,7 @@ fs.readdir('./events/', (err, files) => {
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-fs.readdir(`./commands/`, (err, files) => {
+/* fs.readdir(`./commands/`, (err, files) => {
 	if (err) console.error(err);
 	files.forEach(f => {
 		let props = require(`./commands/${f}`);
@@ -35,7 +35,23 @@ fs.readdir(`./commands/`, (err, files) => {
 			client.aliases.set(alias, props.help.name);
 		});
 	});
-});
+}); */
+
+const categories = ['botowner', 'administration', 'moderation', 'fun', 'help', 'level', 'music', 'nsfw', 'searches', 'trello', 'utility'];
+categories.forEach((c, i) => {
+	fs.readdir(`./commands/${c}/`, (err, files) => {
+	  if (err) throw err;
+	  console.log(`[Commands] Loading ${files.length} commands... (category: ${c})`);
+  
+	  files.forEach((f) => {
+		let props = require(`./commands/${c}/${f}`);
+		client.commands.set(props.help.name, props);
+		props.conf.aliases.forEach(alias => {
+			client.aliases.set(alias, props.help.name);
+		});
+	  });
+	});
+  });
 
 client.login(token);
 

@@ -6,8 +6,8 @@ exports.run = async (client, msg, args) => {
 	if (args.length < 1) {
 		return msg.reply('Please specify what you are looking for');
 	}
-	const config = require('../settings.json').googleKey;
-	const config2 = require('../settings.json').googlekey;
+	const config = require('../../settings.json').googleKey;
+	const config2 = require('../../settings.json').googlekey;
 	const response = await request({
 		headers: { 'User-Agent': 'Mozilla/5.0' },
 		uri: 'https://www.googleapis.com/customsearch/v1',

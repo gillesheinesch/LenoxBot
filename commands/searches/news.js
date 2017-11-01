@@ -675,5 +675,5 @@ exports.help = {
 	description: 'Use this command to request news from different newspaper',
 	usage: 'news {newspaper}',
 	example: 'news bild',
-	category: 'utility'
+	category: 'searches'
 };
