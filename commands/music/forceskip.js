@@ -18,5 +18,5 @@ exports.help = {
 	description: 'Forces the bot to skip the current song without a poll!',
 	usage: 'forceskip',
 	example: 'forceskip',
-	category: 'administration'
+	category: 'music'
 };
