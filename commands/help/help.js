@@ -6,7 +6,7 @@ exports.run = (client, msg, args) => {
 		let command = args[0];
 		if (client.commands.has(command)) {
 			command = client.commands.get(command);
-			msg.channel.sendCode('asciidoc', `= ${command.help.name} = \n\n${command.help.description}\n\nusage :: ${prefix}${command.help.usage} \nexample :: ${prefix}${command.help.example} \n\nalias :: ${prefix}${command.conf.aliases}`);
+			msg.channel.sendCode('asciidoc', `=== ${command.help.name} === \n\nDescription :: ${command.help.description}\n\nUsage :: ${prefix}${command.help.usage} \nExample :: ${prefix}${command.help.example} \n\nAlias :: ${prefix}${command.conf.aliases}`);
 		}
 	}
 };
