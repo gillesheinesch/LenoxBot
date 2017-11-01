@@ -12,7 +12,7 @@ exports.run = (client, msg, args) => {
 			if (msg.attachments.size) {
 				files = msg.attachments.first().url;
 			}
-			client.channels.get('372404583005290508').send(`\`\`\`${bewerbung.join(" ")}\`\`\` \nProposal by the following user: ${msg.author.tag}`, { files, disableEveryone: true }).then(m => { 
+			client.channels.get('372404583005290508').send(`${bewerbung.join(" ")} \nProposal by the following user: ${msg.author.tag}`, { files, disableEveryone: true }).then(m => { 
 				m.react('👍'); m.react('👎');
 			});
 };
