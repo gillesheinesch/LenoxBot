@@ -8,7 +8,7 @@ exports.run = (client, msg, args) => {
     serverQueue.connection.dispatcher.end();
 	msg.channel.send('I have left the voice channel!');
 	return undefined;
-}
+};
 
 exports.conf = {
 	enabled: true,
