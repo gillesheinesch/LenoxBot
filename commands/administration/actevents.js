@@ -14,8 +14,8 @@ exports.run = (client, msg, args) => {
         embed.addField('✅ modlog active', `#${channelName} (${channelID})`);
     }
 
-    if (tableload.messagedeletelog === 'true') {
-        const channelID = tableload.messagedeletelogchannel;
+    if (tableload.messagedellog === 'true') {
+        const channelID = tableload.messagedellogchannel;
         const channelName = client.channels.get(channelID).name;
         embed.addField('✅ messagedelete active', `#${channelName} (${channelID})`);
     }
