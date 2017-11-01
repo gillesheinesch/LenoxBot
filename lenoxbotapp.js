@@ -24,20 +24,17 @@ fs.readdir('./events/', (err, files) => {
 	});
 });
 
+/* ERRORS HANDLING */
+process.on('unhandledRejection', (reason) => {
+	if (reason.name === 'DiscordAPIError') return;
+	console.error(reason);
+  });
+process.on('uncaughtException', console.error);
+
+
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-/* fs.readdir(`./commands/`, (err, files) => {
-	if (err) console.error(err);
-	files.forEach(f => {
-		let props = require(`./commands/${f}`);
-		client.commands.set(props.help.name, props);
-		props.conf.aliases.forEach(alias => {
-			client.aliases.set(alias, props.help.name);
-		});
-	});
-}); */
-
-const categories = ['botowner', 'administration', 'moderation', 'fun', 'help', 'level', 'music', 'nsfw', 'searches', 'trello', 'utility'];
+const categories = ['botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'trello', 'utility'];
 categories.forEach((c, i) => {
 	fs.readdir(`./commands/${c}/`, (err, files) => {
 	  if (err) throw err;
@@ -49,9 +46,9 @@ categories.forEach((c, i) => {
 		props.conf.aliases.forEach(alias => {
 			client.aliases.set(alias, props.help.name);
 		});
-	  });
 	});
-  });
+	});
+});
 
 client.login(token);
 
