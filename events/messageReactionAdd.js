@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = (client, messageReaction, user) => {
+exports.run = async(client, messageReaction, user) => {
 	const trello = client.trello;
 	if (messageReaction.message.channel.id === '372404583005290508') {
 		if (messageReaction.emoji.name === '👍' && messageReaction.count === 2) {
@@ -137,7 +137,7 @@ exports.run = (client, messageReaction, user) => {
 	if (!tableload.starboard) {
 		tableload.starboard === 'false';
 		tableload.starboardchannel === '';
-		client.guildconfs.set(messageReaction.message.guild.id, tableload);
+		await client.guildconfs.set(messageReaction.message.guild.id, tableload);
 	}
 
 	if (tableload.starboardchannel === '') return;
