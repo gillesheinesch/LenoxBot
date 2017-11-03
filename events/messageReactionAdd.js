@@ -138,6 +138,7 @@ exports.run = async(client, messageReaction, user) => {
 		tableload.starboard === 'false';
 		tableload.starboardchannel === '';
 		await client.guildconfs.set(messageReaction.message.guild.id, tableload);
+		await client.guildconfs.close();
 	}
 
 	if (tableload.starboardchannel === '') return;
@@ -169,6 +170,7 @@ exports.run = async(client, messageReaction, user) => {
 				msgid: m.id,
 				channel: m.channel.id
 			}));
+			client.starboard.close();
 		} else if (messageReaction.count > 1) {
 			const table = client.starboard.get(messageReaction.message.id);
 			const starboardch = client.channels.get(table.channel);

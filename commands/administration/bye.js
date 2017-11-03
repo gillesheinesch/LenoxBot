@@ -12,6 +12,7 @@ exports.run = (client, msg, args) => {
         msg.channel.send('The goodbye message is now disabled!');
     }
     client.guildconfs.set(msg.guild.id, tableload);
+    client.guildconfs.close();
 };
 
 exports.conf = {

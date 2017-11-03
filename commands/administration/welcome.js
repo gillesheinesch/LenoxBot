@@ -14,6 +14,7 @@ exports.run = (client, msg, args) => {
         msg.channel.send('The welcome message is now disabled!');
     }
     client.guildconfs.set(msg.guild.id, tableload);
+    client.guildconfs.close();
 };
 
 exports.conf = {

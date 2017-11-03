@@ -4,7 +4,8 @@ exports.run = (client, msg, args) => {
     const userId = args.slice().join(" ");
     if (!userId) return msg.channel.send('You have to enter an userId!');
         tableload.blacklist.push(userId);
-    client.botconfs.set('blackbanlist', tableload);
+	client.botconfs.set('blackbanlist', tableload);
+	client.botconfs.close();
     msg.channel.send('User successfully set to the blacklist').then(m => m.delete(10000));
 };
 

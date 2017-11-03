@@ -5,10 +5,12 @@ exports.run = (client, msg, args) => {
 	if (tableload.commanddel === 'false') {
 		tableload.commanddel = 'true';
 		client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.close();
 		return msg.channel.send('Commands are now deleted after execution');
 	} else {
 		tableload.commanddel = 'false';
 		client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.close();
 		return msg.channel.send('Commands are no longer deleted after execution');
 	}
 };

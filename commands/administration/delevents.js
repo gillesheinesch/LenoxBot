@@ -56,7 +56,8 @@ exports.run = (client, msg, args) => {
     }
 
     client.guildconfs.set(msg.guild.id, tableload);
-    msg.channel.send('All active events are now disabled!');
+    client.guildconfs.close();
+    return msg.channel.send('All active events are now disabled!');
 };
 
 exports.conf = {

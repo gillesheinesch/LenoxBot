@@ -4,7 +4,8 @@ exports.run = (client, msg, args) => {
     const guildId = args.slice().join(" ");
     if (!guildId) return msg.channel.send('You have to enter an guildId!');
         tableload.banlist.push(guildId);
-    client.botconfs.set('blackbanlist', tableload);
+	client.botconfs.set('blackbanlist', tableload);
+	client.botconfs.close();
     msg.channel.send('Guild successfully set to the blacklist').then(m => m.delete(10000));
 };
 

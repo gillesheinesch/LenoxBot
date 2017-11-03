@@ -6,6 +6,7 @@ exports.run = (client, messageReaction, user) => {
 		tableload.starboard === 'false';
 		tableload.starboardchannel === '';
 		client.guildconfs.set(messageReaction.message.guild.id, tableload);
+		client.guildconfs.close();
 	}
 
 	if (tableload.starboardchannel === '') return;

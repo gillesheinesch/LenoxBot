@@ -8,6 +8,7 @@ exports.run = async(client, msg, args) => {
 		client.botconfs.set('donators', {
 			donators: []
 		});
+		client.botconfs.close();
 	}
 
 	const tableload = client.botconfs.get('donators');
@@ -17,6 +18,7 @@ exports.run = async(client, msg, args) => {
 
 	tableload.donators.push(args);
 	await client.botconfs.set('donators', tableload);
+	client.botconfs.close();
 	const embed = new Discord.RichEmbed()
 	.setColor('#77f442')
 	.setDescription('A new donator was added to the donators list!');

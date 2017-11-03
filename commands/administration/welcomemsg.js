@@ -6,7 +6,8 @@ exports.run = (client, msg, args) => {
     if (!content) return msg.channel.send('You must enter your welcome message!');
     tableload.welcomemsg = content;
     client.guildconfs.set(msg.guild.id, tableload);
-    msg.channel.send('Welcome message saved successfully!');
+    client.guildconfs.close();
+    return msg.channel.send('Welcome message saved successfully!');
 };
 
 exports.conf = {

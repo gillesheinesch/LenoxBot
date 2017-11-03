@@ -16,6 +16,7 @@ exports.run = async(client, msg, args) => {
 
 	tableconfig.skipnumber = number;
 	client.guildconfs.set(msg.guild.id, tableconfig);
+	client.guildconfs.close();
 	msg.channel.send(`The number of votes to skip music has been changed to \`${number}\``);
 };
 

@@ -14,7 +14,8 @@ exports.run = (client, msg, args) => {
 		msg.channel.send('The starboard has been disabled successfully!');
     }
 
-    client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.close();
 };
 
 exports.conf = {

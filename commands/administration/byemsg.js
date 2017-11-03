@@ -6,7 +6,8 @@ exports.run = (client, msg, args) => {
 	if (!content) return msg.channel.send('You must enter your bye message!');
 	tableload.byemsg = content;
 	client.guildconfs.set(msg.guild.id, tableload);
-	msg.channel.send('Goodbye message saved successfully!');
+	client.guildconfs.close();
+	return msg.channel.send('Goodbye message saved successfully!');
 };
 
 exports.conf = {

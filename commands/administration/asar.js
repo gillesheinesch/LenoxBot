@@ -12,6 +12,7 @@ exports.run = function(client, msg, args) {
 		const roleId = foundRole.id;
 		tableload.selfassignableroles.push(roleId);
 		client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.close();
 		return msg.channel.send('Role has been successfully set to self-assignable roles!');
 };
 
