@@ -4,7 +4,7 @@ const token = require('./settings.json').token;
 const fs = require('fs');
 const Enmap = require('enmap');
 const NewsAPI = require('newsapi');
-var Trello = require("trello");
+const Trello = require("trello");
 
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({ name: 'guildsettings', persistent: true });

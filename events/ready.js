@@ -54,4 +54,11 @@ exports.run = async client => {
 	client.channels.filter(ch => ch.type === 'text' && ch.permissionsFor(client.user).has('READ_MESSAGES')).map(ch => ch.fetchMessages({ limit: 100 }));
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
+
+	const snekfetch = require('snekfetch');
+	snekfetch.post(`https://discordbots.org/api/bots/stats`)
+	  .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE')
+	  .send({ server_count: client.guilds.size })
+	  .then(() => console.log('Updated discordbots.org stats.'))
+	  .catch(err => console.error(`Whoops something went wrong: ${err.body}`));
 };
