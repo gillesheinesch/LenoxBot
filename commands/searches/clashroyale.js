@@ -4,7 +4,7 @@ exports.run = async (client, msg, args) => {
 	const validation = ['clan', 'profile'];
 	const margs = msg.content.split(" ");
 
-	if (!args[0] && !args[1]) return msg.channel.send(1);
+	if (!args[0] && !args[1]) return msg.channel.send('You have to enter if you want to search for a profile/clan. Then you have to enter the ID of the clan or the profile.');
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
