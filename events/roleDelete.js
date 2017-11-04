@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
-exports.run = (client, role) => {
+exports.run = async(client, role) => {
     const tableconfig = client.guildconfs.get(role.guild.id);
 
 	for (var i = 0; i < tableconfig.selfassignableroles.length; i++) {
 			if (role.id === tableconfig.selfassignableroles[i]) {
 				tableconfig.selfassignableroles.splice(i, 1);
-                client.guildconfs.set(role.guild.id, tableconfig);
+                await client.guildconfs.set(role.guild.id, tableconfig);
                 return client.guildconfs.close();
 			}
         }

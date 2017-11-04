@@ -15,8 +15,8 @@ exports.run = async(client, msg, args) => {
 	if (number < 1) return msg.channel.send('The number can not be 0').then(m => m.delete(10000));
 
 	tableconfig.skipnumber = number;
-	client.guildconfs.set(msg.guild.id, tableconfig);
-	client.guildconfs.close();
+	await client.guildconfs.set(msg.guild.id, tableconfig);
+	await client.guildconfs.close();
 	msg.channel.send(`The number of votes to skip music has been changed to \`${number}\``);
 };
 

@@ -11,12 +11,12 @@ exports.run = async(client, msg, args) => {
 	if (tableload.skipvote === 'false') {
 		tableload.skipvote = 'true';
 		msg.channel.send(`The skipvote function was activated. You can recruit with the command \`${tableload.prefix}skipnumber\` how much votes are necessary, to skip the current music!`);
-		client.guildconfs.set(msg.guild, tableload);
+		await client.guildconfs.set(msg.guild, tableload);
 		return client.guildconfs.close();
 	} else {
 		tableload.skipvote = 'false';
 		msg.channel.send('The skipvote function was disabled');
-		client.guildconfs.set(msg.guild, tableload);
+		await client.guildconfs.set(msg.guild, tableload);
 		return client.guildconfs.close();
 	}
 };

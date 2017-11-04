@@ -1,4 +1,4 @@
-exports.run = (client, msg, args) => {
+exports.run = async (client, msg, args) => {
 	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));	
 	const tableload = client.guildconfs.get(msg.guild.id);
 
@@ -14,8 +14,8 @@ exports.run = (client, msg, args) => {
 		msg.channel.send('The starboard has been disabled successfully!');
     }
 
-	client.guildconfs.set(msg.guild.id, tableload);
-	client.guildconfs.close();
+	await client.guildconfs.set(msg.guild.id, tableload);
+	await client.guildconfs.close();
 };
 
 exports.conf = {

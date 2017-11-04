@@ -1,4 +1,4 @@
-exports.run = (client, msg, args) => {
+exports.run = async(client, msg, args) => {
     if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));	
     const tableload = client.guildconfs.get(msg.guild.id);
     if (tableload.modlog === 'false' && tableload.messagedellog === 'false' && tableload.messageupdatelog === 'false' && tableload.channelupdatelog === 'false' && tableload.channelcreatelog === 'false' && tableload.channeldeletelog === 'false' && tableload.guildmemberupdatelog === 'false' && tableload.presenceupdatelog === 'false' && tableload.welcomelog === 'false' && tableload.byelog === 'false' && tableload.rolecreatelog === 'false' && tableload.roledeletelog === 'false' && tableload.roleupdatelog === 'false') return msg.channel.send('There are no active events!');
@@ -55,8 +55,8 @@ exports.run = (client, msg, args) => {
         tableload.roleupdatelog = 'false';
     }
 
-    client.guildconfs.set(msg.guild.id, tableload);
-    client.guildconfs.close();
+    await client.guildconfs.set(msg.guild.id, tableload);
+    await client.guildconfs.close();
     return msg.channel.send('All active events are now disabled!');
 };
 
