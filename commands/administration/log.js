@@ -15,12 +15,12 @@ exports.run = async(client, msg, args) => {
 					tableload.messagedellogchannel = `${msg.channel.id}`;
 					tableload.messagedellog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All deleted messages are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.messagedellog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All deleted messages will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'messageupdate') {
@@ -28,12 +28,12 @@ exports.run = async(client, msg, args) => {
 					tableload.messageupdatelogchannel = `${msg.channel.id}`;
 					tableload.messageupdatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All updated messages are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.messageupdatelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All updated messages will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'channelupdate') {
@@ -41,12 +41,12 @@ exports.run = async(client, msg, args) => {
 					tableload.channelupdatelogchannel = `${msg.channel.id}`;
 					tableload.channelupdatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All channel updates are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.channelupdatelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All channel updates will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'memberupdate') {
@@ -54,12 +54,12 @@ exports.run = async(client, msg, args) => {
 					tableload.guildmemberupdatelogchannel = `${msg.channel.id}`;
 					tableload.guildmemberupdatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All member updates are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.guildmemberupdatelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All member updates will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'channelcreate') {
@@ -67,12 +67,12 @@ exports.run = async(client, msg, args) => {
 					tableload.channelcreatelogchannel = `${msg.channel.id}`;
 					tableload.channelcreatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All newly created channel are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.channelcreatelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All newly created channel will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'channeldelete') {
@@ -80,12 +80,12 @@ exports.run = async(client, msg, args) => {
 					tableload.channeldeletelogchannel = `${msg.channel.id}`;
 					tableload.channeldeletelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All newly deleted channel are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.channeldeletelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All newly deleted channel will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'userjoin') {
@@ -93,12 +93,12 @@ exports.run = async(client, msg, args) => {
 					tableload.welcomelogchannel = `${msg.channel.id}`;
 					tableload.welcomelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`Every user who joins the server will now be logged in channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.welcomelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`Every user who joins the server will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'userleft') {
@@ -106,12 +106,12 @@ exports.run = async(client, msg, args) => {
 					tableload.byelogchannel = `${msg.channel.id}`;
 					tableload.byelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`Every user who leaves the server will now be logged here in channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.byelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`Every user who leaves the server will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'modlog') {
@@ -119,12 +119,12 @@ exports.run = async(client, msg, args) => {
 					tableload.modlogchannel = `${msg.channel.id}`;
 					tableload.modlog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All moderative actions are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.modlog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All moderative actions will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'rolecreate') {
@@ -132,12 +132,12 @@ exports.run = async(client, msg, args) => {
 					tableload.rolecreatelogchannel = `${msg.channel.id}`;
 					tableload.rolecreatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All newly created roles are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.rolecreatelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All newly created roles will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'roledelete') {
@@ -145,12 +145,12 @@ exports.run = async(client, msg, args) => {
 					tableload.roledeletelogchannel = `${msg.channel.id}`;
 					tableload.roledeletelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All newly deleted roles are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.roledeletelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All newly deleted roles will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'roleupdate') {
@@ -158,12 +158,12 @@ exports.run = async(client, msg, args) => {
 					tableload.roleupdatelogchannel = `${msg.channel.id}`;
 					tableload.roleupdatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All role updates are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.roleupdatelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All role updates will no longer be logged!`).then(m => m.delete(15000));
 				}
 			} else if (margs[1].toLowerCase() === 'presenceupdate') {
@@ -171,12 +171,12 @@ exports.run = async(client, msg, args) => {
 					tableload.presenceupdatelogchannel = `${msg.channel.id}`;
 					tableload.presenceupdatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All member presence changes are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.presenceupdatelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
-					await client.guildconfs.close();
+					
 					return msg.channel.send(`All member presence changes will no longer be logged!`).then(m => m.delete(15000));
 				} 
 		} else if (margs[1].toLowerCase() === 'guildupdate') {
@@ -184,12 +184,12 @@ exports.run = async(client, msg, args) => {
 				tableload.guildupdatelogchannel = `${msg.channel.id}`;
 				tableload.guildupdatelog = 'true';
 				await client.guildconfs.set(msg.guild.id, tableload);
-				await client.guildconfs.close();
+				
 				return msg.channel.send(`All guild updates are now logged in Channel **#${msg.channel.name}**`).then(m => m.delete(15000));
 			} else {
 				tableload.guildupdatelog = 'false';
 				await client.guildconfs.set(msg.guild.id, tableload);
-				await client.guildconfs.close();
+				
 				return msg.channel.send(`All guild updates will no longer be logged!`).then(m => m.delete(15000));
 			}
 	}

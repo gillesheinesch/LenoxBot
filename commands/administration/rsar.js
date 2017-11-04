@@ -18,11 +18,11 @@ exports.run = async(client, msg, args) => {
 			if (roleId === tableload.selfassignableroles[i]) {
 				tableload.selfassignableroles.splice(i, 1);
 				await client.guildconfs.set(msg.guild.id, tableload);
-				await client.guildconfs.close();
+				
 			}
 		}
 		await client.guildconfs.set(msg.guild.id, tableload);
-		await client.guildconfs.close();
+		
 		return msg.channel.send('Role has been successfully removed from self-assignable roles!');
 	} catch (error) {
 		msg.channel.send(`You don't have self assignable roles so you can't remove one.`);

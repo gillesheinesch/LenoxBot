@@ -5,12 +5,12 @@ exports.run = async(client, msg, args) => {
 	if (tableload.commanddel === 'false') {
 		tableload.commanddel = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
-		await client.guildconfs.close();
+		
 		return msg.channel.send('Commands are now deleted after execution');
 	} else {
 		tableload.commanddel = 'false';
 		await client.guildconfs.set(msg.guild.id, tableload);
-		await client.guildconfs.close();
+		
 		return msg.channel.send('Commands are no longer deleted after execution');
 	}
 };

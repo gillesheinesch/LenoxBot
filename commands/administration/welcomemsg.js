@@ -6,7 +6,7 @@ exports.run = async(client, msg, args) => {
     if (!content) return msg.channel.send('You must enter your welcome message!');
     tableload.welcomemsg = content;
     await client.guildconfs.set(msg.guild.id, tableload);
-    await client.guildconfs.close();
+    
     return msg.channel.send('Welcome message saved successfully!');
 };
 

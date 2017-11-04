@@ -15,7 +15,7 @@ exports.run = async (client, msg, args) => {
     }
 
 	await client.guildconfs.set(msg.guild.id, tableload);
-	await client.guildconfs.close();
+	
 };
 
 exports.conf = {

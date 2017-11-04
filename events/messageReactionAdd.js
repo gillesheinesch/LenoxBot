@@ -138,7 +138,7 @@ exports.run = async(client, messageReaction, user) => {
 		tableload.starboard === 'false';
 		tableload.starboardchannel === '';
 		await client.guildconfs.set(messageReaction.message.guild.id, tableload);
-		await client.guildconfs.close();
+		
 	}
 
 	if (tableload.starboardchannel === '') return;

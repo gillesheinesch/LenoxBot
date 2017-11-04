@@ -8,7 +8,7 @@ exports.run = async(client, msg, args) => {
 
 	tableload.prefix = newprefix;
 	await client.guildconfs.set(msg.guild.id, tableload);
-	await client.guildconfs.close();
+	
 	return msg.channel.send(`The prefix has been changed to \`${newprefix}\``);
 };
 

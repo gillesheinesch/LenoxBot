@@ -5,8 +5,7 @@ exports.run = async(client, role) => {
 	for (var i = 0; i < tableconfig.selfassignableroles.length; i++) {
 			if (role.id === tableconfig.selfassignableroles[i]) {
 				tableconfig.selfassignableroles.splice(i, 1);
-                await client.guildconfs.set(role.guild.id, tableconfig);
-                return client.guildconfs.close();
+                return client.guildconfs.set(role.guild.id, tableconfig);
 			}
         }
     if (role.name === 'LenoxBot') return;
