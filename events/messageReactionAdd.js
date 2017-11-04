@@ -169,8 +169,7 @@ exports.run = async(client, messageReaction, user) => {
 			starboardchannel.send({ embed }).then(m => client.starboard.set(messageReaction.message.id, {
 				msgid: m.id,
 				channel: m.channel.id
-			}));
-			client.starboard.close();
+			}));	
 		} else if (messageReaction.count > 1) {
 			const table = client.starboard.get(messageReaction.message.id);
 			const starboardch = client.channels.get(table.channel);

@@ -11,7 +11,6 @@ exports.run = (client, msg, args) => {
         msg.channel.send('Activity now deactivated!');
     }
     client.botconfs.set('botconfs', tableload);
-    client.botconfs.close();
 };
 
 exports.conf = {

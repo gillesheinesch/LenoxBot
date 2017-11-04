@@ -6,7 +6,6 @@ exports.run = async(client, msg, args) => {
 			if (userId === tableload.blacklist[i]) {
 			tableload.blacklist.splice(i, 1);
 			client.botconfs.set('blackbanlist', tableload);
-			client.botconfs.close();
 			await msg.channel.send('User successfully removed from the blacklist!').then(m => m.delete(10000));
 		}
 	}

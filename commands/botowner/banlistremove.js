@@ -6,7 +6,6 @@ exports.run = async(client, msg, args) => {
 			if (guildId === tableload.banlist[i]) {
 			tableload.banlist.splice(i, 1);
 			client.botconfs.set('blackbanlist', tableload);
-			client.botconfs.close();
 			await msg.channel.send('Guild successfully removed from the banlist').then(m => m.delete(10000));
 		}
 	}
