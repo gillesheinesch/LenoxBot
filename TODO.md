@@ -1,35 +1,7 @@
 ### LenoxBot TODO List
 
-- [ ] ADD a help command which sends you informations about a command or how to use 
-- [ ] ADD for every ban etc a case number
-- [ ] ADD softban
-- [ ] toggles command delete when somebody executes a command
-- [ ] ADD craterole/deleterole command
-- [ ] ADD addrole/removerole command
-- [ ] Add a leave command to leave a guild by id
-- [X] add a restart command
-- [ ] add setname command
-- [ ] add setstatus command
-- [ ] add bugreport command
-- [ ] check all alias
-- [ ] check all permissions
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-- [ ]
-
+- [ ] Fix ssp
+- [ ] Add a minigame for the users to calculate
+- [ ] Add new command news
+- [ ] When the bot is alone in the channel when he get moved, leave the channel
+- [ ] When the bot get moved in your channel, continue the music
