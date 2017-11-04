@@ -1,5 +1,6 @@
 const Discord = require("discord.js");
 exports.run = async(client, msg, args) => {
+	if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');	
 	try {
 		const code = args.join(" ");
 		let evaled = eval(code);
