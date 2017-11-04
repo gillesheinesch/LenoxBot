@@ -28,8 +28,10 @@ fs.readdir('./events/', (err, files) => {
 process.on('unhandledRejection', (reason) => {
 	if (reason.name === 'DiscordAPIError') return;
 	console.error(reason);
-  });
-process.on('uncaughtException', console.error);
+});
+process.on('uncaughtException', (reason) => {
+	console.error(reason);
+});
 
 
 client.commands = new Discord.Collection();
