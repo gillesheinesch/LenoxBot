@@ -54,9 +54,13 @@ exports.run = async(client, msg, args) => {
         tableload.roleupdatelog = 'false';
     }
 
+    if (tableload.guildupdatelog === 'true') {
+        tableload.guildupdatelog = 'false';
+    }
+
     await client.guildconfs.set(msg.guild.id, tableload);
     
-    return msg.channel.send('All active events are now disabled!');
+    return msg.channel.send(`${msg.author}, All **active** events are now disabled!`);
 };
 
 exports.conf = {
