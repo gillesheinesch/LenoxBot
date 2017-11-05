@@ -23,12 +23,14 @@ for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'join',
 	description: 'Join a self-assignable role',
 	usage: 'join {rolename}',
 	example: 'join Member',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
 };

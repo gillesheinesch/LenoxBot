@@ -24,12 +24,14 @@ exports.run = async (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'gif',
 	description: 'Searches for a gif',
     usage: 'gif {query}',
     example: 'gif Discord',
-	category: 'searches'
+	category: 'searches',
+    botpermissions: ['SEND_MESSAGES']
 };

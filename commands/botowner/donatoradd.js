@@ -26,13 +26,15 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'donatoradd',
 	description: 'translator',
 	usage: 'donatoradd',
 	example: 'donatoradd',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };
 

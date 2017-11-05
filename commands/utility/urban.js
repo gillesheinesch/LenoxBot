@@ -24,12 +24,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-    aliases: []
+    aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'urban',
 	description: 'Urban dictionary',
     usage: 'urban {query}',
     example: 'userinfo Discord',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

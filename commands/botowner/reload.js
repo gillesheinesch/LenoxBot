@@ -8,13 +8,15 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'reload',
 	description: 'Discord',
 	usage: 'reload {command}',
 	example: 'reload ping',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };
 

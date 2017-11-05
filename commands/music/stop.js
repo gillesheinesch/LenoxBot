@@ -1,5 +1,4 @@
 exports.run = (client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));		
     const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
     if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel, please join a voice channel to play music!');
@@ -13,7 +12,8 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: ['MANAGE_GUILD']
 };
 
 exports.help = {
@@ -21,5 +21,6 @@ exports.help = {
 	description: 'Stops the current music and the bot leaves the voice channel',
 	usage: 'stop',
 	example: 'stop',
-	category: 'music'
+	category: 'music',
+    botpermissions: ['SEND_MESSAGES']
 };

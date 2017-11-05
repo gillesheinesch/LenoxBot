@@ -10,12 +10,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'leaveserver',
 	description: 'Leaves a discord server by the guildid',
 	usage: 'leaveserver {guildid}',
 	example: 'leaveserver 8738704872894987',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };

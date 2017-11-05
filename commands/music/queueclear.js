@@ -1,5 +1,4 @@
 exports.run = (client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR') || !msg.member.hasPermission('KICK_MEMBERS')) return msg.reply('You dont have permissions to execute this command!');	
     const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
     if (!serverQueue) return msg.channel.send('The queue of the bot is empty!');
@@ -9,7 +8,8 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: ['MANAGE_GUILD']
 };
 
 exports.help = {
@@ -17,5 +17,6 @@ exports.help = {
 	description: 'Clears the whole music queue',
 	usage: 'queueclear',
 	example: 'queueclear',
-	category: 'music'
+	category: 'music',
+    botpermissions: ['SEND_MESSAGES']
 };

@@ -15,12 +15,14 @@ exports.run = async (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['exec']
+	aliases: ['exec'],
+  userpermissions: []
 };
 exports.help = {
 	name: 'bash',
 	description: 'Discord',
 	usage: 'bash {command}',
 	example: 'bash git help',
-	category: 'botowner'
+	category: 'botowner',
+  botpermissions: ['SEND_MESSAGES']
 };

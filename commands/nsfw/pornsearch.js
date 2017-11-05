@@ -22,12 +22,14 @@ msg.channel.send({ embed });
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'pornsearch',
 	description: 'Makes it possible to search for NSFW/pornography',
 	usage: 'pornsearch {query}',
 	example: 'pornsearch ass',
-	category: 'nsfw'
+	category: 'nsfw',
+    botpermissions: ['SEND_MESSAGES']
 };

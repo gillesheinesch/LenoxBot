@@ -16,13 +16,6 @@ exports.run = async(client, msg, args) => {
 	const voiceChannel = msg.member.voiceChannel;
 	if (!voiceChannel) return msg.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
 	const permissions = voiceChannel.permissionsFor(msg.client.user);
-	if (!permissions.has('CONNECT')) {
-		return msg.channel.send('I cannot connect to your voice channel, make sure I have the proper permissions!');
-	}
-	if (!permissions.has('SPEAK')) {
-		return msg.channel.send('I cannot speak in this voice channel, make sure I have the proper permissions!');
-	}
-
 	if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
 		const playlist = await youtube.getPlaylist(url);
 		const videos = await playlist.getVideos();
@@ -137,7 +130,8 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 
 exports.help = {
@@ -145,5 +139,6 @@ exports.help = {
 	description: 'Searches for music that matches to your request ',
 	usage: 'play {query}',
 	example: 'play Gangnam Style',
-	category: 'music'
+	category: 'music',
+    botpermissions: ['SEND_MESSAGES', 'CONNECT', 'SPEAK']
 };

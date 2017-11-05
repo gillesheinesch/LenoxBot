@@ -11,7 +11,8 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['m']
+	aliases: ['m'],
+    userpermissions: []
 };
 
 exports.help = {
@@ -19,5 +20,6 @@ exports.help = {
 	description: 'Gives you a list of all modules',
 	usage: 'modules',
 	example: 'modules',
-	category: 'help'
+	category: 'help',
+    botpermissions: ['SEND_MESSAGES']
 };

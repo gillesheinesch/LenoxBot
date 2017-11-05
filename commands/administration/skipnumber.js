@@ -1,6 +1,4 @@
 exports.run = async(client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
-
 	const tableconfig = client.guildconfs.get(msg.guild.id);
 	const number = args.slice();
 
@@ -23,7 +21,8 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: ['ADMINISTRATOR']
 };
 
 exports.help = {
@@ -31,5 +30,6 @@ exports.help = {
 	description: 'Changes the necessary votes to skip music for users',
 	usage: 'skipnumber {number}',
 	example: 'skipnumber 3',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };

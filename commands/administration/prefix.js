@@ -1,5 +1,4 @@
 exports.run = async(client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));	
 	const newprefix = args.slice();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
@@ -15,7 +14,8 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: ['ADMINISTRATOR']
 };
 
 exports.help = {
@@ -23,6 +23,7 @@ exports.help = {
 	description: 'Changes the prefixprefix of the server or shows you the current prefix if you just use ?prefix',
 	usage: 'prefix {new prefix}',
 	example: 'prefix !=!',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };
 

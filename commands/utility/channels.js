@@ -17,12 +17,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'channels',
 	description: 'A list of all channels on your discord server',
 	usage: 'channels',
 	example: 'channels',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

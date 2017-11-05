@@ -14,7 +14,8 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: ['MANAGE_GUILD']
 };
 
 exports.help = {
@@ -22,5 +23,6 @@ exports.help = {
 	description: 'Changes the volume of the bot',
 	usage: 'volume {1-5}',
 	example: 'volume 3',
-	category: 'music'
+	category: 'music',
+    botpermissions: ['SEND_MESSAGES']
 };

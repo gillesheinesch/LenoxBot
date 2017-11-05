@@ -14,12 +14,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'banlistremove',
 	description: 'Remove a guild from the banlist',
 	usage: 'banlistremove {guildid}',
 	example: 'banlistremove 352896116812939264',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };

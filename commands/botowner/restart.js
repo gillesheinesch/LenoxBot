@@ -7,12 +7,14 @@ exports.run = async (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['reboot']
+	aliases: ['reboot'],
+    userpermissions: []
 };
 exports.help = {
 	name: 'restart',
 	description: 'Restart the bot',
 	usage: 'restart',
 	example: 'restart',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };

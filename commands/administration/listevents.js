@@ -10,12 +10,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: ['MANAGE_GUILD']
 };
 exports.help = {
 	name: 'listevents',
 	description: 'Lists you all events that you can log on your server',
 	usage: 'listevents',
 	example: 'listevents',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };

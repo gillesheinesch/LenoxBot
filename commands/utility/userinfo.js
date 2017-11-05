@@ -25,12 +25,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-    aliases: ['uinfo']
+    aliases: ['uinfo'],
+    userpermissions: []
 };
 exports.help = {
 	name: 'userinfo',
 	description: 'Gives you information about you or another user',
     usage: 'userinfo [@User]',
     example: 'userinfo @Monkeyyy11#7584',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

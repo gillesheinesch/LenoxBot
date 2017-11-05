@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args) => {
-	if (!msg.member.hasPermission('KICK_MEMBERS')) return msg.reply('You dont have permissions to execute this command!');
 	let reason = args.slice(1).join(' ');
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
@@ -30,12 +29,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['k']
+	aliases: ['k'],
+    userpermissions: ['KICK_MEMBERS']
 };
 exports.help = {
 	name: 'kick',
 	description: 'Kick a user from the discord server with a certain reason',
 	usage: 'kick @User {reason}',
 	example: 'kick @Monkeyyy11#7584 Spam',
-	category: 'moderation'
+	category: 'moderation',
+    botpermissions: ['KICK_MEMBERS', 'SEND_MESSAGES']
 };

@@ -42,12 +42,14 @@ exports.run = async (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-    aliases: []
+    aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'weather',
 	description: 'weather of a town or a city',
     usage: 'weather {location}',
     example: 'weather Paris',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

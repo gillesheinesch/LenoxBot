@@ -1,6 +1,4 @@
 exports.run = function(client, msg, args) {
-	if (!msg.member.hasPermission('MANAGE_ROLES')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
-
 	let addedrole = args.slice(1).join(' ');
 	let user = msg.mentions.members.first();
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
@@ -17,12 +15,14 @@ exports.run = function(client, msg, args) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['ar']
+	aliases: ['ar'],
+    userpermissions: ['MANAGE_ROLES']
 };
 exports.help = {
 	name: 'addrole',
 	description: 'Assign a role to a discord member',
 	usage: 'addrole @User {rolename}',
 	example: 'addrole @Monkeyyy11#7584 Member',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['MANAGE_ROLES', 'SEND_MESSAGES']
 };

@@ -22,12 +22,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['sinfo']
+	aliases: ['sinfo'],
+    userpermissions: []
 };
 exports.help = {
 	name: 'serverinfo',
 	description: 'Shows you some information about the current discord server',
 	usage: 'serverinfo',
 	example: 'serverinfo',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

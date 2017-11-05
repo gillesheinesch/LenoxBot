@@ -50,13 +50,15 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['cmds']
+	aliases: ['cmds'],
+    userpermissions: []
 };
 exports.help = {
 	name: 'commands',
 	description: 'All commands of a module',
 	usage: 'commands {Modulename}',
 	example: 'commands Help',
-	category: 'help'
+	category: 'help',
+    botpermissions: ['SEND_MESSAGES']
 };
 

@@ -22,12 +22,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'rank',
 	description: 'Displays the points of you or a user',
 	usage: 'rank [@USER]',
 	example: 'rank @Monkeyyy11',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

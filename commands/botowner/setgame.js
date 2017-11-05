@@ -9,12 +9,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-    aliases: []
+    aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'setgame',
 	description: 'Sets a status of the Discord Bots',
 	usage: 'setgame {text}',
     example: 'setgame LenoxBot',
-    category: 'botowner'
+    category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };

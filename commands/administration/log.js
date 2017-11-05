@@ -1,6 +1,4 @@
-exports.run = async(client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
-	
+exports.run = async(client, msg, args) => {	
 	const validation = ['modlog', 'messagedelete', 'messageupdate', 'channelupdate', 'channelcreate', 'channeldelete', 'memberupdate', 'presenceupdate', 'userjoin', 'userleft', 'rolecreate', 'roledelete', 'roleupdate', 'guildupdate'];
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const content = args.slice().join(" ");
@@ -201,12 +199,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
 	name: 'log',
 	description: 'With this command you can log for different channels, different events. Use ?listevents to get a list of all events',
 	usage: 'log {event}',
 	example: 'log modlog',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };

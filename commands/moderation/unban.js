@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args) => {
-	if (!msg.member.hasPermission('BAN_MEMBERS')) return msg.reply('You dont have permissions to execute this command!');
 	let reason = args.slice(1).join(' ');
 	client.unbanReason = reason;
 	client.unbanAuth = msg.author;
@@ -29,12 +28,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['u']
+	aliases: ['u'],
+    userpermissions: ['BAN_MEMBERS']
 };
 exports.help = {
 	name: 'unban',
 	description: 'Unban a user from the discord server with a certain reason',
 	usage: 'unban {userid} {reason}',
 	example: 'unban 238590234135101440 Mistake',
-	category: 'moderation'
+	category: 'moderation',
+    botpermissions: ['BAN_MEMBERS', 'MANAGE_GUILD', 'SEND_MESSAGES']
 };

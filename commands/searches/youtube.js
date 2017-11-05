@@ -35,7 +35,8 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['yt']
+	aliases: ['yt'],
+    userpermissions: []
 };
 
 exports.help = {
@@ -43,5 +44,6 @@ exports.help = {
 	description: 'Searches for a video on youtube',
 	usage: 'youtube {input}',
 	example: 'youtube Discord',
-	category: 'searches'
+	category: 'searches',
+    botpermissions: ['SEND_MESSAGES']
 };

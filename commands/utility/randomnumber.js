@@ -15,12 +15,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['rn']
+	aliases: ['rn'],
+    userpermissions: []
 };
 exports.help = {
 	name: 'randomnumber',
 	description: 'Selects a random number between your input and 1',
 	usage: 'randomnumber {input}',
 	example: 'randomnumber 100',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

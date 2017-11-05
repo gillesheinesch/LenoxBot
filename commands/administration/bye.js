@@ -1,6 +1,4 @@
-exports.run = async(client, msg, args) => {
-    if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));	
-    
+exports.run = async(client, msg, args) => {    
     const tableload = client.guildconfs.get(msg.guild.id);
     if (tableload.bye === 'false') {
         tableload.bye = 'true';
@@ -18,7 +16,8 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: ['ADMINISTRATOR']
 };
 
 exports.help = {
@@ -26,5 +25,6 @@ exports.help = {
     description: 'Disable the goodbye message',
     usage: 'bye',
     example: 'bye',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };

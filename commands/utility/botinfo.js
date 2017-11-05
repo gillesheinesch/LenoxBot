@@ -21,12 +21,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['bi']
+	aliases: ['bi'],
+        userpermissions: []
 };
 exports.help = {
 	name: 'botinfo',
 	description: 'Information about the bot',
         usage: 'botinfo',
         example: 'botinfo',
-	category: 'utility'
+	category: 'utility',
+        botpermissions: ['SEND_MESSAGES']
 };

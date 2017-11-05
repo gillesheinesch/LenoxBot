@@ -6,7 +6,8 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 
 exports.help = {
@@ -14,5 +15,6 @@ exports.help = {
 	description: 'Shows you how long the bot needs to send a message',
 	usage: 'ping',
 	example: 'ping',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

@@ -10,7 +10,8 @@ exports.run = (client, msg, args) => {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: []
+    aliases: [],
+    userpermissions: []
   };
 
   exports.help = {
@@ -18,5 +19,6 @@ exports.conf = {
     description: 'Shows you a list of all available options for your welcome and bye msg',
     usage: 'msgoptions',
     example: 'msgoptions ',
-	category: 'administration'
-  };
+    category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
+};

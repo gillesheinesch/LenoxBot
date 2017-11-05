@@ -70,7 +70,8 @@ for (i = 0; i < margs.length; i++) {
 exports.conf = {
     enabled: true,
     guildOnly: false,
-    aliases: ['ow']
+    aliases: ['ow'],
+    userpermissions: []
   };
 
   exports.help = {
@@ -78,6 +79,7 @@ exports.conf = {
     description: 'Shows you overwatch-stats about a Overwatch player',
     usage: 'overwatch {profile, quickplay, competitive} {BATTLETAG}',
     example: 'overwatch profile Monkeyyy11#2761',
-	category: 'searches'
+	category: 'searches',
+    botpermissions: ['SEND_MESSAGES']
   };
 

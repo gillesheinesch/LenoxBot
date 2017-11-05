@@ -12,7 +12,8 @@ return msg.channel.send('There is nothing playing.');
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 
 exports.help = {
@@ -20,5 +21,6 @@ exports.help = {
 	description: 'Stops the current music',
 	usage: 'pause',
 	example: 'pause',
-	category: 'music'
+	category: 'music',
+    botpermissions: ['SEND_MESSAGES', 'SPEAK']
 };

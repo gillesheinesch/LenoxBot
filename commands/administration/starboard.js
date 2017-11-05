@@ -1,5 +1,4 @@
 exports.run = async (client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));	
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.starboard) {
@@ -21,12 +20,14 @@ exports.run = async (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
 	name: 'starboard',
 	description: 'Enables/disables the starboard',
 	usage: 'starboard',
 	example: 'starboard',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };

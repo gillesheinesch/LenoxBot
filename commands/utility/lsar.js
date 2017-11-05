@@ -19,12 +19,14 @@ exports.run = function(client, msg, args) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'lsar',
 	description: 'shows you a list of all roles that allows users to assign themselves',
 	usage: 'lsar',
 	example: 'lsar',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

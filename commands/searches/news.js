@@ -668,12 +668,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'news',
 	description: 'Use this command to request news from different newspaper',
 	usage: 'news {newspaper}',
 	example: 'news bild',
-	category: 'searches'
+	category: 'searches',
+    botpermissions: ['SEND_MESSAGES']
 };

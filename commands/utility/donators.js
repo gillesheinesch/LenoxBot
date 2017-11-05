@@ -14,13 +14,15 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'donators',
 	description: 'Gives you a list with all donators who are supporting the project!',
 	usage: 'donators',
 	example: 'donators',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };
 

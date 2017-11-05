@@ -105,12 +105,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'ssdwdp',
 	description: 'Play a round of scissors & stone & paper',
 	usage: 'ssp {scissors, stone, paper}',
 	example: 'ssp scissors',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };

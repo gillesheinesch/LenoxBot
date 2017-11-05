@@ -8,12 +8,14 @@ return msg.channel.send(`Now playing: **${serverQueue.songs[0].title}**`);
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['np']
+	aliases: ['np'],
+    userpermissions: []
 };
 exports.help = {
 	name: 'nowplaying',
 	description: 'Shows you the current music title ',
 	usage: 'nowplaying',
 	example: 'nowplaying',
-	category: 'music'
+	category: 'music',
+    botpermissions: ['SEND_MESSAGES']
 };

@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
-	if (!msg.member.hasPermission('BAN_MEMBERS')) return msg.reply('You dont have permissions to execute this command!');
 	let reason = args.slice(1).join(' ');
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
@@ -30,13 +29,15 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['b']
+	aliases: ['b'],
+    userpermissions: ['BAN_MEMBERS']
 };
 exports.help = {
 	name: 'ban',
 	description: 'Ban a user from the discord server with a certain reason',
 	usage: 'ban @User {reason}',
 	example: 'ban @Monkeyyy11#7584 Toxic behavior',
-	category: 'moderation'
+	category: 'moderation',
+    botpermissions: ['BAN_MEMBERS', 'SEND_MESSAGES']
 };
 

@@ -23,12 +23,14 @@ for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'leave',
 	description: 'Leave a self-assignable role',
 	usage: 'leave {rolename}',
 	example: 'leave Member',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
 };

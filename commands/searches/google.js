@@ -45,12 +45,14 @@ exports.run = async (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['g']
+	aliases: ['g'],
+    userpermissions: []
 };
 exports.help = {
 	name: 'google',
 	description: 'Searches something on google',
 	usage: 'google {query}',
 	example: 'google Discord',
-	category: 'searches'
+	category: 'searches',
+    botpermissions: ['SEND_MESSAGES']
 };

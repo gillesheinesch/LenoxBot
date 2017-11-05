@@ -25,12 +25,14 @@ function clean(text) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'eval',
 	description: 'Executes an Eval command',
 	usage: 'eval {command}',
 	example: 'eval msg.channel.send(1);',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };

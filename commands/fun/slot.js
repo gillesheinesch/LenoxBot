@@ -29,12 +29,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'slot',
 	description: 'Play with the slot machine',
 	usage: 'slot',
 	example: 'slot',
-	category: 'fun'
+	category: 'fun',
+    botpermissions: ['SEND_MESSAGES']
 };

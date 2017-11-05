@@ -14,7 +14,8 @@ return msg.channel.send({ embed });
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 
 exports.help = {
@@ -22,5 +23,6 @@ exports.help = {
 	description: 'Shows you the current music-queue',
 	usage: 'queue',
 	example: 'queue',
-	category: 'music'
+	category: 'music',
+    botpermissions: ['SEND_MESSAGES']
 };

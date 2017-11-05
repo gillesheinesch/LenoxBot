@@ -11,12 +11,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'blacklistadd',
 	description: 'Add an user to the blacklist',
 	usage: 'blacklistadd {userId}',
 	example: 'blacklistadd 238590234135101440',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };

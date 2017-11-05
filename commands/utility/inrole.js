@@ -22,12 +22,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'inrole',
 	description: 'Command to see which members have a specific role',
 	usage: 'inrole {rolename}',
 	example: 'inrole Admin',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

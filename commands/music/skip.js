@@ -41,12 +41,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'skip',
 	description: 'Allows the users to skip a song with a poll',
 	usage: 'skip',
 	example: 'skip',
-	category: 'music'
+	category: 'music',
+    botpermissions: ['SEND_MESSAGES', 'SPEAK']
 };

@@ -66,12 +66,14 @@ if (input > 50) return msg.reply('You can only display TOP 1 to TOP 50!');
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'ranks',
 	description: `Ranking list, sorted by points`,
 	usage: 'ranks [1-50]',
 	example: 'ranks 20',
-	category: 'utility'
+	category: 'utility',
+    botpermissions: ['SEND_MESSAGES']
 };

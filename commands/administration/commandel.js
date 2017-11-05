@@ -1,6 +1,4 @@
-exports.run = async(client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
-	
+exports.run = async(client, msg, args) => {	
 	const tableload = client.guildconfs.get(msg.guild.id);
 	if (tableload.commanddel === 'false') {
 		tableload.commanddel = 'true';
@@ -18,12 +16,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['cmddel']
+	aliases: ['cmddel'],
+    userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
 	name: 'commanddel',
 	description: 'Toggles the deletion of a command after execution',
 	usage: 'commanddel',
 	example: 'commanddel',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES']
 };

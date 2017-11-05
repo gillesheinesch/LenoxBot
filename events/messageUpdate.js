@@ -29,7 +29,9 @@ exports.run = (client, oldMsg, msg) => {
 		cmd = client.commands.get(client.aliases.get(command));
 	}
 	if (cmd) {
-		cmd.run(client, msg, args);
+		if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(`It looks like the bot hasn't enough permissions to execute this command! (Required permissions: ${cmd.help.botpermissions.join(', ')})`);
+		if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(`It looks like you haven't enough permissions to execute this command! (Required permissions: ${cmd.conf.userpermissions.join(', ')})`);
+			cmd.run(client, msg, args);
 		if (tableload.commanddel === 'true') {
 			msg.delete();
 		}

@@ -1,5 +1,4 @@
 exports.run = async(client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
 	const tableload = client.guildconfs.get(msg.guild.id);
 	let addedrole = args.slice().join(' ');
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
@@ -32,12 +31,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['rsar']
+	aliases: ['rsar'],
+    userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
 	name: 'rsar',
 	description: 'Remove a role that allows users to assign themselves',
 	usage: 'rsar {rolename}',
 	example: 'rsar Member',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };

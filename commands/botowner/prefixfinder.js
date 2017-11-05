@@ -25,12 +25,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: []
 };
 exports.help = {
 	name: 'prefixfinder',
 	description: 'Command for the LenoxBot Staff to find out a prefix of a guild',
 	usage: 'prefixfinder {guildid}',
 	example: 'prefixfinder 352896116812939264',
-	category: 'botowner'
+	category: 'botowner',
+    botpermissions: ['SEND_MESSAGES']
 };

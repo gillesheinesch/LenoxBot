@@ -1,5 +1,4 @@
 exports.run = async(client, msg, args) => {
-	if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const channelid = msg.channel.id;
 	if (tableload.announce === 'false') {
@@ -19,12 +18,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['ta']
+	aliases: ['ta'],
+    userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
 	name: 'toggleannounce',
 	description: 'Sets a channel for announcements, where you can use the `announce`-command',
 	usage: 'toggleannounce',
 	example: 'toggleannounce',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };

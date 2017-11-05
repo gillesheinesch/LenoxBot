@@ -1,6 +1,4 @@
-exports.run = async(client, msg, args) => {
-    if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));	
-    
+exports.run = async(client, msg, args) => {    
     const tableload = client.guildconfs.get(msg.guild.id);
     if (tableload.welcome === 'false') {
         tableload.welcome = 'true';
@@ -20,7 +18,8 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: []
+	aliases: [],
+    userpermissions: ['ADMINISTRATOR']
 };
 
 exports.help = {
@@ -28,5 +27,6 @@ exports.help = {
     description: 'Toggles the welcome message in this channel',
     usage: 'welcome',
     example: 'welcome',
-	category: 'administration'
+	category: 'administration',
+    botpermissions: ['SEND_MESSAGES']
 };
