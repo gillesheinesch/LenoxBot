@@ -1,6 +1,6 @@
 ### LenoxBot TODO List
 
-- [ ] Fix sssp
+- [ ] Fix esssp
 - [ ] Add a minigame for the users to calculate
 - [ ] Add new command news
 - [ ] When the bot is alone in the channel when he get moved, leave the channel
