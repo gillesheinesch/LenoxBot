@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = (client, msg) => {
+exports.run = async(client, msg) => {
     if (client.starboard.get(msg.id)) {
         const table = client.starboard.get(msg.id);
         const starboardch = client.channels.get(table.channel);
@@ -17,15 +17,7 @@ exports.run = (client, msg) => {
     .addField(`🗣 Author:`, msg.author.tag)
     .addField(`📲 Channel:`, `${msg.channel.name} (${msg.channel.id})`)
     .addField(`📎 MessageID:`, msg.id)
-    .addField(`📜 Message:`, msg.cleanContent);
-
-    if (msg.attachments.size > 0) {
-        var files = [];
-        for (const attachment of msg.attachments.values()) {
-            files.push(attachment.url);
-        }
-        embed.setImage(files.toString());
-    }
+    .addField(`📜 Message:`, msg.cleanContent === 'RichEmbed field values may not be empty.' ? msg.cleanContent : '-');
 
     messagechannel.send({ embed: embed });
 };
