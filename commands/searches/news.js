@@ -32,12 +32,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -66,12 +66,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -100,12 +100,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -134,12 +134,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -168,12 +168,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -202,12 +202,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -236,12 +236,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -270,12 +270,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -304,12 +304,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -338,12 +338,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -372,12 +372,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -406,12 +406,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -440,12 +440,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -474,12 +474,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -508,12 +508,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -542,12 +542,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -576,12 +576,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -610,12 +610,12 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author ? null : 'No author')
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -643,13 +643,14 @@ exports.run = async(client, msg, args) => {
 						errors: ['time']
 					});
 					try {
+						console.log(r.articles[response1.first().content - 1].author);
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author)
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description)
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
 						return msg.channel.send({
 							embed: embed2
 						});
