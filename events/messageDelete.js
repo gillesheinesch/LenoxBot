@@ -10,6 +10,7 @@ exports.run = async(client, msg) => {
     const tableconfig = client.guildconfs.get(msg.guild.id);
     if (tableconfig.messagedellog === 'false') return;
     const messagechannel = client.channels.get(tableconfig.messagedellogchannel);
+
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()
@@ -17,7 +18,7 @@ exports.run = async(client, msg) => {
     .addField(`🗣 Author:`, msg.author.tag)
     .addField(`📲 Channel:`, `${msg.channel.name} (${msg.channel.id})`)
     .addField(`📎 MessageID:`, msg.id)
-    .addField(`📜 Message:`, msg.cleanContent === 'RichEmbed field values may not be empty.' ? msg.cleanContent : '-');
+    .addField(`📜 Message:`, msg.cleanContent.length > 1 ? msg.cleanContent : '-');
 
     messagechannel.send({ embed: embed });
 };
