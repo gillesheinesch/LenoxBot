@@ -106,5 +106,5 @@ exports.help = {
 	usage: 'activeevents',
 	example: 'activeevents',
     category: 'administration',
-    botpermissions: ['ADMINISTRATOR', 'SEND_MESSAGES']
+    botpermissions: ['SEND_MESSAGES']
 };
