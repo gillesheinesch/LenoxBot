@@ -24,7 +24,6 @@ exports.run = async(client, messageReaction, user) => {
 					return messageReaction.message.channel.send('Error');
 				}
 				else {
-					console.log(trelloCard.shortUrl)
 					const archiv = client.channels.get('372404644623810560');
 					archiv.send(`The proposal was accepted und was succesfully included in the trello grid
 					\`\`\`${messageReaction.message.cleanContent}\`\`\`
