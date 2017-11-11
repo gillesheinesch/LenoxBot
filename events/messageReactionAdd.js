@@ -24,12 +24,14 @@ exports.run = async(client, messageReaction, user) => {
 					return messageReaction.message.channel.send('Error');
 				}
 				else {
+					console.log(trelloCard.shortUrl)
 					const archiv = client.channels.get('372404644623810560');
 					archiv.send(`The proposal was accepted und was succesfully included in the trello grid
 					\`\`\`${messageReaction.message.cleanContent}\`\`\`
 					`);
 					messageReaction.message.delete();
-					return messageReaction.message.channel.send('The proposal was succesfully included in the trello grid').then(m => m.delete(10000));
+					const messagechannel = client.channels.get('354999866214318080');
+					return messagechannel.send(`New proposal was succesfully included in the trello grid ${trelloCard.shortUrl} Write us your opinion on this proposal, thank you!`).then(m => m.delete(10000));
 				}
 			});
 		}
@@ -60,8 +62,7 @@ exports.run = async(client, messageReaction, user) => {
 				  archiv.send(`The proposal was rejected und was succesfully included in the trello grid
 				  \`\`\`${messageReaction.message.cleanContent}\`\`\`
 				  `);
-				  messageReaction.message.delete();
-				  return messageReaction.message.channel.send('The proposal was succesfully included in the trello grid').then(m => m.delete(10000));
+				  return messageReaction.message.delete();
 			  }
 		  });
 	  }
@@ -95,7 +96,8 @@ exports.run = async(client, messageReaction, user) => {
 					\`\`\`${messageReaction.message.cleanContent}\`\`\`
 					`);
 					messageReaction.message.delete();
-					return messageReaction.message.channel.send('The bugreport was succesfully included in the trello grid').then(m => m.delete(10000));
+					const messagechannel = client.channels.get('353993619096731649');
+					return messagechannel.send(`New bugreport was succesfully included in the trello grid ${trelloCard.shortUrl} Write us more information about this bug report if you have any, thank you!`).then(m => m.delete(10000));
 				}
 			});
 		}
