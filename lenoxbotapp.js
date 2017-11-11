@@ -5,11 +5,12 @@ const fs = require('fs');
 const Enmap = require('enmap');
 const NewsAPI = require('newsapi');
 const Trello = require("trello");
+const EnmapLevel = require('enmap-level');
 
 client.wait = require("util").promisify(setTimeout);
-client.guildconfs = new Enmap({ name: 'guildsettings', persistent: true });
-client.botconfs = new Enmap({ name: 'botconfs', persistent: true });
-client.starboard = new Enmap({ name: 'starboard', persistent: true });
+client.guildconfs = new Enmap({ provider: new EnmapLevel({ name: 'guildsettings' }) });
+client.botconfs = new Enmap({ provider: new EnmapLevel({ name: 'botconfs' }) });
+client.starboard = new Enmap({ provider: new EnmapLevel({ name: 'starboard' }) });
 client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
