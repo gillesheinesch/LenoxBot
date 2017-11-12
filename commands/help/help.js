@@ -1,7 +1,17 @@
 exports.run = (client, msg, args) => {
+	const Discord = require('discord.js');
 	const prefix = client.guildconfs.get(msg.guild.id).prefix;
 	if (!args[0]) {
-		msg.channel.send(`To add this bot to your Discordserver, use this link: https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8 \n\nYou can use the command \`${prefix}modules\` to see all modules of the bot\nTo see all commands of a module, just use \`${prefix}commands modulename\` \nTo see more details about a command, just use \`${prefix}help commandname\` \n\nYou can join our discord server: **www.discord.gg/5mpwCr8**`);
+		const embed = new Discord.RichEmbed()
+		.addField('To add this bot to your Discordserver', `[Click here](https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8)`)
+		.addField('Any questions/suggestions/bugs, join our discord server', `[Click here](https://discord.gg/5mpwCr8)`)
+		.addField('To see all modules of the bot:', `${prefix}modules`)
+		.addField('To see all commands in a module:', `${prefix}commands {modulename}`)
+		.addField('To see more details about a command', `${prefix}help {commandname}`)
+		.setColor('#ff3300')
+		.setAuthor(client.user.username, client.user.displayAvatarURL);
+		msg.channel.send({ embed });
+		msg.channel.send('For mobile users who can not click on links: \nInvite Bot: https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8\nDiscord server: https://discord.gg/5mpwCr8');
 	} else {
 		let command = args[0];
 		if (client.commands.has(command)) {
