@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const sql = require("sqlite");
 sql.open("../lenoxbotscore.sqlite");
-exports.run = (client, msg, args) => {
+exports.run = async(client, msg, args) => {
 let input = parseInt(args.slice().join(' '));
 if (!input) {
 	sql.all(`SELECT * FROM scores WHERE guildId = "${msg.guild.id}" GROUP BY userId ORDER BY points DESC LIMIT 10`).then(rows => {
@@ -24,11 +24,10 @@ if (!input) {
 	for (i = 0; i < userArray.length; i++) {
 		tempArray.push((i+1) + ". " + userArray[i]);
 }
-
 		embed.addField('Name', tempArray.join('\n'), true);
 		embed.addField('Points', moneyArray.join('\n'), true);
 		embed.addField('Level', levelArray.join('\n'), true);
-		
+				
 		msg.channel.send({ embed });
 	});
 } else {
