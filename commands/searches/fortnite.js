@@ -1,7 +1,8 @@
 exports.run = async (client, msg, args) => {
 	const Discord = require('discord.js');
 	const fortnite = require('fortnite');
-	try {
+	if (!args[0]) return msg.channel.send('You have to enter the name of the user EpicGames Account');
+
 		var stats = await fortnite(args[0], !args[1] ? 'PC' : args[1]);
 		const embed = new Discord.RichEmbed()
 		.setURL(stats.info.url)
@@ -14,7 +15,7 @@ exports.run = async (client, msg, args) => {
         }
 		return msg.channel.send({ embed });
 	} catch (error) {
-		return msg.channel.send(1);
+		return msg.channel.send('Something went wrong. Check if you have used the command correctly!');
 	}
 };
 
