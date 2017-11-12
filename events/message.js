@@ -58,7 +58,7 @@ exports.run = (client, msg) => {
 	const botconfig = client.botconfs.get('botconfs');
 	const activityembed = new Discord.RichEmbed()
 	.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
-	.addField('Command', `${tableload.prefix}${command} ${args}`)
+	.addField('Command', `${tableload.prefix}${command} ${args.join(" ")}`)
 	.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 	.setTimestamp();
 	if (botconfig.activity === true) {
