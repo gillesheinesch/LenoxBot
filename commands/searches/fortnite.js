@@ -3,6 +3,7 @@ exports.run = async (client, msg, args) => {
 	const fortnite = require('fortnite');
 	if (!args[0]) return msg.channel.send('You have to enter the name of the user EpicGames Account');
 
+	try {
 		var stats = await fortnite(args[0], !args[1] ? 'PC' : args[1]);
 		const embed = new Discord.RichEmbed()
 		.setURL(stats.info.url)
