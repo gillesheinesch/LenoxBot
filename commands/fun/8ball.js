@@ -14,14 +14,14 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['pc'],
+	aliases: ['eightball'],
 	userpermissions: []
 };
 exports.help = {
 	name: '8ball',
-	description: 'Selects a random number between your input and 1',
-	usage: 'randomnumber {input}',
-	example: 'randomnumber 100',
-	category: 'utility',
+	description: 'Ask the bot a question',
+	usage: '8ball {question}',
+	example: 'randomnumber What is your name?',
+	category: 'fun',
 	botpermissions: ['SEND_MESSAGES']
 };
