@@ -9,12 +9,12 @@ exports.run = (client, msg, args) => {
 		.setTimestamp()
 		.setThumbnail(msg.guild.iconURL)
 		.setFooter('LenoxBot serverinfo')
-		.addField(`🤵 members`, msg.guild.memberCount)
-		.addField(`🗻 region`, msg.guild.region)
-		.addField(`📲 channels`, msg.guild.channels.size)
-		.addField(`⏳ server created`, servercreated)
-		.addField('☑ verification level', msg.guild.verificationLevel || 'The server has no verification level')
-		.addField(`📤 AFK-Channel`, msg.guild.afkChannelID || 'The server does not have an AFK channel');
+		.addField(`🤵 Members`, msg.guild.memberCount)
+		.addField(`🗻 Region`, msg.guild.region)
+		.addField(`📲 Channels`, msg.guild.channels.size)
+		.addField(`⏳ Server created`, servercreated)
+		.addField('☑ Verification level', msg.guild.verificationLevel || 'The server has no verification level')
+		.addField(`📤 AFK-Channel`, `<#${msg.guild.afkChannelID}>` || 'The server does not have an AFK channel');
 
 	msg.channel.send({ embed: embed });
 };
