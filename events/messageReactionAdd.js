@@ -30,7 +30,7 @@ exports.run = async(client, messageReaction, user) => {
 					`);
 					messageReaction.message.delete();
 					const messagechannel = client.channels.get('354999866214318080');
-					return messagechannel.send(`New proposal was succesfully included in the trello grid ${trelloCard.shortUrl} Write us your opinion on this proposal, thank you!`).then(m => m.delete(10000));
+					return messagechannel.send(`New proposal was succesfully included in the trello grid ${trelloCard.shortUrl} Write us your opinion on this proposal, thank you!`);
 				}
 			});
 		}
@@ -96,7 +96,7 @@ exports.run = async(client, messageReaction, user) => {
 					`);
 					messageReaction.message.delete();
 					const messagechannel = client.channels.get('353993619096731649');
-					return messagechannel.send(`New bugreport was succesfully included in the trello grid ${trelloCard.shortUrl} Write us more information about this bug report if you have any, thank you!`).then(m => m.delete(10000));
+					return messagechannel.send(`New bugreport was succesfully included in the trello grid ${trelloCard.shortUrl} Write us more information about this bug report if you have any, thank you!`);
 				}
 			});
 		}
