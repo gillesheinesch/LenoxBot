@@ -87,7 +87,7 @@ exports.run = async(client, msg, args) => {
 				try {
 					var connection = await voiceChannel.join();
 					queueConstruct.connection = connection;
-					play(msg.guild, queueConstruct.songs[0]);
+					await play(msg.guild, queueConstruct.songs[0]);
 				} catch (error) {
 					queue.delete(msg.guild.id);
 					skipvote.delete(msg.guild.id);
