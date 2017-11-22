@@ -14,6 +14,15 @@ exports.run = (client, msg) => {
 				row.level = curLevel;
 				sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 			}
+			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
+				for (let i = 1; i < tableload.ara.length; i += 2) {
+					if (tableload.ara[i] < row.points && !msg.member.roles.get(tableload.ara[i - 1])) {
+						const role = msg.guild.roles.get(tableload.ara[i - 1]);
+						msg.member.addRole(role);
+						msg.channel.send(`You have succesfully gotten the **${role.name}** role! 🎊 `);
+					}
+				}
+			});
 			sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 		}
 	  }).catch((error) => {
