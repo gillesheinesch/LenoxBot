@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = function(client, msg, args) {
+exports.run = async(client, msg, args) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
     const roles = [];
 	const points = [];
