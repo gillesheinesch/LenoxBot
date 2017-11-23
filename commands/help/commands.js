@@ -29,7 +29,7 @@ exports.run = (client, msg, args) => {
 				msg.channel.send(`${client.commands.filter(c => c.help.category === "searches").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
 				return msg.channel.send({ embed: embed });
 			} else if (margs[1].toLowerCase() == "botowner") {
-				if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');				
+				if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
 				msg.channel.send(`${client.commands.filter(c => c.help.category === "botowner").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
 				return msg.channel.send({ embed: embed });
 			} else if (margs[1].toLowerCase() == "nsfw") {
