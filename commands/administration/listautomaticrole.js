@@ -27,7 +27,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['lar'],
-    userpermissions: ['ADMINISTRATION']
+    userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
 	name: 'listautomaticrole',
