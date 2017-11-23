@@ -35,7 +35,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'addautomaticrole',
-	description: 'Discord',
+	description: 'Adds an auto assignable role',
 	usage: 'addautomaticrole {points} {rolename}',
 	example: 'addautomaticrole 10 TestRole',
 	category: 'administration',
