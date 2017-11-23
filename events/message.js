@@ -5,6 +5,8 @@ exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
 	if (msg.channel.type !== 'text') return msg.reply('You must run the commands on a Discord server on which the Discord Bot is available');
 
+	const tableload = client.guildconfs.get(msg.guild.id);
+
 	if (!tableload.ara) {
 		tableload.ara = [];
 		await client.guildconfs.set(msg.guild.id, tableload);
@@ -36,7 +38,7 @@ exports.run = async(client, msg) => {
 			sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
 		});
 	});
-	const tableload = client.guildconfs.get(msg.guild.id);
+
 	if (!msg.content.startsWith(tableload.prefix)) return;
 	var command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
 	var args = msg.content.split(' ').slice(1);
