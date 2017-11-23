@@ -9,7 +9,7 @@ exports.run = (client, msg, args) => {
 
 			msg.channel.send(`${msg.author}, Your proposal was submitted successfully and we will notify you as soon as possible.`);
 			let files;
-			if (msg.attachments.size) {
+			if (msg.attachments.size > 0) {
 				files = msg.attachments.first().url;
 			}
 			client.channels.get('372404583005290508').send(`${bewerbung.join(" ")} \nProposal by the following user: ${msg.author.tag}`, { files, disableEveryone: true }).then(m => { 
