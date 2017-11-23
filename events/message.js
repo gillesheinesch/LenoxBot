@@ -1,9 +1,14 @@
 const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
 const Discord = require('discord.js');
-exports.run = (client, msg) => {
+exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
 	if (msg.channel.type !== 'text') return msg.reply('You must run the commands on a Discord server on which the Discord Bot is available');
+
+	if (!tableload.ara) {
+		tableload.ara = [];
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
 
 	sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
