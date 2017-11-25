@@ -81,8 +81,34 @@ exports.run = async(client, msg) => {
 		const messagechannel = client.channels.get(botconfig.activitychannel);
 		messagechannel.send({ embed: activityembed });
 	}
+
 	if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(`It looks like the bot hasn't enough permissions to execute this command! (Required permissions: ${cmd.help.botpermissions.join(', ')})`);
 	if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(`It looks like you haven't enough permissions to execute this command! (Required permissions: ${cmd.conf.userpermissions.join(', ')})`);
+
+	if (!client.cooldowns.has(cmd.help.name)) {
+		client.cooldowns.set(cmd.help.name, new Discord.Collection());
+	}
+
+	const now = Date.now();
+	const timestamps = client.cooldowns.get(cmd.help.name);
+	const cooldownAmount = (command.cooldown || 3) * 1000;
+
+	if (!timestamps.has(msg.author.id)) {
+		timestamps.set(msg.author.id, now);
+		setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
+	}
+	else {
+		const expirationTime = timestamps.get(msg.author.id) + cooldownAmount;
+
+		if (now < expirationTime) {
+			const timeLeft = (expirationTime - now) / 1000;
+			return msg.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd.help.name}\` command.`);
+		}
+
+		timestamps.set(msg.author.id, now);
+		setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
+	}
+
 	cmd.run(client, msg, args);
 		if (tableload.commanddel === 'true') {
 			msg.delete();

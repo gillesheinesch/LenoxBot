@@ -15,6 +15,7 @@ client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 client.trello = new Trello("b5b98adeec332e10639db5473c96c42d", "264056f59d9a13dad78afd5cc2f960c5b410510b142813811bd96788d5687f4c");
+client.cooldowns = new Discord.Collection();
 
 fs.readdir('./events/', (err, files) => {
 	if (err) return console.error(err);
