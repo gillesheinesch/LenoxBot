@@ -74,7 +74,7 @@ exports.run = async(client, msg, args) => {
 					volume: 5,
 					playing: true
 				};
-				queue.set(msg.guild.id, queueConstruct);
+				await queue.set(msg.guild.id, queueConstruct);
 
 				queueConstruct.songs.push(song);
 
@@ -94,7 +94,7 @@ exports.run = async(client, msg, args) => {
 					return msg.channel.send(`I could not join the voice channel: ${error}`);
 				}
 			} else {
-				serverQueue.songs.push(song);
+				await serverQueue.songs.push(song);
 				if (playlist) return undefined;
 				else return msg.channel.send(`**${song.title}** has been added to the queue!`);
 			}
@@ -107,13 +107,13 @@ exports.run = async(client, msg, args) => {
 			if (!song) {
 				serverQueue.voiceChannel.leave();
 				queue.delete(guild.id);
-				return;
+				return undefined;
 			}
 			const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
 				.on('end', async reason => {
 					if (reason === 'Stream is not generating quickly enough.');
 					await serverQueue.songs.shift('Stream is not generating quickly enough');
-					play(guild, serverQueue.songs[0]);
+					await play(guild, serverQueue.songs[0]);
 				})
 				.on('error', error => console.error(error));
 			dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);

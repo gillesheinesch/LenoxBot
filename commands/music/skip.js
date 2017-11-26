@@ -34,7 +34,7 @@ exports.run = async(client, msg, args) => {
 	if (mapload.users.length !== number) return undefined;
 
 	msg.channel.send('The song has been skipped by the poll successfully');
-	serverQueue.connection.dispatcher.end();
+	await serverQueue.connection.dispatcher.end();
 	return undefined;
 };
 
