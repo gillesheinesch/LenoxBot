@@ -5,7 +5,7 @@ exports.run = async(client, msg, args) => {
 
     if (args.length < 1) return msg.reply('You forgot to insert the name of the role.');
 
-    const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(" "));
+    const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(" ").toLowerCase());
     if (!role) return msg.reply('Höh ... This role does not exist at all!').then(m => m.delete(10000));
 
     if (!tableload.muterole) {
