@@ -8,7 +8,8 @@ exports.run = (client, msg, args) => {
 	.addField('Answer', eightball)
 	.setColor('#ff6666')
 	.setAuthor(msg.author.tag, msg.author.displayAvatarURL);
-	msg.channel.send({ embed });
+
+	return msg.channel.send({ embed });
 };
 
 exports.conf = {

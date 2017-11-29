@@ -12,7 +12,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['a'],
-    userpermissions: ['ADMINISTRATOR']
+	userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
 	name: 'announce',
