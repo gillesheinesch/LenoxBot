@@ -30,6 +30,6 @@ exports.help = {
 	description: 'Defines a muted role which muted users will get',
 	usage: 'muterole {rolename}',
 	example: 'muterole muted',
-	category: 'moderation',
+	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']
 };
