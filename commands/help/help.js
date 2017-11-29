@@ -3,15 +3,17 @@ exports.run = (client, msg, args) => {
 	const prefix = client.guildconfs.get(msg.guild.id).prefix;
 	if (!args[0]) {
 		const embed = new Discord.RichEmbed()
-		.addField('To add this bot to your Discordserver', `[Click here](https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8)`)
-		.addField('Any questions/suggestions/bugs, join our discord server', `[Click here](https://discord.gg/5mpwCr8)`)
+		.addField('To add this bot to your Discordserver', `https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8`)
+		.addField('Any questions/suggestions/bugs, join our discord server', `https://discord.gg/5mpwCr8`)
 		.addField('To see all modules of the bot:', `${prefix}modules`)
 		.addField('To see all commands in a module:', `${prefix}commands {modulename}`)
 		.addField('To see more details about a command', `${prefix}help {commandname}`)
 		.setColor('#ff3300')
 		.setAuthor(client.user.username, client.user.displayAvatarURL);
+	
 		msg.channel.send({ embed });
 		msg.channel.send('For mobile users who can not click on links: \nInvite Bot: https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8\nDiscord server: https://discord.gg/5mpwCr8');
+
 	} else {
 		let command = args[0];
 		if (client.commands.has(command)) {
