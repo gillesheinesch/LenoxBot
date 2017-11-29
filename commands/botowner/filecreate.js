@@ -1,11 +1,11 @@
 exports.run = (client, msg, args) => {
-	if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');	
+	if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
 	var createFile = require('create-file');
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const commandNames = Array.from(client.commands.keys());
 	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
-	createFile(`${args.join(" ")}.md`, `# ${args.join(" ")} commands\n\n| Command | Description |\n| :--- | :--- |\n|${client.commands.filter(c => c.help.category === args.join(" ").toLowerCase()).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} | ${cmd.help.description}`).join("|\n|")}`, function (err) {
+	createFile(`gitbook/${args.join(" ")}.md`, `# ${args.join(" ")} commands\n\n| Command | Description | Required permissions |\n| :--- | :--- | :--- |\n|${client.commands.filter(c => c.help.category === args.join(" ").toLowerCase()).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} | ${cmd.help.description} | ${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'any'}`).join("|\n|")}`, function (err) {
 		console.log(`File created`);
 	});
 };
