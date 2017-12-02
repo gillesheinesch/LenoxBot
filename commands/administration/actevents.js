@@ -90,7 +90,6 @@ exports.run = (client, msg, args) => {
         const channelName = client.channels.get(channelID).name;
         embed.addField('✅ guildupdate active', `#${channelName} (${channelID})`);
     }
-
     msg.channel.send({ embed });
 };
 
@@ -104,7 +103,7 @@ exports.help = {
 	name: 'activeevents',
 	description: 'Gives you a list of all active events',
 	usage: 'activeevents',
-	example: 'activeevents',
+    example: 'activeevents',
     category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };
