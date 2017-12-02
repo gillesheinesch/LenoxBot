@@ -11,9 +11,10 @@ exports.run = (client, msg, args) => {
         .addField(`⏳ Runtime since the last restart`, `${uptimeserver}`, true)
         .addField('🛠 Memory usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
         .addField(`📡 Statistics about the bot`, `Online on ${client.guilds.size} guilds for ${client.users.size} User`)
-        .addField(`💎 Support us!`, `[Become a patreon](https://www.patreon.com/lenoxbot)`)
-        .addField('📤 You want this bot on your server?', `[Invite the Bot](https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8)`)
-        .addField('📢 Join our Discord Server', '[Discord Server](https://discord.gg/5mpwCr8)');
+        .addField('💻 Documentation', `https://www.monkeyyy11.de/`)
+        .addField(`💎 Support us!`, `https://www.patreon.com/lenoxbot`)
+        .addField('📤 You want this bot on your server?', `https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8`)
+        .addField('📢 Join our Discord Server', 'https://discord.gg/5mpwCr8');
 
 	msg.channel.send({ embed });
 };
