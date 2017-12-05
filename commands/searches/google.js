@@ -1,11 +1,20 @@
 const request = require('request-promise');
-const { RichEmbed } = require('discord.js');
-
-
+const Discord = require('discord.js');
 exports.run = async (client, msg, args) => {
+	const filter = ['porno', 'xnxx', 'pornhub', 'porn', 'livesex', 'nsfw'];
+
+	for (var i = 0; i < filter.length; i++) {
+		if (args.includes(filter[i])) return msg.channel.send('Nix da');
+	}
+
 	if (args.length < 1) {
 		return msg.reply('Please specify what you are looking for');
 	}
+
+	const input = args.slice().join(" ").toLowerCase();
+
+	if (input.includes('porno')) return msg.channel.send('hey');
+
 	const config = require('../../settings.json').googleKey;
 	const config2 = require('../../settings.json').googlekey;
 	const response = await request({
@@ -26,7 +35,7 @@ exports.run = async (client, msg, args) => {
 		const result = response.items[0];
 		const link = decodeURIComponent(result.link);
 
-		const embed = new RichEmbed()
+		const embed = new Discord.RichEmbed()
 		    .setColor('#0066CC')
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.avatarURL)
 			.setURL(link)
