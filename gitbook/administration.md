@@ -1,6 +1,6 @@
-# administration commands
+# Administration commands
 
-| Command | Description | Permissions |
+| Command | Description | Required permissions |
 | :--- | :--- | :--- |
 |?activeevents        | Gives you a list of all active events | ADMINISTRATOR|
 |?addautomaticrole    | Adds an auto assignable role | ADMINISTRATOR|

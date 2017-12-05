@@ -1,6 +1,6 @@
-# help commands
+# Help commands
 
-| Command | Description | Permissions |
+| Command | Description | Required permissions |
 | :--- | :--- | :--- |
 |?commands            | All commands of a module | any|
 |?help                | Gives you informations about a command | any|

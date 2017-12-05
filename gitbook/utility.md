@@ -1,6 +1,6 @@
-# utility commands
+# Utility commands
 
-| Command | Description | Permissions |
+| Command | Description | Required permissions |
 | :--- | :--- | :--- |
 |?botinfo             | Information about the bot | any|
 |?calculator          | Calculates for you an calculation | any|

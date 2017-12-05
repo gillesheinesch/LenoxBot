@@ -1,6 +1,6 @@
-# moderation commands
+# Moderation commands
 
-| Command | Description | Permissions |
+| Command | Description | Required permissions |
 | :--- | :--- | :--- |
 |?ban                 | Ban a user from the discord server with a certain reason | BAN_MEMBERS|
 |?clear               | Deletes for you the last X messages that were sent in the current channel | MANAGE_MESSAGES|

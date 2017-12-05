@@ -1,6 +1,6 @@
-# music commands
+# Music commands
 
-| Command | Description | Permissions |
+| Command | Description | Required permissions |
 | :--- | :--- | :--- |
 |?forceskip           | Forces the bot to skip the current song without a poll! | MANAGE_GUILD|
 |?nowplaying          | Shows you the current music title  | any|
