@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
-    if (!args == 0) return msg.channel.send('You have to enter the name of the role!');
+    if (!args.slice().length >= 1) return msg.channel.send('You have to enter the name of the role!');
     try {
         const role = msg.guild.roles.find(r => r.name.toLowerCase() === args.slice().join(' ').toLowerCase());
         var inRole = role.members.array();
