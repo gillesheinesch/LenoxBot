@@ -29,7 +29,7 @@ exports.help = {
 	name: 'botinfo',
 	description: 'Information about the bot',
         usage: 'botinfo',
-        example: 'botinfo',
+        example: ['botinfo'],
 	category: 'utility',
         botpermissions: ['SEND_MESSAGES']
 };

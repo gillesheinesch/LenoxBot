@@ -31,7 +31,7 @@ exports.help = {
 	name: 'urban',
 	description: 'Urban dictionary',
     usage: 'urban {query}',
-    example: 'userinfo Discord',
+    example: ['urban Discord'],
 	category: 'searches',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -15,7 +15,7 @@ exports.help = {
 	name: 'nowplaying',
 	description: 'Shows you the current music title ',
 	usage: 'nowplaying',
-	example: 'nowplaying',
+	example: ['nowplaying'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES']
 };

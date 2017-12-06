@@ -48,7 +48,7 @@ exports.help = {
 	name: 'skip',
 	description: 'Allows the users to skip a song with a poll',
 	usage: 'skip',
-	example: 'skip',
+	example: ['skip'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES', 'SPEAK']
 };

@@ -32,7 +32,7 @@ exports.help = {
 	name: 'eval',
 	description: 'Executes an Eval command',
 	usage: 'eval {command}',
-	example: 'eval msg.channel.send(1);',
+	example: ['eval msg.channel.send(1);'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

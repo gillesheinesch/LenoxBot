@@ -23,7 +23,7 @@ exports.help = {
 	name: 'commanddel',
 	description: 'Toggles the deletion of a command after execution',
 	usage: 'commanddel',
-	example: 'commanddel',
+	example: ['commanddel'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES']
 };

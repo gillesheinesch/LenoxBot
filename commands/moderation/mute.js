@@ -49,7 +49,7 @@ exports.help = {
 	name: 'mute',
 	description: 'Mutes a user for a certain time',
 	usage: 'mute {@User} {time (d, h, m, s)} {reason}',
-	example: 'mute @Tester#7362 1d Toxic behaviour',
+	example: ['mute @Tester#7362 1d Toxic behaviour'],
 	category: 'moderation',
 	botpermissions: ['SEND_MESSAGES']
 };

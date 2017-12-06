@@ -40,7 +40,7 @@ exports.help = {
 	name: 'removeautomaticrole',
 	description: 'Removes an auto assignable role',
 	usage: 'removeautomaticrole {rolename}',
-	example: 'removeautomaticrole TestRole',
+	example: ['removeautomaticrole TestRole'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']
 };

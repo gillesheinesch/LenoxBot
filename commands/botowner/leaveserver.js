@@ -17,7 +17,7 @@ exports.help = {
 	name: 'leaveserver',
 	description: 'Leaves a discord server by the guildid',
 	usage: 'leaveserver {guildid}',
-	example: 'leaveserver 8738704872894987',
+	example: ['leaveserver 8738704872894987'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -17,7 +17,7 @@ exports.help = {
 	name: 'website',
 	description: 'Shows you the Trello website of the bot ',
 	usage: 'website',
-	example: 'website',
+	example: ['website'],
 	category: 'help',
     botpermissions: ['SEND_MESSAGES']
 };

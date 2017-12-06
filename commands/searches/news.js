@@ -676,7 +676,7 @@ exports.help = {
 	name: 'news',
 	description: 'Use this command to request news from different newspaper',
 	usage: 'news {newspaper}',
-	example: 'news bild',
+	example: ['news bild'],
 	category: 'searches',
     botpermissions: ['SEND_MESSAGES']
 };

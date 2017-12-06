@@ -78,7 +78,7 @@ exports.conf = {
     name: 'overwatch',
     description: 'Shows you overwatch-stats about a Overwatch player',
     usage: 'overwatch {profile, quickplay, competitive} {BATTLETAG}',
-    example: 'overwatch profile Monkeyyy11#2761',
+    example: ['overwatch profile Monkeyyy11#2761'],
 	category: 'searches',
     botpermissions: ['SEND_MESSAGES']
   };

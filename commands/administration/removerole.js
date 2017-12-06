@@ -22,7 +22,7 @@ exports.help = {
 	name: 'removerole',
 	description: 'Remove a role to a discord member',
 	usage: 'removerole @User {rolename}',
-	example: 'removerole @Monkeyyy11#7584 Member',
+	example: ['removerole @Monkeyyy11#7584 Member'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
 };

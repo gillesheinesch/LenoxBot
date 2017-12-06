@@ -14,7 +14,7 @@ exports.help = {
 	name: 'ping',
 	description: 'Shows you how long the bot needs to send a message',
 	usage: 'ping',
-	example: 'ping',
+	example: ['ping'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };

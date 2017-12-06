@@ -29,7 +29,7 @@ exports.help = {
 	name: 'skipnumber',
 	description: 'Changes the necessary votes to skip music for users',
 	usage: 'skipnumber {number}',
-	example: 'skipnumber 3',
+	example: ['skipnumber 3'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

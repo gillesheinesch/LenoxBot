@@ -17,10 +17,54 @@ exports.run = (client, msg, args) => {
 		let command = args[0];
 		if (client.commands.has(command)) {
 			command = client.commands.get(command);
-			return msg.channel.send(`=== ${command.help.name} === \n\nDescription :: ${command.help.description}\n\nUsage :: ${prefix}${command.help.usage} \nExample :: ${prefix}${command.help.example} \n\nAlias :: ${prefix}${command.conf.aliases}`, { code:'asciidoc' });
+
+			var aliases = [];
+			if (command.conf.aliases.length !== 0) {
+				for (var i = 0; i < command.conf.aliases.length; i++) {
+					aliases.push(`${prefix}${command.conf.aliases[i]}`);
+				}
+			}
+
+			var examples = [];
+			if (command.help.example.length !== 0) {
+				for (var i = 0; i < command.help.example.length; i++) {
+					examples.push(`${prefix}${command.help.example[i]}`);
+				}
+			}
+
+			const commandembed = new Discord.RichEmbed()
+			.setColor('#45A081')
+			.setAuthor(`${prefix}${command.conf.aliases.length !== 0 ? `${command.help.name} / ` : command.help.name} ${aliases.join(" / ")}`)
+			.setDescription(command.help.description)
+			.addField('Usage', prefix + command.help.usage)
+			.addField('Example', examples.join("\n"))
+			.setFooter(`Module: ${command.help.category}`);
+			return msg.channel.send({ embed: commandembed });
 		} else if (client.aliases.has(command)) {
 			command = client.commands.get(client.aliases.get(command));
-			return msg.channel.send(`=== ${command.help.name} === \n\nDescription :: ${command.help.description}\n\nUsage :: ${prefix}${command.help.usage} \nExample :: ${prefix}${command.help.example} \n\nAlias :: ${prefix}${command.conf.aliases}`, { code:'asciidoc' });
+
+			var aliases = [];
+			if (command.conf.aliases.length !== 0) {
+				for (var i = 0; i < command.conf.aliases.length; i++) {
+					aliases.push(`${prefix}${command.conf.aliases[i]}`);
+				}
+			}
+
+			var examples = [];
+			if (command.help.example.length !== 0) {
+				for (var i = 0; i < command.help.example.length; i++) {
+					examples.push(`${prefix}${command.help.example[i]}`);
+				}
+			}
+
+			const aliasembed = new Discord.RichEmbed()
+			.setColor('#45A081')
+			.setAuthor(`${prefix}${command.conf.aliases.length !== 0 ? `${command.help.name} / ` : command.help.name} ${aliases.join(" / ")}`)
+			.setDescription(command.help.description)
+			.addField('Usage', prefix + command.help.usage)
+			.addField('Example', examples.join("\n"))
+			.setFooter(`Module: ${command.help.category}`);
+			return msg.channel.send({ embed: aliasembed });
 		}
 	}
 	msg.channel.send('This command name or command alias doesn\'t exist');
@@ -36,7 +80,7 @@ exports.help = {
 	name: 'help',
 	description: 'Gives you informations about a command',
 	usage: 'help {commandname}',
-	example: 'help botinfo',
+	example: ['help botinfo', 'help'],
 	category: 'help',
     botpermissions: ['SEND_MESSAGES']
 };

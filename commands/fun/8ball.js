@@ -22,7 +22,7 @@ exports.help = {
 	name: '8ball',
 	description: 'Ask the bot a question',
 	usage: '8ball {question}',
-	example: 'randomnumber What is your name?',
+	example: ['randomnumber What is your name?'],
 	category: 'fun',
 	botpermissions: ['SEND_MESSAGES']
 };

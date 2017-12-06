@@ -33,7 +33,7 @@ exports.help = {
 	name: 'donatoradd',
 	description: 'translator',
 	usage: 'donatoradd',
-	example: 'donatoradd',
+	example: ['donatoradd'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

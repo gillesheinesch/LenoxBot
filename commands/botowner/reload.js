@@ -15,7 +15,7 @@ exports.help = {
 	name: 'reload',
 	description: 'Discord',
 	usage: 'reload {command}',
-	example: 'reload ping',
+	example: ['reload ping'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

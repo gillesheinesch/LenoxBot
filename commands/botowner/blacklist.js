@@ -24,7 +24,7 @@ exports.help = {
 	name: 'blacklist',
 	description: 'Shows you the blacklist',
 	usage: 'blacklist',
-	example: 'blacklist',
+	example: ['blacklist'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -29,7 +29,7 @@ exports.help = {
 	name: 'pornsearch',
 	description: 'Makes it possible to search for NSFW/pornography',
 	usage: 'pornsearch {query}',
-	example: 'pornsearch ass',
+	example: ['pornsearch ass'],
 	category: 'nsfw',
     botpermissions: ['SEND_MESSAGES']
 };

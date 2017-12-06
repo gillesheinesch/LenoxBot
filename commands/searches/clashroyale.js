@@ -66,7 +66,7 @@ exports.help = {
 	name: 'clashroyale',
 	description: 'Shows you ClashRoyale stats about a player or a clan',
 	usage: 'clashroyale {profile or clan}',
-	example: 'clashroyale clan 2QLU0LYJ',
+	example: ['clashroyale clan 2QLU0LYJ'],
 	category: 'searches',
     botpermissions: ['SEND_MESSAGES']
 };

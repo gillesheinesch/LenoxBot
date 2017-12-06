@@ -72,7 +72,7 @@ exports.help = {
 	name: 'ranks',
 	description: `Ranking list, sorted by points`,
 	usage: 'ranks [1-50]',
-	example: 'ranks 20',
+	example: ['ranks 20'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };

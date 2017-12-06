@@ -22,7 +22,7 @@ exports.help = {
 	name: 'prefix',
 	description: 'Changes the prefixprefix of the server or shows you the current prefix if you just use ?prefix',
 	usage: 'prefix {new prefix}',
-	example: 'prefix !=!',
+	example: ['prefix !=!'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -18,7 +18,7 @@ exports.help = {
 	name: 'announce',
 	description: 'Write a new server announcement',
 	usage: 'announce {text}',
-	example: 'announce Today we reached 5000 members. Thank you for that!',
+	example: ['announce Today we reached 5000 members. Thank you for that!'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

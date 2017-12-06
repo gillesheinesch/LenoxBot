@@ -24,7 +24,7 @@ exports.help = {
 	name: 'banlist',
 	description: 'Shows you the banlist',
 	usage: 'banlist',
-	example: 'banlist',
+	example: ['banlist'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

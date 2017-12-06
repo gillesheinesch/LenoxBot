@@ -49,7 +49,7 @@ exports.help = {
 	name: 'weather',
 	description: 'weather of a town or a city',
     usage: 'weather {location}',
-    example: 'weather Paris',
+    example: ['weather Paris'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };

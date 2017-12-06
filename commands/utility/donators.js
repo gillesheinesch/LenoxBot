@@ -21,7 +21,7 @@ exports.help = {
 	name: 'donators',
 	description: 'Gives you a list with all donators who are supporting the project!',
 	usage: 'donators',
-	example: 'donators',
+	example: ['donators'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };

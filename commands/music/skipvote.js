@@ -28,7 +28,7 @@ exports.help = {
 	name: 'skipvote',
 	description: 'Toggles the skipvote function',
 	usage: 'skipvote',
-	example: 'skipvote ',
+	example: ['skipvote'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

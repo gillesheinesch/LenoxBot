@@ -27,7 +27,7 @@ exports.help = {
 	name: 'starboardchannel',
 	description: 'Sets a specific channel for the Starboard messages',
 	usage: 'starboard',
-	example: 'starboard',
+	example: ['starboard'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

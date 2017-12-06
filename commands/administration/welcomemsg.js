@@ -19,7 +19,7 @@ exports.help = {
 	name: 'welcomemsg',
     description: 'Sets a welcome message to greet your users',
     usage: 'welcomemsg {welcome msg}',
-    example: 'welcomemsg Hello $user$, welcome on the $servername$ discord-server!',
+    example: ['welcomemsg Hello $user$, welcome on the $servername$ discord-server!'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -22,7 +22,7 @@ exports.help = {
 	name: 'queue',
 	description: 'Shows you the current music-queue',
 	usage: 'queue',
-	example: 'queue',
+	example: ['queue'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES']
 };

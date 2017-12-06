@@ -138,7 +138,7 @@ exports.help = {
 	name: 'play',
 	description: 'Searches for music that matches to your request ',
 	usage: 'play {query}',
-	example: 'play Gangnam Style',
+	example: ['play Gangnam Style'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES', 'CONNECT', 'SPEAK']
 };

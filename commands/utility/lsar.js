@@ -26,7 +26,7 @@ exports.help = {
 	name: 'lsar',
 	description: 'shows you a list of all roles that allows users to assign themselves',
 	usage: 'lsar',
-	example: 'lsar',
+	example: ['lsar'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -20,7 +20,7 @@ exports.help = {
 	name: 'pause',
 	description: 'Stops the current music',
 	usage: 'pause',
-	example: 'pause',
+	example: ['pause'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES', 'SPEAK']
 };

@@ -31,7 +31,7 @@ exports.help = {
 	name: 'gif',
 	description: 'Searches for a gif',
     usage: 'gif {query}',
-    example: 'gif Discord',
+    example: ['gif Discord'],
 	category: 'searches',
     botpermissions: ['SEND_MESSAGES']
 };

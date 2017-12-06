@@ -22,7 +22,7 @@ exports.help = {
 	name: 'volume',
 	description: 'Changes the volume of the bot',
 	usage: 'volume {1-5}',
-	example: 'volume 3',
+	example: ['volume 3'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES']
 };

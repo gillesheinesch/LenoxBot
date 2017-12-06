@@ -30,7 +30,7 @@ exports.help = {
 	name: 'fortnite',
 	description: 'Shows you Fortnite stats about a player on every console',
 	usage: 'fortnite {EpicGames Username} [PC, XBOX, PSN (pc default)]',
-	example: 'fortnite Monkeyyy11ez PSN',
+	example: ['fortnite Monkeyyy11ez PSN'],
 	category: 'searches',
 	botpermissions: ['SEND_MESSAGES']
 };

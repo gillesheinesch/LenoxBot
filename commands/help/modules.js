@@ -19,7 +19,7 @@ exports.help = {
 	name: 'modules',
 	description: 'Gives you a list of all modules',
 	usage: 'modules',
-	example: 'modules',
+	example: ['modules'],
 	category: 'help',
     botpermissions: ['SEND_MESSAGES']
 };

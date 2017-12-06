@@ -22,7 +22,7 @@ exports.help = {
 	name: 'addrole',
 	description: 'Assign a role to a discord member',
 	usage: 'addrole @User {rolename}',
-	example: 'addrole @Monkeyyy11#7584 Member',
+	example: ['addrole @Monkeyyy11#7584 Member'],
 	category: 'administration',
     botpermissions: ['MANAGE_ROLES', 'SEND_MESSAGES']
 };

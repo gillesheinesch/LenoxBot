@@ -73,7 +73,7 @@ exports.help = {
 	name: 'delevents',
 	description: 'Delete all active events/logs on this server',
 	usage: 'delevents',
-	example: 'delevents',
+	example: ['delevents'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

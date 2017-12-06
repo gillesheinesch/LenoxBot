@@ -25,7 +25,7 @@ exports.help = {
 	name: 'toggleannounce',
 	description: 'Sets a channel for announcements, where you can use the announce-command',
 	usage: 'toggleannounce',
-	example: 'toggleannounce',
+	example: ['toggleannounce'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

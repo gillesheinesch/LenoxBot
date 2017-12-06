@@ -28,7 +28,7 @@ exports.help = {
 	name: 'bugreport',
 	description: 'You can submit a new bugreport by using this command',
 	usage: 'bugreport {title of the bugreport} | {description}',
-	example: 'bugreport ping command bug | There is just written ping but not how many ms this message needed to send',
+	example: ['bugreport ping command bug | There is just written ping but not how many ms this message needed to send'],
 	category: 'trello',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -112,7 +112,7 @@ exports.help = {
 	name: 'ssdwdp',
 	description: 'Play a round of scissors & stone & paper',
 	usage: 'ssp {scissors, stone, paper}',
-	example: 'ssp scissors',
+	example: ['ssp scissors'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

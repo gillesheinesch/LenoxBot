@@ -26,7 +26,7 @@ exports.help = {
 	name: 'welcome',
     description: 'Toggles the welcome message in this channel',
     usage: 'welcome',
-    example: 'welcome',
+    example: ['welcome'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -23,7 +23,7 @@ exports.help = {
 	name: 'activity',
 	description: 'Shows the current bot usage',
 	usage: 'activity',
-	example: 'activity',
+	example: ['activity'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

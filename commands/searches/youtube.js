@@ -43,7 +43,7 @@ exports.help = {
 	name: 'youtube',
 	description: 'Searches for a video on youtube',
 	usage: 'youtube {input}',
-	example: 'youtube Discord',
+	example: ['youtube Discord'],
 	category: 'searches',
     botpermissions: ['SEND_MESSAGES']
 };

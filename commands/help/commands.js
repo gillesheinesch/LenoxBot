@@ -57,7 +57,7 @@ exports.help = {
 	name: 'commands',
 	description: 'All commands of a module',
 	usage: 'commands {Modulename}',
-	example: 'commands Help',
+	example: ['commands Help'],
 	category: 'help',
     botpermissions: ['SEND_MESSAGES']
 };

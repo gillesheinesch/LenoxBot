@@ -41,7 +41,7 @@ exports.help = {
 	name: 'softban',
 	description: 'Bans a user and deletes his messages of the last X days. After that, he will be unbaned immediately!',
 	usage: 'softban @User {days} {reason}',
-	example: 'softban @Monkeyyy11#7584 7 Spam',
+	example: ['softban @Monkeyyy11#7584 7 Spam'],
 	category: 'moderation',
 	botpermissions: ['BAN_MEMBERS', 'SEND_MESSAGES']
 };

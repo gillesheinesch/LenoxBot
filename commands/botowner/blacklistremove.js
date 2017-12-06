@@ -21,7 +21,7 @@ exports.help = {
 	name: 'blacklistremove',
 	description: 'Remove an user from the blacklist',
 	usage: 'blacklistremove {userId}',
-	example: 'blacklistremove 238590234135101440',
+	example: ['blacklistremove 238590234135101440'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

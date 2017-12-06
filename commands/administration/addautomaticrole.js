@@ -37,7 +37,7 @@ exports.help = {
 	name: 'addautomaticrole',
 	description: 'Adds an auto assignable role',
 	usage: 'addautomaticrole {points} {rolename}',
-	example: 'addautomaticrole 10 TestRole',
+	example: ['addautomaticrole 10 TestRole'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']
 };

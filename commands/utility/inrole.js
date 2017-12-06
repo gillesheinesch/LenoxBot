@@ -29,7 +29,7 @@ exports.help = {
 	name: 'inrole',
 	description: 'Command to see which members have a specific role',
 	usage: 'inrole {rolename}',
-	example: 'inrole Admin',
+	example: ['inrole Admin'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };

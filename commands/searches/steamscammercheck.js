@@ -32,7 +32,7 @@ exports.help = {
 	name: 'steamscammercheck',
 	description: 'Checks whether a Steam user was marked as scammer',
 	usage: 'steamscammercheck {SteamID64}',
-	example: 'steamscammercheck 76561198150711701',
+	example: ['steamscammercheck 76561198150711701'],
 	category: 'searches',
 	botpermissions: ['SEND_MESSAGES']
 };

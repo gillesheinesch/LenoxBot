@@ -40,7 +40,7 @@ exports.help = {
 	name: 'steamprofile',
 	description: 'Requests Steam profile informations of a Steamuser',
 	usage: 'steamprofile {SteamID64}',
-	example: 'steamprofile 76561198150711701',
+	example: ['steamprofile 76561198150711701'],
 	category: 'searches',
 	botpermissions: ['SEND_MESSAGES']
 };

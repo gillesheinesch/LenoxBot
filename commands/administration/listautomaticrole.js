@@ -38,7 +38,7 @@ exports.help = {
 	name: 'listautomaticrole',
 	description: 'Lists all auto assignable roles',
 	usage: 'listautomaticrole',
-	example: 'listautomaticrole',
+	example: ['listautomaticrole'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

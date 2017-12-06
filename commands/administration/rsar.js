@@ -33,7 +33,7 @@ exports.help = {
 	name: 'rsar',
 	description: 'Remove a role that allows users to assign themselves',
 	usage: 'rsar {rolename}',
-	example: 'rsar Member',
+	example: ['rsar Member'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

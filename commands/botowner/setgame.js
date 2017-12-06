@@ -16,7 +16,7 @@ exports.help = {
 	name: 'setgame',
 	description: 'Sets a status of the Discord Bots',
 	usage: 'setgame {text}',
-    example: 'setgame LenoxBot',
+    example: ['setgame LenoxBot'],
     category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

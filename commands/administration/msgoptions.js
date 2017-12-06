@@ -18,7 +18,7 @@ exports.conf = {
     name: 'msgoptions',
     description: 'Shows you a list of all available options for your welcome and bye msg',
     usage: 'msgoptions',
-    example: 'msgoptions ',
+    example: ['msgoptions'],
     category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

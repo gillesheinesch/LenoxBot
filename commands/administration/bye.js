@@ -24,7 +24,7 @@ exports.help = {
 	name: 'bye',
     description: 'Disable the goodbye message',
     usage: 'bye',
-    example: 'bye',
+    example: ['bye'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

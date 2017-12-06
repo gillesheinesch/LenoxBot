@@ -22,7 +22,7 @@ exports.help = {
 	name: 'bash',
 	description: 'Discord',
 	usage: 'bash {command}',
-	example: 'bash git help',
+	example: ['bash git help'],
 	category: 'botowner',
   botpermissions: ['SEND_MESSAGES']
 };

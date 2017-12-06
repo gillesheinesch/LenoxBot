@@ -21,7 +21,7 @@ exports.help = {
 	name: 'banlistremove',
 	description: 'Remove a guild from the banlist',
 	usage: 'banlistremove {guildid}',
-	example: 'banlistremove 352896116812939264',
+	example: ['banlistremove 352896116812939264'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

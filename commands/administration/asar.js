@@ -25,7 +25,7 @@ exports.help = {
 	name: 'asar',
 	description: 'Add a role that allows users to assign themselves',
 	usage: 'asar {rolename}',
-	example: 'asar Member',
+	example: ['asar Member'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

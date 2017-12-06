@@ -61,7 +61,7 @@ exports.help = {
 	name: 'google',
 	description: 'Searches something on google',
 	usage: 'google {query}',
-	example: 'google Discord',
+	example: ['google Discord'],
 	category: 'searches',
     botpermissions: ['SEND_MESSAGES']
 };

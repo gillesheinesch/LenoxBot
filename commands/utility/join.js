@@ -30,7 +30,7 @@ exports.help = {
 	name: 'join',
 	description: 'Join a self-assignable role',
 	usage: 'join {rolename}',
-	example: 'join Member',
+	example: ['join Member'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
 };

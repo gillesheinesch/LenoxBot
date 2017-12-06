@@ -27,7 +27,7 @@ exports.help = {
 	name: 'starboard',
 	description: 'Enables/disables the starboard',
 	usage: 'starboard',
-	example: 'starboard',
+	example: ['starboard'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

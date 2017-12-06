@@ -14,7 +14,7 @@ exports.help = {
 	name: 'restart',
 	description: 'Restart the bot',
 	usage: 'restart',
-	example: 'restart',
+	example: ['restart'],
 	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -16,7 +16,7 @@ exports.help = {
 	name: 'queueclear',
 	description: 'Clears the whole music queue',
 	usage: 'queueclear',
-	example: 'queueclear',
+	example: ['queueclear'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES']
 };

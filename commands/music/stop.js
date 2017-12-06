@@ -20,7 +20,7 @@ exports.help = {
 	name: 'stop',
 	description: 'Stops the current music and the bot leaves the voice channel',
 	usage: 'stop',
-	example: 'stop',
+	example: ['stop'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES']
 };

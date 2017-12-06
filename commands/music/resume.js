@@ -20,7 +20,7 @@ exports.help = {
 	name: 'resume',
 	description: 'Continues the current music',
 	usage: 'resume',
-	example: 'resume',
+	example: ['resume'],
 	category: 'music',
     botpermissions: ['SEND_MESSAGES', 'SPEAK']
 };

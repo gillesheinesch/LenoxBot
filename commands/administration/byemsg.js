@@ -19,7 +19,7 @@ exports.help = {
 	name: 'byemsg',
 	description: 'Sets a goodbye message to say goodbye to your users',
 	usage: 'byemsg {bye msg}',
-	example: 'byemsg Bye $user$, we gonna miss you on the $servername$ discord-server!',
+	example: ['byemsg Bye $user$, we gonna miss you on the $servername$ discord-server!'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

@@ -42,7 +42,7 @@ exports.help = {
 	name: 'unmute',
 	description: 'Unmutes a user',
 	usage: 'unmute {@User} {reason}',
-	example: 'unmute @Tester#7352 Wrong mute',
+	example: ['unmute @Tester#7352 Wrong mute'],
 	category: 'moderation',
 	botpermissions: ['SEND_MESSAGES']
 };

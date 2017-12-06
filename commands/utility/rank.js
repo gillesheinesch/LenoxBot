@@ -45,7 +45,7 @@ exports.help = {
 	name: 'rank',
 	description: 'Displays the points of you or a user',
 	usage: 'rank [@USER]',
-	example: 'rank @Monkeyyy11',
+	example: ['rank @Monkeyyy11'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };

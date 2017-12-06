@@ -103,7 +103,7 @@ exports.help = {
 	name: 'activeevents',
 	description: 'Gives you a list of all active events',
 	usage: 'activeevents',
-    example: 'activeevents',
+    example: ['activeevents'],
     category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

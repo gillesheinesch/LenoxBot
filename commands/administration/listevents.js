@@ -17,7 +17,7 @@ exports.help = {
 	name: 'listevents',
 	description: 'Lists you all events that you can log on your server',
 	usage: 'listevents',
-	example: 'listevents',
+	example: ['listevents'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };
