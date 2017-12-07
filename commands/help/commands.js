@@ -32,6 +32,10 @@ exports.run = (client, msg, args) => {
 				if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
 				msg.channel.send(`${client.commands.filter(c => c.help.category === "botowner").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
 				return msg.channel.send({ embed: embed });
+			} else if (margs[1].toLowerCase() == "staff") {
+				if (!msg.member.roles.get('386627285119402006')) return msg.channel.send('You dont have permissions to execute this command!');
+				msg.channel.send(`${client.commands.filter(c => c.help.category === "staff").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				return msg.channel.send({ embed: embed });
 			} else if (margs[1].toLowerCase() == "nsfw") {
 				msg.channel.send(`${client.commands.filter(c => c.help.category === "nsfw").map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
                 return msg.channel.send({ embed: embed });

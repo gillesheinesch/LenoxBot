@@ -33,6 +33,6 @@ exports.help = {
 	description: 'Command for the LenoxBot Staff to find out a prefix of a guild',
 	usage: 'prefixfinder {guildid}',
 	example: ['prefixfinder 352896116812939264'],
-	category: 'botowner',
+	category: 'staff',
     botpermissions: ['SEND_MESSAGES']
 };
