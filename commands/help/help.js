@@ -8,6 +8,7 @@ exports.run = (client, msg, args) => {
 		.addField('To see all modules of the bot:', `${prefix}modules`)
 		.addField('To see all commands in a module:', `${prefix}commands {modulename}`)
 		.addField('To see more details about a command:', `${prefix}help {commandname}`)
+		.addField('Documentation', 'https://monkeyyy11.de')
 		.setColor('#ff3300')
 		.setAuthor(client.user.username, client.user.displayAvatarURL);
 	
