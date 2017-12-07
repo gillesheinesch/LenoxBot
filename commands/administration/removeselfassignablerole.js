@@ -30,10 +30,10 @@ exports.conf = {
     userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
-	name: 'rsar',
+	name: 'removeselfassignablerole',
 	description: 'Remove a role that allows users to assign themselves',
-	usage: 'rsar {rolename}',
-	example: ['rsar Member'],
+	usage: 'removeselfassignablerole {rolename}',
+	example: ['removeselfassignablerole Member'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

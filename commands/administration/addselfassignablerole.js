@@ -18,14 +18,14 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: [],
+	aliases: ['asar'],
     userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
-	name: 'asar',
+	name: 'addselfassignablerole',
 	description: 'Add a role that allows users to assign themselves',
-	usage: 'asar {rolename}',
-	example: ['asar Member'],
+	usage: 'addselfassignablerole {rolename}',
+	example: ['addselfassignablerole Member'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };
