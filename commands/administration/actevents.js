@@ -127,10 +127,10 @@ exports.conf = {
     userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
-	name: 'activeevents',
+	name: 'events',
 	description: 'Gives you a list of all active/disabled events',
-	usage: 'activeevents',
-    example: ['activeevents'],
+	usage: 'events',
+    example: ['events'],
     category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };
