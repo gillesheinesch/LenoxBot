@@ -123,7 +123,7 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-    aliases: ['actev'],
+    aliases: ['e'],
     userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
