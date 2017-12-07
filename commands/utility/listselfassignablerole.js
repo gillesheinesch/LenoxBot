@@ -24,7 +24,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'listselfassignablerole',
-	description: 'shows you a list of all roles that allows users to assign themselves',
+	description: 'Shows you a list of all roles that allows users to assign themselves',
 	usage: 'listselfassignablerole',
 	example: ['listselfassignablerole'],
 	category: 'utility',
