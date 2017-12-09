@@ -11,33 +11,33 @@ exports.run = async(client, msg) => {
 		tableload.ara = [];
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
-
-	sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
-		if (!row) {
-			sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
-		} else {
-			let curLevel = Math.floor(0.1 * Math.sqrt(row.points + 1));
-			if (curLevel > row.level) {
-				row.level = curLevel;
-				sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
-			}
-			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
-				for (let i = 1; i < tableload.ara.length; i += 2) {
-					if (tableload.ara[i] < row.points && !msg.member.roles.get(tableload.ara[i - 1])) {
-						const role = msg.guild.roles.get(tableload.ara[i - 1]);
-						msg.member.addRole(role);
-						msg.channel.send(`You have succesfully gotten the **${role.name}** role! 🎊 `);
+			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
+				if (!row) {
+					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
+				} else {
+					let curLevel = Math.floor(0.1 * Math.sqrt(row.points + 1));
+					if (curLevel > row.level) {
+						row.level = curLevel;
+						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+						msg.channel.send(`Congratulatioins ${msg.author}! You are now on level ${row.level}!`);
 					}
+					sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
+						for (let i = 1; i < tableload.ara.length; i += 2) {
+							if (tableload.ara[i] < row.points && !msg.member.roles.get(tableload.ara[i - 1])) {
+								const role = msg.guild.roles.get(tableload.ara[i - 1]);
+								msg.member.addRole(role);
+								msg.channel.send(`You have succesfully gotten the **${role.name}** role! 🎊 `);
+							}
+						}
+					});
+					sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 				}
+			  }).catch((error) => {
+				console.error(error);
+				sql.run("CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)").then(() => {
+					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
+				});
 			});
-			sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
-		}
-	  }).catch((error) => {
-		console.error(error);
-		sql.run("CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)").then(() => {
-			sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
-		});
-	});
 
 	if (!msg.content.startsWith(tableload.prefix)) return;
 	var command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
@@ -91,7 +91,7 @@ exports.run = async(client, msg) => {
 
 	const now = Date.now();
 	const timestamps = client.cooldowns.get(cmd.help.name);
-	const cooldownAmount = (command.cooldown || 3) * 1000;
+	const cooldownAmount = 3 * 1000;
 
 	if (!timestamps.has(msg.author.id)) {
 		timestamps.set(msg.author.id, now);
@@ -102,7 +102,7 @@ exports.run = async(client, msg) => {
 
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
-			return msg.reply(`please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd.help.name}\` command.`);
+			return msg.reply(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd.help.name}\` command.`);
 		}
 
 		timestamps.set(msg.author.id, now);
