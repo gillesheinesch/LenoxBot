@@ -25,7 +25,7 @@ exports.run = async(client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-    aliases: ['uinfo'],
+    aliases: ['uinfo', 'ui'],
     userpermissions: []
 };
 exports.help = {
