@@ -85,6 +85,26 @@ exports.run = async(client, msg) => {
 	if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(`It looks like the bot hasn't enough permissions to execute this command! (Required permissions: ${cmd.help.botpermissions.join(', ')})`);
 	if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(`It looks like you haven't enough permissions to execute this command! (Required permissions: ${cmd.conf.userpermissions.join(', ')})`);
 
+	if (!tableload.modules) {
+		tableload.modules = {};
+		tableload.modules.fun = 'true';
+		tableload.modules.help = 'true';
+		tableload.modules.moderation = 'true';
+		tableload.modules.music = 'true';
+		tableload.modules.nsfw = 'true';
+		tableload.modules.searches = 'true';
+		tableload.modules.utility = 'true';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	for (var prop in tableload.modules) {
+		if (prop === cmd.help.category) {
+			if (tableload.modules[prop] === 'false') {
+				return msg.channel.send(`The module "${prop}" has been disabled. You can reactivate disabled modules by using ${tableload.prefix}activatemodule.`);
+			}
+		}
+	}
+
 	if (!client.cooldowns.has(cmd.help.name)) {
 		client.cooldowns.set(cmd.help.name, new Discord.Collection());
 	}

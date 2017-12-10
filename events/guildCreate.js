@@ -40,7 +40,16 @@ exports.run = async(client, guild) => {
 		announce: 'false',
 		announcechannel: '',
 		selfassignableroles: [],
-		minigames: 'false'
+		minigames: 'false',
+		modules: {
+			fun: 'true',
+			help: 'true',
+			moderation: 'true',
+			music: 'true',
+			nsfw: 'true',
+			searches: 'true',
+			utility: 'true'
+		}
 	};
 	await client.guildconfs.set(guild.id, defaultSettings);
 	
@@ -55,8 +64,8 @@ exports.run = async(client, guild) => {
 
 	const snekfetch = require('snekfetch');
 	snekfetch.post(`https://discordbots.org/api/bots/stats`)
-	  .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE')
-	  .send({ server_count: client.guilds.size })
-	  .then(() => console.log('Updated discordbots.org stats.'))
-	 .catch(err => console.error(`Whoops something went wrong: ${err.body}`));
+	.set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE')
+	.send({ server_count: client.guilds.size })
+	.then(() => console.log('Updated discordbots.org stats.'))
+	.catch(err => console.error(`Whoops something went wrong: ${err.body}`));
 };
