@@ -81,7 +81,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'deactivatemodule',
-	description: 'Disables a module and its commands on this Discord server',
+	description: 'Disables a module and its commands on a Discord server',
 	usage: 'deactivatemodule {modulename}',
 	example: ['deactivatemodule help'],
 	category: 'administration',

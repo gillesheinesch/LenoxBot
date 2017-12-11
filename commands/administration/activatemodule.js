@@ -79,7 +79,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'activatemodule',
-	description: 'Activates a module and its commands on this Discord server',
+	description: 'Activates a module and its commands on a Discord server',
 	usage: 'activatemodule {modulename}',
 	example: ['activatemodule help'],
 	category: 'administration',
