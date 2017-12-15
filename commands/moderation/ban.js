@@ -5,6 +5,7 @@ exports.run = (client, msg, args) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) return msg.reply('You must mention a user to ban!').then(m => m.delete(10000));
+	if (user === msg.author) return msg.channel.send('You can not ban yourself!');
 	if (!reason) return msg.reply('You must specify a reason for the ban!').then(m => m.delete(10000));
 
 	if (!msg.guild.member(user).bannable) return msg.reply('I can not ban this user!').then(m => m.delete(10000));

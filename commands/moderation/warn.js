@@ -5,6 +5,7 @@ exports.run = (client, msg, args) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) return msg.reply('You must mention a user to warn!').then(m => m.delete(10000));
+	if (user === msg.author) return msg.channel.send('You can not warn yourself!');
 	if (!reason) return msg.reply('You must supply a reason for the warn!').then(m => m.delete(10000));
 
 

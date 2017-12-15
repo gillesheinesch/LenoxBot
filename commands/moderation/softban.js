@@ -6,6 +6,7 @@ exports.run = async(client, msg, args) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) return msg.reply('You must mention a user to softban!').then(m => m.delete(10000));
+	if (user === msg.author) return msg.channel.send('You can not softban yourself!');
 	if (!days[0]) return msg.reply('You haven\'t specified the number of days.');
 	if (isNaN(days[0]) === true) return msg.reply('You have to specify of how many days you want to have the messages of @User deleted! (Up to 7 days)');
 	if (parseInt(days[0]) > 8) return msg.reply('You can only delete the messages up to the last 7 days.');
