@@ -64,27 +64,6 @@ exports.run = (client, oldMsg, msg) => {
 
 		if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(`It looks like the bot hasn't enough permissions to execute this command! (Required permissions: ${cmd.help.botpermissions.join(', ')})`);
 		if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(`It looks like you haven't enough permissions to execute this command! (Required permissions: ${cmd.conf.userpermissions.join(', ')})`);
-		
-		const now = Date.now();
-		const timestamps = client.cooldowns.get(cmd.help.name);
-		const cooldownAmount = 3 * 1000;
-	
-		if (!timestamps.has(msg.author.id)) {
-			timestamps.set(msg.author.id, now);
-			setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
-		}
-
-		else {
-			const expirationTime = timestamps.get(msg.author.id) + cooldownAmount;
-	
-			if (now < expirationTime) {
-				const timeLeft = (expirationTime - now) / 1000;
-				return msg.reply(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd.help.name}\` command.`);
-			}
-	
-			timestamps.set(msg.author.id, now);
-			setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
-		}
 
 		cmd.run(client, msg, args);
 		if (tableload.commanddel === 'true') {
