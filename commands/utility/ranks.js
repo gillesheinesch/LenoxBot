@@ -41,13 +41,12 @@ if (content.length === 0) {
 	collector.on('collect', r => {
 		var reactionadd = levelArray.slice(first + 20, second + 20).length;
 		var reactionremove = levelArray.slice(first - 20, second - 20).length;
-		console.log(1);
+
 		if (r.emoji.name === '▶' && reactionadd !== 0) {
 			const thefirst = moneyArray.slice(first + 20, second + 20);
 			const thesecond = levelArray.slice(first + 20, second + 20);
 			const thethird = tempArray.slice(first + 20, second + 20);
-			console.log(thethird);
-			console.log(2);
+
 			first = first + 20;
 			second = second + 20;
 
@@ -55,26 +54,26 @@ if (content.length === 0) {
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('#A4F2DF')
 			.addField('Name', thethird.join('\n'), true)
-			.addField('Points', thesecond.join('\n'), true)
-			.addField('Level', thefirst.join('\n'), true);
+			.addField('Points', thefirst.join('\n'), true)
+			.addField('Level', thesecond.join('\n'), true);
 		
 		message.edit({ embed: newembed });
 	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-			moneyArray = moneyArray.slice(first - 20, second - 20);
-			levelArray = levelArray.slice(first - 20, second - 20);
-			tempArray = tempArray.slice(first - 20, second - 20);
+			const thefirst = moneyArray.slice(first - 20, second - 20);
+			const thesecond = levelArray.slice(first - 20, second - 20);
+			const thethird = tempArray.slice(first - 20, second - 20);
 		
 			first = first - 20;
 			second = second - 20;
 		
 			const newembed = new Discord.RichEmbed()
-			.addField('Name', tempArray.join('\n'), true)
-			.addField('Points', moneyArray.join('\n'), true)
-			.addField('Level', levelArray.join('\n'), true)
+			.addField('Name', thethird.join('\n'), true)
+			.addField('Points', thefirst.join('\n'), true)
+			.addField('Level', thesecond.join('\n'), true)
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('#A4F2DF');
 		
-		message.edit({ newembed });
+		message.edit({ embed: newembed });
 		}
 	});
 		collector.on('end',(collected, reason) => {
@@ -92,8 +91,8 @@ exports.conf = {
 exports.help = {
 	name: 'ranks',
 	description: `Ranking list, sorted by points`,
-	usage: 'ranks [1-50]',
-	example: ['ranks 20'],
+	usage: 'ranks',
+	example: ['ranks'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };
