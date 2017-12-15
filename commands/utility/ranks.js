@@ -4,7 +4,6 @@ sql.open("../lenoxbotscore.sqlite");
 exports.run = async(client, msg, args) => {
 	const content = args.slice();
 	let input = parseInt(args.slice().join(' '));
-if (content.length === 0) {
 	const rows = await sql.all(`SELECT * FROM scores WHERE guildId = "${msg.guild.id}" GROUP BY userId ORDER BY points DESC`);
 
 		let userArray = [];
@@ -79,7 +78,6 @@ if (content.length === 0) {
 		collector.on('end',(collected, reason) => {
 		message.react('❌');
 		});
-}
 };
 
 exports.conf = {
