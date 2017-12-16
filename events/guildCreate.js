@@ -49,7 +49,9 @@ exports.run = async(client, guild) => {
 			nsfw: 'true',
 			searches: 'true',
 			utility: 'true'
-		}
+		},
+		nicknamelog: [],
+		warnlog: []
 	};
 	await client.guildconfs.set(guild.id, defaultSettings);
 	

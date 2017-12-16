@@ -32,6 +32,8 @@ exports.run = async client => {
 		presenceupdatelogchannel: '',
 		welcomelog: 'false',
 		welcomelogchannel: '',
+		guildupdatelog: '',
+		guildupdatelogchannel: '',
 		byelog: 'false',
 		byelogchannel: '',
 		rolecreatelog: 'false',
@@ -41,14 +43,27 @@ exports.run = async client => {
 		roleupdatelog: 'false',
 		roleupdatelogchannel: '',
 		welcome: 'false',
+		welcomechannel: '',
 		welcomemsg: '',
 		bye: 'false',
+		byechannel: '',
 		byemsg: '',
-		welcomebyechannel: '',
 		commanddel: 'false',
 		announce: 'false',
 		announcechannel: '',
-		selfassignableroles: []
+		selfassignableroles: [],
+		minigames: 'false',
+		modules: {
+			fun: 'true',
+			help: 'true',
+			moderation: 'true',
+			music: 'true',
+			nsfw: 'true',
+			searches: 'true',
+			utility: 'true'
+		},
+		nicknamelog: [],
+		warnlog: []
 	};
 
 	const botconfsdefault = {
