@@ -12,6 +12,11 @@ exports.run = async(client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
+	if (!tableload.warnlog) {
+		tableload.warnlog = [];
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.ara) {
 		tableload.ara = [];
 		await client.guildconfs.set(msg.guild.id, tableload);
