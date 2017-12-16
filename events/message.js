@@ -5,7 +5,12 @@ exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
 	if (msg.channel.type !== 'text') return msg.reply('You must run the commands on a Discord server on which the Discord Bot is available');
 
-	const tableload = client.guildconfs.get(msg.guild.id);
+	const tableload = await client.guildconfs.get(msg.guild.id);
+
+	if (!tableload.nicknamelog) {
+		tableload.nicknamelog = [];
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
 
 	if (!tableload.ara) {
 		tableload.ara = [];
@@ -36,6 +41,17 @@ exports.run = async(client, msg) => {
 				console.error(error);
 				sql.run("CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)").then(() => {
 					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
+				});
+			});
+
+	    	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
+				if (!row) {
+					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+				}
+			  }).catch((error) => {
+				console.error(error);
+				sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
+					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
 				});
 			});
 
