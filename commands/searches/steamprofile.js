@@ -12,6 +12,7 @@ exports.run = (client, msg, args) => {
 	if(result.steamrep.flags.status !== 'notfound') {
 		const embed = new Discord.RichEmbed()
 		.setImage(result.steamrep.avatar)
+		.setColor("#336600")
 		.addField('SteamID64', result.steamrep.steamID64, true)
 		.addField('Reputation', result.steamrep.reputation.summary)
 		.addField('Trade ban(s)', result.steamrep.tradeban, true)
