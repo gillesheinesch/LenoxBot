@@ -2,7 +2,6 @@
 
 | Command | Description | Required permissions |
 | :--- | :--- | :--- |
-|?startevent               | Starts an event on the LenoxBot server | any|
 |?botinfo                  | Information about the bot | any|
 |?calculator               | Calculates for you an calculation | any|
 |?channels                 | A list of all channels on your discord server | any|
