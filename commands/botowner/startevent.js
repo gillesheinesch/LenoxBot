@@ -18,9 +18,10 @@ exports.run = async(client, msg, args) => {
 
 	await message.react('🏅');
 
-	var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, { time: 86400000 });
+	var collector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '🏅', { time: 86400000 });
 	collector.on('collect', r => {
-		if (r.emoji.name === '🏅' && !array.includes(r.users.last().id)) {
+		console.log(r.users.last().id);
+		if (!array.includes(r.users.last().id)) {
 			array.push(r.users.last().id);
 		
 			sql.get(`SELECT * FROM medals WHERE userId ="${r.users.last().id}"`).then(row => {
