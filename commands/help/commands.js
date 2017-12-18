@@ -25,6 +25,7 @@ exports.run = async(client, msg, args) => {
 					var reactionremove = client.commands.filter(c => c.help.category === "administration").array().slice(first - 20, second - 20).length;
 
 					if (r.emoji.name === '▶' && reactionadd !== 0) {
+						r.remove(msg.author.id);
 						const array = client.commands.filter(c => c.help.category === "administration").array();
 						
 						var slicedmsg = array.slice(first + 20, second + 20);
@@ -36,6 +37,7 @@ exports.run = async(client, msg, args) => {
 
 						message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 					} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+						r.remove(msg.author.id);
 						const xxx = client.commands.filter(c => c.help.category === "administration").array();
 						
 						var xx = xxx.slice(first - 20, second - 20);
@@ -66,6 +68,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "utility").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "utility").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -77,6 +80,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "utility").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -107,6 +111,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "music").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "music").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -118,6 +123,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "music").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -148,6 +154,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "fun").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "fun").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -159,6 +166,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "fun").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -189,6 +197,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "help").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "help").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -200,6 +209,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "help").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -230,6 +240,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "searches").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "searches").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -241,6 +252,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "searches").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -272,6 +284,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "botowner").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "botowner").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -283,6 +296,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "botowner").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -314,6 +328,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "staff").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "staff").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -325,6 +340,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "staff").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -351,6 +367,7 @@ exports.run = async(client, msg, args) => {
 				
 								var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, { time: 30000 });
 								collector.on('collect', r => {
+									r.remove(msg.author.id);
 									var reactionadd = client.commands.filter(c => c.help.category === "nsfw").array().slice(first + 20, second + 20).length;
 									var reactionremove = client.commands.filter(c => c.help.category === "nsfw").array().slice(first - 20, second - 20).length;
 				
@@ -366,6 +383,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "nsfw").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -396,6 +414,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "moderation").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "moderation").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -407,6 +426,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "moderation").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
@@ -437,6 +457,7 @@ exports.run = async(client, msg, args) => {
 									var reactionremove = client.commands.filter(c => c.help.category === "trello").array().slice(first - 20, second - 20).length;
 				
 									if (r.emoji.name === '▶' && reactionadd !== 0) {
+										r.remove(msg.author.id);
 										const array = client.commands.filter(c => c.help.category === "trello").array();
 										
 										var slicedmsg = array.slice(first + 20, second + 20);
@@ -448,6 +469,7 @@ exports.run = async(client, msg, args) => {
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+										r.remove(msg.author.id);
 										const xxx = client.commands.filter(c => c.help.category === "trello").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);

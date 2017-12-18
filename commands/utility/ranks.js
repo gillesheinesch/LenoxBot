@@ -42,6 +42,7 @@ exports.run = async(client, msg, args) => {
 		var reactionremove = levelArray.slice(first - 20, second - 20).length;
 
 		if (r.emoji.name === '▶' && reactionadd !== 0) {
+			r.remove(msg.author.id);
 			const thefirst = moneyArray.slice(first + 20, second + 20);
 			const thesecond = levelArray.slice(first + 20, second + 20);
 			const thethird = tempArray.slice(first + 20, second + 20);
@@ -58,6 +59,7 @@ exports.run = async(client, msg, args) => {
 		
 		message.edit({ embed: newembed });
 	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+			r.remove(msg.author.id);
 			const thefirst = moneyArray.slice(first - 20, second - 20);
 			const thesecond = levelArray.slice(first - 20, second - 20);
 			const thethird = tempArray.slice(first - 20, second - 20);
