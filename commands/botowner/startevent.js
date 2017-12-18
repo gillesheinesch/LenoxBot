@@ -52,6 +52,6 @@ exports.help = {
 	description: 'Starts an event on the LenoxBot server',
     usage: 'startevent',
     example: ['startevent'],
-	category: 'utility',
+	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };
