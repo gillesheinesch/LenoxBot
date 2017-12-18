@@ -11,7 +11,7 @@ exports.run = async(client, msg, args) => {
 	const embed = new Discord.RichEmbed()
 	.setDescription(`The medal collection event has begun! \nTo participate, you only have to react with "🏅". \nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command ?medals`)
 	.setColor('#ff5050')
-	.setFooter(new Date(now + 86400000))
+	.setFooter(`Event ends on ${new Date(now + 86400000)}`)
 	.setAuthor('New Event started!');
 
 	const message = await msg.channel.send({ embed });
