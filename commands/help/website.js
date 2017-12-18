@@ -16,7 +16,7 @@ exports.conf = {
 
 exports.help = {
 	name: 'website',
-	description: 'Shows you the Trello website of the bot ',
+	description: 'Shows you the Trello website of the bot',
 	usage: 'website',
 	example: ['website'],
 	category: 'help',
