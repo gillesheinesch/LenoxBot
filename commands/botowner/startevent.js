@@ -20,7 +20,6 @@ exports.run = async(client, msg, args) => {
 
 	var collector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '🏅', { time: 86400000 });
 	collector.on('collect', r => {
-		console.log(r.users.last().id);
 		if (!array.includes(r.users.last().id)) {
 			array.push(r.users.last().id);
 		
