@@ -204,7 +204,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'log',
-	description: 'With this command you can log for different channels, different events. Use ?listevents to get a list of all events',
+	description: 'Allows you to log for different channels, different events. Use ?listevents to get a list of all events',
 	usage: 'log {event}',
 	example: ['log modlog'],
 	category: 'administration',
