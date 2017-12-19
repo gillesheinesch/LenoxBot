@@ -70,7 +70,7 @@ exports.conf = {
     userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
-	name: 'delevents',
+	name: 'deleteevents',
 	description: 'Delete all active events/logs on this server',
 	usage: 'delevents',
 	example: ['delevents'],
