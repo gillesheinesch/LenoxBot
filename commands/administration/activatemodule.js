@@ -14,7 +14,7 @@ exports.run = async(client, msg, args) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	if (args.slice().length === 0) return msg.channel.send('You forgot to enter the name of the module Fyou wanted to reactivate!');
+	if (args.slice().length === 0) return msg.channel.send('You forgot to enter the name of the module you wanted to reactivate!');
 
 	const margs = msg.content.split(" ");
 	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation'];
