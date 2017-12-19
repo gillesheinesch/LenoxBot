@@ -71,7 +71,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'deleteevents',
-	description: 'Delete all active events/logs on this server',
+	description: 'Delete all active events on this server',
 	usage: 'delevents',
 	example: ['delevents'],
 	category: 'administration',
