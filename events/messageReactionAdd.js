@@ -133,23 +133,29 @@ exports.run = async(client, messageReaction, user) => {
 		  });
 	  }
 	}
+
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
 
+	// Definiert starboard und starboardchannel wenn das noch nicht getan wurde
 	if (!tableload.starboard) {
 		tableload.starboard === 'false';
 		tableload.starboardchannel === '';
 		await client.guildconfs.set(messageReaction.message.guild.id, tableload);
-		
 	}
 
+	// Wenn starboard nicht aktiviert ist oder der Channel nicht festgelegt wurde, dann wird das Event hier abgebrochen
 	if (tableload.starboardchannel === '') return;
 	if (tableload.starboard === 'false') return;
 
+	// Wenn die Reaktion auf der Message :star: ist, führt er weiter aus
 	if (messageReaction.emoji.name === '⭐') {
+		// Wenn der, der auf die Message reactet hat, nicht der Author ist, dann...
 		if (user.id === messageReaction.message.author.id) {
 			messageReaction.remove(messageReaction.message.author);
 			return messageReaction.message.channel.send('You can not give a star on your own message').then(m => m.delete(20000));
 		}
+
+		// Wenn es die erste :star: Reaktion ist
 		if (messageReaction.count === 1) {
 			const starboardchannel = client.channels.get(tableload.starboardchannel);
 
@@ -170,10 +176,10 @@ exports.run = async(client, messageReaction, user) => {
 			starboardchannel.send({ embed }).then(m => client.starboard.set(messageReaction.message.id, {
 				msgid: m.id,
 				channel: m.channel.id
-			}));	
+			}));
 		} else if (messageReaction.count > 1) {
 			const table = client.starboard.get(messageReaction.message.id);
-			const starboardch = client.channels.get(table.channel);
+			const starboardch = messageReaction.message.guild.channels.get(table.channel);
 
 			const embed = new Discord.RichEmbed()
 			.setColor('#a6a4a8')

@@ -41,6 +41,5 @@ exports.run = async(client, messageReaction, user) => {
 
 		starboardch.fetchMessage(table.msgid).then(m => m.delete());
 	}
-
 	}
 };

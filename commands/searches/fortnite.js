@@ -1,10 +1,11 @@
-exports.run = async (client, msg, args) => {
+exports.run = async(client, msg, args) => {
 	const Discord = require('discord.js');
 	const fortnite = require('fortnite');
+
 	if (!args[0]) return msg.channel.send('You have to enter the name of the user EpicGames Account');
 
-	try {
-		var stats = await fortnite(args[0], !args[1] ? 'PC' : args[1]);
+	var stats = await fortnite(args[0], !args[1] ? 'PC' : args[1]);
+
 		const embed = new Discord.RichEmbed()
 		.setURL(stats.info.url)
 		.setColor('#f45942')
@@ -15,9 +16,6 @@ exports.run = async (client, msg, args) => {
             embed.addField(stat, value, true);
         }
 		return msg.channel.send({ embed });
-	} catch (error) {
-		return msg.channel.send('Something went wrong. Check if you have used the command correctly!');
-	}
 };
 
 exports.conf = {
