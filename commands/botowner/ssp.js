@@ -99,7 +99,7 @@ exports.run = (client, msg, args) => {
 			}
 		}
 			}
-		}
+	}
 };
 
 exports.conf = {
