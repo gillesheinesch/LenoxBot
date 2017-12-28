@@ -109,7 +109,7 @@ exports.conf = {
     userpermissions: []
 };
 exports.help = {
-	name: 'ssdwdp',
+	name: 'ssp',
 	description: 'Play a round of scissors & stone & paper',
 	usage: 'ssp {scissors, stone, paper}',
 	example: ['ssp scissors'],

@@ -14,7 +14,7 @@ exports.run = async(client, msg, args) => {
 
 
 	const voiceChannel = msg.member.voiceChannel;
-	if (!voiceChannel) return msg.channel.send('I\'m sorry but you need to be in a voice channel to play music!');
+	if (!voiceChannel) return msg.channel.send(`I'm sorry but you need to be in a voice channel to play music!`);
 	const permissions = voiceChannel.permissionsFor(msg.client.user);
 	if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
 		const playlist = await youtube.getPlaylist(url);
@@ -136,7 +136,7 @@ exports.conf = {
 
 exports.help = {
 	name: 'play',
-	description: 'Searches for music that matches to your request ',
+	description: 'Searches for music that matches to your request',
 	usage: 'play {query}',
 	example: ['play Gangnam Style'],
 	category: 'music',

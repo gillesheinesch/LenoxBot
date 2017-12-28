@@ -4,7 +4,7 @@ exports.run = async(client, msg, args) => {
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
 
 	if (addedrole.length < 1) return msg.reply('You must specify the name of the role!').then(m => m.delete(10000));
-	if (!foundRole) return msg.reply('Höh ... This role does not exist at all!').then(m => m.delete(10000));
+	if (!foundRole) return msg.reply('This role does not exist at all!').then(m => m.delete(10000));
 		for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 			if (foundRole.id === tableload.selfassignableroles[i]) return msg.channel.send('You have already added this role to the self-assignable roles!');
 		}

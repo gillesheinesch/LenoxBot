@@ -5,7 +5,7 @@ exports.run = function(client, msg, args) {
 
 	if (msg.mentions.members.size < 1) return msg.reply('You must mention a member to assign him a role!').then(m => m.delete(10000));
 	if (addedrole.length < 1) return msg.reply('You must specify the name of the role!').then(m => m.delete(10000));
-	if (!foundRole) return msg.reply('Höh ... This role does not exist at all!').then(m => m.delete(10000));
+	if (!foundRole) return msg.reply('This role does not exist at all!').then(m => m.delete(10000));
 	if (user.roles.has(foundRole.id)) return msg.reply('The member already has this role!').then(m => m.delete(10000));
 
 	user.addRole(foundRole).then(() => msg.reply('Role successfully assigned!').then(m => m.delete(10000))).catch(err =>

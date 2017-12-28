@@ -11,7 +11,6 @@ exports.run = async(client, msg, args) => {
         .setColor('#0066CC')
         .setTimestamp()
         .setThumbnail(user.displayAvatarURL)
-        .setFooter('LenoxBot userinfo')
         .addField(`👤 User`, `${user.tag} (${user.id})`)
         .addField(`📥 Discord-Account created`, userondiscord)
         .addField(`📌 Joined this Discord Server`, useronserver)

@@ -11,6 +11,7 @@ exports.run = async(client, msg, args) => {
 		tableload.modules.nsfw = 'true';
 		tableload.modules.searches = 'true';
 		tableload.modules.utility = 'true';
+		tableload.modules.application = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 

@@ -12,8 +12,7 @@ exports.run = (client, msg, args) => {
 		.setColor('#ff3300')
 		.setAuthor(client.user.username, client.user.displayAvatarURL);
 	
-		msg.channel.send({ embed });
-		return msg.channel.send('For mobile users who can not click on links: \nInvite Bot: https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8\nDiscord server: https://discord.gg/5mpwCr8');
+		return msg.channel.send({ embed });
 	} else {
 		let command = args[0];
 		if (client.commands.has(command)) {
@@ -38,7 +37,7 @@ exports.run = (client, msg, args) => {
 			.setAuthor(`${prefix}${command.conf.aliases.length !== 0 ? `${command.help.name} / ` : command.help.name} ${aliases.join(" / ")}`)
 			.setDescription(command.help.description)
 			.addField('Usage', prefix + command.help.usage)
-			.addField('Example', examples.join("\n"))
+			.addField('Example(s)', examples.join("\n"))
 			.setFooter(`Module: ${command.help.category}`);
 			return msg.channel.send({ embed: commandembed });
 		} else if (client.aliases.has(command)) {
@@ -68,7 +67,7 @@ exports.run = (client, msg, args) => {
 			return msg.channel.send({ embed: aliasembed });
 		}
 	}
-	msg.channel.send('This command name or command alias doesn\'t exist');
+	msg.channel.send(`This command name or command alias doesn't exist`);
 };
 
 exports.conf = {

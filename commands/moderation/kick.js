@@ -6,7 +6,7 @@ exports.run = async(client, msg, args) => {
 
 	if (!user) return msg.reply('You must mention a user to kick!').then(m => m.delete(10000));
 	if (user === msg.author) return msg.channel.send('You can not kick yourself!');
-	if (!reason) return msg.reply('You must specify a reason for the ban!').then(m => m.delete(10000));
+	if (!reason) return msg.reply('You must specify a reason for the kick!').then(m => m.delete(10000));
 
 	if (!msg.guild.member(user).kickable) return msg.reply('I can not kick this user!').then(m => m.delete(10000));
 	msg.guild.member(user).kick();

@@ -11,7 +11,7 @@ exports.run = async(client, msg, args) => {
 	if (!args.slice(1).join(' ')) return msg.channel.send('You forgot to enter how long you want to mute that user.');
 	if (!args.slice(2).join(' ')) return msg.channel.send('You forgot to enter a reason for this mute.');
 
-	if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(`It looks like this role does not exist anymore. Please define a new mute role with the **${tableload.prefix}muterole** command`)
+	if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(`It looks like this role does not exist anymore. Please define a new mute role with the **${tableload.prefix}muterole** command`);
 
 	const role = msg.guild.roles.get(tableload.muterole);
 

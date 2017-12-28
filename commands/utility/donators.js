@@ -6,7 +6,7 @@ exports.run = (client, msg, args) => {
 
     const embed = new Discord.RichEmbed()
     .setColor('#77f442')
-    .setAuthor('Danke an alle, unten aufgelisteten, Spender! Dank euch gibt es dieses Projekt noch! <3')
+    .setAuthor('Thanks to all, listed below, donors! Thanks to you there is this project still! <3')
     .setDescription(tableload.donators.join(' , '));
     msg.channel.send({ embed });
 };

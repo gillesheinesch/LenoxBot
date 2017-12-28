@@ -6,24 +6,26 @@ exports.run = async(client, msg, args) => {
 	const Pornsearch = require('pornsearch').default.search(args.slice().toString());
 
 
-var length = await Pornsearch.gifs().then(gifs => gifs.length);
+	var length = await Pornsearch.gifs().then(gifs => gifs.length);
 
-var result = Math.floor(Math.random() * length);
+	var result = Math.floor(Math.random() * length);
 
-var url = await Pornsearch.gifs().then(gifs => gifs[result - 1].url);
+	var url = await Pornsearch.gifs().then(gifs => gifs[result - 1].url);
 
-const embed = new Discord.RichEmbed()
-.setImage(url)
-.setAuthor(msg.author.tag);
+	const embed = new Discord.RichEmbed()
+		.setImage(url)
+		.setAuthor(msg.author.tag);
 
-msg.channel.send({ embed });
+	msg.channel.send({
+		embed
+	});
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-    userpermissions: []
+	userpermissions: []
 };
 exports.help = {
 	name: 'pornsearch',
@@ -31,5 +33,5 @@ exports.help = {
 	usage: 'pornsearch {query}',
 	example: ['pornsearch ass'],
 	category: 'nsfw',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

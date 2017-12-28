@@ -11,13 +11,14 @@ exports.run = async(client, msg, args) => {
 		tableload.modules.nsfw = 'true';
 		tableload.modules.searches = 'true';
 		tableload.modules.utility = 'true';
+		tableload.modules.application = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (args.slice().length === 0) return msg.channel.send('You forgot to enter the name of the module you wanted to reactivate!');
 
 	const margs = msg.content.split(" ");
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application'];
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
@@ -65,10 +66,16 @@ exports.run = async(client, msg, args) => {
 				tableload.modules.moderation = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+			} else if (margs[1].toLowerCase() == "application") {
+				if (tableload.modules.application === 'true') return msg.channel.send('This module is already activated');
+				
+				tableload.modules.application = 'true';
+			    await client.guildconfs.set(msg.guild.id, tableload);
+				return msg.channel.send(`${args.slice()} module was activated successfully!`);
 			}
 		}
 	}
-	msg.channel.send('This module doesn\'t exist. Please make sure that you haven\'t mistyped!');
+	msg.channel.send(`This module doesn't exist. Please make sure that you haven't mistyped!`);
 };
 
 exports.conf = {

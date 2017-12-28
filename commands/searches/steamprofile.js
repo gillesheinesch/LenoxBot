@@ -4,7 +4,7 @@ exports.run = (client, msg, args) => {
 	const ms = require('ms');
 
 	if (args.slice().length < 1) return msg.channel.send('Please make sure that you have inserted a valid SteamID64! Here you can get your Steam64ID: https://steamid.io/');
-	if (isNaN(args.slice().join(""))) return msg.channel.send('This isn\'t a Steam64ID. Here you can get your Steam64ID: https://steamid.io/');
+	if (isNaN(args.slice().join(""))) return msg.channel.send(`This isn't a Steam64ID. Here you can get your Steam64ID: https://steamid.io/`);
 
 	const id = args.slice();
 	SteamRepAPI.timeout = 5000;

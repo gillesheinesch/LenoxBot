@@ -14,7 +14,7 @@ exports.run = async(client, msg, args) => {
 
 	let roleinput = args.slice(1).join(" ");
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === roleinput.toLowerCase());
-	if (!foundRole) return msg.reply('Höh ... This role does not exist at all!').then(m => m.delete(10000));
+	if (!foundRole) return msg.reply('This role does not exist at all!').then(m => m.delete(10000));
 
 		for (var i = 0; i < tableload.ara.length;  i += 2) {
 			if (foundRole.id === tableload.ara[i]) return msg.channel.send('You have already added the role to the auto assignable roles.');

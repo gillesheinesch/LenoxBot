@@ -4,19 +4,19 @@ exports.run = (client, msg, args) => {
 	const ms = require('ms');
 
 	if (args.slice().length < 1) return msg.channel.send('Please make sure that you have inserted a valid SteamID64! Here you can get your Steam64ID: https://steamid.io/');
-	if (isNaN(args.slice().join(""))) return msg.channel.send('This isn\'t a Steam64ID. Here you can get your Steam64ID: https://steamid.io/');
+	if (isNaN(args.slice().join(""))) return msg.channel.send(`This isn't a Steam64ID. Here you can get your Steam64ID: https://steamid.io/`);
 
 	const id = args.slice();
 	SteamRepAPI.timeout = 5000;
-	SteamRepAPI.isScammer(id[0], function(error, result) {
-		if(error) {
+	SteamRepAPI.isScammer(id[0], function (error, result) {
+		if (error) {
 			return msg.channel.send('That Steamprofile could not be found. Please make sure, that you have insert a valid SteamID64.');
 		} else {
-		  if(result) {
-			return msg.channel.send(`${msg.author}, This user was marked as **"scammer"**!`);
-		  } else {
-			  return msg.channel.send(`${msg.author}, This user wasn't marked as **"scammer"**!`);
-		  }
+			if (result) {
+				return msg.channel.send(`${msg.author}, This user was marked as **"scammer"**!`);
+			} else {
+				return msg.channel.send(`${msg.author}, This user wasn't marked as **"scammer"**!`);
+			}
 		}
 	});
 };

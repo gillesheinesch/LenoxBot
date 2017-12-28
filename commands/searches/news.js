@@ -45,7 +45,7 @@ exports.run = async(client, msg, args) => {
 						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(`Command cancelled. You haven't replied for 20 seconds!`);
 				}
 			} else if (margs[1].toLowerCase() === 'abc-news-au') {
 				const r = await api.articles({

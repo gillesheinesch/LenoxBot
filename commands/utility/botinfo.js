@@ -7,7 +7,6 @@ exports.run = (client, msg, args) => {
         .setAuthor('LenoxBot', client.user.avatarURL)
         .setColor('#0066CC')
         .setThumbnail(client.user.avatarURL)
-        .setFooter('LenoxBot informations & statistics')
         .addField(`⏳ Runtime since the last restart`, `${uptimeserver}`, true)
         .addField('🛠 Memory usage', `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
         .addField(`📡 Statistics about the bot`, `Online on ${client.guilds.size} guilds for ${client.users.size} User`)

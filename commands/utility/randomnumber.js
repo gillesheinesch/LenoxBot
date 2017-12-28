@@ -7,7 +7,6 @@ exports.run = (client, msg, args) => {
 	const embed = new Discord.RichEmbed()
 	.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
     .setColor('#0066CC')
-	.setFooter(`LenoxBot Random number`)
 	.setDescription(`The random number is: **${randomnumberfinished}**`);
 	msg.channel.send({ embed: embed });
 };

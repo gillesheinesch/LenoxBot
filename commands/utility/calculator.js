@@ -15,9 +15,8 @@ exports.run = (client, msg, args) => {
 	}
 
 	const embed = new Discord.RichEmbed()
-	.setDescription(` **Calculation:**\n\`\`\`\n${question}\n\`\`\` **Result:**\n\`\`\`\n${answer}\n\`\`\``)
+	.setDescription(`**Calculation:**\n\`\`\`\n${question}\n\`\`\` **Result:**\n\`\`\`\n${answer}\n\`\`\``)
 	.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
-	.setFooter('LenoxBot Calculator')
 	.setColor('#0066CC');
 	msg.channel.send({ embed });
 };
@@ -32,7 +31,7 @@ exports.help = {
 	name: 'calculator',
 	description: 'Calculates for you an calculation',
 	usage: 'calculator {calculation}',
-	example: ['calculator 1*20'],
+	example: ['calculator 1*20', 'calculator 100/10', 'calculator 100+10', 'calculator 100-10'],
 	category: 'utility',
     botpermissions: ['SEND_MESSAGES']
 };

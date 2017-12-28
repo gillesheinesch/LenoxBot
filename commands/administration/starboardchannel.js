@@ -14,7 +14,6 @@ exports.run = async(client, msg, args) => {
 	msg.channel.send(`All StarMessages will be listed in the #**${channelName}** now!`);
 
 	await client.guildconfs.set(msg.guild.id, tableload);
-	
 };
 
 exports.conf = {

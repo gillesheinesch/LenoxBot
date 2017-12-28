@@ -21,6 +21,19 @@ exports.run = async(client, msg) => {
 		tableload.ara = [];
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
+
+	if (!tableload.application) {
+		tableload.application = {
+			reactionnumber: '',
+			template: [],
+			role: '',
+			votechannel: '',
+			archivechannel: false,
+			archivechannellog: ''
+		};
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 				if (!row) {
 					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
@@ -29,7 +42,7 @@ exports.run = async(client, msg) => {
 					if (curLevel > row.level) {
 						row.level = curLevel;
 						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
-						msg.channel.send(`Congratulatioins ${msg.author}! You are now on level ${row.level}!`);
+						msg.channel.send(`Congratulations ${msg.author}! You just advanced to level ${row.level}!`);
 					}
 					sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
 						for (let i = 1; i < tableload.ara.length; i += 2) {
@@ -115,6 +128,7 @@ exports.run = async(client, msg) => {
 		tableload.modules.nsfw = 'true';
 		tableload.modules.searches = 'true';
 		tableload.modules.utility = 'true';
+		tableload.modules.application = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
