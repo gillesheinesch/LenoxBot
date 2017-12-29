@@ -63,8 +63,16 @@ exports.run = async(client, msg, args) => {
 
 					if (tableload.application.archive === true) {
 						try {
+							var accepted = new Discord.RichEmbed()
+							.setColor('#669900')
+							.setAuthor(`Status of the application: Accepted ✅, application by ${msg.author.tag}`, msg.author.displayAvatarURL);
+
+							for (var i = 0; i < tableload.application.template.length; i++) {
+								embed.addField(tableload.application.template[i], array[i]);
+							}
+
 								const archive = msg.guild.channels.get(tableload.application.archivechannel);
-								archive.send(`**Status of the application: Accepted ✅** \n\n--------------------------- \n\n ${message.cleanContent}`);
+								archive.send({ embed: accepted });
 							} catch (error) {
 								msg.channel.send(`On this server, an archive channel was set, but it doesn't exist anymore. Set a new channel by using ${tableload.prefix}togglearchive`);
 							}
@@ -78,8 +86,16 @@ exports.run = async(client, msg, args) => {
 
 					if (tableload.application.archive === true) {
 						try {
-							const archive = msg.guild.channels.get(tableload.application.archivechannel);
-							archive.send(`**Status of the application: Denied ❌** \n\n--------------------------- \n\n ${message.cleanContent}`);
+							var denied = new Discord.RichEmbed()
+							.setColor('#669900')
+							.setAuthor(`Status of the application: Denied ❌, application by ${msg.author.tag}`, msg.author.displayAvatarURL);
+
+							for (var i = 0; i < tableload.application.template.length; i++) {
+								embed.addField(tableload.application.template[i], array[i]);
+							}
+
+								const archive = msg.guild.channels.get(tableload.application.archivechannel);
+								archive.send({ embed: denied });
 						} catch (error) {
 							msg.channel.send(`On this server, an archive channel was set, but it doesn't exist anymore. Set a new channel by using ${tableload.prefix}togglearchive`);
 						}
