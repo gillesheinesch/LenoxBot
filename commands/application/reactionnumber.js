@@ -16,7 +16,7 @@ exports.run = async(client, msg, args) => {
 
 	const number = args.slice();
 
-	if (number.length === 0) return msg.channel.send(`Currently ${tableload.application.reactionnumber} is required to accept or decline an application!`);
+	if (number.length === 0 && tableload.application.reactionnumber !== '') return msg.channel.send(`Currently ${tableload.application.reactionnumber} is required to accept or decline an application!`);
 	if (number.length > 1) return msg.channel.send('Your new reactioncount can not contain spaces');
 	if (isNaN(number)) return msg.channel.send('You forgot to indicate which new reaction number you want');
 	if (number < 2) return msg.channel.send(`The number of reactions can not be 1 or less`);
