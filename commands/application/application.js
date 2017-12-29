@@ -68,7 +68,7 @@ exports.run = async(client, msg, args) => {
 							.setAuthor(`Status of the application: Accepted ✅, application by ${msg.author.tag}`, msg.author.displayAvatarURL);
 
 							for (var i = 0; i < tableload.application.template.length; i++) {
-								embed.addField(tableload.application.template[i], array[i]);
+								accepted.addField(tableload.application.template[i], array[i]);
 							}
 
 								const archive = msg.guild.channels.get(tableload.application.archivechannel);
@@ -91,7 +91,7 @@ exports.run = async(client, msg, args) => {
 							.setAuthor(`Status of the application: Denied ❌, application by ${msg.author.tag}`, msg.author.displayAvatarURL);
 
 							for (var i = 0; i < tableload.application.template.length; i++) {
-								embed.addField(tableload.application.template[i], array[i]);
+								denied.addField(tableload.application.template[i], array[i]);
 							}
 
 								const archive = msg.guild.channels.get(tableload.application.archivechannel);
