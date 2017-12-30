@@ -49,7 +49,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'paymedals',
-	description: 'Allows a user to give their medals to someone ',
+	description: 'Allows a user to give their medals to someone',
 	usage: 'paymedals {@User} {Amount}',
 	example: ['paymedals @Monkeyyy11#7584 100'],
 	category: 'utility',

@@ -27,8 +27,8 @@ exports.run = async(client, oldGuild, newGuild) => {
 		.setColor('#FE2E2E')
 		.setTimestamp()
 		.setAuthor('AFK channel changed!')
-		.addField(`📤 Old AFK Channel:`, oldGuild.afkChannel == null ? 'There wasn\'t an AFK Channel before' : oldGuild.afkChannel.name)
-		.addField(`📥 New AFK Channel:`, newGuild.afkChannel == null ? 'There isn\'t an AFK Channel anymore' : newGuild.afkChannel.name);
+		.addField(`📤 Old AFK Channel:`, oldGuild.afkChannel == null ? `There wasn't an AFK Channel before` : oldGuild.afkChannel.name)
+		.addField(`📥 New AFK Channel:`, newGuild.afkChannel == null ? `There isn't an AFK Channel anymore` : newGuild.afkChannel.name);
 		messagechannel.send({ embed: embed });
 	}
 
@@ -47,8 +47,8 @@ exports.run = async(client, oldGuild, newGuild) => {
 		.setColor('#FE2E2E')
 		.setTimestamp()
 		.setAuthor('Servericon changed!')
-		.addField(`📤 Old Servericon:`, oldGuild.iconURL == null ? 'There wasn\'t a servericon before' : oldGuild.iconURL)
-		.addField(`📥 New Servericon:`, newGuild.iconURL == null ? 'There isn\'t an Servericon anymore' : newGuild.iconURL);
+		.addField(`📤 Old Servericon:`, oldGuild.iconURL == null ? `There wasn't a servericon before` : oldGuild.iconURL)
+		.addField(`📥 New Servericon:`, newGuild.iconURL == null ? `There isn't an Servericon anymore` : newGuild.iconURL);
 		messagechannel.send({ embed: embed });
 	}
 

@@ -8,7 +8,6 @@ exports.run = (client, msg, args) => {
 		.setColor('#0066CC')
 		.setTimestamp()
 		.setThumbnail(msg.guild.iconURL)
-		.setFooter('LenoxBot serverinfo')
 		.addField(`🤵 Members`, msg.guild.memberCount)
 		.addField(`🗻 Region`, msg.guild.region)
 		.addField(`📲 Channels`, msg.guild.channels.size)

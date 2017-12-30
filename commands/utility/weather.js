@@ -42,7 +42,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'weather',
-	description: 'weather of a town or a city',
+	description: 'Weather of a town or a city',
 	usage: 'weather {location}',
 	example: ['weather Paris'],
 	category: 'utility',

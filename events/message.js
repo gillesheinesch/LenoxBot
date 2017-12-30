@@ -85,7 +85,7 @@ exports.run = async(client, msg) => {
 	if (cmd) {
 		const banlistembed = new Discord.RichEmbed()
 		.setColor('#FF0000')
-		.setDescription('Unfortunately, this server was set to the bot\'s banlist. All users on this server cannot execute commands of this bot anymore.')
+		.setDescription(`Unfortunately, this server was set to the bot's banlist. All users on this server cannot execute commands of this bot anymore.`)
 		.addField('If you have any questions, feel free to join our Discord server', 'https://discord.gg/5mpwCr8')
 		.addField('You can also create a ban appeal:', 'http://bit.ly/2wQ2SYF')
 		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
