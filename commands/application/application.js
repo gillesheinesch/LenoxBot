@@ -28,7 +28,7 @@ exports.run = async(client, msg, args) => {
 			await msg.channel.send(`${msg.author}, ${tableload.application.template[i]}`);
 				var response = await msg.channel.awaitMessages(msg2 => msg2.attachments.size === 0 && msg.author.id === msg2.id && !msg2.author.bot && msg2.content.length < 200, {
 					maxMatches: 1,
-					time: 60000,
+					time: 300000,
 					errors: ['time']
 				});
 				await array.push(response.first().content);
