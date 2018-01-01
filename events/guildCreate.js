@@ -60,7 +60,8 @@ exports.run = async(client, guild) => {
 			archivechannellog: ''
 		},
 		nicknamelog: [],
-		warnlog: []
+		warnlog: [],
+		language: 'en'
 	};
 	await client.guildconfs.set(guild.id, defaultSettings);
 	

@@ -74,7 +74,8 @@ exports.run = async client => {
 			archivechannellog: ''
 		},
 		nicknamelog: [],
-		warnlog: []
+		warnlog: [],
+		language: 'en'
 	};
 
 	const botconfsdefault = {
