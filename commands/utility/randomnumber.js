@@ -1,9 +1,9 @@
 const Discord = require(`discord.js`);
 exports.run = (client, msg, args, lang) => {
-	let randomnumber = parseInt(args.slice().join(' '));
-	let randomnumberfinished = Math.floor((Math.random() * randomnumber) + 1);
+	let input = parseInt(args.slice().join(' '));
+	let randomnumberfinished = Math.floor((Math.random() * input) + 1);
 
-	if (!randomnumber) return msg.reply(lang.randomnnumber_number).then(m => m.delete(10000));
+	if (!input) return msg.reply(lang.randomnnumber_number).then(m => m.delete(10000));
 
 	var randomnumber = lang.randomnnumber_randomnumber.replace('%randomnumber', randomnumberfinished);
 	const embed = new Discord.RichEmbed()
