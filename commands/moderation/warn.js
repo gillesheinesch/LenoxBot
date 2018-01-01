@@ -1,22 +1,24 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	let reason = args.slice(1).join(' ');
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply('You must mention a user to warn!').then(m => m.delete(10000));
-	if (user === msg.author) return msg.channel.send('You can not warn yourself!');
-	if (!reason) return msg.reply('You must supply a reason for the warn!').then(m => m.delete(10000));
+	if (!user) return msg.reply(lang.warn_nomention).then(m => m.delete(10000));
+	if (user === msg.author) return msg.channel.send(lang.warn_yourself);
+	if (!reason) return msg.reply(lang.warn_noinput).then(m => m.delete(10000));
 
+	var warned = lang.warn_warned.replace('%usertag', user.tag);
+	msg.channel.send(warned).then(m => m.delete(10000));
 
-	msg.channel.send(`${user.tag} was successfully warned!`).then(m => m.delete(10000));
-
+	var warnedby = lang.warn_warnedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	var warndescription = lang.warn_warndescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 	const embed = new Discord.RichEmbed()
-		.setAuthor(`Warned by ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
+		.setAuthor(warnedby, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
 		.setColor('#fff024')
 		.setTimestamp()
-		.setDescription(`**Action**: Warning \n**User**: ${user.username}#${user.discriminator} (${user.id}) \n**Reason**: ${reason}`);
+		.setDescription(warndescription);
 
 	user.send({ embed: embed });
 

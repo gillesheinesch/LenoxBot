@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.modules) {
@@ -17,7 +17,7 @@ exports.run = async(client, msg, args) => {
 
 	const embed = new Discord.RichEmbed()
 	.setColor('0066CC')
-	.setAuthor(`All active/disabled modules!`);
+	.setAuthor(lang.listmodules_embed);
 
 	var disabledmodules = [];
 	var activatedmodules = [];
@@ -30,8 +30,8 @@ exports.run = async(client, msg, args) => {
 		}
 	}
 
-	embed.addField('Active modules', activatedmodules.length !== 0 ? activatedmodules.join("\n") : 'No modules activated');
-	embed.addField('Disabled modules', disabledmodules.length !== 0 ? disabledmodules.join("\n") : 'No modules disabled');
+	embed.addField(lang.listmodules_activemodules, activatedmodules.length !== 0 ? activatedmodules.join("\n") : lang.listmodules_noactivemodules);
+	embed.addField(lang.listmodules_disabledmodules, disabledmodules.length !== 0 ? disabledmodules.join("\n") : lang.listmodules_nodisabledmodules);
 
 	msg.channel.send({ embed });
 };

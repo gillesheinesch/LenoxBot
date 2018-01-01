@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const sql = require("sqlite");
 sql.open("../lenoxbotscore.sqlite");
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const content = args.slice();
 	let input = parseInt(args.slice().join(' '));
 	const rows = await sql.all(`SELECT * FROM scores WHERE guildId = "${msg.guild.id}" GROUP BY userId ORDER BY points DESC`);
@@ -24,9 +24,9 @@ exports.run = async(client, msg, args) => {
 	let embed = new Discord.RichEmbed()
 	.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 	.setColor('#A4F2DF')
-	.addField('Name', tempArray.slice(0, 20).join('\n'), true)
-	.addField('Points', moneyArray.slice(0, 20).join('\n'), true)
-	.addField('Level', levelArray.slice(0, 20).join('\n'), true);
+	.addField(lang.ranks_name, tempArray.slice(0, 20).join('\n'), true)
+	.addField(lang.ranks_points, moneyArray.slice(0, 20).join('\n'), true)
+	.addField(lang.ranks_level, levelArray.slice(0, 20).join('\n'), true);
 
 		const message = await msg.channel.send({ embed });
 		
@@ -53,9 +53,9 @@ exports.run = async(client, msg, args) => {
 			const newembed = new Discord.RichEmbed()
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('#A4F2DF')
-			.addField('Name', thethird.join('\n'), true)
-			.addField('Points', thefirst.join('\n'), true)
-			.addField('Level', thesecond.join('\n'), true);
+			.addField(lang.ranks_name, thethird.join('\n'), true)
+			.addField(lang.ranks_points, thefirst.join('\n'), true)
+			.addField(lang.ranks_level, thesecond.join('\n'), true);
 		
 		message.edit({ embed: newembed });
 	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -68,9 +68,9 @@ exports.run = async(client, msg, args) => {
 			second = second - 20;
 		
 			const newembed = new Discord.RichEmbed()
-			.addField('Name', thethird.join('\n'), true)
-			.addField('Points', thefirst.join('\n'), true)
-			.addField('Level', thesecond.join('\n'), true)
+			.addField(lang.ranks_name, thethird.join('\n'), true)
+			.addField(lang.ranks_points, thefirst.join('\n'), true)
+			.addField(lang.ranks_level, thesecond.join('\n'), true)
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('#A4F2DF');
 		

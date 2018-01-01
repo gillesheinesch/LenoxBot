@@ -1,32 +1,38 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	let membermention = msg.mentions.members.first();
 	let user = msg.mentions.users.first();
 
-	if (tableload.muterole === '') return msg.channel.send(`First of all, you have to define the mute role by using the **${tableload.prefix}muterole** command`);
-	if (!membermention) return msg.channel.send('You forgot to mention the user who has to be muted.');
-	if (!args.slice(1).join(' ')) return msg.channel.send('You forgot to enter how long you want to mute that user.');
-	if (!args.slice(2).join(' ')) return msg.channel.send('You forgot to enter a reason for this mute.');
+	var muteroleundefined = lang.mute_muteroleundefined.replace('%prefix', tableload.prefix);
+	if (tableload.muterole === '') return msg.channel.send(muteroleundefined);
+	if (!membermention) return msg.channel.send(mute_nomention);
+	if (!args.slice(1).join(' ')) return msg.channel.send(mute_notime);
+	if (!args.slice(2).join(' ')) return msg.channel.send(mute_noinput);
 
-	if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(`It looks like this role does not exist anymore. Please define a new mute role with the **${tableload.prefix}muterole** command`);
+	var rolenotexist = lang.mute_rolenotexist.replace('%prefix', tableload.prefix)
+	if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(rolenotexist);
 
 	const role = msg.guild.roles.get(tableload.muterole);
 
 	const mutetime = ms(args.slice(1, 2).join(" "));
-	if (mutetime === undefined) return msg.channel.send('You used an invalid format for your mute.');
+	if (mutetime === undefined) return msg.channel.send(mute_invalidtimeformat);
 
-	if (membermention.roles.get(tableload.muterole)) return msg.channel.send(`${user.username} is already muted.`);
+	var alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
+	if (membermention.roles.get(tableload.muterole)) return msg.channel.send(alreadymuted);
 
 	membermention.addRole(role);
+
+	var mutedby = lang.mute_mutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" ")).replace('%mutetime', ms(mutetime));
 	const embed = new Discord.RichEmbed()
-	.setAuthor(`Muted by ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
+	.setAuthor(mutedby, msg.author.displayAvatarURL)
 	.setThumbnail(user.displayAvatarURL)
 	.setColor('#FF0000')
 	.setTimestamp()
-	.setDescription(`**Action**: Mute \n**User**: ${user.username}#${user.discriminator} (${user.id}) \n**Reason**: ${args.slice(2).join(" ")} \n**Muted for**: ${ms(mutetime)}`);
+	.setDescription(mutedescription);
 
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);
@@ -35,7 +41,8 @@ exports.run = async(client, msg, args) => {
 
 	setInterval(function() { membermention.removeRole(role); }, mutetime);
 
-	msg.channel.send(`${user.username} was muted successfully for ${ms(mutetime)}`);
+	var muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
+	msg.channel.send(muted);
 };
 
 exports.conf = {

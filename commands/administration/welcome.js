@@ -1,4 +1,4 @@
-exports.run = async(client, msg, args) => {    
+exports.run = async(client, msg, args, lang) => {    
 	const tableload = client.guildconfs.get(msg.guild.id);
 	if (tableload.welcome === 'false') {
 		tableload.welcome = 'true';
@@ -6,10 +6,11 @@ exports.run = async(client, msg, args) => {
 		const channelid = msg.channel.id;
 		tableload.welcomechannel = channelid;
 	
-		msg.channel.send(`Your new users are now welcomed in **${msg.channel.name}**!`);
+		var channelset = lang.welcome_channelset.replace('%channelname', `#**${msg.channel.name}**`);
+		msg.channel.send(channelset);
 	} else if (tableload.welcome === 'true') {
 		tableload.welcome = 'false';
-		msg.channel.send('The welcome message is now disabled!');
+		msg.channel.send(lang.welcome_channeldeleted);
 	}
 	await client.guildconfs.set(msg.guild.id, tableload);
 };

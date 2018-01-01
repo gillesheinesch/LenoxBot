@@ -1,4 +1,4 @@
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.ara) {
@@ -8,11 +8,11 @@ exports.run = async(client, msg, args) => {
 
 	let addedrole = args.slice().join(' ');
 
-	if (addedrole.length < 1) return msg.reply('You have to insert the name of the role.').then(m => m.delete(10000));
+	if (addedrole.length < 1) return msg.reply(lang.removeautomaticrole_noinput).then(m => m.delete(10000));
 
 	let roleinput = args.slice().join(" ");
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === roleinput.toLowerCase());
-	if (!foundRole) return msg.reply('This role does not exist at all!').then(m => m.delete(10000));
+	if (!foundRole) return msg.reply(lang.removeautomaticrole_rolenotexist).then(m => m.delete(10000));
 
 	for (var i = 0; i < tableload.ara.length; i += 2) {
 		if (foundRole.id === tableload.ara[i]) {
@@ -24,10 +24,10 @@ exports.run = async(client, msg, args) => {
 					}
 				}
 				await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send('The role was succesfully removed from the auto assignable roles.');
+				return msg.channel.send(lang.removeautomaticrole_roleremoved);
 		}
 	}
-	return msg.channel.send('This role is not in the list of auto assignable roles.');
+	return msg.channel.send(lang.removeautomaticrole_error);
 };
 
 exports.conf = {

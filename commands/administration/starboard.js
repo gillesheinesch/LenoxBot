@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.starboard) {
@@ -7,10 +7,10 @@ exports.run = async (client, msg, args) => {
 
 	if (tableload.starboard === 'false') {
 		tableload.starboard = 'true';
-		msg.channel.send('The starboard has been enabled successfully!');
+		msg.channel.send(lang.starboard_enabled);
 	} else {
 		tableload.starboard = 'false';
-		msg.channel.send('The starboard has been disabled successfully!');
+		msg.channel.send(lang.starboard_disabled);
     }
 
 	await client.guildconfs.set(msg.guild.id, tableload);

@@ -1,17 +1,20 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'trello', 'staff', 'application'];
 	const margs = msg.content.split(" ");
 	const commandNames = Array.from(client.commands.keys());
 	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
+
+	var embedinfo = lang.commands_embedinfo.replace('%prefix', tableload.prefix);
 	const embed = new Discord.RichEmbed()
 	.setColor('#0066CC')
-	.setDescription(`For more information about a command, type in ${tableload.prefix}help {commandname}`);
+	.setDescription(embedinfo);
+
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() == "administration") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "administration").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "administration").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 
 				await message.react('◀');
 				await message.react('▶');
@@ -33,7 +36,7 @@ exports.run = async(client, msg, args) => {
 						first = first + 20;
 						second = second + 20;
 
-						const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+						const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 
 						message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 					} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -45,7 +48,7 @@ exports.run = async(client, msg, args) => {
 						second = second - 20;
 
 
-						const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+						const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 						message.edit(x.join("\n"), { code: 'asciidoc' });
 					}
 				});
@@ -54,7 +57,7 @@ exports.run = async(client, msg, args) => {
 				});
 				return undefined;
 			} else if (margs[1].toLowerCase() == "utility") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "utility").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "utility").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -76,7 +79,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -88,7 +91,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -97,7 +100,7 @@ exports.run = async(client, msg, args) => {
 								});
 								return undefined;
 			} else if (margs[1].toLowerCase() == "music") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "music").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "music").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -119,7 +122,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -131,7 +134,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -140,7 +143,7 @@ exports.run = async(client, msg, args) => {
 								});
 								return undefined;
 			} else if (margs[1].toLowerCase() == "fun") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "fun").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "fun").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -162,7 +165,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -174,7 +177,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -183,7 +186,7 @@ exports.run = async(client, msg, args) => {
 								});
 								return undefined;
 			} else if (margs[1].toLowerCase() == "help") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "help").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "help").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -205,7 +208,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -217,7 +220,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -226,7 +229,7 @@ exports.run = async(client, msg, args) => {
 								});
 								return undefined;
 			} else if (margs[1].toLowerCase() == "searches") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "searches").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "searches").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -248,7 +251,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -260,7 +263,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -357,7 +360,7 @@ exports.run = async(client, msg, args) => {
 								});
 								return undefined;
 			} else if (margs[1].toLowerCase() == "nsfw") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "nsfw").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "nsfw").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -379,7 +382,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -391,7 +394,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -400,7 +403,7 @@ exports.run = async(client, msg, args) => {
 								});
 								return undefined;
 			} else if (margs[1].toLowerCase() == "moderation") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "moderation").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "moderation").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -422,7 +425,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -434,7 +437,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -443,7 +446,7 @@ exports.run = async(client, msg, args) => {
 								});
 								return undefined;
 			} else if (margs[1].toLowerCase() == "trello") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "trello").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "trello").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -465,7 +468,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -477,7 +480,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -486,7 +489,7 @@ exports.run = async(client, msg, args) => {
 								});
 								return undefined;
 			} else if (margs[1].toLowerCase() == "application") {
-				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "application").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`).join("\n")}`, { code:'asciidoc' });
+				const message = await msg.channel.send(`${client.commands.filter(c => c.help.category === "application").array().slice(0, 20).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}`, { code:'asciidoc' });
 				
 								await message.react('◀');
 								await message.react('▶');
@@ -508,7 +511,7 @@ exports.run = async(client, msg, args) => {
 										first = first + 20;
 										second = second + 20;
 				
-										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const finishedmsg = slicedmsg.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 				
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -520,7 +523,7 @@ exports.run = async(client, msg, args) => {
 										second = second - 20;
 				
 				
-										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${cmd.help.description}`);
+										const x = xx.map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} :: ${lang[`${cmd.help.name}_description`]}`);
 										message.edit(x.join("\n"), { code: 'asciidoc' });
 									}
 								});
@@ -531,7 +534,8 @@ exports.run = async(client, msg, args) => {
 			}
 		}
 	}
-	msg.channel.send(`There was an error. See ${tableload.prefix}modules to get a list of all available modules that you can use!`);
+	var error = lang.commands_error.replace('%prefix', tableload.prefix);
+	msg.channel.send(error);
 };
 
 exports.conf = {

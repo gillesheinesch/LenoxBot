@@ -1,16 +1,16 @@
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
 	const tableconfig = client.guildconfs.get(msg.guild.id);
 
-	if (tableconfig.skipvote === 'false') return msg.channel.send('The skipvote function has to be activated before you can use this command');
-	if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel, please join a voice channel to skip music!');
-	if (!serverQueue) return msg.channel.send('There is nothing playing that I could skip for you!');
+	if (tableconfig.skipvote === 'false') return msg.channel.send(lang.skip_skipvotedeativated);
+	if (!msg.member.voiceChannel) return msg.channel.send(lang.skip_notvoicechannel);
+	if (!serverQueue) return msg.channel.send(lang.skip_nothing);
 	
 	const map = client.skipvote;
 
 	const mapload = map.get(msg.guild.id);
-	if (mapload.users.includes(msg.author.id)) return msg.channel.send('You have already voted for this song!');
+	if (mapload.users.includes(msg.author.id)) return msg.channel.send(lang.skip_alreadyvoted);
 
 	mapload.users.push(msg.author.id);
 	await map.set(msg.guild.id, mapload);
@@ -22,18 +22,20 @@ exports.run = async(client, msg, args) => {
 	}
 
 	if (mapload.users.length === 1) {
-		msg.channel.send(`${msg.author} started a new quote to skip the current song! ${tableconfig.skipnumber} votes needed to skip the current music.`);
+		var newvote = lang.skip_newvote.replace('%author', msg.author).replace('%skipnumber', tableconfig.skipnumber);
+		msg.channel.send(newvote);
 	}
 
 	if (mapload.users.length > 1) {
-		msg.channel.send(`${msg.author} also wants to skip the current music. ${mapload.users.length}/${tableconfig.skipnumber} votes to skip the current music.`);
+		var vote = lang.skip_vote.replace('%author', msg.author).replace('%currentvotes', mapload.users.length).replace('%skipnumber', tableconfig.skipnumber);
+		msg.channel.send(vote);
 	}
 
 	const number = parseInt(tableconfig.skipnumber);
 
 	if (mapload.users.length !== number) return undefined;
 
-	msg.channel.send('The song has been skipped by the poll successfully');
+	msg.channel.send(lang.skip_skipped);
 	await serverQueue.connection.dispatcher.end();
 	return undefined;
 };

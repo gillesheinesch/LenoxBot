@@ -3,9 +3,14 @@ sql.open("../lenoxbotscore.sqlite");
 const Discord = require('discord.js');
 exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
-	if (msg.channel.type !== 'text') return msg.reply('You must run the commands on a Discord server on which the Discord Bot is available');
+	if (msg.channel.type !== 'text') return msg.reply(lang.messageevent_error);
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
+
+	if (!tableload.language) {
+		tableload.language = `en`;
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
 
 	if (!tableload.nicknamelog) {
 		tableload.nicknamelog = [];
@@ -42,14 +47,18 @@ exports.run = async(client, msg) => {
 					if (curLevel > row.level) {
 						row.level = curLevel;
 						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
-						msg.channel.send(`Congratulations ${msg.author}! You just advanced to level ${row.level}!`);
+
+						var levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
+						msg.channel.send(levelup);
 					}
 					sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
 						for (let i = 1; i < tableload.ara.length; i += 2) {
 							if (tableload.ara[i] < row.points && !msg.member.roles.get(tableload.ara[i - 1])) {
 								const role = msg.guild.roles.get(tableload.ara[i - 1]);
 								msg.member.addRole(role);
-								msg.channel.send(`You have succesfully gotten the **${role.name}** role! 🎊 `);
+
+								var automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
+								msg.channel.send(automaticrolegotten);
 							}
 						}
 					});
@@ -76,7 +85,9 @@ exports.run = async(client, msg) => {
 	if (!msg.content.startsWith(tableload.prefix)) return;
 	var command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
 	var args = msg.content.split(' ').slice(1);
+	var lang = require(`../languages/${tableload.language}.json`);
 	let cmd;
+
 	if (client.commands.has(command)) {
 		cmd = client.commands.get(command);
 	} else if (client.aliases.has(command)) {
@@ -85,16 +96,16 @@ exports.run = async(client, msg) => {
 	if (cmd) {
 		const banlistembed = new Discord.RichEmbed()
 		.setColor('#FF0000')
-		.setDescription(`Unfortunately, this server was set to the bot's banlist. All users on this server cannot execute commands of this bot anymore.`)
-		.addField('If you have any questions, feel free to join our Discord server', 'https://discord.gg/5mpwCr8')
-		.addField('You can also create a ban appeal:', 'http://bit.ly/2wQ2SYF')
+		.setDescription(lang.messageevent_banlist)
+		.addField(lang.messageevent_support, 'https://discord.gg/5mpwCr8')
+		.addField(lang.messageevent_banappeal, 'http://bit.ly/2wQ2SYF')
 		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
 
 		const blacklistembed = new Discord.RichEmbed()
 		.setColor('#FF0000')
-		.setDescription('Unfortunately, you were set to the bot\'s blacklist. You cannot execute commands of this bot anymore.')
-		.addField('If you have any questions, feel free to join our Discord server', 'https://discord.gg/5mpwCr8')
-		.addField('You can also create a ban appeal:', 'http://bit.ly/2wQ2SYF')
+		.setDescription(lang.messageevent_blacklist)
+		.addField(lang.messageevent_support, 'https://discord.gg/5mpwCr8')
+		.addField(lang.messageevent_banappeal, 'http://bit.ly/2wQ2SYF')
 		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
 		const botconfsload = client.botconfs.get('blackbanlist');
@@ -116,8 +127,10 @@ exports.run = async(client, msg) => {
 		messagechannel.send({ embed: activityembed });
 	}
 
-	if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(`It looks like the bot hasn't enough permissions to execute this command! (Required permissions: ${cmd.help.botpermissions.join(', ')})`);
-	if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(`It looks like you haven't enough permissions to execute this command! (Required permissions: ${cmd.conf.userpermissions.join(', ')})`);
+	var botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.help.botpermissions.join(', '));
+	var usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.conf.userpermissions.join(', '));
+	if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(botnopermission);
+	if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(usernopermission);
 
 	if (!tableload.modules) {
 		tableload.modules = {};
@@ -135,7 +148,8 @@ exports.run = async(client, msg) => {
 	for (var prop in tableload.modules) {
 		if (prop === cmd.help.category) {
 			if (tableload.modules[prop] === 'false') {
-				return msg.channel.send(`The module "${prop}" has been disabled. You can reactivate disabled modules by using ${tableload.prefix}activatemodule.`);
+				var moduledeactivated = lang.messageevent_moduledeativated.replace('%modulename', prop).replace('%prefix', tableload.prefix);
+				return msg.channel.send(moduledeactivated);
 			}
 		}
 	}
@@ -157,14 +171,16 @@ exports.run = async(client, msg) => {
 
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
-			return msg.reply(`Please wait ${timeLeft.toFixed(1)} more second(s) before reusing the \`${cmd.help.name}\` command.`);
+
+			var anticommandspam = lang.messageevent_anticommandspam.replace('%time', timeLeft.toFixed(1)).replace('%commandname', cmd.help.name);
+			return msg.reply(anticommandspam);
 		}
 
 		timestamps.set(msg.author.id, now);
 		setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
 	}
 
-	cmd.run(client, msg, args);
+	cmd.run(client, msg, args, lang);
 		if (tableload.commanddel === 'true') {
 			msg.delete();
 		}

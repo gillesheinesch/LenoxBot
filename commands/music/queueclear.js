@@ -1,7 +1,7 @@
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
     const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
-    if (!serverQueue) return msg.channel.send('The queue of the bot is empty!');
+    if (!serverQueue) return msg.channel.send(lang.queueclear_queueempty);
     return serverQueue.songs = [];
 };
 

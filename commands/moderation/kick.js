@@ -1,23 +1,28 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+
+exports.run = async(client, msg, args, lang) => {
 	let reason = args.slice(1).join(' ');
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply('You must mention a user to kick!').then(m => m.delete(10000));
-	if (user === msg.author) return msg.channel.send('You can not kick yourself!');
-	if (!reason) return msg.reply('You must specify a reason for the kick!').then(m => m.delete(10000));
+	if (!user) return msg.reply(lang.kick_nomention).then(m => m.delete(10000));
+	if (user === msg.author) return msg.channel.send(lang.kick_yourself);
+	if (!reason) return msg.reply(lang.kick_noinput).then(m => m.delete(10000));
 
-	if (!msg.guild.member(user).kickable) return msg.reply('I can not kick this user!').then(m => m.delete(10000));
+	if (!msg.guild.member(user).kickable) return msg.reply(lang.kick_nopermission).then(m => m.delete(10000));
 	msg.guild.member(user).kick();
-	msg.channel.send(`${user.tag} was successfully kicked!`).then(m => m.delete(10000));
 
+	var kicked = lang.kick_kicked.replace('%usertag', user.tag);
+	msg.channel.send(kicked).then(m => m.delete(10000));
+
+	var kickedby = lang.kick_kickedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	var kickdescription = lang.kick_kickdescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 	const embed = new Discord.RichEmbed()
-		.setAuthor(`Kicked by ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
+		.setAuthor(kickedby, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
 		.setColor('#FF0000')
 		.setTimestamp()
-		.setDescription(`**Action**: Kick \n**User**: ${user.username}#${user.discriminator} (${user.id}) \n**Reason**: ${reason}`);
+		.setDescription(kickdescription);
 
 	user.send({ embed });
 

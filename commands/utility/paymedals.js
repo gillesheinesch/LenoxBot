@@ -1,19 +1,19 @@
 const Discord = require('discord.js');
 const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
     const mention = msg.mentions.users.first();
 
-	if (!mention) return msg.channel.send('You must mention a user to give some medals!');
-	if (mention.id === msg.author.id) return msg.channel.send('You can not give yourself medals!');
-    if (args.slice(1).length === 0) return msg.channel.send('You forgot to specify how many medals you want to give the user!');
-    if (isNaN(args.slice(1))) return msg.channel.send('The amount of medals has to be a number!');
-	if (parseInt(args.slice(1).join(" ")) === 0) return msg.channel.send('You can not give 0 medals');
-	if (parseInt(args.slice(1).join(" ")) < 0) return msg.channel.send('You have to give away minimal one medal');
+	if (!mention) return msg.channel.send(lang.paymedals_nomention);
+	if (mention.id === msg.author.id) return msg.channel.send(lang.paymedals_yourself);
+    if (args.slice(1).length === 0) return msg.channel.send(lang.paymedals_noinput);
+    if (isNaN(args.slice(1))) return msg.channel.send(lang.paymedals_number);
+	if (parseInt(args.slice(1).join(" ")) === 0) return msg.channel.send(lang.paymedals_not0);
+	if (parseInt(args.slice(1).join(" ")) < 0) return msg.channel.send(lang.paymedals_one);
 
 	const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 
-	if (msgauthortable.medals < parseInt(args.slice(1).join(" "))) return msg.channel.send('Unfortunately, you do not have enough medals!');
+	if (msgauthortable.medals < parseInt(args.slice(1).join(" "))) return msg.channel.send(lang.paymedals_notenough);
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
@@ -38,7 +38,8 @@ exports.run = async(client, msg, args) => {
 			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [mention.id, 0]);
 		});
 	});
-	return msg.channel.send(`${msg.author}, ${args.slice(1).join(" ")} medal(s) were given to ${mention.tag}!`);
+	var medalsgiven = lang.paymedals_medalsgiven.replace('%author', msg.author).replace('%medalscount', args.slice(1).join(" ")).replace('%mentiontag', mention.tag);
+	return msg.channel.send(medalsgiven);
 };
 
 exports.conf = {

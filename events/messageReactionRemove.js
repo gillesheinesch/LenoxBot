@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, messageReaction, user) => {
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
+	var lang = require(`../languages/${tableload.language}.json`);
 
 	if (!tableload.starboard) {
 		tableload.starboard === 'false';
@@ -21,7 +22,7 @@ exports.run = async(client, messageReaction, user) => {
 			.setColor('#a6a4a8')
 			.setTimestamp()
 			.setFooter(`⭐${messageReaction.count}`)
-			.setDescription(`**Message:** \n ${messageReaction.message.content}`)
+			.setDescription(`**${lang.messagereactionaddevent_message}:** \n ${messageReaction.message.content}`)
 			.setAuthor(`${messageReaction.message.author.tag} (${messageReaction.message.author.id})`, messageReaction.message.author.displayAvatarURL);
 
 			if (messageReaction.message.attachments.size > 0) {

@@ -1,23 +1,27 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	let reason = args.slice(1).join(' ');
 	client.unbanReason = reason;
 	client.unbanAuth = msg.author;
 	let user = args[0];
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply('You must enter the userID to unban the user!').then(m => m.delete(10000));
-	if (!reason) return msg.reply('You must specify a reason for the unban!').then(m => m.delete(10000));
+	if (!user) return msg.reply(lang.unban_nouserid).then(m => m.delete(10000));
+	if (!reason) return msg.reply(lang.unban_noinput).then(m => m.delete(10000));
 
 	msg.guild.unban(user);
-	msg.channel.send(`${user.tag} was successfully unbanned!`).then(m => m.delete(10000));
 
+	var unbanned = lang.unban_unbanned.replace('%usertag', user.tag);
+	msg.channel.send(unbanned).then(m => m.delete(10000));
+
+	var unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	var unbandescription = lang.unban_unbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 	const embed = new Discord.RichEmbed()
-		.setAuthor(`Unbanned by ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
+		.setAuthor(unbannedby, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
 		.setColor(0x00AE86)
 		.setTimestamp()
-		.setDescription(`**Action**: Unban \n**User**: ${user.username}#${user.discriminator} (${user.id}) \n**Reason**: ${reason}`);
+		.setDescription(unbandescription);
 		
 		if (tableload.modlog === 'true') {
 			const modlogchannel = client.channels.get(tableload.modlogchannel);

@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.application) {
@@ -18,7 +18,9 @@ exports.run = async(client, msg, args) => {
 	const channelName = client.channels.get(channelid).name;
 
 	tableload.application.votechannel = channelid;
-	msg.channel.send(`All applications will now be posted in the #**${channelName} ** channel and can be rated accordingly!`);
+
+	var set = lang.votechannel_set.replace('%channelname', `#**${channelName}**`);
+	msg.channel.send(set);
 };
 
 exports.conf = {
@@ -29,7 +31,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'votechannel',
-	description: 'Creates a channel in which all new applications will be posted and can be rated accordingly',
+	description: 'Sets a channel in which all new applications will be posted and can be rated accordingly',
 	usage: 'votechannel',
 	example: ['votechannel'],
 	category: 'application',

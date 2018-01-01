@@ -2,10 +2,11 @@ const Discord = require('discord.js');
 exports.run = (client, member) => {
 	if (client.user.id === member.id) return;
 	const tableconfig = client.guildconfs.get(member.guild.id);
+	var lang = require(`../languages/${tableconfig.language}.json`);
 	if (tableconfig.byelog === 'false') return;
 	const messagechannel = client.channels.get(tableconfig.byelogchannel);
 	const embed = new Discord.RichEmbed()
-	.setFooter(`User left`)
+	.setFooter(lang.guildmemberremoveevent_userleft)
 	.setTimestamp()
 	.setColor('#FF0000')
 	.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);

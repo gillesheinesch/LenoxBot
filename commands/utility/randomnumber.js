@@ -1,13 +1,15 @@
 const Discord = require(`discord.js`);
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	let randomnumber = parseInt(args.slice().join(' '));
 	let randomnumberfinished = Math.floor((Math.random() * randomnumber) + 1);
 
-	if (!randomnumber) return msg.reply('You must enter a number!').then(m => m.delete(10000));
+	if (!randomnumber) return msg.reply(lang.randomnnumber_number).then(m => m.delete(10000));
+
+	var randomnumber = lang.randomnnumber_randomnumber.replace('%randomnumber', randomnumberfinished);
 	const embed = new Discord.RichEmbed()
 	.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
     .setColor('#0066CC')
-	.setDescription(`The random number is: **${randomnumberfinished}**`);
+	.setDescription(randomnumber);
 	msg.channel.send({ embed: embed });
 };
 

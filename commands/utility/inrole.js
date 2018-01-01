@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
-    if (!args.slice().length >= 1) return msg.channel.send('You have to enter the name of the role!');
+exports.run = (client, msg, args, lang) => {
+    if (!args.slice().length >= 1) return msg.channel.send(lang.inrole_noinput);
     try {
         const role = msg.guild.roles.find(r => r.name.toLowerCase() === args.slice().join(' ').toLowerCase());
         var inRole = role.members.array();
@@ -15,7 +15,7 @@ exports.run = (client, msg, args) => {
         .setAuthor(`${role.name} (${array.length})`);
         msg.channel.send({ embed });
     } catch (error) {
-        msg.channel.send('Please make sure that the role you mentioned exists!');
+        msg.channel.send(lang.inrole_rolenotexist);
     }
 };
 

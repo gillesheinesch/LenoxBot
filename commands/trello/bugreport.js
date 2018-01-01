@@ -1,5 +1,5 @@
-exports.run = (client, msg, args) => {
-    if (msg.guild.id !== '352896116812939264') return msg.channel.send('You have to use this command on the official LenoxBot Server: https://discord.gg/5mpwCr8');
+exports.run = (client, msg, args, lang) => {
+    if (msg.guild.id !== '352896116812939264') return msg.channel.send(lang.bugreport_error);
 	if (msg.author.bot) return;
 		let bewerbung = args.slice();
 

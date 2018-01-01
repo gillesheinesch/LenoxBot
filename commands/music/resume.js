@@ -1,12 +1,12 @@
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
 	if (serverQueue && !serverQueue.playing) {
 		serverQueue.playing = true;
 		serverQueue.connection.dispatcher.resume();
-		return msg.channel.send('Resumed the music for you!');
+		return msg.channel.send(lang.resume_resumed);
 	}
-	return msg.channel.send('There is nothing playing.');
+	return msg.channel.send(lang.resume_nothing);
 };
 
 exports.conf = {

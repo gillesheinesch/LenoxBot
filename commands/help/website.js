@@ -1,9 +1,10 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	const embed = new Discord.RichEmbed()
 	.setColor('0066CC')
-	.addField('Here you can find our documentation:', `https://www.monkeyyy11.de/`)
-    .addField('Here you can find our Trello-Website:', `https://trello.com/b/2IoFBIQ8/lenoxbot`);
+	.addField(lang.website_documentation, `https://www.monkeyyy11.de/`)
+	.addField(lang.website_trello, `https://trello.com/b/2IoFBIQ8/lenoxbot`);
+
     msg.channel.send({ embed });
 };
 

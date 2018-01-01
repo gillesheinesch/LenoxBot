@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
-	if (!msg.channel.nsfw) return msg.channel.send('The channel has to be NSFW!');
-	if (!args.slice().length === 0) return msg.channel.send('You have to decide what type of pornography you want to see');
-	if (args.slice() > 1) return msg.channel.send('Your input may not have any spaces!');
+exports.run = async(client, msg, args, lang) => {
+	if (!msg.channel.nsfw) return msg.channel.send(lang.pornsearch_nsfw);
+	if (!args.slice().length === 0) return msg.channel.send(lang.pornsearch_type);
+	if (args.slice() > 1) return msg.channel.send(lang.pornsearch_error);
 	const Pornsearch = require('pornsearch').default.search(args.slice().toString());
 
 

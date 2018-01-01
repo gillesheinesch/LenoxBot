@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
+	var moduledeactivated = lang.activatemodule_moduledeactivated.replace('%modulename', args.slice());
 
 	if (!tableload.modules) {
         tableload.modules = {};
@@ -15,7 +16,7 @@ exports.run = async(client, msg, args) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	if (args.slice().length === 0) return msg.channel.send('You forgot to enter the name of the module you want to disable.');
+	if (args.slice().length === 0) return msg.channel.send(lang.deactivatemodule_noinput);
 
 	const margs = msg.content.split(" ");
 	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application'];
@@ -23,59 +24,59 @@ exports.run = async(client, msg, args) => {
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() == "administration") {
-				return msg.channel.send('Administration commands are always activated and cannot be disabled.');
+				return msg.channel.send(lang.deactivatemodule_administration);
 			} else if (margs[1].toLowerCase() == "utility") {
-				if (tableload.modules.utility === 'false') return msg.channel.send('This module is already disabled');
+				if (tableload.modules.utility === 'false') return msg.channel.send(lang.deactivatemodule_administration);
 				
 				tableload.modules.utility = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was disabled successfully!`);
+				return msg.channel.send(moduledeactivated);
 			} else if (margs[1].toLowerCase() == "music") {
-				if (tableload.modules.music === 'false') return msg.channel.send('This module is already disabled');
+				if (tableload.modules.music === 'false') return msg.channel.send(lang.deactivatemodule_administration);
 				
 				tableload.modules.music = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was disabled successfully!`);
+				return msg.channel.send(moduledeactivated);
 			} else if (margs[1].toLowerCase() == "fun") {
-				if (tableload.modules.fun === 'false') return msg.channel.send('This module is already disabled');
+				if (tableload.modules.fun === 'false') return msg.channel.send(lang.deactivatemodule_administration);
 				
 				tableload.modules.fun = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was disabled successfully!`);
+				return msg.channel.send(moduledeactivated);
 			} else if (margs[1].toLowerCase() == "help") {
-				if (tableload.modules.help === 'false') return msg.channel.send('This module is already disabled');
+				if (tableload.modules.help === 'false') return msg.channel.send(lang.deactivatemodule_administration);
 				
 				tableload.modules.help = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was disabled successfully!`);
+				return msg.channel.send(moduledeactivated);
 			} else if (margs[1].toLowerCase() == "searches") {
-				if (tableload.modules.searches === 'false') return msg.channel.send('This module is already disabled');
+				if (tableload.modules.searches === 'false') return msg.channel.send(lang.deactivatemodule_administration);
 				
 				tableload.modules.searches = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was disabled successfully!`);
+				return msg.channel.send(moduledeactivated);
 			} else if (margs[1].toLowerCase() == "nsfw") {
-				if (tableload.modules.nsfw === 'false') return msg.channel.send('This module is already disabled');
+				if (tableload.modules.nsfw === 'false') return msg.channel.send(lang.deactivatemodule_administration);
 				
 				tableload.modules.nsfw = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was disabled successfully!`);
+				return msg.channel.send(moduledeactivated);
 			} else if (margs[1].toLowerCase() == "moderation") {
-				if (tableload.modules.moderation === 'false') return msg.channel.send('This module is already disabled');
+				if (tableload.modules.moderation === 'false') return msg.channel.send(lang.deactivatemodule_administration);
 				
 				tableload.modules.moderation = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was disabled successfully!`);
+				return msg.channel.send(moduledeactivated);
 			} else if (margs[1].toLowerCase() == "application") {
-				if (tableload.modules.application === 'false') return msg.channel.send('This module is already disabled');
+				if (tableload.modules.application === 'false') return msg.channel.send(lang.deactivatemodule_administration);
 				
 				tableload.modules.application = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was disabled successfully!`);
+				return msg.channel.send(moduledeactivated);
 			}
 		}
 	}
-	msg.channel.send(`This module doesn't exist. Please make sure that you haven't mistyped!`);
+	msg.channel.send(lang.deactivatemodule_error);
 };
 
 exports.conf = {

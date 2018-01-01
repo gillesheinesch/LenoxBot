@@ -1,7 +1,7 @@
 const sql = require("sqlite");
 const Discord = require('discord.js');
 sql.open("../lenoxbotscore.sqlite");
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const user1 = msg.mentions.users.first() || msg.author;
 	const embed = new Discord.RichEmbed()
 	.setColor('#A4F2DF')
@@ -23,13 +23,13 @@ exports.run = async(client, msg, args) => {
 	await sql.all(`SELECT (SELECT COUNT (*) FROM scores WHERE guildId = "${msg.guild.id}") AS allmembers`).then(r => allmembersArray.push(r[0].allmembers));
 	await sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${user1.id}"`).then(row => {
 		if (!row) {
-			embed.addField('Points', `0`, true);
-			embed.addField('Level', `0`, true);
-			embed.addField('Rank', `${rank}/${allmembersArray.join('')}`);
+			embed.addField(lang.rank_points, `0`, true);
+			embed.addField(lang.rank_level, `0`, true);
+			embed.addField(lang.rank_rank, `${rank}/${allmembersArray.join('')}`);
 		} else {
-			embed.addField('Points', row.points, true);
-			embed.addField('Level', row.level, true);
-			embed.addField('Rank', `${rank}/${allmembersArray.join('')}`);
+			embed.addField(lang.rank_points, row.points, true);
+			embed.addField(lang.rank_level, row.level, true);
+			embed.addField(lang.rank_rank, `${rank}/${allmembersArray.join('')}`);
 		}
 		return msg.channel.send({ embed });
 	});

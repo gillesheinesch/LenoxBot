@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, role) => {
     const tableconfig = client.guildconfs.get(role.guild.id);
+    var lang = require(`../languages/${tableconfig.language}.json`);
 
 	for (var i = 0; i < tableconfig.selfassignableroles.length; i++) {
 			if (role.id === tableconfig.selfassignableroles[i]) {
@@ -16,9 +17,9 @@ exports.run = async(client, role) => {
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()
-    .setAuthor('Role deleted!')
-    .addField(`📎 RoleID:`, role.id)
-    .addField(`🔰 HexColor:`, role.hexColor)
-    .addField(`📝 Name:`, role.name);
+    .setAuthor(lang.roledeleteevent_deleted)
+    .addField(`📎 ${lang.rolecreateevent_id}:`, role.id)
+    .addField(`🔰 ${lang.rolecreateevent_color}:`, role.hexColor)
+    .addField(`📝 ${lang.rolecreateevent_name}:`, role.name);
     messagechannel.send({ embed: embed });
 };

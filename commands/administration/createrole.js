@@ -1,14 +1,14 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const input = args.slice();
 
-	if (input.length === 0) return msg.channel.send('You forgot to enter the color and the name of the role!');
-	if (input.length === 1) return msg.channel.send('You forgot to enter the name of the role!');
+	if (input.length === 0) return msg.channel.send(lang.createrole_nocolor);
+	if (input.length === 1) return msg.channel.send(lang.createrole_norolename);
 
 	msg.guild.createRole({
 		name: args.slice(1).join(" "),
 		color: input[0]
-	}).then(msg.channel.send('The role was created successfully!'));
+	}).then(msg.channel.send(lang.createrole_rolecreated));
 };
 
 exports.conf = {

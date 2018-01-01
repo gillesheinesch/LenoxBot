@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.application) {
@@ -20,12 +20,13 @@ exports.run = async(client, msg, args) => {
 		tableload.application.archivechannel = channelid;
 		await client.guildconfs.set(msg.guild.id, tableload);
 		
-		return msg.channel.send(`Processed applications will now be posted in the following Archive Channel: **#${msg.channel.name}**`);
+		var set = lang.togglearchive_set.replace('%channelname', `**#${msg.channel.name}**`);
+		return msg.channel.send(set);
 	} else {
 		tableload.application.archive = false;
 		await client.guildconfs.set(msg.guild.id, tableload);
 		
-		return msg.channel.send('Processed applications are no longer posted in the Archive Channel!');
+		return msg.channel.send(lang.togglearchive_deleted);
 	}
 };
 

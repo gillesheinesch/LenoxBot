@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, oldGuild, newGuild) => {
 	const tableconfig = client.guildconfs.get(oldGuild.id);
+	var lang = require(`../languages/${tableconfig.language}.json`);
 
 	if (!tableconfig.guildupdatelog) {
 		tableconfig.guildupdatelog = 'false';
@@ -16,9 +17,9 @@ exports.run = async(client, oldGuild, newGuild) => {
 		const embed = new Discord.RichEmbed()
 		.setColor('#FE2E2E')
 		.setTimestamp()
-		.setAuthor('Name changed!')
-		.addField(`📤 Old Name:`, oldGuild.name)
-		.addField(`📥 New Name:`, newGuild.name);
+		.setAuthor(lang.guildupdateevent_namechanged)
+		.addField(`📤 ${lang.guildupdateevent_oldname}`, oldGuild.name)
+		.addField(`📥 ${lang.guildupdateevent_newname}`, newGuild.name);
 		messagechannel.send({ embed: embed });
 	}
 
@@ -26,9 +27,9 @@ exports.run = async(client, oldGuild, newGuild) => {
 		const embed = new Discord.RichEmbed()
 		.setColor('#FE2E2E')
 		.setTimestamp()
-		.setAuthor('AFK channel changed!')
-		.addField(`📤 Old AFK Channel:`, oldGuild.afkChannel == null ? `There wasn't an AFK Channel before` : oldGuild.afkChannel.name)
-		.addField(`📥 New AFK Channel:`, newGuild.afkChannel == null ? `There isn't an AFK Channel anymore` : newGuild.afkChannel.name);
+		.setAuthor(lang.guildupdateevent_afkchanged)
+		.addField(`📤 ${lang.guildupdateevent_oldafk}`, oldGuild.afkChannel == null ? lang.guildupdateevent_noafk : oldGuild.afkChannel.name)
+		.addField(`📥 ${lang.guildupdateevent_newafk}`, newGuild.afkChannel == null ? lang.guildupdateevent_noafknow : newGuild.afkChannel.name);
 		messagechannel.send({ embed: embed });
 	}
 
@@ -36,9 +37,9 @@ exports.run = async(client, oldGuild, newGuild) => {
 		const embed = new Discord.RichEmbed()
 		.setColor('#FE2E2E')
 		.setTimestamp()
-		.setAuthor('AFK timeout changed!')
-		.addField(`📤 Old AFK Timeout:`, `${oldGuild.afkTimeout} seconds`)
-		.addField(`📥 New AFK Timeout:`, `${newGuild.afkTimeout} seconds`);
+		.setAuthor(lang.guildupdateevent_afktimeoutchanged)
+		.addField(`📤${lang.guildupdateevent_oldafktimeout}`, `${oldGuild.afkTimeout} ${lang.guildupdateevent_seconds}`)
+		.addField(`📥 ${lang.guildupdateevent_newafktimeout}`, `${newGuild.afkTimeout} ${lang.guildupdateevent_seconds}`);
 		messagechannel.send({ embed: embed });
 	}
 
@@ -46,9 +47,9 @@ exports.run = async(client, oldGuild, newGuild) => {
 		const embed = new Discord.RichEmbed()
 		.setColor('#FE2E2E')
 		.setTimestamp()
-		.setAuthor('Servericon changed!')
-		.addField(`📤 Old Servericon:`, oldGuild.iconURL == null ? `There wasn't a servericon before` : oldGuild.iconURL)
-		.addField(`📥 New Servericon:`, newGuild.iconURL == null ? `There isn't an Servericon anymore` : newGuild.iconURL);
+		.setAuthor(lang.guildupdateevent_servericonchanged)
+		.addField(`📤 ${lang.guildupdateevent_oldservericon}`, oldGuild.iconURL == null ? lang.guildupdateevent_noservericon : oldGuild.iconURL)
+		.addField(`📥 ${lang.guildupdateevent_newservericon}`, newGuild.iconURL == null ? lang.guildupdateevent_noservericonnow : newGuild.iconURL);
 		messagechannel.send({ embed: embed });
 	}
 
@@ -56,9 +57,9 @@ exports.run = async(client, oldGuild, newGuild) => {
 		const embed = new Discord.RichEmbed()
 		.setColor('#FE2E2E')
 		.setTimestamp()
-		.setAuthor('Owner changed!')
-		.addField(`📤 Old Owner:`, oldGuild.owner.user.tag)
-		.addField(`📥 New Owner:`, newGuild.owner.user.tag);
+		.setAuthor(lang.guildupdateevent_ownerchanged)
+		.addField(`📤 ${lang.guildupdateevent_oldowner}`, oldGuild.owner.user.tag)
+		.addField(`📥 ${lang.guildupdateevent_newowner}`, newGuild.owner.user.tag);
 		messagechannel.send({ embed: embed });
 	}
 };

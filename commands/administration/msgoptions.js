@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
     const embed = new Discord.RichEmbed()
     .setColor('#7FFFD4')
-    .setDescription('$username$ = Username of the new member \n$userid$ = UserID of the new member \n$guildname$ = the name of this guild \n$guildid$ = the id of this guild')
-    .setAuthor('Welcome/Bye message options:');
+    .setDescription(`$username$ = ${lang.msgoptions_username} \n$userid$ = ${lang.msgoptions_userid} \n$guildname$ = ${lang.msgoptions_guildname} \n$guildid$ = ${lang.msgoptions_guildid}`)
+    .setAuthor(lang.msgoptions_embed);
     msg.channel.send({ embed });
 };
 

@@ -1,11 +1,13 @@
-exports.run = async(client, msg, args) => {    
+exports.run = async(client, msg, args, lang) => {    
     const tableload = client.guildconfs.get(msg.guild.id);
     const content = args.slice().join(" ");
-    if (!content) return msg.channel.send('You must enter your welcome message!');
+
+    if (!content) return msg.channel.send(lang.welcomemsg_error);
+
     tableload.welcomemsg = content;
     await client.guildconfs.set(msg.guild.id, tableload);
-    
-    return msg.channel.send('Welcome message saved successfully!');
+
+    return msg.channel.send(lang.welcomemsg_set);
 };
 
 exports.conf = {

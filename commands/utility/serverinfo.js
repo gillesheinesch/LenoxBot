@@ -1,19 +1,20 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	const servercreated = moment(msg.guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
+
 	const embed = new Discord.RichEmbed()
 		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
 		.setColor('#0066CC')
 		.setTimestamp()
 		.setThumbnail(msg.guild.iconURL)
-		.addField(`🤵 Members`, msg.guild.memberCount)
-		.addField(`🗻 Region`, msg.guild.region)
-		.addField(`📲 Channels`, msg.guild.channels.size)
-		.addField(`⏳ Server created`, servercreated)
-		.addField('☑ Verification level', msg.guild.verificationLevel || 'The server has no verification level')
-		.addField(`📤 AFK-Channel`, `<#${msg.guild.afkChannelID}>` || 'The server does not have an AFK channel');
+		.addField(`🤵 ${lang.serverinfo_members}`, msg.guild.memberCount)
+		.addField(`🗻 ${lang.serverinfo_region}`, msg.guild.region)
+		.addField(`📲 ${lang.serverinfo_channels}`, msg.guild.channels.size)
+		.addField(`⏳ ${lang.serverinfo_created}`, servercreated)
+		.addField(`☑ ${lang.serverinfo_verification}`, msg.guild.verificationLevel || lang.serverinfo_noverification)
+		.addField(`📤 ${lang.serverinfo_afkchannel}`, `<#${msg.guild.afkChannelID}>` || lang.serverinfo_noafkchannel);
 
 	msg.channel.send({ embed: embed });
 };

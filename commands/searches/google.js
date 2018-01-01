@@ -2,13 +2,13 @@ const request = require('request-promise');
 const Discord = require('discord.js');
 exports.run = async (client, msg, args) => {
 	if (args.length < 1) {
-		return msg.reply('Please specify what you are looking for');
+		return msg.reply(lang.google_noinput);
 	}
 	
 	const filter = ['porno', 'xnxx', 'pornhub', 'porn', 'livesex', 'nsfw'];
 
 	for (var i = 0; i < filter.length; i++) {
-		if (args.includes(filter[i])) return msg.channel.send('You can not use the Google command for such things');
+		if (args.includes(filter[i])) return msg.channel.send(lang.google_nsfw);
 	}
 
 	const input = args.slice().join(" ").toLowerCase();

@@ -1,28 +1,32 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	let reason = args.slice(2).join(' ');
 	let days = args.slice(1).join(' ');
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply('You must mention a user to softban!').then(m => m.delete(10000));
-	if (user === msg.author) return msg.channel.send('You can not softban yourself!');
-	if (!days[0]) return msg.reply(`You haven't specified the number of days.`);
-	if (isNaN(days[0]) === true) return msg.reply('You have to specify of how many days you want to have the messages of @User deleted! (Up to 7 days)');
-	if (parseInt(days[0]) > 8) return msg.reply('You can only delete the messages up to the last 7 days.');
-	if (!reason) return msg.reply('You must specify a reason for the softban!').then(m => m.delete(10000));
+	if (!user) return msg.reply(lang.softban_nomention).then(m => m.delete(10000));
+	if (user === msg.author) return msg.channel.send(lang.softban_yourself);
+	if (!days[0]) return msg.reply(lang.softban_daysundefined);
+	if (isNaN(days[0]) === true) return msg.reply(lang.softban_nonumber);
+	if (parseInt(days[0]) > 8) return msg.reply(lang.softban_max7);
+	if (!reason) return msg.reply(lang.softban_noinput).then(m => m.delete(10000));
 
-	if (!msg.guild.member(user).bannable) return msg.reply('I can not softban this user!').then(m => m.delete(10000));
+	if (!msg.guild.member(user).bannable) return msg.reply(lang.softban_nopermission).then(m => m.delete(10000));
 	await msg.guild.ban(user, { days: days[0] });
 	await msg.guild.unban(user);
-	msg.channel.send(`${user.tag} was successfully softbaned and the messages of the last ${days[0]} days were deleted!`).then(m => m.delete(5000));
 
+	var softbanned = lang.softban_softbanned.replace('%usertag', user.tag).replace('%days', days[0]);
+	msg.channel.send(softbanned).then(m => m.delete(5000));
+
+	var softbanby = lang.softban_softbanby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	var softbandescription = lang.softban_softbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason).replace('%days', days[0]);
 	const embed = new Discord.RichEmbed()
-	.setAuthor(`Softban by ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
+	.setAuthor(softbanby, msg.author.displayAvatarURL)
 	.setThumbnail(user.displayAvatarURL)
 	.setColor('#FF0000')
 	.setTimestamp()
-	.setDescription(`**Action**: Softban \n**User**: ${user.username}#${user.discriminator} (${user.id}) \n**Reason**: ${reason} \n**Messages of ${days[0]} got deleted`);
+	.setDescription(softbandescription);
 
 	user.send({ embed: embed });
 

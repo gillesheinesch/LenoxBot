@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
+	var moduleactivated = lang.activatemodule_moduleactivated.replace('%modulename', args.slice());
 
 	if (!tableload.modules) {
 		tableload.modules = {};
@@ -15,7 +16,7 @@ exports.run = async(client, msg, args) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	if (args.slice().length === 0) return msg.channel.send('You forgot to enter the name of the module you wanted to reactivate!');
+	if (args.slice().length === 0) return msg.channel.send(lang.activatemodule_noinput);
 
 	const margs = msg.content.split(" ");
 	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application'];
@@ -23,59 +24,59 @@ exports.run = async(client, msg, args) => {
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() == "administration") {
-				msg.channel.send('Administration commands are always activated!');
+				return msg.channel.send(lang.activatemodule_administration);
 			} else if (margs[1].toLowerCase() == "utility") {
-				if (tableload.modules.utility = 'true') return msg.channel.send('This module is already activated');
+				if (tableload.modules.utility = 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.utility = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() == "music") {
-				if (tableload.modules.music === 'true') return msg.channel.send('This module is already activated');
+				if (tableload.modules.music === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.music = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() == "fun") {
-				if (tableload.modules.fun === 'true') return msg.channel.send('This module is already activated');
+				if (tableload.modules.fun === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.fun = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() == "help") {
-				if (tableload.modules.help === 'true') return msg.channel.send('This module is already activated');
+				if (tableload.modules.help === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.help = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() == "searches") {
-				if (tableload.modules.searches === 'true') return msg.channel.send('This module is already activated');
+				if (tableload.modules.searches === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.searches = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() == "nsfw") {
-				if (tableload.modules.nsfw === 'true') return msg.channel.send('This module is already activated');
+				if (tableload.modules.nsfw === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.nsfw = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() == "moderation") {
-				if (tableload.modules.moderation === 'true') return msg.channel.send('This module is already activated');
+				if (tableload.modules.moderation === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.moderation = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() == "application") {
-				if (tableload.modules.application === 'true') return msg.channel.send('This module is already activated');
+				if (tableload.modules.application === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.application = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(`${args.slice()} module was activated successfully!`);
+				return msg.channel.send(moduleactivated);
 			}
 		}
 	}
-	msg.channel.send(`This module doesn't exist. Please make sure that you haven't mistyped!`);
+	msg.channel.send(lang.activatemodule_error);
 };
 
 exports.conf = {

@@ -1,121 +1,123 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
     const tableload = client.guildconfs.get(msg.guild.id);
+    var commandinfo = lang.events_commandinfo.replace('%prefix', tableload.prefix);
+
     const embed = new Discord.RichEmbed()
     .setColor('0066CC')
-    .setFooter(`You can get a list of all available events with ${tableload.prefix}listevents`)
-    .setAuthor(`All active/disabled events!`);
+    .setFooter(commandinfo)
+    .setAuthor(lang.events_events);
 
     if (tableload.modlog === 'true') {
         const channelID = tableload.modlogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Modlog active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Modlog ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Modlog disabled', `/`);
+        embed.addField(`❌ Modlog ${lang.events_disabled}`, `/`);
     }
 
     if (tableload.messagedellog === 'true') {
         const channelID = tableload.messagedellogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Messagedelete active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Messagedelete ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Messagedelete disabled', `/`);
+        embed.addField(`❌ Messagedelete ${lang.events_disabled}`, `/`);
     }
 
     if (tableload.messageupdatelog === 'true') {
         const channelID = tableload.messageupdatelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Messageupdate active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Messageupdate ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Messageupdate disabled', `/`);
+        embed.addField(`❌ Messageupdate ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.channelupdatelog === 'true') {
+    if (tableload.channelupdatelog === `true`) {
         const channelID = tableload.channelupdatelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Channelupdate active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Channelupdate ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Channelupdate disabled', `/`);
+        embed.addField(`❌ Channelupdate ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.channelcreatelog === 'true') {
+    if (tableload.channelcreatelog === `true`) {
         const channelID = tableload.channelcreatelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Channelcreate active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Channelcreate ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Channelcreate disabled', `/`);
+        embed.addField(`❌ Channelcreate ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.channeldeletelog === 'true') {
+    if (tableload.channeldeletelog === `true`) {
         const channelID = tableload.channeldeletelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Channeldelete active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Channeldelete ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Channeldelete disabled', `/`);
+        embed.addField(`❌ Channeldelete ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.guildmemberupdatelog === 'true') {
+    if (tableload.guildmemberupdatelog === `true`) {
         const channelID = tableload.guildmemberupdatelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Memberupdate active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Memberupdate ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Memberupdate disabled', `/`);
+        embed.addField(`❌ Memberupdate ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.presenceupdatelog === 'true') {
+    if (tableload.presenceupdatelog === `true`) {
         const channelID = tableload.presenceupdatelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Presenceupdate active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Presenceupdate ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Presenceupdate disabled', `/`);
+        embed.addField(`❌ Presenceupdate ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.welcomelog === 'true') {
+    if (tableload.welcomelog === `true`) {
         const channelID = tableload.welcomelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Userjoin active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Userjoin ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Userjoin disabled', `/`);
+        embed.addField(`❌ Userjoin ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.byelog === 'true') {
+    if (tableload.byelog === `true`) {
         const channelID = tableload.byelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Userleft active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Userleft ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Userleft disabled', `/`);
+        embed.addField(`❌ Userleft ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.rolecreatelog === 'true') {
+    if (tableload.rolecreatelog === `true`) {
         const channelID = tableload.rolecreatelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Rolecreate active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Rolecreate ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Rolecreate disabled', `/`);
+        embed.addField(`❌ Rolecreate ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.roledeletelog === 'true') {
+    if (tableload.roledeletelog === `true`) {
         const channelID = tableload.roledeletelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Roledelete active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Roledelete ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Roledelete disabled', `/`);
+        embed.addField(`❌ Roledelete ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.roleupdatelog === 'true') {
+    if (tableload.roleupdatelog === `true`) {
         const channelID = tableload.roleupdatelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Roleupdate active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Roleupdate ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Roleupdate disabled', `/`);
+        embed.addField(`❌ Roleupdate ${lang.events_disabled}`, `/`);
     }
 
-    if (tableload.guildupdatelog === 'true') {
+    if (tableload.guildupdatelog === `true`) {
         const channelID = tableload.guildupdatelogchannel;
         const channelName = client.channels.get(channelID).name;
-        embed.addField('✅ Guildupdate active', `#${channelName} (${channelID})`);
+        embed.addField(`✅ Guildupdate ${lang.events_active}`, `#${channelName} (${channelID})`);
     } else {
-        embed.addField('❌ Guildupdate disabled', `/`);
+        embed.addField(`❌ Guildupdate ${lang.events_disabled}`, `/`);
     }
     msg.channel.send({ embed });
 };

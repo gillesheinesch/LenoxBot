@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const sql = require("sqlite");
 sql.open("../lenoxbotscore.sqlite");
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const content = args.slice();
 	let input = parseInt(args.slice().join(' '));
 	const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
@@ -22,8 +22,8 @@ exports.run = async(client, msg, args) => {
 	let embed = new Discord.RichEmbed()
 	.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 	.setColor('#009933')
-	.addField('Name', tempArray.slice(0, 20).join('\n'), true)
-	.addField('Medals', moneyArray.slice(0, 20).join('\n'), true);
+	.addField(lang.medalsranks_name, tempArray.slice(0, 20).join('\n'), true)
+	.addField(lang.medalsranks_medals, moneyArray.slice(0, 20).join('\n'), true);
 
 		const message = await msg.channel.send({ embed });
 		
@@ -49,8 +49,8 @@ exports.run = async(client, msg, args) => {
 			const newembed = new Discord.RichEmbed()
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('#009933')
-			.addField('Name', thesecond.join('\n'), true)
-			.addField('Medals', thefirst.join('\n'), true);
+			.addField(lang.medalsranks_name, thesecond.join('\n'), true)
+			.addField(lang.medalsranks_medals, thefirst.join('\n'), true);
 		
 		message.edit({ embed: newembed });
 	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -62,8 +62,8 @@ exports.run = async(client, msg, args) => {
 			second = second - 20;
 		
 			const newembed = new Discord.RichEmbed()
-			.addField('Name', thesecond.join('\n'), true)
-			.addField('Medals', thefirst.join('\n'), true)
+			.addField(lang.medalsranks_name, thesecond.join('\n'), true)
+			.addField(lang.medalsranks_medals, thefirst.join('\n'), true)
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('#009933');
 		

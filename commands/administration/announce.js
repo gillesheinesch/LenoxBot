@@ -1,11 +1,14 @@
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
     const tableload = client.guildconfs.get(msg.guild.id);
-    const text = args.slice().join(' ');
-    if (tableload.announce === 'false') return msg.channel.send(`You must first define where announcements should be posted. \nUse the following command \`${tableload.prefix}toggleannounce\` to activate announcements in your current channel!`);
-	if (!text) return msg.channel.send('You forgot to enter a text!').then(m => m.delete(10000));
+	const text = args.slice().join(' ');
+	
+	var announceactivated = lang.annnounce_announcedeactivated.replace('%prefix', tableload.prefix);
+	if (tableload.announce === 'false') return msg.channel.send(announceactivated);
+
+	if (!text) return msg.channel.send(lang.annnounce_noinput).then(m => m.delete(10000));
 	const announcechannel = tableload.announcechannel;
 	client.channels.get(announcechannel).send(text);
-	msg.channel.send('Announcement successfully sent!').then(m => m.delete(10000));
+	msg.channel.send(lang.annnounce_annoucementsent).then(m => m.delete(10000));
 };
 
 exports.conf = {

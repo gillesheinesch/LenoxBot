@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const config = require('../../settings.json');
 	const { Client, Util } = require('discord.js');
 	const YouTube = require('simple-youtube-api');
@@ -14,7 +14,7 @@ exports.run = async(client, msg, args) => {
 
 
 	const voiceChannel = msg.member.voiceChannel;
-	if (!voiceChannel) return msg.channel.send(`I'm sorry but you need to be in a voice channel to play music!`);
+	if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
 	const permissions = voiceChannel.permissionsFor(msg.client.user);
 	if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
 		const playlist = await youtube.getPlaylist(url);
@@ -23,7 +23,8 @@ exports.run = async(client, msg, args) => {
 			const video2 = await youtube.getVideoByID(video.id);
 			await handleVideo(video2, msg, voiceChannel, true);
 		}
-		return msg.channel.send(`Playlist: **${playlist.title}** has been added to the queue!`);
+		var playlistadded = lang.play_playlistadded.replace('%playlisttitle', `**${playlist.title}**`);
+		return msg.channel.send(playlistadded);
 	} else {
 		try {
 			var video = await youtube.getVideo(url);
@@ -34,11 +35,11 @@ exports.run = async(client, msg, args) => {
 				const embed = new Discord.RichEmbed()
 				.setColor('#7BB3FF')
 				.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
-				.setAuthor(`Song selection:`, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
+				.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 
 				const embed2 = new Discord.RichEmbed()
 				.setColor('#0066CC')
-				.setDescription('Please provide a value to select one of the search results ranging from 1-10.');
+				.setDescription(lang.play_value);
 				msg.channel.send({ embed });
 				msg.channel.send({ embed: embed2 });
 				try {
@@ -48,12 +49,12 @@ exports.run = async(client, msg, args) => {
 						errors: ['time']
 					});
 				} catch (err) {
-					return msg.channel.send('No or invalid value entered, cancelling video selection.');
+					return msg.channel.send(lang.play_error);
 				}
 				const videoIndex = parseInt(response.first().content);
 				var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
 			} catch (err) {
-				return msg.channel.send('I could not obtain any search results.');
+				return msg.channel.send(lang.play_noresult);
 			}
 		}
 		return handleVideo(video, msg, voiceChannel);
@@ -91,12 +92,15 @@ exports.run = async(client, msg, args) => {
 				} catch (error) {
 					queue.delete(msg.guild.id);
 					skipvote.delete(msg.guild.id);
-					return msg.channel.send(`I could not join the voice channel: ${error}`);
+					return msg.channel.send(lang.play_errorjoin);
 				}
 			} else {
 				await serverQueue.songs.push(song);
 				if (playlist) return undefined;
-				else return msg.channel.send(`**${song.title}** has been added to the queue!`);
+				else {
+					var songadded = lang.play_songadded.replace('%songtitle', `**${song.title}**`);
+					return msg.channel.send(songadded);
+				}
 			}
 			return undefined;
 		}
@@ -123,7 +127,8 @@ exports.run = async(client, msg, args) => {
 			};
 			skipvote.set(msg.guild.id, vote);
 
-			serverQueue.textChannel.send(`Start playing: **${song.title}**`);
+			var startplaying = lang.play_startplaying.replace('%songtitle', `**${song.title}**`);
+			serverQueue.textChannel.send(startplaying);
 		}
 };
 

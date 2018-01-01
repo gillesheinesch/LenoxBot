@@ -1,14 +1,15 @@
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	const prefix = client.guildconfs.get(msg.guild.id).prefix;
+
 	if (!args[0]) {
 		const embed = new Discord.RichEmbed()
-		.addField('To add this bot to your Discordserver:', `https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8`)
-		.addField('Any questions/suggestions/bugs, join our discord server:', `https://discord.gg/5mpwCr8`)
-		.addField('To see all modules of the bot:', `${prefix}modules`)
-		.addField('To see all commands in a module:', `${prefix}commands {modulename}`)
-		.addField('To see more details about a command:', `${prefix}help {commandname}`)
-		.addField('Documentation', 'https://monkeyyy11.de')
+		.addField(lang.help_addthebot, `https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8`)
+		.addField(lang.help_discordserver, `https://discord.gg/5mpwCr8`)
+		.addField(lang.help_modulecommand, `${prefix}modules`)
+		.addField(lang.help_commandscommand, `${prefix}commands {modulename}`)
+		.addField(lang.help_helpcommand, `${prefix}help {commandname}`)
+		.addField(lang.help_documentation, 'https://monkeyyy11.de')
 		.setColor('#ff3300')
 		.setAuthor(client.user.username, client.user.displayAvatarURL);
 	
@@ -18,6 +19,9 @@ exports.run = (client, msg, args) => {
 		if (client.commands.has(command)) {
 			command = client.commands.get(command);
 
+			if (command.help.category == 'botowner' && msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
+			if (command.help.category == 'staff' && !msg.member.roles.get('386627285119402006')) return msg.channel.send('You dont have permissions to execute this command!');
+
 			var aliases = [];
 			if (command.conf.aliases.length !== 0) {
 				for (var i = 0; i < command.conf.aliases.length; i++) {
@@ -32,17 +36,22 @@ exports.run = (client, msg, args) => {
 				}
 			}
 
+			var category = lang.help_category.replace('%category', command.help.category);
 			const commandembed = new Discord.RichEmbed()
 			.setColor('#45A081')
 			.setAuthor(`${prefix}${command.conf.aliases.length !== 0 ? `${command.help.name} / ` : command.help.name} ${aliases.join(" / ")}`)
-			.setDescription(command.help.description)
-			.addField('Usage', prefix + command.help.usage)
-			.addField('Example(s)', examples.join("\n"))
-			.setFooter(`Module: ${command.help.category}`);
+			.setDescription(lang[`${command.help.name}_description`])
+			.addField(lang.help_usage, prefix + command.help.usage)
+			.addField(lang.help_example, examples.join("\n"))
+			.setFooter(category);
+		
 			return msg.channel.send({ embed: commandembed });
 		} else if (client.aliases.has(command)) {
 			command = client.commands.get(client.aliases.get(command));
 
+			if (command.help.category == 'botowner' && msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
+			if (command.help.category == 'staff' && !msg.member.roles.get('386627285119402006')) return msg.channel.send('You dont have permissions to execute this command!');
+
 			var aliases = [];
 			if (command.conf.aliases.length !== 0) {
 				for (var i = 0; i < command.conf.aliases.length; i++) {
@@ -57,17 +66,18 @@ exports.run = (client, msg, args) => {
 				}
 			}
 
+			var category = lang.help_category.replace('%category', command.help.category);
 			const aliasembed = new Discord.RichEmbed()
 			.setColor('#45A081')
 			.setAuthor(`${prefix}${command.conf.aliases.length !== 0 ? `${command.help.name} / ` : command.help.name} ${aliases.join(" / ")}`)
-			.setDescription(command.help.description)
-			.addField('Usage', prefix + command.help.usage)
-			.addField('Example', examples.join("\n"))
-			.setFooter(`Module: ${command.help.category}`);
+			.setDescription(lang[`${command.help.name}_description`])
+			.addField(lang.help_usage, prefix + command.help.usage)
+			.addField(lang.help_example, examples.join("\n"))
+			.setFooter(category);
 			return msg.channel.send({ embed: aliasembed });
 		}
 	}
-	msg.channel.send(`This command name or command alias doesn't exist`);
+	msg.channel.send(lang.help_error);
 };
 
 exports.conf = {

@@ -1,14 +1,19 @@
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
 	const volumeinput = msg.content.split(' ');
-	if (!msg.member.voiceChannel) return msg.channel.send('You are not in a voice channel, please join a voice channel to play music!');
-	if (!serverQueue) return msg.channel.send('There is nothing playing.');
-	if (!volumeinput[1]) return msg.channel.send(`The current volume is: **${serverQueue.volume}**`);
-	if (volumeinput > 5) return msg.channel.send('You can only specify a volume between 1-5');
+
+	if (!msg.member.voiceChannel) return msg.channel.send(lang.volume_notvoicechannel);
+	if (!serverQueue) return msg.channel.send(lang.volume_nothing);
+	var currentvolume = lang.volume_currentvolume.replace('%volume', serverQueue.volume);
+	if (!volumeinput[1]) return msg.channel.send(currentvolume);
+	if (volumeinput > 5) return msg.channel.send(lang.volume_error);
+
 	serverQueue.volume = volumeinput[1];
 	serverQueue.connection.dispatcher.setVolumeLogarithmic(volumeinput[1] / 5);
-	return msg.channel.send(`I set the volume to: **${volumeinput[1]}**`);
+
+	var volumeset = lang.volume_volumeset.replace('%volumeinput', volumeinput[1]);
+	return msg.channel.send(volumeset);
 };
 
 exports.conf = {

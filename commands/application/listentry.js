@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-exports.run = async(client, msgf, args) => {
-	const tableload = client.guildconfs.get(msgf.guild.id);
+exports.run = async(client, msg, args, lang) => {
+	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.application) {
 		tableload.application = {
@@ -11,7 +11,7 @@ exports.run = async(client, msgf, args) => {
 			archivechannel: false,
 			archivechannellog: ''
 		};
-		await client.guildconfs.set(msgf.guild.id, tableload);
+		await client.guildconfs.set(msg.guild.id, tableload);
     }
 
     const templates = [];
@@ -22,10 +22,10 @@ exports.run = async(client, msgf, args) => {
 		for (var i = 0; i < tableload.application.template.length; i++) {
 			templates.push(tableload.application.template[i]);
 		}
-		embed.addField('All current templates:', templates.join("\n"), true);
-		return msgf.channel.send({ embed: embed });
+		embed.addField(lang.listentry_current, templates.join("\n"), true);
+		return msg.channel.send({ embed: embed });
 	} catch (error) {
-		return msg.channel.send('There are no defined entries in the template yet');
+		return msg.channel.send(lang.listentry_error);
     }
 };
 

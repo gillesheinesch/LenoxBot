@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
-exports.run = async (client, msg, args) => {
+exports.run = async (client, msg, args, lang) => {
 	const api = require('clashroyale');
 	const validation = ['clan', 'profile'];
 	const margs = msg.content.split(" ");
 
-	if (!args[0] && !args[1]) return msg.channel.send('You have to enter if you want to search for a profile/clan. Then you have to enter the ID of the clan or the profile.');
+	if (!args[0] && !args[1]) return msg.channel.send(lang.clashroyale_noinput);
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
@@ -15,18 +15,21 @@ exports.run = async (client, msg, args) => {
 					profileResult.currentDeck.forEach(function(x){
 						array.push(x.name);
 					});
+
+					var profilestats = lang.clashroyale_profilestats.replace('%level', profileResult.experience.level).replace('%maxtrophies', profileResult.stats.maxTrophies).replace('%gamesplayed', profileResult.games.total).replace('%wins', profileResult.games.wins).replace('%loses', profileResult.games.losses).replace('%draw', profileResult.games.draws);
+					var clanstats = lang.clashroyale_clanstats.replace('%clanname', profileResult.clan.name).replace('%clanrole', profileResult.clan.role);
 					const embed = new Discord.RichEmbed()
 					.setAuthor(`${profileResult.name} (#${profileResult.tag})`)
-					.setFooter('ClashRoyale Profile Stats')
+					.setFooter(lang.clashroyale_profilerequest)
 					.setThumbnail('https://cdn.discordapp.com/attachments/353085017687064576/375975148341166080/oBvObTIz.png')
 					.setColor('#f45942')
-					.addField('Profile', `Level: ${profileResult.experience.level} \nMax Trophies: ${profileResult.stats.maxTrophies} \nGames played: ${profileResult.games.total} (${profileResult.games.wins} W/${profileResult.games.losses} L/${profileResult.games.draws} D)`)
-					.addField(`Arena`, `${profileResult.arena.arena} (${profileResult.arena.name})`)
-					.addField('Clan', `Name: ${profileResult.clan.name} \nRole: ${profileResult.clan.role}`)
-					.addField('Current Deck', `${array.join(', ')}`);
+					.addField(lang.clashroyale_profile, profilestats)
+					.addField(lang.clashroyale_arena, `${profileResult.arena.arena} (${profileResult.arena.name})`)
+					.addField(lang.clashroyale_clan, clanstats)
+					.addField(lang.clashroyale_deck, `${array.join(', ')}`);
 					return msg.channel.send({ embed });
 				} catch (error) {
-					return msg.channel.send('Could not find the Clash Royale profile. Please make sure you have entered the ID of your profile!');
+					return msg.channel.send(lang.clashroyale_errorprofile);
 				}
 		} else if (margs[1].toLowerCase() == "clan") {
 			try {
@@ -36,24 +39,28 @@ exports.run = async (client, msg, args) => {
 					clanArray.push(x.name);
 				});
 
+				var claninfo = lang.clashroyale_claninfo.replace('%clandescription', clanResult.description).replace('%type', clanResult.typeName).replace('%membercount', clanResult.memberCount).replace('%score', clanResult.score).replace('%donations', clanResult.donations);
+				var clanchestinfo = lang.clashroyale_clanchestinfo.replace('%crowns', clanResult.clanChest.clanChestCrowns).replace('%neededcrowns', clanResult.clanChest.clanChestCrownsRequired).replace('%crownspercent', clanResult.clanChest.clanChestCrownsPercent)
 				const embed = new Discord.RichEmbed()
 				.setAuthor(`${clanResult.name} (#${clanResult.tag})`)
-				.setFooter('ClashRoyale Clan Stats')
+				.setFooter(lang.clashroyale_clanrequest)
 				.setThumbnail('https://cdn.discordapp.com/attachments/353085017687064576/375975148400017408/Clan-Battle.png')
 				.setColor('#56bf88')
-				.addField('Clan', `Description: ${clanResult.description} \nType: ${clanResult.typeName}\nMembercount: ${clanResult.memberCount} \nScore: ${clanResult.score} \nDonations: ${clanResult.donations}`)
-				.addField(`Clanchest`, `Crowns: ${clanResult.clanChest.clanChestCrowns}/${clanResult.clanChest.clanChestCrownsRequired} \nCrowns Percent ${clanResult.clanChest.clanChestCrownsPercent} % \n`)
-				.addField('All members', `${clanArray.join(', ')}`);
+				.addField(lang.clashroyale_clan, claninfo)
+				.addField(lang.clashroyale_clanchest, clanchestinfo)
+				.addField(lang.clashroyale_allmembers, `${clanArray.join(', ')}`);
 				return msg.channel.send({ embed });
 				
 			} catch (error) {
-				return msg.channel.send('Could not find the Clash Royale clan. Please make sure you have the ID of your clan!');
+				return msg.channel.send(lang.clashroyale_errorclan);
 			}
 		}
 		}
 	} 
 	const tableload = client.guildconfs.get(msg.guild.id);
-	msg.channel.send(`It looks like you were looking for something invalid. You have the choice of having statistics displayed by a Clash Royale \`profile\` or \`clan\`! For more help: ${tableload.prefix}help clashroyale`);
+
+	var errorclan = lang.clashroyale_errorclan.replace('%prefix', tableload.prefix);
+	return msg.channel.send(errorclan);
 };
 
 exports.conf = {

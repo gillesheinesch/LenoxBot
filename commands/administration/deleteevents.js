@@ -1,6 +1,6 @@
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
     const tableload = client.guildconfs.get(msg.guild.id);
-    if (tableload.modlog === 'false' && tableload.messagedellog === 'false' && tableload.messageupdatelog === 'false' && tableload.channelupdatelog === 'false' && tableload.channelcreatelog === 'false' && tableload.channeldeletelog === 'false' && tableload.guildmemberupdatelog === 'false' && tableload.presenceupdatelog === 'false' && tableload.welcomelog === 'false' && tableload.byelog === 'false' && tableload.rolecreatelog === 'false' && tableload.roledeletelog === 'false' && tableload.roleupdatelog === 'false') return msg.channel.send('There are no active events!');
+    if (tableload.modlog === 'false' && tableload.messagedellog === 'false' && tableload.messageupdatelog === 'false' && tableload.channelupdatelog === 'false' && tableload.channelcreatelog === 'false' && tableload.channeldeletelog === 'false' && tableload.guildmemberupdatelog === 'false' && tableload.presenceupdatelog === 'false' && tableload.welcomelog === 'false' && tableload.byelog === 'false' && tableload.rolecreatelog === 'false' && tableload.roledeletelog === 'false' && tableload.roleupdatelog === 'false') return msg.channel.send(lang.deleteevents_noactiveevents);
     
     if (tableload.modlog === 'true') {
         tableload.modlog = 'false';
@@ -60,7 +60,7 @@ exports.run = async(client, msg, args) => {
 
     await client.guildconfs.set(msg.guild.id, tableload);
     
-    return msg.channel.send(`${msg.author}, All **active** events are now disabled!`);
+    return msg.channel.send(lang.deleteevents_eventsdisabled);
 };
 
 exports.conf = {

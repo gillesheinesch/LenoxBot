@@ -3,6 +3,7 @@ exports.run = (client, channel) => {
     if (channel.type !== 'text') return;
 
     const tableconfig = client.guildconfs.get(channel.guild.id);
+    var lang = require(`../languages/${tableconfig.language}.json`);
     if (tableconfig.channeldeletelog === 'false') return;
 
     const messagechannel = client.channels.get(tableconfig.channeldeletelogchannel);
@@ -10,8 +11,8 @@ exports.run = (client, channel) => {
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()
-    .setAuthor('Channel deleted!')
-    .addField(`📎 ChannelID:`, channel.id)
-    .addField(`📝 Name:`, channel.name);
+    .setAuthor(lang.channeldeleteevent_channeldeleted)
+    .addField(`📎 ${lang.channelcreateevent_channelid}:`, channel.id)
+    .addField(`📝 ${lang.channelcreateevent_name}:`, channel.name);
     messagechannel.send({ embed: embed });
 };

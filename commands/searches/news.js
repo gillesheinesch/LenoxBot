@@ -1,13 +1,14 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const api = client.newsapi;
 	var index = 0;
 	var margs = msg.content.split(" ");
 
 	const validationofnewspaper = ['abc-news-au', 'al-jazeera-english', 'ars-technica', 'associated-press', 'bbc-news', 'bbc-sport', 'bild', 'bloomberg', 'breitbart-news', 'business-insider', 'business-insider-uk', 'buzzfeed', 'cnbc', 'cnn', 'daily-mail', 'der-tagesspiegel', 'die-zeit', 'engadget'];
 	
+	var newsnotexist = lang.news_newsnotexist.replace('%newslist', validationofnewspaper.join(', '));
 	var newspaper = new Discord.RichEmbed()
-	.setDescription(`**It looks like you've entered a newspaper that does not exist! \nHere a list of all available newspaper:** \n\n${validationofnewspaper.join(', ')}`)
+	.setDescription(newsnotexist)
 	.setColor('#76c65d');
 
 	if (!margs[1]) return msg.channel.send({ embed: newspaper });
@@ -32,20 +33,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send(`Command cancelled. You haven't replied for 20 seconds!`);
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'abc-news-au') {
 				const r = await api.articles({
@@ -66,20 +67,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'al-jazeera-english') {
 				const r = await api.articles({
@@ -100,20 +101,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'ars-technica') {
 				const r = await api.articles({
@@ -134,20 +135,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'associated-press') {
 				const r = await api.articles({
@@ -168,20 +169,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'bbc-news') {
 				const r = await api.articles({
@@ -202,20 +203,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'bbc-sport') {
 				const r = await api.articles({
@@ -236,20 +237,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'ars-technica') {
 				const r = await api.articles({
@@ -270,20 +271,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'bloomberg') {
 				const r = await api.articles({
@@ -304,20 +305,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'breitbart-news') {
 				const r = await api.articles({
@@ -338,20 +339,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'business-insider') {
 				const r = await api.articles({
@@ -372,20 +373,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'business-insider-uk') {
 				const r = await api.articles({
@@ -406,20 +407,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'buzzfeed') {
 				const r = await api.articles({
@@ -440,20 +441,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'cnbc') {
 				const r = await api.articles({
@@ -474,20 +475,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'cnn') {
 				const r = await api.articles({
@@ -508,20 +509,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'daily-mail') {
 				const r = await api.articles({
@@ -542,20 +543,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'der-tagesspiegel') {
 				const r = await api.articles({
@@ -576,20 +577,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'die-zeit') {
 				const r = await api.articles({
@@ -610,20 +611,20 @@ exports.run = async(client, msg, args) => {
 					});
 					try {
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			} else if (margs[1].toLowerCase() === 'engadget') {
 				const r = await api.articles({
@@ -645,20 +646,20 @@ exports.run = async(client, msg, args) => {
 					try {
 						console.log(r.articles[response1.first().content - 1].author);
 						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : "No author")
+							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : "No description")
+							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : "No publication date"}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
 					} catch (error) {
-						return msg.channel.send('It looks like you have selected a wrong article. Please make sure that the article really exists! found!');
+						return msg.channel.send(lang.news_articlenotexist);
 					}
 				} catch (error) {
-					return msg.channel.send('Command cancelled. You haven\'t replied for 20 seconds.!');
+					return msg.channel.send(lang.news_noanswer);
 				}
 			}
 		}

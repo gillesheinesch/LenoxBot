@@ -1,13 +1,13 @@
 const Discord = require('discord.js');
 const ms = require('ms');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const mention = msg.mentions.members.first() || msg.author;
 	const tableload = client.guildconfs.get(msg.guild.id);
 	let dateArray = [];
 	let oldnickname = [];
 	let newnickname = [];
 
-	if (tableload.nicknamelog.length === 0) return msg.channel.send('No user has changed his nickname on this server yet!');
+	if (tableload.nicknamelog.length === 0) return msg.channel.send(lang.nicknamelog_error);
 
 	const array = [];
 	for (var i = 0; i < tableload.nicknamelog.length; i += 4) {
@@ -19,14 +19,14 @@ exports.run = async(client, msg, args) => {
 		}
 	}
 
-	if (array.length === 0) return msg.channel.send('You or the mentioned user has not changed his nickname yet.');
+	if (array.length === 0) return msg.channel.send(lang.nicknamelog_nonicknamelog);
 
 	let embed = new Discord.RichEmbed()
 		.setAuthor(`${mention.username}#${mention.discriminator}`)
 		.setColor('#ccff33')
-		.addField('Old Nickname', oldnickname.slice(0, 20).join('\n'), true)
-		.addField('New Nickname', newnickname.slice(0, 20).join('\n'), true)
-		.addField('Changed at', dateArray.slice(0, 20).join('\n'), true);
+		.addField(lang.nicknamelog_old, oldnickname.slice(0, 20).join('\n'), true)
+		.addField(lang.nicknamelog_new, newnickname.slice(0, 20).join('\n'), true)
+		.addField(lang.nicknamelog_changedat, dateArray.slice(0, 20).join('\n'), true);
 
 	const message = await msg.channel.send({ embed });
 

@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
     const tableload = client.botconfs.get('donators');
 
-    if (tableload.donators.length < 1) return msg.reply('There are no donators who support this project!');
+    if (tableload.donators.length < 1) return msg.reply(lang.donators_nodonators);
 
     const embed = new Discord.RichEmbed()
     .setColor('#77f442')
-    .setAuthor('Thanks to all, listed below, donors! Thanks to you there is this project still! <3')
+    .setAuthor(lang.donators_thankyou)
     .setDescription(tableload.donators.join(' , '));
     msg.channel.send({ embed });
 };

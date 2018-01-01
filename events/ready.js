@@ -99,5 +99,5 @@ exports.run = async client => {
 	  .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE')
 	  .send({ server_count: client.guilds.size })
 	  .then(() => console.log('Updated discordbots.org stats.'))
-	 .catch(err => console.error(`Whoops something went wrong: ${err.body}`));
+	 .catch(err => console.error(`Whoops something went wrong: ${err.body}`)); 
 };

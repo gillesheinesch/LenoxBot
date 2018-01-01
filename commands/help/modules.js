@@ -1,10 +1,13 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
+
+	var commandscommand = lang.modules_commandscommand.replace('%prefix', tableload.prefix);
 	const embed = new Discord.RichEmbed()
-    .setFooter(`You can use ${tableload.prefix}commands {modulename} to get a list of all commands in a module.`)
+    .setFooter(commandscommand)
     .setColor('0066CC')
-	.setDescription('**A list of all modules**\n► Administration \n► Moderation \n► Help \n► Music \n► Fun \n► Searches \n► NSFW \n► Utility \n► Application');
+	.setDescription(`**${lang.modules_embed}**\n► Administration \n► Moderation \n► Help \n► Music \n► Fun \n► Searches \n► NSFW \n► Utility \n► Application`);
 
 	msg.channel.send({ embed });
 };

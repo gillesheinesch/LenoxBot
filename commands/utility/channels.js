@@ -1,15 +1,15 @@
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	msg.channel.sendMessage('', {
 		embed: {
 			color: 3447003,
-			description: `**📋 All text-channels:**\n${msg.guild.channels.filter(textChannel => textChannel.type === `text`).map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`).join('\n') || 'No text-channels on this server!'}`
+			description: `**📋 ${lang.channels_textchannels}**\n${msg.guild.channels.filter(textChannel => textChannel.type === `text`).map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`).join('\n') || lang.channels_notextchannels}`
 
 		}
 	});
 	msg.channel.sendMessage('', {
 		embed: {
 			color: 3447003,
-			description: `**📡 All voice-channels:**\n${msg.guild.channels.filter(voiceChannel => voiceChannel.type === `voice`).map(voicechannel => `**${voicechannel.name}** (*${voicechannel.id}*)`).join('\n') || 'No voice-channels on this server!'}`
+			description: `**📡 ${lang.channels_voicechannels}**\n${msg.guild.channels.filter(voiceChannel => voiceChannel.type === `voice`).map(voicechannel => `**${voicechannel.name}** (*${voicechannel.id}*)`).join('\n') || lang.channels_novoicechannels}`
 		}
 	});
 };

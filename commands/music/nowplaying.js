@@ -1,8 +1,10 @@
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
     const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
-	if (!serverQueue) return msg.channel.send('There is nothing playing.');
-	return msg.channel.send(`Now playing: **${serverQueue.songs[0].title}**`);
+	if (!serverQueue) return msg.channel.send(lang.nowplaying_nothing);
+
+	var nowplaying = lang.nowplaying_nowplaying.replace('%songtitle', `**${serverQueue.songs[0].title}**`);
+	return msg.channel.send(nowplaying);
 };
 
 exports.conf = {

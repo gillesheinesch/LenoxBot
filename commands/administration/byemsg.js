@@ -1,11 +1,11 @@
-exports.run = async(client, msg, args) => {	
+exports.run = async(client, msg, args, lang) => {	
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const content = args.slice().join(" ");
-	if (!content) return msg.channel.send('You must enter your bye message!');
+	if (!content) return msg.channel.send(lang.byemsg_noinput);
 	tableload.byemsg = content;
 	await client.guildconfs.set(msg.guild.id, tableload);
 	
-	return msg.channel.send('Goodbye message saved successfully!');
+	return msg.channel.send(lang.byemsg_goodbyemsgset);
 };
 
 exports.conf = {

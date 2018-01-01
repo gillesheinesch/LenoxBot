@@ -1,16 +1,16 @@
 const config = require('../../settings.json');
 const request = require("request");
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 		const tableload = client.guildconfs.get(msg.guild.id);
 	if (!args[0]) {
-		return msg.channel.send("You must include a query. Alternatively, you can check usage via `" + tableload.prefix + "help " + msg.content.slice(config.prefix.length) + "`").then(m => m.delete(20000));
+		return msg.channel.send(lang.youtube_noinput + tableload.prefix + "help " + msg.content.slice(config.prefix.length) + "`").then(m => m.delete(20000));
 	}
 	var url = "https://www.googleapis.com/youtube/v3/search?part=id,snippet&q=" + args + "&maxResults=1&type=video&key=" + config.googlekey;
 	request(url, function(err, response, body) {
 		if (err) {
 			console.log("[ERROR]" + err);
-			return msg.channel.send("There is no video by that name.").then(m => m.delete(10000));
+			return msg.channel.send(lang.youtube_error).then(m => m.delete(10000));
 		}
 		var search = JSON.parse(body);
 		try {
@@ -27,7 +27,7 @@ exports.run = (client, msg, args) => {
 			.setFooter(url);
 			return msg.channel.send({ embed: embed });
 		} catch (err) {
-			return msg.channel.send("I can't find a video matching that query!").then(m => m.delete(10000));
+			return msg.channel.send(lang.youtube_noresult).then(m => m.delete(10000));
 		}
 	});
 };

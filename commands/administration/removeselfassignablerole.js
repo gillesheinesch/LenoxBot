@@ -1,10 +1,10 @@
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	let addedrole = args.slice().join(' ');
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
 
-	if (addedrole.length < 1) return msg.reply('You must specify the name of the role!').then(m => m.delete(10000));
-	if (!foundRole) return msg.reply('This role does not exist at all!').then(m => m.delete(10000));
+	if (addedrole.length < 1) return msg.reply(lang.removeselfassignablerole_noinput).then(m => m.delete(10000));
+	if (!foundRole) return msg.reply(lang.removeselfassignablerole_rolenotexist).then(m => m.delete(10000));
 
 	for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 		if (foundRole.id === tableload.selfassignableroles[i]) {
@@ -17,10 +17,10 @@ exports.run = async(client, msg, args) => {
 				}
 				await client.guildconfs.set(msg.guild.id, tableload);
 		
-				return msg.channel.send('Role has been successfully removed from self-assignable roles!');
+				return msg.channel.send(lang.removeselfassignablerole_roleremoved);
 		} 
 	}
-	return msg.channel.send('You did not add this role to the self-assignable roles!');
+	return msg.channel.send(lang.removeselfassignablerole_error);
 };
 
 exports.conf = {

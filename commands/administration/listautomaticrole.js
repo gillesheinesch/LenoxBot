@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
     const roles = [];
 	const points = [];
@@ -16,15 +16,15 @@ exports.run = async(client, msg, args) => {
 		for (var i = 0; i < tableload.ara.length; i += 2) {
 			roles.push(msg.guild.roles.get(tableload.ara[i]).name);
 		}
-        embed.addField('Automatic assignable roles', roles.join("\n"), true);
+        embed.addField(lang.listautomaticrole_embed, roles.join("\n"), true);
         
         for (var i = 1; i < tableload.ara.length; i += 2) {
 			points.push(tableload.ara[i]);
         }
-        embed.addField('Points', points.join("\n"), true);
+        embed.addField(lang.listautomaticrole_points, points.join("\n"), true);
 		return msg.channel.send({ embed: embed });
 	} catch (error) {
-		return msg.channel.send('There are no roles, that can be gotten by a certain amount of points until now');
+		return msg.channel.send(lang.listautomaticrole_error);
 	}
 };
 

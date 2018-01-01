@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (args.length < 1) return msg.reply('You forgot to insert the name of the role.');
+	if (args.length < 1) return msg.reply(lang.muterole_noinput);
 
 	const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(" ").toLowerCase());
-	if (!role) return msg.reply('This role does not exist at all!').then(m => m.delete(10000));
+	if (!role) return msg.reply(lang.muterole_rolenotexist).then(m => m.delete(10000));
 
 	if (!tableload.muterole) {
 		tableload.muterole = '';
@@ -15,7 +15,7 @@ exports.run = async(client, msg, args) => {
 
 	tableload.muterole = role.id;
 	await client.guildconfs.set(msg.guild.id, tableload);
-	msg.channel.send('The muted role was set.');
+	msg.channel.send(lang.muterole_mutedroleset);
 };
 
 exports.conf = {

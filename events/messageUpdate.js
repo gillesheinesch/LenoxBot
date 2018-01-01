@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
 exports.run = (client, oldMsg, msg) => {
-    const tableconfig = client.guildconfs.get(msg.guild.id);
+	const tableconfig = client.guildconfs.get(msg.guild.id);
+	var lang = require(`../languages/${tableconfig.language}.json`);
     if (msg.author.bot) return;
-	if (msg.channel.type !== 'text') return msg.reply('You must run the commands on a Discord server on which the Discord Bot is available');
+	if (msg.channel.type !== 'text') return msg.reply(lang.messageevent_error);
 	const tableload = client.guildconfs.get(msg.guild.id);
 	if (tableconfig.messageupdatelog === 'true') {
     const messagechannel = client.channels.get(tableconfig.messageupdatelogchannel);
@@ -10,12 +11,12 @@ exports.run = (client, oldMsg, msg) => {
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')
     .setTimestamp()
-    .setAuthor('Message updated!')
-    .addField(`🗣 Author:`, msg.author.tag)
-    .addField(`📲 Channel:`, `#${msg.channel.name} (${msg.channel.id})`)
-    .addField(`📎 MessageID:`, msg.id)
-    .addField(`📤 Old Message:`, oldMsg.cleanContent)
-    .addField(`📥 New Message:`, msg.cleanContent);
+    .setAuthor(lang.messageupdateevent_updated)
+    .addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
+    .addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
+    .addField(`📎 ${lang.messagedeleteevent_mid}:`, msg.id)
+    .addField(`📤 ${lang.messageupdateevent_old}:`, oldMsg.cleanContent)
+    .addField(`📥 ${lang.messageupdateevent_new}:`, msg.cleanContent);
     messagechannel.send({ embed: embed });
 	}
 }
@@ -31,16 +32,16 @@ exports.run = (client, oldMsg, msg) => {
 	if (cmd) {
 		const banlistembed = new Discord.RichEmbed()
 		.setColor('#FF0000')
-		.setDescription('Unfortunately, this server was set to the bot\'s banlist. All users on this server cannot execute commands of this bot anymore.')
-		.addField('If you have any questions, feel free to join our Discord server', 'https://discord.gg/5mpwCr8')
-		.addField('You can also create a ban appeal:', 'http://bit.ly/2wQ2SYF')
+		.setDescription(lang.messageevent_banlist)
+		.addField(lang.messageevent_support, 'https://discord.gg/5mpwCr8')
+		.addField(lang.messageevent_banappeal, 'http://bit.ly/2wQ2SYF')
 		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
 
 		const blacklistembed = new Discord.RichEmbed()
 		.setColor('#FF0000')
-		.setDescription('Unfortunately, you were set to the bot\'s blacklist. You cannot execute commands of this bot anymore.')
-		.addField('If you have any questions, feel free to join our Discord server', 'https://discord.gg/5mpwCr8')
-		.addField('You can also create a ban appeal:', 'http://bit.ly/2wQ2SYF')
+		.setDescription(lang.messageevent_blacklist)
+		.addField(lang.messageevent_support, 'https://discord.gg/5mpwCr8')
+		.addField(lang.messageevent_banappeal, 'http://bit.ly/2wQ2SYF')
 		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
 		const botconfsload = client.botconfs.get('blackbanlist');
@@ -62,8 +63,10 @@ exports.run = (client, oldMsg, msg) => {
 		messagechannel.send({ embed: activityembed });
 	}
 
-		if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(`It looks like the bot hasn't enough permissions to execute this command! (Required permissions: ${cmd.help.botpermissions.join(', ')})`);
-		if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(`It looks like you haven't enough permissions to execute this command! (Required permissions: ${cmd.conf.userpermissions.join(', ')})`);
+	var botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.help.botpermissions.join(', '));
+	var usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.conf.userpermissions.join(', '));
+	if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(botnopermission);
+	if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(usernopermission);
 
 		cmd.run(client, msg, args);
 		if (tableload.commanddel === 'true') {

@@ -1,6 +1,7 @@
 const slotThing = [':grapes:', ':tangerine:', ':pear:', ':cherries:'];
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+
+exports.run = (client, msg, args, lang) => {
 	const slotOne = slotThing[Math.floor(Math.random() * slotThing.length)];
 	const slotTwo = slotThing[Math.floor(Math.random() * slotThing.length)];
 	const slotThree = slotThing[Math.floor(Math.random() * slotThing.length)];
@@ -8,20 +9,20 @@ exports.run = (client, msg, args) => {
 		const embed1 = new Discord.RichEmbed()
 		.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 		.setColor('#3ADF00')
-		.addField(`${slotOne}|${slotTwo}|${slotThree}`, `Triple! Congratulations, you won!`);
+		.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_triple);
 		msg.channel.send({ embed: embed1 });
 	} else 
 	if (slotOne === slotTwo || slotTwo === slotThree) {
 		const embed3 = new Discord.RichEmbed()
 		.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 		.setColor('#3ADF00')
-		.addField(`${slotOne}|${slotTwo}|${slotThree}`, `Double! Congratulations, you won!`);
+		.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_double);
 		msg.channel.send({ embed: embed3 });
 	} else {
 	const embed2 = new Discord.RichEmbed()
 	.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 	.setColor('#3ADF00')
-	.addField(`${slotOne}|${slotTwo}|${slotThree}`, `Unfortunately you lost!`);
+	.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_nothing);
 		msg.channel.send({ embed: embed2 });
 	}
 };

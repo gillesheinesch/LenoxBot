@@ -135,6 +135,7 @@ exports.run = async(client, messageReaction, user) => {
 	}
 
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
+	var lang = require(`../languages/${tableload.language}.json`);
 
 	// Definiert starboard und starboardchannel wenn das noch nicht getan wurde
 	if (!tableload.starboard) {
@@ -152,7 +153,7 @@ exports.run = async(client, messageReaction, user) => {
 		// Wenn der, der auf die Message reactet hat, nicht der Author ist, dann...
 		if (user.id === messageReaction.message.author.id) {
 			messageReaction.remove(messageReaction.message.author);
-			return messageReaction.message.channel.send('You can not give a star on your own message').then(m => m.delete(20000));
+			return messageReaction.message.channel.send(lang.messagereactionaddevent_error).then(m => m.delete(20000));
 		}
 
 		// Wenn es die erste :star: Reaktion ist
@@ -163,7 +164,7 @@ exports.run = async(client, messageReaction, user) => {
 		.setColor('#a6a4a8')
 		.setTimestamp()
 		.setFooter(`⭐${messageReaction.count++}`)
-		.setDescription(`**Message:** \n ${messageReaction.message.content}`)
+		.setDescription(`**${lang.messagereactionaddevent_message}:** \n ${messageReaction.message.content}`)
 		.setAuthor(`${messageReaction.message.author.tag} (${messageReaction.message.author.id})`, messageReaction.message.author.displayAvatarURL);
 
 		if (messageReaction.message.attachments.size > 0) {

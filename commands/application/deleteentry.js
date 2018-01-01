@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
+exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.application) {
@@ -16,7 +16,7 @@ exports.run = async(client, msg, args) => {
     
     let input = args.slice().join(' ');
 
-	if (input.length < 1) return msg.reply('You have to decide which entry you want to remove from the template!').then(m => m.delete(10000));
+	if (input.length < 1) return msg.reply(lang.deleteentry_noinput).then(m => m.delete(10000));
 
 	for (var i = 0; i < tableload.application.template.length; i++) {
 		if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {
@@ -28,10 +28,11 @@ exports.run = async(client, msg, args) => {
 				}
 				await client.guildconfs.set(msg.guild.id, tableload);
 		
-				return msg.channel.send(`${input} was successfully removed from the template`);
+				var removed = lang.deleteentry_removed.replace('%entry', input);
+				return msg.channel.send(removed);
 		} 
 	}
-	return msg.channel.send('This entry does not exist in the template');
+	return msg.channel.send(lang.deleteentry_notexists);
 };
 
 exports.conf = {

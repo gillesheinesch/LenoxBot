@@ -1,23 +1,26 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	let reason = args.slice(1).join(' ');
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply('You must mention a user to ban!').then(m => m.delete(10000));
-	if (user === msg.author) return msg.channel.send('You can not ban yourself!');
-	if (!reason) return msg.reply('You must specify a reason for the ban!').then(m => m.delete(10000));
+	if (!user) return msg.reply(ban_nomention).then(m => m.delete(10000));
+	if (user === msg.author) return msg.channel.send(ban_yourself);
+	if (!reason) return msg.reply(ban_noinput).then(m => m.delete(10000));
 
-	if (!msg.guild.member(user).bannable) return msg.reply('I can not ban this user!').then(m => m.delete(10000));
+	if (!msg.guild.member(user).bannable) return msg.reply(ban_nopermission).then(m => m.delete(10000));
 	msg.guild.ban(user);
-	msg.channel.send(`${user.tag} was successfully banned!`).then(m => m.delete(5000));
 
+	var banned = lang.ban_banned.replace('%usertag', user.tag);
+	msg.channel.send(banned);
+
+	var bandescription = lang.ban_embed.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
 	const embed = new Discord.RichEmbed()
-	.setAuthor(`Banned by ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
+	.setAuthor(`${lang.ban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
 	.setThumbnail(user.displayAvatarURL)
 	.setColor('#FF0000')
 	.setTimestamp()
-	.setDescription(`**Action**: Ban \n**User**: ${user.username}#${user.discriminator} (${user.id}) \n**Reason**: ${reason}`);
+	.setDescription(bandescription);
 
 	user.send({ embed: embed });
 
