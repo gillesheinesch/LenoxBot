@@ -3,6 +3,7 @@ sql.open("../lenoxbotscore.sqlite");
 const Discord = require('discord.js');
 exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
+	var lang = require(`../languages/en.json`);
 	if (msg.channel.type !== 'text') return msg.reply(lang.messageevent_error);
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
@@ -85,7 +86,6 @@ exports.run = async(client, msg) => {
 	if (!msg.content.startsWith(tableload.prefix)) return;
 	var command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
 	var args = msg.content.split(' ').slice(1);
-    var lang = require(`../languages/en.json`);
 	let cmd;
 
 	if (client.commands.has(command)) {
