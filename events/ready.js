@@ -96,7 +96,7 @@ exports.run = async client => {
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
 
-	if (client.id === '354712333853130752') {
+	if (client.user.id === '354712333853130752') {
 		const snekfetch = require('snekfetch');
 		snekfetch.post(`https://discordbots.org/api/bots/stats`)
 		  .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE')
