@@ -15,7 +15,7 @@ exports.run = async(client, msg, args, lang) => {
 			array.push(true);
 			const member = msg.guild.member(tableload.warnlog[i + 3]);
 
-			var warnedbyandon = lang.warnlog_warnedbyandon.replace('%membername', member.displayName).replace('%date', new Date(tableload.warnlog[i + 1]);
+			var warnedbyandon = lang.warnlog_warnedbyandon.replace('%membername', member.displayName).replace('%date', new Date(tableload.warnlog[i + 1]));
 			firstfield.push(warnedbyandon);
 			secondfield.push(tableload.warnlog[i + 2]);
 		}
