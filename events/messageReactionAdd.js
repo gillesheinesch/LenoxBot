@@ -135,7 +135,7 @@ exports.run = async(client, messageReaction, user) => {
 	}
 
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
-	var lang = require(`../languages/${tableload.language}.json`);
+    var lang = require(`../languages/en.json`);
 
 	// Definiert starboard und starboardchannel wenn das noch nicht getan wurde
 	if (!tableload.starboard) {

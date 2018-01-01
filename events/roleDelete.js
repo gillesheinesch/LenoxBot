@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, role) => {
     const tableconfig = client.guildconfs.get(role.guild.id);
-    var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/en.json`);
 
 	for (var i = 0; i < tableconfig.selfassignableroles.length; i++) {
 			if (role.id === tableconfig.selfassignableroles[i]) {

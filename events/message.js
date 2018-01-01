@@ -85,7 +85,7 @@ exports.run = async(client, msg) => {
 	if (!msg.content.startsWith(tableload.prefix)) return;
 	var command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
 	var args = msg.content.split(' ').slice(1);
-	var lang = require(`../languages/${tableload.language}.json`);
+    var lang = require(`../languages/en.json`);
 	let cmd;
 
 	if (client.commands.has(command)) {

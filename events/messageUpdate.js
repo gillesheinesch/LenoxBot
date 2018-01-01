@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, oldMsg, msg) => {
 	const tableconfig = client.guildconfs.get(msg.guild.id);
-	var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/en.json`);
     if (msg.author.bot) return;
 	if (msg.channel.type !== 'text') return msg.reply(lang.messageevent_error);
 	const tableload = client.guildconfs.get(msg.guild.id);

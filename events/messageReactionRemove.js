@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, messageReaction, user) => {
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
-	var lang = require(`../languages/${tableload.language}.json`);
+    var lang = require(`../languages/en.json`);
 
 	if (!tableload.starboard) {
 		tableload.starboard === 'false';

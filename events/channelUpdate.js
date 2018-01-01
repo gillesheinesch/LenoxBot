@@ -3,7 +3,7 @@ exports.run = (client, oldChannel, newChannel) => {
     if (newChannel.type !== 'text' || oldChannel.type !== 'text') return;
 
     const tableconfig = client.guildconfs.get(newChannel.guild.id);
-    var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/en.json`);
     if (tableconfig.channelupdatelog === 'false') return;
 
     const messagechannel = client.channels.get(tableconfig.channelupdatelogchannel);

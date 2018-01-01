@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, oldMember, newMember) => {
 	const tableconfig = client.guildconfs.get(newMember.guild.id);
-	var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/en.json`);
 
 if (oldMember.nickname !== newMember.nickname) {
 	if (!tableconfig.nicknamelog) {

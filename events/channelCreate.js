@@ -3,7 +3,7 @@ exports.run = (client, channel) => {
     if (channel.type !== 'text') return;
 
     const tableconfig = client.guildconfs.get(channel.guild.id);
-    var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/en.json`);
     if (!tableconfig) return;
     if (tableconfig.channelcreatelog === 'false') return;
 

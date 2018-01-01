@@ -66,7 +66,7 @@ exports.run = async(client, guild) => {
 	await client.guildconfs.set(guild.id, defaultSettings);
 	
 	const tableconfig = client.guildconfs.get(guild.id);
-	var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/en.json`);
 
 	var message = lang.guildcreateevent_message.replace('%ownername', guild.owner.user.username);
 	guild.owner.send(message);
