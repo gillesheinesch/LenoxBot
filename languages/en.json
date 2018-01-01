@@ -689,8 +689,8 @@
     "messagereactionaddevent_message": "Message",
 
     "messageupdateevent_updated": "Message updated!",
-    "messageupdateevent_old": "Old Message:",
-    "messageupdateevent_new": "New Message:",
+    "messageupdateevent_old": "Old Message",
+    "messageupdateevent_new": "New Message",
 
     "presenceupdateevent_changed": "Presence changed!",
     "presenceupdateevent_member": "Member",
