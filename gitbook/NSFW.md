@@ -2,4 +2,4 @@
 
 | Command | Description | Required permissions |
 | :--- | :--- | :--- |
-|?pornsearch               | Makes it possible to search for NSFW/pornography | any
+|pornsearch               | Makes it possible to search for NSFW/pornography | any

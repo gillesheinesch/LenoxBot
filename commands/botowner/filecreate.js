@@ -5,7 +5,7 @@ exports.run = (client, msg, args) => {
 	const commandNames = Array.from(client.commands.keys());
 	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
-	fs.writeFile(`gitbook/${args.join(" ")}.md`, `# ${args.join(" ")} commands\n\n| Command | Description | Required permissions |\n| :--- | :--- | :--- |\n|${client.commands.filter(c => c.help.category === args.join(" ").toLowerCase()).map(cmd => `${tableload.prefix}${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} | ${cmd.help.description} | ${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'any'}`).join("|\n|")}`, function (err) {
+	fs.writeFile(`gitbook/${args.join(" ")}.md`, `# ${args.join(" ")} commands\n\n| Command | Description | Required permissions |\n| :--- | :--- | :--- |\n|${client.commands.filter(c => c.help.category === args.join(" ").toLowerCase()).map(cmd => `${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} | ${cmd.help.description} | ${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'any'}`).join("|\n|")}`, function (err) {
 		console.log(`File created`);
 	});
 };
