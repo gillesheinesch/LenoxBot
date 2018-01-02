@@ -40,7 +40,7 @@ exports.run = async (client, msg, args, lang) => {
 				});
 
 				var claninfo = lang.clashroyale_claninfo.replace('%clandescription', clanResult.description).replace('%type', clanResult.typeName).replace('%membercount', clanResult.memberCount).replace('%score', clanResult.score).replace('%donations', clanResult.donations);
-				var clanchestinfo = lang.clashroyale_clanchestinfo.replace('%crowns', clanResult.clanChest.clanChestCrowns).replace('%neededcrowns', clanResult.clanChest.clanChestCrownsRequired).replace('%crownspercent', clanResult.clanChest.clanChestCrownsPercent)
+				var clanchestinfo = lang.clashroyale_clanchestinfo.replace('%crowns', clanResult.clanChest.clanChestCrowns).replace('%neededcrowns', clanResult.clanChest.clanChestCrownsRequired).replace('%crownspercent', clanResult.clanChest.clanChestCrownsPercent);
 				const embed = new Discord.RichEmbed()
 				.setAuthor(`${clanResult.name} (#${clanResult.tag})`)
 				.setFooter(lang.clashroyale_clanrequest)
