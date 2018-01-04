@@ -87,7 +87,7 @@ exports.run = async(client, msg, args) => {
 					}
 					spamchannel.send(`${msg.author}, You have successfully received 100 medals!`);
 				});
-				normaleventcollector.on('end', (collected, reason) => {
+				lenoxbotcollector.on('end', (collected, reason) => {
 					message.delete();
 				});
 			}
