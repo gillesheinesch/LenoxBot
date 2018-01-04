@@ -85,7 +85,7 @@ exports.run = async(client, msg, args) => {
 							});
 						});
 					}
-					msg.channel.send(`${msg.author}, You have successfully received 100 medals!`);
+					spamchannel.send(`${msg.author}, You have successfully received 100 medals!`);
 				});
 				normaleventcollector.on('end', (collected, reason) => {
 					message.delete();
