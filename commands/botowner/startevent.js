@@ -17,10 +17,10 @@ exports.run = async(client, msg, args) => {
 				var normalevent = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`The medal collection event has begun! \nTo participate, you only have to react with "🏅". \nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command ?medals`)
+					.setDescription(`To participate, you only have to react with "🏅". \n\nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command ?medals`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('New Event started!');
+					.setAuthor('The medal collection event has begun!');
 
 				const message = await msg.channel.send({
 					embed
@@ -55,10 +55,10 @@ exports.run = async(client, msg, args) => {
 				var lenoxbot = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`The "LenoxBot" SPAM event has begun! \nTo participate, you only have to write "LenoxBot" in the #spam channel. \nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command ?medals`)
+					.setDescription(`To participate, you only have to write "LenoxBot" in the #spam channel. \n\nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command ?medals`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('New Event started!');
+					.setAuthor('The "LenoxBot" SPAM event has begun!');
 
 				const message = await msg.channel.send({
 					embed
