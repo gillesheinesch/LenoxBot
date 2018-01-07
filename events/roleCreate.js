@@ -1,8 +1,14 @@
 const Discord = require('discord.js');
 exports.run = (client, role) => {
     const tableconfig = client.guildconfs.get(role.guild.id);
-    var lang = require(`../languages/en.json`);
     if (tableconfig.rolecreatelog === 'false') return;
+
+    if (tableconfig.language === '') {
+        tableconfig.language = 'en';
+        client.guildconfs.set(role.guild.id, tableconfig);
+	}
+
+    var lang = require(`../languages/${tableconfig.language}.json`);
 
     const messagechannel = client.channels.get(tableconfig.rolecreatelogchannel);
 

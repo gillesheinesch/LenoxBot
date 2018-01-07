@@ -135,7 +135,6 @@ exports.run = async(client, messageReaction, user) => {
 	}
 
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
-    var lang = require(`../languages/en.json`);
 
 	// Definiert starboard und starboardchannel wenn das noch nicht getan wurde
 	if (!tableload.starboard) {
@@ -147,6 +146,13 @@ exports.run = async(client, messageReaction, user) => {
 	// Wenn starboard nicht aktiviert ist oder der Channel nicht festgelegt wurde, dann wird das Event hier abgebrochen
 	if (tableload.starboardchannel === '') return;
 	if (tableload.starboard === 'false') return;
+
+	if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(messageReaction.message.guild.id, tableload);
+	}
+
+	var lang = require(`../languages/${tableload.language}.json`);
 
 	// Wenn die Reaktion auf der Message :star: ist, führt er weiter aus
 	if (messageReaction.emoji.name === '⭐') {

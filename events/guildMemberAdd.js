@@ -1,7 +1,14 @@
 const Discord = require('discord.js');
 exports.run = (client, member) => {
 	const tableconfig = client.guildconfs.get(member.guild.id);
-    var lang = require(`../languages/en.json`);
+
+	if (tableconfig.language === '') {
+        tableconfig.language = 'en';
+        client.guildconfs.set(member.guild.id, tableconfig);
+	}
+
+	var lang = require(`../languages/${tableconfig.language}.json`);
+
 	if (tableconfig.welcomelog === 'true') {
 	const messagechannel = client.channels.get(tableconfig.welcomelogchannel);
 	const embed = new Discord.RichEmbed()

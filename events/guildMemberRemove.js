@@ -1,9 +1,18 @@
 const Discord = require('discord.js');
 exports.run = (client, member) => {
 	if (client.user.id === member.id) return;
+
 	const tableconfig = client.guildconfs.get(member.guild.id);
-    var lang = require(`../languages/en.json`);
+
 	if (tableconfig.byelog === 'false') return;
+
+	if (tableconfig.language === '') {
+        tableconfig.language = 'en';
+        client.guildconfs.set(member.guild.id, tableconfig);
+	}
+
+	var lang = require(`../languages/${tableconfig.language}.json`);
+
 	const messagechannel = client.channels.get(tableconfig.byelogchannel);
 	const embed = new Discord.RichEmbed()
 	.setFooter(lang.guildmemberremoveevent_userleft)

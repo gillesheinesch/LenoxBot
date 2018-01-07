@@ -1,4 +1,9 @@
 {
+    "language_already": "The language of the bot for this server is already %language",
+    "language_changed": "Language of the bot for this server successfully changed to %input",
+    "language_error": "This language is not available",
+    "language_description": "Changes the language of the bot for this server",
+
     "activatemodule_noinput": "You forgot to enter the name of the module you wanted to reactivate!",
     "activatemodule_administration": "Administration commands are always activated!",
     "activatemodule_alreadyactivated": "This module is already activated",

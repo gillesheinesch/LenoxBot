@@ -1,7 +1,13 @@
 const Discord = require('discord.js');
 exports.run = async(client, oldGuild, newGuild) => {
 	const tableconfig = client.guildconfs.get(oldGuild.id);
-    var lang = require(`../languages/en.json`);
+
+	if (tableconfig.language === '') {
+        tableconfig.language = 'en';
+        client.guildconfs.set(oldGuild.id, tableconfig);
+	}
+
+	var lang = require(`../languages/${tableconfig.language}.json`);
 
 	if (!tableconfig.guildupdatelog) {
 		tableconfig.guildupdatelog = 'false';

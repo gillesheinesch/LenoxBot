@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async(client, messageReaction, user) => {
 	const tableload = client.guildconfs.get(messageReaction.message.guild.id);
-    var lang = require(`../languages/en.json`);
 
 	if (!tableload.starboard) {
 		tableload.starboard === 'false';
@@ -12,6 +11,13 @@ exports.run = async(client, messageReaction, user) => {
 
 	if (tableload.starboardchannel === '') return;
 	if (tableload.starboard === 'false') return;
+
+	if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(messageReaction.message.guild.id, tableload);
+	}
+
+	var lang = require(`../languages/${tableload.language}.json`);
 
 	if (messageReaction.emoji.name === '⭐') {
 		if (messageReaction.count > 1) {

@@ -3,10 +3,17 @@ sql.open("../lenoxbotscore.sqlite");
 const Discord = require('discord.js');
 exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
-	var lang = require(`../languages/en.json`);
-	if (msg.channel.type !== 'text') return msg.reply(lang.messageevent_error);
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
+
+	if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	var lang = require(`../languages/${tableload.language}.json`);
+
+	if (msg.channel.type !== 'text') return msg.reply(lang.messageevent_error);
 
 	if (!tableload.language) {
 		tableload.language = `en`;

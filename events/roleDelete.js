@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async(client, role) => {
     const tableconfig = client.guildconfs.get(role.guild.id);
-    var lang = require(`../languages/en.json`);
 
 	for (var i = 0; i < tableconfig.selfassignableroles.length; i++) {
 			if (role.id === tableconfig.selfassignableroles[i]) {
@@ -11,6 +10,13 @@ exports.run = async(client, role) => {
         }
     if (role.name === 'LenoxBot') return;
     if (tableconfig.roledeletelog === 'false') return;
+
+    if (tableconfig.language === '') {
+        tableconfig.language = 'en';
+        client.guildconfs.set(role.guild.id, tableconfig);
+	}
+
+    var lang = require(`../languages/${tableconfig.language}.json`);
 
     const messagechannel = client.channels.get(tableconfig.roledeletelogchannel);
 

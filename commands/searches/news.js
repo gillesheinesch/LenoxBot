@@ -644,7 +644,6 @@ exports.run = async(client, msg, args, lang) => {
 						errors: ['time']
 					});
 					try {
-						console.log(r.articles[response1.first().content - 1].author);
 						var embed2 = new Discord.RichEmbed()
 							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)

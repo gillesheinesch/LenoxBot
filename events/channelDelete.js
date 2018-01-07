@@ -3,8 +3,14 @@ exports.run = (client, channel) => {
     if (channel.type !== 'text') return;
 
     const tableconfig = client.guildconfs.get(channel.guild.id);
-    var lang = require(`../languages/en.json`);
     if (tableconfig.channeldeletelog === 'false') return;
+
+    if (tableconfig.language === '') {
+        tableconfig.language = 'en';
+        client.guildconfs.set(channel.guild.id, tableconfig);
+	}
+
+    var lang = require(`../languages/${tableconfig.language}.json`);
 
     const messagechannel = client.channels.get(tableconfig.channeldeletelogchannel);
 
