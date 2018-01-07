@@ -45,7 +45,7 @@ exports.run = async(client, msg, args, lang) => {
 				return msg.channel.send(timeerror);
 			}
 		}
-		msg.channel.send('Bewerbung erfolgreich abgesendet!');
+		msg.channel.send(lang.application_applicatiosent);
 
 	const channel = msg.guild.channels.get(tableload.application.votechannel);
 
