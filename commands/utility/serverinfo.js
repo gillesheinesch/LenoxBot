@@ -22,7 +22,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['sinfo'],
+	aliases: ['sinfo', 'si'],
     userpermissions: []
 };
 exports.help = {
