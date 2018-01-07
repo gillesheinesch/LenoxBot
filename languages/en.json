@@ -1,4 +1,5 @@
 {
+    "language_languages": "All available languages",
     "language_already": "The language of the bot for this server is already %language",
     "language_changed": "Language of the bot for this server successfully changed to %input",
     "language_error": "This language is not available",
@@ -124,7 +125,7 @@
     "msgoptions_guildname": "the name of this guild",
     "msgoptions_guildid": "the id of this guild",
     "msgoptions_embed": "Welcome/Bye message options:",
-    "msgoptions_description": "Shows you a list of all available options for your welcome and bye msg",
+    "msgoptions_description": "Shows you a list of all available options for your welcome and bye message",
 
     "muterole_noinput": "You forgot to insert the name of the role.",
     "muterole_rolenotexist": "This role does not exist at all!",
@@ -134,7 +135,7 @@
     "prefix_currentprefix": "The prefix of this server is %prefix",
     "prefix_error": "Your new prefix cannot have spaces!",
     "prefix_newprefixset": "The prefix has been changed to %newprefix",
-    "prefix_description": "Changes the prefixprefix of the server or shows you the current prefix if you just use ?prefix",
+    "prefix_description": "Changes the prefix of the server or shows you the current prefix if you just use ?prefix",
 
     "removeautomaticrole_noinput": "You have to insert the name of the role.",
     "removeautomaticrole_rolenotexist": "This role does not exist at all!",
