@@ -14,8 +14,8 @@ exports.run = async(client, msg, args, lang) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	var addtemplate = lang.application_addtemplate.replace('%prefix', tableload.prefix);
-	if (tableload.application.template.length === 0) return msg.channel.send(addtemplate);
+	var addentry = lang.application_addentry.replace('%prefix', tableload.prefix);
+	if (tableload.application.template.length === 0) return msg.channel.send(addentry);
 
 	var role = lang.application_role.replace('%prefix', tableload.prefix);
 	if (tableload.application.role === '') return msg.channel.send(role);
@@ -45,6 +45,7 @@ exports.run = async(client, msg, args, lang) => {
 				return msg.channel.send(timeerror);
 			}
 		}
+		msg.channel.send('Bewerbung erfolgreich abgesendet!');
 
 	const channel = msg.guild.channels.get(tableload.application.votechannel);
 
@@ -73,7 +74,7 @@ exports.run = async(client, msg, args, lang) => {
 					var accepted = lang.application_accepted.replace('%guildname', msg.guild.name);
 					msg.member.send(accepted);
 
-					if (tableload.application.archive === true) {
+					if (tableload.application.archivechannel === true) {
 						try {
 							var statusaccepted = lang.application_statusaccepted.replace('%authortag', msg.author.tag);
 							var acceptedembed = new Discord.RichEmbed()
@@ -84,7 +85,7 @@ exports.run = async(client, msg, args, lang) => {
 								acceptedembed.addField(tableload.application.template[i], array[i]);
 							}
 
-								const archive = msg.guild.channels.get(tableload.application.archivechannel);
+								const archive = msg.guild.channels.get(tableload.application.archivechannellog);
 								archive.send({ embed: acceptedembed });
 							} catch (error) {
 								var archivechannelnotexist = lang.application_archivechannelnotexist.replace('%prefix', tableload.prefix);
@@ -96,13 +97,13 @@ exports.run = async(client, msg, args, lang) => {
 					return channel.send(lang.application_error);
 				}
 				  } else if (r.emoji.name === '👎' && r.count >= tableload.application.reactionnumber) {
-					  var deniedembed = lang.application_denied.replace('%guildname', msg.guild.name);
+					var denied = lang.application_denied.replace('%guildname', msg.guild.name);
 					msg.member.send(denied);
 
-					if (tableload.application.archive === true) {
+					if (tableload.application.archivechannel === true) {
 						try {
 							var statusdenied = lang.application_statusdenied.replace('%authortag', msg.author.tag);
-							var denied = new Discord.RichEmbed()
+							var deniedembed = new Discord.RichEmbed()
 							.setColor('#669900')
 							.setAuthor(statusdenied, msg.author.displayAvatarURL);
 
@@ -110,7 +111,7 @@ exports.run = async(client, msg, args, lang) => {
 								deniedembed.addField(tableload.application.template[i], array[i]);
 							}
 
-								const archive = msg.guild.channels.get(tableload.application.archivechannel);
+								const archive = msg.guild.channels.get(tableload.application.archivechannellog);
 								archive.send({ embed: deniedembed });
 						} catch (error) {
 							var archivechannelnotexist = lang.application_archivechannelnotexist.replace('%prefix', tableload.prefix);

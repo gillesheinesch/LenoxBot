@@ -15,15 +15,15 @@ exports.run = async(client, msg, args, lang) => {
 	}
 
 	const channelid = msg.channel.id;
-	if (tableload.application.archive === false) {
-		tableload.application.archive = true;
-		tableload.application.archivechannel = channelid;
+	if (tableload.application.archivechannel === false) {
+		tableload.application.archivechannel = true;
+		tableload.application.archivechannellog = channelid;
 		await client.guildconfs.set(msg.guild.id, tableload);
 		
 		var set = lang.togglearchive_set.replace('%channelname', `**#${msg.channel.name}**`);
 		return msg.channel.send(set);
 	} else {
-		tableload.application.archive = false;
+		tableload.application.archivechannel = false;
 		await client.guildconfs.set(msg.guild.id, tableload);
 		
 		return msg.channel.send(lang.togglearchive_deleted);
