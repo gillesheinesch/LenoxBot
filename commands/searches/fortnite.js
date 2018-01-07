@@ -2,9 +2,11 @@ exports.run = async(client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	const fortnite = require('fortnite');
 
-	if (!args[0]) return msg.channel.send(lang.fortnite_noinput);
+	const input = args.slice();
 
-	var stats = await fortnite(args[0], !args[1] ? 'PC' : args[1]);
+	if (!input[0]) return msg.channel.send(lang.fortnite_noinput);
+
+	var stats = await fortnite(input[0], !input[1] ? 'PC' : input[1]);
 
 		const embed = new Discord.RichEmbed()
 		.setURL(stats.info.url)

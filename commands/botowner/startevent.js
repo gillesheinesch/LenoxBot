@@ -84,8 +84,8 @@ exports.run = async(client, msg, args) => {
 								sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [r.author.id, 0]);
 							});
 						});
+						spamchannel.send(`${msg.author}, You have successfully received 100 medals!`);
 					}
-					spamchannel.send(`${msg.author}, You have successfully received 100 medals!`);
 				});
 				lenoxbotcollector.on('end', (collected, reason) => {
 					message.delete();
