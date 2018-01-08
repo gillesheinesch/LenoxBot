@@ -8,7 +8,7 @@ exports.run = async(client, msg) => {
 
 	if (tableload.language === '') {
         tableload.language = 'en';
-        client.guildconfs.set(msg.guild.id, tableload);
+        await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	var lang = require(`../languages/${tableload.language}.json`);
