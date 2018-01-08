@@ -49,7 +49,7 @@ exports.help = {
 	name: 'language',
 	description: 'Changes the language of the bot for this server',
 	usage: 'language',
-    example: ['language'],
+    example: ['language', 'language de'],
     category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };
