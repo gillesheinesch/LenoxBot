@@ -1,6 +1,6 @@
 const request = require('request-promise');
 const Discord = require('discord.js');
-exports.run = async (client, msg, args) => {
+exports.run = async (client, msg, args, lang) => {
 	if (args.length < 1) {
 		return msg.reply(lang.google_noinput);
 	}
