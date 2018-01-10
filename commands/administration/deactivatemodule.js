@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	var moduledeactivated = lang.activatemodule_moduledeactivated.replace('%modulename', args.slice());
+	var moduledeactivated = lang.deactivatemodule_moduledisabled.replace('%modulename', args.slice());
 
 	if (!tableload.modules) {
         tableload.modules = {};
