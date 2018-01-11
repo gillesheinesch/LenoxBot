@@ -77,7 +77,7 @@ exports.run = async(client, msg, args, lang) => {
 				};
 				await queue.set(msg.guild.id, queueConstruct);
 
-				queueConstruct.songs.push(song);
+				await queueConstruct.songs.push(song);
 
 				const vote = {
 					users: []
@@ -90,8 +90,8 @@ exports.run = async(client, msg, args, lang) => {
 					queueConstruct.connection = connection;
 					await play(msg.guild, queueConstruct.songs[0]);
 				} catch (error) {
-					queue.delete(msg.guild.id);
-					skipvote.delete(msg.guild.id);
+					await queue.delete(msg.guild.id);
+					await skipvote.delete(msg.guild.id);
 					return msg.channel.send(lang.play_errorjoin);
 				}
 			} else {
@@ -105,12 +105,12 @@ exports.run = async(client, msg, args, lang) => {
 			return undefined;
 		}
 
-		function play(guild, song) {
-			const serverQueue = queue.get(guild.id);
+	async function play(guild, song) {
+			const serverQueue = await queue.get(guild.id);
 		
 			if (!song) {
-				serverQueue.voiceChannel.leave();
-				queue.delete(guild.id);
+				await serverQueue.voiceChannel.leave();
+				await queue.delete(guild.id);
 				return undefined;
 			}
 			const dispatcher = serverQueue.connection.playStream(ytdl(song.url))
