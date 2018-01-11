@@ -31,6 +31,9 @@ exports.run = async(client, msg, args, lang) => {
 		} catch (error) {
 			try {
 				var videos = await youtube.searchVideos(searchString, 10);
+
+				if (videos.length === 0) return msg.channel.send(lang.play_noresult);
+
 				let index = 0;
 				const embed = new Discord.RichEmbed()
 				.setColor('#7BB3FF')
