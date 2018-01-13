@@ -17,7 +17,7 @@ exports.run = async(client, msg, args, lang) => {
         .addField(`📌 ${lang.userinfo_joined}`, useronserver)
         .addField(`🏷 ${lang.userinfo_roles}`, member.roles.map(role => role.name).join(', ') || lang.userinfo_noroles)
         .addField(`⌚ ${lang.userinfo_status}`, user.presence.status)
-        .addField(`🎮 ${userinfo_playing}`, user.presence.game ? user.presence.game.name : lang.userinfo_nothing);
+        .addField(`🎮 ${lang.userinfo_playing}`, user.presence.game ? user.presence.game.name : lang.userinfo_nothing);
 
 	msg.channel.send({ embed: embed });
 };
