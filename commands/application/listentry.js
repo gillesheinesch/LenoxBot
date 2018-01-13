@@ -9,10 +9,11 @@ exports.run = async(client, msg, args, lang) => {
 			role: '',
 			votechannel: '',
 			archivechannel: false,
-			archivechannellog: ''
+			archivechannellog: '',
+			status: 'false'
 		};
 		await client.guildconfs.set(msg.guild.id, tableload);
-    }
+	}
 
     const templates = [];
 	const embed = new Discord.RichEmbed()

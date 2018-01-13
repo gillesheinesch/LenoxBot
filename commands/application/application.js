@@ -9,10 +9,13 @@ exports.run = async(client, msg, args, lang) => {
 			role: '',
 			votechannel: '',
 			archivechannel: false,
-			archivechannellog: ''
+			archivechannellog: '',
+			status: 'false'
 		};
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
+
+	if (tableload.application.status === 'false') return msg.channel.send(lang.toggleapplication_error);
 
 	var addentry = lang.application_addentry.replace('%prefix', tableload.prefix);
 	if (tableload.application.template.length === 0) return msg.channel.send(addentry);
