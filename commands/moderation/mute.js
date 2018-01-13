@@ -8,9 +8,9 @@ exports.run = async(client, msg, args, lang) => {
 
 	var muteroleundefined = lang.mute_muteroleundefined.replace('%prefix', tableload.prefix);
 	if (tableload.muterole === '') return msg.channel.send(muteroleundefined);
-	if (!membermention) return msg.channel.send(mute_nomention);
-	if (!args.slice(1).join(' ')) return msg.channel.send(mute_notime);
-	if (!args.slice(2).join(' ')) return msg.channel.send(mute_noinput);
+	if (!membermention) return msg.channel.send(lang.mute_nomention);
+	if (!args.slice(1).join(' ')) return msg.channel.send(lang.mute_notime);
+	if (!args.slice(2).join(' ')) return msg.channel.send(lang.mute_noinput);
 
 	var rolenotexist = lang.mute_rolenotexist.replace('%prefix', tableload.prefix)
 	if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(rolenotexist);
@@ -18,7 +18,7 @@ exports.run = async(client, msg, args, lang) => {
 	const role = msg.guild.roles.get(tableload.muterole);
 
 	const mutetime = ms(args.slice(1, 2).join(" "));
-	if (mutetime === undefined) return msg.channel.send(mute_invalidtimeformat);
+	if (mutetime === undefined) return msg.channel.send(lang.mute_invalidtimeformat);
 
 	var alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
 	if (membermention.roles.get(tableload.muterole)) return msg.channel.send(alreadymuted);
