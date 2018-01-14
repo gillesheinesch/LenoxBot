@@ -22,6 +22,6 @@ exports.help = {
 	description: 'Sets a new channel topic for the current channel',
 	usage: 'setchanneltopic {New Channeltopic}',
 	example: ['setchanneltopic Hello World'],
-	category: 'ADMINISTRATION',
+	category: 'administration',
 	botpermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS']
 };

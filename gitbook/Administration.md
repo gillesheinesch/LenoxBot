@@ -25,6 +25,7 @@
 |removeautomaticrole      | Removes an auto assignable role | ADMINISTRATOR|
 |removerole               | Remove a role to a discord member | MANAGE_ROLES|
 |removeselfassignablerole | Remove a role that allows users to assign themselves | ADMINISTRATOR|
+|setchanneltopic          | Sets a new channel topic for the current channel | MANAGE_CHANNELS|
 |skipnumber               | Changes the necessary votes to skip music for users | ADMINISTRATOR|
 |starboard                | Enables/disables the starboard | ADMINISTRATOR|
 |starboardchannel         | Sets a specific channel for the Starboard messages | ADMINISTRATOR|

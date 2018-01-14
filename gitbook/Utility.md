@@ -2,7 +2,6 @@
 
 | Command | Description | Required permissions |
 | :--- | :--- | :--- |
-|setchanneltopic          | Sets a new channel topic for the current channel | MANAGE_CHANNELS|
 |botinfo                  | Information about the bot | any|
 |calculator               | Calculates for you an calculation | any|
 |channels                 | A list of all channels on your discord server | any|
