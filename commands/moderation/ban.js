@@ -4,17 +4,17 @@ exports.run = (client, msg, args, lang) => {
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply(ban_nomention).then(m => m.delete(10000));
-	if (user === msg.author) return msg.channel.send(ban_yourself);
-	if (!reason) return msg.reply(ban_noinput).then(m => m.delete(10000));
+	if (!user) return msg.reply(lang.ban_nomention).then(m => m.delete(10000));
+	if (user === msg.author) return msg.channel.send(lang.ban_yourself);
+	if (!reason) return msg.reply(lang.ban_noinput).then(m => m.delete(10000));
 
-	if (!msg.guild.member(user).bannable) return msg.reply(ban_nopermission).then(m => m.delete(10000));
+	if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission).then(m => m.delete(10000));
 	msg.guild.ban(user);
 
 	var banned = lang.ban_banned.replace('%usertag', user.tag);
 	msg.channel.send(banned);
 
-	var bandescription = lang.ban_embed.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
+	var bandescription = lang.ban_embed.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 	const embed = new Discord.RichEmbed()
 	.setAuthor(`${lang.ban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
 	.setThumbnail(user.displayAvatarURL)

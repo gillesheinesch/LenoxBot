@@ -180,7 +180,7 @@
     "ban_yourself": "Du kannst dich nicht selber bannen!",
     "ban_noinput": "Du musst einen Grund für den Ban angeben!",
     "ban_nopermission": "Du kannst diesen Benutzer nicht bannen!",
-    "ban_banned": "$usertag wurde erfolgreich gebannt!",
+    "ban_banned": "%usertag wurde erfolgreich gebannt!",
     "ban_bannedby": "Gebannt von ",
     "ban_description": "Bannt einen User vom Discord Server mit einer bestimmten Begründung",
     "clear_number": "Die Anzahl an Nachrichten, welche gelöscht werden sollen, muss eine Nummer sein!",
