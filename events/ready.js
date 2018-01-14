@@ -71,7 +71,8 @@ exports.run = async client => {
 			role: '',
 			votechannel: '',
 			archivechannel: false,
-			archivechannellog: ''
+			archivechannellog: '',
+			status: 'false'
 		},
 		nicknamelog: [],
 		warnlog: [],

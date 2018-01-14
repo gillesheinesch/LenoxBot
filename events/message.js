@@ -6,6 +6,11 @@ exports.run = async(client, msg) => {
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
 
+	if (!tableload.application.status) {
+		tableload.application.status = 'false';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (tableload.language === '') {
         tableload.language = 'en';
         await client.guildconfs.set(msg.guild.id, tableload);
