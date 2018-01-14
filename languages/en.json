@@ -1,4 +1,23 @@
 {
+    "toggleapplication_error": "The application system has been disabled for this server",
+    "toggleapplication_activated": "The application system was successfully activated!",
+    "toggleapplication_disabled": "The application system was successfully deactivated!",  
+    "toggleapplication_description": "Toggles the applications on or off", 
+
+    "bitcoin_descriptionembed": "Bitcoin Value ($): %value \nBitcoin Percentage of changes in the last day: %percentage %",
+    "bitcoin_authorembed": "Bitcoin informations",
+    "bitcoin_description": "Shows you information from Bitcoin (value and percentage of changes from the last day)",
+
+    "randomfact_description": "Random facts (in English only)",
+
+    "setchanneltopic_error": "You forgot to enter the new channeltopic!",
+    "setchanneltopic_set": "The new channeltopic for ***%channelname*** has been successfully set!",
+    "setchanneltopic_description": "Sets a new channel topic for the current channel",
+
+    "channeltopic_error": "There is no channel topic for this channel!",
+    "channeltopic_embed": "Channeltopic:",
+    "channeltopic_description": "Shows you the channel topic of the current channel if one exists",
+
     "language_languages": "All available languages",
     "language_already": "The language of the bot for this server is already %language",
     "language_changed": "Language of the bot for this server successfully changed to %input",
@@ -34,7 +53,7 @@
     "addselfassignablerole_roleset": "Role has been successfully set to self-assignable roles!",
     "addselfassignablerole_description": "Add a role that allows users to assign themselves",
 
-    "annnounce_announcedeactivated": "You must first define where announcements should be posted. \nUse the following command %prefix to activate announcements in your current channel!",
+    "annnounce_announcedeactivated": "You must first define where announcements should be posted. \nUse the following command %prefixtoggleannounce to activate announcements in your current channel!",
     "annnounce_noinput": "You forgot to enter a text!",
     "annnounce_annoucementsent": "Announcement successfully sent!",
     "annnounce_description": "Write a new server announcement",
@@ -321,7 +340,7 @@
     "softban_nopermission": "I can not softban this user!",
     "softban_softbanned": "%usertag was successfully softbaned and the messages of the last %days days were deleted!",
     "softban_softbanby": "Softban by %authortag",
-    "softban_softbandescription": "**Action**: Softban \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Messages of %days got deleted:",
+    "softban_softbandescription": "**Action**: Softban \n**User**: %usertag (%userid) \n**Reason**: %reason \nMessages of **%days** got deleted:",
     "softban_description": "Bans a user and deletes his messages of the last X days. After that, he will be unbaned immediately!",
 
     "unban_nouserid": "You must enter the userID to unban the user!",
