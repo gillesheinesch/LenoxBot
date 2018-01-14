@@ -2,9 +2,11 @@
 
 | Command | Description | Required permissions |
 | :--- | :--- | :--- |
+|setchanneltopic          | Sets a new channel topic for the current channel | MANAGE_CHANNELS|
 |botinfo                  | Information about the bot | any|
 |calculator               | Calculates for you an calculation | any|
 |channels                 | A list of all channels on your discord server | any|
+|channeltopic             | Shows you the channel topic of the current channel if one exists | any|
 |donators                 | Gives you a list with all donators who are supporting the project! | any|
 |inrole                   | Command to see which members have a specific role | any|
 |join                     | Join a self-assignable role | any|

@@ -14,6 +14,7 @@
 |deactivatemodule         | Disables a module and its commands on a Discord server | ADMINISTRATOR|
 |deleteevents             | Delete all active events on this server | ADMINISTRATOR|
 |events                   | Gives you a list of all active/disabled events | ADMINISTRATOR|
+|language                 | Changes the language of the bot for this server | ADMINISTRATOR|
 |listautomaticrole        | Lists all auto assignable roles | ADMINISTRATOR|
 |listevents               | Lists you all events that you can log on your server | MANAGE_GUILD|
 |listmodules              | Lists all active/disabled modules | ADMINISTRATOR|
