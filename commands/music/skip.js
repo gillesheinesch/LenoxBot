@@ -6,6 +6,12 @@ exports.run = async(client, msg, args, lang) => {
 	if (tableconfig.skipvote === 'false') return msg.channel.send(lang.skip_skipvotedeativated);
 	if (!msg.member.voiceChannel) return msg.channel.send(lang.skip_notvoicechannel);
 	if (!serverQueue) return msg.channel.send(lang.skip_nothing);
+
+	if (msg.member.voiceChannel.members.size === 2) {
+		msg.channel.send(lang.skip_skippedalone);
+		await serverQueue.connection.dispatcher.end();
+		return undefined;
+	}
 	
 	const map = client.skipvote;
 
