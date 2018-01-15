@@ -1,4 +1,21 @@
 {
+    "addchatfilter_error": "You can only add different words",
+    "addchatfilter_already": "This entry has already been added to the chat filter!",
+    "addchatfilter_added": "%input was successfully added to the chatfilter",
+    "addchatfilter_description": "Inserts a new entry in the chat filter",
+
+    "listchatfilter_error": "There are currently no entries in the chatfilter",
+    "listchatfilter_embed": "Chatfilter entries",
+    "listchatfilter_description": "Lists all chat filter entries",
+
+    "removechatfilter_error": "You can only remove different words",
+    "removechatfilter_removed": "%input was successfully removed from the chatfilter",
+    "removechatfilter_description": "Removes words from the chatfilter",
+
+    "togglechatfilter_activated": "The chatfilter was successfully activated",
+    "togglechatfilter_disabled": "The chatfilter was successfully disabled",
+    "togglechatfilter_description": "Set the chat filter on or off",
+
     "toggleapplication_error": "The application system has been disabled for this server",
     "toggleapplication_activated": "The application system was successfully activated!",
     "toggleapplication_disabled": "The application system was successfully deactivated!",  
@@ -136,6 +153,8 @@
     "log_presenceupdatedeleted": "All member presence changes will no longer be logged!",
     "log_guildupdateset": "All guild updates are now logged in Channel",
     "log_guildupdatedeleted": "All guild updates will no longer be logged!",
+    "log_chatfilterset": "All messages deleted by the chatfilter are now logged in Channel",
+    "log_chatfilterdeleted": "All messages deleted by the chatfilter will no longer be logged!",
     "log_error": "Hmm, that event doesnt exist. You can check all events that you can log with",
     "log_description": "Allows you to log for different channels, different events. Use ?listevents to get a list of all events",
 
@@ -707,6 +726,8 @@
     "messageevent_usernopermission": "It looks like you haven't enough permissions to execute this command! (Required permissions: %missingpermissions)",
     "messageevent_moduledeactivated": "The module %modulename has been disabled. You can reactivate disabled modules by using %prefixactivatemodule.",
     "messageevent_anticommandspam": "Please wait %time more second(s) before reusing the %commandname command.",
+    "messageevent_chatfilterembed": "Message deleted from %authortag by the chatfilter",
+    "messageevent_messagedeleted": "%author, Your message has been deleted because you have used a word which has been blocked by the chatfilter!",
 
     "messagedeleteevent_deleted": "Message deleted!",
     "messagedeleteevent_author": "Author",

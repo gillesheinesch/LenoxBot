@@ -1,5 +1,5 @@
 exports.run = async(client, msg, args, lang) => {	
-	const validation = ['modlog', 'messagedelete', 'messageupdate', 'channelupdate', 'channelcreate', 'channeldelete', 'memberupdate', 'presenceupdate', 'userjoin', 'userleft', 'rolecreate', 'roledelete', 'roleupdate', 'guildupdate'];
+	const validation = ['chatfilter', 'modlog', 'messagedelete', 'messageupdate', 'channelupdate', 'channelcreate', 'channeldelete', 'memberupdate', 'presenceupdate', 'userjoin', 'userleft', 'rolecreate', 'roledelete', 'roleupdate', 'guildupdate'];
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const content = args.slice().join(" ");
 	const margs = msg.content.split(' ');
@@ -191,8 +191,21 @@ exports.run = async(client, msg, args, lang) => {
 				
 				return msg.channel.send(lang.log_guildupdatedeleted).then(m => m.delete(15000));
 			}
+	} else if (margs[1].toLowerCase() === 'chatfilter') {
+		if (tableload.chatfilterlog === 'false') {
+			tableload.chatfilterlogchannel = `${msg.channel.id}`;
+			tableload.chatfilterlog = 'true';
+			await client.guildconfs.set(msg.guild.id, tableload);
+			
+			return msg.channel.send(`${lang.log_chatfilterset} **#${msg.channel.name}**`).then(m => m.delete(15000));
+		} else {
+			tableload.chatfilterlog = 'false';
+			await client.guildconfs.set(msg.guild.id, tableload);
+			
+			return msg.channel.send(lang.log_chatfilterdeleted).then(m => m.delete(15000));
+		}
 	}
-	}
+		}
 	}
 	msg.channel.send(`Hmm, that event doesnt exist. You can check all events that you can log with ${tableload.prefix}listevents`);
 };
