@@ -4,6 +4,14 @@ require('moment-duration-format');
 exports.run = (client, msg, args, lang) => {
 	const servercreated = moment(msg.guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 
+	var emojis = [];
+	if (msg.guild.emojis.size !== 0) {
+		msg.guild.emojis.forEach(r => {
+			const emoji = client.emojis.get(r.id);
+			emojis.push(emoji);
+		});
+	}
+
 	const embed = new Discord.RichEmbed()
 		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
 		.setColor('#0066CC')
@@ -14,7 +22,8 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`📲 ${lang.serverinfo_channels}`, msg.guild.channels.size)
 		.addField(`⏳ ${lang.serverinfo_created}`, servercreated)
 		.addField(`☑ ${lang.serverinfo_verification}`, msg.guild.verificationLevel || lang.serverinfo_noverification)
-		.addField(`📤 ${lang.serverinfo_afkchannel}`, `<#${msg.guild.afkChannelID}>` || lang.serverinfo_noafkchannel);
+		.addField(`📤 ${lang.serverinfo_afkchannel}`, `<#${msg.guild.afkChannelID}>` || lang.serverinfo_noafkchannel)
+		.addField(`🎊 ${lang.serverinfo.emojis}`, emojis.length === 0 ? lang.serverinfo.emojisnone : emojis.join(" "));
 
 	msg.channel.send({ embed: embed });
 };
