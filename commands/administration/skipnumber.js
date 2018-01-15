@@ -17,7 +17,7 @@ exports.run = async(client, msg, args, lang) => {
 	tableconfig.skipnumber = number;
 	await client.guildconfs.set(msg.guild.id, tableconfig);
 
-	var changedskipvote = lang.skipnumber_changedskipvote.replace('%newskipnumber', `\`${number}\``);
+	var changedskipvote = lang.skipnumber_changedskipvote.replace('%newskipnumber', number);
 	
 	return msg.channel.send(changedskipvote);
 };
