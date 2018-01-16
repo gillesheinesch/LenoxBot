@@ -42,7 +42,8 @@ exports.run = async(client, msg, args, lang) => {
 					time: 300000,
 					errors: ['time']
 				});
-				await array.push(response.first().content);
+				array.push(response.first().content);
+				await response.first().delete();
 			} catch (error) {
 				var timeerror = lang.application_timeerror.replace('%prefix', tableload.prefix);
 				return msg.channel.send(timeerror);
