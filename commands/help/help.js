@@ -9,7 +9,7 @@ exports.run = (client, msg, args, lang) => {
 		.addField(lang.help_modulecommand, `${prefix}modules`)
 		.addField(lang.help_commandscommand, `${prefix}commands {modulename}`)
 		.addField(lang.help_helpcommand, `${prefix}help {commandname}`)
-		.addField(lang.help_documentation, 'https://www.documentation.lenoxbot.com/')
+		.addField(lang.help_documentation, 'https://www.lenoxbot.com/')
 		.setColor('#ff3300')
 		.setAuthor(client.user.username, client.user.displayAvatarURL);
 	
