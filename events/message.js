@@ -210,13 +210,9 @@ exports.run = async(client, msg) => {
 	cmd.run(client, msg, args, lang);
 		if (tableload.commanddel === 'true') {
 			return msg.delete();
-		} else {
-			return undefined;
 		}
-	}
-}
-
-const input = msg.content.split(' ').slice();
+	} else {
+		const input = msg.content.split(' ').slice();
 if (tableload.chatfilter.chatfilter === 'true' && tableload.chatfilter.array.length !== 0) {
 	for (var i = 0; i < tableload.chatfilter.array.length; i++) {
 		for (let index = 0; index < input.length; index++) {
@@ -244,5 +240,37 @@ if (tableload.chatfilter.chatfilter === 'true' && tableload.chatfilter.array.len
 			}
 		}
 	}
+}
+	}
+} else {
+	const input = msg.content.split(' ').slice();
+		if (tableload.chatfilter.chatfilter === 'true' && tableload.chatfilter.array.length !== 0) {
+			for (var i = 0; i < tableload.chatfilter.array.length; i++) {
+				for (let index = 0; index < input.length; index++) {
+					if (input[index].toLowerCase() === tableload.chatfilter.array[i].toLowerCase()) {
+						if (tableload.chatfilterlog === 'true') {
+							const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
+						
+							const embed = new Discord.RichEmbed()
+							.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
+							.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
+							.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
+							.setColor('#FF0000')
+							.setAuthor(chatfilterembed);
+						
+							try {
+								await msg.guild.channels.get(tableload.chatfilterlogchannel).send({ embed });
+							} catch (error) {
+								return undefined;
+							}
+						}
+						await msg.delete();
+		
+						const messagedeleted = lang.messageevent_messagedeleted.replace('%author', msg.author);
+						msg.channel.send(messagedeleted);
+					}
+				}
+			}
+		}
 }
 };
