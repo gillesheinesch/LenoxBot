@@ -209,7 +209,9 @@ exports.run = async(client, msg) => {
 
 	cmd.run(client, msg, args, lang);
 		if (tableload.commanddel === 'true') {
-			msg.delete();
+			return msg.delete();
+		} else {
+			return undefined;
 		}
 	}
 }
