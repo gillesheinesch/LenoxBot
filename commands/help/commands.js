@@ -516,7 +516,7 @@ exports.run = async(client, msg, args, lang) => {
 										message.edit(finishedmsg.join("\n"), { code: 'asciidoc' });
 									} else if (r.emoji.name === '◀' && reactionremove !== 0) {
 										r.remove(msg.author.id);
-										const xxx = client.commands.filter(c => c.help.category === "trello").array();
+										const xxx = client.commands.filter(c => c.help.category === "application").array();
 										
 										var xx = xxx.slice(first - 20, second - 20);
 										first = first - 20;
