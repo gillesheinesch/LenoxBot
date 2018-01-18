@@ -66,6 +66,7 @@ exports.run = async(client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
+	if (tableload.modules.utility === 'true') {
 			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 				if (!row) {
 					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
@@ -97,6 +98,7 @@ exports.run = async(client, msg) => {
 					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
 				});
 			});
+		}
 
 	    	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 				if (!row) {
