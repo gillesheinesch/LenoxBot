@@ -1,5 +1,5 @@
-exports.run = async (client, msg, args) => {
-    if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
+exports.run = async (client, msg, args, lang) => {
+    if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 	await msg.channel.send('The bot now restarts. See you soon! 👋');
 	process.exit(42);
 };

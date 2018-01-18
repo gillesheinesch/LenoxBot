@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
-    if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
+exports.run = (client, msg, args, lang) => {
+    if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
     const validation = ['lenoxbot', 'teamemil'];
     const margs = msg.content.split(" ");
 

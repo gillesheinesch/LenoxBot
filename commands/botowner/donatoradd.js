@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
-	if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
+exports.run = async(client, msg, args, lang) => {
+	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
 	var content = args.slice();
 

@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
+	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 	var margs = msg.content.split(' ');
 	let validation = ['scissors', 'stone', 'paper'];
 	let randomofvalidation = validation[Math.floor(Math.random() * validation.length)];

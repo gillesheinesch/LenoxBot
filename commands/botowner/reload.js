@@ -1,5 +1,5 @@
-exports.run = async(client, msg, args) => {
-	if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
+exports.run = async(client, msg, args, lang) => {
+	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 	if(!args || args.size < 1) return msg.reply("Must provide a command name to reload.");
 
 	const input = args.slice();

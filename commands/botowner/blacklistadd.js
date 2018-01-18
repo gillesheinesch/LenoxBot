@@ -1,5 +1,5 @@
-exports.run = (client, msg, args) => {
-    if (msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');    
+exports.run = (client, msg, args, lang) => {
+    if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);    
     const tableload = client.botconfs.get('blackbanlist');
     const userId = args.slice().join(" ");
     if (!userId) return msg.channel.send('You have to enter an userId!');
