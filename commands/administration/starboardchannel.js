@@ -5,7 +5,6 @@ exports.run = async(client, msg, args, lang) => {
 		tableload.starboardchannel = '';
 	}
 
-	if (tableload.starboard === 'false') return msg.channel.send(lang.starboardchannel_error);
 
 	const channelid = msg.channel.id;
 	const channelName = client.channels.get(channelid).name;

@@ -180,10 +180,12 @@ exports.run = async(client, messageReaction, user) => {
 			}
 			embed.setImage(files.toString());
 		}
-			starboardchannel.send({ embed }).then(m => client.starboard.set(messageReaction.message.id, {
+			starboardchannel.send({ embed }).then(m => {
+				client.starboard.set(messageReaction.message.id, {
 				msgid: m.id,
 				channel: m.channel.id
-			}));
+			});
+		});
 		} else if (messageReaction.count > 1) {
 			const table = client.starboard.get(messageReaction.message.id);
 			const starboardch = messageReaction.message.guild.channels.get(table.channel);

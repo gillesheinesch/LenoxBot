@@ -1,6 +1,8 @@
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
+	if (tableload.starboardchannel === '') return msg.channel.send(lang.starboard_error);
+
 	if (!tableload.starboard) {
 		tableload.starboard = 'false';
 	}
