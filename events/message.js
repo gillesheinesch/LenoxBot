@@ -6,6 +6,11 @@ exports.run = async(client, msg) => {
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
 
+	if (!tableload.musicchannelblacklist) {
+		tableload.musicchannelblacklist = [];
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.chatfilterlog) {
 		tableload.chatfilterlog = 'false';
 		tableload.chatfilterlogchannel = '';

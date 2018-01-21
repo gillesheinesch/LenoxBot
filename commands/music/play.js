@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args, lang) => {
 	const config = require('../../settings.json');
+	const tableload = client.guildconfs.get(msg.guild.id)
 	const { Client, Util } = require('discord.js');
 	const YouTube = require('simple-youtube-api');
 	const youtube = new YouTube(config.googlekey);
@@ -15,7 +16,11 @@ exports.run = async(client, msg, args, lang) => {
 
 	const voiceChannel = msg.member.voiceChannel;
 	if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
-	const permissions = voiceChannel.permissionsFor(msg.client.user);
+
+	for (var i = 0; i < tableload.musicchannelblacklist.length; i++) {
+		if (voiceChannel.id === tableload.musicchannelblacklist[i]) return msg.reply(lang.play_blacklistchannel);
+	}
+
 	if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
 		const playlist = await youtube.getPlaylist(url);
 		const videos = await playlist.getVideos();
