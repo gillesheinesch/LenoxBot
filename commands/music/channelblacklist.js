@@ -28,14 +28,14 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-	userpermissions: []
+	userpermissions: ['ADMINISTRATOR']
 };
 
 exports.help = {
 	name: 'channelblacklist',
-	description: 'Shows you how long the bot needs to send a message',
-	usage: 'ping',
-	example: ['ping'],
-	category: 'utility',
+	description: 'Displays a list of which voicechannels have been blacklisted',
+	usage: 'channelblacklist',
+	example: ['channelblacklist'],
+	category: 'music',
 	botpermissions: ['SEND_MESSAGES']
 };
