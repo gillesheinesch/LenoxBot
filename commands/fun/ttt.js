@@ -23,8 +23,8 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 1;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', mention.id);
-		return msg.channel.send(`${msg.author} ${noanswer}`);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author);
+		return msg.channel.send(`${mention} ${noanswer}`);
 	}
 
 	try {
@@ -39,7 +39,7 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 2;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author.id);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', mention);
 		return msg.channel.send(`${msg.author} ${noanswer}`);
 	}
 
@@ -55,8 +55,8 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 1;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', mention.id);
-		return msg.channel.send(`${msg.author} ${noanswer}`);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author);
+		return msg.channel.send(`${mention} ${noanswer}`);
 	}
 
 	try {
@@ -71,7 +71,7 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 2;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author.id);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', mention);
 		return msg.channel.send(`${msg.author} ${noanswer}`);
 	}
 
@@ -87,8 +87,8 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 1;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', mention.id);
-		return msg.channel.send(`${msg.author} ${noanswer}`);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author);
+		return msg.channel.send(`${mention} ${noanswer}`);
 	}
 
 	try {
@@ -103,7 +103,7 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 2;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author.id);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', mention);
 		return msg.channel.send(`${msg.author} ${noanswer}`);
 	}
 
@@ -169,8 +169,8 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 1;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', mention.id);
-		return msg.channel.send(`${msg.author} ${noanswer}`);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author);
+		return msg.channel.send(`${mention} ${noanswer}`);
 	}
 
 	if (validation[0] === 1 && validation[1] === 1 && validation[2] === 1) {
@@ -235,7 +235,7 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 2;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author.id);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', mention);
 		return msg.channel.send(`${msg.author} ${noanswer}`);
 	}
 
@@ -301,8 +301,8 @@ exports.run = async(client, msg, args, lang) => {
 		game = await msg.channel.send(edit);
 		validation[response1.first().content - 1] = 1;
 	} catch (error) {
-		const noanswer = lang.tictactoe_noanswer.replace('%user', mention.id);
-		return msg.channel.send(`${msg.author} ${noanswer}`);
+		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author);
+		return msg.channel.send(`${mention} ${noanswer}`);
 	}
 
 	if (validation[0] === 1 && validation[1] === 1 && validation[2] === 1) {
