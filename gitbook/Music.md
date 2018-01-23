@@ -2,6 +2,9 @@
 
 | Command | Description | Required permissions |
 | :--- | :--- | :--- |
+|channelblacklist         | Displays a list of which voicechannels have been blacklisted | ADMINISTRATOR|
+|channelblacklistadd      | Adds a voicechannel to the blacklist | ADMINISTRATOR|
+|channelblacklistremove   | Removes a voicechannel from the blacklist | ADMINISTRATOR|
 |forceskip                | Forces the bot to skip the current song without a poll! | MANAGE_GUILD|
 |nowplaying               | Shows you the current music title | any|
 |pause                    | Stops the current music | any|
