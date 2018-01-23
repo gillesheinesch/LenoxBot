@@ -1,4 +1,46 @@
 {
+    "tictactoe_nomention": "You must mention a user to play TicTacToe!",
+    "tictactoe_error": "You can not play with yourself. You have to mention a user against whom you want to play.",
+    "tictactoe_gamecreated": "New TicTacToe Game created!",
+    "tictactoe_turn": "it's your turn",
+    "tictactoe_noanswer": "did not answer for 15 seconds why %user won this round",
+    "tictactoe_win": "%user won this round!",
+    "tictactoe_draw": "No one has won, it is draw! The next round may be better. :)",
+    "tictactoe_description": "Play a round of TicTacToe against another Discord user",
+
+    "channelblacklist_error": "There are no voicechannels on the blacklist yet",
+    "channelblacklist_embed": "All blacklisted voicechannel",
+    "channelblacklist_description": "Displays a list of which voicechannels have been blacklisted",
+
+    "channelblacklistadd_error": "You forgot to enter the name of the voice channel you want to add to the blacklist",
+    "channelblacklistadd_channelnotfind": "This voicechannel could not be found.",
+    "channelblacklistadd_wrongtype": "You can only add **voicechannel** to the blacklist",
+    "channelblacklistadd_already": "This voicechannel has already been added to the blacklist",
+    "channelblacklistadd_added": "The voicechannel has been successfully added to the blacklist",
+    "channelblacklistadd_description": "Adds a voicechannel to the blacklist",
+
+    "channelblacklistremove_error": "You forgot to enter the name of the voice channel you want to remove from the blacklist",
+    "channelblacklistremove_wrongtype": "You can only remove **voicechannel** from the blacklist",
+    "channelblacklistremove_removed": "The voicechannel has been successfully removed from the blacklist",
+    "channelblacklistremove_channelnotblacklisted": "This voicechannel has not been added to the blacklist",
+    "channelblacklistremove_description": "Removes a voicechannel from the blacklist",
+
+    "botownercommands_error": "You dont have permissions to execute this command!",
+
+    "overwatchstats_missinginput": "You have to decide if you want to see the profile, quickplay, competitive stats from the Overwatch player",
+    "overwatchstats_error": "You forgot to enter your BattleTag. Attention: the case is capitalized",
+    "overwatchstats_accounterror": "Invalid BattleTag. Example: ***Test#2741***",
+    "overwatchstats_incorrecttag": "Your BattleTag has more than 6 characters ?! There must be something wrong 🤔",
+    "overwatchstats_battleneterror": "This BattleTag does not exist",
+    "overwatchstats_profile": "Profile stats from %user",
+    "overwatchstats_profilestats": "**Star Badges:** %stars \n**Level:** %level \n**Competitive Rank:** %rank",
+    "overwatchstats_errorrequest": "Could not query your data",
+    "overwatchstats_quickplay": "Quickplay stats from %user",
+    "overwatchstats_quickplaystats": "**Winrate:** %winrate \n**Games:** %gamestotal \n**Wins:** %wins \n**Losses:** %losses",
+    "overwatchstats_competitive": "Competitive statistics of %user",
+    "overwatchstats_competitivestats": "**Winrate:** %winrate \n**Games:** %gamestotal \n**Wins:** %wins\n**Losses:** %losses",
+    "overwatchstats_description": "Shows you overwatch-stats about a Overwatch player",
+
     "addchatfilter_error": "You can only add different words",
     "addchatfilter_already": "This entry has already been added to the chat filter!",
     "addchatfilter_added": "%input was successfully added to the chatfilter",
@@ -87,7 +129,6 @@
     "commanddel_nodeletionset": "Commands are no longer deleted after execution",
     "commanddel_description": "Toggles the deletion of a command after execution",
 
-    "createrole_nocolor": "You forgot to enter the color and the name of the role!",
     "createrole_norolename": "You forgot to enter the name of the role!",
     "createrole_rolecreated": "The role was created successfully!",
     "createrole_description": "Creates a role with a color and a name",
@@ -202,11 +243,11 @@
     "skipnumber_changedskipvote": "The number of votes to skip music has been changed to %newskipnumber",
     "skipnumber_description": "Changes the necessary votes to skip music for users",
 
+    "starboard_error": "You must first define the starboardchannel",
     "starboard_enabled": "The starboard has been enabled successfully!",
     "starboard_disabled": "The starboard has been disabled successfully!",
     "starboard_description": "Enables/disables the starboard",
 
-    "starboardchannel_error": "You must first activate the Starboard",
     "starboardchannel_starmessagesactivated": "All StarMessages will be listed in the %channelname now!",
     "starboardchannel_description": "Sets a specific channel for the Starboard messages",
 
@@ -399,6 +440,7 @@
     "pause_description": "Stops the current music",
 
     "play_notvoicechannel": "I'm sorry but you need to be in a voice channel to play music!",
+    "play_blacklistchannel": "This voicechannel has been added to the blacklist of the server.",
     "play_playlistadded": "Playlist: %playlisttitle has been added to the queue!",
     "play_songselection": "Song selection:",
     "play_value": "Please provide a value to select one of the search results ranging from 1-10.",
@@ -511,7 +553,7 @@
     "urban_thumbsup": "Thumbs up",
     "urban_thumbsdown": "Thumbs down",
     "urban_error": "Could not find anything to your query!",
-    "urban_description": "Urban dictionary",
+    "urban_description": "Urban is a dictionary in which you can search for a definition for something",
 
     "youtube_noinput": "You must include a query. Alternatively, you can check usage via",
     "youtube_error": "There is no video by that name.",

@@ -12,7 +12,7 @@ exports.run = (client, msg, args, lang) => {
 			if (msg.attachments.size > 0) {
 				files = msg.attachments.first().url;
 			}
-			client.channels.get('372404583005290508').send(`${proposal.join(" ") + ' ' + files} \nProposal by the following user: ${msg.author.tag}`).then(m => { 
+			client.channels.get('372404583005290508').send(`${proposal.join(" ") + ' ' + files + " "} \nProposal by the following user: ${msg.author.tag}`).then(m => { 
 				m.react('👍'); m.react('👎');
 			});
 };
