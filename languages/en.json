@@ -560,10 +560,10 @@
     "youtube_noresult": "I can't find a video matching that query!",
     "youtube_description": "Searches for a video on youtube",
 
-    "bugreport_error": "You have to use this command on the official LenoxBot Server: https://discord.gg/5mpwCr8",
+    "bugreport_error": "You have to use this command on the official LenoxBot Server: https://discord.gg/PjZM36X",
     "bugreport_description": "You can submit a new bugreport by using this command",
 
-    "proposal_error": "You have to use this command on the official LenoxBot Server: https://discord.gg/5mpwCr8",
+    "proposal_error": "You have to use this command on the official LenoxBot Server: https://discord.gg/PjZM36X",
     "proposal_description": "You can submit a new proposal by using this command",
 
     "botinfo_runtime": "Runtime since the last restart",
@@ -719,7 +719,7 @@
     "channelupdateevent_oldposition": "Old Position:",
     "channelupdateevent_newposition": "New Position:",
 
-    "guildcreateevent_message": "Hello %ownername, \nThanks for choosing LenoxBot! Currently, we are still in the beta phase, so it can lead to problems which we will fix as fast as we can. If you find any bugs, you can report them on our Discord server: https://discord.gg/5mpwCr8 \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/5mpwCr8 | https://www.lenoxbot.com/",
+    "guildcreateevent_message": "Hello %ownername, \nThanks for choosing LenoxBot! Currently, we are still in the beta phase, so it can lead to problems which we will fix as fast as we can. If you find any bugs, you can report them on our Discord server: https://discord.gg/PjZM36X \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/PjZM36X | https://www.lenoxbot.com/",
 
     "guildmemberaddevent_userjoined": "User joined",
 

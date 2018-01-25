@@ -38,7 +38,7 @@ exports.run = async(client, msg, args, lang) => {
 		validation[response1.first().content - 1] = 2;
 	} catch (error) {
 		const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author);
-		return msg.channel.send(`${mention}} ${noanswer}`);
+		return msg.channel.send(`${mention} ${noanswer}`);
 	}
 
 	try {

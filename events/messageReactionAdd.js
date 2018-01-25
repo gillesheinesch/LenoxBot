@@ -3,7 +3,7 @@ exports.run = async(client, messageReaction, user) => {
 	const trello = client.trello;
 	if (messageReaction.message.channel.id === '372404583005290508') {
 		if (messageReaction.emoji.name === '👍' && messageReaction.count === 2) {
-			  var space = ' ';
+			var space = ' ';
 			var text = messageReaction.message.cleanContent.split(space);
 
 			var title = [];
