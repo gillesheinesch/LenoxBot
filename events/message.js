@@ -6,6 +6,11 @@ exports.run = async(client, msg) => {
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
 
+	if (!tableload.xpmessages) {
+		tableload.xpmessages = 'false';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.musicchannelblacklist) {
 		tableload.musicchannelblacklist = [];
 		await client.guildconfs.set(msg.guild.id, tableload);
@@ -81,8 +86,10 @@ exports.run = async(client, msg) => {
 						row.level = curLevel;
 						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 
+						if (tableload.xpmessages === 'true') {
 						var levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
 						msg.channel.send(levelup);
+						}
 					}
 					sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
 						for (let i = 1; i < tableload.ara.length; i += 2) {

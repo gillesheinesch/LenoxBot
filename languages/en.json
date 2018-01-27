@@ -1,4 +1,8 @@
 {
+    "togglexpmessages_set": "The xp messages were successfully activated",
+    "togglexpmessages_deleted": "The xp messages were successfully disabled",
+    "togglexpmessages_description": "Set the xp messages on or off",
+
     "tictactoe_nomention": "You must mention a user to play TicTacToe!",
     "tictactoe_error": "You can not play with yourself. You have to mention a user against whom you want to play.",
     "tictactoe_gamecreated": "New TicTacToe Game created!",
