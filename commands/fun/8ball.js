@@ -19,10 +19,10 @@ exports.conf = {
 	userpermissions: []
 };
 exports.help = {
-	name: '8ball',
+	name: 'eightball',
 	description: 'Ask the bot a question',
-	usage: '8ball {question}',
-	example: ['randomnumber What is your name?'],
+	usage: 'eightball {question}',
+	example: ['eightball What is your name?'],
 	category: 'fun',
 	botpermissions: ['SEND_MESSAGES']
 };
