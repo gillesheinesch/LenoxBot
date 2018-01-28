@@ -18,7 +18,7 @@ exports.run = async(client, msg, args, lang) => {
 
 	const number = args.slice();
 
-	var current = lang.reactionnumber_current.replace('%prefix', tableload.prefix);
+	var current = lang.reactionnumber_current.replace('%reactionnumber', tableload.reactionnumber);
 	if (number.length === 0 && tableload.application.reactionnumber !== '') return msg.channel.send(current);
 
 	if (number.length > 1) return msg.channel.send(lang.reactionnumber_error);
