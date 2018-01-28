@@ -26,9 +26,8 @@ exports.run = async(client, msg, args, lang) => {
 			secondtext = secondtext + 15;
 
 			const newembed = new Discord.RichEmbed()
-			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor(3447003)
-			.setDescription(guildchannels.join("\n"));
+			.setDescription(`**📋 ${lang.channels_textchannels}**\n${guildchannels.join("\n")}`);
 		
 			textchannels.edit({ embed: newembed });
 	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -39,9 +38,8 @@ exports.run = async(client, msg, args, lang) => {
 			secondtext = secondtext - 15;
 		
 			const newembed = new Discord.RichEmbed()
-			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor(3447003)
-			.setDescription(guildchannels.join("\n"));
+			.setDescription(`**📋 ${lang.channels_textchannels}**\n${guildchannels.join("\n")}`);
 		
 			textchannels.edit({ embed: newembed });
 		}
@@ -79,9 +77,8 @@ exports.run = async(client, msg, args, lang) => {
 			secondvoice = secondvoice + 15;
 
 			const newembed = new Discord.RichEmbed()
-			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor(3447003)
-			.setDescription(guildchannels.join("\n"));
+			.setDescription(`**📋 ${lang.channels_voicechannels}**\n${guildchannels.join("\n")}`);
 		
 			voicechannels.edit({ embed: newembed });
 	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -92,9 +89,8 @@ exports.run = async(client, msg, args, lang) => {
 			secondvoice = secondvoice - 15;
 		
 			const newembed = new Discord.RichEmbed()
-			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor(3447003)
-			.setDescription(guildchannels.join("\n"));
+			.setDescription(`**📋 ${lang.channels_voicechannels}**\n${guildchannels.join("\n")}`);
 		
 			voicechannels.edit({ embed: newembed });
 		}
