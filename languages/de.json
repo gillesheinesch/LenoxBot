@@ -552,7 +552,7 @@
     "application_reactionnumber": "Zunächst muss ein Administrator dieses Servers die Anzahl der erforderlichen Reaktionen für die Annahme oder Ablehnung einer Bewerbung festlegen. Das kann mithilfe von %prefixreactionnumber getan werden",
     "application_newapplication": "%author, eine neue Anwendung wurde erstellt. Bitte denke daran, dass jede Antwort auf die folgenden Fragen bis zu 200 Zeichen lang sein kann, sonst wird sie ignoriert!\n",
     "application_timeerror": "Du hast innerhalb 5 Minuten nicht geantwortet. Damit wurde deine Bewerbung abgebrochen. Wenn du eine neue Bewerbung schreiben willst, kannst du das einfach mit %prefixapplication machen.",
-    "application_newapplicationembed": "Neue Bewerbung von &authortag",
+    "application_newapplicationembed": "Neue Bewerbung von %authortag",
     "application_accepted": "Gratulation! Deine Bewerbung auf dem %guildname Server wurde erfolgreich angenommen.",
     "application_statusaccepted": "Status der Bewerbung: Angenommen ✅, Bewerbung von %authortag",
     "application_archivechannelnotexist": "Auf diesem Server wurde ein Archiv Kanal festgelegt, der aber nicht mehr existiert. Lege einen neuen Kanal mit %prefixtogglearchiv fest",
