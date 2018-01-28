@@ -100,7 +100,7 @@ exports.run = async(client, msg, args, lang) => {
 		}
 	});
 		collector.on('end',(collected, reason) => {
-			textchannels.react('❌');
+			voicechannels.react('❌');
 		});
 	} else {
 		return msg.channel.send(lang.channels_novoicechannels);
