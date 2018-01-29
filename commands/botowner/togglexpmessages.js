@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args, lang) => {
+	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
     const tableload = client.guildconfs.get(msg.guild.id);
     
     if (!tableload.xpmessages) {
@@ -31,6 +32,6 @@ exports.help = {
 	description: 'Set the xp messages on or off',
 	usage: 'togglexpmessages',
 	example: ['togglexpmessages'],
-	category: 'administration',
+	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };
