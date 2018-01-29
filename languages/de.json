@@ -681,5 +681,11 @@
     "announce_announcedeactivated": "Du musst zuerst festlegen, wo Ankündigungen veröffentlich werden sollen. Benutze den Befehl &prefixtoggleannounce, um Ankündigungen in deinem aktuellen Channel zu aktivieren!",
     "announce_noinput": "Du hast vergessen, einen Text einzugeben!",
     "announce_annoucementsent": "Ankündigung erfolgreich gesendet!",
-    "announce_description": "Schreibe eine neue Server-Ankündigung"
+    "announce_description": "Schreibe eine neue Server-Ankündigung",
+    "shoplist_embed": "Alle kaufbaren Rollen:",
+    "shoplist_price": "Preis:",
+    "shoplist_description": "Gibt dir eine Liste mit allen kaufbaren Rollen (mit Medallien)",
+    "shopbuy_added": "Glückwunsch! Du hast die Rolle erfolgreich bekommen!",
+    "shopbuy_error": "Diese Rolle ist nicht auf der Liste, welche du dir mit Medaillen kaufen kannst!",
+    "shopbuy_description": "Kauf etwas im Shop (mit Medallien)"
 }
