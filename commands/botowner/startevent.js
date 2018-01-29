@@ -10,7 +10,7 @@ exports.run = async(client, msg, args, lang) => {
 	const now = new Date().getTime();
 	const margs = msg.content.split(" ");
 
-	const validation = ['medalevent', 'lenoxbot'];
+	const validation = ['medalevent', 'lenoxbot', 'extramedalevent'];
 
 
 	for (i = 0; i < margs.length; i++) {
@@ -90,6 +90,44 @@ exports.run = async(client, msg, args, lang) => {
 					}
 				});
 				lenoxbotcollector.on('end', (collected, reason) => {
+					message.delete();
+				});
+			} else if (margs[1].toLowerCase() == "extramedalevent") {
+				var extramedalevent = [];
+
+				const embed = new Discord.RichEmbed()
+					.setDescription(`To participate, you only have to react with "🏅". \n\nWhen you have done that, you will be credited with **500** 🏅. \nThen you can call these with the following command ?medals`)
+					.setColor('#ff5050')
+					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
+					.setAuthor('The extra medal collection event has begun!');
+
+				const message = await msg.channel.send({
+					embed
+				});
+
+				await message.react('🏅');
+
+				var extramedaleventcollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '🏅' && !user.bot, {
+					time: 86400000
+				});
+				extramedaleventcollector.on('collect', r => {
+					if (!extramedalevent.includes(r.users.last().id)) {
+						extramedalevent.push(r.users.last().id);
+
+						sql.get(`SELECT * FROM medals WHERE userId ="${r.users.last().id}"`).then(row => {
+							if (!row) {
+								sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [r.users.last().id, 0]);
+							}
+							sql.run(`UPDATE medals SET medals = ${row.medals + 500} WHERE userId = ${r.users.last().id}`);
+						}).catch((error) => {
+							console.error(error);
+							sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
+								sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [r.users.last().id, 0]);
+							});
+						});
+					}
+				});
+				extramedaleventcollector.on('end', (collected, reason) => {
 					message.delete();
 				});
 			}
