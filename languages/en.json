@@ -1,4 +1,12 @@
 {
+    "shoplist_embed": "All purchasable roles:",
+    "shoplist_price": "Price:",
+    "shoplist_description": "Shows you a list of all buyable roles (with medals)",
+
+    "shopbuy_added": "Congratulations! You successfully got the role!",
+    "shopbuy_error": "This role is not on the list of reels that you can buy with medals!",
+    "shopbuy_description": "Buy something from the shop (with medals)",
+
     "togglexpmessages_set": "The xp messages were successfully activated",
     "togglexpmessages_deleted": "The xp messages were successfully disabled",
     "togglexpmessages_description": "Set the xp messages on or off",
@@ -116,10 +124,10 @@
     "addselfassignablerole_roleset": "Role has been successfully set to self-assignable roles!",
     "addselfassignablerole_description": "Add a role that allows users to assign themselves",
 
-    "annnounce_announcedeactivated": "You must first define where announcements should be posted. \nUse the following command %prefixtoggleannounce to activate announcements in your current channel!",
-    "annnounce_noinput": "You forgot to enter a text!",
-    "annnounce_annoucementsent": "Announcement successfully sent!",
-    "annnounce_description": "Write a new server announcement",
+    "announce_announcedeactivated": "You must first define where announcements should be posted. \nUse the following command %prefixtoggleannounce to activate announcements in your current channel!",
+    "announce_noinput": "You forgot to enter a text!",
+    "announce_annoucementsent": "Announcement successfully sent!",
+    "announce_description": "Write a new server announcement",
 
     "bye_channelset": "Your users are now said goodbye in #%channelname",
     "bye_channeldeleted": "The goodbye message is now disabled!",
@@ -652,9 +660,9 @@
     "ping_ping": "Here we go! It took %timestampms to send this message!",
     "ping_description": "Shows you how long the bot needs to send a message",
 
-    "randomnnumber_number": "You must enter a number!",
-    "randomnnumber_randomnumber": "The random number is: %randomnumber",
-    "randomnnumber_description": "Selects a random number between your input and 1",
+    "randomnumber_number": "You must enter a number!",
+    "randomnumber_randomnumber": "The random number is: %randomnumber",
+    "randomnumber_description": "Selects a random number between your input and 1",
 
     "rank_points": "Points",
     "rank_level": "Level",
