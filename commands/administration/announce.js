@@ -2,13 +2,13 @@ exports.run = (client, msg, args, lang) => {
     const tableload = client.guildconfs.get(msg.guild.id);
 	const text = args.slice().join(' ');
 	
-	var announceactivated = lang.annnounce_announcedeactivated.replace('%prefix', tableload.prefix);
+	var announceactivated = lang.announce_announcedeactivated.replace('%prefix', tableload.prefix);
 	if (tableload.announce === 'false') return msg.channel.send(announceactivated);
 
 	if (!text) return msg.channel.send(lang.annnounce_noinput).then(m => m.delete(10000));
 	const announcechannel = tableload.announcechannel;
 	client.channels.get(announcechannel).send(text);
-	msg.channel.send(lang.annnounce_annoucementsent).then(m => m.delete(10000));
+	msg.channel.send(lang.announce_annoucementsent).then(m => m.delete(10000));
 };
 
 exports.conf = {
