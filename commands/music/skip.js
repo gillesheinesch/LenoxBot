@@ -9,7 +9,7 @@ exports.run = async(client, msg, args, lang) => {
 
 	if (msg.member.voiceChannel.members.size === 2) {
 		msg.channel.send(lang.skip_skippedalone);
-		await serverQueue.connection.dispatcher.end();
+		await serverQueue.connection.dispatcher.destroy();
 		return undefined;
 	}
 	
@@ -42,7 +42,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (mapload.users.length !== number) return undefined;
 
 	msg.channel.send(lang.skip_skipped);
-	await serverQueue.connection.dispatcher.end();
+	await serverQueue.connection.dispatcher.destroy();
 	return undefined;
 };
 
