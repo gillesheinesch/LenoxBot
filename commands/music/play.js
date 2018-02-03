@@ -130,7 +130,6 @@ exports.run = async (client, msg, args, lang) => {
 		}
 		const dispatcher = await serverQueue.connection.playStream(ytdl(song.url), { filter: 'audioonly' })
 			.on('end', async reason => {
-				console.log(reason);
 				if (reason === 'Stream is not generating quickly enough.');
 					serverQueue.songs.shift('Stream is not generating quickly enough');
 					await play(guild, serverQueue.songs[0]);

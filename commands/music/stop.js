@@ -4,7 +4,7 @@ exports.run = (client, msg, args, lang) => {
 	if (!msg.member.voiceChannel) return msg.channel.send(lang.stop_notvoicechannel);
 	if (!serverQueue) return msg.channel.send(lang.stop_notvoicechannel);
 	serverQueue.songs = [];
-	serverQueue.connection.dispatcher.end();
+	serverQueue.connection.dispatcher.destroy();
 	msg.channel.send(lang.stop_leftchannel);
 	return undefined;
 };

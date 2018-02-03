@@ -3,7 +3,7 @@ exports.run = async(client, msg, args, lang) => {
 	const serverQueue = queue.get(msg.guild.id);
 	if (!msg.member.voiceChannel) return msg.channel.send(lang.forceskip_notvoicechannel);
 	if (!serverQueue) return msg.channel.send(lang.forceskip_noserverqueue);
-	await serverQueue.connection.dispatcher.end();
+	await serverQueue.connection.dispatcher.destroy();
 	return undefined;
 };
 
