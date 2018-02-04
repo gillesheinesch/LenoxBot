@@ -19,7 +19,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	if (redeemload.redeemkey !== '') {
-		var embeddescription = lang.redeemkey_embed.replace('%redeemkey', `**${redeemload.redeemkey}**`);
+		var embeddescription = lang.redeemkey_embeddescription.replace('%redeemkey', `**${redeemload.redeemkey}**`);
 	const embed = new Discord.RichEmbed()
 		.setDescription(embeddescription)
 		.setColor('#99ff66')
