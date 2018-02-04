@@ -7,7 +7,7 @@ exports.run = async(client, msg) => {
 	const tableload = await client.guildconfs.get(msg.guild.id);
 
 	const redeemload = client.redeem.get(msg.author.id);
-	if (!redeemload.redeemkey) {
+	if (!redeemload) {
 		const confs = {
 			redeemkey: '',
 			redeemed: '',
