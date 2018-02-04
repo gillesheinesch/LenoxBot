@@ -687,5 +687,17 @@
     "shoplist_description": "Gibt dir eine Liste mit allen kaufbaren Rollen (mit Medallien)",
     "shopbuy_added": "Glückwunsch! Du hast die Rolle erfolgreich bekommen!",
     "shopbuy_error": "Diese Rolle ist nicht auf der Liste, welche du dir mit Medaillen kaufen kannst!",
-    "shopbuy_description": "Kauf etwas im Shop (mit Medallien)"
+    "shopbuy_description": "Kauf etwas im Shop (mit Medallien)",
+    "redeemkey_error": "Der vom Bot generierte Aktivierungsschlüssel ist leider schon vergeben. Bitte führe den Befehl erneut aus, um einen neuen Schlüssel zu erhalten!",
+    "redeemkey_embeddescription": "Dein Aktivierungsslüssel: %redeemkey",
+    "redeemkey_description": "Zeigt deinen Aktivierungsschlüssel an, damit andere Nutzer ihn einlösen können",
+    "redeem_notlenoxbotdiscordserver": "Du musst auf unserem offiziellen Discord Server sein:",
+    "redeem_error": "Du hast vergessen, einen Schlüssel anzugeben!",
+    "redeem_already": "Du hast bereits einen Aktivierungsschlüssel eingelöst (du kannst nur einen einlösen).",
+    "redeem_errorownkey": "Du kannst deinen eigenen Aktivierungsschlüssel nicht einlösen",
+    "redeem_notexist": "Leider ist dieser Aktivierungsschlüssel nicht vorhanden. Bitte überprüfe, ob du dich nicht vertippt haben!",
+    "redeem_ownernotondiscordserver": "Der Benutzer, der den Aktivierungsschlüssel besitzt, muss sich ebenfalls auf dem LenoxBot-Server befinden",
+    "redeem_redeemeddm": "Dein Aktivierungsschlüssel wurde von %authortag eingelöst und du hast erfolgreich 50 Medaillen erhalten!",
+    "redeem_redeemed": "Der Aktivierungsschlüssel wurde erfolgreich eingelöst!",
+    "redeem_description": "Löse einen Aktivierungsschlüssel von einem anderen Discord-Benutzer ein"
 }

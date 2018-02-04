@@ -6,6 +6,16 @@ exports.run = async(client, msg) => {
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
 
+	const redeemload = client.redeem.get(msg.author.id);
+	if (!redeemload.redeemkey) {
+		const confs = {
+			redeemkey: '',
+			redeemed: '',
+			redeemkeyowner: msg.author.id
+		};
+		await client.redeem.set(msg.author.id, confs);
+	}
+
 	if (!tableload.xpmessages) {
 		tableload.xpmessages = 'false';
 		await client.guildconfs.set(msg.guild.id, tableload);

@@ -11,6 +11,7 @@ client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({ provider: new EnmapLevel({ name: 'guildsettings' }) });
 client.botconfs = new Enmap({ provider: new EnmapLevel({ name: 'botconfs' }) });
 client.starboard = new Enmap({ provider: new EnmapLevel({ name: 'starboard' }) });
+client.redeem = new Enmap({ provider: new EnmapLevel({ name: 'redeem' }) });
 client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
