@@ -6,12 +6,12 @@ exports.run = async(client, msg, args, lang) => {
 		tableload.application.status = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
 
-        return msg.channel.send('The application system was successfully activated!');
+        return msg.channel.send(lang.toggleapplication_activated);
 	} else {
 		tableload.application.status = 'false';
 		await client.guildconfs.set(msg.guild.id, tableload);
 		
-		return msg.channel.send('The application system was successfully deactivated!');
+		return msg.channel.send(lang.toggleapplication_disabled);
 	}
 };
 
