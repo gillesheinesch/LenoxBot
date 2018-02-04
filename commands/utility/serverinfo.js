@@ -22,7 +22,7 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`📲 ${lang.serverinfo_channels}`, msg.guild.channels.size)
 		.addField(`⏳ ${lang.serverinfo_created}`, servercreated)
 		.addField(`☑ ${lang.serverinfo_verification}`, msg.guild.verificationLevel || lang.serverinfo_noverification)
-		.addField(`📤 ${lang.serverinfo_afkchannel}`, `<#${msg.guild.afkChannelID}>` || lang.serverinfo_noafkchannel)
+		.addField(`📤 ${lang.serverinfo_afkchannel}`, msg.guild.afkChannel === null ? lang.serverinfo_noafkchannel : msg.guild.afkChannel.name)
 		.addField(`🎊 ${lang.serverinfo_emojis}`, emojis.length === 0 ? lang.serverinfo_emojisnone : emojis.join(" "));
 
 	msg.channel.send({ embed: embed });
