@@ -26,12 +26,13 @@
     "togglexpmessages_description": "Set the xp messages on or off",
 
     "tictactoe_nomention": "You must mention a user to play TicTacToe!",
+    "tictactoe_botmention": "You cannot mention a bot to play TicTacToe!",
     "tictactoe_error": "You can not play with yourself. You have to mention a user against whom you want to play.",
     "tictactoe_gamecreated": "New TicTacToe Game created!",
     "tictactoe_turn": "it's your turn",
-    "tictactoe_noanswer": "did not answer for 15 seconds why %user won this round",
+    "tictactoe_noanswer": "did not answer for 15 seconds why %user won this round.",
     "tictactoe_win": "%user won this round!",
-    "tictactoe_draw": "No one has won, it is draw! The next round may be better. :)",
+    "tictactoe_draw": "No one has won, it is draw! The next round may be better.",
     "tictactoe_description": "Play a round of TicTacToe against another Discord user",
 
     "channelblacklist_error": "There are no voicechannels on the blacklist yet",
@@ -364,16 +365,16 @@
     "help_addthebot": "To add this bot to your Discordserver:",
     "help_discordserver": "Any questions/suggestions/bugs, join our discord server:",
     "help_modulecommand": "To see all modules of the bot:",
-    "help_commandscommand": "To see all commands in a module:",
+    "help_commandscommand": "To see all commands of a module:",
     "help_helpcommand": "To see more details about a command:",
-    "help_documentation": "Documentation",
+    "help_documentation": "Documentation:",
     "help_usage": "Usage",
     "help_example": "Example",
     "help_category": "Module: %category",
     "help_error": "This command name or command alias doesn't exist",
     "help_description": "Gives you informations about a command",
 
-    "modules_commandscommand": "You can use %prefixcommands {modulename} to get a list of all commands in a module.",
+    "modules_commandscommand": "You can use %prefixcommands {modulename} to get a list of all commands of a module.",
     "modules_embed": "A list of all modules",
     "modules_description": "Gives you a list of all modules",
 
@@ -515,10 +516,20 @@
     "volume_volumeset": "I set the volume to: **%volumeinput**",
     "volume_description": "Changes the volume of the bot",
 
-    "pornsearch_nsfw": "The channel has to be NSFW!",
-    "pornsearch_type": "You have to decide what type of pornography you want to see",
-    "pornsearch_error": "Your input may not have any spaces!",
-    "pornsearch_description": "Makes it possible to search for NSFW/pornography",
+    "pornhubgif_nsfw": "The channel has to be NSFW!",
+    "pornhubgif_type": "You have to decide what type of pornography you want to see",
+    "pornhubgif_error": "Your input may not have any spaces!",
+    "pornhubgif_couldfindnothing": "Could not find any gifs to your request",
+    "pornhubgif_description": "Searches for Pornhub gifs",
+
+    "sexgif_description": "Searches for Sex gifs",
+
+    "sexvideo_durationembed": "Duration: %duration minutes",
+    "sexvideo_description": "Searches for Sex videos",
+
+    "redtube_description": "Searches for Redtube videos",
+
+    "pornhubvideo_description": "Searches for Pornhub videos",
 
     "clashroyale_noinput": "You have to enter if you want to search for a profile/clan. Then you have to enter the ID of the clan or the profile.",
     "clashroyale_profilerequest": "ClashRoyale Profile Stats",
