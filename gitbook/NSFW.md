@@ -1,5 +1,5 @@
-# NSFW commands
+# Nsfw commands
 
-| Command | Description | Required permissions |
+| Command | Description | Required user permissions |
 | :--- | :--- | :--- |
-|pornsearch               | Makes it possible to search for NSFW/pornography | any
+|
