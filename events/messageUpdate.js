@@ -28,7 +28,7 @@ exports.run = async(client, oldMsg, msg) => {
     messagechannel.send({ embed: embed });
 	}
 }
-	if (!msg.content.startsWith(tableload.prefix)) {
+	if (msg.content.startsWith(tableload.prefix)) {
 	var command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
 	var args = msg.content.split(' ').slice(1);
 	let cmd;
