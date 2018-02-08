@@ -76,7 +76,7 @@ exports.run = async(client, oldMsg, msg) => {
 	if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(botnopermission);
 	if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(usernopermission);
 
-		cmd.run(client, msg, args);
+		cmd.run(client, msg, args, lang);
 		if (tableload.commanddel === 'true') {
 			msg.delete();
 		}
