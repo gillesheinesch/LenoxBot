@@ -192,7 +192,7 @@
     "listmodules_nodisabledmodules": "No modules disabled",
     "listmodules_description": "Lists all active/disabled modules",
 
-    "log_noinput": "You forgot to enter what event you want to have logged in the channel. You can get a list of all available events with",
+    "log_noinput": "You forgot to enter what event you want to have logged in the channel. You can get a list of all available events with %prefixlistevents",
     "log_messagedeleteset": "All deleted messages are now logged in Channel",
     "log_messagedeletedeleted": "All deleted messages will no longer be logged!",
     "log_messageupdateset": "All updated messages are now logged in Channel",
