@@ -146,7 +146,7 @@
 
     "bye_channelset": "Your users are now said goodbye in **#%channelname**",
     "bye_channeldeleted": "The goodbye message is now disabled!",
-    "bye_description": "Disable the goodbye message",
+    "bye_description": "Disables the goodbye message",
 
     "byemsg_noinput": "You must enter your bye message!",
     "byemsg_goodbyemsgset": "Goodbye message saved successfully!",
