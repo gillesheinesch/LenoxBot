@@ -144,7 +144,7 @@
     "announce_annoucementsent": "Announcement successfully sent!",
     "announce_description": "Write a new server announcement",
 
-    "bye_channelset": "Your users are now said goodbye in #%channelname",
+    "bye_channelset": "Your users are now said goodbye in **#%channelname**",
     "bye_channeldeleted": "The goodbye message is now disabled!",
     "bye_description": "Disable the goodbye message",
 
