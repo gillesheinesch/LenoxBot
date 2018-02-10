@@ -1,4 +1,9 @@
 {
+    "setprofiledescription_noinput": "You forgot to enter a profile description!",
+    "setprofiledescription_error": "Your entry is too long. The profile description should be a small informative description so that the users have a little idea of you",
+    "setprofiledescription_set": "The profile description has been set successfully!", 
+    "setprofiledescription_description": "Sets a global profile description",
+
     "applicationsettings_embedauthor": "Application settings",
     "applicationsettings_deactivated": "Deactivated",
     "applicationsettings_activated": "Activated",
@@ -728,7 +733,7 @@
     "serverinfo_emojisnone": "none",
     "serverinfo_description": "Shows you some information about the current discord server",
 
-    "userinfo_user": "User",
+    "userinfo_descriptioninfo": "No description set!",
     "userinfo_created": "Discord-Account created",
     "userinfo_joined": "Joined this Discord Server",
     "userinfo_roles": "roles",

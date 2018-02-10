@@ -11,6 +11,9 @@ exports.run = async client => {
 	client.redeem.defer.then(() => {
 		console.log(client.redeem.size + "keys loaded for all redeem keys");
 	});
+	client.userdb.defer.then(() => {
+		console.log(client.userdb.size + "keys loaded for all user keys");
+	});
 
 	client.wait(20000);
 
@@ -95,11 +98,17 @@ exports.run = async client => {
 		redeemkeyowner: ''
 	};
 
+	const userconfs = {
+		description: ''
+	};
+
 	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
 	await client.user.setPresence({ game: { name: `?help in ${client.guilds.size} guilds`, type: 0 } });
 	await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
 
 	await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
+
+	await client.users.filter(u => !client.userdb.has(u.id)).forEach(u => client.userdb.set(u.id, userconfs));
 
 	await client.channels.filter(ch => ch.type === 'text' && ch.permissionsFor(client.user).has('READ_MESSAGES')).map(ch => ch.fetchMessages({ limit: 100 }));
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);

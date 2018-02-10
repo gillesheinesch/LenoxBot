@@ -1,18 +1,23 @@
 const Discord = require('discord.js');
 const moment = require('moment');
+const sql = require('sqlite');
+sql.open("../lenoxbotscore.sqlite");
 require('moment-duration-format');
 exports.run = async(client, msg, args, lang) => {
     const user = msg.mentions.users.first() || msg.author;
     const member = msg.guild.member(user) || await msg.guild.fetchMember(user);
     const userondiscord = moment(user.createdTimestamp).format('MMMM Do YYYY, h:mm:ss a');
     const useronserver = moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss a');
+    const tableload = client.userdb.get(user.id);
+
+	const medals = await sql.get(`SELECT * FROM medals WHERE userId = "${user.id}"`);
 
 	const embed = new Discord.RichEmbed()
-        .setAuthor(user.tag, user.displayAvatarURL)
+        .setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL)
         .setColor('#0066CC')
-        .setTimestamp()
         .setThumbnail(user.displayAvatarURL)
-        .addField(`👤 ${lang.userinfo_user}`, `${user.tag} (${user.id})`)
+        .setDescription(tableload.description.length === 0 ? lang.userinfo_descriptioninfo : tableload.description)
+        .addField(`🏅 ${lang.medals_medals}`, medals.medals)
         .addField(`📥 ${lang.userinfo_created}`, userondiscord)
         .addField(`📌 ${lang.userinfo_joined}`, useronserver)
         .addField(`🏷 ${lang.userinfo_roles}`, member.roles.map(role => role.name).join(', ') || lang.userinfo_noroles)
