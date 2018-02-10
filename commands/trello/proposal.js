@@ -4,7 +4,7 @@ exports.run = (client, msg, args, lang) => {
 		let proposal = args.slice();
 
 		if (!proposal) return msg.channel.send('You did not enter a proposal!');
-		if (!proposal.includes("|")) return msg.channel.send('You have to set a title for your proposal! Please read out <#353635000702337025> one more time!');
+		if (!proposal.includes("|")) return msg.channel.send('You have to set a title for your proposal!');
 		if (proposal.length < 5) return msg.channel.send('Your suggestion is too short. Try to give him some more detail!');
 
 			msg.channel.send(`${msg.author}, Your proposal was submitted successfully and we will notify you as soon as possible.`);
