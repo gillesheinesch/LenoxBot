@@ -1,10 +1,10 @@
 exports.run = async(client, msg, args, lang) => {
-	if (isNaN(args.slice().join(" "))) return msg.reply(clear_number).then(m => m.delete(10000));
+	if (isNaN(args.slice().join(" "))) return msg.reply(lang.clear_number).then(m => m.delete(10000));
 
 	let messagecount = parseInt(args.join(' '));
 
-	if (messagecount > 100) return msg.reply(clear_max100).then(m => m.delete(10000));
-	if (messagecount < 2) return msg.reply(clear_min2).then(m => m.delete(10000));
+	if (messagecount > 100) return msg.reply(lang.clear_max100).then(m => m.delete(10000));
+	if (messagecount < 2) return msg.reply(lang.clear_min2).then(m => m.delete(10000));
 
 	await msg.channel.fetchMessages({ limit: messagecount + 1 }).then(messages => msg.channel.bulkDelete(messages));
 
