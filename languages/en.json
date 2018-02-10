@@ -689,8 +689,8 @@
 
     "nicknamelog_error": "No user has changed his nickname on this server yet!",
     "nicknamelog_nonicknamelog": "You or the mentioned user has not changed his nickname yet.",
-    "nicknamelog_old": "Old Nickname",
-    "nicknamelog_new": "New Nickname",
+    "nicknamelog_old": "Old nickname",
+    "nicknamelog_new": "New nickname",
     "nicknamelog_changedat": "Changed at",
     "nicknamelog_description": "Shows you the nickname log of you or a user",
 
@@ -785,11 +785,11 @@
     "guildmemberremoveevent_userleft": "User left",
 
     "guildmemberupdateevent_nonickname": "No nickname",
-    "guildmemberupdateevent_nicknamechanged": "Nickname changed!",
+    "guildmemberupdateevent_nicknamechanged": "nickname changed!",
     "guildmemberupdateevent_member": "Member:",
-    "guildmemberupdateevent_oldnickname": "Old Nickname:",
+    "guildmemberupdateevent_oldnickname": "Old nickname:",
     "guildmemberupdateevent_membernonickname": "The member had no nickname",
-    "guildmemberupdateevent_newnickname": "New Nickname:",
+    "guildmemberupdateevent_newnickname": "New nickname:",
     "guildmemberupdateevent_nicknamereset": "The nickname has been reset",
     "guildmemberupdateevent_roleassigned": "Role assigned!",
     "guildmemberupdateevent_role": "Role:",
