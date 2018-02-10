@@ -20,7 +20,7 @@ exports.run = async(client, msg, args, lang) => {
         .addField(`🏅 ${lang.medals_medals}`, medals.medals)
         .addField(`📥 ${lang.userinfo_created}`, userondiscord)
         .addField(`📌 ${lang.userinfo_joined}`, useronserver)
-        .addField(`🏷 ${lang.userinfo_roles}`, member.roles.map(role => role.name).join(', ') || lang.userinfo_noroles)
+        .addField(`🏷 ${lang.userinfo_roles}`, member.roles.filter(r => r.name !== '@everyone').map(role => role.name).join(', ') || lang.userinfo_noroles)
         .addField(`⌚ ${lang.userinfo_status}`, user.presence.status)
         .addField(`🎮 ${lang.userinfo_playing}`, user.presence.game ? user.presence.game.name : lang.userinfo_nothing);
 
