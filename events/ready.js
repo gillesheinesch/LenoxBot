@@ -1,19 +1,15 @@
 exports.run = async client => {
 	client.guildconfs.defer.then(() => {
-		// all data is loaded now.
-		console.log(client.guildconfs.size + "keys loaded");
+		console.log(client.guildconfs.size + "keys loaded for all discord servers");
 	});
 	client.starboard.defer.then(() => {
-		// all data is loaded now.
-		console.log(client.starboard.size + "keys loaded");
+		console.log(client.starboard.size + "keys loaded for all starboard messages");
 	});
 	client.botconfs.defer.then(() => {
-		// all data is loaded now.
-		console.log(client.botconfs.size + "keys loaded");
+		console.log(client.botconfs.size + "keys loaded for all bot configs");
 	});
 	client.redeem.defer.then(() => {
-		// all data is loaded now.
-		console.log(client.botconfs.size + "keys loaded");
+		console.log(client.redeem.size + "keys loaded for all redeem keys");
 	});
 
 	client.wait(20000);
