@@ -19,7 +19,7 @@ exports.run = async(client, msg, args, lang) => {
 				var normalevent = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to react with "🏅". \n\nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command ?medals`)
+					.setDescription(`To participate, you only have to react with "🏅". \n\nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command: ?medals`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
 					.setAuthor('The medal collection event has begun!');
@@ -57,7 +57,7 @@ exports.run = async(client, msg, args, lang) => {
 				var lenoxbot = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to write "LenoxBot" in the #spam channel. \n\nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command ?medals`)
+					.setDescription(`To participate, you only have to write "LenoxBot" in the #spam channel. \n\nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command: ?medals`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
 					.setAuthor('The "LenoxBot" SPAM event has begun!');
@@ -96,7 +96,7 @@ exports.run = async(client, msg, args, lang) => {
 				var extramedalevent = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to react with "🏅". \n\nWhen you have done that, you will be credited with **500** 🏅. \nThen you can call these with the following command ?medals`)
+					.setDescription(`To participate, you only have to react with "🏅". \n\nWhen you have done that, you will be credited with **500** 🏅. \nThen you can call these with the following command: ?medals`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
 					.setAuthor('The extra medal collection event has begun!');
