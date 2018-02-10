@@ -25,7 +25,8 @@ ${lang.applicationsettings_denyrole} \`${tableload.application.denyrole === '' ?
 ${lang.applicationsettings_votechannel} \`${tableload.application.votechannel === '' ? lang.applicationsettings_nochannel : `#${msg.guild.channels.get(tableload.application.votechannel).name}`}\` \n\
 ${lang.applicationsettings_archivestatus} \`${tableload.application.archivechannel === false ? lang.applicationsettings_deactivated : lang.applicationsettings_activated}\` \n\
 ${lang.applicationsettings_archivechannellog}  \`${tableload.application.archivechannellog === '' ? lang.applicationsettings_nochannel : client.channels.get(tableload.application.archivechannellog).name}\``)
-		.setAuthor(lang.applicationsettings_embedauthor)
+.addField(lang.applicationsettings_entries, tableload.application.template.length === 0 ? lang.serverinfo_emojisnone : tableload.application.template.join("\n"))
+.setAuthor(lang.applicationsettings_embedauthor)
 		.setColor('#00ff00');
 
 	msg.channel.send({
