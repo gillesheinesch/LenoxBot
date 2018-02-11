@@ -128,11 +128,13 @@ exports.run = async (client, msg, args, lang) => {
 			await queue.delete(guild.id);
 			return undefined;
 		}
-		const dispatcher = await serverQueue.connection.playStream(ytdl(song.url), { filter: 'audioonly' })
+		const dispatcher = await serverQueue.connection.playStream(ytdl(song.url), {
+				filter: 'audioonly'
+			})
 			.on('end', async reason => {
 				if (reason === 'Stream is not generating quickly enough.');
-					serverQueue.songs.shift('Stream is not generating quickly enough');
-					await play(guild, serverQueue.songs[0]);
+				serverQueue.songs.shift('Stream is not generating quickly enough');
+				await play(guild, serverQueue.songs[0]);
 			})
 			.on('error', error => console.error(error));
 		dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
