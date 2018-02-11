@@ -228,7 +228,7 @@ exports.run = async(client, msg) => {
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
 
-			var anticommandspam = lang.messageevent_anticommandspam.replace('%time', timeLeft.toFixed(1)).replace('%commandname', `\`${cmd.help.name}\``);
+			var anticommandspam = lang.messageevent_anticommandspam.replace('%time', timeLeft.toFixed(1)).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
 			return msg.reply(anticommandspam);
 		}
 
