@@ -91,6 +91,129 @@ exports.run = async(client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
+	// Check if all channels exist
+	if (tableload.modlogchannel !== '' && !msg.guild.channels.get(tableload.modlogchannel)) {
+		tableload.modlog = 'false';
+		tableload.modlogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.messagedellogchannel !== '' && !msg.guild.channels.get(tableload.messagedellogchannel)) {
+		tableload.messagedellog = 'false';
+		tableload.messagedellogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.messageupdatelogchannel !== '' && !msg.guild.channels.get(tableload.messageupdatelogchannel)) {
+		tableload.messageupdatelog = 'false';
+		tableload.messageupdatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.channelupdatelogchannel !== '' && !msg.guild.channels.get(tableload.channelupdatelogchannel)) {
+		tableload.channelupdatelog = 'false';
+		tableload.channelupdatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.channelcreatelogchannel !== '' && !msg.guild.channels.get(tableload.channelcreatelogchannel)) {
+		tableload.channelcreatelog = 'false';
+		tableload.channelcreatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.channeldeletelogchannel !== '' && !msg.guild.channels.get(tableload.channeldeletelogchannel)) {
+		tableload.channeldeletelog = 'false';
+		tableload.channelcreatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.guildmemberupdatelogchannel !== '' && !msg.guild.channels.get(tableload.guildmemberupdatelogchannel)) {
+		tableload.guildmemberupdatelog = 'false';
+		tableload.guildmemberupdatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.presenceupdatelogchannel !== '' && !msg.guild.channels.get(tableload.presenceupdatelogchannel)) {
+		tableload.presenceupdatelog = 'false';
+		tableload.presenceupdatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.welcomelogchannel !== '' && !msg.guild.channels.get(tableload.welcomelogchannel)) {
+		tableload.welcomelog = 'false';
+		tableload.welcomelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.guildupdatelogchannel !== '' && !msg.guild.channels.get(tableload.guildupdatelogchannel)) {
+		tableload.guildupdatelog = 'false';
+		tableload.guildupdatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.byelogchannel !== '' && !msg.guild.channels.get(tableload.byelogchannel)) {
+		tableload.byelog = 'false';
+		tableload.byelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.rolecreatelogchannel !== '' && !msg.guild.channels.get(tableload.rolecreatelogchannel)) {
+		tableload.rolecreatelog = 'false';
+		tableload.rolecreatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.roledeletelogchannel !== '' && !msg.guild.channels.get(tableload.roledeletelogchannel)) {
+		tableload.roledeletelog = 'false';
+		tableload.roledeletelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.roleupdatelogchannel !== '' && !msg.guild.channels.get(tableload.roleupdatelogchannel)) {
+		tableload.roleupdatelog = 'false';
+		tableload.roleupdatelogchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.welcomechannel !== '' && !msg.guild.channels.get(tableload.welcomechannel)) {
+		tableload.welcome = 'false';
+		tableload.welcomechannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.byechannel !== '' && !msg.guild.channels.get(tableload.byechannel)) {
+		tableload.bye = 'false';
+		tableload.byechannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.announcechannel !== '' && !msg.guild.channels.get(tableload.announcechannel)) {
+		tableload.announce = 'false';
+		tableload.announcechannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.votechannel !== '' && !msg.guild.channels.get(tableload.votechannel)) {
+		tableload.votechannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.archivechannellog !== '' && !msg.guild.channels.get(tableload.archivechannellog)) {
+		tableload.archivechannellog = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.musicchannelblacklist.length !== 0) {
+		for (var i = 0; i < tableload.musicchannelblacklist.length; i++) {
+			if (!msg.guild.channels.get(tableload.musicchannelblacklist[i])) {
+				tableload.musicchannelblacklist.splice(i, 1);
+			}
+		}
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+	//
+
 	if (tableload.modules.utility === 'true') {
 			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 				if (!row) {
