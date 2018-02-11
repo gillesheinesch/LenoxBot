@@ -4,32 +4,26 @@ exports.run = async(client, msg, args, lang) => {
     const margs = msg.content.split(" ");
     const input = args.slice();
 
-    const validation = ['en', 'de'];
+    const validation = ['english', 'german'];
 
     const already = lang.language_already.replace('%language', input[0]);
     const changed = lang.language_changed.replace('%input', input[0]);
 
-    if (input.length === 0) {
-        const embed = new Discord.RichEmbed()
-        .setDescription('en = English \nde = German')
-        .setColor('0066CC')
-        .setAuthor(lang.language_languages);
-        return msg.channel.send({ embed });
-    }
+    if (!input || input.length === 0) return msg.reply(lang.language_noinput);
 
     for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			if (margs[1].toLowerCase() === 'en') {
+			if (margs[1].toLowerCase() === 'english') {
                 if (tableload.language === 'en') return msg.channel.send(already);
 
                 tableload.language = 'en';
                 await client.guildconfs.set(msg.guild.id, tableload);
             
                 return msg.channel.send(changed);
-            } else if (margs[1].toLowerCase() === 'de') {
-                if (tableload.language === 'de') return msg.channel.send(already);
+            } else if (margs[1].toLowerCase() === 'ge') {
+                if (tableload.language === 'ge') return msg.channel.send(already);
 
-                tableload.language = 'de';
+                tableload.language = 'ge';
                 await client.guildconfs.set(msg.guild.id, tableload);
 
                 return msg.channel.send(changed);
@@ -49,7 +43,7 @@ exports.help = {
 	name: 'language',
 	description: 'Changes the language of the bot for this server',
 	usage: 'language',
-    example: ['language', 'language de'],
+    example: ['language', 'language ge', 'language en'],
     category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };
