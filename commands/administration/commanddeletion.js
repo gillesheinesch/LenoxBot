@@ -20,10 +20,10 @@ exports.conf = {
     userpermissions: ['ADMINISTRATOR']
 };
 exports.help = {
-	name: 'commanddel',
+	name: 'commanddeletion',
 	description: 'Toggles the deletion of a command after execution',
-	usage: 'commanddel',
-	example: ['commanddel'],
+	usage: 'commanddeletion',
+	example: ['commanddeletion'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES']
 };
