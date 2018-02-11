@@ -6,8 +6,10 @@ exports.run = (client, msg, args, lang) => {
 	if (tableload.announce === 'false') return msg.channel.send(announceactivated);
 
 	if (!text) return msg.channel.send(lang.annnounce_noinput).then(m => m.delete(10000));
+
 	const announcechannel = tableload.announcechannel;
-	client.channels.get(announcechannel).send(text);
+	const announcement = lang.announce_announcement.replace('%authortag', msg.author.tag);
+	client.channels.get(announcechannel).send(`${announcement} ${text}`);
 	msg.channel.send(lang.announce_annoucementsent).then(m => m.delete(10000));
 };
 
