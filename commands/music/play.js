@@ -87,7 +87,7 @@ exports.run = async (client, msg, args, lang) => {
 				voiceChannel: voiceChannel,
 				connection: null,
 				songs: [],
-				volume: 5,
+				volume: 2,
 				playing: true
 			};
 			await queue.set(msg.guild.id, queueConstruct);
