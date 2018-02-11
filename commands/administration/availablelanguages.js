@@ -1,24 +1,24 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args, lang) => {
-    const embed = new Discord.RichEmbed()
-    .setColor('')
-    .setDescription(lang.availablelanguages_descriptionembed)
-    .setAuthor(lang.availablelanguages_languages);
+	const embed = new Discord.RichEmbed()
+	.setColor('')
+	.setDescription(lang.availablelanguages_descriptionembed)
+	.setAuthor(lang.availablelanguages_languages);
 
-    msg.channel.send({ embed });
+	msg.channel.send({ embed });
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-    aliases: [],
-    userpermissions: []
+	aliases: [],
+	userpermissions: []
 };
 exports.help = {
 	name: 'availablelanguages',
 	description: 'Shows you a list in which language the bot is available and can be changed',
 	usage: 'availablelanguages',
-    example: ['availablelanguages'],
-    category: 'administration',
-    botpermissions: ['SEND_MESSAGES']
+	example: ['availablelanguages'],
+	category: 'administration',
+	botpermissions: ['SEND_MESSAGES']
 };

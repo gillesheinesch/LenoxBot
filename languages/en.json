@@ -128,7 +128,7 @@
     "availablelanguages_descriptionembed": "English \nGerman",
     "availablelanguages_description": "Shows you a list in which language the bot is available and can be changed",
 
-    "language_error": "You forgot to specify the language in which you want to change your bot!",
+    "language_noinput": "You forgot to specify the language in which you want to change your bot!",
     "language_already": "The language of the bot for this server is already %language",
     "language_changed": "Language of the bot for this server successfully changed to %input",
     "language_error": "This language is not available",
