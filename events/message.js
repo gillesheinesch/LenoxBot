@@ -96,7 +96,7 @@ exports.run = async(client, msg) => {
 				if (!row) {
 					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
 				} else {
-					let curLevel = Math.floor(0.1 * Math.sqrt(row.points + 1));
+					let curLevel = Math.floor(0.2 * Math.sqrt(row.points + 1));
 					if (curLevel > row.level) {
 						row.level = curLevel;
 						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);

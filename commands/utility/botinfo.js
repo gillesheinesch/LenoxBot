@@ -9,7 +9,7 @@ exports.run = (client, msg, args, lang) => {
         .setAuthor('LenoxBot', client.user.avatarURL)
         .setColor('#0066CC')
         .setThumbnail(client.user.avatarURL)
-        .addField(`⏳ ${lang.botinfo_runtime}`, `${uptimeserver}`, true)
+        .addField(`⏳ ${lang.botinfo_runtime}`, `${uptimeserver}`)
         .addField(`🛠 ${lang.botinfo_memory}`, `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
         .addField(`📡 ${lang.botinfo_stats}`, online)
         .addField(`💻 ${lang.botinfo_doc}`, `https://www.lenoxbot.com/`)
