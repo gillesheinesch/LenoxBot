@@ -1,6 +1,6 @@
 {
     "embed_error": "You forgot to enter what you would like to include in your embed",
-    "embed_toobig": "Your embed can not have more than 1800 characters!",
+    "embed_toobig": "Your embed can not have more than 1000 characters!",
     "embed_created": "New Embed created by %authortag",
     "embed_description": "Create an embed for you with any text. Use // to go to a new line",
 

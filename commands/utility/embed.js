@@ -3,7 +3,7 @@ exports.run = (client, msg, args, lang) => {
     const input = args.slice();
 
     if (!input || input.length === 0) return msg.reply(lang.embed_error);
-    if (input.join(" ").length > 1800) return msg.reply(lang.embed_toobig);
+    if (input.join(" ").length > 1000) return msg.reply(lang.embed_toobig);
 
     const embedinput = input.join(" ").replace('//', '\n');
     const author = lang.embed_created.replace('%authortag', msg.author.tag);
