@@ -5,8 +5,8 @@ exports.run = async(client, msg, args, lang) => {
 
 	const validation = ['english', 'german'];
 
-	const already = lang.language_already.replace('%language', input[0]);
-	const changed = lang.language_changed.replace('%input', input[0]);
+	const already = lang.language_already.replace('%language', `\`${input[0]}\``);
+	const changed = lang.language_changed.replace('%input', `\`${input[0]}\``);
 
 	if (!input || input.length === 0) return msg.reply(lang.language_noinput);
 
@@ -19,7 +19,7 @@ exports.run = async(client, msg, args, lang) => {
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
-			} else if (margs[1].toLowerCase() === 'ge') {
+			} else if (margs[1].toLowerCase() === 'german') {
 				if (tableload.language === 'ge') return msg.channel.send(already);
 
 				tableload.language = 'ge';
