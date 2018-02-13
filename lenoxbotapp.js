@@ -40,7 +40,7 @@ process.on('uncaughtException', (reason) => {
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-const categories = ['botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'trello', 'utility', 'staff', 'application'];
+const categories = ['currency', 'botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'trello', 'utility', 'staff', 'application'];
 categories.forEach((c, i) => {
 	fs.readdir(`./commands/${c}/`, (err, files) => {
 	  if (err) throw err;
