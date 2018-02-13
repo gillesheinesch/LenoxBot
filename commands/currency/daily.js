@@ -5,16 +5,13 @@ exports.run = async(client, msg, args, lang) => {
 	const mentioncheck = msg.mentions.users.first();
 	const userdb = client.userdb.get(msg.author.id);
 
-	if (!mention) {
+	if (!mentioncheck) {
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
 			}
 			sql.run(`UPDATE medals SET medals = ${row.medals + 200 + userdb.dailystreak} WHERE userId = ${msg.author.id}`);
 		  });
-
-		  userdb.dailystreak = userdb.dailystreak + 1;
-		  await client.userdb.set(msg.author.id, userdb);
 
 		  const author = lang.daily_author.replace('%amount', `$${200 + userdb.dailystreak}`);
 		  return msg.reply(author);
@@ -25,9 +22,6 @@ exports.run = async(client, msg, args, lang) => {
 			}
 			sql.run(`UPDATE medals SET medals = ${row.medals + 200 + userdb.dailystreak} WHERE userId = ${mentioncheck.id}`);
 		  });
-
-		userdb.dailystreak = userdb.dailystreak + 1;
-		await client.userdb.set(msg.author.id, userdb);
 
 		const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', `$${200 + userdb.dailystreak}`);
 		msg.reply(mention);
