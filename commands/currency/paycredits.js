@@ -49,7 +49,7 @@ exports.conf = {
 	userpermissions: []
 };
 exports.help = {
-	name: 'paymedals',
+	name: 'paycredits',
 	description: 'Allows a user to give their medals to someone',
 	usage: 'paymedals {@User} {Amount}',
 	example: ['paymedals @Monkeyyy11#7584 100'],
