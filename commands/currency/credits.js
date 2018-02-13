@@ -18,11 +18,11 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: [],
+	aliases: ['balance'],
 	userpermissions: []
 };
 exports.help = {
-	name: 'medals',
+	name: 'credits',
 	description: 'Shows you the medals of you or another user',
 	usage: 'medals [@User]',
 	example: ['medals @Monkeyyy11#7584'],
