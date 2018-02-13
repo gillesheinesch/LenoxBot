@@ -10,20 +10,20 @@ exports.run = async(client, msg, args, lang) => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + 200 + userdb.dailystreak} WHERE userId = ${msg.author.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + 200} WHERE userId = ${msg.author.id}`);
 		  });
 
-		  const author = lang.daily_author.replace('%amount', `$${200 + userdb.dailystreak}`);
+		  const author = lang.daily_author.replace('%amount', `$200`);
 		  return msg.reply(author);
 	} else {
 		sql.get(`SELECT * FROM medals WHERE userId ="${mentioncheck.id}"`).then(row => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [mentioncheck.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + 200 + userdb.dailystreak} WHERE userId = ${mentioncheck.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + 200} WHERE userId = ${mentioncheck.id}`);
 		  });
 
-		const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', `$${200 + userdb.dailystreak}`);
+		const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', `$200`);
 		msg.reply(mention);
 	}
 };
