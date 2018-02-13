@@ -1,4 +1,9 @@
 {
+    "inventory_inventory": "%authortag's inventory",
+    "inventory_error": "You do not have any items yet. You can receive items by using %prefixloot",
+    "inventory_price": "Price:",
+    "inventory_description": "Shows you your inventory",
+
     "loot_crate": "crate",
     "loot_cratekey": "cratekey",
     "loot_pickaxe": "pickaxe",
