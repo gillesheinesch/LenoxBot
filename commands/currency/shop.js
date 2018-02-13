@@ -16,12 +16,12 @@ exports.run = async(client, msg, args, lang) => {
 		for (var i = 0; i < tableload.shopitems.length; i += 2) {
 			roles.push(msg.guild.roles.get(tableload.shopitems[i]).name);
 		}
-        embed.addField(lang.shoplist_embed, roles.join("\n"), true);
+        embed.addField(lang.shop_embed, roles.join("\n"), true);
         
         for (var i = 1; i < tableload.shopitems.length; i += 2) {
 			points.push(tableload.shopitems[i]);
         }
-        embed.addField(lang.shoplist_price, points.join("\n"), true);
+        embed.addField(lang.shop_price, points.join("\n"), true);
 		return msg.channel.send({ embed: embed });
 	} catch (error) {
 		return msg.channel.send(lang.listautomaticrole_error);

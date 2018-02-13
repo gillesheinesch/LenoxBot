@@ -2,8 +2,6 @@ const Discord = require('discord.js');
 const sql = require("sqlite");
 sql.open("../lenoxbotscore.sqlite");
 exports.run = async(client, msg, args, lang) => {
-	const content = args.slice();
-	let input = parseInt(args.slice().join(' '));
 	const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
 
 		let userArray = [];
@@ -22,8 +20,8 @@ exports.run = async(client, msg, args, lang) => {
 	let embed = new Discord.RichEmbed()
 	.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 	.setColor('#009933')
-	.addField(lang.medalsranks_name, tempArray.slice(0, 20).join('\n'), true)
-	.addField(lang.medalsranks_medals, moneyArray.slice(0, 20).join('\n'), true);
+	.addField(lang.creditranklist_name, tempArray.slice(0, 20).join('\n'), true)
+	.addField(lang.creditranklist_credits, moneyArray.slice(0, 20).join('\n'), true);
 
 		const message = await msg.channel.send({ embed });
 		
@@ -49,8 +47,8 @@ exports.run = async(client, msg, args, lang) => {
 			const newembed = new Discord.RichEmbed()
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('#009933')
-			.addField(lang.medalsranks_name, thesecond.join('\n'), true)
-			.addField(lang.medalsranks_medals, thefirst.join('\n'), true);
+			.addField(lang.creditranklist_name, thesecond.join('\n'), true)
+			.addField(lang.creditranklist_credits, thefirst.join('\n'), true);
 		
 		message.edit({ embed: newembed });
 	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
@@ -62,8 +60,8 @@ exports.run = async(client, msg, args, lang) => {
 			second = second - 20;
 		
 			const newembed = new Discord.RichEmbed()
-			.addField(lang.medalsranks_name, thesecond.join('\n'), true)
-			.addField(lang.medalsranks_medals, thefirst.join('\n'), true)
+			.addField(lang.creditranklist_name, thesecond.join('\n'), true)
+			.addField(lang.creditranklist_credits, thefirst.join('\n'), true)
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('#009933');
 		
@@ -78,14 +76,14 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: [],
+	aliases: ['richest'],
     userpermissions: []
 };
 exports.help = {
-	name: 'medalsranks',
-	description: `Ranking, sorted by the medals`,
-	usage: 'medalsranks',
-	example: ['medalsranks'],
-	category: 'utility',
+	name: 'creditranklist',
+	description: `Ranking, sorted by the credits`,
+	usage: 'creditranklist',
+	example: ['creditranklist'],
+	category: 'currency',
     botpermissions: ['SEND_MESSAGES']
 };

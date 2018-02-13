@@ -8,7 +8,7 @@ exports.run = async(client, msg, args, lang) => {
 	sql.get(`SELECT * FROM medals WHERE userId = "${user1.id}"`).then(row => {
 		var embed = new Discord.RichEmbed()
 		.setAuthor(user1.tag, user1.avatarURL)
-		.addField(lang.medals_medals, row.medals)
+		.addField(lang.credits_credits, row.medals)
 		.setColor('#009933');
 
 		msg.channel.send({ embed });
@@ -23,9 +23,9 @@ exports.conf = {
 };
 exports.help = {
 	name: 'credits',
-	description: 'Shows you the medals of you or another user',
-	usage: 'medals [@User]',
-	example: ['medals @Monkeyyy11#7584'],
-	category: 'utility',
+	description: 'Shows you the credits of you or another user',
+	usage: 'credits [@User]',
+	example: ['credits @Monkeyyy11#7584'],
+	category: 'currency',
 	botpermissions: ['SEND_MESSAGES']
 };
