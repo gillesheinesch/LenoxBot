@@ -17,7 +17,7 @@ exports.run = async(client, msg) => {
 			house: 0,
 			bag: 0,
 			diamond: 0,
-			pet: 0,
+			dog: 0,
 			cat: 0,
 			apple: 0,
 			football: 0,

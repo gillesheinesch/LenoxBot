@@ -102,24 +102,54 @@ exports.run = async client => {
 		description: ''
 	};
 
+	const marketconfs = {
+		crate: ['📁', '8', '7'],
+		cratekey: ['🔑', '75', '68'],
+		pickaxe: ['⛏', '100', '90'],
+		joystick: ['🕹', '60', '54'],
+		house: ['🏠', '10000', '9000'],
+		bag: ['👜', '15', '13'],
+		diamond: ['💠', '2000', '1800'],
+		dog: ['🐶', '25', '23'],
+		cat: ['🐱', '25', '23'],
+		apple: ['🍎', '5', '4'],
+		football: ['⚽', '10', '9'],
+		car: ['🚙', '6000', '5400'],
+		phone: ['📱', '400', '360'],
+		computer: ['💻', '1000', '900'],
+		camera: ['📷', '600', '540'],
+		clock: ['⏰', '15', '13']
+	};
+
 	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
-	await client.user.setPresence({ game: { name: `?help in ${client.guilds.size} guilds`, type: 0 } });
+	await client.user.setPresence({
+		game: {
+			name: `?help in ${client.guilds.size} guilds`,
+			type: 0
+		}
+	});
 	await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
 
 	await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
 
 	await client.users.filter(u => !client.userdb.has(u.id)).forEach(u => client.userdb.set(u.id, userconfs));
 
-	await client.channels.filter(ch => ch.type === 'text' && ch.permissionsFor(client.user).has('READ_MESSAGES')).map(ch => ch.fetchMessages({ limit: 100 }));
+	await client.channels.filter(ch => ch.type === 'text' && ch.permissionsFor(client.user).has('READ_MESSAGES')).map(ch => ch.fetchMessages({
+		limit: 100
+	}));
+
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
+	if (!client.botconfs.has('market')) client.botconfs.set('market', marketconfs);
 
 	if (client.user.id === '354712333853130752') {
 		const snekfetch = require('snekfetch');
 		snekfetch.post(`https://discordbots.org/api/bots/stats`)
-		  .set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE')
-		  .send({ server_count: client.guilds.size })
-		  .then(() => console.log('Updated discordbots.org stats.'))
-		 .catch(err => console.error(`Whoops something went wrong: ${err.body}`));
+			.set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE')
+			.send({
+				server_count: client.guilds.size
+			})
+			.then(() => console.log('Updated discordbots.org stats.'))
+			.catch(err => console.error(`Whoops something went wrong: ${err.body}`));
 	}
 };

@@ -64,7 +64,7 @@ exports.run = async (client, msg, args, lang) => {
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationfor50procent[result]);
 		msg.reply(lootmessage);
 	} else {
-		var validationforrest = ['crate', 'bag', 'pet', 'cat', 'apple', 'football', 'clock'];
+		var validationforrest = ['crate', 'bag', 'dog', 'cat', 'apple', 'football', 'clock'];
 		const result = Math.floor(Math.random() * validationforrest.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -78,7 +78,7 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory[validationforrest[result]] = userdb.inventory[validationforrest[result]] + 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		validationforrest = [lang.loot_crate, lang.loot_bag, lang.loot_pet, lang.loot_cat, lang.loot_apple, lang.loot_football, lang.loot_clock];
+		validationforrest = [lang.loot_crate, lang.loot_bag, lang.loot_dog, lang.loot_cat, lang.loot_apple, lang.loot_football, lang.loot_clock];
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationforrest[result]);
 		msg.reply(lootmessage);
