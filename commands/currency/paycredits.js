@@ -45,14 +45,14 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['pm'],
+	aliases: ['pc'],
 	userpermissions: []
 };
 exports.help = {
 	name: 'paycredits',
-	description: 'Allows a user to give their medals to someone',
-	usage: 'paymedals {@User} {Amount}',
-	example: ['paymedals @Monkeyyy11#7584 100'],
-	category: 'utility',
+	description: 'Allows a user to give their credits to someone',
+	usage: 'paycredits {@User} {Amount}',
+	example: ['paycredits @Monkeyyy11#7584 100'],
+	category: 'currency',
 	botpermissions: ['SEND_MESSAGES']
 };
