@@ -31,11 +31,11 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['shop'],
+	aliases: ['market'],
     userpermissions: []
 };
 exports.help = {
-	name: 'market',
+	name: 'shop',
 	description: 'Shows you a list of all buyable roles (with medals)',
 	usage: 'shoplist',
 	example: ['shoplist'],
