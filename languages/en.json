@@ -1,4 +1,16 @@
 {
+    "shop_buy": "buy",
+    "shop_sell": "sell",
+    "shop_shop": "%lenoxbot's shop",
+    "shop_notown": "You don't own this item! You can buy a item in the shop with the following command: %prefixshop",
+    "shop_sold": "You sold 1x %item for $%amount",
+    "shop_notenoughcredits": "You don't have enough credits to buy this item",
+    "shop_bought": "You bought 1x %item for $%amount",
+    "shop_itemnotexist": "This item does not exist! Please check if you have used the correct emoji",
+    "shop_commanderror": "You used the command incorrectly. Please check with %prefixhelp shop how to use the command correctly!",
+    "shop_price": "Price:",
+    "shop_description": "You can view the list of all purchasable items and sell or buy an item",
+
     "inventory_inventory": "%authortag's inventory",
     "inventory_error": "You do not have any items yet. You can receive items by using %prefixloot",
     "inventory_price": "Price:",
@@ -62,17 +74,9 @@
     "redeem_errorownkey": "You can not redeem your own redeem key",
     "redeem_notexist": "Unfortunately, this redeem key does not exist. Please check if you have not mistyped!",
     "redeem_ownernotondiscordserver": "The user who owns the redeem key must also be on the LenoxBot server",
-    "redeem_redeemeddm": "Your redeem key has been redeemed by %authortag and you have successfully received 50 medals!",
+    "redeem_redeemeddm": "Your redeem key has been redeemed by %authortag and you have successfully received 50 credits!",
     "redeem_redeemed": "The Redeem Key has been successfully redeemed!",
     "redeem_description": "Redeem a redeem key from another Discord user",
-
-    "shop_embed": "All purchasable items:",
-    "shop_price": "Price:",
-    "shop_description": "Shows you a list of all buyable items (with credits)",
-
-    "shopbuy_added": "Congratulations! You successfully got the role!",
-    "shopbuy_error": "This role is not on the list of reels that you can buy with medals!",
-    "shopbuy_description": "Buy something from the shop (with medals)",
 
     "togglexpmessages_set": "The xp messages were successfully activated",
     "togglexpmessages_deleted": "The xp messages were successfully disabled",
@@ -237,7 +241,7 @@
 
     "listautomaticrole_embed": "Automatic assignable roles",
     "listautomaticrole_points": "Points",
-    "listautomaticrole_error": "There are no roles, that can be gotten by a certain amount of points until now",
+    "listautomaticrole_error": "There are no roles that can be gotten by a certain amount of points until now",
     "listautomaticrole_description": "Lists all auto assignable roles",
 
     "listevents_embed": "List of all events",
@@ -716,7 +720,7 @@
     "credits_description": "Shows you the credits of you or another user",
 
     "creditranklist_name": "Name",
-    "creditranklist_credits": "Medals",
+    "creditranklist_credits": "Credits",
     "creditranklist_description": "Ranking, sorted by the credits",
 
     "memberstatus_online": "%memberscount members are online",
@@ -732,14 +736,14 @@
     "nicknamelog_changedat": "Changed at",
     "nicknamelog_description": "Shows you the nickname log of you or a user",
 
-    "paycredits_nomention": "You must mention a user to give some medals!",
-    "paycredits_yourself": "You can not give yourself medals!",
-    "paycredits_noinput": "You forgot to specify how many medals you want to give the user!",
-    "paycredits_number": "The amount of medals has to be a number!",
-    "paycredits_not0": "You can not give 0 medals",
+    "paycredits_nomention": "You must mention a user to give some credits!",
+    "paycredits_yourself": "You can not give yourself credits!",
+    "paycredits_noinput": "You forgot to specify how many credits you want to give the user!",
+    "paycredits_number": "The amount of credits has to be a number!",
+    "paycredits_not0": "You can not give 0 credits",
     "paycredits_one": "You have to give away minimal one medal",
-    "paycredits_notenough": "Unfortunately, you do not have enough medals!",
-    "paycredits_medalsgiven": "%author, %medalscount medal(s) were given to %mentiontag!",
+    "paycredits_notenough": "Unfortunately, you do not have enough credits!",
+    "paycredits_creditsgiven": "%author, %creditscount medal(s) were given to %mentiontag!",
     "paycredits_description": "Allows a user to give their credits to someone",
 
     "ping_ping": "Here we go! It took %timestampms to send this message!",
