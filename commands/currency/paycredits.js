@@ -38,7 +38,7 @@ exports.run = async(client, msg, args, lang) => {
 			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [mention.id, 0]);
 		});
 	});
-	var medalsgiven = lang.paycredits_medalsgiven.replace('%author', msg.author).replace('%medalscount', args.slice(1).join(" ")).replace('%mentiontag', mention.tag);
+	var medalsgiven = lang.paycredits_creditsgiven.replace('%author', msg.author).replace('%creditscount', args.slice(1).join(" ")).replace('%mentiontag', mention.tag);
 	return msg.channel.send(medalsgiven);
 };
 
