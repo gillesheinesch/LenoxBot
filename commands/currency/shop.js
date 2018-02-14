@@ -3,7 +3,7 @@ const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	const validationforbuysell = ['sell, buy'];
+	const validationforbuysell = ['sell', 'buy'];
 	const validationforitemsbuysell = ['📁', '🔑', '⛏', '🕹', '🏠', '👜', '💠', '🐶', '🐱', '🍎', '⚽', '🚙', '📱', '💻', '📷', '⏰'];
 	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock'];
 	const marketconfs = client.botconfs.get('market');
@@ -111,10 +111,12 @@ exports.run = async (client, msg, args, lang) => {
 			if (sellorbuycheck[0].toLowerCase() == "sell") {
 				// Check if the item exists in the user's inventory
 				for (i = 0; i < itemcheck.length; i++) {
+					checkifitemexists++;
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
+						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
 						if (itemcheck[0] == validationforitemsbuysell[i]) {
 							const notown = lang.shop_notown.replace('%prefix', tableload.prefix);
-							if (userdb.inventory[itemsnames[i]] === 0) return msg.reply(lang.shop_notown);
+							if (userdb.inventory[itemsnames[i]] === 0) return msg.reply(notown);
 							const amount = parseInt(marketconfs[itemsnames[i]][2]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] - 1;
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -134,7 +136,9 @@ exports.run = async (client, msg, args, lang) => {
 			} else if (sellorbuycheck[0].toLowerCase() == "buy") {
 				// Check if the use can buy this item
 				for (i = 0; i < itemcheck.length; i++) {
-					if (itemcheck.indexOf(validationforitemsbuysell[i].toLowerCase()) >= 0) {
+					checkifitemexists++;
+					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
+						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
 						if (itemcheck[0] == validationforitemsbuysell[i]) {
 							const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 							if (msgauthortable.medals <= marketconfs[itemsnames[i]][1]) return msg.channel.send('Not enough credits');
