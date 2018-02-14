@@ -4,7 +4,7 @@ exports.run = (client, msg, args, lang) => {
     if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 	const user = msg.mentions.users.first();
 	const amountofcoins = parseInt(args.slice(1).join(' '));
-	if (!user) return msg.reply('You have to mention a user to give him medals');
+	if (!user) return msg.reply('You have to mention a user to give him credits');
 	if (!amountofcoins) return msg.reply('You have to enter a value');
 	sql.get(`SELECT * FROM medals WHERE userId ="${user.id}"`).then(row => {
         if (!row) {
