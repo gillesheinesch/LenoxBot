@@ -10,14 +10,15 @@ exports.run = async(client, msg, args, lang) => {
     const useronserver = moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss a');
     const tableload = client.userdb.get(user.id);
 
-	const medals = await sql.get(`SELECT * FROM medals WHERE userId = "${user.id}"`);
+    const credits = await sql.get(`SELECT * FROM medals WHERE userId = "${user.id}"`);
+    const lenoxbotcoin = client.emojis.get('412952854354067456');
 
 	const embed = new Discord.RichEmbed()
         .setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL)
         .setColor('#0066CC')
         .setThumbnail(user.displayAvatarURL)
         .setDescription(tableload.description.length === 0 ? lang.userinfo_descriptioninfo : tableload.description)
-        .addField(`🏅 ${lang.medals_medals}`, medals.medals)
+        .addField(`${lenoxbotcoin} ${lang.credits_credits}`, `$${credits.medals}`)
         .addField(`📥 ${lang.userinfo_created}`, userondiscord)
         .addField(`📌 ${lang.userinfo_joined}`, useronserver)
         .addField(`🏷 ${lang.userinfo_roles}`, member.roles.filter(r => r.name !== '@everyone').map(role => role.name).join(', ') || lang.userinfo_noroles)
