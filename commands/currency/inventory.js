@@ -6,6 +6,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	var inventory = lang.inventory_inventory.replace('%authortag', msg.author.tag);
 	const embed = new Discord.RichEmbed()
+		.setDescription(`📥 = ${lang.inventory_buy} \n📤 = ${lang.inventory_sell} `)
 		.setAuthor(inventory, msg.author.displayAvatarURL)
 		.setColor('#009933');
 
@@ -68,6 +69,7 @@ exports.run = async (client, msg, args, lang) => {
 			secondtext = secondtext + 7;
 
 			const newembed = new Discord.RichEmbed()
+				.setDescription(`📥 = ${lang.inventory_buy} \n📤 = ${lang.inventory_sell} `)
 				.setAuthor(inventory, msg.author.displayAvatarURL)
 				.setColor('#009933');
 
@@ -87,6 +89,7 @@ exports.run = async (client, msg, args, lang) => {
 			secondtext = secondtext - 7;
 
 			const newembed = new Discord.RichEmbed()
+				.setDescription(`📥 = ${lang.inventory_buy} \n📤 = ${lang.inventory_sell} `)
 				.setAuthor(inventory, msg.author.displayAvatarURL)
 				.setColor('#009933');
 
