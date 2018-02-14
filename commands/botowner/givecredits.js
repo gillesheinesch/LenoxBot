@@ -26,10 +26,10 @@ exports.conf = {
     userpermissions: []
 };
 exports.help = {
-	name: 'givemedals',
-	description: 'Gives a user a certain amount of medals',
-	usage: 'givemedals {@USER} {count}',
-	example: 'givemedals @Monkeyyy11 2000',
+	name: 'givecredits',
+	description: 'Gives a user a certain amount of credits',
+	usage: 'givecredits {@USER} {count}',
+	example: 'givecredits @Monkeyyy11 2000',
     category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };
