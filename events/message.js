@@ -24,7 +24,7 @@ exports.run = async(client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 	
-	if (!userdb.inventory.crate) {
+	if (!userdb.inventory) {
 		userdb.inventory = {
 			crate: 0,
 			cratekey: 0,
