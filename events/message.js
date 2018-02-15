@@ -5,31 +5,7 @@ exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
-
-	try {
-		var userdb = await client.userdb.get(msg.author.id);
-	} catch (error) {
-			userdb.inventory = {
-				crate: 0,
-				cratekey: 0,
-				pickaxe: 0,
-				joystick: 0,
-				house: 0,
-				bag: 0,
-				diamond: 0,
-				dog: 0,
-				cat: 0,
-				apple: 0,
-				football: 0,
-				car: 0,
-				phone: 0,
-				computer: 0,
-				camera: 0,
-				clock: 0
-			};
-			await client.userdb.set(msg.author.id, userdb);
-	}
-	
+	const userdb = await client.userdb.get(msg.author.id);
 	const redeemload = client.redeem.get(msg.author.id);
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -48,7 +24,7 @@ exports.run = async(client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 	
-	if (!userdb.inventory) {
+	if (!userdb.inventory.crate) {
 		userdb.inventory = {
 			crate: 0,
 			cratekey: 0,
