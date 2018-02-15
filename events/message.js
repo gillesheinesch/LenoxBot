@@ -26,7 +26,7 @@ exports.run = async(client, msg) => {
 		description: ''
 	};
 	if (!client.userdb.has(msg.author.id)) {
-		await client.userdb.set(u.id, userconfs);
+		await client.userdb.set(msg.author.id, userconfs);
 	}
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
