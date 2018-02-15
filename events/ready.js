@@ -102,7 +102,27 @@ exports.run = async client => {
 	const alluserslist = await client.users.forEach(r => array.push(r.id));
 	const upvoteconfs = { allusers: array };
 
-	const userconfs = { description: '' };
+	const userconfs = {
+		inventory: {
+			crate: 0,
+			cratekey: 0,
+			pickaxe: 0,
+			joystick: 0,
+			house: 0,
+			bag: 0,
+			diamond: 0,
+			dog: 0,
+			cat: 0,
+			apple: 0,
+			football: 0,
+			car: 0,
+			phone: 0,
+			computer: 0,
+			camera: 0,
+			clock: 0
+		},
+		description: ''
+	};
 
 	const marketconfs = {
 		crate: ['📁', '8', '7'],
