@@ -1,4 +1,13 @@
 {
+    "gamble_noinput": "You forgot to specify how many credits you want to gamble!",
+    "gamble_notnumber": "Your input isn't a number of credits!",
+    "gamble_atleast10": "You have to gamble at least 10 credits!",
+    "gamble_gamble_max1million": "You cannot gamble more than a million",
+    "gamble_error": "You don't have that many credits!",
+    "gamble_won": "Congratulations, you won %amount credits! (current balance: %currentcredits)",
+    "gamble_lost": "Unfortunately you have lost %amount credits. Hopefully it will work better the next time. (current balance: %currentcredits)",
+    "gamble_description": "Gamble your credits with a 50% chance to make a profit",
+
     "opencrate_nocrateandkey": "You need a crate and a cratekey to open a crate!",
     "opencrate_nocrate": "You need a crate key to open a crate!",
     "opencrate_nocratekey": "You need a crate to open it!",
@@ -726,7 +735,7 @@
     "listselfassignablerole_nolroles": "There are no roles on this server that you can assign yourself!",
     "listselfassignablerole_description": "Shows you a list of all roles that allows users to assign themselves",
 
-    "credits_credits": "Credits:",
+    "credits_credits": "credits:",
     "credits_description": "Shows you the credits of you or another user",
 
     "creditranklist_name": "Name",
