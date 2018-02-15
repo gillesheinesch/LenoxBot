@@ -4,11 +4,12 @@ sql.open("../lenoxbotscore.sqlite");
 
 exports.run = async(client, msg, args, lang) => {
 	const user1 = msg.mentions.users.first() || msg.author;
+	const lenoxbotcoin = client.emojis.get('412952854354067456');
 
 	sql.get(`SELECT * FROM medals WHERE userId = "${user1.id}"`).then(row => {
 		var embed = new Discord.RichEmbed()
 		.setAuthor(user1.tag, user1.avatarURL)
-		.addField(lang.credits_credits, row.medals)
+		.setDescription(`${lenoxbotcoin} **${lang.credits_credits}** ${row.medals}`)
 		.setColor('#009933');
 
 		msg.channel.send({ embed });
