@@ -13,13 +13,14 @@ exports.run = async(client, msg, args, lang) => {
 		tableload.modules.searches = 'true';
 		tableload.modules.utility = 'true';
 		tableload.modules.application = 'true';
+		tableload.modules.currency = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (args.slice().length === 0) return msg.channel.send(lang.activatemodule_noinput);
 
 	const margs = msg.content.split(" ");
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency'];
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
@@ -71,6 +72,12 @@ exports.run = async(client, msg, args, lang) => {
 				if (tableload.modules.application === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				
 				tableload.modules.application = 'true';
+			    await client.guildconfs.set(msg.guild.id, tableload);
+				return msg.channel.send(moduleactivated);
+			} else if (margs[1].toLowerCase() == "currency") {
+				if (tableload.modules.currency === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+				
+				tableload.modules.currency = 'true';
 			    await client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			}

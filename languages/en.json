@@ -1,4 +1,10 @@
 {
+    "opencrate_nocrateandkey": "You need a crate and a cratekey to open a crate!",
+    "opencrate_nocrate": "You need a crate key to open a crate!",
+    "opencrate_nocratekey": "You need a crate to open it!",
+    "opencrate_won": "You have won: %item1 ($%amount1), %item2 ($%amount2), %item3 ($%amount3)",
+    "opencrate_description": "With this command, you can open crates with a cratekey and win cool items!",
+
     "mine_nopicks": "You don't have pickaxes anymore!",
     "mine_dugup": "You've dug up minerals worth $%amount!",
     "mine_description": "With this command you can dig up minerals with your pickaxes",

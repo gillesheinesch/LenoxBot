@@ -7,7 +7,7 @@ exports.run = (client, msg, args, lang) => {
 	const embed = new Discord.RichEmbed()
     .setFooter(commandscommand)
     .setColor('0066CC')
-	.setDescription(`**${lang.modules_embed}**\n► Administration \n► Moderation \n► Help \n► Music \n► Fun \n► Searches \n► NSFW \n► Utility \n► Application`);
+	.setDescription(`**${lang.modules_embed}**\n► Administration \n► Moderation \n► Help \n► Music \n► Fun \n► Searches \n► NSFW \n► Utility \n► Application \n► Currency`);
 
 	msg.channel.send({ embed });
 };

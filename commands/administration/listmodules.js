@@ -12,6 +12,7 @@ exports.run = async(client, msg, args, lang) => {
 		tableload.modules.searches = 'true';
 		tableload.modules.utility = 'true';
 		tableload.modules.application = 'true';
+		tableload.modules.currency = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 

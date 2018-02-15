@@ -7,6 +7,11 @@ exports.run = async(client, msg) => {
 	const tableload = await client.guildconfs.get(msg.guild.id);
 	const userdb = await client.userdb.get(msg.author.id);
 	const redeemload = client.redeem.get(msg.author.id);
+
+	if (!tableload.modules.currency) {
+		tableload.modules.currency = 'true';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
 	
 	if (!userdb.inventory) {
 		userdb.inventory = {
