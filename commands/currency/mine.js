@@ -14,7 +14,7 @@ exports.run = async (client, msg, args, lang) => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + validationfor10procent[result]} WHERE userId = ${msg.author.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + parseInt(validationfor10procent[result])} WHERE userId = ${msg.author.id}`);
 		});
 
 		userdb.inventory.pickaxe = userdb.inventory.pickaxe - 1;
@@ -30,7 +30,7 @@ exports.run = async (client, msg, args, lang) => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + validationfor30procent[result]} WHERE userId = ${msg.author.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + parseInt(validationfor30procent[result])} WHERE userId = ${msg.author.id}`);
 		});
 
 		userdb.inventory.pickaxe = userdb.inventory.pickaxe - 1;
@@ -46,7 +46,7 @@ exports.run = async (client, msg, args, lang) => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + validationfor50procent[result]} WHERE userId = ${msg.author.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + parseInt(validationfor50procent[result])} WHERE userId = ${msg.author.id}`);
 		});
 
 		userdb.inventory.pickaxe = userdb.inventory.pickaxe - 1;
@@ -62,7 +62,7 @@ exports.run = async (client, msg, args, lang) => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + validationforrest[result]} WHERE userId = ${msg.author.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + parseInt(validationforrest[result])} WHERE userId = ${msg.author.id}`);
 		});
 
 		userdb.inventory.pickaxe = userdb.inventory.pickaxe - 1;
