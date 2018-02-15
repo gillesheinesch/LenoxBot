@@ -1,4 +1,8 @@
 {
+    "mine_nopicks": "You don't have pickaxes anymore!",
+    "mine_dugup": "You've dug up minerals worth $%amount!",
+    "mine_description": "With this command you can dig up minerals with your pickaxes",
+
     "shop_buy": "buy",
     "shop_sell": "sell",
     "shop_shop": "%lenoxbot's shop",
