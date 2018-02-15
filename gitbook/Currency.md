@@ -5,6 +5,7 @@
 |creditranklist           | Ranking, sorted by the credits | any|
 |credits                  | Shows you the credits of you or another user | any|
 |daily                    | Get your daily reward or give it away to another discord user | any|
+|gamble                   | Gamble your credits with a 50% chance to make a profit | any|
 |inventory                | Shows you your inventory | any|
 |loot                     | Take your loot every 10 minutes | any|
 |mine                     | With this command you can dig up minerals with your pickaxes | any|

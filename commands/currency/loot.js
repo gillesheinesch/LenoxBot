@@ -23,7 +23,7 @@ exports.run = async (client, msg, args, lang) => {
 		validationfor10procent = [lang.loot_house, lang.loot_car, lang.loot_diamond];
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationfor10procent[result]);
-		msg.reply(lootmessage);
+		return msg.reply(lootmessage);
 
 	} else if (d < 0.1) {
 		var validationfor30procent = ['phone', 'computer', 'camera'];
@@ -43,7 +43,7 @@ exports.run = async (client, msg, args, lang) => {
 		validationfor30procent = [lang.loot_phone, lang.loot_computer, lang.loot_camera];
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationfor30procent[result]);
-		msg.reply(lootmessage);
+		return msg.reply(lootmessage);
 	} else if (d < 0.3) {
 		var validationfor50procent = ['cratekey', 'pickaxe', 'joystick'];
 		const result = Math.floor(Math.random() * validationfor50procent.length);
@@ -62,7 +62,7 @@ exports.run = async (client, msg, args, lang) => {
 		validationfor50procent = [lang.loot_cratekey, lang.loot_pickaxe, lang.loot_joystick];
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationfor50procent[result]);
-		msg.reply(lootmessage);
+		return msg.reply(lootmessage);
 	} else {
 		var validationforrest = ['crate', 'bag', 'dog', 'cat', 'apple', 'football', 'clock'];
 		const result = Math.floor(Math.random() * validationforrest.length);
@@ -81,7 +81,7 @@ exports.run = async (client, msg, args, lang) => {
 		validationforrest = [lang.loot_crate, lang.loot_bag, lang.loot_dog, lang.loot_cat, lang.loot_apple, lang.loot_football, lang.loot_clock];
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationforrest[result]);
-		msg.reply(lootmessage);
+		return msg.reply(lootmessage);
 	}
 };
 

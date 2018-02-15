@@ -102,28 +102,6 @@ exports.run = async client => {
 	const alluserslist = await client.users.forEach(r => array.push(r.id));
 	const upvoteconfs = { allusers: array };
 
-	const userconfs = {
-		inventory: {
-			crate: 0,
-			cratekey: 0,
-			pickaxe: 0,
-			joystick: 0,
-			house: 0,
-			bag: 0,
-			diamond: 0,
-			dog: 0,
-			cat: 0,
-			apple: 0,
-			football: 0,
-			car: 0,
-			phone: 0,
-			computer: 0,
-			camera: 0,
-			clock: 0
-		},
-		description: ''
-	};
-
 	const marketconfs = {
 		crate: ['📁', '8', '7'],
 		cratekey: ['🔑', '75', '68'],
@@ -153,8 +131,6 @@ exports.run = async client => {
 	await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
 
 	await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
-
-	await client.users.filter(u => !client.userdb.has(u.id)).forEach(u => client.userdb.set(u.id, userconfs));
 
 	await client.channels.filter(ch => ch.type === 'text' && ch.permissionsFor(client.user).has('READ_MESSAGES')).map(ch => ch.fetchMessages({
 		limit: 100

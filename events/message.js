@@ -50,6 +50,7 @@ exports.run = async(client, msg) => {
 	}
 	
 	if (!userdb.inventory) {
+		console.log(1);
 		userdb.inventory = {
 			crate: 0,
 			cratekey: 0,
