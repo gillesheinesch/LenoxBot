@@ -4,6 +4,31 @@ const Discord = require('discord.js');
 exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
 
+	const userconfs = {
+		inventory: {
+			crate: 0,
+			cratekey: 0,
+			pickaxe: 0,
+			joystick: 0,
+			house: 0,
+			bag: 0,
+			diamond: 0,
+			dog: 0,
+			cat: 0,
+			apple: 0,
+			football: 0,
+			car: 0,
+			phone: 0,
+			computer: 0,
+			camera: 0,
+			clock: 0
+		},
+		description: ''
+	};
+	!client.userdb.has(msg.author.id) {
+		await client.userdb.set(u.id, userconfs);
+	}
+
 	const tableload = await client.guildconfs.get(msg.guild.id);
 	const userdb = await client.userdb.get(msg.author.id);
 	const redeemload = client.redeem.get(msg.author.id);
