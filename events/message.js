@@ -8,6 +8,17 @@ exports.run = async(client, msg) => {
 	const userdb = await client.userdb.get(msg.author.id);
 	const redeemload = client.redeem.get(msg.author.id);
 
+	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
+		if (!row) {
+			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+		}
+	  }).catch((error) => {
+		console.error(error);
+		sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
+			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+		});
+	});
+
 	if (!tableload.modules.currency) {
 		tableload.modules.currency = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
@@ -282,17 +293,6 @@ exports.run = async(client, msg) => {
 				});
 			});
 		}
-
-	    	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
-				if (!row) {
-					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
-				}
-			  }).catch((error) => {
-				console.error(error);
-				sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
-					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
-				});
-			});
 
 	if (msg.content.startsWith(tableload.prefix)) {
 	var args = msg.content.split(' ').slice(1);

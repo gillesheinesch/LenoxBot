@@ -19,6 +19,11 @@ client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 client.trello = new Trello("b5b98adeec332e10639db5473c96c42d", "264056f59d9a13dad78afd5cc2f960c5b410510b142813811bd96788d5687f4c");
 client.cooldowns = new Discord.Collection();
 
+const DBL = require("dblapi.js");
+client.dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE');
+client.dbl.getVotes(true);
+
+
 fs.readdir('./events/', (err, files) => {
 	if (err) return console.error(err);
 	files.forEach(file => {

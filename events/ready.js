@@ -98,9 +98,11 @@ exports.run = async client => {
 		redeemkeyowner: ''
 	};
 
-	const userconfs = {
-		description: ''
-	};
+	var array = [];
+	const alluserslist = await client.users.forEach(r => array.push(r.id));
+	const upvoteconfs = { allusers: array };
+
+	const userconfs = { description: '' };
 
 	const marketconfs = {
 		crate: ['📁', '8', '7'],
@@ -141,15 +143,11 @@ exports.run = async client => {
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
 	if (!client.botconfs.has('market')) client.botconfs.set('market', marketconfs);
+	if (!client.botconfs.has('upvote')) client.botconfs.set('upvote', upvoteconfs);
 
 	if (client.user.id === '354712333853130752') {
-		const snekfetch = require('snekfetch');
-		snekfetch.post(`https://discordbots.org/api/bots/stats`)
-			.set('Authorization', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE')
-			.send({
-				server_count: client.guilds.size
-			})
-			.then(() => console.log('Updated discordbots.org stats.'))
-			.catch(err => console.error(`Whoops something went wrong: ${err.body}`));
+		setInterval(() => {
+			dbl.postStats(client.guilds.size);
+		}, 1800000);
 	}
 };
