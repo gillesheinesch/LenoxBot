@@ -101,9 +101,10 @@ exports.run = async (client, msg, args, lang) => {
 				});
 			}
 		});
-		collector.on('end', (collected, reason) => {
+		await collector.on('end', (collected, reason) => {
 			message.react('❌');
 		});
+		return undefined;
 	}
 
 	for (i = 0; i < sellorbuycheck.length; i++) {
@@ -143,7 +144,7 @@ exports.run = async (client, msg, args, lang) => {
 							const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 							if (msgauthortable.medals <= marketconfs[itemsnames[i]][1]) return msg.channel.send('Not enough credits');
 			
-							const amount = parseInt(marketconfs[itemsnames[i]][2]);
+							const amount = parseInt(marketconfs[itemsnames[i]][1]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] + 1;
 
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
