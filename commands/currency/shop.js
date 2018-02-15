@@ -13,8 +13,6 @@ exports.run = async (client, msg, args, lang) => {
 	const sellorbuycheck = args.slice(0, 1);
 	const itemcheck = args.slice(1);
 
-	var checkifitemexists = 0;
-
 	if (!input || input.length === 0) {
 		var array1 = [];
 		var array2 = [];
@@ -112,7 +110,6 @@ exports.run = async (client, msg, args, lang) => {
 			if (sellorbuycheck[0].toLowerCase() == "sell") {
 				// Check if the item exists in the user's inventory
 				for (i = 0; i < itemcheck.length; i++) {
-					checkifitemexists++;
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
 						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
 						if (itemcheck[0] == validationforitemsbuysell[i]) {
@@ -137,7 +134,6 @@ exports.run = async (client, msg, args, lang) => {
 			} else if (sellorbuycheck[0].toLowerCase() == "buy") {
 				// Check if the use can buy this item
 				for (i = 0; i < itemcheck.length; i++) {
-					checkifitemexists++;
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
 						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
 						if (itemcheck[0] == validationforitemsbuysell[i]) {
@@ -163,9 +159,6 @@ exports.run = async (client, msg, args, lang) => {
 				}
 			}
 		}
-	}
-	if (checkifitemexists === validationforitemsbuysell.length) {
-		return msg.reply(lang.shop_itemnotexist);
 	}
 	const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
 	return msg.reply(commanderror);
