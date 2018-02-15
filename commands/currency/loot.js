@@ -6,7 +6,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const creditsloot = Math.floor(Math.random() * 70) + 1;
 
-	if (d < 0.1) {
+	if (d < 0.05) {
 		var validationfor10procent = ['house', 'car', 'diamond'];
 		const result = Math.floor(Math.random() * validationfor10procent.length);
 
@@ -25,7 +25,7 @@ exports.run = async (client, msg, args, lang) => {
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationfor10procent[result]);
 		msg.reply(lootmessage);
 
-	} else if (d < 0.3) {
+	} else if (d < 0.1) {
 		var validationfor30procent = ['phone', 'computer', 'camera'];
 		const result = Math.floor(Math.random() * validationfor30procent.length);
 
@@ -44,7 +44,7 @@ exports.run = async (client, msg, args, lang) => {
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationfor30procent[result]);
 		msg.reply(lootmessage);
-	} else if (d < 0.5) {
+	} else if (d < 0.3) {
 		var validationfor50procent = ['cratekey', 'pickaxe', 'joystick'];
 		const result = Math.floor(Math.random() * validationfor50procent.length);
 
