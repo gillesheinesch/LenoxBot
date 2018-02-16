@@ -98,10 +98,6 @@ exports.run = async client => {
 		redeemkeyowner: ''
 	};
 
-	var array = [];
-	await client.users.forEach(r => array.push(r.id));
-	const upvoteconfs = { allusers: array };
-
 	const marketconfs = {
 		crate: ['📁', '8', '7'],
 		cratekey: ['🔑', '75', '68'],
@@ -139,7 +135,6 @@ exports.run = async client => {
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
 	if (!client.botconfs.has('market')) client.botconfs.set('market', marketconfs);
-	if (!client.botconfs.has('upvote')) client.botconfs.set('upvote', upvoteconfs);
 
 	if (client.user.id === '354712333853130752') {
 		setInterval(() => {

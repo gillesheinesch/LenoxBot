@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 exports.run = async(client, oldMember, newMember) => {
 	const tableconfig = await client.guildconfs.get(newMember.guild.id);
 
+	if (!tableconfig) return undefined;
+
 	if (tableconfig.presenceupdatelog === 'false') return;
 
 	if (tableconfig.language === '') {
