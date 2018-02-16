@@ -99,13 +99,13 @@ exports.run = async client => {
 	};
 
 	var array = [];
-	const alluserslist = await client.users.forEach(r => array.push(r.id));
+	await client.users.forEach(r => array.push(r.id));
 	const upvoteconfs = { allusers: array };
 
 	const marketconfs = {
 		crate: ['📁', '8', '7'],
 		cratekey: ['🔑', '75', '68'],
-		pickaxe: ['⛏', '100', '90'],
+		pickaxe: ['⛏', '70', '62'],
 		joystick: ['🕹', '60', '54'],
 		house: ['🏠', '10000', '9000'],
 		bag: ['👜', '15', '13'],
@@ -143,7 +143,7 @@ exports.run = async client => {
 
 	if (client.user.id === '354712333853130752') {
 		setInterval(() => {
-			dbl.postStats(client.guilds.size);
+			client.dbl.postStats(client.guilds.size);
 		}, 1800000);
 	}
 };
