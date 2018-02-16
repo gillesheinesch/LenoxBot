@@ -26,7 +26,7 @@ exports.run = async (client, msg, args, lang) => {
 		return msg.reply(lootmessage);
 
 	} else if (d < 0.1) {
-		var validationfor30procent = ['phone', 'computer', 'camera'];
+		var validationfor30procent = ['phone', 'computer', 'camera', 'projector', 'bed', 'watch'];
 		const result = Math.floor(Math.random() * validationfor30procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -45,7 +45,7 @@ exports.run = async (client, msg, args, lang) => {
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationfor30procent[result]);
 		return msg.reply(lootmessage);
 	} else if (d < 0.3) {
-		var validationfor50procent = ['cratekey', 'pickaxe', 'joystick'];
+		var validationfor50procent = ['cratekey', 'pickaxe', 'joystick', 'flashlight', 'hammer', 'inventoryslotticket'];
 		const result = Math.floor(Math.random() * validationfor50procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -64,7 +64,7 @@ exports.run = async (client, msg, args, lang) => {
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', validationfor50procent[result]);
 		return msg.reply(lootmessage);
 	} else {
-		var validationforrest = ['crate', 'bag', 'dog', 'cat', 'apple', 'football', 'clock'];
+		var validationforrest = ['crate', 'bag', 'dog', 'cat', 'apple', 'football', 'clock', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'book', 'mag', 'banana'];
 		const result = Math.floor(Math.random() * validationforrest.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {

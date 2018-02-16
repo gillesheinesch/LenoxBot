@@ -6,7 +6,18 @@ exports.run = async (client, msg, args, lang) => {
 		['crate', 'apple', 'phone'],
 		['cat', 'football', 'joystick'],
 		['clock', 'dog', 'pickaxe'],
-		['dog', 'bag', 'phone']
+		['dog', 'bag', 'phone'],
+		['clock', 'cat', 'dog'],
+		['crate', 'apple', 'joystick'],
+		['rose', 'umbrella', 'hamburger'],
+		['dog', 'book', 'mag'],
+		['cat', 'hammer', 'banana'],
+		['banana', 'apple', 'dog'],
+		['rose', 'bed', 'hamburger'],
+		['rose', 'croissant', 'clock'],
+		['apple', 'football', 'banana'],
+		['bag', 'pickaxe', 'crate'],
+		['flashlight', 'cratekey', 'hamburger']
 	];
 	const marketconfs = client.botconfs.get('market');
 
