@@ -68,7 +68,7 @@
     "loot_computer": "computer",
     "loot_camera": "camera",
     "loot_clock": "clock",
-    "loot_lootmessage": "you got %amount and 1x %item! In 10 minutes you can pick up your loot again",
+    "loot_lootmessage": "You got %amount and 1x %item! In 10 minutes you can pick up your loot again",
     "loot_description": "Take your loot every 10 minutes",
 
     "daily_author": "You have successfully received %amount.",

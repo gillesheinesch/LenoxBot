@@ -150,7 +150,6 @@ exports.run = async (client, msg, args, lang) => {
 							const amount = parseInt(marketconfs[itemsnames[i]][1]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] + 1;
 
-							console.log(userdb.inventory[itemsnames[i]]);
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
 									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);

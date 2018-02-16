@@ -14,7 +14,7 @@ exports.run = async(client, msg, args, lang) => {
 		  });
 
 		  const author = lang.daily_author.replace('%amount', `$200`);
-		  return msg.reply(author);
+		  return msg.channel.send(`🎁 ${author}`);
 	} else {
 		sql.get(`SELECT * FROM medals WHERE userId ="${mentioncheck.id}"`).then(row => {
 			if (!row) {
@@ -24,7 +24,7 @@ exports.run = async(client, msg, args, lang) => {
 		  });
 
 		const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', `$200`);
-		msg.reply(mention);
+		msg.channel.send(`🎁 ${mention}`);
 	}
 };
 
