@@ -92,7 +92,7 @@ exports.run = async(client, msg, args, lang) => {
 				lenoxbotcollector.on('end', (collected, reason) => {
 					message.delete();
 				});
-			} else if (margs[1].toLowerCase() == "extramedalevent") {
+			} else if (margs[1].toLowerCase() == "extracreditevent") {
 				var extramedalevent = [];
 
 				const embed = new Discord.RichEmbed()
