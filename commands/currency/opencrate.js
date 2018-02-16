@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (userdb.inventory.cratekey === 0) return msg.reply(lang.opencrate_nocrate);
 	if (userdb.inventory.crate === 0) return msg.reply(lang.opencrate_nocratekey);
 
-	for (var i = 0; i < validation[result]; i++) {
+	for (var i = 0; i < validation[result].length; i++) {
 		userdb.inventory[validation[result][i]] = userdb.inventory[validation[result][i]] + 1;
 		await client.userdb.set(msg.author.id, userdb);
 	}
