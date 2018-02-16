@@ -6,7 +6,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const creditsloot = Math.floor(Math.random() * 70) + 1;
 
-	if (d < 0.05) {
+	if (d < 0.02) {
 		var validationfor10procent = ['house', 'car', 'diamond'];
 		const result = Math.floor(Math.random() * validationfor10procent.length);
 
