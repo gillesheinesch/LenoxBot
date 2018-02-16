@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
 
-	if (client.id === '353115097318555649') {
+	if (client.user.id === '353115097318555649') {
 		if (msg.guild.id !== '332612123492483094') return undefined;
 	}
 
@@ -48,13 +48,35 @@ exports.run = async(client, msg) => {
 		});
 	});
 
+	if (typeof userdb.inventory.rose !== 'number') {
+		userdb.inventory.rose = 0;
+		userdb.inventory.umbrella = 0;
+		userdb.inventory.hamburger = 0;
+		userdb.inventory.croissant = 0;
+		userdb.inventory.basketball = 0;
+		userdb.inventory.watch = 0;
+		userdb.inventory.projector = 0;
+		userdb.inventory.flashlight = 0;
+		userdb.inventory.bed = 0;
+		userdb.inventory.hammer = 0;
+		userdb.inventory.book = 0;
+		userdb.inventory.mag = 0;
+		userdb.inventory.banana = 0;
+		userdb.inventory.inventoryslotticket = 0;
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
+	if (!userdb.inventoryslots) {
+		userdb.inventoryslots = 30;
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	if (!tableload.modules.currency) {
 		tableload.modules.currency = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 	
 	if (!userdb.inventory) {
-		console.log(1);
 		userdb.inventory = {
 			crate: 0,
 			cratekey: 0,

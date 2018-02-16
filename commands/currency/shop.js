@@ -4,8 +4,8 @@ sql.open("../lenoxbotscore.sqlite");
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const validationforbuysell = ['sell', 'buy'];
-	const validationforitemsbuysell = ['📁', '🔑', '⛏', '🕹', '🏠', '👜', '💠', '🐶', '🐱', '🍎', '⚽', '🚙', '📱', '💻', '📷', '⏰'];
-	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock'];
+	const validationforitemsbuysell = ['📁', '🔑', '⛏', '🕹', '🏠', '👜', '💠', '🐶', '🐱', '🍎', '⚽', '🚙', '📱', '💻', '📷', '⏰', '📩', '🌹', '☂', '🍔', '🥐', '🏀', '⌚', '📽', '🔦', '🛏', '🔨', '📖', '🔍', '🍌'];
+	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana'];
 	const marketconfs = client.botconfs.get('market');
 	const userdb = client.userdb.get(msg.author.id);
 
@@ -137,12 +137,20 @@ exports.run = async (client, msg, args, lang) => {
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
 						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
 						if (itemcheck[0] == validationforitemsbuysell[i]) {
+							var inventoryslotcheck = 0;
+							for (var x = 0; x < itemsnames.length; x++) {
+								inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[itemsnames[x]]);
+							}
+
+							if (inventoryslotcheck >= userdb.inventoryslots) return msg.reply('Your inventory slots are full!');
+
 							const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
-							if (msgauthortable.medals <= marketconfs[itemsnames[i]][1]) return msg.channel.send('Not enough credits');
+							if (msgauthortable.medals <= marketconfs[itemsnames[i]][1]) return msg.channel.send(lang.shop_notenoughcredits);
 			
 							const amount = parseInt(marketconfs[itemsnames[i]][1]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] + 1;
 
+							console.log(userdb.inventory[itemsnames[i]]);
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
 									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);

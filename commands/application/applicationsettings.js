@@ -15,8 +15,6 @@ exports.run = async (client, msg, args, lang) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	console.log(tableload.application)
-
 	const embed = new Discord.RichEmbed()
 		.setDescription(`${lang.applicationsettings_applicationstatus} \`${tableload.application.status === 'false' ? lang.applicationsettings_deactivated : lang.applicationsettings_activated}\` \n\
 ${lang.applicationsettings_reactionnnumber} \`${tableload.application.reactionnumber === '' ? lang.serverinfo_emojisnone : tableload.application.reactionnumber}\`\n\

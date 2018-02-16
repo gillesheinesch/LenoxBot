@@ -99,7 +99,7 @@ exports.run = async client => {
 	};
 
 	const marketconfs = {
-		crate: ['📁', '8', '7'],
+		crate: ['📁', '14', '12'],
 		cratekey: ['🔑', '75', '68'],
 		pickaxe: ['⛏', '70', '62'],
 		joystick: ['🕹', '60', '54'],
@@ -114,7 +114,21 @@ exports.run = async client => {
 		phone: ['📱', '400', '360'],
 		computer: ['💻', '1000', '900'],
 		camera: ['📷', '600', '540'],
-		clock: ['⏰', '15', '13']
+		clock: ['⏰', '15', '13'],
+		inventoryslotticket: ['📩', '200', '180'],
+		rose: ['🌹', '10', '8'],
+		umbrella: ['☂', '30', '27'],
+		hamburger: ['🍔', '45', '40'],
+		croissant: ['🥐', '9', '8'],
+		basketball: ['🏀', '50', '45'],
+		watch: ['⌚', '190', '171'],
+		projector: ['📽', '623', '560'],
+		flashlight: ['🔦', '80', '72'],
+		bed: ['🛏', '236', '212'],
+		hammer: ['🔨', '50', '45'],
+		book: ['📖', '11', '10'],
+		mag: ['🔍', '12', '10'],
+		banana: ['🍌', '4', '3']
 	};
 
 	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
@@ -134,7 +148,7 @@ exports.run = async client => {
 
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
-	if (!client.botconfs.has('market')) client.botconfs.set('market', marketconfs);
+	await client.botconfs.set('market', marketconfs);
 
 	if (client.user.id === '354712333853130752') {
 		setInterval(() => {
