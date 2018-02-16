@@ -13,10 +13,15 @@ exports.run = async (client, msg, args, lang) => {
 	const botconfs = client.botconfs.get('upvote');
 
 	var test = setInterval(async function () {
-		console.log(botconfs.allusers.length);
 		if (botconfs.allusers.length === 0) return clearInterval(test);
 		if (await client.dbl.hasVoted(botconfs.allusers[0]) === true) {
-			console.log(botconfs.allusers[0], true);
+			const embed = new Discord.RichEmbed()
+			.setDescription('This user got 1000 credits by upvoting to https://discordbots.org/bot/354712333853130752!')
+			.setColor('#99ff66')
+			.setAuthor(`${client.users.get(botconfs.allusers[0]) ? client.users.get(botconfs.allusers[0]).tag : botconfs.allusers[0]}`);
+
+			await client.channels.get('413750421341863936').send({ embed });
+
 			await sql.get(`SELECT * FROM medals WHERE userId ="${botconfs.allusers[0]}"`).then(row => {
 				if (!row) {
 					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [botconfs.allusers[0], 0]);

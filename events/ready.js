@@ -1,4 +1,6 @@
 exports.run = async client => {
+	const Discord = require('discord.js');
+
 	client.guildconfs.defer.then(() => {
 		console.log(client.guildconfs.size + "keys loaded for all discord servers");
 	});
@@ -149,6 +151,14 @@ exports.run = async client => {
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
 	await client.botconfs.set('market', marketconfs);
+
+	const embed = new Discord.RichEmbed()
+		.setTitle('Botrestart')
+		.setDescription('The bot is back and ready to execute commands')
+		.setColor('#99ff66')
+		.setAuthor(client.user.tag, client.user.displayAvatarURL);
+
+	await client.channels.get('413750421341863936').send({ embed });
 
 	if (client.user.id === '354712333853130752') {
 		setInterval(() => {
