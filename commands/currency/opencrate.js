@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const result = Math.floor(Math.random() * validation.length);
 
-	if (userdb.inventory.cratekey === 0 && userdb.inventory.crate) return msg.reply(lang.opencrate_nocrateandkey);
+	if (userdb.inventory.cratekey === 0 && userdb.inventory.crate === 0) return msg.reply(lang.opencrate_nocrateandkey);
 	if (userdb.inventory.cratekey === 0) return msg.reply(lang.opencrate_nocrate);
 	if (userdb.inventory.crate === 0) return msg.reply(lang.opencrate_nocratekey);
 
