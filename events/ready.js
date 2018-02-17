@@ -158,7 +158,9 @@ exports.run = async client => {
 		.setColor('#99ff66')
 		.setAuthor(client.user.tag, client.user.displayAvatarURL);
 
-	await client.channels.get('413750421341863936').send({ embed });
+	if (client.user.id === '354712333853130752') {
+		await client.channels.get('413750421341863936').send({ embed });
+	}
 
 	if (client.user.id === '354712333853130752') {
 		setInterval(() => {
