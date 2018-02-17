@@ -794,7 +794,7 @@
     "paycredits_not0": "You can not give 0 credits",
     "paycredits_one": "You have to give away minimal one medal",
     "paycredits_notenough": "Unfortunately, you do not have enough credits!",
-    "paycredits_creditsgiven": "%author, %creditscount medal(s) were given to %mentiontag!",
+    "paycredits_creditsgiven": "%author, %creditscount credit(s) were given to %mentiontag!",
     "paycredits_description": "Allows a user to give their credits to someone",
 
     "ping_ping": "Here we go! It took %timestampms to send this message!",
