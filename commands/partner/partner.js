@@ -3,7 +3,7 @@ exports.run = (client, msg, args, lang) => {
 	if (!client.guilds.get('352896116812939264').members.get(msg.author.id).roles.find('name', 'Partner')) return msg.reply(lang.partner_error);
 	console.log(1);
 
-	const validation = ['lenoxbot', 'keinemxl', 'evilturtle'];
+	const validation = ['lenoxbot', 'keinemxl', 'evilturtle', 'dadi'];
 	const margs = msg.content.split(" ");
 
 	for (i = 0; i < margs.length; i++) {
@@ -29,6 +29,15 @@ exports.run = (client, msg, args, lang) => {
 			} else if (margs[1].toLowerCase() == "evilturtle") {
 				const embed = new Discord.RichEmbed()
 					.setDescription(`:crossed_swords: Largest SurvivalGames Discord ~ Friendly community :crossed_swords: \nEveryone is welcome, join us and make friends! :heart:️ \nhttps://discord.gg/WS6t2hM`)
+					.setColor('#ff5050')
+					.setAuthor(client.user.tag, client.user.displayAvatarURL);
+
+				return msg.channel.send({
+					embed
+				});
+			} else if (margs[1].toLowerCase() == "dadi") {
+				const embed = new Discord.RichEmbed()
+					.setDescription(`:sparkler: You, yes you! :sparkler: \nAre you bored with other Discord Servers? Join the Emphoia Discord Server and you will never be bored again!\nDo not hesitate, join now! :wink: \n\nWhat advantages do you expect?\n:arrow_forward: A nice and cool Community\n:arrow_forward: Varied voice and text channels\n:arrow_forward: Much fun\n\nThat´s not all...\nConvince yourself!\n:sparkler:  https://discord.gg/wsffwaD :sparkler:`)
 					.setColor('#ff5050')
 					.setAuthor(client.user.tag, client.user.displayAvatarURL);
 
