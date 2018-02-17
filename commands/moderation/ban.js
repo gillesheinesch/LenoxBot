@@ -14,7 +14,7 @@ exports.run = (client, msg, args, lang) => {
 	var banned = lang.ban_banned.replace('%usertag', user.tag);
 	msg.channel.send(banned);
 
-	var bandescription = lang.ban_embed.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
+	var bandescription = lang.ban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 	const embed = new Discord.RichEmbed()
 	.setAuthor(`${lang.ban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
 	.setThumbnail(user.displayAvatarURL)
