@@ -6,8 +6,18 @@ exports.run = (client, msg, args, lang) => {
 	var commandscommand = lang.modules_commandscommand.replace('%prefix', tableload.prefix);
 	const embed = new Discord.RichEmbed()
     .setFooter(commandscommand)
-    .setColor('0066CC')
-	.setDescription(`**${lang.modules_embed}**\n► Administration \n► Moderation \n► Help \n► Music \n► Fun \n► Searches \n► NSFW \n► Utility \n► Application \n► Currency`);
+	.setColor('0066CC')
+	.addField('Administration', lang.modules_administration)
+	.addField('Moderation', lang.modules_administration)
+	.addField('Help', lang.modules_help)
+	.addField('Music', lang.modules_music)
+	.addField('Fun', lang.modules_fun)
+	.addField('Searches', lang.modules_searches)
+	.addField('NSFW', lang.modules_nsfw)
+	.addField('Utility', lang.modules_utility)
+	.addField('Application', lang.modules_application)
+	.addField('Currency', lang.modules_currency)
+	.setTitle(lang.modules_embed);
 
 	msg.channel.send({ embed });
 };
@@ -21,7 +31,7 @@ exports.conf = {
 
 exports.help = {
 	name: 'modules',
-	description: 'Gives you a list of all modules',
+	description: 'Gives you a list of all modules and their meaning',
 	usage: 'modules',
 	example: ['modules'],
 	category: 'help',
