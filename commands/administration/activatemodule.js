@@ -20,12 +20,14 @@ exports.run = async(client, msg, args, lang) => {
 	if (args.slice().length === 0) return msg.channel.send(lang.activatemodule_noinput);
 
 	const margs = msg.content.split(" ");
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner'];
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() == "administration") {
 				return msg.channel.send(lang.activatemodule_administration);
+			} else if (margs[1].toLowerCase() == "partner") {
+				return msg.channel.send(lang.activatemodule_partner);
 			} else if (margs[1].toLowerCase() == "utility") {
 				if (tableload.modules.utility = 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 				

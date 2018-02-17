@@ -1,4 +1,7 @@
 {
+    "partner_error": "You are not affiliated with LenoxBot",
+    "partner_description": "With this command you can use the embed of LenoxBot and your partnered server",
+
     "gamble_noinput": "You forgot to specify how many credits you want to gamble!",
     "gamble_notnumber": "Your input isn't a number of credits!",
     "gamble_atleast10": "You have to gamble at least 10 credits!",
@@ -209,6 +212,7 @@
 
     "activatemodule_noinput": "You forgot to enter the name of the module you wanted to reactivate!",
     "activatemodule_administration": "Administration commands are always activated!",
+    "activatemodule_partner": "Partner commands are always activated!",
     "activatemodule_alreadyactivated": "This module is already activated",
     "activatemodule_moduleactivated": "%modulename module was activated successfully!",
     "activatemodule_error": "This module doesn't exist. Please make sure that you haven't mistyped!",
@@ -260,6 +264,7 @@
 
     "deactivatemodule_noinput": "You forgot to enter the name of the module you want to disable.",
     "deactivatemodule_administration": "Administration commands are always activated and cannot be disabled.",
+    "deactivatemodule_partner": "Partner commands are always activated and cannot be disabled.",
     "deactivatemodule_alreadydisabled": "This module is already disabled",
     "deactivatemodule_moduledisabled": "%modulename module was disabled successfully!",
     "deactivatemodule_error": "This module doesn't exist. Please make sure that you haven't mistyped!",
