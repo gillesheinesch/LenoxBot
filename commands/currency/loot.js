@@ -62,7 +62,7 @@ exports.run = async (client, msg, args, lang) => {
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${validationfor50procent[result]} ($${marketconfs[validationfor50procent[result]][2]})`);
 		validationfor50procent = [lang.loot_cratekey, lang.loot_pickaxe, lang.loot_joystick, lang.loot_flashlight, lang.loot_hammer, lang.loot_inventoryslotticket];
 
-		return msg.reply(`🎉 ${lootmessage}`);
+		return msg.channel.send(`🎉 ${lootmessage}`);
 	} else {
 		var validationforrest = ['crate', 'bag', 'dog', 'cat', 'apple', 'football', 'clock', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'book', 'mag', 'banana'];
 		const result = Math.floor(Math.random() * validationforrest.length);
