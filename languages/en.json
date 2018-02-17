@@ -481,7 +481,17 @@
 
     "modules_commandscommand": "You can use %prefixcommands {modulename} to get a list of all commands of a module.",
     "modules_embed": "A list of all modules",
-    "modules_description": "Gives you a list of all modules",
+    "modules_administration": "Commands to set up the entire Discord server and customize special bot features",
+    "modules_moderation": "Basic commands for a simple and good moderation on the Discord server",
+    "modules_help": "Commands that explain the bot and its commands and modules",
+    "modules_music": "You want to listen to music with your friends? \nNo problem, this module gives you a lot of music features",
+    "modules_fun": "Minigames",
+    "modules_searches": "Commands that are looking for something on the internet such as google or the weather",
+    "modules_nsfw": "Gifs, images, videos containing pornography",
+    "modules_utility": "Commands that all users can use and which are useful",
+    "modules_application": "Entire application system with many settings options",
+    "modules_currency": "Commands that allow you to receive credits and items (You can sell items)",
+    "modules_description": "Gives you a list of all modules and their meaning",
 
     "website_documentation": "Here you can find our documentation:",
     "website_trello": "Here you can find our Trello-Website:",
