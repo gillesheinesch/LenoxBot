@@ -41,7 +41,7 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory[validationfor30procent[result]] = userdb.inventory[validationfor30procent[result]] + 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		validationfor30procent = [lang.loot_phone, lang.loot_computer, lang.loot_camera];
+		validationfor30procent = [lang.loot_phone, lang.loot_computer, lang.loot_camera, lang.loot_projector, lang.loot_bed, lang.loot_watch];
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${validationfor30procent[result]} ($${marketconfs[validationfor30procent[result]][2]})`);
 		return msg.reply(lootmessage);

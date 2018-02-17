@@ -25,7 +25,21 @@ exports.run = async(client, msg) => {
 			phone: 0,
 			computer: 0,
 			camera: 0,
-			clock: 0
+			clock: 0,
+			rose: 0,
+			umbrella: 0,
+			hamburger: 0,
+			croissant: 0,
+			basketball: 0,
+			watch: 0,
+			projector: 0,
+			flashlight: 0,
+			bed: 0,
+			hammer: 0,
+			book: 0,
+			mag: 0,
+			banana: 0,
+			inventoryslotticket: 0
 		},
 		description: ''
 	};
@@ -93,7 +107,21 @@ exports.run = async(client, msg) => {
 			phone: 0,
 			computer: 0,
 			camera: 0,
-			clock: 0
+			clock: 0,
+			rose: 0,
+			umbrella: 0,
+			hamburger: 0,
+			croissant: 0,
+			basketball: 0,
+			watch: 0,
+			projector: 0,
+			flashlight: 0,
+			bed: 0,
+			hammer: 0,
+			book: 0,
+			mag: 0,
+			banana: 0,
+			inventoryslotticket: 0
 		};
 		await client.userdb.set(msg.author.id, userdb);
 	}
