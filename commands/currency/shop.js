@@ -142,7 +142,8 @@ exports.run = async (client, msg, args, lang) => {
 								inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[itemsnames[x]]);
 							}
 
-							if (inventoryslotcheck >= userdb.inventoryslots) return msg.reply('Your inventory slots are full!');
+							const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
+							if (inventoryslotcheck >= userdb.inventoryslots) return msg.reply(inventoryfull);
 
 							const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 							if (msgauthortable.medals <= marketconfs[itemsnames[i]][1]) return msg.channel.send(lang.shop_notenoughcredits);

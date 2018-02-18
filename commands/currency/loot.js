@@ -4,6 +4,18 @@ exports.run = async (client, msg, args, lang) => {
 	var d = Math.random();
 	const userdb = client.userdb.get(msg.author.id);
 	const marketconfs = client.botconfs.get('market');
+	const tableload = client.guildconfs.get(msg.guild.id);
+
+	var inventoryslotcheck = 0;
+	for (const index in userdb.inventory) {
+		inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[index]);
+	}
+	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
+	if (inventoryslotcheck >= userdb.inventoryslots) {
+		const timestamps = client.cooldowns.get('loot');
+		timestamps.delete(msg.author.id);
+		return msg.reply(inventoryfull);
+	}
 
 	const creditsloot = Math.floor(Math.random() * 70) + 1;
 
