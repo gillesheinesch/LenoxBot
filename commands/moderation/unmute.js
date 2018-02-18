@@ -41,7 +41,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-	userpermissions: []
+	userpermissions: ['KICK_MEMBERS']
 };
 
 exports.help = {
