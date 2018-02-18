@@ -4,26 +4,23 @@ exports.run = async (client, msg, args, lang) => {
 
 	const categories = ['currency', 'botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'trello', 'utility', 'staff', 'application', 'partner'];
 
-	function loadCmds() {
-		categories.forEach((c, i) => {
-			fs.readdir(`./commands/${c}/`, (err, files) => {
-				if (err) throw err;
+	categories.forEach((c, i) => {
+		fs.readdir(`./commands/${c}/`, (err, files) => {
+			if (err) throw err;
 
-				files.forEach((f) => {
-					let props = require(`../${c}/${f}`);
-					delete require.cache[require.resolve(`../${c}/${f}`)];
-					client.commands.set(props.help.name, props);
-					props.conf.aliases.forEach(alias => {
-						client.aliases.set(alias, props.help.name);
-					});
+			files.forEach((f) => {
+				let props = require(`../${c}/${f}`);
+				delete require.cache[require.resolve(`../${c}/${f}`)];
+				client.commands.set(props.help.name, props);
+				props.conf.aliases.forEach(alias => {
+					client.aliases.set(alias, props.help.name);
 				});
 			});
 		});
-	}
+	});
 
-	loadCmds();
 
-	msg.reply(`The command has been reloaded!`).then(m => m.delete(10000));
+	msg.reply(`The commands have been reloaded!`).then(m => m.delete(10000));
 };
 
 exports.conf = {
