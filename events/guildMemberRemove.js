@@ -4,8 +4,6 @@ exports.run = (client, member) => {
 
 	const tableconfig = client.guildconfs.get(member.guild.id);
 
-	if (tableconfig.byelog === 'false') return;
-
 	if (tableconfig.language === '') {
         tableconfig.language = 'en';
         client.guildconfs.set(member.guild.id, tableconfig);
@@ -13,13 +11,15 @@ exports.run = (client, member) => {
 
 	var lang = require(`../languages/${tableconfig.language}.json`);
 
-	const messagechannel = client.channels.get(tableconfig.byelogchannel);
-	const embed = new Discord.RichEmbed()
-	.setFooter(lang.guildmemberremoveevent_userleft)
-	.setTimestamp()
-	.setColor('#FF0000')
-	.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
-	messagechannel.send({ embed: embed });
+	if (tableconfig.byelog === 'true') {
+		const messagechannel = client.channels.get(tableconfig.byelogchannel);
+		const embed = new Discord.RichEmbed()
+		.setFooter(lang.guildmemberremoveevent_userleft)
+		.setTimestamp()
+		.setColor('#FF0000')
+		.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
+		messagechannel.send({ embed: embed });
+	}
 
 	if (tableconfig.bye === 'true') {
 		if (tableconfig.byemsg.length < 1) return;
