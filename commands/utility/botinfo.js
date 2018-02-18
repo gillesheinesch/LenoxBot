@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
 exports.run = (client, msg, args, lang) => {
-	const uptimeserver = moment.duration(client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}]s[ ${lang.messageevent_seconds}]`);
+	const uptimeserver = moment.duration(client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
 
 	var online = lang.botinfo_online.replace('%guilds', client.guilds.size).replace('%users', client.users.size);
 	const embed = new Discord.RichEmbed()
