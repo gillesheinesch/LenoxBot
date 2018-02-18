@@ -2,6 +2,7 @@ const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
 exports.run = async (client, msg, args, lang) => {
 	const userdb = client.userdb.get(msg.author.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
 	const validation = [
 		['crate', 'apple', 'phone'],
 		['cat', 'football', 'joystick'],
@@ -23,9 +24,34 @@ exports.run = async (client, msg, args, lang) => {
 
 	const result = Math.floor(Math.random() * validation.length);
 
-	if (userdb.inventory.cratekey === 0 && userdb.inventory.crate === 0) return msg.reply(lang.opencrate_nocrateandkey);
-	if (userdb.inventory.cratekey === 0) return msg.reply(lang.opencrate_nocrate);
-	if (userdb.inventory.crate === 0) return msg.reply(lang.opencrate_nocratekey);
+	var inventoryslotcheck = 0;
+	for (const index in userdb.inventory) {
+		inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[index]);
+	}
+	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
+	if (inventoryslotcheck >= userdb.inventoryslots) {
+		const timestamps = client.cooldowns.get('opencrate');
+		timestamps.delete(msg.author.id);
+		return msg.reply(inventoryfull);
+	}
+
+	if (userdb.inventory.cratekey === 0 && userdb.inventory.crate === 0) {
+		const timestamps = client.cooldowns.get('opencrate');
+		timestamps.delete(msg.author.id);
+		return msg.reply(lang.opencrate_nocrateandkey);
+	}
+
+	if (userdb.inventory.cratekey === 0) {
+		const timestamps = client.cooldowns.get('opencrate');
+		timestamps.delete(msg.author.id);
+		return msg.reply(lang.opencrate_nocrate);
+	}
+
+	if (userdb.inventory.crate === 0) {
+		const timestamps = client.cooldowns.get('opencrate');
+		timestamps.delete(msg.author.id);
+		return msg.reply(lang.opencrate_nocratekey);
+	}
 
 	for (var i = 0; i < validation[result].length; i++) {
 		userdb.inventory[validation[result][i]] = userdb.inventory[validation[result][i]] + 1;
