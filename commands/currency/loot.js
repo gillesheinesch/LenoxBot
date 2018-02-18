@@ -33,7 +33,7 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory[validationfor10procent[result]] = userdb.inventory[validationfor10procent[result]] + 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][2]})`);
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][1]})`);
 
 		return msg.channel.send(`🎉 ${lootmessage}`);
 	} else if (d < 0.1) {
@@ -51,7 +51,7 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory[validationfor30procent[result]] = userdb.inventory[validationfor30procent[result]] + 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][2]})`);
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][1]})`);
 
 		return msg.channel.send(`🎉 ${lootmessage}`);
 	} else if (d < 0.3) {
@@ -69,7 +69,7 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory[validationfor50procent[result]] = userdb.inventory[validationfor50procent[result]] + 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][2]})`);
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][1]})`);
 
 		return msg.channel.send(`🎉 ${lootmessage}`);
 	} else {
@@ -88,7 +88,7 @@ exports.run = async (client, msg, args, lang) => {
 		await client.userdb.set(msg.author.id, userdb);
 
 		
-		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][2]})`);
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][1]})`);
 	
 		return msg.channel.send(`🎉 ${lootmessage}`);
 	}
