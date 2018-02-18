@@ -1,5 +1,7 @@
 const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
+const moment = require('moment');
+require('moment-duration-format');
 const Discord = require('discord.js');
 exports.run = async(client, msg) => {
 	if (msg.author.bot) return;
@@ -464,7 +466,8 @@ exports.run = async(client, msg) => {
 		if (now < expirationTime) {
 			const timeLeft = (expirationTime - now) / 1000;
 
-			var anticommandspam = lang.messageevent_anticommandspam.replace('%time', timeLeft.toFixed(1)).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
+			const time = moment.duration(parseInt(timeLeft.toFixed(1)), "seconds").format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}]s[ ${lang.messageevent_seconds}]`);
+			var anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
 			return msg.reply(anticommandspam);
 		}
 

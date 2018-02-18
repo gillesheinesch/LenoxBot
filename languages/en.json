@@ -920,7 +920,11 @@
     "messageevent_botnopermission": "It looks like the bot hasn't enough permissions to execute this command! (Required permissions: %missingpermissions)",
     "messageevent_usernopermission": "It looks like you haven't enough permissions to execute this command! (Required permissions: %missingpermissions)",
     "messageevent_moduledeactivated": "The module %modulename has been disabled. You can reactivate disabled modules by using %prefixactivatemodule.",
-    "messageevent_anticommandspam": "Please wait %time more second(s) before reusing the %commandname command.",
+    "messageevent_seconds": "seconds",
+    "messageevent_minutes": "minutes and",
+    "messageevent_hours": "hours",
+    "messageevent_days": "days",
+    "messageevent_anticommandspam": "Please wait %time before reusing the %commandname command.",
     "messageevent_chatfilterembed": "Message deleted from %authortag by the chatfilter",
     "messageevent_messagedeleted": "%author, your message has been deleted because you have used a word/number which has been blocked by the chatfilter!",
 

@@ -24,7 +24,7 @@ exports.run = async (client, msg, args, lang) => {
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${validationfor10procent[result]} ($${marketconfs[validationfor10procent[result]][2]})`);
 		validationfor10procent = [lang.loot_house, lang.loot_car, lang.loot_diamond];
 
-		return msg.channel.send(lootmessage);
+		return msg.channel.send(`🎉 ${lootmessage}`);
 	} else if (d < 0.1) {
 		var validationfor30procent = ['phone', 'computer', 'camera', 'projector', 'bed', 'watch'];
 		const result = Math.floor(Math.random() * validationfor30procent.length);
