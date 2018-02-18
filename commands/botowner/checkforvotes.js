@@ -40,8 +40,6 @@ exports.run = async (client, msg, args, lang) => {
 			await client.botconfs.set('upvote', botconfs);
 		}
 	}, 1500);
-
-	msg.reply('Checked!');
 };
 
 exports.conf = {
