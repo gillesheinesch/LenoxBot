@@ -14,7 +14,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (msgauthortable.medals <= input.join(" ")) return msg.channel.send(lang.gamble_error);
 
 	if (d < 0.4) {
-		const possiblewinrates = ['2', '0.1', '0.3', '0.5', '0.7', '0.9', '1', '1.3', '1.6', '1.9'];
+		const possiblewinrates = ['2', '0.2', '0.3', '0.1', '0.2', '0.3', '0.1', '0.2', '0.3', '0.1', '0.2', '0.3', '0.5', '0.7', '0.9', '1', '1.3', '1.6', '1.9'];
 		const result = Math.floor(Math.random() * possiblewinrates.length);
 
 		const finalresult = parseInt(input.join(" ") * possiblewinrates[result]);
