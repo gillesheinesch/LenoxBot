@@ -13,7 +13,7 @@ exports.run = async(client, msg, args, lang) => {
 	var msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 	if (msgauthortable.medals <= input.join(" ")) return msg.channel.send(lang.gamble_error);
 
-	if (d < 0.37) {
+	if (d < 0.4) {
 		const possiblewinrates = ['2', '0.1', '0.3', '0.5', '0.7', '0.9', '1', '1.3', '1.6', '1.9'];
 		const result = Math.floor(Math.random() * possiblewinrates.length);
 
