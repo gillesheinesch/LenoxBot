@@ -1,18 +1,18 @@
 exports.run = async(client, msg, args, lang) => {
-	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 	const Discord = require('discord.js');
-	const fortnite = require('fortnite');
+	const Fortnite = require('fortnite');
+	const fortniteclient = new Fortnite('f00bb1ee-0be8-4474-bbf4-58a382e3245d');
 
 	const input = args.slice();
 
 	if (!input[0]) return msg.channel.send(lang.fortnite_noinput);
 
-	var stats = await fortnite(input[0], !input[1] ? 'PC' : input[1]);
+	var stats = await fortniteclient.getInfo(input[0], !input[1] ? 'PC' : input[1]);
 
 		const embed = new Discord.RichEmbed()
-		.setURL(stats.info.url)
+		.setURL(stats.url)
 		.setColor('#f45942')
-		.setAuthor(`${stats.info.username} || ${stats.info.platform.toUpperCase()}`);
+		.setAuthor(`${stats.username} || ${stats.platformNameLong}`);
 		for (var i = 0; i < stats.lifetimeStats.length; i++) {
             var stat = stats.lifetimeStats[i].stat;
             var value = stats.lifetimeStats[i].value;
@@ -22,7 +22,7 @@ exports.run = async(client, msg, args, lang) => {
 };
 
 exports.conf = {
-	enabled: false,
+	enabled: true,
 	guildOnly: true,
 	aliases: [],
 	userpermissions: []
@@ -32,6 +32,6 @@ exports.help = {
 	description: 'Shows you Fortnite stats about a player on every console',
 	usage: 'fortnite {EpicGames Username} [PC, XBOX, PSN (pc default)]',
 	example: ['fortnite Monkeyyy11ez PSN'],
-	category: 'botowner',
+	category: 'searches',
 	botpermissions: ['SEND_MESSAGES']
 };
