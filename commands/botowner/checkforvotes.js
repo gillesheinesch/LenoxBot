@@ -16,8 +16,9 @@ exports.run = async (client, msg, args, lang) => {
 		if (botconfs.allusers.length === 0) return clearInterval(test);
 		if (await client.dbl.hasVoted(botconfs.allusers[0]) === true) {
 			const embed = new Discord.RichEmbed()
-			.setDescription('This user got 1000 credits by upvoting to https://discordbots.org/bot/354712333853130752!')
+			.setDescription('This user got 500 credits by upvoting the bot on discordbots.org (https://discordbots.org/bot/354712333853130752!) \n\nTo check if the user got his credits, he can use ?credits')
 			.setColor('#99ff66')
+			.setTitle('Upvote reward')
 			.setAuthor(`${client.users.get(botconfs.allusers[0]) ? client.users.get(botconfs.allusers[0]).tag : botconfs.allusers[0]}`);
 
 			await client.channels.get('413750421341863936').send({ embed });
@@ -26,7 +27,7 @@ exports.run = async (client, msg, args, lang) => {
 				if (!row) {
 					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [botconfs.allusers[0], 0]);
 				}
-				sql.run(`UPDATE medals SET medals = ${row.medals + 1000} WHERE userId = ${botconfs.allusers[0]}`);
+				sql.run(`UPDATE medals SET medals = ${row.medals + 500} WHERE userId = ${botconfs.allusers[0]}`);
 			}).catch((error) => {
 				console.error(error);
 				sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
