@@ -158,7 +158,7 @@ exports.run = async (client, msg, args, lang) => {
 					tableload.roleupdatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
 
-					return msg.channel.send(`${lang.log_roleupdateset}**#${msg.channel.name}**`).then(m => m.delete(15000));
+					return msg.channel.send(`${lang.log_roleupdateset} **#${msg.channel.name}**`).then(m => m.delete(15000));
 				} else {
 					tableload.roleupdatelog = 'false';
 					await client.guildconfs.set(msg.guild.id, tableload);
