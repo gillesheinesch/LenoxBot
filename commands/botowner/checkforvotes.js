@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 		if (botconfs.allusers.length === 0) return clearInterval(test);
 		if (await client.dbl.hasVoted(botconfs.allusers[0]) === true) {
 			const embed = new Discord.RichEmbed()
-			.setDescription('This user got 500 credits by upvoting the bot on discordbots.org (https://discordbots.org/bot/354712333853130752!) \n\nTo check if the user got his credits, he can use ?credits')
+			.setDescription('This user got 500 credits by upvoting the bot on discordbots.org (https://discordbots.org/bot/354712333853130752/vote) \n\nTo check if the user got his credits, he can use ?credits')
 			.setColor('#99ff66')
 			.setTitle('Upvote reward')
 			.setAuthor(`${client.users.get(botconfs.allusers[0]) ? client.users.get(botconfs.allusers[0]).tag : botconfs.allusers[0]}`);
