@@ -154,7 +154,7 @@ exports.run = async client => {
 
 	const embed = new Discord.RichEmbed()
 		.setTitle('Botrestart')
-		.setDescription('The bot is back and ready to execute commands')
+		.setDescription('The bot had a restart and is back again!\nEveryone can now execute commands!')
 		.setColor('#99ff66')
 		.setAuthor(client.user.tag, client.user.displayAvatarURL);
 
