@@ -255,9 +255,9 @@
     "byemsg_goodbyemsgset": "Goodbye message saved successfully!",
     "byemsg_description": "Sets a goodbye message to say goodbye to your users",
 
-    "commanddel_deletionset": "Commands are now deleted after execution",
-    "commanddel_nodeletionset": "Commands are no longer deleted after execution",
-    "commanddel_description": "Toggles the deletion of a command after execution",
+    "commanddeletion_deletionset": "Commands are now deleted after execution",
+    "commanddeletion_nodeletionset": "Commands are no longer deleted after execution",
+    "commanddeletion_description": "Toggles the deletion of a command after execution",
 
     "createrole_norolename": "You forgot to enter the name of the role!",
     "createrole_rolecreated": "The role was created successfully!",
@@ -287,6 +287,20 @@
     "listautomaticrole_description": "Lists all auto assignable roles",
 
     "listevents_embed": "List of all events",
+    "listevents_modlog": "Logs all bans, unbans, kicks, warns, mutes, unmutes, softban",
+    "listevents_messageupdate": "Logs all message updates on this Discord server",
+    "listevents_messagedelete": "Logs all deleted messages on this Discord server",
+    "listevents_channelupdate": "Logs all channel changes on this Discord server",
+    "listevents_channelcreate": "Logs all recently created channels on this Discord server",
+    "listevents_channeldelete": "Logs all recently deleted channels on this Discord server",
+    "listevents_presenceupdate": "Logs all presence updates of the members on this Discord server",
+    "listevents_rolecreate": "Logs all recently created roles on this Discord server",
+    "listevents_roledelete": "Logs all recently deleted roles on this Discord server",
+    "listevents_roleupdate": "Logs all changes to the roles on this Discord server",
+    "listevents_userjoin": "Logs all recently joined members on this Discord server",
+    "listevents_userleft": "Logs all recently left members on this Discord server",
+    "listevents_guildupdate": "Logs all changes of the guild on this Discord server",
+    "listevents_chatfilter": "Logs all messages deleted by the chatfilter on this Discord server",
     "listevents_description": "Lists you all events that you can log on your server",
 
     "listmodules_embed": "All active/disabled modules!",
@@ -330,10 +344,12 @@
     "log_error": "Hmm, that event doesnt exist. You can check all events that you can log with",
     "log_description": "Allows you to log for different channels, different events. Use ?listevents to get a list of all events",
 
-    "msgoptions_username": "Username of the new member",
-    "msgoptions_userid": "UserID of the new member",
-    "msgoptions_guildname": "the name of this guild",
-    "msgoptions_guildid": "the id of this guild",
+    "msgoptions_$usertag$": "Usertag of the new member \n**Example:** __Monkeyyy11#0001__ joined the server!",
+    "msgoptions_$usermention$": "Mention of the new member (Just available for the welcome message) \n**Example:** __@Monkeyyy11#0001__ joined the server!",
+    "msgoptions_$username$": "Username of the new member \n**Example:** __Monkeyyy11__ joined the server!",
+    "msgoptions_$userid$": "UserID of the new member \n**Example:** __238590234135101440__ joined the server!",
+    "msgoptions_$guildname$": "The name of this guild \n**Example:** Monkeyyy11 joined the __TestServer__ Server",
+    "msgoptions_$guildid$": "The id of this guild \n**Example:** Monkeyyy11 joined the server (ServerID: __332612123492483094__)!",
     "msgoptions_embed": "Welcome/Bye message options:",
     "msgoptions_description": "Shows you a list of all available options for your welcome and bye message",
 
@@ -674,7 +690,7 @@
     
     "google_noinput": "Please specify what you are looking for",
     "google_nsfw": "You can not use the Google command for such things",
-    "google_description": "Searches something on google",
+    "google_description": "Searches something on Google",
 
     "news_newsnotexist": "**It looks like you've entered a newspaper that does not exist! \nHere a list of all available newspaper:** \n\n%newslist",
     "news_noauthor": "No author",
@@ -742,7 +758,7 @@
     "channels_description": "A list of all channels on your discord server",
 
     "donators_nodonators": "There are no donators who support this project!",
-    "donators_thankyou": "Thanks to all, listed below, donors! Thanks to you there is this project still! <3",
+    "donators_thankyou": "Thanks to all, listed below, donators! Thanks to you there is this project still! <3",
     "donators_description": "Gives you a list with all donators who are supporting the project",
 
     "inrole_noinput": "You have to enter the name of the role!",
@@ -750,6 +766,7 @@
     "inrole_description": "Command to see which members have a specific role",
 
     "join_noinput": "You must specify the name of the role!",
+    "join_notwhitelisted": "This role isn't in the list of self-assignables roles",
     "join_rolenotexist": "This role does not exist at all!",
     "join_alreadyhave": "You already have this role!",
     "join_roleassigned": "Role successfully assigned!",
@@ -793,9 +810,9 @@
     "paycredits_noinput": "You forgot to specify how many credits you want to give the user!",
     "paycredits_number": "The amount of credits has to be a number!",
     "paycredits_not0": "You can not give 0 credits",
-    "paycredits_one": "You have to give away minimal one medal",
+    "paycredits_one": "You have to give away minimal 2 medals",
     "paycredits_notenough": "Unfortunately, you do not have enough credits!",
-    "paycredits_creditsgiven": "%author, %creditscount credit(s) were given to %mentiontag!",
+    "paycredits_creditsgiven": "%author, %creditscount credits were given to %mentiontag!",
     "paycredits_description": "Allows a user to give their credits to someone",
 
     "ping_ping": "Here we go! It took %timestampms to send this message!",
@@ -872,7 +889,7 @@
     "channelupdateevent_oldposition": "Old Position:",
     "channelupdateevent_newposition": "New Position:",
 
-    "guildcreateevent_message": "Hello %ownername, \nThanks for choosing LenoxBot! Currently, we are still in the beta phase, so it can lead to problems which we will fix as fast as we can. If you find any bugs, you can report them on our Discord server: https://discord.gg/PjZM36X \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/PjZM36X | https://www.lenoxbot.com/",
+    "guildcreateevent_message": "Hello %ownername, \nThanks for choosing LenoxBot! If you find any bugs, you can report them on our Discord server: https://discord.gg/PjZM36X \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/PjZM36X | https://www.lenoxbot.com/",
 
     "guildmemberaddevent_userjoined": "User joined",
 
