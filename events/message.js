@@ -423,8 +423,18 @@ exports.run = async(client, msg) => {
 
 	var botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.help.botpermissions.join(', '));
 	var usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.conf.userpermissions.join(', '));
-	if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) return msg.channel.send(botnopermission);
-	if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) return msg.channel.send(usernopermission);
+	if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
+		if (tableload.commanddel === 'true') {
+			msg.delete();
+		}
+		return msg.channel.send(botnopermission);
+	}
+	if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
+		if (tableload.commanddel === 'true') {
+			msg.delete();
+		}
+		return msg.channel.send(usernopermission);
+	}
 
 	if (!tableload.modules) {
 		tableload.modules = {};
@@ -443,6 +453,9 @@ exports.run = async(client, msg) => {
 		if (prop === cmd.help.category) {
 			if (tableload.modules[prop] === 'false') {
 				var moduledeactivated = lang.messageevent_moduledeativated.replace('%modulename', prop).replace('%prefix', tableload.prefix);
+				if (tableload.commanddel === 'true') {
+					msg.delete();
+				}
 				return msg.channel.send(moduledeactivated);
 			}
 		}
@@ -468,6 +481,9 @@ exports.run = async(client, msg) => {
 
 			const time = moment.duration(parseInt(timeLeft.toFixed(1)), "seconds").format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
 			var anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
+			if (tableload.commanddel === 'true') {
+				msg.delete();
+			}
 			return msg.reply(anticommandspam);
 		}
 
@@ -475,11 +491,16 @@ exports.run = async(client, msg) => {
 		setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
 	}
 
-	if (cmd.conf.enabled === false) return msg.reply(lang.messageevent_commanddisabled);
+	if (cmd.conf.enabled === false) {
+		if (tableload.commanddel === 'true') {
+			msg.delete();
+		}
+		return msg.reply(lang.messageevent_commanddisabled);
+	}
 
 	cmd.run(client, msg, args, lang);
 		if (tableload.commanddel === 'true') {
-			return msg.delete();
+			msg.delete();
 		}
 	} else {
 		const input = msg.content.split(' ').slice();

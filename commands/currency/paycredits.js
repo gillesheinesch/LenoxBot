@@ -9,7 +9,7 @@ exports.run = async(client, msg, args, lang) => {
     if (args.slice(1).length === 0) return msg.channel.send(lang.paycredits_noinput);
     if (isNaN(args.slice(1))) return msg.channel.send(lang.paycredits_number);
 	if (parseInt(args.slice(1).join(" ")) === 0) return msg.channel.send(lang.paycredits_not0);
-	if (parseInt(args.slice(1).join(" ")) < 0) return msg.channel.send(lang.paycredits_one);
+	if (parseInt(args.slice(1).join(" ")) < 2) return msg.channel.send(lang.paycredits_one);
 
 	const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 
