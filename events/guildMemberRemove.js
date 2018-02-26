@@ -26,6 +26,7 @@ exports.run = (client, member) => {
 		const message = tableconfig.byemsg;
 		const msgchannel = client.channels.get(tableconfig.byechannel);
 		const newMessage = message.replace('$username$', member.user.username)
+		.replace('$usertag$', member.user.tag)
 		.replace('$userid$', member.user.id)
 		.replace('$guildname$', member.guild.name)
 		.replace('$guildid$', member.guild.id);
