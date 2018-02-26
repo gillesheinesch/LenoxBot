@@ -29,7 +29,7 @@ exports.run = async(client, msg, args, lang) => {
 				}
 				await client.guildconfs.set(msg.guild.id, tableload);
 		
-				var removed = lang.deleteentry_removed.replace('%entry', input);
+				var removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
 				return msg.channel.send(removed);
 		} 
 	}

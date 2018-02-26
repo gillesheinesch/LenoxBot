@@ -27,7 +27,7 @@ exports.run = async(client, msg, args, lang) => {
 		tableload.application.template.push(input);
 		await client.guildconfs.set(msg.guild.id, tableload);
 		
-		var added = lang.addentry_added.replace('%entry', input);
+		var added = lang.addentry_added.replace('%entry', `\`${input}\``);
 		return msg.channel.send(added);
 };
 
