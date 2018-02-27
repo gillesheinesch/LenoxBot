@@ -350,7 +350,7 @@
     "msgoptions_$usermention$": "Mention of the new member (Just available for the welcome message) \n**Example:** __@Monkeyyy11#0001__ joined the server!",
     "msgoptions_$username$": "Username of the new member \n**Example:** __Monkeyyy11__ joined the server!",
     "msgoptions_$userid$": "UserID of the new member \n**Example:** __238590234135101440__ joined the server!",
-    "msgoptions_$guildname$": "The name of this guild \n**Example:** Monkeyyy11 joined the __TestServer__ Server",
+    "msgoptions_$guildname$": "The name of this guild \n**Example:** Monkeyyy11 joined the __TestServer__ Server!",
     "msgoptions_$guildid$": "The id of this guild \n**Example:** Monkeyyy11 joined the server (ServerID: __332612123492483094__)!",
     "msgoptions_embed": "Welcome/Bye message options:",
     "msgoptions_description": "Shows you a list of all available options for your welcome and bye message",
@@ -890,8 +890,6 @@
     "channelupdateevent_positionupdated": "Channelposition updated!",
     "channelupdateevent_oldposition": "Old Position:",
     "channelupdateevent_newposition": "New Position:",
-
-    "guildcreateevent_message": "Hello %ownername, \nThanks for choosing LenoxBot! If you find any bugs, you can report them on our Discord server: https://discord.gg/PjZM36X \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/PjZM36X | https://www.lenoxbot.com/",
 
     "guildmemberaddevent_userjoined": "User joined",
 

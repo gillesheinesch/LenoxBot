@@ -75,8 +75,7 @@ exports.run = async(client, guild) => {
 
     var lang = require(`../languages/${tableconfig.language}.json`);
 
-	var message = lang.guildcreateevent_message.replace('%ownername', guild.owner.user.username);
-	guild.owner.send(message);
+	guild.owner.send(`Hello ${guild.owner.user.username}, \nThanks for choosing LenoxBot! If you find any bugs, you can report them on our Discord server: https://discord.gg/PjZM36X \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/PjZM36X | https://www.lenoxbot.com/`);
 	
 	const embed = new Discord.RichEmbed()
 	.setTimestamp()
