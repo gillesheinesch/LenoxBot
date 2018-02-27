@@ -26,7 +26,7 @@ exports.help = {
 	name: 'toggleapplication',
 	description: 'Toggles the applications on or off',
 	usage: 'toggleapplication',
-	example: ['toggleapplicatione'],
+	example: ['toggleapplication'],
 	category: 'application',
     botpermissions: ['SEND_MESSAGES']
 };

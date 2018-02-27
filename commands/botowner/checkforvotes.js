@@ -40,14 +40,15 @@ exports.run = async (client, msg, args, lang) => {
 			botconfs.allusers.splice(0, 1);
 			await client.botconfs.set('upvote', botconfs);
 		}
-	}, 1500);
+	}, 3000);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-	userpermissions: []
+	userpermissions: [],
+	cooldown: 86400000
 };
 exports.help = {
 	name: 'checkforvotes',

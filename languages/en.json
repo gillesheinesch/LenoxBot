@@ -76,6 +76,8 @@
     "loot_description": "Take your loot every 10 minutes",
 
     "daily_author": "You have successfully received %amount.",
+    "daily_remind": "Don't forget to pick up your daily reward",
+    "daily_remindmsg": "I'll remind you to pick up your daily reward in 24 hours!",
     "daily_mention": "%mentiontag has successfully received %amount.",
     "daily_description": "Get your daily reward or give it away to another discord user",
 
