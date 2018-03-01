@@ -48,6 +48,6 @@ exports.help = {
 	description: 'Weather of a town or a city',
 	usage: 'weather {location}',
 	example: ['weather Paris'],
-	category: 'utility',
+	category: 'searches',
 	botpermissions: ['SEND_MESSAGES']
 };
