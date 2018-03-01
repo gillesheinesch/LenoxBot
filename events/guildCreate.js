@@ -75,7 +75,7 @@ exports.run = async(client, guild) => {
 
     var lang = require(`../languages/${tableconfig.language}.json`);
 
-	guild.owner.send(`Hello ${guild.owner.user.username}, \nThanks for choosing LenoxBot! If you find any bugs, you can report them on our Discord server: https://discord.gg/PjZM36X \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/PjZM36X | https://www.lenoxbot.com/`);
+	guild.owner.send(`Hello ${guild.owner.user.username}, \nThanks for choosing LenoxBot! If you find any bugs, you can report them on our Discord server: https://discord.gg/c7DUz35 \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/c7DUz35 | https://www.lenoxbot.com/`);
 	
 	const embed = new Discord.RichEmbed()
 	.setTimestamp()

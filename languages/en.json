@@ -731,10 +731,10 @@
     "youtube_noresult": "I can't find a video matching that query!",
     "youtube_description": "Searches for a video on youtube",
 
-    "bugreport_error": "You have to use this command on the official LenoxBot Server: https://discord.gg/PjZM36X",
+    "bugreport_error": "You have to use this command on the official LenoxBot Server: https://discord.gg/c7DUz35",
     "bugreport_description": "You can submit a new bugreport by using this command",
 
-    "proposal_error": "You have to use this command on the official LenoxBot Server: https://discord.gg/PjZM36X",
+    "proposal_error": "You have to use this command on the official LenoxBot Server: https://discord.gg/c7DUz35",
     "proposal_description": "You can submit a new proposal by using this command",
 
     "botinfo_runtime": "Runtime since the last restart",

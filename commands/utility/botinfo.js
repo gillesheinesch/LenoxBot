@@ -15,7 +15,7 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`💻 ${lang.botinfo_doc}`, `https://www.lenoxbot.com/`)
 		.addField(`💎 ${lang.botinfo_support}`, `https://www.patreon.com/lenoxbot`)
 		.addField(`📤 ${lang.botinfo_invite}`, `https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8`)
-		.addField(`📢 ${lang.botinfo_supportserver}`, 'https://discord.gg/PjZM36X');
+		.addField(`📢 ${lang.botinfo_supportserver}`, 'https://discord.gg/c7DUz35');
 
 	msg.channel.send({
 		embed

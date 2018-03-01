@@ -5,7 +5,7 @@ exports.run = (client, msg, args, lang) => {
 	if (!args[0]) {
 		const embed = new Discord.RichEmbed()
 		.addField(lang.help_addthebot, `https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8`)
-		.addField(lang.help_discordserver, `https://discord.gg/PjZM36X`)
+		.addField(lang.help_discordserver, `https://discord.gg/c7DUz35`)
 		.addField(lang.help_modulecommand, `${prefix}modules`)
 		.addField(lang.help_commandscommand, `${prefix}commands {modulename}`)
 		.addField(lang.help_helpcommand, `${prefix}help {commandname}`)
