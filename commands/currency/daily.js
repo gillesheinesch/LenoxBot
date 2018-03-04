@@ -22,7 +22,7 @@ exports.run = async (client, msg, args, lang) => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + userdb.premium.status === false ? 200 : 400} WHERE userId = ${msg.author.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + (userdb.premium.status === false ? 200 : 400)} WHERE userId = ${msg.author.id}`);
 		});
 
 		const author = lang.daily_author.replace('%amount', userdb.premium.status === false ? `$200` : `$400`);
@@ -37,7 +37,7 @@ exports.run = async (client, msg, args, lang) => {
 			if (!row) {
 				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [mentioncheck.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + userdb.premium.status === false ? 200 : 400} WHERE userId = ${mentioncheck.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + (userdb.premium.status === false ? 200 : 400)} WHERE userId = ${mentioncheck.id}`);
 		});
 
 		const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', userdb.premium.status === false ? `$200` : `$400`);
