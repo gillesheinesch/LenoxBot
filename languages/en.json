@@ -1,4 +1,20 @@
 {
+    "useractivatekey_noinput": "You forget to enter your userkey!",
+    "useractivatekey_error": "Your input isn't a userkey!",
+    "useractivatekey_notexist": "This userkey doesn't exist!",
+    "useractivatekey_already": "This userkey has already been redeemed!",
+    "useractivatekey_redeemed": "You have successfully used your userkey. \nYour premium for your discord account is activated until the %date!",
+    "useractivatekey_extended": "You have successfully used your userkey. \nYour premium for your discord account has been extended to %date!",
+    "useractivatekey_description": "With this command you can use a premium userkey for your discord account",
+
+    "serveractivatekey_noinput": "You forget to enter your serverkey!",
+    "serveractivatekey_error": "Your input isn't a serverkey!",
+    "serveractivatekey_notexist": "This serverkey doesn't exist!",
+    "serveractivatekey_already": "This serverkey has already been redeemed!",
+    "serveractivatekey_redeemed": "You have successfully used your serverkey. \nThe premium of this discord server is activated until the %date!",
+    "serveractivatekey_extended": "You have successfully used your serverkey. \nThe premium of this discord server has been extended to %date!",
+    "serveractivatekey_description": "With this command you can use a premium serverkey for a discord server",
+
     "partner_error": "You are not affiliated with LenoxBot",
     "partner_description": "With this command you can use the embed of LenoxBot and your partnered server",
 
@@ -72,7 +88,7 @@
     "loot_computer": "computer",
     "loot_camera": "camera",
     "loot_clock": "clock",
-    "loot_lootmessage": "You got %amount and 1x %item! In 10 minutes you can pick up your loot again",
+    "loot_lootmessage": "You got %amount and %howmanyx %item! In 10 minutes you can pick up your loot again",
     "loot_description": "Take your loot every 10 minutes",
 
     "daily_author": "You have successfully received %amount.",
@@ -87,7 +103,8 @@
     "embed_description": "Create an embed for you with any text. Use // to go to a new line",
 
     "setprofiledescription_noinput": "You forgot to enter a profile description!",
-    "setprofiledescription_error": "Your entry is too long. The profile description should be a small informative description so that the users have a little idea of you",
+    "setprofiledescription_error": "Your description is too long. If you want a longer description, you have to pledge on Patreon (https://www.patreon.com/lenoxbot)! More information can be found on https://www.lenoxbot.com/support-us.html or you can join our discord support server: https://discord.gg/c7DUz35",
+    "setprofiledescription_error2": "Your description is too long.",
     "setprofiledescription_set": "The profile description has been set successfully!", 
     "setprofiledescription_description": "Sets a global profile description",
 
@@ -608,8 +625,12 @@
     "play_error": "No or invalid value entered, cancelling video selection.",
     "play_noresult": "I could not obtain any search results.",
     "play_errorjoin": "I could not join the voice channel.",
-    "play_songadded": "%songtitle has been added to the queue!",
-    "play_startplaying": "Start playing: %songtitle",
+    "play_songlengthlimit": "You can only add videos that are less than 30 minutes into the queue. If you want to queue longer videos, you have to pledge on Patreon (https://www.patreon.com/lenoxbot)! More information can be found on https://www.lenoxbot.com/support-us.html or you can join our discord support server: https://discord.gg/c7DUz35",
+    "play_limitreached": "Only a maximum of 8 songs can be queued on this Discord server. If you want to queue more songs on this discord server, you have to pledge on Patreon (https://www.patreon.com/lenoxbot)! More information can be found on https://www.lenoxbot.com/support-us.html or you can join our discord support server: https://discord.gg/c7DUz35",
+    "play_songadded": "New Song added to the queue:",
+    "play_duration": "**Duration:** %duration",
+    "play_published": "Published at %publishedatdate",
+    "play_startplaying": "Start playing:",
     "play_description": "Searches for music that matches to your request",
 
     "queue_nothing": "There is nothing playing.",
@@ -643,6 +664,7 @@
     "stop_leftchannel": "I have left the voice channel!",
     "stop_description": "Stops the current music and the bot leaves the voice channel",
 
+    "volume_nopremium": "This is a premium-only command. To get access to the premium-only features, you have to pledge on Patreon (https://www.patreon.com/lenoxbot)! More information can be found on https://www.lenoxbot.com/support-us.html or you can join our discord support server: https://discord.gg/c7DUz35",
     "volume_notvoicechannel": "You are not in a voice channel, please join a voice channel to play music!",
     "volume_nothing": "There is nothing playing.",
     "volume_currentvolume": "The current volume is: **%volume**",

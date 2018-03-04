@@ -2,10 +2,13 @@ const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const config = require('../../settings.json');
 	const tableload = client.guildconfs.get(msg.guild.id);
+	const moment = require('moment');
+	require('moment-duration-format');
 	const {
 		Client,
 		Util
 	} = require('discord.js');
+	const userdb = client.userdb.get(msg.author.id);
 	const YouTube = require('simple-youtube-api');
 	const youtube = new YouTube(config.googlekey);
 	const queue = client.queue;
@@ -77,10 +80,16 @@ exports.run = async (client, msg, args, lang) => {
 	async function handleVideo(video, msg, voiceChannel, playlist = false) {
 		const serverQueue = queue.get(msg.guild.id);
 		const song = {
+			duration: moment.duration(video.duration).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`),
+			thumbnail: video.thumbnails.default.url,
+			publishedat: video.publishedAt,
 			id: video.id,
 			title: Util.escapeMarkdown(video.title),
 			url: `https://www.youtube.com/watch?v=${video.id}`
 		};
+
+		if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) return msg.reply(lang.play_songlengthlimit);
+
 		if (!serverQueue) {
 			const queueConstruct = {
 				textChannel: msg.channel,
@@ -110,11 +119,22 @@ exports.run = async (client, msg, args, lang) => {
 				return msg.channel.send(lang.play_errorjoin);
 			}
 		} else {
+			if (serverQueue.songs.length >= 3 && tableload.premium.status === false) return msg.reply(lang.play_limitreached);
 			await serverQueue.songs.push(song);
 			if (playlist) return undefined;
 			else {
-				var songadded = lang.play_songadded.replace('%songtitle', `**${song.title}**`);
-				return msg.channel.send(songadded);
+				const duration = lang.play_duration.replace('%duration', song.duration);
+				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
+				const embed = new Discord.RichEmbed()
+				.setAuthor(lang.play_songadded)
+				.setDescription(duration)
+				.setThumbnail(song.thumbnail)
+				.setColor('#009900')
+				.setURL(song.url)
+				.setFooter(published)
+				.setTitle(song.title);
+
+				return msg.channel.send({ embed });
 			}
 		}
 		return undefined;
@@ -144,8 +164,18 @@ exports.run = async (client, msg, args, lang) => {
 		};
 		skipvote.set(msg.guild.id, vote);
 
-		var startplaying = lang.play_startplaying.replace('%songtitle', `**${song.title}**`);
-		serverQueue.textChannel.send(startplaying);
+		const duration = lang.play_duration.replace('%duration', song.duration);
+				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
+				const embed = new Discord.RichEmbed()
+				.setAuthor(lang.play_startplaying)
+				.setDescription(duration)
+				.setThumbnail(song.thumbnail)
+				.setColor('#009900')
+				.setURL(song.url)
+				.setFooter(published)
+				.setTitle(song.title);
+
+				return msg.channel.send({ embed });
 	}
 };
 

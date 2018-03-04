@@ -3,7 +3,7 @@ exports.run = async(client, msg, args, lang) => {
 	const margs = msg.content.split(' ');
 	const input = args.slice();
 
-	const validation = ['english', 'german'];
+	const validation = ['english', 'german', 'french'];
 
 	const already = lang.language_already.replace('%language', `\`${input[0]}\``);
 	const changed = lang.language_changed.replace('%input', `\`${input[0]}\``);
@@ -26,6 +26,13 @@ exports.run = async(client, msg, args, lang) => {
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
+			} else if (margs[1].toLowerCase() === 'french') {
+				if (tableload.language === 'fr') return msg.channel.send(already);
+
+				tableload.language = 'fr';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(changed);
 			}
 		}
 	}
@@ -41,8 +48,8 @@ exports.conf = {
 exports.help = {
 	name: 'language',
 	description: 'Changes the language of the bot for this server',
-	usage: 'language',
-	example: ['language', 'language ge', 'language en'],
+	usage: 'language {name of the language (in english)}',
+	example: ['language', 'language german', 'language english'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']
 };

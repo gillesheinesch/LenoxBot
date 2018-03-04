@@ -133,6 +133,8 @@ exports.run = async client => {
 		banana: ['🍌', '4', '3']
 	};
 
+	const botconfspremium = {};
+
 	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
 	await client.user.setPresence({
 		game: {
@@ -151,6 +153,7 @@ exports.run = async client => {
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
 	await client.botconfs.set('market', marketconfs);
+	if (!client.botconfs.has('premium')) client.botconfs.set('premium', botconfspremium);
 
 	const embed = new Discord.RichEmbed()
 		.setTitle('Botrestart')
@@ -159,7 +162,9 @@ exports.run = async client => {
 		.setAuthor(client.user.tag, client.user.displayAvatarURL);
 
 	if (client.user.id === '354712333853130752') {
-		await client.channels.get('413750421341863936').send({ embed });
+		await client.channels.get('413750421341863936').send({
+			embed
+		});
 	}
 
 	if (client.user.id === '354712333853130752') {
@@ -167,4 +172,29 @@ exports.run = async client => {
 			client.dbl.postStats(client.guilds.size);
 		}, 1800000);
 	}
+
+	setInterval(() => {
+		client.guilds.filter(g => client.guilds.has(g.id) && client.guildconfs.get(g.id).premium.status === true).forEach(g => {
+			const tableload = client.guildconfs.get(g.id);
+			if (new Date().getTime() >= Date.parse(tableload.premium.end)) {
+				tableload.premium.status = false;
+				tableload.premium.bought = [];
+				tableload.premium.end = '';
+				client.guildconfs.set(g.id, tableload);
+			}
+		});
+	}, 86400000);
+
+	setInterval(() => {
+		client.users.filter(g => client.userdb.has(g.id) && client.userdb.get(g.id).premium.status === true).forEach(g => {
+			const userdb = client.userdb.get(g.id);
+			if (new Date().getTime() >= Date.parse(userdb.premium.end)) {
+				console.log(g.id);
+				userdb.premium.status = false;
+				userdb.premium.bought = [];
+				userdb.premium.end = '';
+				client.userdb.set(g.id, userdb);
+			}
+		});
+	}, 86400000);
 };

@@ -21,7 +21,7 @@ exports.run = async (client, msg, args, lang) => {
 			.setTitle('Upvote reward')
 			.setAuthor(`${client.users.get(botconfs.allusers[0]) ? client.users.get(botconfs.allusers[0]).tag : botconfs.allusers[0]}`);
 
-			await client.channels.get('413750421341863936').send({ embed });
+			await client.channels.get('419921172982005760').send({ embed });
 
 			await sql.get(`SELECT * FROM medals WHERE userId ="${botconfs.allusers[0]}"`).then(row => {
 				if (!row) {

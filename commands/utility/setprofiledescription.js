@@ -1,10 +1,12 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.userdb.get(msg.author.id);
+	const userdb = client.userdb.get(msg.author.id);
 	const input = args.slice();
 
 	if (!input || input.length === 0) return msg.reply(lang.setprofiledescription_noinput);
-	if (input.join(" ").length > 100) return msg.reply(lang.setprofiledescription_error);
+	if (input.join(" ").length > 100 && userdb.premium.status === false) return msg.reply(lang.setprofiledescription_error);
+	if (input.join(" ").length > 400) return msg.reply(lang.setprofiledescription_error2);
 
 	tableload.description = input.join(" ");
 	await client.userdb.set(msg.author.id, tableload);
