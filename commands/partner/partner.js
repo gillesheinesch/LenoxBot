@@ -17,7 +17,7 @@ exports.run = (client, msg, args, lang) => {
 				return msg.channel.send({
 					embed
 				});
-			} else if (margs[1].toLowerCase() == "keinemxl") {
+			} else if (margs[1].toLowerCase() == "keinemxl" && msg.guild.id === '293781355144282112') {
 				const embed = new Discord.RichEmbed()
 					.setDescription(`:warning: You are looking for a top organised Discord server? :warning: \n:rocket: If you are, just join the TeamEmil Discord server! You can meet YouTubers there and you can find new friends there. \n:bulb: You can also help us if you become a moderator or if you tell us your great ideas! \n:bellhop: So, what do you wait for? JOIN NOW! \n:white_check_mark: https://discord.gg/kkWP3Kj`)
 					.setColor('#ff5050')
@@ -26,7 +26,7 @@ exports.run = (client, msg, args, lang) => {
 				return msg.channel.send({
 					embed
 				});
-			} else if (margs[1].toLowerCase() == "evilturtle") {
+			} else if (margs[1].toLowerCase() == "evilturtle" && msg.guild.id === '339023050093625356') {
 				const embed = new Discord.RichEmbed()
 					.setDescription(`:crossed_swords: Largest SurvivalGames Discord ~ Friendly community :crossed_swords: \nEveryone is welcome, join us and make friends! :heart:️ \nhttps://discord.gg/WS6t2hM`)
 					.setColor('#ff5050')
@@ -35,7 +35,7 @@ exports.run = (client, msg, args, lang) => {
 				return msg.channel.send({
 					embed
 				});
-			} else if (margs[1].toLowerCase() == "dadi") {
+			} else if (margs[1].toLowerCase() == "dadi" && msg.guild.id === '328269870158315520') {
 				const embed = new Discord.RichEmbed()
 					.setDescription(`:sparkler: You, yes you! :sparkler: \nAre you bored with other Discord Servers? Join the Emphoia Discord Server and you will never be bored again!\nDo not hesitate, join now! :wink: \n\nWhat advantages do you expect?\n:arrow_forward: A nice and cool Community\n:arrow_forward: Varied voice and text channels\n:arrow_forward: Much fun\n\nThat´s not all...\nConvince yourself!\n:sparkler:  https://discord.gg/wsffwaD :sparkler:`)
 					.setColor('#ff5050')
