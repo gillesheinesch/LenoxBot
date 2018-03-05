@@ -17,7 +17,7 @@ exports.help = {
 	description: 'Get your daily reward or give it away to another discord user',
 	usage: 'daily [@User]',
 	example: ['daily', 'daily @Tester#3873'],
-	category: 'currency',
+	category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };
 
