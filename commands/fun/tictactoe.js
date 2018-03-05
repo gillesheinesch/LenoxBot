@@ -4,6 +4,7 @@ exports.run = async(client, msg, args, lang) => {
 	var validation = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 	if (!mention) return msg.channel.send(lang.tictactoe_nomention);
+	if (mention.presence.status === 'offline') return msg.reply(lang.tictactoe_notoline);
 	if (mention.user.bot) return msg.channel.send(lang.tictactoe_botmention);
 	if (msg.author.id === mention.id) return msg.channel.send(lang.tictactoe_error);
 
