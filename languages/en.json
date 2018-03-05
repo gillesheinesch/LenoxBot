@@ -142,6 +142,7 @@
     "togglexpmessages_description": "Set the xp messages on or off",
 
     "tictactoe_nomention": "You must mention a user to play TicTacToe!",
+    "tictactoe_notoline": "The mentioned user has to be online to play TicTacToe with you!",
     "tictactoe_botmention": "You cannot mention a bot to play TicTacToe!",
     "tictactoe_error": "You can not play with yourself. You have to mention a user against whom you want to play.",
     "tictactoe_gamecreated": "New TicTacToe Game created!",

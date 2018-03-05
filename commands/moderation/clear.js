@@ -1,4 +1,6 @@
 exports.run = async(client, msg, args, lang) => {
+	const tableload = client.guildconfs.get(msg.guild.id);
+
 	if (isNaN(args.slice().join(" "))) return msg.reply(lang.clear_number).then(m => m.delete(10000));
 
 	let messagecount = parseInt(args.join(' '));
@@ -6,7 +8,11 @@ exports.run = async(client, msg, args, lang) => {
 	if (messagecount > 100) return msg.reply(lang.clear_max100).then(m => m.delete(10000));
 	if (messagecount < 2) return msg.reply(lang.clear_min2).then(m => m.delete(10000));
 
-	await msg.channel.fetchMessages({ limit: messagecount + 1 }).then(messages => msg.channel.bulkDelete(messages));
+	if (tableload.commanddel === 'false') {
+		await msg.delete();
+	}
+
+	await msg.channel.fetchMessages({ limit: messagecount }).then(messages => msg.channel.bulkDelete(messages));
 
 	var messagesdeleted = lang.clear_messagesdeleted.replace('%messagecount', messagecount);
 	msg.channel.send(messagesdeleted).then(m => m.delete(5000));

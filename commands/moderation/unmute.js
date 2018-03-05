@@ -20,13 +20,13 @@ exports.run = async(client, msg, args, lang) => {
 		membermention.removeRole(role);
 
 		var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
-		var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" "));
+		var unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" "));
 		const embed = new Discord.RichEmbed()
 		.setAuthor(unmutedby, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
 		.setColor('#FF0000')
 		.setTimestamp()
-		.setDescription(mutedescription);
+		.setDescription(unmutedescription);
 	
 		if (tableload.modlog === 'true') {
 			const modlogchannel = client.channels.get(tableload.modlogchannel);
