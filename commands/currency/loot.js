@@ -15,7 +15,7 @@ exports.run = async (client, msg, args, lang) => {
 		const timestamps = client.cooldowns.get('loot');
 		timestamps.delete(msg.author.id);
 		return msg.reply(inventoryfull);
-	} else if (inventoryslotcheck + 2 >= userdb.inventoryslots && userdb.premium.status === true) {
+	} else if (inventoryslotcheck + 1 >= userdb.inventoryslots && userdb.premium.status === true) {
 			const timestamps = client.cooldowns.get('loot');
 			timestamps.delete(msg.author.id);
 			return msg.reply(inventoryfull);
