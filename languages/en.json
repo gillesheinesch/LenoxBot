@@ -495,9 +495,10 @@
     "penissizecalculator_5": "Your penis is so small that there isn't a unit. Sorry!",
     "penissizecalculator_description": "Calculates the size of the penis of you or a user",
 
-    "slot_triple": "Triple! Congratulations, you won!",
-    "slot_double": "Double! Congratulations, you won!",
-    "slot_nothing": "Unfortunately you lost!",
+    "slot_error": "You must have at least 50 credits to play a round slot!",
+    "slot_triple": "Triple! Congratulations, you won 100 credits!",
+    "slot_double": "Double! Congratulations, you won 25 credits!",
+    "slot_nothing": "Unfortunately you lost 50 credits!",
     "slot_description": "Play with the slot machine",
 
     "commands_embedinfo": "For more information about a command, type in %prefixhelp commandname",
