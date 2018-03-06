@@ -5,7 +5,12 @@ exports.run = async (client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
 	var array = [];
-	await client.users.forEach(r => array.push(r.id));
+	const list = await client.dbl.getVotes(true);
+
+	for (var i = 0; i < list.length; i++) {
+		array.push(list[i]);
+	}
+
 	const upvoteconfs = { allusers: array };
 
 	await client.botconfs.set('upvote', upvoteconfs);
@@ -14,7 +19,6 @@ exports.run = async (client, msg, args, lang) => {
 
 	var test = setInterval(async function () {
 		if (botconfs.allusers.length === 0) return clearInterval(test);
-		if (await client.dbl.hasVoted(botconfs.allusers[0]) === true) {
 			const embed = new Discord.RichEmbed()
 			.setDescription('This user got 500 credits by upvoting the bot on discordbots.org (https://discordbots.org/bot/354712333853130752/vote) \n\nTo check if the user got his credits, he can use ?credits')
 			.setColor('#99ff66')
@@ -25,21 +29,18 @@ exports.run = async (client, msg, args, lang) => {
 
 			await sql.get(`SELECT * FROM medals WHERE userId ="${botconfs.allusers[0]}"`).then(row => {
 				if (!row) {
-					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [botconfs.allusers[0], 0]);
-				}
+					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [botconfs.allusers[0], 500]);
+				} else {
 				sql.run(`UPDATE medals SET medals = ${row.medals + 500} WHERE userId = ${botconfs.allusers[0]}`);
+				}
 			}).catch((error) => {
 				console.error(error);
 				sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
-					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [botconfs.allusers[0], 0]);
+					sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [botconfs.allusers[0], 500]);
 				});
 			});
 			botconfs.allusers.splice(0, 1);
 			await client.botconfs.set('upvote', botconfs);
-		} else {
-			botconfs.allusers.splice(0, 1);
-			await client.botconfs.set('upvote', botconfs);
-		}
 	}, 3000);
 };
 
