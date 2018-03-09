@@ -24,8 +24,8 @@ exports.run = async (client, msg, args, lang) => {
 
 	const creditsloot = userdb.premium.status === false ? Math.floor(Math.random() * 70) + 1 : (Math.floor(Math.random() * 70) + 1) * 2;
 
-	if (d < 0.02) {
-		var validationfor10procent = ['house', 'car', 'diamond'];
+	if (d < 0.01) {
+		var validationfor10procent = ['house', 'car', 'diamond', 'tractor'];
 		const result = Math.floor(Math.random() * validationfor10procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -42,7 +42,7 @@ exports.run = async (client, msg, args, lang) => {
 
 		return msg.channel.send(`🎉 ${lootmessage}`);
 	} else if (d < 0.1) {
-		var validationfor30procent = ['phone', 'computer', 'camera', 'projector', 'bed', 'watch'];
+		var validationfor30procent = ['phone', 'computer', 'camera', 'projector', 'bed', 'watch', 'gun'];
 		const result = Math.floor(Math.random() * validationfor30procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -60,7 +60,7 @@ exports.run = async (client, msg, args, lang) => {
 
 		return msg.channel.send(`🎉 ${lootmessage}`);
 	} else if (d < 0.3) {
-		var validationfor50procent = ['cratekey', 'pickaxe', 'joystick', 'flashlight', 'hammer', 'inventoryslotticket'];
+		var validationfor50procent = ['cratekey', 'pickaxe', 'joystick', 'flashlight', 'hammer', 'inventoryslotticket', 'syringe', 'gun', 'knife'];
 		const result = Math.floor(Math.random() * validationfor50procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {

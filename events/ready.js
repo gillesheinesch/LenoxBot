@@ -130,7 +130,11 @@ exports.run = async client => {
 		hammer: ['🔨', '50', '45'],
 		book: ['📖', '11', '10'],
 		mag: ['🔍', '12', '10'],
-		banana: ['🍌', '4', '3']
+		banana: ['🍌', '4', '3'],
+		tractor: ['🚜', '15000', '13500'],
+		syringe: ['💉', '132', '119'],
+		gun: ['🔫', '674', '608'],
+		knife: ['🔪', '87', '78']
 	};
 
 	const botconfspremium = {};
@@ -145,6 +149,13 @@ exports.run = async client => {
 	await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
 
 	await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
+
+	await client.users.filter(u => client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : undefined).forEach(u => {
+		client.users.get(u.id).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
+		const userdb = client.userdb.get(u.id);
+		userdb.jobstatus = false;
+		client.userdb.set(u.id, userdb);
+	});
 
 	await client.channels.filter(ch => ch.type === 'text' && ch.permissionsFor(client.user).has('READ_MESSAGES')).map(ch => ch.fetchMessages({
 		limit: 100

@@ -4,8 +4,8 @@ sql.open("../lenoxbotscore.sqlite");
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const validationforbuysell = ['sell', 'buy'];
-	const validationforitemsbuysell = ['📁', '🔑', '⛏', '🕹', '🏠', '👜', '💠', '🐶', '🐱', '🍎', '⚽', '🚙', '📱', '💻', '📷', '⏰', '📩', '🌹', '☂', '🍔', '🥐', '🏀', '⌚', '📽', '🔦', '🛏', '🔨', '📖', '🔍', '🍌'];
-	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana'];
+	const validationforitemsbuysell = ['📁', '🔑', '⛏', '🕹', '🏠', '👜', '💠', '🐶', '🐱', '🍎', '⚽', '🚙', '📱', '💻', '📷', '⏰', '📩', '🌹', '☂', '🍔', '🥐', '🏀', '⌚', '📽', '🔦', '🛏', '🔨', '📖', '🔍', '🍌', '🚜', '💉', '🔫', '🔪'];
+	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana', 'tractor', 'syringe', 'gun', 'knife'];
 	const marketconfs = client.botconfs.get('market');
 	const userdb = client.userdb.get(msg.author.id);
 

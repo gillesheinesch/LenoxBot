@@ -21,7 +21,7 @@ exports.run = async (client, msg, args, lang) => {
 		}
 	}
 
-	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana'];
+	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana', 'tractor', 'syringe', 'gun', 'knife'];
 	var inventoryslotcheck = 0;
 		for (var x = 0; x < itemsnames.length; x++) {
 			inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[itemsnames[x]]);

@@ -93,6 +93,14 @@ exports.run = async (client, msg) => {
 		});
 	});
 
+	if (typeof userdb.inventory.gun !== 'number') {
+		userdb.inventory.tractor = 0;
+		userdb.inventory.syringe = 0;
+		userdb.inventory.gun = 0;
+		userdb.inventory.knife = 0;
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	if (typeof userdb.inventory.rose !== 'number') {
 		userdb.inventory.rose = 0;
 		userdb.inventory.umbrella = 0;
