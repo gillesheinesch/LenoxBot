@@ -1,5 +1,5 @@
 {
-    "templesearch_error": "",
+    "templesearch_error": "You need a flashlight to search for something in the temple!",
     "templesearch_received": "You found %amount in the temple!",
     "templesearch_dust": "Unfortunately you only found dust in the temple.",
     "templesearch_description": "Search for something valuable in the long-abandoned temple in the Sahara",
