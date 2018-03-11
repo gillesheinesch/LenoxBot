@@ -185,26 +185,33 @@ exports.run = async client => {
 	}
 
 	setInterval(() => {
-		client.guilds.filter(g => client.guilds.has(g.id) && client.guildconfs.get(g.id).premium.status === true).forEach(g => {
+		client.guilds.filter(g => client.guilds.has(g.id)).forEach(g => {
 			const tableload = client.guildconfs.get(g.id);
-			if (new Date().getTime() >= Date.parse(tableload.premium.end)) {
-				tableload.premium.status = false;
-				tableload.premium.bought = [];
-				tableload.premium.end = '';
-				client.guildconfs.set(g.id, tableload);
+			if (tableload.premium) {
+				if (client.guildconfs.get(g.id).premium.status === true) {
+					if (new Date().getTime() >= Date.parse(tableload.premium.end)) {
+						tableload.premium.status = false;
+						tableload.premium.bought = [];
+						tableload.premium.end = '';
+						client.guildconfs.set(g.id, tableload);
+					}
+				}
 			}
 		});
 	}, 86400000);
 
 	setInterval(() => {
-		client.users.filter(g => client.userdb.has(g.id) && client.userdb.get(g.id).premium.status === true).forEach(g => {
+		client.users.filter(g => client.userdb.has(g.id)).forEach(g => {
 			const userdb = client.userdb.get(g.id);
-			if (new Date().getTime() >= Date.parse(userdb.premium.end)) {
-				console.log(g.id);
-				userdb.premium.status = false;
-				userdb.premium.bought = [];
-				userdb.premium.end = '';
-				client.userdb.set(g.id, userdb);
+			if (userdb.premium) {
+				if (client.userdb.get(g.id).premium.status === true) {
+					if (new Date().getTime() >= Date.parse(userdb.premium.end)) {
+						userdb.premium.status = false;
+						userdb.premium.bought = [];
+						userdb.premium.end = '';
+						client.userdb.set(g.id, userdb);
+					}
+				}
 			}
 		});
 	}, 86400000);
