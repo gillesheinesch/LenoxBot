@@ -45,6 +45,7 @@ exports.run = async (client, msg) => {
 		},
 		description: ''
 	};
+
 	if (!client.userdb.has(msg.author.id)) {
 		await client.userdb.set(msg.author.id, userconfs);
 	}

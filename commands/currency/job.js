@@ -73,7 +73,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['richest'],
+	aliases: [],
 	userpermissions: []
 };
 exports.help = {
