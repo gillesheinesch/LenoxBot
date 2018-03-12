@@ -882,7 +882,7 @@
     "job_embed": "Entrez le numéro qui est écrit avant le travail que vous voulez faire",
     "job_timeerror": "Ton temps est fini! Vous n'avez pas choisi d'emploi.",
     "job_sentmessage": "Vous choisissez %jobtitle Job. Nous vous contacterons par message direct en %jobtime minutes de travail et vous indiquerons combien vous avez gagné grâce à votre travail.",
-    "job_jobfinish": "Toutes nos félicitations! Vous avez terminé votre travail avec succès. Vous avez gagné un total de %amount",
+    "job_jobfinish": "Toutes nos félicitations! Vous avez terminé votre travail avec succès. Vous avez gagné un total de %amount crédits",
     "job_description": "Une liste complète des emplois disponibles que vous pouvez accepter pour gagner des crédits",
     "job_minutes": "minutes",
     "job_notenough": "Pour cet emploi tu as besoin l'item suivant, que tu ne possèdes pas : %item",

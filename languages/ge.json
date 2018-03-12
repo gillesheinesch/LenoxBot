@@ -882,7 +882,7 @@
     "job_embed": "Gebe die Nummer ein, die vor dem Job, den du ausführen möchten, geschrieben wurde",
     "job_timeerror": "Deine Zeit ist vorbei! Du hast keinen Job ausgewählt.",
     "job_sentmessage": "Du hast den Job %jobtitle ausgewählt. Wir werden dich per Direktnachricht in %jobtime Minuten kontaktieren und lassen dich dann wissen, wie viel du durch deinen Job verdient hast.",
-    "job_jobfinish": "Glückwunsch! Du hast deinen Job erfolgreich vervollständigt. Du hast ein Total von %amount verdient",
+    "job_jobfinish": "Glückwunsch! Du hast deinen Job erfolgreich vervollständigt. Du hast ein Total von %amount Krediten verdient",
     "job_description": "Eine volle Liste mit verfügbaren Jobs, die du annehmen kannst, um Kredite zu verdienen.",
     "job_minutes": "Minuten",
     "job_notenough": "Für diesen Job brauchst du folgenden Artikel, den du nicht besitzt: %item",
