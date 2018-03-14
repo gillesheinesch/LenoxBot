@@ -8,7 +8,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: false,
 	guildOnly: true,
-	aliases: ['d'],
+	aliases: [],
 	userpermissions: [],
 	cooldown: 86400000
 };
