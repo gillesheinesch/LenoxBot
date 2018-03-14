@@ -4,9 +4,6 @@ exports.run = async client => {
 	client.guildconfs.defer.then(() => {
 		console.log(client.guildconfs.size + "keys loaded for all discord servers");
 	});
-	client.starboard.defer.then(() => {
-		console.log(client.starboard.size + "keys loaded for all starboard messages");
-	});
 	client.botconfs.defer.then(() => {
 		console.log(client.botconfs.size + "keys loaded for all bot configs");
 	});

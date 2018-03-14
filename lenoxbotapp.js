@@ -10,7 +10,6 @@ const EnmapLevel = require('enmap-level');
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({ provider: new EnmapLevel({ name: 'guildsettings' }) });
 client.botconfs = new Enmap({ provider: new EnmapLevel({ name: 'botconfs' }) });
-client.starboard = new Enmap({ provider: new EnmapLevel({ name: 'starboard' }) });
 client.redeem = new Enmap({ provider: new EnmapLevel({ name: 'redeem' }) });
 client.userdb = new Enmap({ provider: new EnmapLevel({ name: 'userdb' }) });
 client.queue = new Map();

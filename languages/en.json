@@ -449,14 +449,6 @@
     "skipnumber_changedskipvote": "The number of votes to skip music has been changed to %newskipnumber",
     "skipnumber_description": "Changes the necessary votes to skip music for users",
 
-    "starboard_error": "You must first define the starboardchannel",
-    "starboard_enabled": "The starboard has been enabled successfully!",
-    "starboard_disabled": "The starboard has been disabled successfully!",
-    "starboard_description": "Enables/disables the starboard",
-
-    "starboardchannel_starmessagesactivated": "All StarMessages will be listed in the %channelname now!",
-    "starboardchannel_description": "Sets a specific channel for the Starboard messages",
-
     "toggleannounce_channelset": "Announcements are now posted in the %channelname",
     "toggleannounce_channeldeleted": "Announcements are now no longer posted!",
     "toggleannounce_description": "Sets a channel for announcements, where you can use the announce-command",
