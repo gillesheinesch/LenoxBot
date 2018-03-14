@@ -4,9 +4,10 @@ exports.run = async(client, msg, args, lang) => {
 	const textchannelsembed = new Discord.RichEmbed()
 	.setDescription(`**📋 ${lang.channels_textchannels}**\n${msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().slice(0, 15).map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`).join('\n')}`)
 	.setColor(3447003);
-	
+
 	var textchannels = await msg.channel.send({ embed: textchannelsembed });
 
+	if (msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().length > 15) {
 	await textchannels.react('◀');
 	await textchannels.react('▶');
 		
@@ -47,6 +48,7 @@ exports.run = async(client, msg, args, lang) => {
 		collector.on('end',(collected, reason) => {
 			textchannels.react('❌');
 		});
+	}
 	} else {
 		return msg.channel.send(lang.channels_notextchannels);
 	}
@@ -58,6 +60,7 @@ exports.run = async(client, msg, args, lang) => {
 
 	var voicechannels = await msg.channel.send({ embed: voicechannelsembed });
 
+	if (msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().length > 15) {
 	await voicechannels.react('◀');
 	await voicechannels.react('▶');
 
@@ -98,6 +101,7 @@ exports.run = async(client, msg, args, lang) => {
 		collector.on('end',(collected, reason) => {
 			voicechannels.react('❌');
 		});
+	}
 	} else {
 		return msg.channel.send(lang.channels_novoicechannels);
 	}
