@@ -2,7 +2,7 @@ exports.run = async (client, msg, args, lang) => {
 	const fs = require('fs');
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
-	const categories = ['currency', 'botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'trello', 'utility', 'staff', 'application', 'partner'];
+	const categories = ['currency', 'botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'utility', 'staff', 'application', 'partner'];
 
 	categories.forEach((c, i) => {
 		fs.readdir(`./commands/${c}/`, (err, files) => {
