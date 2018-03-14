@@ -564,6 +564,7 @@
 
     "website_documentation": "Here you can find our documentation:",
     "website_trello": "Here you can find our Trello-Website:",
+    "website_feathub": "Here you can find all created proposals for the bot:",
     "website_description": "Shows you the Trello website of the bot",
 
     "ban_nomention": "You must mention a user to ban!",
@@ -807,6 +808,10 @@
     "calculator_calculation": "Calculation:",
     "calculator_result": "Result:",
     "calculator_description": "Calculates for you an calculation",
+
+    "roles_list": "All roles on this discord server:",
+    "roles_error": "No text-channels on this server!",
+    "roles_description": "A list of all roles on your discord server",
 
     "channels_textchannels": "All text-channels:",
     "channels_notextchannels": "No text-channels on this server!",
