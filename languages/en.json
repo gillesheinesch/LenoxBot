@@ -562,10 +562,8 @@
     "modules_currency": "Commands that allow you to receive credits and items (You can sell items)",
     "modules_description": "Gives you a list of all modules and their meaning",
 
-    "website_documentation": "Here you can find our documentation:",
-    "website_trello": "Here you can find our Trello-Website:",
-    "website_feathub": "Here you can find all created proposals for the bot:",
-    "website_description": "Shows you the Trello website of the bot",
+    "website_documentation": "Here you can find our supportpanel:",
+    "website_description": "Shows you the link of the Lenoxbot-Website",
 
     "ban_nomention": "You must mention a user to ban!",
     "ban_yourself": "You can not ban yourself!",
