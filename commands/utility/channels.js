@@ -8,8 +8,8 @@ exports.run = async(client, msg, args, lang) => {
 	var textchannels = await msg.channel.send({ embed: textchannelsembed });
 
 	if (msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().length > 15) {
-	await textchannels.react('◀');
-	await textchannels.react('▶');
+	var reaction1 = await textchannels.react('◀');
+	var reaction2 = await textchannels.react('▶');
 		
 	var firsttext = 0;
 	var secondtext = 15;
@@ -46,7 +46,8 @@ exports.run = async(client, msg, args, lang) => {
 		}
 	});
 		collector.on('end',(collected, reason) => {
-			textchannels.react('❌');
+			reaction1.remove();
+			reaction2.remove();
 		});
 	}
 	} else {
@@ -61,8 +62,8 @@ exports.run = async(client, msg, args, lang) => {
 	var voicechannels = await msg.channel.send({ embed: voicechannelsembed });
 
 	if (msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().length > 15) {
-	await voicechannels.react('◀');
-	await voicechannels.react('▶');
+	var reaction1 = await voicechannels.react('◀');
+	var reaction2 = await voicechannels.react('▶');
 
 	var firstvoice = 0;
 	var secondvoice = 15;
@@ -99,7 +100,8 @@ exports.run = async(client, msg, args, lang) => {
 		}
 	});
 		collector.on('end',(collected, reason) => {
-			voicechannels.react('❌');
+			reaction1.remove();
+			reaction2.remove();
 		});
 	}
 	} else {
