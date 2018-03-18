@@ -10,7 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 	for (i = 0; i < args.slice().length; i++) {
 		if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
 			if (args.slice()[0].toLowerCase() == "-remind" || args.slice()[0].toLowerCase() == "-r") {
-				setInterval(function () {
+				setTimeout(function () {
 					msg.reply(lang.daily_remind);
 				}, 86400000);
 			}
