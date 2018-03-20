@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
-	const guild = client.guilds.get('352896116812939264').roles.find('name', 'Staff').id;
+	const guild = client.guilds.get('352896116812939264').roles.find('name', 'Moderator').id;
 	if (!msg.member.roles.get(guild)) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
 
 	const content = args.slice().join(" ");
@@ -17,8 +17,9 @@ exports.run = (client, msg, args) => {
 	.setThumbnail(guildload.iconURL)
 	.addField('Serverowner:', `${guildload.owner.user.tag} (${guildload.owner.id})`)
 	.addField('Prefix:', tableload.prefix)
+	.setFooter(`Requested by ${msg.author.tag}`)
 	.setAuthor(`${guildload.name} (${guildload.id})`);
-	msg.channel.send({ embed });
+	client.channels.get('425752252180070401').send({ embed });
 };
 
 
