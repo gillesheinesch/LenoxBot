@@ -5,12 +5,13 @@ const fs = require('fs');
 const Enmap = require('enmap');
 const NewsAPI = require('newsapi');
 const EnmapSQLite = require('enmap-sqlite');
+const EnmapLevel = require('enmap-level');
 
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({ provider: new EnmapSQLite({ name: 'guildsettings' }) });
 client.botconfs = new Enmap({ provider: new EnmapSQLite({ name: 'botconfs' }) });
 client.redeem = new Enmap({ provider: new EnmapSQLite({ name: 'redeem' }) });
-client.userdb = new Enmap({ provider: new EnmapSQLite({ name: 'userdb' }) });
+client.userdb = new Enmap({ provider: new EnmapLevel({ name: 'userdb' }) });
 client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
