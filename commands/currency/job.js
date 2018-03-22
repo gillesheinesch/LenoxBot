@@ -13,7 +13,11 @@ exports.run = async (client, msg, args, lang) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	if (userdb.jobstatus === true) return msg.reply(lang.job_error);
+	if (userdb.jobstatus === true) {
+		const timestamps = client.cooldowns.get('job');
+		timestamps.delete(msg.author.id);
+		return msg.reply(lang.job_error);
+	}
 
 	const jobslist = [['farmer', 120, Math.floor(Math.random() * 200) + 1, 'tractor'], ['technician', 90, Math.floor(Math.random() * 150) + 1, 'hammer'], ['trainer', 90, Math.floor(Math.random() * 150) + 1, 'football'], ['applespicker', 5, Math.floor(Math.random() * 10) + 1, undefined], ['professor', 60, Math.floor(Math.random() * 50) + 1, 'book'], ['baker', 30, Math.floor(Math.random() * 25) + 1, undefined], ['taxidriver', 240, Math.floor(Math.random() * 400) + 1, 'car'], ['paramedic', 180, Math.floor(Math.random() * 300) + 1, 'syringe'], ['police', 180, Math.floor(Math.random() * 300) + 1, 'gun'], ['chef', 120, Math.floor(Math.random() * 200) + 1, 'knife']];
 
@@ -42,7 +46,11 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (jobslist[response.first().content - 1][3] !== undefined) {
 		const notenough = lang.job_notenough.replace('%item', `\`${jobslist[response.first().content - 1][3]}\``);
-		if (!userdb.inventory[jobslist[response.first().content - 1][3]] >= 1) return msg.reply(notenough);
+		if (!userdb.inventory[jobslist[response.first().content - 1][3]] >= 1) {
+			const timestamps = client.cooldowns.get('job');
+			timestamps.delete(msg.author.id);
+			return msg.reply(notenough);
+		}
 	}
 
 	const job = lang[`job_${jobslist[response.first().content - 1][0]}title`];
@@ -74,7 +82,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-	userpermissions: []
+	userpermissions: [],
+	cooldown: 60500
 };
 exports.help = {
 	name: 'job',
