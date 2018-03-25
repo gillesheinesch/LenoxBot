@@ -6,8 +6,8 @@ exports.run = (client, msg, args, lang) => {
 
 	if (!user) {
 		try {
-			if (!msg.members.get(args.slice(0, 1).join(" "))) throw 'Usernotfound';
-			user = msg.members.get(args.slice(0, 1).join(" "));
+			if (!msg.guild.members.get(args.slice(0, 1).join(" "))) throw 'Usernotfound';
+			user = msg.guild.members.get(args.slice(0, 1).join(" "));
 		} catch (error) {
 			return msg.reply(lang.ban_idcheck);
 		}
