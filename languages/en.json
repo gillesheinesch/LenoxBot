@@ -899,6 +899,8 @@
     "serverinfo_emojisnone": "none",
     "serverinfo_description": "Shows you some information about the current discord server",
 
+    "userinfo_botinfo": "You can not get information about bots!",
+    "userinfo_usernotfound": "This UserID does not match any user on this discord server",
     "userinfo_descriptioninfo": "No description set!",
     "userinfo_created": "Discord-Account created",
     "userinfo_joined": "Joined this Discord Server",
