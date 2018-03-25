@@ -916,6 +916,11 @@
     "warnlog_notwarned": "You or the mentioned user has not been warned yet.",
     "warnlog_description": "Shows you the warnlog from you or a user",
 
+    "serverwarns_error": "No user has been warned on this server until now!",
+    "serverwarns_reason": "**Reason:**",
+    "serverwarns_warnedbyandon": "%username was warned by %membername on %date",
+    "serverwarns_description": "Shows you all given warns on this Discord Server",
+
     "weather_noinput": "Please enter a city or town!",
     "weather_error": "An error has occurred. Could not load the weather for this city or town!",
     "weather_current": "The current temperature in %location is %temperature",
