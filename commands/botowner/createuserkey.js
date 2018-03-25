@@ -28,6 +28,6 @@ exports.help = {
 	description: 'Leave a self-assignable role',
 	usage: 'leave {rolename}',
 	example: ['leave Member'],
-	category: 'utility',
+	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
 };
