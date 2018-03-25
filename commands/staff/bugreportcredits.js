@@ -3,7 +3,7 @@ const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
 exports.run = async (client, msg, args) => {
 	const guild = client.guilds.get('352896116812939264').roles.find('name', 'Moderator').id;
-	// if (!msg.member.roles.get(guild)) return msg.reply('You dont have permissions to execute this command!');
+	if (!msg.member.roles.get(guild)) return msg.reply('You dont have permissions to execute this command!');
 
 	const content = args.slice().join(" ");
 	if (!content) return msg.reply('You have to enter a UserID');
