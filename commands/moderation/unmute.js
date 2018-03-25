@@ -17,7 +17,7 @@ exports.run = async(client, msg, args, lang) => {
 	const role = msg.guild.roles.get(tableload.muterole);
 
 	if (membermention.roles.get(tableload.muterole)) {
-		membermention.removeRole(role);
+			membermention.removeRole(role);
 
 		var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		var unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" "));
@@ -27,6 +27,8 @@ exports.run = async(client, msg, args, lang) => {
 		.setColor('#FF0000')
 		.setTimestamp()
 		.setDescription(unmutedescription);
+
+		await user.send({ embed: embed });
 	
 		if (tableload.modlog === 'true') {
 			const modlogchannel = client.channels.get(tableload.modlogchannel);
