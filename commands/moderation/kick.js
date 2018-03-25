@@ -24,8 +24,6 @@ exports.run = async(client, msg, args, lang) => {
 		.setTimestamp()
 		.setDescription(kickdescription);
 
-	user.send({ embed });
-
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);
 	return modlogchannel.send({ embed: embed });
