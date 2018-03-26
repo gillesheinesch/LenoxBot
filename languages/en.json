@@ -541,6 +541,7 @@
     "help_modulecommand": "To see all modules of the bot:",
     "help_commandscommand": "To see all commands of a module:",
     "help_helpcommand": "To see more details about a command:",
+    "help_permissions": "Required permissions",
     "help_documentation": "Documentation:",
     "help_usage": "Usage",
     "help_example": "Example",

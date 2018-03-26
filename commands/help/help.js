@@ -42,6 +42,7 @@ exports.run = (client, msg, args, lang) => {
 			.setAuthor(`${prefix}${command.conf.aliases.length !== 0 ? `${command.help.name} / ` : command.help.name} ${aliases.join(" / ")}`)
 			.setDescription(lang[`${command.help.name}_description`])
 			.addField(lang.help_usage, prefix + command.help.usage)
+			.addField(lang.help_permissions, command.conf.userpermissions.length === 0 ? '/' : command.conf.userpermissions.join(", "))
 			.addField(lang.help_example, examples.join("\n"))
 			.setFooter(category);
 		
@@ -72,6 +73,7 @@ exports.run = (client, msg, args, lang) => {
 			.setAuthor(`${prefix}${command.conf.aliases.length !== 0 ? `${command.help.name} / ` : command.help.name} ${aliases.join(" / ")}`)
 			.setDescription(lang[`${command.help.name}_description`])
 			.addField(lang.help_usage, prefix + command.help.usage)
+			.addField(lang.help_permissions, command.conf.userpermissions.length === 0 ? '/' : command.conf.userpermissions.join(", "))
 			.addField(lang.help_example, examples.join("\n"))
 			.setFooter(category);
 			return msg.channel.send({ embed: aliasembed });
