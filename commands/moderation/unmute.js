@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	let membermention = msg.mentions.members.first();
 	let user = msg.mentions.users.first();
@@ -12,30 +12,39 @@ exports.run = async(client, msg, args, lang) => {
 	if (!args.slice(1).join(' ')) return msg.channel.send(lang.unmute_noinput);
 
 	var rolenotexist = lang.unmute_rolenotexist.replace('%prefix', tableload.prefix);
-    if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(rolenotexist);
+	if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(rolenotexist);
 
 	const role = msg.guild.roles.get(tableload.muterole);
 
 	if (membermention.roles.get(tableload.muterole)) {
-			membermention.removeRole(role);
+		membermention.removeRole(role);
 
 		var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		var unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" "));
 		const embed = new Discord.RichEmbed()
-		.setAuthor(unmutedby, msg.author.displayAvatarURL)
-		.setThumbnail(user.displayAvatarURL)
-		.setColor('#FF0000')
-		.setTimestamp()
-		.setDescription(unmutedescription);
+			.setAuthor(unmutedby, msg.author.displayAvatarURL)
+			.setThumbnail(user.displayAvatarURL)
+			.setColor('#FF0000')
+			.setTimestamp()
+			.setDescription(unmutedescription);
 
-		await user.send({ embed: embed });
-	
+		user.send({
+			embed: embed
+		});
+
 		if (tableload.modlog === 'true') {
 			const modlogchannel = client.channels.get(tableload.modlogchannel);
-			modlogchannel.send({ embed: embed });
+			modlogchannel.send({
+				embed: embed
+			});
 		}
 		var unmuted = lang.unmute_unmuted.replace('%username', user.username);
-		return msg.reply(unmuted);
+		const unmuteembed = new Discord.RichEmbed()
+			.setColor('#99ff66')
+			.setDescription(`✅ ${unmuted}`);
+		msg.channel.send({
+			embed: unmuteembed
+		});
 	}
 };
 

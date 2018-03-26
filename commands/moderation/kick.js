@@ -13,7 +13,10 @@ exports.run = async(client, msg, args, lang) => {
 	msg.guild.member(user).kick();
 
 	var kicked = lang.kick_kicked.replace('%usertag', user.tag);
-	msg.channel.send(kicked).then(m => m.delete(10000));
+	const kickembed = new Discord.RichEmbed()
+	.setColor('#99ff66')
+	.setDescription(`✅ ${kicked}`);
+	msg.channel.send({ embed: kickembed });
 
 	var kickedby = lang.kick_kickedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 	var kickdescription = lang.kick_kickdescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);

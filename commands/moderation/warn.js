@@ -9,7 +9,10 @@ exports.run = async(client, msg, args, lang) => {
 	if (!reason) return msg.reply(lang.warn_noinput).then(m => m.delete(10000));
 
 	var warned = lang.warn_warned.replace('%usertag', user.tag);
-	msg.channel.send(warned).then(m => m.delete(10000));
+	const warnembed = new Discord.RichEmbed()
+	.setColor('#99ff66')
+	.setDescription(`✅ ${warned}`);
+	msg.channel.send({ embed: warnembed });
 
 	var warnedby = lang.warn_warnedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 	var warndescription = lang.warn_warndescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);

@@ -12,7 +12,10 @@ exports.run = async(client, msg, args, lang) => {
 	msg.guild.unban(user);
 
 	var unbanned = lang.unban_unbanned.replace('%userid', user);
-	msg.channel.send(unbanned).then(m => m.delete(10000));
+	const unbanembed = new Discord.RichEmbed()
+	.setColor('#99ff66')
+	.setDescription(`✅ ${unbanned}`);
+	msg.channel.send({ embed: unbanembed });
 
 	var unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 	var unbandescription = lang.unban_unbandescription.replace('%userid', user).replace('%reason', reason);

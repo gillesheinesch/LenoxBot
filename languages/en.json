@@ -578,7 +578,7 @@
     "clear_number": "The number of messages, that must be deleted, must be a number!",
     "clear_max100": "You can only delete 100 messages at once!",
     "clear_min2": "You must delete at least 2 messages!",
-    "clear_messagesdeleted": "%messagecount messages have been successfully deleted! ✅",
+    "clear_messagesdeleted": "%messagecount messages have been successfully deleted!",
     "clear_description": "Deletes for you the last X messages that were sent in the current channel",
 
     "kick_nomention": "You must mention a user to kick!",

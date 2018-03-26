@@ -17,7 +17,10 @@ exports.run = async(client, msg, args, lang) => {
 	await msg.guild.unban(user);
 
 	var softbanned = lang.softban_softbanned.replace('%usertag', user.tag).replace('%days', days[0]);
-	msg.channel.send(softbanned).then(m => m.delete(5000));
+	const softbanembed = new Discord.RichEmbed()
+	.setColor('#99ff66')
+	.setDescription(`✅ ${softbanned}`);
+	msg.channel.send({ embed: softbanembed });
 
 	var softbanby = lang.softban_softbanby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 	var softbandescription = lang.softban_softbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason).replace('%days', days[0]);

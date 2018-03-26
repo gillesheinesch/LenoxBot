@@ -44,7 +44,10 @@ exports.run = async(client, msg, args, lang) => {
 	setInterval(function() { membermention.removeRole(role); }, mutetime);
 
 	var muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
-	msg.channel.send(muted);
+	const muteembed = new Discord.RichEmbed()
+	.setColor('#99ff66')
+	.setDescription(`✅ ${muted}`);
+	msg.channel.send({ embed: muteembed });
 };
 
 exports.conf = {

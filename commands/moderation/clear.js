@@ -1,4 +1,5 @@
 exports.run = async(client, msg, args, lang) => {
+	const Discord = require('discord.js');
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (isNaN(args.slice().join(" "))) return msg.reply(lang.clear_number).then(m => m.delete(10000));
@@ -15,7 +16,10 @@ exports.run = async(client, msg, args, lang) => {
 	await msg.channel.fetchMessages({ limit: messagecount }).then(messages => msg.channel.bulkDelete(messages));
 
 	var messagesdeleted = lang.clear_messagesdeleted.replace('%messagecount', messagecount);
-	msg.channel.send(messagesdeleted).then(m => m.delete(5000));
+	const messageclearembed = new Discord.RichEmbed()
+	.setColor('#99ff66')
+	.setDescription(`✅ ${messagesdeleted}`);
+	msg.channel.send({ embed: messageclearembed });
 };
 
 exports.conf = {
