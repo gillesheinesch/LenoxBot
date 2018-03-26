@@ -8,6 +8,7 @@ exports.run = (client, msg, args, lang) => {
 		try {
 			if (!msg.guild.members.get(args.slice(0, 1).join(" "))) throw 'Usernotfound';
 			user = msg.guild.members.get(args.slice(0, 1).join(" "));
+			user = user.user;
 		} catch (error) {
 			return msg.reply(lang.ban_idcheck);
 		}
@@ -20,7 +21,10 @@ exports.run = (client, msg, args, lang) => {
 	msg.guild.ban(user);
 
 	var banned = lang.ban_banned.replace('%usertag', user.tag);
-	msg.channel.send(banned);
+	const banembed = new Discord.RichEmbed()
+	.setColor('#99ff66')
+	.setDescription(`✅ ${banned}`);
+	msg.channel.send({ embed: banembed });
 
 	var bandescription = lang.ban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 	const embed = new Discord.RichEmbed()
