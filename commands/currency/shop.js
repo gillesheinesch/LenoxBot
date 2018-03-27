@@ -108,7 +108,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (isNaN(howmanycheck[0])) {
 		const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
-		return msg.reply(commanderror);
+		// return msg.reply(commanderror);
 	}
 
 	for (i = 0; i < sellorbuycheck.length; i++) {
@@ -139,6 +139,48 @@ exports.run = async (client, msg, args, lang) => {
 						}
 					}
 				}
+				if (args.slice(1).join(" ").toLowerCase() == "all") {
+					var inventoryslotcheck = 0;
+					for (var x = 0; x < itemsnames.length; x++) {
+						inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[itemsnames[x]]);
+					}
+					if (inventoryslotcheck === 0) return msg.reply(lang.inventory_error);
+
+					var allitemsininventory = [];
+					for (var xx = 0; xx < itemsnames.length; xx++) {
+						if (userdb.inventory[itemsnames[xx]] !== 0) {
+							allitemsininventory.push([xx, userdb.inventory[itemsnames[xx]], marketconfs[itemsnames[xx]][0], marketconfs[itemsnames[xx]][2], itemsnames[xx]]);
+						}
+					}
+
+					var amounttoreceive = 0;
+					for (var xxxxx = 0; xxxxx < allitemsininventory.length; xxxxx++) {
+						amounttoreceive = amounttoreceive + parseInt(allitemsininventory[xxxxx][3]);
+					}
+
+					amounttoreceive = parseInt(amounttoreceive);
+
+					for (var xxx = 0; xxx < allitemsininventory.length; xxx++) {
+						userdb.inventory[allitemsininventory[xxx][4]] = 0;
+					}
+
+					await client.userdb.set(msg.author.id, userdb);
+
+					var messageedit = [];
+					for (var xxxx = 0; xxxx < allitemsininventory.length; xxxx++) {
+						messageedit.push(`${allitemsininventory[xxxx][1]}x ${allitemsininventory[xxxx][2]} ${lang[`loot_${allitemsininventory[xxxx][4]}`]}`);
+					}
+
+					await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
+						if (!row) {
+							sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+						}
+						sql.run(`UPDATE medals SET medals = ${row.medals + amounttoreceive} WHERE userId = ${msg.author.id}`);
+					});
+
+					const sellall = lang.shop_sellall.replace('%items', messageedit.join(", ")).replace('%amount', `**${amounttoreceive}**`);
+					return msg.reply(sellall);
+				}
 			} else if (sellorbuycheck[0].toLowerCase() == "buy") {
 				// Check if the use can buy this item
 				for (i = 0; i < itemcheck.length; i++) {
@@ -155,7 +197,7 @@ exports.run = async (client, msg, args, lang) => {
 
 							const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 							if (msgauthortable.medals <= (marketconfs[itemsnames[i]][1] * parseInt(howmanycheck[0]))) return msg.channel.send(lang.shop_notenoughcredits);
-			
+
 							const amount = parseInt(marketconfs[itemsnames[i]][1]) * parseInt(howmanycheck[0]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] + parseInt(howmanycheck[0]);
 
@@ -189,8 +231,8 @@ exports.conf = {
 exports.help = {
 	name: 'shop',
 	description: 'You can view the list of all purchasable items and sell or buy items',
-	usage: 'shop [buy/sell] [amount] [emoji of the item]',
-	example: ['shop', 'shop buy 1 :dog:', 'shop sell 3 :dog:'],
+	usage: 'shop [buy/sell] [amount/all (just works for sell)] [emoji of the item]',
+	example: ['shop', 'shop buy 1 :dog:', 'shop sell 3 :dog:', 'shop sell all'],
 	category: 'currency',
 	botpermissions: ['SEND_MESSAGES']
 };
