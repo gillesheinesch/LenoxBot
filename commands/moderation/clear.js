@@ -1,7 +1,8 @@
 exports.run = async(client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	const tableload = client.guildconfs.get(msg.guild.id);
-
+	
+	if (args.slice().length === 0) return msg.reply(lang.clear_error);
 	if (isNaN(args.slice().join(" "))) return msg.reply(lang.clear_number).then(m => m.delete(10000));
 
 	let messagecount = parseInt(args.join(' '));
