@@ -144,7 +144,8 @@ exports.run = async (client, msg, args, lang) => {
 					for (var x = 0; x < itemsnames.length; x++) {
 						inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[itemsnames[x]]);
 					}
-					if (inventoryslotcheck === 0) return msg.reply(lang.inventory_error);
+					const error = lang.inventory_error.replace('%prefix', tableload.prefix);
+					if (inventoryslotcheck === 0) return msg.reply(error);
 
 					var allitemsininventory = [];
 					for (var xx = 0; xx < itemsnames.length; xx++) {
