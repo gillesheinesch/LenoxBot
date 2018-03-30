@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 exports.run = (client, msg, args, lang) => {
 	const embed = new Discord.RichEmbed()
 	.setColor('0066CC')
-	.addField(lang.website_documentation, `https://www.lenoxbot.com/`);
+	.addField(lang.website_documentation, `http://www.lenoxbot.com/`);
 
     msg.channel.send({ embed });
 };

@@ -12,10 +12,10 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`⏳ ${lang.botinfo_runtime}`, `${uptimeserver}`)
 		.addField(`🛠 ${lang.botinfo_memory}`, `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 		.addField(`📡 ${lang.botinfo_stats}`, online)
-		.addField(`💻 ${lang.botinfo_doc}`, `https://www.lenoxbot.com/`)
+		.addField(`💻 ${lang.botinfo_doc}`, `://www.lenoxbot.com/`)
 		.addField(`💎 ${lang.botinfo_support}`, `https://www.patreon.com/lenoxbot`)
-		.addField(`📤 ${lang.botinfo_invite}`, `https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8`)
-		.addField(`📢 ${lang.botinfo_supportserver}`, 'https://discord.gg/c7DUz35');
+		.addField(`📤 ${lang.botinfo_invite}`, `http://invite.lenoxbot.com/`)
+		.addField(`📢 ${lang.botinfo_supportserver}`, 'http://discord.lenoxbot.com/');
 
 	msg.channel.send({
 		embed
