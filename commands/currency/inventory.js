@@ -135,7 +135,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: [],
+	aliases: ['inv'],
 	userpermissions: []
 };
 exports.help = {
