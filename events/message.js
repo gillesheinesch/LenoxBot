@@ -80,7 +80,7 @@ exports.run = async (client, msg) => {
 			bought: [],
 			end: ''
 		};
-		await client.userdb.set(msg.author.id, userdb);
+		await client.guilconfs.set(msg.guild.id, tableload);
 	}
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -164,6 +164,13 @@ exports.run = async (client, msg) => {
 			inventoryslotticket: 0
 		};
 		await client.userdb.set(msg.author.id, userdb);
+	}
+
+	if (!tableload.togglexp) {
+		tableload.togglexp = {
+			channelids: []
+		};
+		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (!tableload.application.denyrole) {
