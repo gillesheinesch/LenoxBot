@@ -155,7 +155,7 @@ exports.run = async (client, msg, args, lang) => {
 
 					var amounttoreceive = 0;
 					for (var xxxxx = 0; xxxxx < allitemsininventory.length; xxxxx++) {
-						amounttoreceive = amounttoreceive + parseInt(allitemsininventory[xxxxx][3]);
+						amounttoreceive = amounttoreceive + parseInt(allitemsininventory[xxxxx][3] * allitemsininventory[xxxxx][1]);
 					}
 
 					amounttoreceive = parseInt(amounttoreceive);
