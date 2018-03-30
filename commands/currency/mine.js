@@ -1,5 +1,6 @@
 const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
+const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	var d = Math.random();
 	const userdb = client.userdb.get(msg.author.id);
@@ -24,8 +25,11 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory.pickaxe = userdb.inventory.pickaxe - 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const dugup = lang.mine_dugup.replace('%amount', validationfor10procent[result]);
-		return msg.reply(dugup);
+		const dugup = lang.mine_dugup.replace('%amount', `**${validationfor10procent[result]}**`);
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff33')
+		.setDescription(dugup);
+		return msg.channel.send({ embed });
 	} else if (d < 0.1) {
 		var validationfor30procent = ['439', '323', '356'];
 		const result = Math.floor(Math.random() * validationfor30procent.length);
@@ -40,8 +44,12 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory.pickaxe = userdb.inventory.pickaxe - 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const dugup = lang.mine_dugup.replace('%amount', validationfor30procent[result]);
-		return msg.reply(dugup);
+		const dugup = lang.mine_dugup.replace('%amount', `**${validationfor30procent[result]}**`);
+
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff33')
+		.setDescription(dugup);
+		return msg.channel.send({ embed });
 	} else if (d < 0.3) {
 		var validationfor50procent = ['201', '178', '238', '199', '168', '101', '130', '135', '176'];
 		const result = Math.floor(Math.random() * validationfor50procent.length);
@@ -56,8 +64,11 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory.pickaxe = userdb.inventory.pickaxe - 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const dugup = lang.mine_dugup.replace('%amount', validationfor50procent[result]);
-		return msg.reply(dugup);
+		const dugup = lang.mine_dugup.replace('%amount', `**${validationfor50procent[result]}**`);
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff33')
+		.setDescription(dugup);
+		return msg.channel.send({ embed });
 	} else {
 		var validationforrest = ['2', '98', '32', '72', '91', '85', '7', '15', '20', '28', '37'];
 		const result = Math.floor(Math.random() * validationforrest.length);
@@ -72,8 +83,11 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory.pickaxe = userdb.inventory.pickaxe - 1;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const dugup = lang.mine_dugup.replace('%amount', validationforrest[result]);
-		return msg.reply(dugup);
+		const dugup = lang.mine_dugup.replace('%amount', `**${validationforrest[result]}**`);
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff33')
+		.setDescription(dugup);
+		return msg.channel.send({ embed });
 	}
 };
 
