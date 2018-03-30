@@ -5,6 +5,7 @@ exports.run = async (client, msg, args, lang) => {
 	const userdb = client.userdb.get(msg.author.id);
 	const marketconfs = client.botconfs.get('market');
 	const tableload = client.guildconfs.get(msg.guild.id);
+	const Discord = require('discord.js');
 
 	var inventoryslotcheck = 0;
 	for (const index in userdb.inventory) {
@@ -38,9 +39,11 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory[validationfor10procent[result]] = userdb.premium.status === false ? userdb.inventory[validationfor10procent[result]] + 1 : userdb.inventory[validationfor10procent[result]] + 2;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
-
-		return msg.channel.send(`🎉 ${lootmessage}`);
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff33')
+		.setDescription(`🎉 ${lootmessage}`);
+		return msg.channel.send({ embed });
 	} else if (d < 0.1) {
 		var validationfor30procent = ['phone', 'computer', 'camera', 'projector', 'bed', 'watch', 'gun'];
 		const result = Math.floor(Math.random() * validationfor30procent.length);
@@ -56,9 +59,12 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory[validationfor30procent[result]] = userdb.premium.status === false ? userdb.inventory[validationfor30procent[result]] + 1 : userdb.inventory[validationfor30procent[result]] + 2;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 
-		return msg.channel.send(`🎉 ${lootmessage}`);
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff33')
+		.setDescription(`🎉 ${lootmessage}`);
+		return msg.channel.send({ embed });
 	} else if (d < 0.3) {
 		var validationfor50procent = ['cratekey', 'pickaxe', 'joystick', 'flashlight', 'hammer', 'inventoryslotticket', 'syringe', 'gun', 'knife'];
 		const result = Math.floor(Math.random() * validationfor50procent.length);
@@ -74,9 +80,12 @@ exports.run = async (client, msg, args, lang) => {
 		userdb.inventory[validationfor50procent[result]] = userdb.premium.status === false ? userdb.inventory[validationfor50procent[result]] + 1 : userdb.inventory[validationfor50procent[result]] + 2;
 		await client.userdb.set(msg.author.id, userdb);
 
-		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 
-		return msg.channel.send(`🎉 ${lootmessage}`);
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff33')
+		.setDescription(`🎉 ${lootmessage}`);
+		return msg.channel.send({ embed });
 	} else {
 		var validationforrest = ['crate', 'bag', 'dog', 'cat', 'apple', 'football', 'clock', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'book', 'mag', 'banana'];
 		const result = Math.floor(Math.random() * validationforrest.length);
@@ -93,9 +102,12 @@ exports.run = async (client, msg, args, lang) => {
 		await client.userdb.set(msg.author.id, userdb);
 
 		
-		const lootmessage = lang.loot_lootmessage.replace('%amount', `$${creditsloot}`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 	
-		return msg.channel.send(`🎉 ${lootmessage}`);
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff33')
+		.setDescription(`🎉 ${lootmessage}`);
+		return msg.channel.send({ embed });
 	}
 };
 
