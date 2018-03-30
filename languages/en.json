@@ -1,4 +1,16 @@
 {
+    "togglexp_noinput": "You forgot to enter a channel name!",
+    "togglexp_notexist": "This channel doesn't exist!",
+    "togglexp_notextchannel": "This channel isn't a text channel!",
+    "togglexp_alreadyadd": "This text channel has already been added to the list of channels in which you will not win XP!",
+    "togglexp_add": "%channelname was added successfully!",
+    "togglexp_nochannel": "So far, there are no channels in which you cannot win XP!",
+    "togglexp_remove": "%channelname was successfully removed!",
+    "togglexp_notinthelist": "This channel isn't in the list of channels where you can not win XP!",
+    "togglexp_embed": "All text channels in which you do not win XP:",
+    "togglexp_error": "You didn't use the command correctly. Please check with %prefixhelp togglexp",
+    "togglexp_description": "Add channels in which you can not win XP",
+
     "templesearch_error": "You need a flashlight to search for something in the temple!",
     "templesearch_received": "You found %amount in the temple!",
     "templesearch_dust": "Unfortunately you only found dust in the temple.",

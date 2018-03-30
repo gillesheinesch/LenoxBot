@@ -386,6 +386,7 @@ exports.run = async (client, msg) => {
 	//
 
 	if (tableload.modules.utility === 'true') {
+		if (!tableload.togglexp.channelids.includes(msg.channel.id)) {
 		sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 			if (!row) {
 				sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
@@ -419,6 +420,7 @@ exports.run = async (client, msg) => {
 				sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
 			});
 		});
+		}
 	}
 
 	if (msg.content.startsWith(tableload.prefix)) {
