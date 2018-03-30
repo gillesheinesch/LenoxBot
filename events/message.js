@@ -80,7 +80,7 @@ exports.run = async (client, msg) => {
 			bought: [],
 			end: ''
 		};
-		await client.guilconfs.set(msg.guild.id, tableload);
+		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
