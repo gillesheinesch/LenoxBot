@@ -19,7 +19,7 @@ exports.run = async (client, msg, args, lang) => {
 		return msg.reply(lang.job_error);
 	}
 
-	const jobslist = [['farmer', 120, Math.floor(Math.random() * 200) + 100, 'tractor'], ['technician', 90, Math.floor(Math.random() * 150) + 75, 'hammer'], ['trainer', 90, Math.floor(Math.random() * 150) + 75, 'football'], ['applespicker', 5, Math.floor(Math.random() * 10) + 3, undefined], ['professor', 60, Math.floor(Math.random() * 50) + 25, 'book'], ['baker', 30, Math.floor(Math.random() * 25) + 15, undefined], ['taxidriver', 240, Math.floor(Math.random() * 400) + 200, 'car'], ['paramedic', 180, Math.floor(Math.random() * 300) + 150, 'syringe'], ['police', 180, Math.floor(Math.random() * 300) + 150, 'gun'], ['chef', 120, Math.floor(Math.random() * 200) + 60, 'knife']];
+	const jobslist = [['farmer', 120, Math.floor(Math.random() * 200) + 100, 'tractor', 'https://imgur.com/1PVI8hM.png'], ['technician', 90, Math.floor(Math.random() * 150) + 75, 'hammer', 'https://imgur.com/yQmaFIe.png'], ['trainer', 90, Math.floor(Math.random() * 150) + 75, 'football', 'https://imgur.com/bRqzmKw.png'], ['applespicker', 5, Math.floor(Math.random() * 10) + 3, undefined, 'https://imgur.com/qv4iev8.png'], ['professor', 60, Math.floor(Math.random() * 50) + 25, 'book', 'Ähttps://imgur.com/YUc7Ppb.png'], ['baker', 30, Math.floor(Math.random() * 25) + 15, undefined, 'https://imgur.com/HRdvO6r.png'], ['taxidriver', 240, Math.floor(Math.random() * 400) + 200, 'car', 'https://imgur.com/uOMpS17.png'], ['paramedic', 180, Math.floor(Math.random() * 300) + 150, 'syringe', 'https://imgur.com/Z97fWoc.png'], ['police', 180, Math.floor(Math.random() * 300) + 150, 'gun', 'https://imgur.com/HQXp8R8.png'], ['chef', 120, Math.floor(Math.random() * 200) + 60, 'knife', 'https://imgur.com/F940PkL.png']];
 
 	var index = 0;
 
@@ -56,12 +56,19 @@ exports.run = async (client, msg, args, lang) => {
 	const job = lang[`job_${jobslist[response.first().content - 1][0]}title`];
 	const jobtime = jobslist[response.first().content - 1][1];
 	const amount = jobslist[response.first().content - 1][2];
+	const jobpicture = jobslist[response.first().content - 1][4];
 
 	userdb.jobstatus = true;
 	await client.userdb.set(msg.author.id, userdb);
 
-	const sentmessage = lang.job_sentmessage.replace('%jobtitle', `\`${job}\``).replace('%jobtime', jobtime);
-	await msg.reply(sentmessage);
+	const duration = lang.job_duration.replace('%duration', jobtime);
+
+	const embed2 = new Discord.RichEmbed()
+	.setColor('#66ff33')
+	.setTitle(job)
+	.setDescription(`${lang.job_sentmessage} \n\n${duration}`)
+	.setThumbnail(jobpicture);
+	await msg.channel.send({ embed: embed2 });
 
 	setTimeout(function () {
 		userdb.jobstatus = false;
