@@ -2,7 +2,7 @@ exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
-	const validation = ['discordrules'];
+	const validation = ['discordrules', 'links'];
 	const margs = msg.content.split(" ");
 
 	for (i = 0; i < margs.length; i++) {
@@ -22,6 +22,19 @@ exports.run = async (client, msg, args, lang) => {
 					.setDescription(rules.join("\n\n"))
 					.setColor('#ff0000')
 					.setAuthor('📌 Please read each of these rules before using this discord server.');
+				return msg.channel.send({
+					embed
+				});
+			} else if (margs[1].toLowerCase() == 'links') {
+				const rules = ['Website: http://lenoxbot.com',
+					'Invite LenoxBot: http://invite.lenoxbot.com',
+					'LenoxBot Discord Server: http://discord.lenoxbot.com',
+					'Knowledge base: http://help.lenoxbot.com'
+				];
+				const embed = new Discord.RichEmbed()
+					.setDescription(rules.join("\n\n"))
+					.setColor('#ff0000')
+					.setAuthor('‼ All important links:');
 				return msg.channel.send({
 					embed
 				});
