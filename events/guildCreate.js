@@ -70,18 +70,21 @@ exports.run = async(client, guild) => {
 
 	if (tableconfig.language === '') {
         tableconfig.language = 'en';
-        client.guildconfs.set(guild.id, tableconfig);
+        await client.guildconfs.set(guild.id, tableconfig);
 	}
+	
+	const embed1 = new Discord.RichEmbed()
+	.setColor('#0066ff#ccff33')
+	.setDescription(`**Hello ${guild.owner.user.username},** \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server (http://discord.lenoxbot.com/) or create a ticket on our website (http://lenoxbot.com)`)
+	.setAuthor('Thanks for choosing LenoxBot!', client.user.displayAvatarURL);
 
-    var lang = require(`../languages/${tableconfig.language}.json`);
-
-	guild.owner.send(`Hello ${guild.owner.user.username}, \nThanks for choosing LenoxBot! If you find any bugs, you can report them on our Discord server: https://discord.gg/c7DUz35 \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server or take a look at our documentation https://discord.gg/c7DUz35 | https://www.lenoxbot.com/`);
+	guild.owner.send({ embed: embed1 });
 	
 	const embed = new Discord.RichEmbed()
 	.setTimestamp()
 	.setAuthor(`${guild.name} (${guild.id})`)
 	.addField(`Owner`, `${guild.owner.user.tag} (${guild.ownerID})`)
-	.setColor('#0066CC')
-	.setFooter('Joined guild');
+	.setColor('#00ff00')
+	.setFooter('JOINED DISCORD SERVER');
 	client.channels.get('353989483517181962').send({ embed: embed });
 };
