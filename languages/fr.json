@@ -147,7 +147,7 @@
     "help_modulecommand": "Pour voir tous les modules du bot :",
     "help_commandscommand": "Pour voir tous les commandes d'un module :",
     "help_helpcommand": "Pour voir plus de détails d'une commande :",
-    "help_documentation": "Documentation :",
+    "help_documentation": "Site internet :",
     "help_usage": "Utilisation :",
     "help_example": "Exemple :",
     "help_error": "Ce nom de commande ou cet alias de commande n'existe pas",
@@ -894,5 +894,17 @@
     "serverwarns_warnedbyandon": "%username a été avertis par %membername le %date",
     "serverwarns_description": "Te montre tous les avertissements donnés sur ce serveur Discord",
     "shop_sellall": "Tu as vendu %items pour un total de %amount crédits",
-    "help_permissions": "Autorisations nécessaires"
+    "help_permissions": "Autorisations nécessaires",
+    "togglexp_noinput": "Tu as oublié entrer un nom de salon !",
+    "togglexp_notexist": "Ce salon n'existe pas !",
+    "togglexp_notextchannel": "Ce salon n'est pas un salon textuelle !",
+    "togglexp_alreadyadd": "Ce canal de texte a déjà été ajouté à la liste des chaînes dans lesquelles vous ne gagnerez pas d'XP!",
+    "togglexp_add": "%channelname à été ajouté avec succès !",
+    "togglexp_nochannel": "Jusqu'à présent, il n'y a pas de canaux dans lesquels vous ne pouvez pas gagner XP!",
+    "togglexp_remove": "%channelname à été enlève avec succès !",
+    "togglexp_notinthelist": "Cette chaîne n'est pas dans la liste des chaînes où vous ne pouvez pas gagner d'XP!",
+    "togglexp_embed": "Tous les canaux de texte dans lesquels vous ne gagnez pas d'XP:",
+    "togglexp_error": "Vous n'avez pas utilisé la commande correctement. Vérifiez avec %prefixhelp togglexp",
+    "togglexp_description": "Ajouter des chaînes dans lesquelles vous ne pouvez pas gagner d'XP",
+    "clear_error": "Tu as oublié de spécifier combien de messages tu veux supprimer"
 }

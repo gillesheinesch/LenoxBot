@@ -894,5 +894,17 @@
     "serverwarns_warnedbyandon": "%username wurde von %membername am %date gewarnt",
     "serverwarns_description": "Zeigt dir alle vergebenen Warnungen auf diesem Discord Server an",
     "shop_sellall": "Du hast %items für insgesamt %amount credits verkauft",
-    "help_permissions": "Benötigte Berechtigungen"
+    "help_permissions": "Benötigte Berechtigungen",
+    "togglexp_noinput": "Du hast vergessen einen Kanalnamen einzugeben!",
+    "togglexp_notexist": "Dieser Kanal existiert nicht!",
+    "togglexp_notextchannel": "Dieser Kanal ist kein Textkanal!",
+    "togglexp_alreadyadd": "Dieser Kanal wurde schon zur Liste hinzugefügt, in welchen kein XP gewonnen werden kann!",
+    "togglexp_add": "%channelname wurde erfolgreich hinzugefügt!",
+    "togglexp_nochannel": "Bis jetzt existieren keine Kanäle, in welchen du kein XP gewinnen kannst. ",
+    "togglexp_remove": "%channelname wurde erfolgreich entfernt!",
+    "togglexp_notinthelist": "Dieser Kanal ist nicht auf der Liste, in welchen du kein XP gewinnen kannst!",
+    "togglexp_embed": "Alle Textkanäle in welchen du XP gewinnen kannst:",
+    "togglexp_error": "Du hast den Command nicht richtig benutzt. Bitte überprüfe mit %prefixhelp togglexp",
+    "togglexp_description": "Füge Kanäle hinzu, in welchen du kein XP gewinnen kannst",
+    "clear_error": "Du hast vergessen zu spezifizieren wie viele Nachrichten du löschen willst"
 }
