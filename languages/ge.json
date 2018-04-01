@@ -900,11 +900,14 @@
     "togglexp_notextchannel": "Dieser Kanal ist kein Textkanal!",
     "togglexp_alreadyadd": "Dieser Kanal wurde schon zur Liste hinzugefügt, in welchen kein XP gewonnen werden kann!",
     "togglexp_add": "%channelname wurde erfolgreich hinzugefügt!",
-    "togglexp_nochannel": "Bis jetzt existieren keine Kanäle, in welchen du kein XP gewinnen kannst. ",
+    "togglexp_nochannel": "Bis jetzt existieren keine Kanäle, in welchen du kein XP gewinnen kannst.",
     "togglexp_remove": "%channelname wurde erfolgreich entfernt!",
     "togglexp_notinthelist": "Dieser Kanal ist nicht auf der Liste, in welchen du kein XP gewinnen kannst!",
     "togglexp_embed": "Alle Textkanäle in welchen du XP gewinnen kannst:",
     "togglexp_error": "Du hast den Command nicht richtig benutzt. Bitte überprüfe mit %prefixhelp togglexp",
     "togglexp_description": "Füge Kanäle hinzu, in welchen du kein XP gewinnen kannst",
-    "clear_error": "Du hast vergessen zu spezifizieren wie viele Nachrichten du löschen willst"
+    "clear_error": "Du hast vergessen anzugeben, wie viele Nachrichten du löschen willst",
+    "job_duration": "**Dauer:** %duration Minuten",
+    "credits_hint": "Hinweis, wie du schnell Credits bekommen kannst:",
+    "credits_hintembed": "Du hast den **?credits** Commandfür das erste Mal benutzt. Lass und dir einen kleinen Tipp geben, wie du innerhalb 30 Tagen 30,000 Kredite verdienen kannst.\n\nJeden Tag hast du die Möglichkeit den LenoxBot zu upvoten. Für jeden Upvote bekommst du direkt 1000 Kredite. Nach 24 Stunden kannst du nochmals neu voten...\n\nhttps://discordbots.org/bot/354712333853130752/vote "
 }
