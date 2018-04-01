@@ -20,7 +20,7 @@ exports.run = async(client, msg, args, lang) => {
 	const messageclearembed = new Discord.RichEmbed()
 	.setColor('#99ff66')
 	.setDescription(`✅ ${messagesdeleted}`);
-	msg.channel.send({ embed: messageclearembed });
+	return msg.channel.send({ embed: messageclearembed }).then(m => m.delete(10000));
 };
 
 exports.conf = {
