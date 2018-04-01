@@ -4,7 +4,20 @@ sql.open("../lenoxbotscore.sqlite");
 
 exports.run = async(client, msg, args, lang) => {
 	const user1 = msg.mentions.users.first() || msg.author;
+	const userdb = client.userdb.get(msg.author.id);
 	const lenoxbotcoin = client.emojis.get('412952854354067456');
+
+	if (userdb.creditsmessage === false) {
+		const embed = new Discord.RichEmbed()
+		.setColor('#3399ff')
+		.setDescription(lang.credits_hintembed)
+		.setAuthor(lang.credits_hint);
+
+		userdb.creditsmessage = true;
+		await client.userdb.set(msg.author.id, userdb);
+
+		msg.author.send({ embed });
+	}
 
 	sql.get(`SELECT * FROM medals WHERE userId = "${user1.id}"`).then(row => {
 		var embed = new Discord.RichEmbed()

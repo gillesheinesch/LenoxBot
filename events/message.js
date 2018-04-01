@@ -94,6 +94,11 @@ exports.run = async (client, msg) => {
 		});
 	});
 
+	if (!userdb.creditsmessage) {
+		userdb.creditsmessage = false;
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	if (typeof userdb.inventory.gun !== 'number') {
 		userdb.inventory.tractor = 0;
 		userdb.inventory.syringe = 0;
