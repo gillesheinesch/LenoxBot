@@ -11,7 +11,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (parseInt(input.join(" ")) >= 1000000) return msg.reply(lang.gamble_gamble_max1million);
 
 	var msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
-	if (msgauthortable.medals <= input.join(" ")) return msg.channel.send(lang.gamble_error);
+	if (msgauthortable.medals < input.join(" ")) return msg.channel.send(lang.gamble_error);
 
 	if (d < 0.4) {
 		const possiblewinrates = ['2', '0.2', '0.3', '0.1', '0.2', '0.3', '0.1', '0.2', '0.3', '0.1', '0.2', '0.3', '0.5', '0.7', '0.9', '1', '1.3', '1.6', '1.9'];
