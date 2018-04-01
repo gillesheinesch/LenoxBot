@@ -25,7 +25,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const creditsloot = userdb.premium.status === false ? Math.floor(Math.random() * 70) + 1 : (Math.floor(Math.random() * 70) + 1) * 2;
 
-	if (d < 0.01) {
+	if (d < 0.005) {
 		var validationfor10procent = ['house', 'car', 'diamond', 'tractor'];
 		const result = Math.floor(Math.random() * validationfor10procent.length);
 
@@ -44,7 +44,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setColor('#66ff33')
 		.setDescription(`🎉 ${lootmessage}`);
 		return msg.channel.send({ embed });
-	} else if (d < 0.1) {
+	} else if (d < 0.05) {
 		var validationfor30procent = ['phone', 'computer', 'camera', 'projector', 'bed', 'watch', 'gun'];
 		const result = Math.floor(Math.random() * validationfor30procent.length);
 
@@ -65,7 +65,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setColor('#66ff33')
 		.setDescription(`🎉 ${lootmessage}`);
 		return msg.channel.send({ embed });
-	} else if (d < 0.3) {
+	} else if (d < 0.2) {
 		var validationfor50procent = ['cratekey', 'pickaxe', 'joystick', 'flashlight', 'hammer', 'inventoryslotticket', 'syringe', 'gun', 'knife'];
 		const result = Math.floor(Math.random() * validationfor50procent.length);
 
