@@ -53,8 +53,8 @@ exports.conf = {
 exports.help = {
 	name: 'bugreportcredits',
 	description: 'Command for the LenoxBot Staff to give a user 1000 credits for reporting an existing bug',
-	usage: 'bugreportcredits {userid}',
-	example: ['bugreportcredits 238590234135101440'],
+	usage: 'bugreportcredits {userid} {TicketID}',
+	example: ['bugreportcredits 238590234135101440 32'],
 	category: 'staff',
 	botpermissions: ['SEND_MESSAGES']
 };
