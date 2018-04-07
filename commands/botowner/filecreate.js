@@ -5,9 +5,10 @@ exports.run = async(client, msg, args, lang) => {
 	const commandNames = Array.from(client.commands.keys());
 	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
-	const validation = ['Administration', 'Help', 'Music', 'Fun', 'Searches', 'Nsfw', 'Utility', 'Moderation', 'Application', 'Currency'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency'];
+
 	for (var i = 0; i < validation.length; i++) {
-		await fs.writeFile(`gitbook/${validation[i]}.md`, `# ${validation[i]} commands\n\n| Command | Description | Required user permissions |\n| :--- | :--- | :--- |\n|${client.commands.filter(c => c.help.category === validation[i].toLowerCase() && c.conf.enabled === true).map(cmd => `${cmd.help.name}${' '.repeat(longest - cmd.help.name.length)} | ${cmd.help.description} | ${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'any'}`).join("|\n|")}`, function (err) {});
+	await fs.appendFile(`gitbook/html.html`, `\n${client.commands.filter(c => c.help.category === validation[i].toLowerCase() && c.conf.enabled === true).map(cmd => `\n<tr class="table-background command ${validation[i]}">\n<td class="text text-size-small text-white white-border">${cmd.help.name}</td> \n<td class="text text-size-small text-white white-border">${cmd.help.description}</td> \n<td class="text text-size-small text-white white-border">${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'any'}</td> \n</tr>`).join("\n")}`, function (err) {});
 	}
 	msg.reply('Files created/updated!');
 };

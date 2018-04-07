@@ -1,0 +1,79 @@
+<header id="header">
+	<nav class="navbar">
+		<ul>
+			<li>
+				<a href="home" class="text text-size-normal text-white navbar-button">Home</a>
+			</li>
+			<li>
+				<a href="documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+			</li>
+			<li>
+				<a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Invite LenoxBot</a>
+			</li>
+			<li>
+				<a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Discord Server</a>
+			</li>
+			<li>
+				{{#if user}}
+				<a href="dashboard" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
+				{{/if}}
+			</li>
+			<li>
+				{{#if user}}
+				<a href="logout" class="text text-size-normal text-white navbar-button">Log out</a>
+				{{ else }}
+				<a href="login" class="text text-size-normal text-white navbar-button">Log in</a>
+				{{/if}}
+			</li>
+		</ul>
+	</nav>
+	</div>
+</header>
+<main id="selectserver">
+	<section>
+		<div class="container">
+			<div class="row"> 
+				{{#each guilds}}
+				<div class="col-md-4 col-sm-6 col-xs-12">
+					<figure>
+						{{#if icon}}
+						<a href="home">
+						<img id="icon-selectserver" src="https://cdn.discordapp.com/icons/{{id}}/{{icon}}.jpg" height="120" width="120">
+						</a>
+						{{else}}
+						<a href="home">
+						<img id="icon-selectserver" src="discordicon.png" height="120" width="120">
+						</a>
+						{{/if}}
+					</figure>
+					<div class="text">
+						<h3 class="text-white text text-size-normal" id="guildname-selectserver">{{name}}</h3>
+						{{#if lenoxbot}}
+						<h6 class="text text-white text-size-small" id="selectserver-membercount">{{memberscount}} members</h6>
+						<a href="dashboard/{{id}}">
+						<p class="text text-size-normal text-white button btn-success" id="dashboard-button">Dashboard</p>
+						</a>
+						{{else}}
+						<h6 class="text text-size-small" id="selectserver-membercount">Not using LenoxBot</h6>
+						<a href="http://invite.lenoxbot.com" target="blanc">
+						<p class="text text-size-normal text-white button btn-warning" id="getlenoxbot-button">Get LenoxBot!</p>
+						</a>
+						{{/if}}
+					</div>
+				</div>
+				{{/each}}
+			</div>
+		</div>
+	</section>
+</main>
+
+
+<footer>
+	<nav class="footer-navigation">
+		<a target="blank" class="text text-size-small text-white" href="http://lenoxbot.com">&copy; LenoxBot
+		</a>
+		<a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+			<i class="fa fa-twitter" aria-hidden="true"></i>
+		</a>
+	</nav>
+</footer>

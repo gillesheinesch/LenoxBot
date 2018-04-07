@@ -1,0 +1,56 @@
+<link rel="stylesheet" type="text/css" href="../styles/style.css" />
+<header id="header">
+	<nav class="navbar">
+		<ul>
+			<li>
+				<a href="../home" class="text text-size-normal text-white navbar-button">Home</a>
+			</li>
+			<li>
+				<a href="../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+			</li>
+			<li>
+				<a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Invite LenoxBot</a>
+			</li>
+			<li>
+				<a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Discord Server</a>
+			</li>
+			<li>
+				{{#if user}}
+				<a href="../dashboard" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
+				{{/if}}
+			</li>
+			<li>
+				{{#if user}}
+				<a href="../logout" class="text text-size-normal text-white navbar-button">Log out</a>
+				{{ else }}
+				<a href="../login" class="text text-size-normal text-white navbar-button">Log in</a>
+				{{/if}}
+			</li>
+		</ul>
+	</nav>
+	</div>
+</header>
+
+<main class="dashboard-sidenav">
+	<div class="container">
+	<div class="col-md-2 col-sm-6 col-xs-12">
+		<ul>
+			<li class="text text-size-big text-white dashboard-sidenav-button btn btn-lg">Overview</li>
+			<li class="text text-size-big text-white dashboard-sidenav-button btn btn-lg">Logs</li>
+			<li class="text text-size-big text-white dashboard-sidenav-button btn btn-lg">Modules</li>
+			<li class="text text-size-big text-white dashboard-sidenav-button btn btn-lg">Chatfilter</li>
+		</ul>
+	</div>
+	</div>
+</main>
+
+
+<footer>
+	<nav class="footer-navigation">
+		<a target="blank" class="text text-size-small text-white" href="http://lenoxbot.com">&copy; LenoxBot
+		</a>
+		<a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+			<i class="fa fa-twitter" aria-hidden="true"></i>
+		</a>
+	</nav>
+</footer>

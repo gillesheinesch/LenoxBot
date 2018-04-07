@@ -1,0 +1,98 @@
+<header id="header">
+    <nav class="navbar">
+        <ul>
+            <li>
+                <a href="home" class="text text-size-normal text-white navbar-button" id="active">Home</a>
+            </li>
+            <li>
+                <a href="documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+            </li>
+            <li>
+                <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Invite LenoxBot</a>
+            </li>
+            <li>
+                <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Discord Server</a>
+            </li>
+            <li>
+                {{#if user}}
+                <a href="dashboard" class="text text-size-normal text-white navbar-button">Dashboard</a>
+                {{/if}}
+            </li>
+            <li>
+                {{#if user}}
+                <a href="logout" class="text text-size-normal text-white navbar-button">Log out</a>
+                {{ else }}
+                <a href="login" class="text text-size-normal text-white navbar-button">Log in</a>
+                {{/if}}
+            </li>
+        </ul>
+    </nav>
+    <p class="text text-size-big page-sub-header">LenoxBot helps you to moderate your server more easily and offers your users more fun with different commands</p>
+    <div id="buttonholder">
+        <a target="blank" class="text text-size-normal button text-white active-button" href="https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8">
+            <i class="fa fa-plus" aria-hidden="true"></i> Invite</a>
+        <p id="toFeatures" class="text text-size-normal button text-white">
+            <i class="fa fa-caret-down" aria-hidden="true"></i> Show me more!</p>
+    </div>
+</header>
+<main>
+    <div id="features">
+        <p class="text text-size-big text-white section-caption">
+            <i class="fa fa-star" aria-hidden="true"></i> Features</p>
+        <div id="feature-list">
+            <p class="text text-size-normal">
+                <i class="fa fa-cogs" aria-hidden="true"></i> Many administrative commands to customize your bot the way you want it</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-handshake-o" aria-hidden="true"></i> Moderate commands to moderate your server</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-question-circle" aria-hidden="true"></i> An application system</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i> Many useful commands with which your users can have a lot of fun</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-music" aria-hidden="true"></i> Music commands. This bot offers your users 24/7 music</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-check-square-o" aria-hidden="true"></i> Many fun-commands</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-search" aria-hidden="true"></i> Search commands that you can use to search for something for example in Google</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-ban" aria-hidden="true"></i> NSFW commands</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-line-chart" aria-hidden="true"></i> 99.99% uptime</p>
+            <p class="text text-size-normal">
+                <i class="fa fa-usd"></i> Currency commands</p>
+        </div>
+    </div>
+    <div id="documentation">
+        <p class="text text-size-big text-white section-caption">
+            <i class="fa fa-star" aria-hidden="true"></i> Documentation</p>
+        <div id="documentationlink">
+            <a href="documentation.html" class="text text-size-normal button text-white">Visit our documentation</a>
+        </div>
+    </div>
+    <div id="support">
+        <p class="text text-size-big text-white section-caption">
+            <i class="fa fa-question-circle" aria-hidden="true"></i> Support</p>
+        <p class="text text-size-normal">If you have any questions / suggestions/ bugs / feedback, you can join our Discord Server:</p>
+        <a target="blank" class="text text-size-normal button text-white active-button" href="https://discord.gg/5mpwCr8">
+            <i class="fa fa-sign-in" aria-hidden="true"></i> Join</a>
+    </div>
+    <div id="endline">
+        <div id="avatarhold">
+            <img id="avatar" src="https://imgur.com/Bk9TIfE.png" alt="LenoxBot Avatar">
+        </div>
+        <p id="avatartext" class="text text-size-normal text-white">At the moment we have a small community but it does not depend on the quantity but on the quality</p>
+    </div>
+    <div id="topholder">
+        <p id="toTop" class="text text-size-normal button text-white">
+            <i class="fa fa-arrow-up" aria-hidden="true"></i> To the top!</p>
+</main>
+</div>
+<footer>
+    <nav class="footer-navigation">
+        <a target="blank" class="text text-size-small text-white" href="http://lenoxbot.com">&copy; LenoxBot
+        </a>
+        <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+    </nav>
+</footer>
