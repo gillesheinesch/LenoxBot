@@ -74,8 +74,8 @@ exports.conf = {
 exports.help = {
 	name: 'serveractivatekey',
 	description: 'Displays the points of you or a user',
-	usage: 'rank [@USER]',
-	example: ['rank @Monkeyyy11'],
+	usage: 'serveractivatekey {key}',
+	example: ['serveractivatekey 1122'],
 	category: 'utility',
 	botpermissions: ['SEND_MESSAGES']
 };

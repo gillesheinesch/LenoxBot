@@ -8,7 +8,6 @@ exports.run = async (client, oldMember, newMember) => {
 	}
 
 	var lang = require(`../languages/${tableconfig.language}.json`);
-
 	if (oldMember.nickname !== newMember.nickname) {
 		if (!tableconfig.nicknamelog) {
 			tableconfig.nicknamelog = [];
@@ -22,7 +21,8 @@ exports.run = async (client, oldMember, newMember) => {
 		await client.guildconfs.set(newMember.id, tableconfig);
 	}
 
-	/*
+	/* Patreon Automatic Role
+
 	if (oldMember.roles.size < newMember.roles.size && oldMember.guild.id === '352896116812939264') {
 		for (const role of newMember.roles.map(x => x.id)) {
 			if (!oldMember.roles.has(role)) {

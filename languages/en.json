@@ -374,6 +374,7 @@
     "listevents_userleft": "Logs all recently left members on this Discord server",
     "listevents_guildupdate": "Logs all changes of the guild on this Discord server",
     "listevents_chatfilter": "Logs all messages deleted by the chatfilter on this Discord server",
+    "listevents_memberupdate": "Logs all user changes",
     "listevents_description": "Lists you all events that you can log on your server",
 
     "listmodules_embed": "All active/disabled modules!",
@@ -852,7 +853,7 @@
     "leave_description": "Leave a self-assignable role",
 
     "listselfassignablerole_help": "You can join a role with the following command: %prefixjoin {rolename}",
-    "listselfassignablerole_embed": "Self assignable roles",
+    "listselfassignablerole_embed": "Self-assignable roles",
     "listselfassignablerole_nolroles": "There are no roles on this server that you can assign yourself!",
     "listselfassignablerole_description": "Shows you a list of all roles that allows users to assign themselves",
 
@@ -869,7 +870,7 @@
     "memberstatus_dnd": "%memberscount members are busy",
     "memberstatus_afk": "%memberscount members are idle",
     "memberstatus_offline": "%memberscount members are offline",
-    "memberstatus_description": "Shows you how many members on this Discord server are AFK, online, offline or busy",
+    "memberstatus_description": "Shows you how many members on this Discord server are idle, online, offline or busy",
 
     "nicknamelog_error": "No user has changed his nickname on this server yet!",
     "nicknamelog_nonicknamelog": "You or the mentioned user has not changed his nickname yet.",
@@ -974,7 +975,7 @@
     "guildmemberremoveevent_userleft": "User left",
 
     "guildmemberupdateevent_nonickname": "No nickname",
-    "guildmemberupdateevent_nicknamechanged": "nickname changed!",
+    "guildmemberupdateevent_nicknamechanged": "Nickname changed!",
     "guildmemberupdateevent_member": "Member:",
     "guildmemberupdateevent_oldnickname": "Old nickname:",
     "guildmemberupdateevent_membernonickname": "The member had no nickname",
@@ -985,16 +986,16 @@
     "guildmemberupdateevent_roleremoved": "Role removed!",
 
     "guildupdateevent_namechanged": "Name changed!",
-    "guildupdateevent_oldname": "Old Name:",
-    "guildupdateevent_newname": "New Name:",
+    "guildupdateevent_oldname": "Old name:",
+    "guildupdateevent_newname": "New name:",
     "guildupdateevent_afkchanged": "AFK channel changed!",
-    "guildupdateevent_oldafk": "Old AFK Channel:",
+    "guildupdateevent_oldafk": "Old AFK channel:",
     "guildupdateevent_noafk": "There wasn't an AFK Channel before",
     "guildupdateevent_newafk": "New AFK Channel:",
     "guildupdateevent_noafknow": "There isn't an AFK Channel anymore",
     "guildupdateevent_afktimeoutchanged": "AFK timeout changed!",
-    "guildupdateevent_oldafktimeout": "Old AFK Timeout:",
-    "guildupdateevent_newafktimeout": "New AFK Timeout:",
+    "guildupdateevent_oldafktimeout": "Old AFK timeout:",
+    "guildupdateevent_newafktimeout": "New AFK timeout:",
     "guildupdateevent_seconds": "seconds",
     "guildupdateevent_servericonchanged": "Servericon changed!",
     "guildupdateevent_oldservericon": "Old servericon:",
