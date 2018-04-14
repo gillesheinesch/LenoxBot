@@ -9,6 +9,9 @@ exports.run = async(client, msg, args, lang) => {
 	if (!user) return msg.reply(lang.unban_nouserid).then(m => m.delete(10000));
 	if (!reason) return msg.reply(lang.unban_noinput).then(m => m.delete(10000));
 
+	const bans = await msg.guild.fetchBans();
+	if (!bans.get(user)) return msg.reply(lang.unban_notbanned);
+
 	msg.guild.unban(user);
 
 	var unbanned = lang.unban_unbanned.replace('%userid', user);
