@@ -23,8 +23,8 @@ exports.run = async (client, oldMsg, newMsg) => {
 				.addField(`🗣 ${lang.messagedeleteevent_author}:`, newMsg.author.tag)
 				.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${newMsg.channel.name} (${newMsg.channel.id})`)
 				.addField(`📎 ${lang.messagedeleteevent_mid}:`, newMsg.id)
-				.addField(`📤 ${lang.messageupdateevent_old}:`, oldMsg.cleanContent.substring(0, 960) + ' ...')
-				.addField(`📥 ${lang.messageupdateevent_new}:`, newMsg.cleanContent.substring(0, 960) + ' ...');
+				.addField(`📤 ${lang.messageupdateevent_old}:`, oldMsg.cleanContent.length < 960 ? oldMsg.cleanContent : oldMsg.cleanContent.substring(0, 960) + ' ...')
+				.addField(`📥 ${lang.messageupdateevent_new}:`, newMsg.cleanContent.length < 960 ? newMsg.cleanContent : newMsg.cleanContent.substring(0, 960) + ' ...');
 			messagechannel.send({
 				embed: embed
 			});
