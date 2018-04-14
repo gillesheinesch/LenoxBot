@@ -11,10 +11,10 @@ exports.run = async(client, msg, args, lang) => {
 	const array = [];
 	for (var i = 0; i < tableload.warnlog.length; i += 4) {
 			array.push(true);
-			const member = msg.guild.member(tableload.warnlog[i + 3]);
-			const member2 = msg.guild.member(tableload.warnlog[i]);
+			const member = msg.guild.member(tableload.warnlog[i + 3]) ? msg.guild.member(tableload.warnlog[i + 3]).displayName : tableload.warnlog[i + 3];
+			const member2 = msg.guild.member(tableload.warnlog[i]) ? msg.guild.member(tableload.warnlog[i]) .displayName : tableload.warnlog[i];
 
-			var warnedbyandon = lang.serverwarns_warnedbyandon.replace('%membername', member.displayName).replace('%date', new Date(tableload.warnlog[i + 1])).replace('%username', member2.displayName);
+			var warnedbyandon = lang.serverwarns_warnedbyandon.replace('%membername', member).replace('%date', new Date(tableload.warnlog[i + 1])).replace('%username', member2);
 			firstfield.push(warnedbyandon);
 			secondfield.push(lang.serverwarns_reason + " " + tableload.warnlog[i + 2]);
 	}
