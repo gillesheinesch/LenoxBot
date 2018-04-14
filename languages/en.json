@@ -633,6 +633,7 @@
 
     "unban_nouserid": "You must enter the userID to unban the user!",
     "unban_noinput": "You must specify a reason for the unban!",
+    "unban_notbanned": "This user isn't banned!",
     "unban_unbanned": "%userid was successfully unbanned!",
     "unban_unbannedby": "Unbanned by %authortag",
     "unban_unbandescription": "**Action**: Unban \n**UserID**: %userid \n**Reason**: %reason",
