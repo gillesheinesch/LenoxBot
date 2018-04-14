@@ -28,7 +28,11 @@ exports.run = async(client, msg, args, lang) => {
 
 		const newmsgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 		const won = lang.gamble_won.replace('%amount', `**${finalresult}**`).replace('%currentcredits', `\`$${newmsgauthortable.medals}\``);
-		return msg.channel.send(`🎉 ${won}`);
+
+		const embed = new Discord.RichEmbed()
+		.setColor('#44c94d')
+		.setDescription(`🎉 ${won}`);
+		return msg.channel.send({embed});
 	} else {
 		const result = parseInt(input.join(" "));
 
@@ -41,7 +45,10 @@ exports.run = async(client, msg, args, lang) => {
 
 		const newmsgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 		const lost = lang.gamble_lost.replace('%amount', `**${result}**`).replace('%currentcredits', `\`$${newmsgauthortable.medals}\``);
-		return msg.channel.send(`😥 ${lost}`);
+		const embed = new Discord.RichEmbed()
+		.setColor('#f44242')
+		.setDescription(`😥 ${lost}`);
+		return msg.channel.send({embed});
 	}
 };
 
