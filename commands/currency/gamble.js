@@ -32,7 +32,7 @@ exports.run = async(client, msg, args, lang) => {
 		const embed = new Discord.RichEmbed()
 		.setColor('#44c94d')
 		.setDescription(`🎉 ${won}`);
-		return msg.channel.send({embed});
+		return msg.channel.send({ embed });
 	} else {
 		const result = parseInt(input.join(" "));
 
@@ -48,7 +48,7 @@ exports.run = async(client, msg, args, lang) => {
 		const embed = new Discord.RichEmbed()
 		.setColor('#f44242')
 		.setDescription(`😥 ${lost}`);
-		return msg.channel.send({embed});
+		return msg.channel.send({ embed });
 	}
 };
 
