@@ -214,6 +214,24 @@ app.get('/documentation', function (req, res, next) {
 	});
 });
 
+app.get('/nologin', function (req, res, next) {
+	if (req.user) {
+		var check = [];
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (((req.user.guilds[i].permissions) & 8) === 8) {
+				check.push(req.user.guilds[i]);
+			}
+		}
+	}
+
+	res.render('login', {
+		notloggedin: true,
+		user: req.user,
+		guilds: check,
+		client: client
+	});
+});
+
 app.get('/login', function (req, res, next) {
 	if (req.user) {
 		var check = [];
@@ -269,7 +287,7 @@ app.get('/servers', function (req, res, next) {
 			client: client
 		});
 	} else {
-		res.redirect('login');
+		res.redirect('nologin');
 	}
 });
 
@@ -312,7 +330,7 @@ app.get('/dashboard/:id/settings', function (req, res, next) {
 			client: client
 		});
 	} else {
-		res.redirect('../login');
+		res.redirect('../nologin');
 	}
 });
 
@@ -352,7 +370,7 @@ app.get('/dashboard/:id', function (req, res, next) {
 			client: client
 		});
 	} else {
-		res.redirect('../login');
+		res.redirect('../nologin');
 	}
 });
 

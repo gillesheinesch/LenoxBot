@@ -1,6 +1,6 @@
-  <header id="header">
-        <nav class="navbar">
-            <ul>
+<header id="header">
+    <nav class="navbar">
+        <ul>
             <li>
                 <a href="home" class="text text-size-normal text-white navbar-button">Home</a>
             </li>
@@ -26,20 +26,29 @@
                 {{/if}}
             </li>
         </ul>
-        </nav>
+    </nav>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        {{#if notloggedin}}
+        <div class="alert alert-danger text text-size-normal">
+            <strong>Not logged in!</strong> You have to login before you can access to the dashboard!
         </div>
-    </header>
+        {{/if}}
+        <div id="oauth2button">
+            <a href="loginpressedbutton" class="text-white text button btn-lg btn-primary" id="oauth2button">Login through Discord!</a>
+        </div>
+    </div>
+</main>
 
-    <main id="oauth2button">
-        <a href="loginpressedbutton" class="text-white text button btn-lg btn-primary" id="oauth2button">Login through Discord!</a>
-    </main>
-
-    <footer>
-        <nav class="footer-navigation">
-            <a target="blank" class="text text-size-small text-white" href="http://lenoxbot.com">&copy; LenoxBot
-            </a>
-            <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-        </nav>
-    </footer>
+<footer>
+    <nav class="footer-navigation">
+        <a target="blank" class="text text-size-small text-white" href="http://lenoxbot.com">&copy; LenoxBot
+        </a>
+        <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+    </nav>
+</footer>
