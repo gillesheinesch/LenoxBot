@@ -356,7 +356,7 @@ app.get('/dashboard/:id', function (req, res, next) {
 	}
 });
 
-app.get('404error', function (req, res, next) {
+app.get('/404error', function (req, res, next) {
 	if (req.user) {
 		var check = [];
 		for (var i = 0; i < req.user.guilds.length; i++) {
@@ -378,7 +378,7 @@ app.get('404error', function (req, res, next) {
 app.use(function (req, res, next) {
 	var err = new Error('Not Found');
 	err.status = 404;
-	res.redirect('404error');
+	res.redirect('../404error');
 });
 
 
