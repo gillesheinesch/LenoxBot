@@ -63,7 +63,7 @@
     "serveractivatekey_extended": "You have successfully used your serverkey. \nThe premium of this discord server has been extended to %date!",
     "serveractivatekey_description": "With this command you can use a premium serverkey for a discord server",
 
-    "partner_error": "You are not affiliated with LenoxBot",
+    "partner_error": "You are not affiliated with LenoxBot!",
     "partner_description": "With this command you can use the embed of LenoxBot and your partnered server",
 
     "gamble_noinput": "You forgot to specify how many credits you want to gamble!",
