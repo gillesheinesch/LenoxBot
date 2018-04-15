@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome/css/font-awesome.min.css" />
 <header id="header">
 	<nav class="navbar">
 		<ul>
@@ -16,7 +17,7 @@
 			</li>
 			<li>
 				{{#if user}}
-				<a href="../dashboard" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
+				<a href="../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
 				{{/if}}
 			</li>
 			<li>
@@ -31,16 +32,60 @@
 	</div>
 </header>
 
-<main class="dashboard-sidenav">
+<main>
 	<div class="container">
-	<div class="col-md-2 col-sm-6 col-xs-12">
-		<ul>
-			<li class="text text-size-big text-white dashboard-sidenav-button btn btn-lg">Overview</li>
-			<li class="text text-size-big text-white dashboard-sidenav-button btn btn-lg">Logs</li>
-			<li class="text text-size-big text-white dashboard-sidenav-button btn btn-lg">Modules</li>
-			<li class="text text-size-big text-white dashboard-sidenav-button btn btn-lg">Chatfilter</li>
-		</ul>
-	</div>
+		<div class="row">
+			<div class="text text-white text-size-caption" id="guildsname-dashboard">
+				<h1>{{guilds.name}}</h1>
+			</div>
+			<div class="col-sm-3">
+				<div class="btn-group-vertical btn-group buttongroup-dashboard">
+					<a href="#" class="btn btn-primary text-size-big button-dashboard active" role="button">Overview</a>
+					<a href="#" class="btn btn-primary text-size-big button-dashboard" role="button">Logs</a>
+					<a href="{{guilds.id}}/settings" class="btn btn-primary text-size-big button-dashboard" role="button">Settings</a>
+				</div>
+			</div>
+			<div class="panel-group panel-group-dashboard">
+				<div class="panel panel-primary panel-dashboard">
+					<div class="panel-heading">
+						<p class="text text-white text-size-big">Welcome {{user.username}},</p>
+					</div>
+					<div class="panel-body">
+						<p class="text text-size-normal">Owner: {{guilds.ownertag}}</p>
+						<p class="text text-size-normal">Members: {{guilds.memberscount}} ({{guilds.membersonline}} online, {{guilds.membersidle}} idle, {{guilds.membersdnd}}
+							DND, {{guilds.membersoffline}} offline)</p>
+						<p class="text text-size-normal">Channels: {{guilds.channelscount}} </p>
+						<p class="text text-size-normal">Roles: {{guilds.rolescount}}</p>
+					</div>
+				</div>
+				<div class="panel panel-primary panel-dashboard">
+					<div class="panel-heading">
+						<p class="text text-white text-size-normal">Last logs:</p>
+					</div>
+					<div class="panel-body">
+						<table class="table table-bordered">
+							<!-- Header of logs -->
+							<tr>
+								<th class="text text-size-normal text-black">Action</th>
+								<th class="text text-size-normal text-black">Executor</th>
+								<th class="text text-size-normal text-black">Date</th>
+							</tr>
+							<!-- Header of logs -->
+							<tr>
+								<td class="text text-size-small text-black">The guild icon was updated</td>
+								<td class="text text-size-small text-black">Monkeyyy11#0001</td>
+								<td class="text text-size-small text-black">15.04.2018 13:52</td>
+							</tr>
+							<tr>
+								<td class="text text-size-small text-black">The guild icon was updated</td>
+								<td class="text text-size-small text-black">Monkeyyy11#0001</td>
+								<td class="text text-size-small text-black">15.04.2018 13:54</td>
+							</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 </main>
 

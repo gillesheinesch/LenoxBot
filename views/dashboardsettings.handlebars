@@ -1,0 +1,108 @@
+<link rel="stylesheet" type="text/css" href="../../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<header id="header">
+    <nav class="navbar">
+        <ul>
+            <li>
+                <a href="../home" class="text text-size-normal text-white navbar-button">Home</a>
+            </li>
+            <li>
+                <a href="../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+            </li>
+            <li>
+                <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Invite LenoxBot</a>
+            </li>
+            <li>
+                <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Discord Server</a>
+            </li>
+            <li>
+                {{#if user}}
+                <a href="../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
+                {{/if}}
+            </li>
+            <li>
+                {{#if user}}
+                <a href="../logout" class="text text-size-normal text-white navbar-button">Log out</a>
+                {{ else }}
+                <a href="../login" class="text text-size-normal text-white navbar-button">Log in</a>
+                {{/if}}
+            </li>
+        </ul>
+    </nav>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="text text-white text-size-caption" id="guildsname-dashboard">
+                <h1>{{guilds.name}}</h1>
+            </div>
+            <div class="col-sm-3">
+                <div class="btn-group-vertical btn-group buttongroup-dashboard">
+                    <a href="#" class="btn btn-primary text-size-big button-dashboard" role="button">Overview</a>
+                    <a href="#" class="btn btn-primary text-size-big button-dashboard" role="button">Logs</a>
+                    <a href="{{guilds.id}}/settings" class="btn btn-primary text-size-big button-dashboard active" role="button">Settings</a>
+                </div>
+            </div>
+            <div class="panel-group panel-group-dashboard">
+                <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-big">Prefix</p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-5">
+                            <h2>Current prefix: {{guilds.prefix}}</h2>
+                            <div class="form-group">
+                                <label for="newprefix">Define a new Prefix</label>
+                                <input type="text" class="form-control" id="newprefix" placeholder="!!!=?" min="1">
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Save</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-normal">Last logs:</p>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <!-- Header of logs -->
+                            <tr>
+                                <th class="text text-size-normal text-black">Action</th>
+                                <th class="text text-size-normal text-black">Executor</th>
+                                <th class="text text-size-normal text-black">Date</th>
+                            </tr>
+                            <!-- Header of logs -->
+                            <tr>
+                                <td class="text text-size-small text-black">The guild icon was updated</td>
+                                <td class="text text-size-small text-black">Monkeyyy11#0001</td>
+                                <td class="text text-size-small text-black">15.04.2018 13:52</td>
+                            </tr>
+                            <tr>
+                                <td class="text text-size-small text-black">The guild icon was updated</td>
+                                <td class="text text-size-small text-black">Monkeyyy11#0001</td>
+                                <td class="text text-size-small text-black">15.04.2018 13:54</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<footer>
+    <nav class="footer-navigation">
+        <a target="blank" class="text text-size-small text-white" href="http://lenoxbot.com">&copy; LenoxBot
+        </a>
+        <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+    </nav>
+</footer>

@@ -97,11 +97,7 @@ var database = new Enmap({
 
 app.engine('handlebars', handlebars({
 	defaultLayout: 'main',
-	layoutsDir: __dirname + '/views/layouts/',
-	partialsDir: [
-		'public/script/',
-		'public/styles/'
-	]
+	layoutsDir: __dirname + '/views/layouts/'
 }));
 
 app.set('views', path.join(__dirname, 'views'));
@@ -262,10 +258,6 @@ app.get('/servers', function (req, res, next) {
 
 				if (req.user.guilds[i].lenoxbot === true) {
 					req.user.guilds[i].memberscount = client.guilds.get(req.user.guilds[i].id).members.size;
-					req.user.guilds[i].membersonline = client.guilds.get(req.user.guilds[i].id).members.filterArray(m => m.presence.status === 'online').length;
-					req.user.guilds[i].membersdnd = client.guilds.get(req.user.guilds[i].id).members.filterArray(m => m.presence.status === 'dnd').length;
-					req.user.guilds[i].membersidle = client.guilds.get(req.user.guilds[i].id).members.filterArray(m => m.presence.status === 'idle').length;
-					req.user.guilds[i].membersoffline = client.guilds.get(req.user.guilds[i].id).members.filterArray(m => m.presence.status === 'offline').length;
 				}
 
 				check.push(req.user.guilds[i]);
@@ -281,10 +273,10 @@ app.get('/servers', function (req, res, next) {
 	}
 });
 
-app.get('/dashboard/:id', function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11);
+app.get('/dashboard/:id/settings', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	console.log(dashboardid);
 	if (req.user) {
-		var check = [];
 		var index = -1;
 		for (var i = 0; i < req.user.guilds.length; i++) {
 			if (req.user.guilds[i].id === dashboardid) {
@@ -302,7 +294,57 @@ app.get('/dashboard/:id', function (req, res, next) {
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
 		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
 
-		check.push(req.user.guilds[index]);
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var check = req.user.guilds[index];
+
+		console.log(check);
+
+		return res.render('dashboardsettings', {
+			user: req.user,
+			guilds: check,
+			client: client
+		});
+	} else {
+		res.redirect('../login');
+	}
+});
+
+app.get('/dashboard/:id', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		var check = req.user.guilds[index];
+
+		console.log(check);
 
 		return res.render('dashboard', {
 			user: req.user,
@@ -314,7 +356,7 @@ app.get('/dashboard/:id', function (req, res, next) {
 	}
 });
 
-app.get('/404error', function (req, res, next) {
+app.get('404error', function (req, res, next) {
 	if (req.user) {
 		var check = [];
 		for (var i = 0; i < req.user.guilds.length; i++) {

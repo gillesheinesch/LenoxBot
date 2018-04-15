@@ -219,6 +219,7 @@ a {
 }
 
 .table-documentation {
+    margin-bottom: 70px;
     display:flex;
     justify-content:center;
     align-items:center;
@@ -397,19 +398,63 @@ a {
 }
 
 .dashboard-sidenav {
+    text-align: center;
+    background-color: rgb(67, 68, 70);
+    border-radius: 10px;
+    padding: 0px 0px;
+    margin-left: 50px;
+    width: 120%;
     margin-top: 100px;
     margin-bottom: 100px;
 }
 
-.dashboard-sidenav-button {
-    text-decoration: none;
-    display: block !important;
+.dashboard-sidenav li {
+border: 1px solid black;
 }
 
-.dashboard-sidenav .col-md-2 {
+.dashboard-sidenav-button {
+    text-decoration: none;
+    display: block;
+}
+
+.overview {
     text-align: center;
-    border: 1px solid white;
-    margin: 0 auto;
+    display: inline-block;
+    margin-left: 600px;
+}
+
+.dashboard-box {
+    border: 0px solid rgb(214, 209, 209);
+    background-color: rgb(214, 209, 209);
+    padding: 20px;
+    margin: 10px;
+}
+
+.buttongroup-dashboard {
+    margin-top: 35px;
+    margin-bottom: 50px;
+}
+
+.panel-group-dashboard {
+    width: 80%;
+    margin-top: 50px;
+    margin-left: 300px;
+    margin-bottom: 50px;
+}
+
+.panel-dashboard {
+    margin-top: 20px !important;
+    margin-bottom: 20px !important;
+}
+
+.button-dashboard {
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+
+.hideme {
+    opacity:0;
 }
 
 /*Handy S*/
