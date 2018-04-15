@@ -37,9 +37,11 @@ exports.run = async (client, msg, args) => {
 		.setTitle(`1000 Credits given because of an accepted bugreport! ID: ${content[1]}`)
 		.setAuthor(`${searcheduser.tag} (${searcheduser.id})`, searcheduser.displayAvatarURL)
 		.setFooter(`Requested by ${msg.author.tag}`);
-	client.channels.get('425752252180070401').send({
+	await client.channels.get('425752252180070401').send({
 		embed
 	});
+
+	msg.reply('Credits given!');
 };
 
 
