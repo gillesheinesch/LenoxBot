@@ -15,7 +15,7 @@
 			</li>
 			<li>
 				{{#if user}}
-				<a href="servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
+				<a href="servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard <span class="label label-danger">BETA</span></a>
 				{{/if}}
 			</li>
 			<li>
@@ -34,7 +34,7 @@
 		<div class="container">
 			<div class="row"> 
 				{{#each guilds}}
-				<div class="col-md-4">
+				<div class="col-md-4 col-sm-6 col-xs-12">
 					<figure>
 						{{#if icon}}
 						<a href="home">
