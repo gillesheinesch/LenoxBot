@@ -291,7 +291,48 @@ app.get('/servers', function (req, res, next) {
 	}
 });
 
-app.get('/dashboard/:id/settings', function (req, res, next) {
+app.get('/dashboard/:id/overview', function (req, res, next) {
+	console.log(res.req.originalUrl)
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		var check = req.user.guilds[index];
+
+		console.log(check);
+
+		return res.render('dashboard', {
+			user: req.user,
+			guilds: check,
+			client: client
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/prefix', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	console.log(dashboardid);
 	if (req.user) {
@@ -324,47 +365,7 @@ app.get('/dashboard/:id/settings', function (req, res, next) {
 
 		console.log(check);
 
-		return res.render('dashboardsettings', {
-			user: req.user,
-			guilds: check,
-			client: client
-		});
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
-app.get('/dashboard/:id', function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
-
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
-		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
-
-		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
-
-		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
-
-		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
-
-		var check = req.user.guilds[index];
-
-		console.log(check);
-
-		return res.render('dashboard', {
+		return res.render('dashboardprefix', {
 			user: req.user,
 			guilds: check,
 			client: client

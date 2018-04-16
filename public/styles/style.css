@@ -287,11 +287,10 @@ a {
     border-top: 3px solid rgb(196, 193, 193);
     padding: 10px 0px;
     text-align: center;
+    height: 5px;
 }
 
 .footer-navigation a {
-    padding: 0px;
-    margin: 0px;
     color: #8C8C92;
     margin: 0 3%;
     transition: 0.7s ease all;
@@ -437,7 +436,7 @@ border: 1px solid black;
 
 .panel-group-dashboard {
     width: 80%;
-    margin-top: 50px;
+    margin-top: 100px;
     margin-left: 300px;
     margin-bottom: 50px;
 }
@@ -455,6 +454,10 @@ border: 1px solid black;
 
 .hideme {
     opacity:0;
+}
+
+#newprefix-form {
+    margin: 20px 0px;
 }
 
 /*Handy S*/

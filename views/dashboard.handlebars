@@ -1,13 +1,13 @@
-<link rel="stylesheet" type="text/css" href="../styles/style.css" />
-<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="../../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
 <header id="header">
 	<nav class="navbar">
 		<ul>
 			<li>
-				<a href="../home" class="text text-size-normal text-white navbar-button">Home</a>
+				<a href="../../home" class="text text-size-normal text-white navbar-button">Home</a>
 			</li>
 			<li>
-				<a href="../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+				<a href="../../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
 			</li>
 			<li>
 				<a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Invite LenoxBot</a>
@@ -17,14 +17,14 @@
 			</li>
 			<li>
 				{{#if user}}
-				<a href="../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
+				<a href="../../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
 				{{/if}}
 			</li>
 			<li>
 				{{#if user}}
-				<a href="../logout" class="text text-size-normal text-white navbar-button">Log out</a>
+				<a href="../../logout" class="text text-size-normal text-white navbar-button">Log out</a>
 				{{ else }}
-				<a href="../login" class="text text-size-normal text-white navbar-button">Log in</a>
+				<a href="../../login" class="text text-size-normal text-white navbar-button">Log in</a>
 				{{/if}}
 			</li>
 		</ul>
@@ -35,14 +35,14 @@
 <main>
 	<div class="container">
 		<div class="row">
-			<div class="text text-white text-size-caption" id="guildsname-dashboard">
-				<h1>{{guilds.name}}</h1>
-			</div>
 			<div class="col-sm-3">
+				<div class="text text-white text-size-caption" id="guildsname-dashboard">
+					<h1 style="width: 500%;">{{guilds.name}}</h1>
+				</div>
 				<div class="btn-group-vertical btn-group buttongroup-dashboard">
-					<a href="#" class="btn btn-primary text-size-big button-dashboard active" role="button">Overview</a>
+					<a href="/dashboard/{{guilds.id}}/overview" class="btn btn-primary text-size-big button-dashboard active" role="button">Overview</a>
 					<a href="#" class="btn btn-primary text-size-big button-dashboard" role="button">Logs</a>
-					<a href="{{guilds.id}}/settings" class="btn btn-primary text-size-big button-dashboard" role="button">Settings</a>
+					<a href="/dashboard/{{guilds.id}}/prefix" class="btn btn-primary text-size-big button-dashboard" role="button">Prefix</a>
 				</div>
 			</div>
 			<div class="panel-group panel-group-dashboard">

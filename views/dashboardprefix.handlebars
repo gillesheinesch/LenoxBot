@@ -1,0 +1,99 @@
+<link rel="stylesheet" type="text/css" href="../../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<header id="header">
+    <nav class="navbar">
+        <ul>
+            <li>
+                <a href="../../home" class="text text-size-normal text-white navbar-button">Home</a>
+            </li>
+            <li>
+                <a href="../../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+            </li>
+            <li>
+                <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Invite LenoxBot</a>
+            </li>
+            <li>
+                <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Discord Server</a>
+            </li>
+            <li>
+                {{#if user}}
+                <a href="../../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard</a>
+                {{/if}}
+            </li>
+            <li>
+                {{#if user}}
+                <a href="../../logout" class="text text-size-normal text-white navbar-button">Log out</a>
+                {{ else }}
+                <a href="../../login" class="text text-size-normal text-white navbar-button">Log in</a>
+                {{/if}}
+            </li>
+        </ul>
+    </nav>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <div class="text text-white text-size-caption" id="guildsname-dashboard">
+                    <h1 style="width: 500%;">{{guilds.name}}</h1>
+                </div>
+                <div class="btn-group-vertical btn-group buttongroup-dashboard">
+                    <a href="/dashboard/{{guilds.id}}/overview" class="btn btn-primary text-size-big button-dashboard" role="button">Overview</a>
+                    <a href="#" class="btn btn-primary text-size-big button-dashboard" role="button">Logs</a>
+                    <a href="/dashboard/{{guilds.id}}/prefix" class="btn btn-primary text-size-big button-dashboard active" role="button">Prefix</a>
+                </div>
+            </div>
+            <div class="panel-group panel-group-dashboard">
+                <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-big">Prefix</p>
+                    </div>
+                    <div class="panel-body">
+                        <div class="col-sm-9">
+                            <p class="text text-size-big">Current prefix:
+                                <strong>{{guilds.prefix}}</strong>
+                            </p>
+                            <p class="text-size-small">
+                                <br>
+                                You can execute all commands using the following prefix:
+                                <strong>{{guilds.prefix}}</strong>.
+                                <br><br> If you need any help you can use {{guilds.prefix}}help on your discord server!
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-normal">Define a new prefix</p>
+                    </div>
+                    <form class="form-horizontal" id="newprefix-form">
+                        <div class="form-group">
+                            <label class="control-label col-sm-2" for="newprefix">New prefix:</label>
+                            <div class="col-sm-2">
+                                <input type="text" class="form-control" id="newprefix" placeholder="Enter new prefix for your discord server">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+
+<footer>
+    <nav class="footer-navigation">
+        <a target="blank" class="text text-size-small text-white" href="http://lenoxbot.com">&copy; LenoxBot
+        </a>
+        <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+    </nav>
+</footer>

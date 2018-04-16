@@ -33,8 +33,9 @@
 <main>
     <div class="container">
         {{#if notloggedin}}
-        <div class="alert alert-danger text text-size-normal">
-            <strong>Not logged in!</strong> You have to login before you can access to the dashboard!
+        <div class="alert alert-danger alert-dismissible fade in">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Not logged in!</strong> You have to login before you can access to the dashboard! 
         </div>
         {{/if}}
         <div id="oauth2button">
