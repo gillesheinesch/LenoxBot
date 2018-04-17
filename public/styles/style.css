@@ -6,6 +6,16 @@ html,body{
     padding: 0;
 }
 
+footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: rgb(27, 28, 29);
+    text-align: center;
+    padding-bottom: 20px;
+}
+
 @font-face {
     font-family: 'Mont';
     src: url(../assets/fonts/Montserrat-Regular.ttf) format('truetype');
