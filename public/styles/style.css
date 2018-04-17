@@ -253,6 +253,7 @@ a {
 }
 
 .navbar ul {
+    display: inline-block;
     border: 1px solid white;
     list-style-type: none;
     margin: 0;
@@ -273,7 +274,7 @@ a {
     text-decoration: none;
 }
 
-.navbar a:hover, 
+.navbar li a:hover, 
 .navbar #active {
     display: block;
     color: rgb(255, 255, 255);
@@ -458,6 +459,28 @@ border: 1px solid black;
 
 #newprefix-form {
     margin: 20px 0px;
+}
+
+#logo {
+    text-decoration: none;
+    border: 10px solid transparent;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 3;
+    margin-left: 60px;
+    font-family: Mont;
+}
+
+#logoimg {
+    text-decoration: none;
+    border: 10px solid transparent;
+    box-sizing: border-box;
+    position: absolute;
+    left: 0;
+    top: 3;
+    margin-left: 10px;
+    font-family: Mont;
 }
 
 /*Handy S*/
