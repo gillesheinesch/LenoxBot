@@ -12,7 +12,7 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`⏳ ${lang.botinfo_runtime}`, `${uptimeserver}`)
 		.addField(`🛠 ${lang.botinfo_memory}`, `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 		.addField(`📡 ${lang.botinfo_stats}`, online)
-		.addField(`💻 ${lang.botinfo_doc}`, `://www.lenoxbot.com/`)
+		.addField(`💻 ${lang.botinfo_doc}`, `http://www.lenoxbot.com/`)
 		.addField(`💎 ${lang.botinfo_support}`, `https://www.patreon.com/lenoxbot`)
 		.addField(`📤 ${lang.botinfo_invite}`, `http://invite.lenoxbot.com/`)
 		.addField(`📢 ${lang.botinfo_supportserver}`, 'http://discord.lenoxbot.com/');
