@@ -95,6 +95,10 @@ var database = new Enmap({
 	})
 });
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cookieParser());
+
 app.engine('handlebars', handlebars({
 	defaultLayout: 'main',
 	layoutsDir: __dirname + '/views/layouts/'
@@ -292,7 +296,6 @@ app.get('/servers', function (req, res, next) {
 });
 
 app.get('/dashboard/:id/overview', function (req, res, next) {
-	console.log(res.req.originalUrl)
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -320,8 +323,6 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 
 		var check = req.user.guilds[index];
 
-		console.log(check);
-
 		return res.render('dashboard', {
 			user: req.user,
 			guilds: check,
@@ -332,9 +333,35 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/prefix/submitprefix', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") 
+
+		var newprefix = req.body.newprefix;
+
+		const tableload = client.guildconfs.get(dashboardid);
+		tableload.prefix = newprefix;
+		client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(`/dashboard/${dashboardid}/prefix`);
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+
 app.get('/dashboard/:id/prefix', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
-	console.log(dashboardid);
 	if (req.user) {
 		var index = -1;
 		for (var i = 0; i < req.user.guilds.length; i++) {
@@ -363,8 +390,6 @@ app.get('/dashboard/:id/prefix', function (req, res, next) {
 
 		var check = req.user.guilds[index];
 
-		console.log(check);
-
 		return res.render('dashboardprefix', {
 			user: req.user,
 			guilds: check,
@@ -374,6 +399,7 @@ app.get('/dashboard/:id/prefix', function (req, res, next) {
 		res.redirect('../nologin');
 	}
 });
+
 
 app.get('/404error', function (req, res, next) {
 	if (req.user) {

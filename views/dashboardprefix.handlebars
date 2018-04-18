@@ -72,11 +72,11 @@
                     <div class="panel-heading">
                         <p class="text text-white text-size-normal">Define a new prefix</p>
                     </div>
-                    <form class="form-horizontal" id="newprefix-form">
+                    <form class="form-horizontal" id="newprefix-form" action="/dashboard/{{guilds.id}}/prefix/submitprefix" method="POST">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="newprefix">New prefix:</label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" id="newprefix" placeholder="Enter new prefix for your discord server">
+                                <input type="text" class="form-control" id="newprefix" name="newprefix" placeholder="Enter new prefix for your discord server" pattern=".{1,}" required title="1 characters minimum">
                             </div>
                         </div>
                         <div class="form-group">
