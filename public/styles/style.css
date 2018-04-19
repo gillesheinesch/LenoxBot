@@ -13,7 +13,7 @@ footer {
     width: 100%;
     background-color: rgb(27, 28, 29);
     text-align: center;
-    padding-bottom: 20px;
+     padding-bottom: 20px;
 }
 
 @font-face {
@@ -449,7 +449,7 @@ border: 1px solid black;
     width: 80%;
     margin-top: 100px;
     margin-left: 300px;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 .panel-dashboard {
