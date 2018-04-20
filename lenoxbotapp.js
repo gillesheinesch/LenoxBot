@@ -81,6 +81,7 @@ client.login(token);
 
 var express = require('express'),
 	session = require('express-session'),
+	url = require('url'),
 	passport = require('passport'),
 	Strategy = require('passport-discord').Strategy,
 	handlebars = require('express-handlebars'),
@@ -417,7 +418,8 @@ app.post('/dashboard/:id/logs/submitlogs', function (req, res, next) {
 		const tableload = client.guildconfs.get(dashboardid);
 
 		for (var i = 0; i < Object.keys(req.body).length; i++) {
-			if (Object.keys(req.body)[i].includes('channel')) {
+			if (Object.keys(req.body)[i].endsWith('channel')) {
+				console.log(req.body[Object.keys(req.body)[i]]);
 				tableload[Object.keys(req.body)[i]] = client.guilds.get(dashboardid).channels.find('name', `${req.body[Object.keys(req.body)[i]]}`).id;
 				delete req.body[Object.keys(req.body)[i]];
 			}
@@ -427,7 +429,12 @@ app.post('/dashboard/:id/logs/submitlogs', function (req, res, next) {
 
 		client.guildconfs.set(dashboardid, tableload);
 
-		res.redirect(`/dashboard/${dashboardid}/logs`);
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/logs`,
+			query: {
+			   "submitlogs": true
+			 }
+		  }));
 	} else {
 		res.redirect('../nologin');
 	}
@@ -435,6 +442,7 @@ app.post('/dashboard/:id/logs/submitlogs', function (req, res, next) {
 
 app.get('/dashboard/:id/logs', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
+	console.log(req.query);
 	if (req.user) {
 		var index = -1;
 		for (var i = 0; i < req.user.guilds.length; i++) {
@@ -468,7 +476,8 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 			user: req.user,
 			guilds: check,
 			client: client,
-			channels: channels
+			channels: channels,
+			submitlogs: req.query.submitlogs ? true : false
 		});
 	} else {
 		res.redirect('../nologin');

@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../styles/style.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css"/>
+<script src='../../script/dashboardlogs.js'></script>
 <header id="header">
     <div class="logo">
         <img src="../../lenoxbot.png" height="70" width="70" id="logoimg">
@@ -57,6 +58,12 @@
                 </div>
             </div>
             <div class="panel-group-dashboard">
+                {{#if submitlogs}}
+                <div class="alert alert-success alert-dismissible" id="success-alert">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Saved settings!</strong> We saved your settings on your discord server!
+                </div>
+                {{/if}}
                 <div class="panel-group">
                     <div class="panel panel-primary panel-dashboard">
                         <div class="panel-heading">
@@ -64,7 +71,7 @@
                         </div>
                         <div class="panel-body">
                             <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                            <div class="form-group">
+                                <div class="form-group">
                                     <label class="control-label col-sm-2" for="modlog">Modlog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3" name="modlog">
@@ -93,22 +100,498 @@
                     </div>
                     <div class="panel panel-primary panel-dashboard">
                         <div class="panel-heading">
-                            <p class="text text-white text-size-normal">Define a new prefix</p>
+                            <p class="text text-white text-size-big">Chatfilter</p>
                         </div>
-                        <form class="form-horizontal" id="newprefix-form" action="/dashboard/{{guilds.id}}/prefix/submitprefix" method="POST">
-                            <div class="form-group">
-                                <label class="control-label col-sm-2" for="newprefix">New prefix:</label>
-                                <div class="col-sm-2">
-                                    <input type="text" class="form-control" id="newprefix" name="newprefix" placeholder="Enter new prefix for your discord server"
-                                        pattern=".{1,}" required title="1 characters minimum">
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="chatfilterlog">Chatfilterlog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="chatfilterlog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Submit</button>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="chatfilterlogchannel">New Modlog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="chatfilterlogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Messagedelete</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="messagedeletelog">Messagedeletelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="messagedeletelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="messagedeletelogchannel">New Messagedeletelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="messagedeletelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Messageupdate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="messageupdatelog">Messageupdatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="messageupdatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="messageupdatelogchannel">New Modlog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="messageupdatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Channelupdate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="channelupdatelog">Channelupdatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="channelupdatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="channelupdatelogchannel">New Channelupdatelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="channelupdatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Channelcreate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="channelcreatelog">Channelcreatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="channelcreatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="channelcreatelogchannel">New Channelcreatelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="channelcreatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Channelupdate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="channelupdatelog">Channelupdatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="channelupdatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="channelupdatelogchannel">New Channelupdatelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="channelupdatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Channeldelete</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="channeldeletelog">Channeldeletelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="channeldeletelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="channeldeletelogchannel">New Channeldeletelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="channeldeletelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Memberupdate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="memberupdatelog">Memberupdatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="memberupdatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="memberupdatelogchannel">New Memberupdatelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="memberupdatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Presenceupdate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="presenceupdatelog">Presenceupdatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="presenceupdatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="presenceupdatelogchannel">New Presenceupdatelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="presenceupdatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Userjoin</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="userjoinlog">Userjoinlog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="userjoinlog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="userjoinlogchannel">New Userjoinlog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="userjoinlogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Userleft</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="userleftlog">Userleftlog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="userleftlog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="userleftlogchannel">New Userleftlog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="userleftlogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Rolecreate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="rolecreatelog">Rolecreatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="rolecreatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="rolecreatelogchannel">New Rolecreatelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="rolecreatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Roledelete</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="roledeletelog">Roledeletelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="roledeletelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="roledeletelogchannel">New Roledeletelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="roledeletelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Roleupdate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="roleupdatelog">Roleupdatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="roleupdatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="roleupdatelogchannel">New Roleupdatelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="roleupdatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary panel-dashboard">
+                        <div class="panel-heading">
+                            <p class="text text-white text-size-big">Guildupdate</p>
+                        </div>
+                        <div class="panel-body">
+                            <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="guildupdatelog">Guildupdatelog Status:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="guildupdatelog">
+                                            <option value="true">Activate</option>
+                                            <option value="false">Deactivate</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="control-label col-sm-2" for="guildupdatelogchannel">New Guildupdatelog channel:</label>
+                                    <div class="col-sm-4">
+                                        <select required class="form-control custom-select custom-select-lg mb-3" name="guildupdatelogchannel">
+                                            {{#each channels}}
+                                            <option>{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-sm-offset-2 col-sm-10">
+                                        <button type="submit" class="btn btn-default">Submit</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
