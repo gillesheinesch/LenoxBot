@@ -52,10 +52,11 @@
                     <h1 style="width: 500%;">{{guilds.name}}</h1>
                 </div>
                 <div class="btn-group-vertical btn-group buttongroup-dashboard">
-                    <a href="/dashboard/{{guilds.id}}/overview" class="btn btn-primary text-size-big button-dashboard" role="button">Overview</a>
-                    <a href="/dashboard/{{guilds.id}}/logs" class="btn btn-primary text-size-big button-dashboard active" role="button">Logs</a>
-                    <a href="/dashboard/{{guilds.id}}/prefix" class="btn btn-primary text-size-big button-dashboard" role="button">Prefix</a>
-                </div>
+					<a href="/dashboard/{{guilds.id}}/overview" class="btn btn-primary text-size-normal button-dashboard active" role="button">Overview</a>
+					<a href="/dashboard/{{guilds.id}}/prefix" class="btn btn-primary text-size-normal button-dashboard" role="button">General Settings</a>
+					<a href="/dashboard/{{guilds.id}}/logs" class="btn btn-primary text-size-normal button-dashboard" role="button">Logsettings</a>
+					<a href="/dashboard/{{guilds.id}}/modules" class="btn btn-primary text-size-normal button-dashboard" role="button">Modules</a>
+				</div>
             </div>
             <div class="panel-group-dashboard">
                 {{#if submitlogs}}
