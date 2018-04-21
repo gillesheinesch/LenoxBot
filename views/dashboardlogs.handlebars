@@ -32,15 +32,15 @@
                 </a>
                 {{/if}}
             </li>
-            <li>
-                {{#if user}}
-                <a href="../../logout" class="text text-size-normal text-white navbar-button">Log out</a>
-                {{ else }}
-                <a href="../../login" class="text text-size-normal text-white navbar-button">Log in</a>
-                {{/if}}
-            </li>
         </ul>
     </nav>
+    <div class="navbar" id="loginbutton">
+        {{#if user}}
+        <a href="../../logout" class="text text-size-normal text-white navbar-button">Log out</a>
+        {{ else }}
+        <a href="../../login" class="text text-size-normal text-white navbar-button">Log in</a>
+        {{/if}}
+    </div>
     </div>
 </header>
 
