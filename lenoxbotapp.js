@@ -506,6 +506,47 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/modules/submitmodules', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.modules[Object.keys(req.body)[0]] = `${req.body[Object.keys(req.body)[0]]}`;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+		}
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/modules`,
+			query: {
+			   "submitmodules": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
 app.get('/dashboard/:id/modules', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
