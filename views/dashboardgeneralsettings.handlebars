@@ -48,7 +48,7 @@
                 </div>
                 <div class="btn-group-vertical btn-group buttongroup-dashboard">
 					<a href="/dashboard/{{guilds.id}}/overview" class="btn btn-primary text-size-normal button-dashboard" role="button">Overview</a>
-					<a href="/dashboard/{{guilds.id}}/prefix" class="btn btn-primary text-size-normal button-dashboard active" role="button">General Settings</a>
+					<a href="/dashboard/{{guilds.id}}/generalsettings" class="btn btn-primary text-size-normal button-dashboard active" role="button">General Settings</a>
 					<a href="/dashboard/{{guilds.id}}/logs" class="btn btn-primary text-size-normal button-dashboard" role="button">Logsettings</a>
 					<a href="/dashboard/{{guilds.id}}/modules" class="btn btn-primary text-size-normal button-dashboard" role="button">Modules</a>
 				</div>
@@ -76,7 +76,7 @@
                     <div class="panel-heading">
                         <p class="text text-white text-size-normal">Define a new prefix</p>
                     </div>
-                    <form class="form-horizontal" id="newprefix-form" action="/dashboard/{{guilds.id}}/prefix/submitprefix" method="POST">
+                    <form class="form-horizontal" id="newprefix-form" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="newprefix">New prefix:</label>
                             <div class="col-sm-2">

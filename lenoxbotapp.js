@@ -324,7 +324,6 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
 
 		var check = req.user.guilds[index];
-		console.log(client.guildconfs.get(req.user.guilds[index].id).globallogs ? client.guildconfs.get(req.user.guilds[index].id).globallogs : null);
 
 		return res.render('dashboard', {
 			user: req.user,
@@ -337,7 +336,7 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 	}
 });
 
-app.post('/dashboard/:id/prefix/submitprefix', function (req, res, next) {
+app.post('/dashboard/:id/generalsettings/submitprefix', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -369,14 +368,14 @@ app.post('/dashboard/:id/prefix/submitprefix', function (req, res, next) {
 
 		client.guildconfs.set(dashboardid, tableload);
 
-		res.redirect(`/dashboard/${dashboardid}/prefix`);
+		res.redirect(`/dashboard/${dashboardid}/generalsettings`);
 	} else {
 		res.redirect('../nologin');
 	}
 });
 
 
-app.get('/dashboard/:id/prefix', function (req, res, next) {
+app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -406,7 +405,7 @@ app.get('/dashboard/:id/prefix', function (req, res, next) {
 
 		var check = req.user.guilds[index];
 
-		return res.render('dashboardprefix', {
+		return res.render('dashboardgeneralsettings', {
 			user: req.user,
 			guilds: check,
 			client: client
@@ -501,6 +500,49 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 			client: client,
 			channels: channels,
 			submitlogs: req.query.submitlogs ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/modules', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		return res.render('dashboardmodules', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+			submitmodules: req.query.submitmodules ? true : false
 		});
 	} else {
 		res.redirect('../nologin');
