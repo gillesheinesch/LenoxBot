@@ -82,6 +82,7 @@ client.login(token);
 var express = require('express'),
 	session = require('express-session'),
 	url = require('url'),
+	moment = require('moment'),
 	passport = require('passport'),
 	Strategy = require('passport-discord').Strategy,
 	handlebars = require('express-handlebars'),
@@ -323,11 +324,13 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
 
 		var check = req.user.guilds[index];
+		console.log(client.guildconfs.get(req.user.guilds[index].id).globallogs ? client.guildconfs.get(req.user.guilds[index].id).globallogs : null);
 
 		return res.render('dashboard', {
 			user: req.user,
 			guilds: check,
-			client: client
+			client: client,
+			logs: client.guildconfs.get(req.user.guilds[index].id).globallogs ? client.guildconfs.get(req.user.guilds[index].id).globallogs.slice(0, 15).reverse() : null
 		});
 	} else {
 		res.redirect('../nologin');
@@ -351,7 +354,19 @@ app.post('/dashboard/:id/prefix/submitprefix', function (req, res, next) {
 		var newprefix = req.body.newprefix;
 
 		const tableload = client.guildconfs.get(dashboardid);
+
 		tableload.prefix = newprefix;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+		}
+		tableload.globallogs.push({
+			action: `Changed the prefix of the bot!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
 		client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(`/dashboard/${dashboardid}/prefix`);
@@ -419,13 +434,22 @@ app.post('/dashboard/:id/logs/submitlogs', function (req, res, next) {
 
 		for (var i = 0; i < Object.keys(req.body).length; i++) {
 			if (Object.keys(req.body)[i].endsWith('channel')) {
-				console.log(req.body[Object.keys(req.body)[i]]);
 				tableload[Object.keys(req.body)[i]] = client.guilds.get(dashboardid).channels.find('name', `${req.body[Object.keys(req.body)[i]]}`).id;
 				delete req.body[Object.keys(req.body)[i]];
 			}
 		}
 
 		tableload[Object.keys(req.body)[0]] = req.body[Object.keys(req.body)[0]];
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+		}
+		tableload.globallogs.push({
+			action: `Changed the ${Object.keys(req.body)[0]} settings!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
 
 		client.guildconfs.set(dashboardid, tableload);
 
@@ -442,7 +466,6 @@ app.post('/dashboard/:id/logs/submitlogs', function (req, res, next) {
 
 app.get('/dashboard/:id/logs', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
-	console.log(req.query);
 	if (req.user) {
 		var index = -1;
 		for (var i = 0; i < req.user.guilds.length; i++) {

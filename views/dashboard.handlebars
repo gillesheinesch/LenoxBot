@@ -78,16 +78,21 @@
 								<th class="text text-size-normal text-black">Date</th>
 							</tr>
 							<!-- Header of logs -->
+							{{#if logs}}
+							{{#each logs}}
 							<tr>
-								<td class="text text-size-small text-black">The guild icon was updated</td>
-								<td class="text text-size-small text-black">Monkeyyy11#0001</td>
-								<td class="text text-size-small text-black">15.04.2018 13:52</td>
+								<td class="text text-size-small text-black">{{action}}</td>
+								<td class="text text-size-small text-black">{{username}}</td>
+								<td class="text text-size-small text-black">{{showeddate}}</td>
 							</tr>
+							{{/each}}
+							{{else}}
 							<tr>
-								<td class="text text-size-small text-black">The guild icon was updated</td>
-								<td class="text text-size-small text-black">Monkeyyy11#0001</td>
-								<td class="text text-size-small text-black">15.04.2018 13:54</td>
+								<td class="text text-size-small text-black">None</td>
+								<td class="text text-size-small text-black">None</td>
+								<td class="text text-size-small text-black">None</td>
 							</tr>
+							{{/if}}
 						</table>
 					</div>
 				</div>
