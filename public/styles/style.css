@@ -1,4 +1,5 @@
-html,body{
+html,
+body {
     background-color: rgb(27, 28, 29) !important;
     width: 100%;
     height: 100%;
@@ -13,7 +14,7 @@ footer {
     width: 100%;
     background-color: rgb(27, 28, 29);
     text-align: center;
-     padding-bottom: 20px;
+    padding-bottom: 20px;
 }
 
 @font-face {
@@ -39,7 +40,7 @@ footer {
 .text {
     font-family: Mont;
     margin: 0;
-    padding: 0;  
+    padding: 0;
 }
 
 .text-size-smallest {
@@ -62,17 +63,17 @@ footer {
     font-size: 3.1rem;
 }
 
-.text-size-icon{
+.text-size-icon {
     font-size: 5rem;
 }
 
-#header{
+#header {
     text-align: center;
     width: 80%;
     margin: 0 auto;
 }
 
-.page-header{
+.page-header {
     font-family: Mont;
     font-size: 10rem;
     color: rgba(240, 236, 236, 0.842);
@@ -84,33 +85,33 @@ footer {
     padding: 0;
 }
 
-@keyframes animatedPageHeader{
-    0%{
+@keyframes animatedPageHeader {
+    0% {
         text-shadow: 0px 0px 15px transparent;
     }
-    50%{
+    50% {
         text-shadow: 0px 0px 5px #df7d0c;
     }
-    100%{
-        text-shadow:0px 0px 15px transparent;
+    100% {
+        text-shadow: 0px 0px 15px transparent;
     }
 }
 
-.page-sub-header{
+.page-sub-header {
     color: rgba(204, 197, 197, 0.911);
     margin-top: 4%;
     padding: 0;
 }
 
-.text-white{
+.text-white {
     color: #F4F1F7;
 }
 
-.text-black{
+.text-black {
     color: black;
 }
 
-.margin-caption{
+.margin-caption {
     margin-bottom: 1%;
 }
 
@@ -118,11 +119,11 @@ a {
     text-decoration: none;
 }
 
-#buttonholder{
+#buttonholder {
     margin: 4% 0;
 }
 
-.button{
+.button {
     display: inline-block;
     border: 2px solid #F4F1F7;
     padding: 0.6% 2%;
@@ -132,32 +133,32 @@ a {
     transition: 0.5s ease all;
 }
 
-.button:hover{
+.button:hover {
     cursor: pointer;
     background-color: #3c3e3f;
 }
 
-.active-button{
+.active-button {
     background-color: #2e4f72 !important;
     border-color: #f7aa05 !important;
 }
 
-.active-button:hover{
-    background-color: #395e83!important;
+.active-button:hover {
+    background-color: #395e83 !important;
     border-color: #48bb06 !important;
 }
 
-.section-caption{
+.section-caption {
     border-bottom: 2px solid #df7d0c;
     display: inline-block;
     margin: 2% auto;
 }
 
-#features{
+#features {
     text-align: center;
 }
 
-#feature-list{
+#feature-list {
     text-align: left;
     width: 70%;
     margin: 0 auto;
@@ -165,11 +166,11 @@ a {
     color: #e4dede;
 }
 
-#feature-list p{
+#feature-list p {
     margin: 1.5% 0;
 }
 
-#feature-list i{
+#feature-list i {
     color: #df7d0c;
 }
 
@@ -177,51 +178,48 @@ a {
     text-align: center;
 }
 
-#support{
+#support {
     width: 70%;
     text-align: center;
     margin: 4% auto;
     color: #e4dede;
 }
 
-#support .active-button{
+#support .active-button {
     margin: 2% 0;
 }
 
-#endline{
+#endline {
     width: 80%;
     margin: 3% auto;
     text-align: center;
 }
 
-#avatarhold{
+#avatarhold {
     width: 0%;
     display: inline-block;
     vertical-align: middle;
 }
 
-#avatar{
+#avatar {
     width: 200px;
     height: auto;
     border-radius: 100%;
     border: 2px solid #df7d0c;
-    box-shadow: 0px 0px 10px #2e2f30,
-                2px 0px 10px #3c3e3f,
-                4px 0px 10px #4c4d4e;
-
+    box-shadow: 0px 0px 10px #2e2f30, 2px 0px 10px #3c3e3f, 4px 0px 10px #4c4d4e;
 }
 
-#avatartext{
+#avatartext {
     text-align: center;
     display: inline-block;
     width: 80%;
 }
 
-#topholder{
+#topholder {
     text-align: center;
     padding: 2% 0;
     margin-bottom: 50px;
-    background: linear-gradient(to bottom,rgb(27, 28, 29) ,rgb(3, 3, 3))
+    background: linear-gradient(to bottom, rgb(27, 28, 29), rgb(3, 3, 3))
 }
 
 .documentationbutton {
@@ -231,16 +229,16 @@ a {
 
 .table-documentation {
     margin-bottom: 70px;
-    display:flex;
-    justify-content:center;
-    align-items:center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     text-align: center !important;
 }
 
 .documentation-navbar {
     padding-top: 0px;
     margin-bottom: 50px;
-    margin-top: 70px ;
+    margin-top: 70px;
     text-align: center;
 }
 
@@ -285,7 +283,7 @@ a {
     text-decoration: none;
 }
 
-.navbar li a:hover, 
+.navbar li a:hover,
 .navbar #active {
     display: block;
     color: rgb(255, 255, 255);
@@ -338,7 +336,7 @@ a {
     display: block;
     text-align: center;
     position: relative;
-    margin: 0 auto; 
+    margin: 0 auto;
     padding: 10px;
 }
 
@@ -378,9 +376,7 @@ a {
 }
 
 #icon-selectserver {
-    box-shadow: 0px 0px 10px #2e2f30,
-                0px 0px 10px #3c3e3f,
-                4px 0px 10px #4c4d4e;
+    box-shadow: 0px 0px 10px #2e2f30, 0px 0px 10px #3c3e3f, 4px 0px 10px #4c4d4e;
     margin-top: 11px;
 }
 
@@ -412,7 +408,7 @@ a {
 }
 
 .dashboard-sidenav li {
-border: 1px solid black;
+    border: 1px solid black;
 }
 
 .dashboard-sidenav-button {
@@ -455,9 +451,8 @@ border: 1px solid black;
     padding-right: 40px;
 }
 
-
 .hideme {
-    opacity:0;
+    opacity: 0;
 }
 
 #newprefix-form {
@@ -501,7 +496,6 @@ border: 1px solid black;
     background-color: #333;
 }
 
-
 #loginbutton a {
     display: block;
     color: white;
@@ -510,7 +504,7 @@ border: 1px solid black;
     text-decoration: none;
 }
 
-#loginbutton a:hover, 
+#loginbutton a:hover,
 #loginbutton #active {
     display: block;
     color: rgb(255, 255, 255);
@@ -521,7 +515,6 @@ border: 1px solid black;
 }
 
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
-
 section {
     padding: 60px 0;
 }
@@ -632,258 +625,218 @@ section .section-title {
 }
 
 .shadow {
-    -webkit-box-shadow: 3px 3px 5px 6px #ccc;  /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
-    -moz-box-shadow:    3px 3px 5px 6px #ccc;  /* Firefox 3.5 - 3.6 */
-    box-shadow:         3px 3px 5px 6px #ccc;  /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
-  }
+    -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+    /* Safari 3-4, iOS 4.0.2 - 4.2, Android 2.3+ */
+    -moz-box-shadow: 3px 3px 5px 6px #ccc;
+    /* Firefox 3.5 - 3.6 */
+    box-shadow: 3px 3px 5px 6px #ccc;
+    /* Opera 10.5, IE 9, Firefox 4+, Chrome 6+, iOS 5 */
+}
 
 /*Handy S*/
-@media only screen and (min-width : 320px) and (max-width: 374px) {
-    html,body{
+
+@media only screen and (min-width: 320px) and (max-width: 374px) {
+    html,
+    body {
         font-size: 10px;
     }
-
     .text-size-big {
         font-size: 2.0rem;
     }
-
     .text-size-megabig {
         font-size: 2.7rem;
     }
-
     .text-size-normal {
         font-size: 1.9rem;
     }
-
-    .page-header{
+    .page-header {
         font-size: 8rem;
         letter-spacing: 6px;
     }
-
-    .page-sub-header{
+    .page-sub-header {
         font-size: 4rem;
     }
-
 }
 
 /*Handy M*/
-@media only screen and (min-width : 375px) and (max-width: 424px) {
-    html,body{
+
+@media only screen and (min-width: 375px) and (max-width: 424px) {
+    html,
+    body {
         font-size: 10px;
     }
-
-    .page-header{
+    .page-header {
         font-size: 5rem;
     }
-
-    #header{
+    #header {
         text-align: center;
         width: 95%;
         margin: 0 auto;
     }
-
-    .section-caption{
+    .section-caption {
         margin: 3% auto;
     }
-
-    #feature-list{
+    #feature-list {
         width: 90%;
         margin-bottom: 6%;
     }
-
-    #feature-list p{
+    #feature-list p {
         margin: 5% 0;
     }
-
-    #support{
+    #support {
         width: 90%;
         margin: 5% auto;
-
     }
-
-    #support .active-button{
+    #support .active-button {
         margin: 4% 0;
     }
-
-    #endline{
+    #endline {
         width: 100%;
         margin: 4% auto;
     }
-
-    #avatar{
-        width: 80px;    
+    #avatar {
+        width: 80px;
     }
-
-    #topholder{
+    #topholder {
         padding: 6% 0;
     }
-
-    .button{
+    .button {
         padding: 1.2% 3%;
         margin: 2% 3%;
     }
 }
 
 /*Handy L*/
-@media only screen and (min-width : 425px) and (max-width: 767px) {
-    html,body{
+
+@media only screen and (min-width: 425px) and (max-width: 767px) {
+    html,
+    body {
         font-size: 12px;
     }
-
-    .page-header{
+    .page-header {
         font-size: 6rem;
     }
-
-    #header{
+    #header {
         text-align: center;
         width: 95%;
         margin: 0 auto;
     }
-
-    .section-caption{
+    .section-caption {
         margin: 3% auto;
     }
-
-    #feature-list{
+    #feature-list {
         width: 90%;
         margin-bottom: 6%;
     }
-
-    #feature-list p{
+    #feature-list p {
         margin: 5% 0;
     }
-
-    #support{
+    #support {
         width: 90%;
         margin: 5% auto;
-
     }
-
-    #support .active-button{
+    #support .active-button {
         margin: 4% 0;
     }
-
-    #endline{
+    #endline {
         width: 100%;
         margin: 4% auto;
     }
-
-    #avatar{
-        width: 90px;    
+    #avatar {
+        width: 90px;
     }
-
-    #topholder{
+    #topholder {
         padding: 6% 0;
     }
-
-    .button{
+    .button {
         padding: 1% 3%;
         margin: 2% 3%;
     }
 }
 
 /*Tablet*/
-@media only screen and (min-width : 768px) and (max-width: 1023px) {
-    html,body{
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    html,
+    body {
         font-size: 14px;
     }
-
-    .page-header{
+    .page-header {
         font-size: 8rem;
     }
-
-    #header{
+    #header {
         text-align: center;
         width: 90%;
         margin: 0 auto;
     }
-
-    .page-header{
+    .page-header {
         font-size: 8rem;
     }
-
-    .section-caption{
+    .section-caption {
         margin: 3% auto;
     }
-
-    #feature-list{
+    #feature-list {
         width: 80%;
         margin-bottom: 5%;
     }
-
-    #feature-list p{
+    #feature-list p {
         margin: 4% 0;
     }
-
-    #support{
+    #support {
         width: 80%;
         margin: 5% auto;
-
     }
-
-    #support .active-button{
+    #support .active-button {
         margin: 3% 0;
     }
-
-    #endline{
+    #endline {
         width: 95%;
         margin: 4% auto;
     }
-
-    #avatar{
-        width: 120px;    
+    #avatar {
+        width: 120px;
     }
-
-    #topholder{
+    #topholder {
         padding: 4% 0;
     }
 }
 
 /*Tablet Quer or Laptop*/
+
 @media screen and (min-width: 1024px) and (max-width: 1439px) {
-    #header{
+    #header {
         text-align: center;
         width: 90%;
         margin: 0 auto;
     }
-
-    .page-header{
+    .page-header {
         font-size: 8rem;
     }
-
-    .section-caption{
+    .section-caption {
         margin: 3% auto;
     }
-
-    #feature-list{
+    #feature-list {
         width: 80%;
         margin-bottom: 4%;
     }
-
-    #feature-list p{
+    #feature-list p {
         margin: 2.5% 0;
     }
-
-    #support{
+    #support {
         width: 80%;
         margin: 4% auto;
-
     }
-
-    #support .active-button{
+    #support .active-button {
         margin: 3% 0;
     }
-
-    #endline{
+    #endline {
         width: 90%;
         margin: 4% auto;
     }
-
-    #avatar{
-        width: 150px;    
+    #avatar {
+        width: 150px;
     }
-
-    #topholder{
+    #topholder {
         padding: 3% 0;
     }
 }
