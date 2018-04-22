@@ -73,7 +73,7 @@
                     <form class="form-horizontal" id="newprefix-form" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="newprefix">New prefix:</label>
-                            <div class="col-sm-2">
+                            <div class="col-sm-5">
                                 <input type="text" class="form-control" id="newprefix" name="newprefix" placeholder="Enter new prefix for your discord server"
                                     pattern=".{1,}" required title="1 characters minimum">
                             </div>
@@ -84,6 +84,30 @@
                             </div>
                         </div>
                     </form>
+                </div>
+                <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-normal">Language</p>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitlanguage" method="POST">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="newlanguage">Set language of the bot:</label>
+                                <div class="col-sm-4">
+                                    <select required class="form-control custom-select custom-select-lg mb-3" name="newlanguage">
+                                        <option value="en">English</option>
+                                        <option value="ge">German</option>
+                                        <option value="fr">French</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>

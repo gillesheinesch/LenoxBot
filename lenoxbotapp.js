@@ -395,6 +395,51 @@ app.post('/dashboard/:id/generalsettings/submitprefix', async function (req, res
 	}
 });
 
+app.post('/dashboard/:id/generalsettings/submitlanguage', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newlanguage = req.body.newlanguage;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.language = newlanguage;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Changed the language of the bot!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/generalsettings`,
+			query: {
+			   "submitgeneralsettings": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
 
 app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
