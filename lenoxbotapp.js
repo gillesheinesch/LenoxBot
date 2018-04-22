@@ -384,7 +384,12 @@ app.post('/dashboard/:id/generalsettings/submitprefix', async function (req, res
 
 		await client.guildconfs.set(dashboardid, tableload);
 
-		res.redirect(`/dashboard/${dashboardid}/generalsettings`);
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/generalsettings`,
+			query: {
+			   "submitgeneralsettings": true
+			 }
+		  }));
 	} else {
 		res.redirect('../nologin');
 	}
@@ -424,7 +429,8 @@ app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 		return res.render('dashboardgeneralsettings', {
 			user: req.user,
 			guilds: check,
-			client: client
+			client: client,
+			submitgeneralsettings: req.query.submitgeneralsettings ? true : false
 		});
 	} else {
 		res.redirect('../nologin');
