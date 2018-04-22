@@ -195,7 +195,7 @@ a {
 }
 
 #avatarhold{
-    width: 19%;
+    width: 0%;
     display: inline-block;
     vertical-align: middle;
 }
@@ -212,14 +212,15 @@ a {
 }
 
 #avatartext{
+    text-align: center;
     display: inline-block;
     width: 80%;
-    vertical-align: middle;
 }
 
 #topholder{
     text-align: center;
     padding: 2% 0;
+    margin-bottom: 50px;
     background: linear-gradient(to bottom,rgb(27, 28, 29) ,rgb(3, 3, 3))
 }
 
