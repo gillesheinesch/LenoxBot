@@ -325,18 +325,33 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 
 		var check = req.user.guilds[index];
 
+		if (client.guildconfs.get(dashboardid).globallogs) {
+			const thelogs = client.guildconfs.get(dashboardid).globallogs;
+			var logs = thelogs.sort(function (a, b) {
+				if (a.date < b.date) {
+				  return 1;
+				}
+				if (a.date > b.date) {
+				  return -1;
+				}
+				return 0;
+			  }).slice(0, 15);
+		} else {
+			var logs = null;
+		}
+
 		return res.render('dashboard', {
 			user: req.user,
 			guilds: check,
 			client: client,
-			logs: client.guildconfs.get(req.user.guilds[index].id).globallogs ? client.guildconfs.get(req.user.guilds[index].id).globallogs.slice(0, 15).reverse() : null
+			logs: logs
 		});
 	} else {
 		res.redirect('../nologin');
 	}
 });
 
-app.post('/dashboard/:id/generalsettings/submitprefix', function (req, res, next) {
+app.post('/dashboard/:id/generalsettings/submitprefix', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -348,7 +363,7 @@ app.post('/dashboard/:id/generalsettings/submitprefix', function (req, res, next
 
 		if (index === -1) return res.redirect("../servers");
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") 
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		var newprefix = req.body.newprefix;
 
@@ -358,6 +373,7 @@ app.post('/dashboard/:id/generalsettings/submitprefix', function (req, res, next
 
 		if (!tableload.globallogs) {
 			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
 		}
 		tableload.globallogs.push({
 			action: `Changed the prefix of the bot!`,
@@ -366,7 +382,7 @@ app.post('/dashboard/:id/generalsettings/submitprefix', function (req, res, next
 			showeddate: new Date().toUTCString()
 		});
 
-		client.guildconfs.set(dashboardid, tableload);
+		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(`/dashboard/${dashboardid}/generalsettings`);
 	} else {
@@ -415,7 +431,7 @@ app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 	}
 });
 
-app.post('/dashboard/:id/logs/submitlogs', function (req, res, next) {
+app.post('/dashboard/:id/logs/submitlogs', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -442,6 +458,7 @@ app.post('/dashboard/:id/logs/submitlogs', function (req, res, next) {
 
 		if (!tableload.globallogs) {
 			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
 		}
 		tableload.globallogs.push({
 			action: `Changed the ${Object.keys(req.body)[0]} settings!`,
@@ -450,7 +467,7 @@ app.post('/dashboard/:id/logs/submitlogs', function (req, res, next) {
 			showeddate: new Date().toUTCString()
 		});
 
-		client.guildconfs.set(dashboardid, tableload);
+		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
 			pathname:`/dashboard/${dashboardid}/logs`,
@@ -506,7 +523,7 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 	}
 });
 
-app.post('/dashboard/:id/modules/submitmodules', function (req, res, next) {
+app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -526,7 +543,9 @@ app.post('/dashboard/:id/modules/submitmodules', function (req, res, next) {
 
 		if (!tableload.globallogs) {
 			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
 		}
+
 		tableload.globallogs.push({
 			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
 			username: req.user.username,
@@ -534,7 +553,7 @@ app.post('/dashboard/:id/modules/submitmodules', function (req, res, next) {
 			showeddate: new Date().toUTCString()
 		});
 
-		client.guildconfs.set(dashboardid, tableload);
+		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
 			pathname:`/dashboard/${dashboardid}/modules`,
