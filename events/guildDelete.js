@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 exports.run = async(client, guild) => {
-    await client.guildconfs.delete(guild.id);
     const embed = new Discord.RichEmbed()
 	.setTimestamp()
 	.setAuthor(`${guild.name} (${guild.id})`)
