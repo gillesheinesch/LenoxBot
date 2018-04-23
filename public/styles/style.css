@@ -485,8 +485,8 @@ a {
     position: absolute;
     right: 0;
     top: 0;
-    margin-right: 10px;
-    margin-top: 20px;
+    margin-right: 10px !important;
+    margin-top: 2px !important;
     display: inline-block;
     border: 1px solid white;
     list-style-type: none;
