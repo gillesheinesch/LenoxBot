@@ -358,12 +358,13 @@ a {
     margin-bottom: 100px;
 }
 
-#selectserver {
+.selectserver {
     margin-top: 100px;
     margin-bottom: 100px;
 }
 
-#selectserver .col-md-4 {
+.selectserver .col-md-4 {
+    border-radius: 30px;
     width: 30%;
     text-align: center;
     margin: 5px 5px;
@@ -371,29 +372,32 @@ a {
 }
 
 #guildname-selectserver {
+    font-family: Mont, sans-serif;
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
 #icon-selectserver {
     box-shadow: 0px 0px 10px #2e2f30, 0px 0px 10px #3c3e3f, 4px 0px 10px #4c4d4e;
-    margin-top: 11px;
+    margin-top: 20px;
 }
 
 #getlenoxbot-button {
-    margin-bottom: 15px;
+    font-size: 25px;
+    margin-bottom: 20px;
     border: 2px solid white;
 }
 
 #dashboard-button {
-    margin-bottom: 15px;
+    font-size: 25px;
+    margin-bottom: 20px;
     border: 2px solid white;
 }
 
 #selectserver-membercount {
     color: rgb(126, 199, 233);
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .dashboard-sidenav {
