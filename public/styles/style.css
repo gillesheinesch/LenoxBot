@@ -492,12 +492,13 @@ a {
     margin-right: 10px !important;
     margin-top: 2px !important;
     display: inline-block;
-    border: 1px solid white;
+    font-family: Mont, sans-serif;
+    background-color: rgb(98, 231, 98);
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 20px;
     list-style-type: none;
     margin: 0;
-    padding: 0;
     overflow: hidden;
-    background-color: #333;
 }
 
 #loginbutton a {
@@ -515,7 +516,7 @@ a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    background-color: rgb(136, 135, 135);
+    background-color: rgb(6, 139, 6);
 }
 
 @import url('https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css');
@@ -645,7 +646,6 @@ section .section-title {
     width: 500%; 
     font-family: Mont, sans-serif;
 }
-
 
 /*Handy S*/
 
