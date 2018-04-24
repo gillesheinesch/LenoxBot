@@ -70,8 +70,9 @@
                     <div class="panel-heading">
                         <p class="text text-white text-size-normal">Prefix</p>
                     </div>
+                    <div class="panel-body">
                     <p class="text text-size-big" style="margin: 20px 20px;">Current prefix: {{guilds.prefix}}</p>
-                    <form class="form-horizontal" id="newprefix-form" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST">
+                    <form class="form-vertical" id="newprefix-form" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST">
                         <div class="form-group">
                             <label class="control-label col-sm-2" for="newprefix">New prefix:</label>
                             <div class="col-sm-5">
@@ -80,11 +81,12 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10">
+                            <div class="col-sm-offset-2 col-sm-10" style="margin-top: 20px;">
                                 <button type="submit" class="btn btn-default">Submit</button>
                             </div>
                         </div>
                     </form>
+                    </div>
                 </div>
                 <div class="panel panel-primary panel-dashboard">
                     <div class="panel-heading">
@@ -103,7 +105,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-2 col-sm-10">
+                                <div class="col-sm-offset-3 col-sm-10">
                                     <button type="submit" class="btn btn-default">Submit</button>
                                 </div>
                             </div>
