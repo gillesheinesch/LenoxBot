@@ -47,7 +47,7 @@ fs.readdir('./events/', (err, files) => {
 	});
 });
 
-
+/*
 process.on('unhandledRejection', (reason) => {
 	if (reason.name === 'DiscordAPIError') return;
 	console.error(reason);
@@ -55,7 +55,7 @@ process.on('unhandledRejection', (reason) => {
 process.on('uncaughtException', (reason) => {
 	console.error(reason);
 });
-
+*/
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -161,7 +161,7 @@ app.get('/callback',
 
 app.listen(50451, function (err) {
 	if (err) return console.log(err);
-	console.log('Listening at http://localhost:50451/');
+	console.log('Listening at http://5.230.4.114:50451/');
 });
 
 app.get('/', function (req, res, next) {
