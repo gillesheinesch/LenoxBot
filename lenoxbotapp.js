@@ -159,9 +159,9 @@ app.get('/callback',
 	}
 );
 
-app.listen(443, function (err) {
+app.listen(80, function (err) {
 	if (err) return console.log(err);
-	console.log('Listening at http://5.230.4.114:443/');
+	console.log('Listening at http://5.230.4.114:80/');
 });
 
 app.get('/', function (req, res, next) {
