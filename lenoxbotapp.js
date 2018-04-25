@@ -7,6 +7,19 @@ const NewsAPI = require('newsapi');
 const EnmapSQLite = require('enmap-sqlite');
 const EnmapLevel = require('enmap-level');
 
+var express = require('express'),
+	session = require('express-session'),
+	url = require('url'),
+	moment = require('moment'),
+	passport = require('passport'),
+	Strategy = require('passport-discord').Strategy,
+	handlebars = require('express-handlebars'),
+	app = express();
+const path = require('path');
+var cookieParser = require('cookie-parser');
+var bodyParser = require('body-parser');
+
+
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({
 	provider: new EnmapSQLite({
@@ -78,19 +91,6 @@ categories.forEach((c, i) => {
 client.login(token);
 
 // WEBSITE
-
-var express = require('express'),
-	session = require('express-session'),
-	url = require('url'),
-	moment = require('moment'),
-	passport = require('passport'),
-	Strategy = require('passport-discord').Strategy,
-	handlebars = require('express-handlebars'),
-	app = express();
-const path = require('path');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-
 var database = new Enmap({
 	provider: new EnmapSQLite({
 		name: 'discordoauth'
@@ -123,7 +123,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://dashboardtest.lenoxbot.com/callback',
+	callbackURL: 'http://localhost:80/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {

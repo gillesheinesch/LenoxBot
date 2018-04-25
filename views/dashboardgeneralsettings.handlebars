@@ -2,30 +2,33 @@
 <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
 <script src='../../script/dashboardlogs.js'></script>
 <header id="header">
-    <div class="logo">
-        <img src="../../lenoxbot.png" height="70" width="70" id="logoimg">
-        <p class="text text-size-big text-white" id="logo">LenoxBot</p>
-    </div>
-    <nav class="navbar">
-        <ul>
-            <li>
+    <nav class="navbar" role="navigation">
+        <div class="logo navbar-brand">
+            <span class="navbar-toggler-icon">
+                <img class="d-inline-block align-top" src="https://i.imgur.com/MINCK5a.png" height="30" width="30" alt="">
+            </span>
+            <p class="text text-size-big text-white navbar-toggler" style="float:right;">LenoxBot</p>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+        <ul class="nav navbar-nav" id="navbar-header">
+            <li class="nav-item">
                 <a href="../../home" class="text text-size-normal text-white navbar-button">Home</a>
             </li>
-            <li>
+            <li class="nav-item">
                 <a href="../../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
             </li>
-            <li>
-                <a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button">Blog
+            <li class="nav-item">
+                <a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Blog
                     <span class="label label-info">NEW</span>
                 </a>
             </li>
-            <li>
-                <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Invite LenoxBot</a>
+            <li class="nav-item">
+                <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Invite LenoxBot</a>
             </li>
-            <li>
-                <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button">Discord Server</a>
+            <li class="nav-item">
+                <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Discord Server</a>
             </li>
-            <li>
+            <li class="nav-item">
                 {{#if user}}
                 <a href="../../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard
                     <span class="label label-danger">ALPHA</span>
@@ -33,6 +36,7 @@
                 {{/if}}
             </li>
         </ul>
+        </div>
     </nav>
     <div class="navbar" id="loginbutton">
         {{#if user}}

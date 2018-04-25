@@ -262,8 +262,9 @@ a {
 }
 
 .navbar ul {
-    display: inline-block;
+    display: inline-block !important;
     border: 1px solid white;
+    text-align: center !important;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -290,7 +291,7 @@ a {
     text-align: center;
     padding: 14px 16px;
     text-decoration: none;
-    background-color: rgb(136, 135, 135);
+    background-color: rgb(136, 135, 135) !important;
 }
 
 .footer-navigation {
@@ -476,7 +477,7 @@ a {
 
 #logoimg {
     text-decoration: none;
-    border: 10px solid transparent;
+    border: 1px solid transparent;
     box-sizing: border-box;
     position: absolute;
     left: 0;
@@ -645,6 +646,13 @@ section .section-title {
 .guildsname-dashboard {
     width: 500%; 
     font-family: Mont, sans-serif;
+}
+
+#navbar-header{
+    float:none;
+    margin: 0 auto;
+    display: table;
+    table-layout: fixed;
 }
 
 /*Handy S*/
