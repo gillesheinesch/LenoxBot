@@ -11,6 +11,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("administration-button").classList.add('active');
 	});
 
 	document.getElementById('moderation-button').addEventListener('click', () => {
@@ -25,6 +33,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("moderation-button").classList.add('active');
 	});
 
 	document.getElementById('help-button').addEventListener('click', () => {
@@ -39,6 +55,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("help-button").classList.add('active');
 	});
 
 	document.getElementById('music-button').addEventListener('click', () => {
@@ -53,6 +77,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("music-button").classList.add('active');
 	});
 
 	document.getElementById('fun-button').addEventListener('click', () => {
@@ -67,6 +99,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("fun-button").classList.add('active');
 	});
 
 	document.getElementById('searches-button').addEventListener('click', () => {
@@ -81,6 +121,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("searches-button").classList.add('active');
 	});
 
 	document.getElementById('nsfw-button').addEventListener('click', () => {
@@ -95,6 +143,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("nsfw-button").classList.add('active');
 	});
 
 	document.getElementById('application-button').addEventListener('click', () => {
@@ -109,6 +165,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("application-button").classList.add('active');
 	});
 
 	document.getElementById('currency-button').addEventListener('click', () => {
@@ -123,6 +187,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("currency-button").classList.add('active');
 	});
 
 	document.getElementById('utility-button').addEventListener('click', () => {
@@ -137,6 +209,14 @@ $("document").ready(function () {
 				otherelements[i].style.display = 'none';
 			}
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("utility-button").classList.add('active');
 	});
 
 	document.getElementById('allcommands-button').addEventListener('click', () => {
@@ -144,6 +224,14 @@ $("document").ready(function () {
 		for (var i3 = 0; i3 < moderationelements.length; i3++) {
 			moderationelements[i3].style.display = "";
 		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("allcommands-button").classList.add('active');
 	});
 });
 
