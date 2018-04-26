@@ -301,10 +301,14 @@ a {
     height: 5px;
 }
 
-.footer-navigation a {
+.footer-navigation a, .footer-navigation p {
+    margin-left: 10px !important;
+    margin-right: 10px !important;
     color: #8C8C92;
-    margin: 0 3%;
     transition: 0.7s ease all;
+    float: none;
+    margin: 0 auto;
+    display: inline;
 }
 
 a {
