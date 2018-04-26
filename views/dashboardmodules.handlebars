@@ -1,5 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../../styles/style.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
 <script src='../../script/dashboardlogs.js'></script>
 <header id="header">
     <nav class="navbar" role="navigation">
@@ -10,41 +10,41 @@
             <p class="text text-size-big text-white navbar-toggler" style="float:right;">LenoxBot</p>
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
-        <ul class="nav navbar-nav" id="navbar-header">
-            <li class="nav-item">
-                <a href="../../home" class="text text-size-normal text-white navbar-button">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="../../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Blog
-                    <span class="label label-info">NEW</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Invite LenoxBot</a>
-            </li>
-            <li class="nav-item">
-                <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Discord Server</a>
-            </li>
-            <li class="nav-item">
-                {{#if user}}
-                <a href="../../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard
-                    <span class="label label-danger">ALPHA</span>
-                </a>
-                {{/if}}
-            </li>
-        </ul>
+            <ul class="nav navbar-nav" id="navbar-header">
+                <li class="nav-item">
+                    <a href="../../home" class="text text-size-normal text-white navbar-button">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Blog
+                        <span class="label label-info">NEW</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Invite LenoxBot</a>
+                </li>
+                <li class="nav-item">
+                    <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Discord Server</a>
+                </li>
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="../../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard
+                        <span class="label label-danger">ALPHA</span>
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+        <div class="navbar" id="loginbutton">
+            {{#if user}}
+            <a href="../../logout" class="text text-size-normal navbar-button" style="color: black;">Log out</a>
+            {{ else }}
+            <a href="../../login" class="text text-size-normal navbar-button" style="color: black;">Log in</a>
+            {{/if}}
         </div>
     </nav>
-    <div class="navbar" id="loginbutton">
-        {{#if user}}
-        <a href="../../logout" class="text text-size-normal navbar-button" style="color: black;">Log out</a>
-        {{ else }}
-        <a href="../../login" class="text text-size-normal navbar-button" style="color: black;">Log in</a>
-        {{/if}}
-    </div>
     </div>
 </header>
 
@@ -56,12 +56,14 @@
                     <h1 class="guildsname-dashboard">{{guilds.name}}</h1>
                 </div>
                 <div class="btn-group-vertical btn-group buttongroup-dashboard">
-					<a href="/dashboard/{{guilds.id}}/overview" class="btn btn-primary text-size-normal button-dashboard" role="button">Overview</a>
-					<a href="/dashboard/{{guilds.id}}/generalsettings" class="btn btn-primary text-size-normal button-dashboard" role="button">General Settings</a>
-					<a href="/dashboard/{{guilds.id}}/logs" class="btn btn-primary text-size-normal button-dashboard" role="button">Logssettings</a>
-					<a href="/dashboard/{{guilds.id}}/modules" class="btn btn-primary text-size-normal button-dashboard active" role="button">Modules</a>
-                    <a href="#" class="btn btn-primary text-size-normal button-dashboard" role="button">Tickets <span class="label label-danger">INCOMING</span></a>
-				</div>
+                    <a href="/dashboard/{{guilds.id}}/overview" class="btn btn-primary text-size-normal button-dashboard" role="button">Overview</a>
+                    <a href="/dashboard/{{guilds.id}}/generalsettings" class="btn btn-primary text-size-normal button-dashboard" role="button">General Settings</a>
+                    <a href="/dashboard/{{guilds.id}}/logs" class="btn btn-primary text-size-normal button-dashboard" role="button">Logssettings</a>
+                    <a href="/dashboard/{{guilds.id}}/modules" class="btn btn-primary text-size-normal button-dashboard active" role="button">Modules</a>
+                    <a href="#" class="btn btn-primary text-size-normal button-dashboard" role="button">Tickets
+                        <span class="label label-danger">INCOMING</span>
+                    </a>
+                </div>
             </div>
             <div class="panel-group-dashboard">
                 {{#if submitmodules}}
