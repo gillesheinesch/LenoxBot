@@ -35,20 +35,31 @@
                 {{/if}}
             </li>
         </ul>
-        		<div class="navbar" id="loginbutton">
-        {{#if user}}
-        <a href="../../logout" class="text text-size-normal navbar-button" style="color: black;">Log out</a>
-        {{ else }}
-        <a href="../../login" class="text text-size-normal navbar-button" style="color: black;">Log in</a>
-        {{/if}}
-    </div>
+        <div class="navbar" id="loginbutton">
+            {{#if user}}
+            <a href="../../logout" class="text text-size-normal navbar-button" style="color: black;">Log out</a>
+            {{ else }}
+            <a href="../../login" class="text text-size-normal navbar-button" style="color: black;">Log in</a>
+            {{/if}}
+        </div>
     </nav>
     </div>
 </header>
 
 <main>
+    {{#if submitgeneralsettings}}
+    <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="width: 500px; float:right;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
+        <span class="text"></span>
+        <strong>New settings saved!</strong>
+        <hr class="message-inner-separator">
+        <p>
+            We saved your new settings for {{guilds.name}}</p>
+    </div>
+    {{/if}}
     <div class="container">
         <div class="row">
+
             <div class="col-sm-3">
                 <div class="text text-white text-size-caption" id="guildsname-dashboard">
                     <h1 class="guildsname-dashboard">{{guilds.name}}</h1>
@@ -58,36 +69,32 @@
                     <a href="/dashboard/{{guilds.id}}/generalsettings" class="btn btn-primary text-size-normal button-dashboard active" role="button">General Settings</a>
                     <a href="/dashboard/{{guilds.id}}/logs" class="btn btn-primary text-size-normal button-dashboard" role="button">Logssettings</a>
                     <a href="/dashboard/{{guilds.id}}/modules" class="btn btn-primary text-size-normal button-dashboard" role="button">Modules</a>
-                    <a href="#" class="btn btn-primary text-size-normal button-dashboard" role="button">Tickets <span class="label label-danger">INCOMING</span></a>
+                    <a href="#" class="btn btn-primary text-size-normal button-dashboard" role="button">Tickets
+                        <span class="label label-danger">INCOMING</span>
+                    </a>
                 </div>
             </div>
             <div class="panel-group panel-group-dashboard">
-                {{#if submitgeneralsettings}}
-                <div class="alert alert-success alert-dismissible" id="success-alert">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Saved settings!</strong> We saved your settings on your discord server!
-                </div>
-                {{/if}}
                 <div class="panel panel-primary panel-dashboard">
                     <div class="panel-heading">
                         <p class="text text-white text-size-normal">Prefix</p>
                     </div>
                     <div class="panel-body">
-                    <p class="text text-size-big" style="margin: 20px 20px;">Current prefix: {{guilds.prefix}}</p>
-                    <form class="form-vertical" id="newprefix-form" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST">
-                        <div class="form-group">
-                            <label class="control-label col-sm-2" for="newprefix">New prefix:</label>
-                            <div class="col-sm-5">
-                                <input type="text" class="form-control" id="newprefix" name="newprefix" placeholder="Enter new prefix for your discord server"
-                                    pattern=".{1,}" required title="1 characters minimum">
+                        <p class="text text-size-big" style="margin: 20px 20px;">Current prefix: {{guilds.prefix}}</p>
+                        <form class="form-vertical" id="newprefix-form" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST">
+                            <div class="form-group">
+                                <label class="control-label col-sm-2" for="newprefix">New prefix:</label>
+                                <div class="col-sm-5">
+                                    <input type="text" class="form-control" id="newprefix" name="newprefix" placeholder="Enter new prefix for your discord server"
+                                        pattern=".{1,}" required title="1 characters minimum">
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group">
-                            <div class="col-sm-offset-2 col-sm-10" style="margin-top: 20px;">
-                                <button type="submit" class="btn btn-default">Submit</button>
+                            <div class="form-group">
+                                <div class="col-sm-offset-2 col-sm-10" style="margin-top: 20px;">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
                     </div>
                 </div>
                 <div class="panel panel-primary panel-dashboard">
@@ -120,12 +127,12 @@
 </main>
 
 
-    <footer>
-        <nav class="footer-navigation">
-            <p target="blank" class="text text-size-small text-white">&copy; LenoxBot
-            </p>
-            <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-        </nav>
-    </footer>
+<footer>
+    <nav class="footer-navigation">
+        <p target="blank" class="text text-size-small text-white">&copy; LenoxBot
+        </p>
+        <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+    </nav>
+</footer>

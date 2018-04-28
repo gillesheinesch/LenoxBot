@@ -47,6 +47,16 @@
 </header>
 
 <main>
+    {{#if submitlogs}}
+    <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="width: 500px; float:right;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
+        <span class="text"></span>
+        <strong>New Logging settings saved!</strong>
+        <hr class="message-inner-separator">
+        <p>
+            We saved your new Logging settings for {{guilds.name}}</p>
+    </div>
+    {{/if}}
     <div class="container">
         <div class="row">
             <div class="col-sm-3">
@@ -62,12 +72,6 @@
 				</div>
             </div>
             <div class="panel-group-dashboard">
-                {{#if submitlogs}}
-                <div class="alert alert-success alert-dismissible" id="success-alert">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    <strong>Saved settings!</strong> We saved your settings on your discord server!
-                </div>
-                {{/if}}
                 <div class="panel-group">
                     <div class="panel panel-primary panel-dashboard">
                         <div class="panel-heading">
