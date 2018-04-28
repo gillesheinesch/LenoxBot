@@ -670,6 +670,10 @@ section .section-title {
     Mont, sans-serif;
 }
 
+.card-text {
+    word-wrap: break-word;
+}
+
 /*Handy S*/
 
 @media only screen and (min-width: 320px) and (max-width: 374px) {

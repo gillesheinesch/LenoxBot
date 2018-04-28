@@ -161,7 +161,7 @@ app.get('/callback',
 
 app.listen(80, function (err) {
 	if (err) return console.log(err);
-	console.log('Listening at http://5.230.4.114:80/');
+	console.log('Listening at https://dashboardtest.lenoxbot.com/');
 });
 
 app.get('/', function (req, res, next) {
@@ -323,6 +323,8 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 
 		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
 
+		req.user.guilds[index].lenoxbotjoined = client.guilds.get(req.user.guilds[index].id).members.get('354712333853130752') ? moment(client.guilds.get(req.user.guilds[index].id).members.get('354712333853130752').joinedAt).format('MMMM Do YYYY, h:mm:ss a') : 'Undefined';
+
 		var check = req.user.guilds[index];
 
 		if (client.guildconfs.get(dashboardid).globallogs) {
@@ -439,7 +441,6 @@ app.post('/dashboard/:id/generalsettings/submitlanguage', async function (req, r
 		res.redirect('../nologin');
 	}
 });
-
 
 app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
@@ -660,7 +661,6 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 	}
 });
 
-
 app.get('/404error', function (req, res, next) {
 	if (req.user) {
 		var check = [];
@@ -677,7 +677,6 @@ app.get('/404error', function (req, res, next) {
 		client: client
 	});
 });
-
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
