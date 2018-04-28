@@ -1,47 +1,50 @@
 <link rel="stylesheet" type="text/css" href="../../styles/style.css" />
 <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="../../assets/numscroller/numscroller-1.0.js"></script>
+
 <header id="header">
-    <nav class="navbar" role="navigation">
-        <div class="logo navbar-brand">
-            <span class="navbar-toggler-icon">
-                <img class="d-inline-block align-top" src="https://i.imgur.com/MINCK5a.png" height="30" width="30" alt="">
-            </span>
-            <p class="text text-size-big text-white navbar-toggler" style="float:right;">LenoxBot</p>
-        </div>
-        <ul class="nav navbar-nav" id="navbar-header">
-            <li class="nav-item">
-                <a href="../../home" class="text text-size-normal text-white navbar-button">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="../../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Blog
-                    <span class="label label-info">NEW</span>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Invite LenoxBot</a>
-            </li>
-            <li class="nav-item">
-                <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Discord Server</a>
-            </li>
-            <li class="nav-item">
-                {{#if user}}
-                <a href="../../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard
-                    <span class="label label-danger">ALPHA</span>
-                </a>
-                {{/if}}
-            </li>
-        </ul>
+	<nav class="navbar" role="navigation">
+		<div class="logo navbar-brand">
+			<span class="navbar-toggler-icon">
+				<img class="d-inline-block align-top" src="https://i.imgur.com/MINCK5a.png" height="30" width="30" alt="">
+			</span>
+			<p class="text text-size-big text-white navbar-toggler" style="float:right;">LenoxBot</p>
+		</div>
+		<ul class="nav navbar-nav" id="navbar-header">
+			<li class="nav-item">
+				<a href="../../home" class="text text-size-normal text-white navbar-button">Home</a>
+			</li>
+			<li class="nav-item">
+				<a href="../../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+			</li>
+			<li class="nav-item">
+				<a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Blog
+					<span class="label label-info">NEW</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Invite LenoxBot</a>
+			</li>
+			<li class="nav-item">
+				<a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Discord Server</a>
+			</li>
+			<li class="nav-item">
+				{{#if user}}
+				<a href="../../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard
+					<span class="label label-danger">ALPHA</span>
+				</a>
+				{{/if}}
+			</li>
+		</ul>
 		<div class="navbar" id="loginbutton">
-        {{#if user}}
-        <a href="../../logout" class="text text-size-normal navbar-button" style="color: black;">Log out</a>
-        {{ else }}
-        <a href="../../login" class="text text-size-normal navbar-button" style="color: black;">Log in</a>
-        {{/if}}
-    </div>
-    </nav>
+			{{#if user}}
+			<a href="../../logout" class="text text-size-normal navbar-button" style="color: black;">Log out</a>
+			{{ else }}
+			<a href="../../login" class="text text-size-normal navbar-button" style="color: black;">Log in</a>
+			{{/if}}
+		</div>
+	</nav>
 	</div>
 </header>
 
@@ -57,7 +60,9 @@
 					<a href="/dashboard/{{guilds.id}}/generalsettings" class="btn btn-primary text-size-normal button-dashboard" role="button">General Settings</a>
 					<a href="/dashboard/{{guilds.id}}/logs" class="btn btn-primary text-size-normal button-dashboard" role="button">Logssettings</a>
 					<a href="/dashboard/{{guilds.id}}/modules" class="btn btn-primary text-size-normal button-dashboard" role="button">Modules</a>
-					<a href="#" class="btn btn-primary text-size-normal button-dashboard" role="button">Tickets <span class="label label-danger">INCOMING</span></a>
+					<a href="#" class="btn btn-primary text-size-normal button-dashboard" role="button">Tickets
+						<span class="label label-danger">INCOMING</span>
+					</a>
 				</div>
 			</div>
 			<div class="panel-group panel-group-dashboard">
@@ -65,15 +70,31 @@
 					<div class="panel-heading">
 						<p class="text text-white text-size-big">Welcome {{user.username}},</p>
 					</div>
-					<div class="panel-body">
-						<p class="text text-size-normal">Owner: {{guilds.ownertag}}</p>
-						<p class="text text-size-normal">Members: {{guilds.memberscount}} ({{guilds.membersonline}} online, {{guilds.membersidle}} idle, {{guilds.membersdnd}}
-							DND, {{guilds.membersoffline}} offline)</p>
-						<p class="text text-size-normal">Channels: {{guilds.channelscount}} </p>
-						<p class="text text-size-normal">Roles: {{guilds.rolescount}}</p>
-						<p class="text text-size-normal">Botprefix: {{guilds.prefix}}</p>
-						<p class="text text-size-normal">Activated modules: {{guilds.activatedmodules}}</p>
-						<p class="text text-size-normal">LenoxBot joined: {{guilds.lenoxbotjoined}}</p>
+				</div>
+				<div class="card-group" style="text-align: center;">
+					<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
+						<div class="card-body">
+							<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.memberscount}}" data-delay='0.8' data-increment='1'>{{guilds.memberscount}}</span>
+							<p class="text card-title" style="text-align: center;">Members</p>
+						</div>
+					</div>
+					<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
+						<div class="card-body">
+							<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.channelscount}}" data-delay='0.8' data-increment='1'>{{guilds.channelscount}}</span>
+							<p class="text card-title" style="text-align: center;">Channels</p>
+						</div>
+					</div>
+					<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
+						<div class="card-body">
+							<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.rolescount}}" data-delay='0.8' data-increment='1'>{{guilds.rolescount}}</span>
+							<p class="text card-title" style="text-align: center;">Roles</p>
+						</div>
+					</div>
+					<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
+						<div class="card-body">
+							<p class="card-text text text-size-big" style="text-align: center;">{{guilds.prefix}}</p>
+							<p class="text card-title" style="text-align: center;">Prefix</p>
+						</div>
 					</div>
 				</div>
 				<div class="panel panel-primary panel-dashboard">
@@ -89,15 +110,13 @@
 								<th class="text text-size-normal text-black">Date</th>
 							</tr>
 							<!-- Header of logs -->
-							{{#if logs}}
-							{{#each logs}}
+							{{#if logs}} {{#each logs}}
 							<tr>
 								<td class="text text-size-small text-black">{{action}}</td>
 								<td class="text text-size-small text-black">{{username}}</td>
 								<td class="text text-size-small text-black">{{showeddate}}</td>
 							</tr>
-							{{/each}}
-							{{else}}
+							{{/each}} {{else}}
 							<tr>
 								<td class="text text-size-small text-black">None</td>
 								<td class="text text-size-small text-black">None</td>
@@ -113,12 +132,12 @@
 </main>
 
 
-    <footer>
-        <nav class="footer-navigation">
-            <p target="blank" class="text text-size-small text-white">&copy; LenoxBot
-            </p>
-            <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-        </nav>
-    </footer>
+<footer>
+	<nav class="footer-navigation">
+		<p target="blank" class="text text-size-small text-white">&copy; LenoxBot
+		</p>
+		<a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+			<i class="fa fa-twitter" aria-hidden="true"></i>
+		</a>
+	</nav>
+</footer>
