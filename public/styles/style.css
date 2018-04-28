@@ -368,7 +368,7 @@ a {
     margin-bottom: 100px;
 }
 
-.selectserver .col-md-4 {
+.selectserver .col-sm-4 {
     border-radius: 30px;
     width: 30%;
     text-align: center;
@@ -384,7 +384,6 @@ a {
 
 #icon-selectserver {
     box-shadow: 0px 0px 10px #2e2f30, 0px 0px 10px #3c3e3f, 4px 0px 10px #4c4d4e;
-    margin-top: 20px;
 }
 
 #getlenoxbot-button {
@@ -661,6 +660,14 @@ section .section-title {
 
 .table {
     margin-bottom: 70px !important;
+}
+
+.servernotlist {
+    text-align: center; 
+    margin-top: 30px; 
+    color:aliceblue; 
+    font-family: 
+    Mont, sans-serif;
 }
 
 /*Handy S*/
