@@ -325,6 +325,17 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 
 		req.user.guilds[index].lenoxbotjoined = client.guilds.get(req.user.guilds[index].id).members.get('354712333853130752') ? moment(client.guilds.get(req.user.guilds[index].id).members.get('354712333853130752').joinedAt).format('MMMM Do YYYY, h:mm:ss a') : 'Undefined';
 
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var activatedmodules = 0;
+		for (var prop in client.guildconfs.get(req.user.guilds[index].id).modules) {
+			if (client.guildconfs.get(req.user.guilds[index].id).modules[prop] === 'true') {
+				activatedmodules = activatedmodules + 1;
+			}
+		}
+
+		req.user.guilds[index].activatedmodules = activatedmodules;
+		
 		var check = req.user.guilds[index];
 
 		if (client.guildconfs.get(dashboardid).globallogs) {
