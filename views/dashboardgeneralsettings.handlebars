@@ -121,6 +121,46 @@
                         </form>
                     </div>
                 </div>
+                <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-normal">Welcome Message</p>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitwelcomemsg" method="POST">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="newwelcomemsg">Set a new welcome message:</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" name="newwelcomemsg" rows="3">{{guilds.welcomemsg}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-normal">Bye Message</p>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitbyemsg" method="POST">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="newbyemsg">Set a new bye message:</label>
+                                <div class="col-sm-9">
+                                    <textarea class="form-control" name="newbyemsg" rows="3">{{guilds.byemsg}}</textarea>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
