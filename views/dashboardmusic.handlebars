@@ -47,14 +47,14 @@
 </header>
 
 <main>
-    {{#if submitmodules}}
+    {{#if submitmusic}}
     <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="width: 500px; float:right;">
         <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
         <span class="text"></span>
-        <strong>New modules settings saved!</strong>
+        <strong>New music settings saved!</strong>
         <hr class="message-inner-separator">
         <p>
-            We saved your new modules settings for {{guilds.name}}</p>
+            We saved your new music settings for {{guilds.name}}</p>
     </div>
     {{/if}}
     <div class="container">
@@ -77,215 +77,36 @@
             </div>
             <div class="panel-group-dashboard">
                 <div class="panel-group">
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">Moderation</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="moderation">Moderation module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="moderation">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+            <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-normal">Music Channelblacklist</p>
                     </div>
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">Help</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="help">Help module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="help">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
+                    <div class="panel-body">
+                        <form class="form-vertical" action="/dashboard/{{guilds.id}}/music/submitchannelblacklist" method="POST">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="newchannelblacklist">Set channels where LenoxBot doesn't play music:</label>
+                                <div class="col-sm-4">
+                                    <select required class="form-control custom-select custom-select-lg mb-3 selectpicker selectpicker" name="newchannelblacklist" data-live-search="true" multiple title="Choose voicechannel(s)" data-actions-box="true" data-size="7">
+                                        {{#each channels}}
+                                        {{#if channelblacklistset}}
+                                        <option value="{{name}}" selected>{{name}}</option>
+                                        {{else}}
+                                        <option value="{{name}}">{{name}}</option>
+                                        {{/if}}
+                                        {{/each}}
+                                    </select>
                                 </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Submit</button>
                                 </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">Music</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="music">Music module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="music">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">Fun</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="fun">Fun module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="fun">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">Searches</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="searches">Searches module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="searches">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">NSFW</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="nsfw">NSFW module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="nsfw">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">Utility</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="utility">Utility module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="utility">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">Application</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="application">Application module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="application">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                    <div class="panel panel-primary panel-dashboard">
-                        <div class="panel-heading">
-                            <p class="text text-white text-size-big">Currency</p>
-                        </div>
-                        <div class="panel-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-2" for="currency">Currency module: </label>
-                                    <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="currency">
-                                            <option value="true">Activate this module</option>
-                                            <option value="false">Deactivate this module</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-2 col-sm-10">
-                                        <button type="submit" class="btn btn-default">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </div>
+                </div>
+                </div>
         </div>
     </div>
 </main>
