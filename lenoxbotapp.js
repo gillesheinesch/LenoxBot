@@ -174,6 +174,7 @@ app.get('/', function (req, res, next) {
 		}
 	}
 
+
 	res.render('index', {
 		user: req.user,
 		guilds: check,
@@ -194,7 +195,8 @@ app.get('/home', function (req, res, next) {
 	res.render('index', {
 		user: req.user,
 		guilds: check,
-		client: client
+		client: client,
+		botstats: client.botconfs.get('botstats')
 	});
 });
 
@@ -364,6 +366,149 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/generalsettings/submittogglexp', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newtogglexp = req.body.newtogglexp;
+		var array = [];
+		const tableload = client.guildconfs.get(dashboardid);
+
+		if (Array.isArray(newtogglexp)) {
+		for(var i = 0; i < newtogglexp.length; i++) {
+			array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newtogglexp[i]).id);
+		}
+		tableload.togglexp.channelids = array;
+		} else {
+			array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newtogglexp).id);
+			tableload.togglexp.channelids = array;
+		}
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Updated Channel in which XP doesn't count (ToggleXP)!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/generalsettings`,
+			query: {
+			   "submitgeneralsettings": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/generalsettings/submitbyemsg', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newbyemsg = req.body.newbyemsg;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.byemsg = newbyemsg;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Changed the bye message!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/generalsettings`,
+			query: {
+			   "submitgeneralsettings": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/generalsettings/submitwelcomemsg', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newwelcomemsg = req.body.newwelcomemsg;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.welcomemsg = newwelcomemsg;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Changed the welcome message!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/generalsettings`,
+			query: {
+			   "submitgeneralsettings": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
 app.post('/dashboard/:id/generalsettings/submitprefix', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -481,12 +626,25 @@ app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 
 		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
 
+		req.user.guilds[index].welcomemsg = client.guildconfs.get(req.user.guilds[index].id).welcomemsg;
+		req.user.guilds[index].byemsg = client.guildconfs.get(req.user.guilds[index].id).byemsg;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+
+		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+		for (var i = 0; i < channels.length; i++) {
+			if (tableload.togglexp.channelids.includes(channels[i].id)) {
+				channels[i].togglexpset = true;
+			}
+		}
+
 		var check = req.user.guilds[index];
 
 		return res.render('dashboardgeneralsettings', {
 			user: req.user,
 			guilds: check,
 			client: client,
+			channels: channels,
 			submitgeneralsettings: req.query.submitgeneralsettings ? true : false
 		});
 	} else {

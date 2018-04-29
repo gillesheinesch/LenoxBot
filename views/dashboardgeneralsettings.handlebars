@@ -159,6 +159,34 @@
                         </form>
                     </div>
                 </div>
+                <div class="panel panel-primary panel-dashboard">
+                    <div class="panel-heading">
+                        <p class="text text-white text-size-normal">Toggle XP</p>
+                    </div>
+                    <div class="panel-body">
+                        <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submittogglexp" method="POST">
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="newtogglexp">Set channels where XP don't count:</label>
+                                <div class="col-sm-4">
+                                    <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newtogglexp" data-live-search="true" multiple title="Choose channel(s)" data-actions-box="true" data-size="7">
+                                        {{#each channels}}
+                                        {{#if togglexpset}}
+                                        <option selected>{{name}}</option>
+                                        {{else}}
+                                        <option>{{name}}</option>
+                                        {{/if}}
+                                        {{/each}}
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-sm-offset-3 col-sm-10">
+                                    <button type="submit" class="btn btn-default">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
