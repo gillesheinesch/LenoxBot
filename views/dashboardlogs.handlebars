@@ -82,7 +82,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="modlog">Modlog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="modlog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="modlog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -91,7 +91,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="modlogchannel">New Modlog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="modlogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="modlogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -115,7 +115,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="chatfilterlog">Chatfilterlog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="chatfilterlog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="chatfilterlog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -124,7 +124,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="chatfilterlogchannel">New Modlog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="chatfilterlogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="chatfilterlogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -148,7 +148,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="messagedeletelog">Messagedeletelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="messagedeletelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="messagedeletelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -157,7 +157,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="messagedeletelogchannel">New Messagedeletelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="messagedeletelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="messagedeletelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -181,7 +181,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="messageupdatelog">Messageupdatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="messageupdatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="messageupdatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -190,7 +190,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="messageupdatelogchannel">New Modlog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="messageupdatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="messageupdatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -214,7 +214,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="channelupdatelog">Channelupdatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="channelupdatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelupdatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -223,7 +223,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="channelupdatelogchannel">New Channelupdatelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="channelupdatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelupdatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -247,7 +247,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="channelcreatelog">Channelcreatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="channelcreatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelcreatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -256,7 +256,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="channelcreatelogchannel">New Channelcreatelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="channelcreatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelcreatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -280,7 +280,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="channelupdatelog">Channelupdatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="channelupdatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelupdatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -289,7 +289,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="channelupdatelogchannel">New Channelupdatelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="channelupdatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelupdatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -313,7 +313,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="channeldeletelog">Channeldeletelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="channeldeletelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channeldeletelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -322,7 +322,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="channeldeletelogchannel">New Channeldeletelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="channeldeletelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channeldeletelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -346,7 +346,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="memberupdatelog">Memberupdatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="memberupdatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="memberupdatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -355,7 +355,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="memberupdatelogchannel">New Memberupdatelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="memberupdatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="memberupdatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -379,7 +379,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="presenceupdatelog">Presenceupdatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="presenceupdatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="presenceupdatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -388,7 +388,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="presenceupdatelogchannel">New Presenceupdatelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="presenceupdatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="presenceupdatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -412,7 +412,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="userjoinlog">Userjoinlog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="userjoinlog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="userjoinlog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -421,7 +421,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="userjoinlogchannel">New Userjoinlog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="userjoinlogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="userjoinlogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -445,7 +445,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="userleftlog">Userleftlog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="userleftlog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="userleftlog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -454,7 +454,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="userleftlogchannel">New Userleftlog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="userleftlogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="userleftlogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -478,7 +478,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="rolecreatelog">Rolecreatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="rolecreatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="rolecreatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -487,7 +487,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="rolecreatelogchannel">New Rolecreatelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="rolecreatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="rolecreatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -511,7 +511,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="roledeletelog">Roledeletelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="roledeletelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="roledeletelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -520,7 +520,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="roledeletelogchannel">New Roledeletelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="roledeletelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="roledeletelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -544,7 +544,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="roleupdatelog">Roleupdatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="roleupdatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="roleupdatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -553,7 +553,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="roleupdatelogchannel">New Roleupdatelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="roleupdatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="roleupdatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
@@ -577,7 +577,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="guildupdatelog">Guildupdatelog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="guildupdatelog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="guildupdatelog">
                                             <option value="true">Activate</option>
                                             <option value="false">Deactivate</option>
                                         </select>
@@ -586,7 +586,7 @@
                                 <div class="form-group">
                                     <label class="control-label col-sm-2" for="guildupdatelogchannel">New Guildupdatelog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="guildupdatelogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="guildupdatelogchannel">
                                             {{#each channels}}
                                             <option>{{name}}</option>
                                             {{/each}}
