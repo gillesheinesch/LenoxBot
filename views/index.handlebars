@@ -1,4 +1,5 @@
 <script src='script/mainscript.js'></script>
+<script src="assets/numscroller/numscroller-1.0.js"></script>
 <header id="header">
     <nav class="navbar" role="navigation">
         <div class="logo navbar-brand">
@@ -7,32 +8,32 @@
             </span>
             <p class="text text-size-big text-white navbar-toggler" style="float:right;">LenoxBot</p>
         </div>
-            <ul class="nav navbar-nav" id="navbar-header">
-                <li class="nav-item">
-                    <a href="home" class="text text-size-normal text-white navbar-button" id="active">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Blog
-                        <span class="label label-info">NEW</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Invite LenoxBot</a>
-                </li>
-                <li class="nav-item">
-                    <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Discord Server</a>
-                </li>
-                <li class="nav-item">
-                    {{#if user}}
-                    <a href="servers" class="text text-size-normal text-white navbar-button">Dashboard
-                        <span class="label label-danger">ALPHA</span>
-                    </a>
-                    {{/if}}
-                </li>
-            </ul>
+        <ul class="nav navbar-nav" id="navbar-header">
+            <li class="nav-item">
+                <a href="home" class="text text-size-normal text-white navbar-button" id="active">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Blog
+                    <span class="label label-info">NEW</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="http://invite.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Invite LenoxBot</a>
+            </li>
+            <li class="nav-item">
+                <a href="http://discord.lenoxbot.com" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Discord Server</a>
+            </li>
+            <li class="nav-item">
+                {{#if user}}
+                <a href="servers" class="text text-size-normal text-white navbar-button">Dashboard
+                    <span class="label label-danger">ALPHA</span>
+                </a>
+                {{/if}}
+            </li>
+        </ul>
         <div class="navbar" id="loginbutton">
             {{#if user}}
             <a href="logout" class="text text-size-normal navbar-button" style="color: black;">Log out</a>
@@ -256,22 +257,35 @@
             <i class="fa fa-sign-in" aria-hidden="true"></i> Join</a>
     </div>
     <div id="endline">
-        <div id="avatarhold" style="margin-right: 150px !important;">
-            <img id="avatar" src="https://imgur.com/Bk9TIfE.png" alt="LenoxBot Avatar">
+        <p class="text text-size-big text-white section-caption" style="text-align: center;">
+            <i class="fas fa-info"></i> Stats</p>
+        <div class="card-group">
+            <div class="card text-white bg-primary mb-3 bot-stats" style="width: 50rem;">
+                <div class="card-body">
+                    <p class="text card-title" style="text-align: center;">Guilds:</p>
+                    <span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{botstats.botguildscount}}" data-delay='0.8'
+                        data-increment='1'>{{botstats.botguildscount}}</span>
+                </div>
+            </div>
+            <div class="card text-white bg-primary mb-3 bot-stats" style="width: 50rem;">
+                <div class="card-body">
+                    <p class="text card-title" style="text-align: center;">Members:</p>
+                    <span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{botstats.botmemberscount}}"
+                        data-delay='0.8' data-increment='1'>{{botstats.botmemberscount}}</span>
+                </div>
+            </div>
         </div>
-        <p id="avatartext" class="text text-size-normal text-white">At the moment we have a small community but it does not depend on the quantity but on the quality</p>
-    </div>
-    <div id="topholder">
-        <p id="toTop" class="text text-size-normal text-white active-button btn btn-lg">
-            <i class="fa fa-arrow-up" aria-hidden="true"></i> To the top!</p>
-    </div>
+        <div id="topholder">
+            <p id="toTop" class="text text-size-normal text-white active-button btn btn-lg">
+                <i class="fa fa-arrow-up" aria-hidden="true"></i> To the top!</p>
+        </div>
 </main>
-    <footer>
-        <nav class="footer-navigation">
-            <p target="blank" class="text text-size-small text-white">&copy; LenoxBot
-            </p>
-            <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
-                <i class="fa fa-twitter" aria-hidden="true"></i>
-            </a>
-        </nav>
-    </footer>
+<footer>
+    <nav class="footer-navigation">
+        <p target="blank" class="text text-size-small text-white">&copy; LenoxBot
+        </p>
+        <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
+            <i class="fa fa-twitter" aria-hidden="true"></i>
+        </a>
+    </nav>
+</footer>

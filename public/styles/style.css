@@ -219,7 +219,6 @@ a {
     text-align: center;
     padding: 2% 0;
     margin-bottom: 50px;
-    background: linear-gradient(to bottom, rgb(27, 28, 29), rgb(3, 3, 3))
 }
 
 .documentationbutton {
@@ -706,6 +705,18 @@ hr.message-inner-separator
     top: 0px;
     margin: 30px;
     right: 1px;
+}
+
+.bot-stats {
+    display: inline-block;
+    margin: 15px;
+    background-color: #303030 !important;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.bot-stats .card-body {
+    padding: 15px;
 }
 
 /*Handy S*/

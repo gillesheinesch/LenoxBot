@@ -213,6 +213,11 @@ exports.run = async client => {
 	await client.botconfs.set('market', marketconfs);
 	if (!client.botconfs.has('premium')) client.botconfs.set('premium', botconfspremium);
 
+	await client.botconfs.set('botstats', {
+		botguildscount: client.guilds.size,
+		botmemberscount: client.users.size
+	});
+
 	const embed = new Discord.RichEmbed()
 		.setTitle('Botrestart')
 		.setDescription('The bot had a restart and is back again!\nEveryone can now execute commands!')
