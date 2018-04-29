@@ -15,6 +15,7 @@ footer {
     background-color: rgb(27, 28, 29);
     text-align: center;
     padding-bottom: 20px;
+    z-index: 2;
 }
 
 @font-face {
