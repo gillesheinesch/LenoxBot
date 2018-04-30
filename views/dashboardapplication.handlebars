@@ -46,14 +46,14 @@
 </header>
 
 <main>
-    {{#if submitchatfilter}}
+    {{#if submitapplication}}
     <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="width: 500px; float:right;">
         <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
         <span class="text"></span>
-        <strong>New chatfilter settings saved!</strong>
+        <strong>New application settings saved!</strong>
         <hr class="message-inner-separator">
         <p>
-            We saved your new chatfilter settings for {{guilds.name}}</p>
+            We saved your new application settings for {{guilds.name}}</p>
     </div>
     {{/if}}
     <div class="container">
@@ -67,9 +67,9 @@
                     <a href="/dashboard/{{guilds.id}}/generalsettings" class="btn btn-primary text-size-normal button-dashboard" role="button">General Settings</a>
                     <a href="/dashboard/{{guilds.id}}/logs" class="btn btn-primary text-size-normal button-dashboard" role="button">Logssettings</a>
                     <a href="/dashboard/{{guilds.id}}/modules" class="btn btn-primary text-size-normal button-dashboard" role="button">Modules</a>
-                    <a href="/dashboard/{{guilds.id}}/chatfilter" class="btn btn-primary text-size-normal button-dashboard active" role="button">Chatfilter</a>
+                    <a href="/dashboard/{{guilds.id}}/chatfilter" class="btn btn-primary text-size-normal button-dashboard" role="button">Chatfilter</a>
 					<a href="/dashboard/{{guilds.id}}/music" class="btn btn-primary text-size-normal button-dashboard" role="button">Music</a>
-                    <a href="/dashboard/{{guilds.id}}/application" class="btn btn-primary text-size-normal button-dashboard" role="button">Application</a>
+                    <a href="/dashboard/{{guilds.id}}/application" class="btn btn-primary text-size-normal button-dashboard active" role="button">Application</a>
                     <a href="#" class="btn btn-primary text-size-normal button-dashboard" role="button">Tickets
                         <span class="label label-danger">INCOMING</span>
                     </a>
@@ -77,18 +77,23 @@
             </div>
             <div class="panel-group-dashboard">
                 <div class="panel-group">
-                     <div class="panel panel-primary panel-dashboard" style="max-height: 200px;">
+            <div class="panel panel-primary panel-dashboard" style="max-height: 200px;">
                     <div class="panel-heading">
-                        <p class="text text-white text-size-normal">Chatfilter</p>
+                        <p class="text text-white text-size-normal">Music Channelblacklist</p>
                     </div>
                     <div class="panel-body">
-                        <form class="form-vertical" action="/dashboard/{{guilds.id}}/chatfilter/submitchatfilter" method="POST">
+                        <form class="form-vertical" action="/dashboard/{{guilds.id}}/music/submitchannelblacklist" method="POST">
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="newchatfilter">Toggle Chatfilter</label>
+                                <label class="control-label col-sm-3" for="newchannelblacklist">Set channels where LenoxBot doesn't play music:</label>
                                 <div class="col-sm-4">
-                                    <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newchatfilter" data-actions-box="true" data-size="7">
-                                        <option value="true">Activate the chatfilter</option>
-                                        <option value="false">Deactivate the chatfilter</option>
+                                    <select required class="form-control custom-select custom-select-lg mb-3 selectpicker selectpicker" name="newchannelblacklist" data-live-search="true" multiple title="Choose voicechannel(s)" data-actions-box="true" data-size="7">
+                                        {{#each channels}}
+                                        {{#if channelblacklistset}}
+                                        <option value="{{name}}" selected>{{name}}</option>
+                                        {{else}}
+                                        <option value="{{name}}">{{name}}</option>
+                                        {{/if}}
+                                        {{/each}}
                                     </select>
                                 </div>
                             </div>
@@ -100,29 +105,8 @@
                         </form>
                     </div>
                 </div>
-                    <div class="panel panel-primary panel-dashboard">
-                    <div class="panel-heading">
-                        <p class="text text-white text-size-normal">Chatfilter entries</p>
-                    </div>
-                    <div class="panel-body">
-                        <p class="text" style="margin-bottom: 18px; margin-left: 25px;">Each entry must be separated by a comma</p>
-                        <form class="form-horizontal" action="/dashboard/{{guilds.id}}/chatfilter/submitchatfilterarray" method="POST">
-                            <div class="form-group">
-                                <label class="control-label col-sm-3" for="newchatfilterarray">Update chatfilter entries:</label>
-                                <div class="col-sm-9">
-                                    <textarea class="form-control" required name="newchatfilterarray" rows="20" pattern="^\S+$">{{chatfilterarray}}</textarea>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-10">
-                                    <button type="submit" class="btn btn-default">Submit</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
                 </div>
                 </div>
-            </div>
         </div>
     </div>
 </main>
