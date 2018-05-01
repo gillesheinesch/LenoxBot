@@ -417,7 +417,7 @@ app.post('/dashboard/:id/generalsettings/submitselfassignableroles', async funct
 		}
 		tableload.selfassignableroles = array;
 		} else {
-			array.push(client.guilds.get(req.user.guilds[index].id).find('name', newselfassignableroles).id);
+			array.push(client.guilds.get(req.user.guilds[index].id).roles.find('name', newselfassignableroles).id);
 			tableload.selfassignableroles = array;
 		}
 
@@ -1153,6 +1153,392 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 			client: client,
 			channels: channels,
 			submitmusic: req.query.submitmusic ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitdenyrole', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const newdenyrole = req.body.newdenyrole;
+
+		tableload.application.denyrole = client.guilds.get(dashboardid).roles.find('name', newdenyrole).id;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Updated the application role for rejected canidates!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/application`,
+			query: {
+			   "submitapplication": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitrole', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const newrole = req.body.newrole;
+
+		tableload.application.role = client.guilds.get(dashboardid).roles.find('name', newrole).id;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Updated the application role for accepted canidates!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/application`,
+			query: {
+			   "submitapplication": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitreactionnumber', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const newreactionnumber = req.body.newreactionnumber;
+
+		tableload.application.reactionnumber = newreactionnumber;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Updated application reactionnumber!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/application`,
+			query: {
+			   "submitapplication": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitarchivechannel', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const newarchivechannel = req.body.newarchivechannel;
+
+		tableload.application.archivechannellog = client.guilds.get(dashboardid).channels.find('name', newarchivechannel).id;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Updated the application archive channel!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/application`,
+			query: {
+			   "submitapplication": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitarchive', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const newarchive = req.body.newarchive;
+
+		tableload.application.archivechannel = newarchive;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated application archive!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/application`,
+			query: {
+			   "submitapplication": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitvotechannel', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const newvotechannel = req.body.newvotechannel;
+
+		tableload.application.votechannel = client.guilds.get(dashboardid).channels.find('name', newvotechannel).id;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Updated the application votechannel!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/application`,
+			query: {
+			   "submitapplication": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitapplication', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const newapplication = req.body.newapplication;
+
+		tableload.application.status = newapplication;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the application system!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/application`,
+			query: {
+			   "submitapplication": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/application', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		req.user.guilds[index].reactionnumber = client.guildconfs.get(req.user.guilds[index].id).application.reactionnumber;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		const tableload = client.guildconfs.get(dashboardid);
+		console.log(tableload.application)
+		if (tableload.application) {
+			for (var i = 0; i < channels.length; i++) {
+				if (tableload.application.votechannel === channels[i].id) {
+					channels[i].votechannelset = true;
+				}
+				if (tableload.application.archivechannellog === channels[i].id) {
+					channels[i].archivechannelset = true;
+				}
+			}
+			}
+		
+			var roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
+			if (tableload.application) {
+			for (var i2 = 0; i2 < roles.length; i2++) {
+				if (tableload.application.role === roles[i2].id) {
+					roles[i2].roleset = true;
+				}
+				if (tableload.application.denyrole === roles[i2].id) {
+					roles[i2].denyroleset = true;
+				}
+			}
+		}
+
+		return res.render('dashboardapplication', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+			roles: roles,
+			submitapplication: req.query.submitapplication ? true : false
 		});
 	} else {
 		res.redirect('../nologin');
