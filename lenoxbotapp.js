@@ -123,7 +123,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://dashboardtest.lenoxbot.com/callback',
+	callbackURL: 'http://localhost:80/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -1508,7 +1508,6 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 		var check = req.user.guilds[index];
 
 		const tableload = client.guildconfs.get(dashboardid);
-		console.log(tableload.application)
 		if (tableload.application) {
 			for (var i = 0; i < channels.length; i++) {
 				if (tableload.application.votechannel === channels[i].id) {
