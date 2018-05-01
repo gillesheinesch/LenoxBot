@@ -86,8 +86,13 @@
                                     <label class="control-label col-sm-2" for="modlog">Modlog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="modlog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.modlogset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -96,7 +101,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="modlogchannel">
                                             {{#each channels}}
+                                            {{#if modlogset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -119,17 +128,26 @@
                                     <label class="control-label col-sm-2" for="chatfilterlog">Chatfilterlog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="chatfilterlog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.chatfilterset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="chatfilterlogchannel">New Modlog channel:</label>
+                                    <label class="control-label col-sm-2" for="chatfilterlogchannel">New Chatfilter channel:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="chatfilterlogchannel">
                                             {{#each channels}}
+                                            {{#if chatfilterset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -152,8 +170,13 @@
                                     <label class="control-label col-sm-2" for="messagedeletelog">Messagedeletelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="messagedeletelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.messagedeleteset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -162,7 +185,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="messagedeletelogchannel">
                                             {{#each channels}}
+                                            {{#if messagedeleteset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -185,17 +212,26 @@
                                     <label class="control-label col-sm-2" for="messageupdatelog">Messageupdatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="messageupdatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.messageupdateset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="messageupdatelogchannel">New Modlog channel:</label>
+                                    <label class="control-label col-sm-2" for="messageupdatelogchannel">New Messageupdatelog channel:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="messageupdatelogchannel">
                                             {{#each channels}}
+                                            {{#if messageupdateset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -218,8 +254,13 @@
                                     <label class="control-label col-sm-2" for="channelupdatelog">Channelupdatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="channelupdatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.channelupdatelog}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -228,7 +269,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelupdatelogchannel">
                                             {{#each channels}}
+                                            {{#if channelupdateset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -251,8 +296,13 @@
                                     <label class="control-label col-sm-2" for="channelcreatelog">Channelcreatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="channelcreatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.channelcreatelog}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -261,7 +311,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelcreatelogchannel">
                                             {{#each channels}}
+                                            {{#if channelcreateset}}
                                             <option>{{name}}</option>
+                                            {{else}}
+                                            <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -284,8 +338,13 @@
                                     <label class="control-label col-sm-2" for="channelupdatelog">Channelupdatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="channelupdatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.channelupdateset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -294,7 +353,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channelupdatelogchannel">
                                             {{#each channels}}
+                                            {{#if channelupdateset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -317,8 +380,13 @@
                                     <label class="control-label col-sm-2" for="channeldeletelog">Channeldeletelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="channeldeletelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.channeldeleteset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -327,7 +395,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="channeldeletelogchannel">
                                             {{#each channels}}
+                                            {{#if channeldeleteset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -350,8 +422,13 @@
                                     <label class="control-label col-sm-2" for="memberupdatelog">Memberupdatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="memberupdatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.memberupdateset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -360,7 +437,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="memberupdatelogchannel">
                                             {{#each channels}}
+                                            {{#if memberupdateset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -383,8 +464,13 @@
                                     <label class="control-label col-sm-2" for="presenceupdatelog">Presenceupdatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="presenceupdatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.presenceupdateset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -393,7 +479,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="presenceupdatelogchannel">
                                             {{#each channels}}
+                                            {{#if presenceupdateset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -416,8 +506,13 @@
                                     <label class="control-label col-sm-2" for="userjoinlog">Userjoinlog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="userjoinlog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.userjoinset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -426,7 +521,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="userjoinlogchannel">
                                             {{#each channels}}
+                                            {{#if userjoinset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -449,8 +548,13 @@
                                     <label class="control-label col-sm-2" for="userleftlog">Userleftlog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="userleftlog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.userleftset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -459,7 +563,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="userleftlogchannel">
                                             {{#each channels}}
+                                            {{#if userleftset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -482,8 +590,13 @@
                                     <label class="control-label col-sm-2" for="rolecreatelog">Rolecreatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="rolecreatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.rolecreateset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -492,7 +605,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="rolecreatelogchannel">
                                             {{#each channels}}
+                                            {{#if rolecreateset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -515,8 +632,13 @@
                                     <label class="control-label col-sm-2" for="roledeletelog">Roledeletelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="roledeletelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.roledeleteset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -525,7 +647,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="roledeletelogchannel">
                                             {{#each channels}}
+                                            {{#if roledeleteset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -548,8 +674,13 @@
                                     <label class="control-label col-sm-2" for="roleupdatelog">Roleupdatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="roleupdatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.roleupdateset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -558,7 +689,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="roleupdatelogchannel">
                                             {{#each channels}}
+                                            {{#if roleupdateset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
@@ -581,8 +716,13 @@
                                     <label class="control-label col-sm-2" for="guildupdatelog">Guildupdatelog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="guildupdatelog">
-                                            <option value="true">Activate</option>
+                                            {{#if confs.guildupdateset}}
+                                            <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
+                                            {{else}}
+                                            <option value="true">Activate</option>
+                                            <option value="false" selected>Deactivate</option>
+                                            {{/if}}
                                         </select>
                                     </div>
                                 </div>
@@ -591,7 +731,11 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="guildupdatelogchannel">
                                             {{#each channels}}
+                                            {{#if guildupdateset}}
+                                            <option selected>{{name}}</option>
+                                            {{else}}
                                             <option>{{name}}</option>
+                                            {{/if}}
                                             {{/each}}
                                         </select>
                                     </div>
