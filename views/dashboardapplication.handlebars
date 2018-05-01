@@ -182,13 +182,13 @@
                 </div>
                 <div class="panel panel-primary panel-dashboard">
                     <div class="panel-heading">
-                        <p class="text text-white text-size-normal">Reactionnumber</p>
+                        <p class="text text-white text-size-normal">Reactionnumber (Needed reactions to accept or reject an application)</p>
                     </div>
                     <div class="panel-body">
                         <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitreactionnumber" method="POST">
                             <div class="form-group">
-                                <label class="control-label col-sm-2" for="newreactionnumber">New prefix:</label>
-                                <div class="col-sm-5">
+                                <label class="control-label col-sm-3" for="newreactionnumber">New reactionnumber:</label>
+                                <div class="col-sm-4">
                                     <input type="number" class="form-control" min="1" name="newreactionnumber" pattern=".{1,}" required value="{{guilds.reactionnumber}}">
                                 </div>
                             </div>
@@ -202,7 +202,7 @@
                 </div>
                 <div class="panel panel-primary panel-dashboard">
                     <div class="panel-heading">
-                        <p class="text text-white text-size-normal">Role for accepeted canidates:</p>
+                        <p class="text text-white text-size-normal">Role for accepeted canidates</p>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitrole" method="POST">
@@ -230,7 +230,7 @@
                 </div>
                 <div class="panel panel-primary panel-dashboard">
                     <div class="panel-heading">
-                        <p class="text text-white text-size-normal">Role for rejected canidates:</p>
+                        <p class="text text-white text-size-normal">Role for rejected canidates</p>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitdenyrole" method="POST">
