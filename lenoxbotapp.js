@@ -123,7 +123,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'http://localhost:80/callback',
+	callbackURL: 'https://dashboardtest.lenoxbot.com/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -728,12 +728,36 @@ app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 			}
 		}
 
+		const languages = [
+			{
+				name: "english",
+				alias: 'en'
+			},
+			{
+				name: "german",
+				alias: "ge"
+			},
+			{
+				name: 'french',
+				alias: 'fr'
+			}
+		];
+
+		if (tableload.language) {
+			for (var index3 = 0; index3 < languages.length; index3++) {
+				if (tableload.language === languages[index3].alias) {
+					languages[index3].set = true;
+				}
+			}
+		}
+
 		return res.render('dashboardgeneralsettings', {
 			user: req.user,
 			guilds: check,
 			client: client,
 			channels: channels,
 			roles: roles,
+			languages: languages,
 			submitgeneralsettings: req.query.submitgeneralsettings ? true : false
 		});
 	} else {
@@ -821,11 +845,123 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 		var check = req.user.guilds[index];
 
+		const tableload = client.guildconfs.get(dashboardid);
+		const confs = {};
+		if (tableload) {
+			for (var i = 0; i < channels.length; i++) {
+				if (channels[i].id === tableload.modlogchannel) {
+					channels[i].modlogset = true;
+					if (tableload.modlog === 'true') {
+					confs.modlogset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.chatfilterlogchannel) {
+					channels[i].chatfilterset = true;
+					if (tableload.chatfilterlog === 'true') {
+					confs.chatfilterset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.messagedeletelogchannel) {
+					channels[i].messagedeleteset = true;
+					if (tableload.messagedeletelog === 'true') {
+					confs.messagedeleteset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.messageupdatelogchannel) {
+					channels[i].messageupdateset = true;
+					if (tableload.messageupdatelog === 'true') {
+					confs.messageupdateset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.channelupdatelogchannel) {
+					channels[i].channelupdateset = true;
+					if (tableload.channelupdatelog === 'true') {
+					confs.channelupdateset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.channelcreatelogchannel) {
+					channels[i].channelcreateset = true;
+					if (tableload.channeldeletelog === 'true') {
+					confs.channelcreateset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.channeldeletelogchannel) {
+					channels[i].channeldeleteset = true;
+					if (tableload.channeldeletelog === 'true') {
+					confs.channeldeleteset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.memberupdatelogchannel) {
+					channels[i].memberupdateset = true;
+					if (tableload.memberupdatelog === 'true') {
+					confs.memberupdateset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.presenceupdatelogchannel) {
+					channels[i].presenceupdateset = true;
+					if (tableload.presenceupdatelog === 'true') {
+					confs.presenceupdateset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.userjoinlogchannel) {
+					channels[i].userjoinset = true;
+					if (tableload.userjoinlog === 'true') {
+					confs.userjoinset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.userleftchannellog) {
+					channels[i].userleftset = true;
+					if (tableload.userleftlog === 'true') {
+					confs.userleftset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.rolecreatelogchannel) {
+					channels[i].rolecreateset = true;
+					if (tableload.rolecreatelog === 'true') {
+					confs.rolecreateset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.roledeletelogchannel) {
+					channels[i].roledeleteset = true;
+					if (tableload.roledeletelog === 'true') {
+					confs.roledeleteset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.roleupdatelogchannel) {
+					channels[i].roleupdateset = true;
+					if (tableload.roleupdatelog === 'true') {
+					confs.roleupdateset = true;
+					}
+				}
+
+				if (channels[i].id === tableload.guildupdatelogchannel) {
+					channels[i].guildupdateset = true;
+					if (tableload.guildupdatelog === 'true') {
+					confs.guildupdateset = true;
+					}
+				}
+			}
+		}
+
 		return res.render('dashboardlogs', {
 			user: req.user,
 			guilds: check,
 			client: client,
 			channels: channels,
+			confs: confs,
 			submitlogs: req.query.submitlogs ? true : false
 		});
 	} else {
