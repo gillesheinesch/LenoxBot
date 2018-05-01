@@ -654,6 +654,7 @@ section .section-title {
 #navbar-header{
     float:none;
     margin: 0 auto;
+    margin-right: 100px !important;
     display: table;
     table-layout: fixed;
 }
