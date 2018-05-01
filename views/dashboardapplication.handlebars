@@ -103,12 +103,12 @@
                 </div>
                 <div class="panel panel-primary panel-dashboard">
                     <div class="panel-heading">
-                        <p class="text text-white text-size-normal">Votechannel</p>
+                        <p class="text text-white text-size-normal">Votechannel (channel where users can vote for an application)</p>
                     </div>
                     <div class="panel-body">
                         <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitvotechannel" method="POST">
                             <div class="form-group">
-                                <label class="control-label col-sm-3" for="newvotechannel">Set Votingchannel:</label>
+                                <label class="control-label col-sm-3" for="newvotechannel">Set votingchannel:</label>
                                 <div class="col-sm-4">
                                     <select required class="form-control custom-select custom-select-lg mb-3 selectpicker selectpicker" name="newvotechannel" data-live-search="true" title="Choose votechannel" data-actions-box="true" data-size="7">
                                         {{#each channels}}
