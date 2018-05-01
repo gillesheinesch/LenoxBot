@@ -87,7 +87,7 @@
                             <div class="form-group">
                                 <label class="control-label col-sm-3" for="newprefix">New prefix:</label>
                                 <div class="col-sm-4">
-                                    <input type="text" class="form-control" id="newprefix" name="newprefix" pattern=".{1,}" required title="1 characters minimum" value="{{guilds.prefix}}">
+                                    <input type="text" class="form-control" id="newprefix" name="newprefix" pattern=".{1,}" required value="{{guilds.prefix}}">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -108,9 +108,13 @@
                                 <label class="control-label col-sm-3" for="newlanguage">Set language of the bot:</label>
                                 <div class="col-sm-4">
                                     <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newlanguage">
-                                        <option value="en">English</option>
-                                        <option value="ge">German</option>
-                                        <option value="fr">French</option>
+                                        {{#each languages}}
+                                        {{#if set}}
+                                        <option value="{{alias}}" selected>{{name}}</option>
+                                        {{else}}
+                                        <option value="{{alias}}">{{name}}</option>
+                                        {{/if}}
+                                        {{/each}}
                                     </select>
                                 </div>
                             </div>
