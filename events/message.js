@@ -10,6 +10,14 @@ exports.run = async (client, msg) => {
 		if (msg.guild.id !== '332612123492483094') return undefined;
 	}
 
+	if (msg.guild.id === '352896116812939264' && (msg.channel.id === '440184907411619851' || msg.channel.id === '440184885781594113')) {
+		const noemoji = msg.guild.emojis.find('name', 'no');
+		const yesemoji = msg.guild.emojis.find('name', 'yes');
+
+		await msg.react(noemoji);
+		await msg.react(yesemoji);
+	}
+
 	const userconfs = {
 		inventory: {
 			crate: 0,
