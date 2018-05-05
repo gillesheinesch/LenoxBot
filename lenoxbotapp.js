@@ -123,7 +123,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://dashboardtest.lenoxbot.com/callback',
+	callbackURL: 'https://lenoxbot.com/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
