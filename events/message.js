@@ -523,7 +523,7 @@ exports.run = async (client, msg) => {
 			for (var prop in tableload.modules) {
 				if (prop === cmd.help.category) {
 					if (tableload.modules[prop] === 'false') {
-						var moduledeactivated = lang.messageevent_moduledeativated.replace('%modulename', prop).replace('%prefix', tableload.prefix);
+						var moduledeactivated = lang.messageevent_moduledeactivated.replace('%modulename', prop).replace('%prefix', tableload.prefix);
 						if (tableload.commanddel === 'true') {
 							msg.delete();
 						}
