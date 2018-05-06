@@ -156,7 +156,7 @@
     "embed_description": "Create an embed for you with any text. Use // to go to a new line",
 
     "setprofiledescription_noinput": "You forgot to enter a profile description!",
-    "setprofiledescription_error": "Your description is too long. If you want a longer description, you have to pledge on Patreon (https://www.patreon.com/lenoxbot)! More information can be found on https://www.lenoxbot.com/support-us.html or you can join our discord support server: https://discord.gg/c7DUz35",
+    "setprofiledescription_error": "Your description is too long. If you want a longer description, you have to pledge on Patreon (https://www.patreon.com/lenoxbot)! More information can be found on https://www.patreon.com/lenoxbot or you can join our discord support server: https://invite.lenoxbot.com",
     "setprofiledescription_error2": "Your description is too long.",
     "setprofiledescription_set": "The profile description has been set successfully!", 
     "setprofiledescription_description": "Sets a global profile description",
@@ -885,7 +885,7 @@
     "paycredits_noinput": "You forgot to specify how many credits you want to give the user!",
     "paycredits_number": "The amount of credits has to be a number!",
     "paycredits_not0": "You can not give 0 credits",
-    "paycredits_one": "You have to give away minimal 2 medals",
+    "paycredits_one": "You have to give away minimal 2 credits",
     "paycredits_notenough": "Unfortunately, you do not have enough credits!",
     "paycredits_creditsgiven": "%author, %creditscount credits were given to %mentiontag!",
     "paycredits_description": "Allows a user to give their credits to someone",
