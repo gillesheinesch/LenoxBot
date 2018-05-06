@@ -723,7 +723,7 @@ hr.message-inner-separator
 
 /*Handy S*/
 
-@media only screen and (min-width: 320px) and (max-width: 374px) {
+@media only screen and (max-width: 600px) {
     html,
     body {
         font-size: 10px;
@@ -742,13 +742,35 @@ hr.message-inner-separator
         letter-spacing: 6px;
     }
     .page-sub-header {
-        font-size: 4rem;
+        font-size: 2rem;
+    }
+
+    #oauth2button {
+        font-size: 20px;
+        box-sizing: border-box;
+        width: 90%;
+        margin-top: 100px !important;
+        margin-bottom: 100px !important;
+        display: block;
+        text-align: center;
+        position: relative;
+        margin: 0 auto;
+        padding: 10px;
+    }
+    
+    #oauth2button a {
+        border: 3px solid white;
+        text-decoration: none;
+        text-align: center;
+    }
+    .navbar-brand, .logo {
+        display: none;
     }
 }
 
 /*Handy M*/
 
-@media only screen and (min-width: 375px) and (max-width: 424px) {
+@media only screen and (min-width: 600px) {
     html,
     body {
         font-size: 10px;
@@ -796,7 +818,7 @@ hr.message-inner-separator
 
 /*Handy L*/
 
-@media only screen and (min-width: 425px) and (max-width: 767px) {
+@media only screen and (min-width: 768px) {
     html,
     body {
         font-size: 12px;
@@ -844,7 +866,7 @@ hr.message-inner-separator
 
 /*Tablet*/
 
-@media only screen and (min-width: 768px) and (max-width: 1023px) {
+@media only screen and (min-width: 992px) {
     html,
     body {
         font-size: 14px;
@@ -891,7 +913,7 @@ hr.message-inner-separator
 
 /*Tablet Quer or Laptop*/
 
-@media screen and (min-width: 1024px) and (max-width: 1439px) {
+@media only screen and (min-width: 1200px) {
     #header {
         text-align: center;
         width: 90%;
