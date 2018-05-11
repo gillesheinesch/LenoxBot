@@ -14,8 +14,8 @@ exports.run = async (client, msg) => {
 		const noemoji = msg.guild.emojis.find('name', 'no');
 		const yesemoji = msg.guild.emojis.find('name', 'yes');
 
-		await msg.react(noemoji);
 		await msg.react(yesemoji);
+		await msg.react(noemoji);
 	}
 
 	const userconfs = {
