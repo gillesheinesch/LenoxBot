@@ -181,14 +181,12 @@ exports.run = async client => {
 
 	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
 
-	setInterval(() => {
 		client.user.setPresence({
 			game: {
-				name: `?help in ${client.guilds.size} guilds`,
+				name: `?help | www.lenoxbot.com`,
 				type: 0
 			}
 		});
-	}, 600000);
 
 	await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
 	await client.users.filter(g => !client.userdb.has(g.id)).forEach(g => client.userdb.set(g.id, defaultuserdbsettings));
