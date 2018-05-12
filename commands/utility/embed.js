@@ -9,8 +9,7 @@ exports.run = (client, msg, args, lang) => {
     const author = lang.embed_created.replace('%authortag', msg.author.tag);
     const embed = new Discord.RichEmbed()
     .setDescription(embedinput)
-    .setColor('#66ff66')
-    .setAuthor(author);
+    .setColor('#66ff66');
 
     msg.channel.send({ embed });
 };
