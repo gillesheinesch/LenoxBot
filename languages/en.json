@@ -156,7 +156,7 @@
     "embed_description": "Create an embed for you with any text. Use // to go to a new line",
 
     "setprofiledescription_noinput": "You forgot to enter a profile description!",
-    "setprofiledescription_error": "Your description is too long. If you want a longer description, you have to pledge on Patreon (https://www.patreon.com/lenoxbot)! More information can be found on https://www.patreon.com/lenoxbot or you can join our discord support server: https://invite.lenoxbot.com",
+    "setprofiledescription_error": "Your description is too long. If you want a longer description, you have to pledge on Patreon (https://www.patreon.com/lenoxbot)! More information can be found on https://www.patreon.com/lenoxbot or you can join our discord support server: https://lenoxbot.com/invite",
     "setprofiledescription_error2": "Your description is too long.",
     "setprofiledescription_set": "The profile description has been set successfully!", 
     "setprofiledescription_description": "Sets a global profile description",

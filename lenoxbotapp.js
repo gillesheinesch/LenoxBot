@@ -141,8 +141,8 @@ app.use(passport.session());
 
 app.get('/loginpressedbutton', passport.authenticate('discord', {
 	scope: scopes
-}), function (req, res) {});
-app.get('/callback',
+	}), function (req, res) {});
+	app.get('/callback',
 	passport.authenticate('discord', {
 		failureRedirect: '/oauth2problem'
 	}),
@@ -161,7 +161,7 @@ app.get('/callback',
 
 app.listen(80, function (err) {
 	if (err) return console.log(err);
-	console.log('Listening at https://dashboardtest.lenoxbot.com/');
+	console.log('Listening at https://lenoxbot.com/');
 });
 
 app.get('/', function (req, res, next) {
@@ -198,6 +198,14 @@ app.get('/home', function (req, res, next) {
 		client: client,
 		botstats: client.botconfs.get('botstats')
 	});
+});
+
+app.get('/invite', function (req, res, next) {
+	return res.redirect('https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8');
+});
+
+app.get('/discord', function (req, res, next) {
+	return res.redirect('https://discordapp.com/invite/c7DUz35');
 });
 
 app.get('/logout', function (req, res) {

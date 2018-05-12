@@ -4,8 +4,8 @@ exports.run = (client, msg, args, lang) => {
 
 	if (!args[0]) {
 		const embed = new Discord.RichEmbed()
-		.addField(lang.help_addthebot, `http://invite.lenoxbot.com/`)
-		.addField(lang.help_discordserver, `http://discord.lenoxbot.com/`)
+		.addField(lang.help_addthebot, `http://lenoxbot.com/invite/`)
+		.addField(lang.help_discordserver, `http://lenoxbot.com/discord/`)
 		.addField(lang.help_modulecommand, `${prefix}modules`)
 		.addField(lang.help_commandscommand, `${prefix}commands {modulename}`)
 		.addField(lang.help_helpcommand, `${prefix}help {commandname}`)

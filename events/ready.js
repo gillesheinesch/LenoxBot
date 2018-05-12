@@ -190,10 +190,10 @@ exports.run = async client => {
 		});
 	}, 600000);
 
-	// await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
-	// await client.users.filter(g => !client.userdb.has(g.id)).forEach(g => client.userdb.set(g.id, defaultuserdbsettings));
+	await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
+	await client.users.filter(g => !client.userdb.has(g.id)).forEach(g => client.userdb.set(g.id, defaultuserdbsettings));
 
-    // await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
+    await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
 
 	await client.users.filter(u => client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : undefined).forEach(u => {
 		client.users.get(u.id).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');

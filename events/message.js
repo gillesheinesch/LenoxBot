@@ -549,7 +549,7 @@ exports.run = async (client, msg) => {
 				if (now < expirationTime) {
 					const timeLeft = (expirationTime - now) / 1000;
 
-					const time = moment.duration(parseInt(timeLeft.toFixed(1)), "seconds").format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
+					const time = moment.duration(parseInt(timeLeft.toFixed(2)), "seconds").format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
 					var anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
 					if (tableload.commanddel === 'true') {
 						msg.delete();

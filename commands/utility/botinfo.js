@@ -14,8 +14,8 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`📡 ${lang.botinfo_stats}`, online)
 		.addField(`💻 ${lang.botinfo_doc}`, `http://www.lenoxbot.com/`)
 		.addField(`💎 ${lang.botinfo_support}`, `https://www.patreon.com/lenoxbot`)
-		.addField(`📤 ${lang.botinfo_invite}`, `http://invite.lenoxbot.com/`)
-		.addField(`📢 ${lang.botinfo_supportserver}`, 'http://discord.lenoxbot.com/');
+		.addField(`📤 ${lang.botinfo_invite}`, `http://lenoxbot.com/invite/`)
+		.addField(`📢 ${lang.botinfo_supportserver}`, 'http://lenoxbot.com/discord/');
 
 	msg.channel.send({
 		embed
