@@ -49,13 +49,91 @@ exports.run = async (client, msg) => {
 			book: 0,
 			mag: 0,
 			banana: 0,
-			inventoryslotticket: 0
+			inventoryslotticket: 0,
+			tractor: 0,
+			syringe: 0,
+			gun: 0,
+			knife: 0
 		},
-		description: ''
+		inventoryslots: 30,
+		premium: {
+			status: false,
+			bought: [],
+			end: ''
+		}
+	};
+
+	const guildsettings = {
+		prefix: '?',
+		modlog: 'false',
+		modlogchannel: '',
+		messagedellog: 'false',
+		messagedellogchannel: '',
+		messageupdatelog: 'false',
+		messageupdatelogchannel: '',
+		channelupdatelog: 'false',
+		channelupdatelogchannel: '',
+		channelcreatelog: 'false',
+		channelcreatelogchannel: '',
+		channeldeletelog: 'false',
+		channeldeletelogchannel: '',
+		guildmemberupdatelog: 'false',
+		guildmemberupdatelogchannel: '',
+		presenceupdatelog: 'false',
+		presenceupdatelogchannel: '',
+		welcomelog: 'false',
+		welcomelogchannel: '',
+		guildupdatelog: '',
+		guildupdatelogchannel: '',
+		byelog: 'false',
+		byelogchannel: '',
+		rolecreatelog: 'false',
+		rolecreatelogchannel: '',
+		roledeletelog: 'false',
+		roledeletelogchannel: '',
+		roleupdatelog: 'false',
+		roleupdatelogchannel: '',
+		welcome: 'false',
+		welcomechannel: '',
+		welcomemsg: '',
+		bye: 'false',
+		byechannel: '',
+		byemsg: '',
+		commanddel: 'false',
+		announce: 'false',
+		announcechannel: '',
+		selfassignableroles: [],
+		minigames: 'false',
+		modules: {
+			fun: 'true',
+			help: 'true',
+			moderation: 'true',
+			music: 'true',
+			nsfw: 'true',
+			searches: 'true',
+			utility: 'true',
+			application: 'true'
+		},
+		application: {
+			reactionnumber: '',
+			template: [],
+			role: '',
+			votechannel: '',
+			archivechannel: false,
+			archivechannellog: '',
+			status: 'false'
+		},
+		nicknamelog: [],
+		warnlog: [],
+		language: 'en'
 	};
 
 	if (!client.userdb.has(msg.author.id)) {
 		await client.userdb.set(msg.author.id, userconfs);
+	}
+
+	if (!client.guildconfs.has(msg.guild.id)) {
+		await client.guildconfs.set(msg.guild.id, guildsettings);
 	}
 
 	const tableload = await client.guildconfs.get(msg.guild.id);

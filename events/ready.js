@@ -14,71 +14,6 @@ exports.run = async client => {
 		console.log(client.userdb.size + "keys loaded for all user keys");
 	});
 
-	const defaultSettings = {
-		prefix: '?',
-		modlog: 'false',
-		modlogchannel: '',
-		messagedellog: 'false',
-		messagedellogchannel: '',
-		messageupdatelog: 'false',
-		messageupdatelogchannel: '',
-		channelupdatelog: 'false',
-		channelupdatelogchannel: '',
-		channelcreatelog: 'false',
-		channelcreatelogchannel: '',
-		channeldeletelog: 'false',
-		channeldeletelogchannel: '',
-		guildmemberupdatelog: 'false',
-		guildmemberupdatelogchannel: '',
-		presenceupdatelog: 'false',
-		presenceupdatelogchannel: '',
-		welcomelog: 'false',
-		welcomelogchannel: '',
-		guildupdatelog: '',
-		guildupdatelogchannel: '',
-		byelog: 'false',
-		byelogchannel: '',
-		rolecreatelog: 'false',
-		rolecreatelogchannel: '',
-		roledeletelog: 'false',
-		roledeletelogchannel: '',
-		roleupdatelog: 'false',
-		roleupdatelogchannel: '',
-		welcome: 'false',
-		welcomechannel: '',
-		welcomemsg: '',
-		bye: 'false',
-		byechannel: '',
-		byemsg: '',
-		commanddel: 'false',
-		announce: 'false',
-		announcechannel: '',
-		selfassignableroles: [],
-		minigames: 'false',
-		modules: {
-			fun: 'true',
-			help: 'true',
-			moderation: 'true',
-			music: 'true',
-			nsfw: 'true',
-			searches: 'true',
-			utility: 'true',
-			application: 'true'
-		},
-		application: {
-			reactionnumber: '',
-			template: [],
-			role: '',
-			votechannel: '',
-			archivechannel: false,
-			archivechannellog: '',
-			status: 'false'
-		},
-		nicknamelog: [],
-		warnlog: [],
-		language: 'en'
-	};
-
 	const botconfsdefault = {
 		blacklist: [],
 		banlist: []
@@ -132,51 +67,6 @@ exports.run = async client => {
 		knife: ['🔪', '87', '78']
 	};
 
-	const defaultuserdbsettings = {
-		inventory: {
-			crate: 0,
-			cratekey: 0,
-			pickaxe: 0,
-			joystick: 0,
-			house: 0,
-			bag: 0,
-			diamond: 0,
-			dog: 0,
-			cat: 0,
-			apple: 0,
-			football: 0,
-			car: 0,
-			phone: 0,
-			computer: 0,
-			camera: 0,
-			clock: 0,
-			rose: 0,
-			umbrella: 0,
-			hamburger: 0,
-			croissant: 0,
-			basketball: 0,
-			watch: 0,
-			projector: 0,
-			flashlight: 0,
-			bed: 0,
-			hammer: 0,
-			book: 0,
-			mag: 0,
-			banana: 0,
-			inventoryslotticket: 0,
-			tractor: 0,
-			syringe: 0,
-			gun: 0,
-			knife: 0
-		},
-		inventoryslots: 30,
-		premium: {
-			status: false,
-			bought: [],
-			end: ''
-		}
-	};
-
 	const botconfspremium = {};
 
 	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
@@ -187,9 +77,6 @@ exports.run = async client => {
 				type: 0
 			}
 		});
-
-	await client.guilds.filter(g => !client.guildconfs.has(g.id)).forEach(g => client.guildconfs.set(g.id, defaultSettings));
-	await client.users.filter(g => !client.userdb.has(g.id)).forEach(g => client.userdb.set(g.id, defaultuserdbsettings));
 
     await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
 
