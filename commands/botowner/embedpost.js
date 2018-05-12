@@ -26,9 +26,9 @@ exports.run = async (client, msg, args, lang) => {
 					embed
 				});
 			} else if (margs[1].toLowerCase() == 'links') {
-				const rules = ['Website: http://lenoxbot.com',
-					'Invite LenoxBot: http://lenoxbot.com/invite',
-					'LenoxBot Discord Server: http://lenoxbot.com/discord',
+				const rules = ['Website: https://lenoxbot.com',
+					'Invite LenoxBot: https://lenoxbot.com/invite',
+					'LenoxBot Discord Server: https://lenoxbot.com/discord',
 					'Knowledge base: http://help.lenoxbot.com'
 				];
 				const embed = new Discord.RichEmbed()

@@ -4,12 +4,12 @@ exports.run = (client, msg, args, lang) => {
 
 	if (!args[0]) {
 		const embed = new Discord.RichEmbed()
-		.addField(lang.help_addthebot, `http://lenoxbot.com/invite/`)
-		.addField(lang.help_discordserver, `http://lenoxbot.com/discord/`)
+		.addField(lang.help_addthebot, `https://lenoxbot.com/invite/`)
+		.addField(lang.help_discordserver, `https://lenoxbot.com/discord/`)
 		.addField(lang.help_modulecommand, `${prefix}modules`)
 		.addField(lang.help_commandscommand, `${prefix}commands {modulename}`)
 		.addField(lang.help_helpcommand, `${prefix}help {commandname}`)
-		.addField(lang.help_documentation, 'http://lenoxbot.com/')
+		.addField(lang.help_documentation, 'https://lenoxbot.com/')
 		.setColor('#ff3300')
 		.setAuthor(client.user.username, client.user.displayAvatarURL);
 	
