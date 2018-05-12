@@ -60,7 +60,7 @@ fs.readdir('./events/', (err, files) => {
 	});
 });
 
-/*
+
 process.on('unhandledRejection', (reason) => {
 	if (reason.name === 'DiscordAPIError') return;
 	console.error(reason);
@@ -68,7 +68,6 @@ process.on('unhandledRejection', (reason) => {
 process.on('uncaughtException', (reason) => {
 	console.error(reason);
 });
-*/
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -206,6 +205,18 @@ app.get('/invite', function (req, res, next) {
 
 app.get('/discord', function (req, res, next) {
 	return res.redirect('https://discordapp.com/invite/c7DUz35');
+});
+
+app.get('/ban', function (req, res, next) {
+	return res.redirect('https://goo.gl/forms/NKoVsl8y5wOePCYT2');
+});
+
+app.get('/apply', function (req, res, next) {
+	return res.redirect('https://goo.gl/forms/jOyjxAheOHaDYyoF2');
+});
+
+app.get('/survey', function (req, res, next) {
+	return res.redirect('https://goo.gl/forms/2sS8U9JoYjeWHFF83');
 });
 
 app.get('/logout', function (req, res) {
@@ -1711,7 +1722,6 @@ app.use(function (req, res, next) {
 	err.status = 404;
 	res.redirect('../404error');
 });
-
 
 function checkAuth(req, res, next) {
 	console.log('hello');
