@@ -4,7 +4,7 @@ exports.run = async (client, msg, args, lang) => {
 	const redeemload = client.redeem.get(msg.author.id);
 	const input = args.slice();
 
-	if (msg.guild.id !== '352896116812939264') return msg.channel.send(`${lang.redeem_notlenoxbotdiscordserver} https://discord.gg/c7DUz35`);
+	if (msg.guild.id !== '352896116812939264') return msg.channel.send(`${lang.redeem_notlenoxbotdiscordserver} https://lenoxbot.com/discord`);
 	if (!input || input.length === 0) return msg.reply(lang.redeem_error);
 	if (redeemload.redeemed !== '') return msg.reply(lang.redeem_already);
 	if (redeemload.redeemkey === args.slice().join(" ")) return msg.reply(lang.redeem_errorownkey);

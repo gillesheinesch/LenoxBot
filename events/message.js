@@ -456,15 +456,15 @@ exports.run = async (client, msg) => {
 			const banlistembed = new Discord.RichEmbed()
 				.setColor('#FF0000')
 				.setDescription(lang.messageevent_banlist)
-				.addField(lang.messageevent_support, 'https://discord.gg/c7DUz35')
-				.addField(lang.messageevent_banappeal, 'http://bit.ly/2wQ2SYF')
+				.addField(lang.messageevent_support, 'https://lenoxbot.com/discord')
+				.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
 				.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
 
 			const blacklistembed = new Discord.RichEmbed()
 				.setColor('#FF0000')
 				.setDescription(lang.messageevent_blacklist)
-				.addField(lang.messageevent_support, 'https://discord.gg/c7DUz35')
-				.addField(lang.messageevent_banappeal, 'http://bit.ly/2wQ2SYF')
+				.addField(lang.messageevent_support, 'https://lenoxbot.com/discord')
+				.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
 				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
 			const botconfsload = client.botconfs.get('blackbanlist');

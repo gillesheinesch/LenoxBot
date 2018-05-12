@@ -3,7 +3,7 @@ exports.run = async (client, msg, args, lang) => {
 	const randomkey = require('randomkey');
 	const Discord = require('discord.js');
 
-	if (msg.guild.id !== '352896116812939264') return msg.channel.send(`${lang.redeem_notlenoxbotdiscordserver} https://discord.gg/c7DUz35`);
+	if (msg.guild.id !== '352896116812939264') return msg.channel.send(`${lang.redeem_notlenoxbotdiscordserver} https://lenoxbot.com/discord`);
 
 	if (redeemload.redeemkey === '') {
 		const key = randomkey(16, randomkey.numbers);
