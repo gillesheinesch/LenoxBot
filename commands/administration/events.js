@@ -119,6 +119,14 @@ exports.run = (client, msg, args, lang) => {
 	} else {
 		embed.addField(`❌ Guildupdate ${lang.events_disabled}`, `/`);
 	}
+
+	if (tableload.chatfilterlog === `true`) {
+		const channelID = tableload.chatfilterlogchannel;
+		const channelName = client.channels.get(channelID).name;
+		embed.addField(`✅ Chatfilter ${lang.events_active}`, `#${channelName} (${channelID})`);
+	} else {
+		embed.addField(`❌ Chatfilter ${lang.events_disabled}`, `/`);
+	}
 	msg.channel.send({ embed });
 };
 

@@ -504,9 +504,9 @@
                         <div class="panel-body">
                             <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="userjoinlog">Userjoinlog Status:</label>
+                                    <label class="control-label col-sm-2" for="welcomelog">Userjoinlog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="userjoinlog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="welcomelog">
                                             {{#if confs.userjoinset}}
                                             <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
@@ -518,9 +518,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="userjoinlogchannel">New Userjoinlog channel:</label>
+                                    <label class="control-label col-sm-2" for="welcomelogchannel">New Userjoinlog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="userjoinlogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="welcomelogchannel">
                                             {{#each channels}}
                                             {{#if userjoinset}}
                                             <option selected>{{name}}</option>
@@ -546,9 +546,9 @@
                         <div class="panel-body">
                             <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="userleftlog">Userleftlog Status:</label>
+                                    <label class="control-label col-sm-2" for="byelog">Userleftlog Status:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="userleftlog">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="byelog">
                                             {{#if confs.userleftset}}
                                             <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
@@ -560,9 +560,9 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="control-label col-sm-2" for="userleftlogchannel">New Userleftlog channel:</label>
+                                    <label class="control-label col-sm-2" for="byelogchannel">New Userleftlog channel:</label>
                                     <div class="col-sm-4">
-                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="userleftlogchannel">
+                                        <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="byelogchannel">
                                             {{#each channels}}
                                             {{#if userleftset}}
                                             <option selected>{{name}}</option>
