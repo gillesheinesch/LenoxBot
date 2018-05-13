@@ -723,7 +723,7 @@ hr.message-inner-separator
 
 /*Handy S*/
 
-@media only screen and (max-width: 600px) {
+@media only screen and (min-width: 320px) and (max-width: 374px) {
     html,
     body {
         font-size: 10px;
@@ -770,7 +770,7 @@ hr.message-inner-separator
 
 /*Handy M*/
 
-@media only screen and (min-width: 600px) {
+@media only screen and (min-width: 375px) and (max-width: 424px) {
     html,
     body {
         font-size: 10px;
@@ -818,7 +818,7 @@ hr.message-inner-separator
 
 /*Handy L*/
 
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 425px) and (max-width: 767px) {
     html,
     body {
         font-size: 12px;
@@ -866,7 +866,7 @@ hr.message-inner-separator
 
 /*Tablet*/
 
-@media only screen and (min-width: 992px) {
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
     html,
     body {
         font-size: 14px;
@@ -913,7 +913,7 @@ hr.message-inner-separator
 
 /*Tablet Quer or Laptop*/
 
-@media only screen and (min-width: 1200px) {
+@media screen and (min-width: 1024px) and (max-width: 1439px) {
     #header {
         text-align: center;
         width: 90%;
