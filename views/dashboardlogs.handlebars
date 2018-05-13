@@ -507,7 +507,7 @@
                                     <label class="control-label col-sm-2" for="welcomelog">Userjoinlog Status:</label>
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker"  data-size="7" name="welcomelog">
-                                            {{#if confs.userjoinset}}
+                                            {{#if confs.welcomelogset}}
                                             <option value="true" selected>Activate</option>
                                             <option value="false">Deactivate</option>
                                             {{else}}
@@ -522,7 +522,7 @@
                                     <div class="col-sm-4">
                                         <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7" name="welcomelogchannel">
                                             {{#each channels}}
-                                            {{#if userjoinset}}
+                                            {{#if byelogset}}
                                             <option selected>{{name}}</option>
                                             {{else}}
                                             <option>{{name}}</option>
