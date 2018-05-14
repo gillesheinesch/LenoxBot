@@ -811,6 +811,7 @@
     "botinfo_support": "Support us!",
     "botinfo_invite": "You want this bot on your server?",
     "botinfo_supportserver": "Join our Discord Server",
+    "botinfo_version": "Version des Bots",
     "botinfo_description": "Information about the bot",
 
     "calculator_noinput": "You have to specify what you would like to count on!",

@@ -3,6 +3,7 @@ const moment = require('moment');
 require('moment-duration-format');
 exports.run = (client, msg, args, lang) => {
 	const uptimeserver = moment.duration(client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
+	const version = require('./settings.json').version;
 
 	var online = lang.botinfo_online.replace('%guilds', client.guilds.size).replace('%users', client.users.size);
 	const embed = new Discord.RichEmbed()
@@ -15,7 +16,8 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`💻 ${lang.botinfo_doc}`, `http://www.lenoxbot.com/`)
 		.addField(`💎 ${lang.botinfo_support}`, `https://www.patreon.com/lenoxbot`)
 		.addField(`📤 ${lang.botinfo_invite}`, `https://lenoxbot.com/invite/`)
-		.addField(`📢 ${lang.botinfo_supportserver}`, 'https://lenoxbot.com/discord/');
+		.addField(`📢 ${lang.botinfo_supportserver}`, 'https://lenoxbot.com/discord/')
+		.addField(`🔛 ${lang.botinfo_version}`, version);
 
 	msg.channel.send({
 		embed
