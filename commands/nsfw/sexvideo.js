@@ -25,6 +25,7 @@ exports.run = async(client, msg, args, lang) => {
             .setDescription(durationembed)
 			.setColor('#ff0000')
 			.setFooter(url)
+			.setURL(url)
 			.setAuthor(title);
 	
 		msg.channel.send({

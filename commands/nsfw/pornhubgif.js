@@ -16,8 +16,8 @@ exports.run = async(client, msg, args, lang) => {
 		const embed = new Discord.RichEmbed()
 			.setImage(url)
 			.setColor('#ff0000')
-			.setFooter(url)
-			.setAuthor(msg.author.tag);
+			.setURL(url)
+			.setAuthor(url);
 	
 		msg.channel.send({
 			embed
