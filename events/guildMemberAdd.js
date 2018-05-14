@@ -1,16 +1,16 @@
 const Discord = require('discord.js');
 exports.run = (client, member) => {
-	const tableconfig = client.guildconfs.get(member.guild.id);
+	const tableload = client.guildconfs.get(member.guild.id);
 
-	if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(member.guild.id, tableconfig);
+	if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(member.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableconfig.language}.json`);
+	var lang = require(`../languages/${tableload.language}.json`);
 
-	if (tableconfig.welcomelog === 'true') {
-	const messagechannel = client.channels.get(tableconfig.welcomelogchannel);
+	if (tableload.welcomelog === 'true') {
+	const messagechannel = client.channels.get(tableload.welcomelogchannel);
 	const embed = new Discord.RichEmbed()
 	.setFooter(lang.guildmemberaddevent_userjoined)
 	.setTimestamp()
@@ -19,10 +19,10 @@ exports.run = (client, member) => {
 	messagechannel.send({ embed: embed });
 	}
 	
-	if (tableconfig.welcome === 'true') {
-		if (tableconfig.welcomemsg.length < 1) return;
-		const message = tableconfig.welcomemsg;
-		const messagechannel = client.channels.get(tableconfig.welcomechannel);
+	if (tableload.welcome === 'true') {
+		if (tableload.welcomemsg.length < 1) return;
+		const message = tableload.welcomemsg;
+		const messagechannel = client.channels.get(tableload.welcomechannel);
 		const newMessage = message.replace('$username$', member.user.username)
 		.replace('$usermention$', member.user)
 		.replace('$usertag$', member.user.tag)

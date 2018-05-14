@@ -6,5 +6,5 @@ exports.run = async(client, guild) => {
 	.addField(`Owner`, `${guild.owner.user.tag} (${guild.ownerID})`)
 	.setColor('#ff0000')
 	.setFooter('LEFT DISCORD SERVER');
-	client.channels.get('353989483517181962').send({ embed: embed });
+	await client.channels.get('353989483517181962').send({ embed: embed });
 };

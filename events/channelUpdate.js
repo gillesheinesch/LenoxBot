@@ -2,17 +2,17 @@ const Discord = require('discord.js');
 exports.run = (client, oldChannel, newChannel) => {
     if (newChannel.type !== 'text' || oldChannel.type !== 'text') return;
 
-    const tableconfig = client.guildconfs.get(newChannel.guild.id);
-    if (tableconfig.channelupdatelog === 'false') return;
+    const tableload = client.guildconfs.get(newChannel.guild.id);
+    if (tableload.channelupdatelog === 'false') return;
 
-    if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(newChannel.guild.id, tableconfig);
+    if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(newChannel.guild.id, tableload);
 	}
 
-    var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/${tableload.language}.json`);
 
-    const messagechannel = client.channels.get(tableconfig.channelupdatelogchannel);
+    const messagechannel = client.channels.get(tableload.channelupdatelogchannel);
 
     if (oldChannel.name !== newChannel.name) {
     const embed = new Discord.RichEmbed()

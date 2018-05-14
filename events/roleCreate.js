@@ -1,16 +1,16 @@
 const Discord = require('discord.js');
 exports.run = (client, role) => {
-    const tableconfig = client.guildconfs.get(role.guild.id);
-    if (tableconfig.rolecreatelog === 'false') return;
+    const tableload = client.guildconfs.get(role.guild.id);
+    if (tableload.rolecreatelog === 'false') return;
 
-    if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(role.guild.id, tableconfig);
+    if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(role.guild.id, tableload);
 	}
 
-    var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/${tableload.language}.json`);
 
-    const messagechannel = client.channels.get(tableconfig.rolecreatelogchannel);
+    const messagechannel = client.channels.get(tableload.rolecreatelogchannel);
 
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')

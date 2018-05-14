@@ -2,17 +2,17 @@ const Discord = require('discord.js');
 exports.run = (client, channel) => {
     if (channel.type !== 'text') return;
 
-    const tableconfig = client.guildconfs.get(channel.guild.id);
-    if (tableconfig.channeldeletelog === 'false') return;
+    const tableload = client.guildconfs.get(channel.guild.id);
+    if (tableload.channeldeletelog === 'false') return;
 
-    if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(channel.guild.id, tableconfig);
+    if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(channel.guild.id, tableload);
 	}
 
-    var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/${tableload.language}.json`);
 
-    const messagechannel = client.channels.get(tableconfig.channeldeletelogchannel);
+    const messagechannel = client.channels.get(tableload.channeldeletelogchannel);
 
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')

@@ -1,24 +1,24 @@
 const Discord = require('discord.js');
 exports.run = async (client, oldMember, newMember) => {
-	const tableconfig = client.guildconfs.get(newMember.guild.id);
+	const tableload = client.guildconfs.get(newMember.guild.id);
 
-	if (tableconfig.language === '') {
-		tableconfig.language = 'en';
-		client.guildconfs.set(newMember.guild.id, tableconfig);
+	if (tableload.language === '') {
+		tableload.language = 'en';
+		client.guildconfs.set(newMember.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableconfig.language}.json`);
+	var lang = require(`../languages/${tableload.language}.json`);
 	if (oldMember.nickname !== newMember.nickname) {
-		if (!tableconfig.nicknamelog) {
-			tableconfig.nicknamelog = [];
-			await client.guildconfs.set(newMember.guild.id, tableconfig);
+		if (!tableload.nicknamelog) {
+			tableload.nicknamelog = [];
+			await client.guildconfs.set(newMember.guild.id, tableload);
 		}
 
-		tableconfig.nicknamelog.push(newMember.id);
-		tableconfig.nicknamelog.push(oldMember.nickname === null ? lang.guildmemberupdateevent_nonickname : oldMember.nickname);
-		tableconfig.nicknamelog.push(newMember.nickname === null ? lang.guildmemberupdateevent_nonickname : newMember.nickname);
-		tableconfig.nicknamelog.push(new Date().getTime());
-		await client.guildconfs.set(newMember.id, tableconfig);
+		tableload.nicknamelog.push(newMember.id);
+		tableload.nicknamelog.push(oldMember.nickname === null ? lang.guildmemberupdateevent_nonickname : oldMember.nickname);
+		tableload.nicknamelog.push(newMember.nickname === null ? lang.guildmemberupdateevent_nonickname : newMember.nickname);
+		tableload.nicknamelog.push(new Date().getTime());
+		await client.guildconfs.set(newMember.id, tableload);
 	}
 
 	/* Patreon Automatic Role
@@ -47,9 +47,9 @@ exports.run = async (client, oldMember, newMember) => {
 	}
 	*/
 
-	if (tableconfig.guildmemberupdatelog === 'false') return;
+	if (tableload.guildmemberupdatelog === 'false') return;
 
-	const messagechannel = client.channels.get(tableconfig.guildmemberupdatelogchannel);
+	const messagechannel = client.channels.get(tableload.guildmemberupdatelogchannel);
 
 	if (oldMember.nickname !== newMember.nickname) {
 		const embed = new Discord.RichEmbed()

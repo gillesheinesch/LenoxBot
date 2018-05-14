@@ -1,17 +1,17 @@
 const Discord = require('discord.js');
 exports.run = (client, oldRole, newRole) => {
-    const tableconfig = client.guildconfs.get(oldRole.guild.id);
+    const tableload = client.guildconfs.get(oldRole.guild.id);
 
-    if (tableconfig.rolecreatelog === 'false') return;
+    if (tableload.rolecreatelog === 'false') return;
 
-    if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(oldRole.guild.id, tableconfig);
+    if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(oldRole.guild.id, tableload);
     } 
 
-    var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/${tableload.language}.json`);
 
-    const messagechannel = client.channels.get(tableconfig.rolecreatelogchannel);
+    const messagechannel = client.channels.get(tableload.rolecreatelogchannel);
 
     if (oldRole.name !== newRole.name) {
     const embed = new Discord.RichEmbed()

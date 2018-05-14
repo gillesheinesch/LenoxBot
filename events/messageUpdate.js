@@ -1,20 +1,19 @@
 const Discord = require('discord.js');
 exports.run = async (client, oldMsg, newMsg) => {
-	const tableconfig = client.guildconfs.get(newMsg.guild.id);
+	var tableload = await client.guildconfs.get(newMsg.guild.id);
 
-	if (tableconfig.language === '') {
-		tableconfig.language = 'en';
-		await client.guildconfs.set(newMsg.guild.id, tableconfig);
+	if (tableload.language === '') {
+		tableload.language = 'en';
+		await client.guildconfs.set(newMsg.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableconfig.language}.json`);
+	var lang = require(`../languages/${tableload.language}.json`);
 
 	if (newMsg.author.bot) return;
 	if (newMsg.channel.type !== 'text') return newMsg.reply(lang.messageevent_error);
 
-	const tableload = client.guildconfs.get(newMsg.guild.id);
-	if (tableconfig.messageupdatelog === 'true') {
-		const messagechannel = client.channels.get(tableconfig.messageupdatelogchannel);
+	if (tableload.messageupdatelog === 'true') {
+		const messagechannel = client.channels.get(tableload.messageupdatelogchannel);
 		if (oldMsg.cleanContent !== newMsg.cleanContent) {
 			const embed = new Discord.RichEmbed()
 				.setColor('#FE2E2E')

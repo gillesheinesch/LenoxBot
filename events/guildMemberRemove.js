@@ -2,17 +2,17 @@ const Discord = require('discord.js');
 exports.run = (client, member) => {
 	if (client.user.id === member.id) return;
 
-	const tableconfig = client.guildconfs.get(member.guild.id);
+	const tableload = client.guildconfs.get(member.guild.id);
 
-	if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(member.guild.id, tableconfig);
+	if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(member.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableconfig.language}.json`);
+	var lang = require(`../languages/${tableload.language}.json`);
 
-	if (tableconfig.byelog === 'true') {
-		const messagechannel = client.channels.get(tableconfig.byelogchannel);
+	if (tableload.byelog === 'true') {
+		const messagechannel = client.channels.get(tableload.byelogchannel);
 		const embed = new Discord.RichEmbed()
 		.setFooter(lang.guildmemberremoveevent_userleft)
 		.setTimestamp()
@@ -21,10 +21,10 @@ exports.run = (client, member) => {
 		messagechannel.send({ embed: embed });
 	}
 
-	if (tableconfig.bye === 'true') {
-		if (tableconfig.byemsg.length < 1) return;
-		const message = tableconfig.byemsg;
-		const msgchannel = client.channels.get(tableconfig.byechannel);
+	if (tableload.bye === 'true') {
+		if (tableload.byemsg.length < 1) return;
+		const message = tableload.byemsg;
+		const msgchannel = client.channels.get(tableload.byechannel);
 		const newMessage = message.replace('$username$', member.user.username)
 		.replace('$usertag$', member.user.tag)
 		.replace('$userid$', member.user.id)

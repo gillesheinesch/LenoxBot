@@ -66,11 +66,11 @@ exports.run = async(client, guild) => {
 	};
 	await client.guildconfs.set(guild.id, defaultSettings);
 	
-	const tableconfig = client.guildconfs.get(guild.id);
+	const tableload = client.guildconfs.get(guild.id);
 
-	if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        await client.guildconfs.set(guild.id, tableconfig);
+	if (tableload.language === '') {
+        tableload.language = 'en';
+        await client.guildconfs.set(guild.id, tableload);
 	}
 	
 	const embed1 = new Discord.RichEmbed()

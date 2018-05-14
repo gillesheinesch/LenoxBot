@@ -1,19 +1,19 @@
 const Discord = require('discord.js');
 exports.run = async(client, oldMember, newMember) => {
-	const tableconfig = await client.guildconfs.get(newMember.guild.id);
+	const tableload = await client.guildconfs.get(newMember.guild.id);
 
-	if (!tableconfig) return undefined;
+	if (!tableload) return undefined;
 
-	if (tableconfig.presenceupdatelog === 'false') return;
+	if (tableload.presenceupdatelog === 'false') return;
 
-	if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(newMember.guild.id, tableconfig);
+	if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(newMember.guild.id, tableload);
 	}
 	
-	var lang = require(`../languages/${tableconfig.language}.json`);
+	var lang = require(`../languages/${tableload.language}.json`);
 
-	const messagechannel = client.channels.get(tableconfig.presenceupdatelogchannel);
+	const messagechannel = client.channels.get(tableload.presenceupdatelogchannel);
 	if (oldMember.presence.status !== newMember.presence.status) {
 	const embed = new Discord.RichEmbed()
 	.setColor('#FE2E2E')

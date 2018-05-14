@@ -1,23 +1,23 @@
 const Discord = require('discord.js');
 exports.run = async(client, oldGuild, newGuild) => {
-	const tableconfig = client.guildconfs.get(oldGuild.id);
+	const tableload = client.guildconfs.get(oldGuild.id);
 
-	if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(oldGuild.id, tableconfig);
+	if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(oldGuild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableconfig.language}.json`);
+	var lang = require(`../languages/${tableload.language}.json`);
 
-	if (!tableconfig.guildupdatelog) {
-		tableconfig.guildupdatelog = 'false';
-		tableconfig.guildupdatelogchannel = '';
-		await client.guildconfs.set(oldGuild.id, tableconfig);
+	if (!tableload.guildupdatelog) {
+		tableload.guildupdatelog = 'false';
+		tableload.guildupdatelogchannel = '';
+		await client.guildconfs.set(oldGuild.id, tableload);
 		
 	}
-	if (tableconfig.guildupdatelog === 'false') return;
+	if (tableload.guildupdatelog === 'false') return;
 	
-	const messagechannel = client.channels.get(tableconfig.guildupdatelogchannel);
+	const messagechannel = client.channels.get(tableload.guildupdatelogchannel);
 
 	if (oldGuild.name !== newGuild.name) {
 		const embed = new Discord.RichEmbed()

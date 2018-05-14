@@ -1,24 +1,24 @@
 const Discord = require('discord.js');
 exports.run = async(client, role) => {
-    const tableconfig = client.guildconfs.get(role.guild.id);
+    const tableload = client.guildconfs.get(role.guild.id);
 
-	for (var i = 0; i < tableconfig.selfassignableroles.length; i++) {
-			if (role.id === tableconfig.selfassignableroles[i]) {
-				tableconfig.selfassignableroles.splice(i, 1);
-                return client.guildconfs.set(role.guild.id, tableconfig);
+	for (var i = 0; i < tableload.selfassignableroles.length; i++) {
+			if (role.id === tableload.selfassignableroles[i]) {
+				tableload.selfassignableroles.splice(i, 1);
+                return client.guildconfs.set(role.guild.id, tableload);
 			}
         }
     if (role.name === 'LenoxBot') return;
-    if (tableconfig.roledeletelog === 'false') return;
+    if (tableload.roledeletelog === 'false') return;
 
-    if (tableconfig.language === '') {
-        tableconfig.language = 'en';
-        client.guildconfs.set(role.guild.id, tableconfig);
+    if (tableload.language === '') {
+        tableload.language = 'en';
+        client.guildconfs.set(role.guild.id, tableload);
 	}
 
-    var lang = require(`../languages/${tableconfig.language}.json`);
+    var lang = require(`../languages/${tableload.language}.json`);
 
-    const messagechannel = client.channels.get(tableconfig.roledeletelogchannel);
+    const messagechannel = client.channels.get(tableload.roledeletelogchannel);
 
     const embed = new Discord.RichEmbed()
     .setColor('#FE2E2E')

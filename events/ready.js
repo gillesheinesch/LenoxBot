@@ -1,5 +1,6 @@
 exports.run = async client => {
 	const Discord = require('discord.js');
+	const chalk = require('chalk');
 
 	client.guildconfs.defer.then(() => {
 		console.log(client.guildconfs.size + "keys loaded for all discord servers");
@@ -69,16 +70,14 @@ exports.run = async client => {
 
 	const botconfspremium = {};
 
-	console.log(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`);
+	client.user.setPresence({
+		game: {
+			name: `?help | www.lenoxbot.com`,
+			type: 0
+		}
+	});
 
-		client.user.setPresence({
-			game: {
-				name: `?help | www.lenoxbot.com`,
-				type: 0
-			}
-		});
-
-    await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
+	await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
 
 	await client.users.filter(u => client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : undefined).forEach(u => {
 		client.users.get(u.id).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
@@ -150,4 +149,6 @@ exports.run = async client => {
 			}
 		});
 	}, 86400000);
+
+	console.log(chalk.green(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`));
 };
