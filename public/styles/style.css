@@ -261,39 +261,6 @@ a {
     font-size: 2.7rem;
 }
 
-.navbar ul {
-    display: inline-block !important;
-    border: 1px solid white;
-    text-align: center !important;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-    background-color: #333;
-}
-
-.navbar li {
-    float: left;
-}
-
-.navbar li a {
-    display: block;
-    color: white;
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-}
-
-.navbar li a:hover,
-.navbar #active {
-    display: block;
-    color: rgb(255, 255, 255);
-    text-align: center;
-    padding: 14px 16px;
-    text-decoration: none;
-    background-color: rgb(136, 135, 135) !important;
-}
-
 .footer-navigation {
     border-top: 3px solid rgb(196, 193, 193);
     padding: 10px 0px;
@@ -328,9 +295,6 @@ a {
     border-radius: 30px !important;
 }
 
-.navbar-button {
-    border-right: 1px solid white;
-}
 
 #oauth2button {
     font-size: 60px;
@@ -651,14 +615,6 @@ section .section-title {
     font-family: Mont, sans-serif;
 }
 
-#navbar-header{
-    float:none;
-    margin: 0 auto;
-    margin-right: 100px !important;
-    display: table;
-    table-layout: fixed;
-}
-
 .table {
     margin-bottom: 70px !important;
 }
@@ -721,6 +677,10 @@ hr.message-inner-separator
     padding: 15px;
 }
 
+#mainnavbar li{
+    margin-right: 5px;
+}
+
 /*Handy S*/
 
 @media only screen and (min-width: 320px) and (max-width: 374px) {
@@ -762,9 +722,6 @@ hr.message-inner-separator
         border: 3px solid white;
         text-decoration: none;
         text-align: center;
-    }
-    .navbar-brand, .logo {
-        display: none;
     }
 }
 

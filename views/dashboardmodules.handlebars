@@ -2,46 +2,47 @@
 <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
 <script src='../../script/dashboardlogs.js'></script>
 <title>Dashboard - LenoxBot</title>
-<header id="header">
-    <nav class="navbar" role="navigation">
-        <div class="logo navbar-brand">
-            <span class="navbar-toggler-icon">
-                <img class="d-inline-block align-top" src="https://i.imgur.com/MINCK5a.png" height="30" width="30" alt="">
-            </span>
-            <p class="text text-size-big text-white navbar-toggler" style="float:right;">LenoxBot</p>
-        </div>
-            <ul class="nav navbar-nav" id="navbar-header">
-                <li class="nav-item">
-                    <a href="../../home" class="text text-size-normal text-white navbar-button">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="../../documentation" class="text text-size-normal text-white navbar-button">Documentation</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://medium.com/lenoxbot" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Blog
-                        <span class="label label-info">NEW</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://lenoxbot.com/invite" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Invite LenoxBot</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://lenoxbot.com/discord" target="blanc" class="text text-size-normal text-white navbar-button nav-link">Discord Server</a>
-                </li>
-                <li class="nav-item">
-                    {{#if user}}
-                    <a href="../../servers" class="text text-size-normal text-white navbar-button" id="active">Dashboard
-                        <span class="label label-danger">ALPHA</span>
-                    </a>
-                    {{/if}}
-                </li>
-            </ul>
-        <div class="navbar" id="loginbutton">
-            {{#if user}}
-            <a href="../../logout" class="text text-size-normal navbar-button" style="color: black;">Log out</a>
-            {{ else }}
-            <a href="../../login" class="text text-size-normal navbar-button" style="color: black;">Log in</a>
-            {{/if}}
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" id="mainnavbar">
+            <li class="nav-item active">
+                <a href="../../home" class="text-size-normal nav-link" id="active">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="../../documentation" class=" text-size-normal nav-link">Documentation</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
+                    <span class="label label-info">NEW</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://lenoxbot.com/invite" target="blanc" class=" text-size-normal nav-link">Invite LenoxBot</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://lenoxbot.com/discord" target="blanc" class=" text-size-normal nav-link">Discord Server</a>
+            </li>
+            <li class="nav-item">
+                {{#if user}}
+                <a href="../../servers" class=" text-size-normal nav-link">Dashboard
+                    <span class="label label-danger">ALPHA</span>
+                </a>
+                {{/if}}
+            </li>
+            <li class="nav-item">
+                {{#if user}}
+                <a href="../../logout" class=" text-size-normal nav-link ">Log out</a>
+                {{ else }}
+                <a href="../../login" class=" text-size-normal nav-link ">Log in</a>
+                {{/if}}
+            </li>
+        </ul>
         </div>
     </nav>
     </div>
