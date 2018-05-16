@@ -55,7 +55,12 @@
 		<div class="row">
 			<div class="col-sm-3">
 				<nav class="navbar navbar-dark bg-dark" id="dashboardnav">
-					<ul class="navbar-nav mr-auto">
+					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
+					    aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+					<div class="collapse navbar-collapse" id="dashboardnavigationbar">
+					<ul class="navbar-nav mr-auto" id="mainnavbar">
 						<li class="nav-item nav-link">
 							<a href="/dashboard/{{guilds.id}}/overview" class=" text-size-normal nav-link active" role="button">Overview</a>
 						</li>
@@ -83,74 +88,75 @@
 							</a>
 						</li>
 					</ul>
+					</div>
 				</nav>
 			</div>
 			<div class="col-sm-9">
-			<div class="panel-group panel-group-dashboard">
-				<div class="panel panel-primary panel-dashboard">
-					<div class="panel-heading">
-						<p class="text text-white text-size-big">Welcome {{user.username}},</p>
+				<div class="panel-group panel-group-dashboard">
+					<div class="panel panel-primary panel-dashboard">
+						<div class="panel-heading">
+							<p class="text text-white text-size-big">Welcome {{user.username}},</p>
+						</div>
+					</div>
+					<div class="card-group" style="text-align: center;">
+						<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
+							<div class="card-body">
+								<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.memberscount}}"
+								    data-delay='0.8' data-increment='1'>{{guilds.memberscount}}</span>
+								<p class="text card-title" style="text-align: center;">Members</p>
+							</div>
+						</div>
+						<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
+							<div class="card-body">
+								<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.channelscount}}"
+								    data-delay='0.8' data-increment='1'>{{guilds.channelscount}}</span>
+								<p class="text card-title" style="text-align: center;">Channels</p>
+							</div>
+						</div>
+						<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
+							<div class="card-body">
+								<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.rolescount}}"
+								    data-delay='0.8' data-increment='1'>{{guilds.rolescount}}</span>
+								<p class="text card-title" style="text-align: center;">Roles</p>
+							</div>
+						</div>
+						<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
+							<div class="card-body">
+								<p class="card-text text text-size-big" style="text-align: center;">{{guilds.prefix}}</p>
+								<p class="text card-title" style="text-align: center;">Prefix</p>
+							</div>
+						</div>
+					</div>
+					<div class="panel panel-primary panel-dashboard">
+						<div class="panel-heading">
+							<p class="text text-white text-size-normal">Last logs:</p>
+						</div>
+						<div class="panel-body">
+							<table class="table table-bordered">
+								<!-- Header of logs -->
+								<tr>
+									<th class="text text-size-normal text-black">Action</th>
+									<th class="text text-size-normal text-black">Executor</th>
+									<th class="text text-size-normal text-black">Date</th>
+								</tr>
+								<!-- Header of logs -->
+								{{#if logs}} {{#each logs}}
+								<tr>
+									<td class="text text-size-small text-black">{{action}}</td>
+									<td class="text text-size-small text-black">{{username}}</td>
+									<td class="text text-size-small text-black">{{showeddate}}</td>
+								</tr>
+								{{/each}} {{else}}
+								<tr>
+									<td class="text text-size-small text-black">None</td>
+									<td class="text text-size-small text-black">None</td>
+									<td class="text text-size-small text-black">None</td>
+								</tr>
+								{{/if}}
+							</table>
+						</div>
 					</div>
 				</div>
-				<div class="card-group" style="text-align: center;">
-					<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
-						<div class="card-body">
-							<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.memberscount}}"
-							    data-delay='0.8' data-increment='1'>{{guilds.memberscount}}</span>
-							<p class="text card-title" style="text-align: center;">Members</p>
-						</div>
-					</div>
-					<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
-						<div class="card-body">
-							<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.channelscount}}"
-							    data-delay='0.8' data-increment='1'>{{guilds.channelscount}}</span>
-							<p class="text card-title" style="text-align: center;">Channels</p>
-						</div>
-					</div>
-					<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
-						<div class="card-body">
-							<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.rolescount}}"
-							    data-delay='0.8' data-increment='1'>{{guilds.rolescount}}</span>
-							<p class="text card-title" style="text-align: center;">Roles</p>
-						</div>
-					</div>
-					<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
-						<div class="card-body">
-							<p class="card-text text text-size-big" style="text-align: center;">{{guilds.prefix}}</p>
-							<p class="text card-title" style="text-align: center;">Prefix</p>
-						</div>
-					</div>
-				</div>
-				<div class="panel panel-primary panel-dashboard">
-					<div class="panel-heading">
-						<p class="text text-white text-size-normal">Last logs:</p>
-					</div>
-					<div class="panel-body">
-						<table class="table table-bordered">
-							<!-- Header of logs -->
-							<tr>
-								<th class="text text-size-normal text-black">Action</th>
-								<th class="text text-size-normal text-black">Executor</th>
-								<th class="text text-size-normal text-black">Date</th>
-							</tr>
-							<!-- Header of logs -->
-							{{#if logs}} {{#each logs}}
-							<tr>
-								<td class="text text-size-small text-black">{{action}}</td>
-								<td class="text text-size-small text-black">{{username}}</td>
-								<td class="text text-size-small text-black">{{showeddate}}</td>
-							</tr>
-							{{/each}} {{else}}
-							<tr>
-								<td class="text text-size-small text-black">None</td>
-								<td class="text text-size-small text-black">None</td>
-								<td class="text text-size-small text-black">None</td>
-							</tr>
-							{{/if}}
-						</table>
-					</div>
-				</div>
-			</div>
 			</div>
 		</div>
 	</div>

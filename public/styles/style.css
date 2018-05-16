@@ -679,10 +679,6 @@ hr.message-inner-separator
     margin-right: 5px;
 }
 
-.sidebar-nav-fixed {
-	width: 4%;
-}
-
 #dashboardnav ul {
     border-radius: 10px;
 }
