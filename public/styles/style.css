@@ -407,9 +407,7 @@ a {
 }
 
 .panel-group-dashboard {
-    width: 80%;
-    margin-top: 100px;
-    margin-left: 300px;
+    width: 100%;
     margin-bottom: 100px;
 }
 
@@ -679,6 +677,23 @@ hr.message-inner-separator
 
 #mainnavbar li{
     margin-right: 5px;
+}
+
+.sidebar-nav-fixed {
+	width: 4%;
+}
+
+#dashboardnav ul {
+    background: white;
+    border-radius: 20px;
+}
+
+#dashboardnav ul li a{
+    padding: 10px;
+}
+
+.serverscard {
+    background-color: #c2c2c2 !important;
 }
 
 /*Handy S*/
