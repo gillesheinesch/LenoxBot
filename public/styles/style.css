@@ -684,8 +684,7 @@ hr.message-inner-separator
 }
 
 #dashboardnav ul {
-    background: white;
-    border-radius: 20px;
+    border-radius: 10px;
 }
 
 #dashboardnav ul li a{
