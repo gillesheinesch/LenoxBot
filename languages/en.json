@@ -756,6 +756,7 @@
     "clashroyale_description": "Shows you ClashRoyale stats about a player or a clan",
 
     "fortnite_noinput": "You have to enter the name of the user EpicGames Account",
+    "fortnite_invalidconsole": "You have to enter a valid console (pc, xbox, ps)",
     "fortnite_description": "Shows you Fortnite stats about a player on every console",
 
     "gif_noinput": "You have to specify which GIF you would like to search for!",
@@ -811,7 +812,7 @@
     "botinfo_support": "Support us!",
     "botinfo_invite": "You want this bot on your server?",
     "botinfo_supportserver": "Join our Discord Server",
-    "botinfo_version": "Version des Bots",
+    "botinfo_version": "Version of the bot",
     "botinfo_description": "Information about the bot",
 
     "calculator_noinput": "You have to specify what you would like to count on!",
