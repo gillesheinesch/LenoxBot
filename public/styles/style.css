@@ -5,6 +5,7 @@ body {
     height: 100%;
     margin: 0;
     padding: 0;
+    margin-top: 50px;
 }
 
 footer {
@@ -16,6 +17,14 @@ footer {
     text-align: center;
     padding-bottom: 20px;
     z-index: 2;
+}
+
+header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    z-index: 1030;
 }
 
 @font-face {
@@ -268,7 +277,8 @@ a {
     height: 5px;
 }
 
-.footer-navigation a, .footer-navigation p {
+.footer-navigation a,
+.footer-navigation p {
     margin-left: 10px !important;
     margin-right: 10px !important;
     color: #8C8C92;
@@ -294,7 +304,6 @@ a {
     border: 3px solid rgb(18, 187, 18) !important;
     border-radius: 30px !important;
 }
-
 
 #oauth2button {
     font-size: 60px;
@@ -609,7 +618,7 @@ section .section-title {
 }
 
 .guildsname-dashboard {
-    width: 500%; 
+    width: 500%;
     font-family: Mont, sans-serif;
 }
 
@@ -618,11 +627,10 @@ section .section-title {
 }
 
 .servernotlist {
-    text-align: center; 
-    margin-top: 30px; 
-    color:aliceblue; 
-    font-family: 
-    Mont, sans-serif;
+    text-align: center;
+    margin-top: 30px;
+    color: aliceblue;
+    font-family: Mont, sans-serif;
 }
 
 .card-text {
@@ -642,17 +650,16 @@ section .section-title {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif
 }
 
-hr.message-inner-separator
-{
+hr.message-inner-separator {
     clear: both;
     margin-top: 10px;
     margin-bottom: 13px;
     border: 0;
     height: 1px;
-    background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
-    background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-    background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
-    background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+    background-image: -webkit-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    background-image: -moz-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    background-image: -ms-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
+    background-image: -o-linear-gradient(left, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.15), rgba(0, 0, 0, 0));
 }
 
 .alert-savedsettings {
@@ -675,7 +682,7 @@ hr.message-inner-separator
     padding: 15px;
 }
 
-#mainnavbar li{
+#mainnavbar li {
     margin-right: 5px;
 }
 
@@ -683,7 +690,7 @@ hr.message-inner-separator
     border-radius: 10px;
 }
 
-#dashboardnav ul li a{
+#dashboardnav ul li a {
     padding: 10px;
 }
 
@@ -714,7 +721,6 @@ hr.message-inner-separator
     .page-sub-header {
         font-size: 2rem;
     }
-
     #oauth2button {
         font-size: 20px;
         box-sizing: border-box;
@@ -727,7 +733,6 @@ hr.message-inner-separator
         margin: 0 auto;
         padding: 10px;
     }
-    
     #oauth2button a {
         border: 3px solid white;
         text-decoration: none;
