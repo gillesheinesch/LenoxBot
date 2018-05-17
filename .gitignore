@@ -1,4 +1,5 @@
 node_modules
+settings.json
 score.sqlite
 package-lock.json
 data
