@@ -6,8 +6,15 @@ exports.run = async(client, msg, args, lang) => {
 	const input = args.slice();
 
 	if (!input[0]) return msg.channel.send(lang.fortnite_noinput);
+	if (input.length > 1) {
+		if (input[1].toLowerCase() !== 'pc' && input[1].toLowerCase() !== 'psn' && input[1].toLowerCase() !== 'xbl') return msg.channel.send(lang.fortnite_invalidconsole);
+	}
 
-	var stats = await fortniteclient.getInfo(input[0], !input[1] ? 'PC' : input[1]);
+	try {
+		var stats = await fortniteclient.getInfo(input[0], !input[1] ? 'PC' : input[1]);
+	} catch (error) {
+		return msg.channel.send(lang.fortnite_playernotfound)
+	}
 
 		const embed = new Discord.RichEmbed()
 		.setURL(stats.url)
