@@ -13,7 +13,7 @@ exports.run = async(client, msg, args, lang) => {
 	try {
 		var stats = await fortniteclient.getInfo(input[0], !input[1] ? 'PC' : input[1]);
 	} catch (error) {
-		return msg.channel.send(lang.fortnite_playernotfound)
+		return msg.channel.send(lang.fortnite_playernotfound);
 	}
 
 		const embed = new Discord.RichEmbed()
