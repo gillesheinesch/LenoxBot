@@ -37,8 +37,8 @@ exports.conf = {
 exports.help = {
 	name: 'fortnite',
 	description: 'Shows you Fortnite stats about a player on every console',
-	usage: 'fortnite {EpicGames Username} [PC, XBOX, PSN (pc default)]',
-	example: ['fortnite Monkeyyy11ez PSN'],
+	usage: 'fortnite {EpicGames Username} [pc, xbl, psn (pc default)]',
+	example: ['fortnite Monkeyyy11ez psn'],
 	category: 'searches',
 	botpermissions: ['SEND_MESSAGES']
 };
