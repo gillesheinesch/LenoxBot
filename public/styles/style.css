@@ -664,8 +664,8 @@ hr.message-inner-separator {
 
 .alert-savedsettings {
     z-index: 3;
-    position: absolute;
-    top: 0px;
+    position: fixed;
+    top: 50px;
     margin: 30px;
     right: 1px;
 }
