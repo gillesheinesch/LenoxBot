@@ -97,7 +97,9 @@ exports.run = async client => {
 
 	await client.botconfs.set('botstats', {
 		botguildscount: client.guilds.size,
-		botmemberscount: client.users.size
+		botmemberscount: client.users.size,
+		botmemberscountincrement: Math.floor(client.users.size / 170) + 1,
+		botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
 	});
 
 	const embed = new Discord.RichEmbed()
