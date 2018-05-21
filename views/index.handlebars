@@ -9,287 +9,314 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto" id="mainnavbar">
-            <li class="nav-item active">
-                <a href="home" class="text-size-normal nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="documentation" class=" text-size-normal nav-link">Documentation</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
-                    
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://lenoxbot.com/invite" target="blanc" class=" text-size-normal nav-link">Invite LenoxBot</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://lenoxbot.com/discord" target="blanc" class=" text-size-normal nav-link">Discord Server</a>
-            </li>
-            <li class="nav-item">
-                {{#if user}}
-                <a href="servers" class=" text-size-normal nav-link">Dashboard
-                    <span class="label label-danger">ALPHA</span>
-                </a>
-                {{/if}}
-            </li>
-            <li class="nav-item">
-                {{#if user}}
-                <a href="logout" class=" text-size-normal nav-link ">Log out</a>
-                {{ else }}
-                <a href="login" class=" text-size-normal nav-link ">Log in</a>
-                {{/if}}
-            </li>
-        </ul>
+            <ul class="navbar-nav mr-auto" id="mainnavbar">
+                <li class="nav-item active">
+                    <a href="home" class="text-size-normal nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="documentation" class=" text-size-normal nav-link">Documentation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/invite" target="blanc" class=" text-size-normal nav-link">Invite LenoxBot</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/discord" target="blanc" class=" text-size-normal nav-link">Discord Server</a>
+                </li>
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="servers" class=" text-size-normal nav-link">Dashboard
+                        <span class="label label-danger">ALPHA</span>
+                    </a>
+                    {{/if}}
+                </li>
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="logout" class=" text-size-normal nav-link ">Log out</a>
+                    {{ else }}
+                    <a href="login" class=" text-size-normal nav-link ">Log in</a>
+                    {{/if}}
+                </li>
+            </ul>
         </div>
     </nav>
 </header>
 <main>
-    <div style="text-align: center;">
-        <div class="lenoxbot-shortdescription">
-            <p class="text text-size-big page-sub-header">LenoxBot helps you to moderate your server more easily and offers your users more fun with different commands</p>
-        </div>
-        <div id="buttonholder">
-            <a target="blank" class="text text-size-normal text-white active-button btn btn-lg" href="https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8">
-                <i class="fa fa-plus" aria-hidden="true"></i> Invite</a>
-            <p id="toFeatures" class="text text-size-normal text-white active-button btn btn-lg" style="margin-left: 80px;">
-                <i class="fa fa-caret-down" aria-hidden="true"></i> Show me more!</p>
-        </div>
-    </div>
-    <section id="features" class="pb-5">
-        <div class="container">
-            <p class="text text-size-big text-white section-caption">
-                <i class="fa fa-star" aria-hidden="true"></i> Features</p>
-            <div class="row">
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p>
-                                            <img class="img-fluid" src="https://image.flaticon.com/icons/svg/53/53063.svg" alt="card image">
-                                        </p>
-                                        <h4 class="card-title">Many commands</h4>
-                                        <p class="card-text">LenoxBot offers you a large number of commands so that you and your DiscordServer
-                                            users can have fun together!</p>
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Many commands</h4>
-                                        <p class="card-text">The commands we program will make moderation easier on your Discord server, and your
-                                            users will definitely have more fun!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+    <div class="container">
+        <div class="row">
+            <div style="text-align: center;">
+                <div class="lenoxbot-shortdescription">
+                    <p class="text text-size-big page-sub-header">LenoxBot helps you to moderate your server more easily and offers your users more fun with different
+                        commands
+                    </p>
                 </div>
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p>
-                                            <img class=" img-fluid" src="https://d30y9cdsu7xlg0.cloudfront.net/png/252398-200.png" alt="card image">
-                                        </p>
-                                        <h4 class="card-title">Configurable</h4>
-                                        <p class="card-text">Almost every feature of the bot gives you the ability to customize it to your discord
-                                            server ...</p>
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Configurable</h4>
-                                        <p class="card-text">From A to Z, you can customize almost all features of the bot to your Discord Server.
-                                            These include, for example, the prefix, the language, ...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p>
-                                            <img class=" img-fluid" src="https://www.freeiconspng.com/uploads/free-icon-png-17.png" alt="card image">
-                                        </p>
-                                        <h4 class="card-title">Free</h4>
-                                        <p class="card-text">You can use the bot for free without having to pay a $1!</p>
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Free</h4>
-                                        <p class="card-text">We want to offer the discord users a bot where you do not have to pay anything and
-                                            have a lot of functions. There is, of course, the opportunity to donate and get
-                                            some extra features but otherwise the bot is free!</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p>
-                                            <img class=" img-fluid" src="https://cdn2.iconfinder.com/data/icons/thin-charts-analytics/24/thin-1086_kpi_dashboard_monitor-512.png"
-                                                alt="card image">
-                                        </p>
-                                        <h4 class="card-title">Dashboard</h4>
-                                        <p class="card-text">Our new dashboard offers you the possibility to change the settings of the bot via
-                                            the website</p>
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Dashboard</h4>
-                                        <p class="card-text">Our dashboard is still in alpha phase but you can already change some settings on
-                                            our website. It is much more comfortable than having to adjust everything via
-                                            the bot....</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p>
-                                            <img class=" img-fluid" src="https://cdn2.iconfinder.com/data/icons/sports-attitudes/1451/run-512.png" alt="card image">
-                                        </p>
-                                        <h4 class="card-title">Fast</h4>
-                                        <p class="card-text">Our bot runs on highly dedicated servers, so there are short reaction times</p>
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">Fast</h4>
-                                        <p class="card-text">It took us a long time to reduce the response time of the bot so that the bot gives
-                                            a response to an entered command as fast as possible...</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6 col-md-4">
-                    <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
-                        <div class="mainflip">
-                            <div class="frontside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center">
-                                        <p>
-                                            <img class=" img-fluid" src="https://png.icons8.com/metro/1600/online.png" alt="card image">
-                                        </p>
-                                        <h4 class="card-title">99.99% uptime</h4>
-                                        <p class="card-text">The bot is always online unless there are maintenance times</p>
-                                        <a href="#" class="btn btn-primary btn-sm">
-                                            <i class="fa fa-plus"></i>
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="backside shadow">
-                                <div class="card">
-                                    <div class="card-body text-center mt-4">
-                                        <h4 class="card-title">99.99% uptime</h4>
-                                        <p class="card-text">We carry out maintenance times of a maximum of 2 days 1-3 times a year, otherwise
-                                            the bot is always online! We want to offer the users a bot to rely on</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div id="buttonholder">
+                    <a target="blank" class="text text-size-normal text-white active-button btn btn-lg" href="https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8">
+                        <i class="fa fa-plus" aria-hidden="true"></i> Invite</a>
+                    <p id="toFeatures" class="text text-size-normal text-white active-button btn btn-lg" style="margin-left: 80px;">
+                        <i class="fa fa-caret-down" aria-hidden="true"></i> Show me more!</p>
                 </div>
             </div>
-        </div>
-    </section>
-    <div id="documentation">
-        <p class="text text-size-big text-white section-caption">
-            <i class="fa fa-star" aria-hidden="true"></i> Documentation</p>
-        <div id="documentationlink">
-            <a href="/documentation" class="text text-size-normal text-white active-button btn btn-dark btn-lg">Visit our documentation</a>
-        </div>
-    </div>
-    <div id="support">
-        <p class="text text-size-big text-white section-caption">
-            <i class="fa fa-question-circle" aria-hidden="true"></i> Support</p>
-        <p class="text text-size-normal">If you have any questions / suggestions/ bugs / feedback, you can join our Discord Server:</p>
-        <a target="blank" class="text text-size-normal text-white active-button btn btn-dark btn-lg" href="https://discord.gg/5mpwCr8">
-            <i class="fa fa-sign-in" aria-hidden="true"></i> Join</a>
-    </div>
-    <div id="endline">
-        <p class="text text-size-big text-white section-caption" style="text-align: center;">
-            <i class="fas fa-info"></i> Stats</p>
-        <div class="card-group">
-            <div class="card text-white bg-info bot-stats" style="width: 50rem;">
-                <div class="card-body">
-                    <p class="text card-title" style="text-align: center;">Guilds:</p>
-                    <span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{botstats.botguildscount}}"
-                        data-delay='0.8' data-increment="{{botstats.botguildscountincrement}}">{{botstats.botguildscount}}</span>
+            <div id="carouselExampleIndicators" class="carousel slide carousel-fade" data-ride="carousel">
+                <ol class="carousel-indicators">
+                    <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                    <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                </ol>
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img class="d-block w-100" src="https://i.imgur.com/BsAoLvx.png" alt="First slide">
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5 class="text text-size-big" style="font-family: Mont;">A whole range of currency commands</h5>
+                            <p class="text text-size-normal">Test</p>
+                        </div>
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="https://i.imgur.com/L9qajtN.png" alt="Second slide">
+                    </div>
+                    <div class="carousel-item">
+                        <img class="d-block w-100" src="https://i.imgur.com/Qi7q8pd.png" alt="Third slide">
+                    </div>
+                </div>
+                <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </div>
+            <section id="features" class="pb-5">
+                <div class="container">
+                    <p class="text text-size-big text-white section-caption">
+                        <i class="fa fa-star" aria-hidden="true"></i> Features</p>
+                    <div class="row">
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p>
+                                                    <img class="img-fluid" src="https://image.flaticon.com/icons/svg/53/53063.svg" alt="card image">
+                                                </p>
+                                                <h4 class="card-title">Many commands</h4>
+                                                <p class="card-text">LenoxBot offers you a large number of commands so that you and your DiscordServer
+                                                    users can have fun together!</p>
+                                                <a href="#" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Many commands</h4>
+                                                <p class="card-text">The commands we program will make moderation easier on your Discord server,
+                                                    and your users will definitely have more fun!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p>
+                                                    <img class=" img-fluid" src="https://d30y9cdsu7xlg0.cloudfront.net/png/252398-200.png" alt="card image">
+                                                </p>
+                                                <h4 class="card-title">Configurable</h4>
+                                                <p class="card-text">Almost every feature of the bot gives you the ability to customize it to
+                                                    your discord server ...</p>
+                                                <a href="#" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Configurable</h4>
+                                                <p class="card-text">From A to Z, you can customize almost all features of the bot to your Discord
+                                                    Server. These include, for example, the prefix, the language, ...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p>
+                                                    <img class=" img-fluid" src="https://www.freeiconspng.com/uploads/free-icon-png-17.png" alt="card image">
+                                                </p>
+                                                <h4 class="card-title">Free</h4>
+                                                <p class="card-text">You can use the bot for free without having to pay a $1!</p>
+                                                <a href="#" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Free</h4>
+                                                <p class="card-text">We want to offer the discord users a bot where you do not have to pay anything
+                                                    and have a lot of functions. There is, of course, the opportunity to
+                                                    donate and get some extra features but otherwise the bot is free!</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p>
+                                                    <img class=" img-fluid" src="https://cdn2.iconfinder.com/data/icons/thin-charts-analytics/24/thin-1086_kpi_dashboard_monitor-512.png"
+                                                        alt="card image">
+                                                </p>
+                                                <h4 class="card-title">Dashboard</h4>
+                                                <p class="card-text">Our new dashboard offers you the possibility to change the settings of the
+                                                    bot via the website</p>
+                                                <a href="#" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Dashboard</h4>
+                                                <p class="card-text">Our dashboard is still in alpha phase but you can already change some settings
+                                                    on our website. It is much more comfortable than having to adjust everything
+                                                    via the bot....</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p>
+                                                    <img class=" img-fluid" src="https://cdn2.iconfinder.com/data/icons/sports-attitudes/1451/run-512.png" alt="card image">
+                                                </p>
+                                                <h4 class="card-title">Fast</h4>
+                                                <p class="card-text">Our bot runs on highly dedicated servers, so there are short reaction times</p>
+                                                <a href="#" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">Fast</h4>
+                                                <p class="card-text">It took us a long time to reduce the response time of the bot so that the
+                                                    bot gives a response to an entered command as fast as possible...</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-sm-6 col-md-4">
+                            <div class="image-flip" ontouchstart="this.classList.toggle('hover');">
+                                <div class="mainflip">
+                                    <div class="frontside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center">
+                                                <p>
+                                                    <img class=" img-fluid" src="https://png.icons8.com/metro/1600/online.png" alt="card image">
+                                                </p>
+                                                <h4 class="card-title">99.99% uptime</h4>
+                                                <p class="card-text">The bot is always online unless there are maintenance times</p>
+                                                <a href="#" class="btn btn-primary btn-sm">
+                                                    <i class="fa fa-plus"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="backside shadow">
+                                        <div class="card">
+                                            <div class="card-body text-center mt-4">
+                                                <h4 class="card-title">99.99% uptime</h4>
+                                                <p class="card-text">We carry out maintenance times of a maximum of 2 days 1-3 times a year, otherwise
+                                                    the bot is always online! We want to offer the users a bot to rely on</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div id="documentation" style="text-align: center;">
+                <p class="text text-size-big text-white section-caption">
+                    <i class="fa fa-star" aria-hidden="true"></i> Documentation</p>
+                <div id="documentationlink">
+                    <a href="/documentation" class="text text-size-normal text-white active-button btn btn-dark btn-lg">Visit our documentation</a>
                 </div>
             </div>
-            <div class="card text-white bg-info bot-stats" style="width: 50rem;">
-                <div class="card-body">
-                    <p class="text card-title" style="text-align: center;">Members:</p>
-                    <span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{botstats.botmemberscount}}"
-                        data-delay='0.8' data-increment="{{botstats.botmemberscountincrement}}">{{botstats.botmemberscount}}</span>
+            <div id="support">
+                <p class="text text-size-big text-white section-caption">
+                    <i class="fa fa-question-circle" aria-hidden="true"></i> Support</p>
+                <p class="text text-size-normal">If you have any questions / suggestions/ bugs / feedback, you can join our Discord Server:</p>
+                <a target="blank" class="text text-size-normal text-white active-button btn btn-dark btn-lg" href="https://discord.gg/5mpwCr8">
+                    <i class="fa fa-sign-in" aria-hidden="true"></i> Join</a>
+            </div>
+            <div id="endline">
+                <p class="text text-size-big text-white section-caption" style="text-align: center;">
+                    <i class="fas fa-info"></i> Stats</p>
+                <div class="card-group">
+                    <div class="card text-white bot-stats" style="width: 50rem;">
+                        <div class="card-body">
+                            <p class="text card-title" style="text-align: center;">Guilds:</p>
+                            <span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{botstats.botguildscount}}"
+                                data-delay='0.8' data-increment="{{botstats.botguildscountincrement}}">{{botstats.botguildscount}}</span>
+                        </div>
+                    </div>
+                    <div class="card text-white bot-stats" style="width: 50rem;">
+                        <div class="card-body">
+                            <p class="text card-title" style="text-align: center;">Members:</p>
+                            <span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{botstats.botmemberscount}}"
+                                data-delay='0.8' data-increment="{{botstats.botmemberscountincrement}}">{{botstats.botmemberscount}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div id="topholder">
+                    <p id="toTop" class="text text-size-normal text-white active-button btn btn-lg">
+                        <i class="fa fa-arrow-up" aria-hidden="true"></i> To the top!</p>
                 </div>
             </div>
-        </div>
-        <div id="topholder">
-            <p id="toTop" class="text text-size-normal text-white active-button btn btn-lg">
-                <i class="fa fa-arrow-up" aria-hidden="true"></i> To the top!</p>
         </div>
     </div>
 </main>
-<footer>
-    <nav class="footer-navigation">
-        <p class="text text-size-small text-white">&copy; LenoxBot
-        </p>
-        <a id="twitter" target="blank" class="text text-size-small text-white" href="https://twitter.com/lenoxbot">
-            <i class="fab fa-twitter" aria-hidden="true"></i>
-        </a>
-    </nav>
-</footer>
