@@ -173,11 +173,11 @@ app.get('/', function (req, res, next) {
 		}
 	}
 
-
 	res.render('index', {
 		user: req.user,
 		guilds: check,
-		client: client
+		client: client,
+		botstats: client.botconfs.get('botstats')
 	});
 });
 
@@ -360,14 +360,18 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).members.size / 170) + 1;
+
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
 		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
 
 		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+		req.user.guilds[index].channelscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).channels.size / 170) + 1;
 
 		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+		req.user.guilds[index].rolescountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).roles.size / 170) + 1;
 
 		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
 
@@ -931,17 +935,17 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 					}
 				}
 
-				if (channels[i].id === tableload.userjoinlogchannel) {
-					channels[i].userjoinset = true;
-					if (tableload.userjoinlog === 'true') {
-					confs.userjoinset = true;
+				if (channels[i].id === tableload.welcomelogchannel) {
+					channels[i].welcomelogset = true;
+					if (tableload.welcomelog === 'true') {
+					confs.welcomelogset = true;
 					}
 				}
 
-				if (channels[i].id === tableload.userleftchannellog) {
-					channels[i].userleftset = true;
-					if (tableload.userleftlog === 'true') {
-					confs.userleftset = true;
+				if (channels[i].id === tableload.byelogchannel) {
+					channels[i].byelogset = true;
+					if (tableload.byelogchannel === 'true') {
+					confs.byelogset = true;
 					}
 				}
 
@@ -1724,7 +1728,6 @@ app.use(function (req, res, next) {
 });
 
 function checkAuth(req, res, next) {
-	console.log('hello');
 	if (req.isAuthenticated()) return console.log('Logged in');
 	res.send('not logged in :(');
 };
