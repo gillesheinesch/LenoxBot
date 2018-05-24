@@ -22,7 +22,9 @@ exports.run = async client => {
 
 	const botconfs = {
 		activity: false,
-		activitychannel: ''
+		activitychannel: '',
+		tickets: {},
+		ticketid: 0
 	};
 
 	const redeemconfs = {

@@ -1,27 +1,28 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
-	console.log("ticket");
+exports.run = async(client, msg, args) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
+	var botconfs = client.botconfs.get('botconfs');
 
-	if (!args || args.length === 0) return msg.reply('No input!');
+	if (!args || args.length === 0) return msg.reply('no input!');
 
-	const categorycheck = msg.guild.channels.find('name', 'Tickets');
+	const input = args.slice();
 
-	if (!categorycheck) {
-		msg.guild.createChannel('Tickets', "category", [{
-			deny: ['VIEW_CHANNEL']
-		}])
-	} else {
-		if (!categorycheck.type === 'category') {
-			msg.guild.createChannel('Tickets', "category", [{
-				deny: ['VIEW_CHANNEL']
-			}])
-		}
-	}
+	const confs = {
+		guildid: msg.guild.id,
+		author: msg.author.id,
+		users: [],
+		status: "open",
+		content: input.join(" "),
+		answers: {}
+	};
 
-	console.log(1);
+	botconfs.ticketid = botconfs.ticketid + 1;
+	botconfs.tickets[botconfs.ticketid] = confs;
+
+	await client.botconfs.set('botconfs', botconfs);
+
+	return msg.reply(`New ticket created. You can manage it under https://lenoxbot.com/tickets/${botconfs.ticketid}`);
 };
-
 
 exports.conf = {
 	enabled: true,
@@ -31,7 +32,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'ticket',
-	description: '',
+	description: 'Creates a new ticket',
 	usage: '',
 	example: [],
 	category: 'tickets',

@@ -140,6 +140,13 @@ exports.run = async (client, msg) => {
 	const userdb = await client.userdb.get(msg.author.id);
 	const redeemload = client.redeem.get(msg.author.id);
 	const botconfspremiumload = await client.botconfs.get('premium');
+	const botconfs = client.botconfs.get('botconfs');
+
+	if (!botconfs.tickets || !botconfs.ticketid) {
+		botconfs.ticketid = 0;
+		botconfs.tickets = {};
+		await client.botconfs.set('botconfs', botconfs);
+	}
 
 	if (!botconfspremiumload.keys) {
 		botconfspremiumload.keys = {
@@ -260,13 +267,6 @@ exports.run = async (client, msg) => {
 			inventoryslotticket: 0
 		};
 		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (!tableload.tickets) {
-		tableload.tickets = {
-			status: false
-		};
-		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (!tableload.togglexp) {

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
-
+	return msg.reply(`New ticket can be created under https://lenoxbot.com/newticket/${msg.guild.id}`);
 };
 
 
@@ -11,7 +11,7 @@ exports.conf = {
     userpermissions: []
 };
 exports.help = {
-	name: 'ticket',
+	name: 'ticketlink',
 	description: '',
 	usage: '',
 	example: [],
