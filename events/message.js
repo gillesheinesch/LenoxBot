@@ -262,6 +262,13 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!tableload.tickets) {
+		tableload.tickets = {
+			status: false
+		};
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.togglexp) {
 		tableload.togglexp = {
 			channelids: []
@@ -483,39 +490,39 @@ exports.run = async (client, msg) => {
 
 	if (tableload.modules.utility === 'true') {
 		if (!tableload.togglexp.channelids.includes(msg.channel.id)) {
-		sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
-			if (!row) {
-				sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
-			} else {
-				let curLevel = Math.floor(0.2 * Math.sqrt(row.points + 1));
-				if (curLevel > row.level) {
-					row.level = curLevel;
-					sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
+				if (!row) {
+					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
+				} else {
+					let curLevel = Math.floor(0.2 * Math.sqrt(row.points + 1));
+					if (curLevel > row.level) {
+						row.level = curLevel;
+						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 
-					if (tableload.xpmessages === 'true') {
-						var levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
-						msg.channel.send(levelup);
-					}
-				}
-				sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
-					for (let i = 1; i < tableload.ara.length; i += 2) {
-						if (tableload.ara[i] < row.points && !msg.member.roles.get(tableload.ara[i - 1])) {
-							const role = msg.guild.roles.get(tableload.ara[i - 1]);
-							msg.member.addRole(role);
-
-							var automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
-							msg.channel.send(automaticrolegotten);
+						if (tableload.xpmessages === 'true') {
+							var levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
+							msg.channel.send(levelup);
 						}
 					}
+					sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
+						for (let i = 1; i < tableload.ara.length; i += 2) {
+							if (tableload.ara[i] < row.points && !msg.member.roles.get(tableload.ara[i - 1])) {
+								const role = msg.guild.roles.get(tableload.ara[i - 1]);
+								msg.member.addRole(role);
+
+								var automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
+								msg.channel.send(automaticrolegotten);
+							}
+						}
+					});
+					sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+				}
+			}).catch((error) => {
+				console.error(error);
+				sql.run("CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)").then(() => {
+					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
 				});
-				sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
-			}
-		}).catch((error) => {
-			console.error(error);
-			sql.run("CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)").then(() => {
-				sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
 			});
-		});
 		}
 	}
 
