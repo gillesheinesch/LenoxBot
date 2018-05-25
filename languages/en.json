@@ -1,7 +1,7 @@
 {
-    "ticketnotification_channelset": "Ticket-notifications are now posted in the %channelname",
-    "ticketnotification_channeldeleted": "Ticket-notifications are now no longer posted!",
-    "ticketnotification_description": "Defines a channel in which ticket-notifications are sent",
+    "ticketnotification_channelset": "Ticket notifications are now posted in the %channelname",
+    "ticketnotification_channeldeleted": "Ticket notifications are now no longer posted!",
+    "ticketnotification_description": "Defines a channel in which ticket notifications will be sent",
 
     "mainfile_statuschange": "The status of your ticket has changed to '%status'. You can manage your ticket at this link: %link",
     "mainfile_newanswer": "There is a new answer to your ticket. You can see it under the following link: %link",
