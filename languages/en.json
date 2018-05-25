@@ -1,4 +1,11 @@
 {
+    "mainfile_statuschange": "The status of your ticket has changed to '%status'. You can manage your ticket at this link: %link",
+    "mainfile_newanswer": "There is a new answer to your ticket. You can see it under the following link: %link",
+
+    "ticket_noinput": "You forgot to enter your message to the support team!",
+    "ticket_created": "Your ticket has been successfully created. We will contact you by direct message as soon as there is something new about your ticket. You can manage it at this link: %link",
+    "ticket_description": "Create a new support ticket which will be forwarded to the support team",
+
     "togglexp_noinput": "You forgot to enter a channel name!",
     "togglexp_notexist": "This channel doesn't exist!",
     "togglexp_notextchannel": "This channel isn't a text channel!",
