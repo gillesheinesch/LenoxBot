@@ -290,6 +290,11 @@ exports.run = async (client, msg) => {
 		await client.redeem.set(msg.author.id, confs);
 	}
 
+	if (!tableload.modules.tickets) {
+		tableload.modules.tickets = "true";
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.xpmessages) {
 		tableload.xpmessages = 'false';
 		await client.guildconfs.set(msg.guild.id, tableload);
@@ -602,6 +607,7 @@ exports.run = async (client, msg) => {
 				tableload.modules.searches = 'true';
 				tableload.modules.utility = 'true';
 				tableload.modules.application = 'true';
+				tableload.modules.tickets = "true";
 				await client.guildconfs.set(msg.guild.id, tableload);
 			}
 

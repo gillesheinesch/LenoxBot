@@ -71,7 +71,7 @@ process.on('uncaughtException', (reason) => {
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-const categories = ['partner', 'currency', 'botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'utility', 'staff', 'application'];
+const categories = ['partner', 'currency', 'botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'utility', 'staff', 'application', 'tickets'];
 categories.forEach((c, i) => {
 	fs.readdir(`./commands/${c}/`, (err, files) => {
 		if (err) throw err;
@@ -90,11 +90,6 @@ categories.forEach((c, i) => {
 client.login(token);
 
 // WEBSITE
-var database = new Enmap({
-	provider: new EnmapSQLite({
-		name: 'discordoauth'
-	})
-});
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -122,7 +117,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://lenoxbot.com/callback',
+	callbackURL: 'http://localhost:80/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -146,14 +141,6 @@ app.get('/loginpressedbutton', passport.authenticate('discord', {
 		failureRedirect: '/oauth2problem'
 	}),
 	function (req, res) {
-		const conf = {
-			userid: req.user.id,
-			username: req.user.username,
-			discriminator: req.user.discriminator,
-			avatar: req.user.avatar,
-			accessToken: req.user.accessToken
-		}
-		database.set(req.user.id, conf);
 		res.redirect('/servers');
 	}
 );
@@ -207,6 +194,10 @@ app.get('/discord', function (req, res, next) {
 	return res.redirect('https://discordapp.com/invite/c7DUz35');
 });
 
+app.get('/blog', function (req, res, next) {
+	return res.redirect('https://medium.com/lenoxbot');
+});
+
 app.get('/ban', function (req, res, next) {
 	return res.redirect('https://goo.gl/forms/NKoVsl8y5wOePCYT2');
 });
@@ -235,6 +226,23 @@ app.get('/documentation', function (req, res, next) {
 	}
 
 	res.render('documentation', {
+		user: req.user,
+		guilds: check,
+		client: client
+	});
+});
+
+app.get('/newdocumentation', function (req, res, next) {
+	if (req.user) {
+		var check = [];
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (((req.user.guilds[i].permissions) & 8) === 8) {
+				check.push(req.user.guilds[i]);
+			}
+		}
+	}
+
+	res.render('newdocumentation', {
 		user: req.user,
 		guilds: check,
 		client: client
@@ -342,6 +350,90 @@ app.get('/servers', function (req, res, next) {
 		});
 	} else {
 		res.redirect('nologin');
+	}
+});
+
+app.post('/tickets/:ticketid/submitticketanswer', async function (req, res, next) {
+	if (req.user) {
+		const botconfs = await client.botconfs.get('botconfs');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error');
+		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../404error');
+
+		var ticket = botconfs.tickets[req.params.ticketid];
+
+		const length = Object.keys(ticket.answers).length + 1;
+
+		ticket.answers[length] = {
+			authorid: req.user.id,
+			guildid: req.params.id,
+			date: new Date(),
+			content: req.body.newticketanswer,
+			timelineconf: ""
+		};
+
+		await client.botconfs.set('botconfs', botconfs);
+
+		return res.redirect(url.format({
+			pathname:`/tickets/${ticket.ticketid}/overview`,
+			query: {
+			   "submitticketanswer": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, next) {
+	if (req.user) {
+		const botconfs = await client.botconfs.get('botconfs');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error');
+		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../404error');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error');
+
+		var ticket = botconfs.tickets[req.params.ticketid];
+
+		ticket.status = req.body.newstatus;
+
+		await client.botconfs.set('botconfs', botconfs);
+
+		return res.redirect(url.format({
+			pathname:`/tickets/${ticket.ticketid}/overview`,
+			query: {
+			   "submitnewticketstatus": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/tickets/:ticketid/overview', async function (req, res, next) {
+	if (req.user) {
+		const botconfs = await client.botconfs.get('botconfs');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error');
+		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../404error');
+
+		var ticket = botconfs.tickets[req.params.ticketid];
+
+		botconfs.tickets[req.params.ticketid].newdate = moment(botconfs.tickets[req.params.ticketid].date).format('MMMM Do YYYY, h:mm:ss a')
+
+		botconfs.tickets[req.params.ticketid].author = client.users.get(botconfs.tickets[req.params.ticketid].authorid).tag;
+
+		for (var index in ticket.answers) {
+			ticket.answers[index].author = client.users.get(ticket.answers[index].authorid) ? client.users.get(ticket.answers[index].authorid).tag : ticket.answers[index].authorid;
+			ticket.answers[index].newdate = moment(ticket.answers[index].date).format('MMMM Do YYYY, h:mm:ss a');
+		}
+
+		return res.render('ticket', {
+			user: req.user,
+			client: client,
+			ticket: ticket,
+			answers: Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0 ? false : botconfs.tickets[req.params.ticketid].answers,
+			status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
 	}
 });
 
@@ -1139,7 +1231,15 @@ app.post('/dashboard/:id/chatfilter/submitchatfilterarray', async function (req,
 
 		const tableload = client.guildconfs.get(dashboardid);
 
-		const newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
+		var newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
+
+		for (let i = 0; i < newchatfilterarray.length; i++) {
+			for (var index = 0; index < newchatfilterarray.length; index++) {
+				if (newchatfilterarray[i].toLowerCase() === newchatfilterarray[index].toLowerCase() && i !== index) {
+					newchatfilterarray.splice(index, 1);
+				}
+			}
+		}
 
 		tableload.chatfilter.array = newchatfilterarray;
 
@@ -1697,6 +1797,204 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 			channels: channels,
 			roles: roles,
 			submitapplication: req.query.submitapplication ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const botconfs = await client.botconfs.get('botconfs');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error')
+
+		var check = req.user.guilds[index];
+
+		var ticket = botconfs.tickets[req.params.ticketid];
+
+		const length = Object.keys(ticket.answers).length + 1;
+
+		ticket.answers[length] = {
+			authorid: req.user.id,
+			guildid: req.params.id,
+			date: new Date(),
+			content: req.body.newticketanswer,
+			timelineconf: "timeline-inverted"
+		}
+
+		await client.botconfs.set('botconfs', botconfs);
+
+		try {
+			const tableload = client.guildconfs.get(dashboardid);
+			const lang = require(`./languages/${tableload.language}.json`)
+			const newanswer = lang.mainfile_newanswer.replace('%link', `https://lenoxbot.com/tickets/${ticket.ticketid}`)
+			client.users.get(ticket.authorid).send(newanswer);
+		} catch (error) {
+			undefined;
+		}
+
+		return res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/tickets/${ticket.ticketid}/overview`,
+			query: {
+			   "submitticketanswer": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const botconfs = await client.botconfs.get('botconfs');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error')
+
+		var check = req.user.guilds[index];
+
+		var ticket = botconfs.tickets[req.params.ticketid];
+
+		if (ticket.status === req.body.newstatus) return res.redirect(`/dashboard/${dashboardid}/tickets/${ticket.ticketid}/overview`)
+
+		ticket.status = req.body.newstatus;
+
+		await client.botconfs.set('botconfs', botconfs);
+
+		try {
+			const tableload = client.guildconfs.get(dashboardid);
+			const lang = require(`./languages/${tableload.language}.json`)
+			const statuschange = lang.mainfile_statuschange.replace('%status', ticket.status).replace('%link', `https://lenoxbot.com/tickets/${ticket.ticketid}`)
+			client.users.get(ticket.authorid).send(statuschange);
+		} catch (error) {
+			undefined;
+		}
+
+		return res.redirect(url.format({
+			pathname:`/dashboard/${dashboardid}/tickets/${ticket.ticketid}/overview`,
+			query: {
+			   "submitnewticketstatus": true
+			 }
+		  }));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/tickets/:ticketid/overview', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const botconfs = await client.botconfs.get('botconfs');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error')
+
+		var check = req.user.guilds[index];
+
+		var ticket = botconfs.tickets[req.params.ticketid];
+
+		botconfs.tickets[req.params.ticketid].newdate = moment(botconfs.tickets[req.params.ticketid].date).format('MMMM Do YYYY, h:mm:ss a')
+
+		botconfs.tickets[req.params.ticketid].author = client.users.get(botconfs.tickets[req.params.ticketid].authorid).tag;
+
+		for (var index in ticket.answers) {
+			ticket.answers[index].author = client.users.get(ticket.answers[index].authorid) ? client.users.get(ticket.answers[index].authorid).tag : ticket.answers[index].authorid;
+			ticket.answers[index].newdate = moment(ticket.answers[index].date).format('MMMM Do YYYY, h:mm:ss a')
+		}
+
+		return res.render('dashboardticket', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			ticket: ticket,
+			answers: Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0 ? false : botconfs.tickets[req.params.ticketid].answers,
+			status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/tickets', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		req.user.guilds[index].reactionnumber = client.guildconfs.get(req.user.guilds[index].id).application.reactionnumber;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		const botconfs = client.botconfs.get('botconfs');
+		const newobject = {}
+
+		for (var index in botconfs.tickets) {
+			if (botconfs.tickets[index].guildid === dashboardid) {
+				newobject[index] = botconfs.tickets[index]
+				botconfs.tickets[index].author = client.users.get(botconfs.tickets[index].authorid).tag;
+			}
+		}
+
+		return res.render('dashboardtickets', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			ticketszero: Object.keys(newobject).length === 0 ? false : true,
+			tickets: newobject
 		});
 	} else {
 		res.redirect('../nologin');

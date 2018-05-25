@@ -36,8 +36,8 @@ exports.conf = {
 exports.help = {
 	name: 'ticket',
 	description: 'Creates a new ticket',
-	usage: '',
-	example: [],
+	usage: 'ticket {text}',
+	example: ['ticket Hello how can I open Discord?'],
 	category: 'tickets',
 	botpermissions: ['SEND_MESSAGES']
 };

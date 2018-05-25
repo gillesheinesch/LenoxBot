@@ -582,6 +582,7 @@
     "modules_utility": "Commands that all users can use and which are useful",
     "modules_application": "Entire application system with many settings options",
     "modules_currency": "Commands that allow you to receive credits and items (You can sell items)",
+    "modules_tickets": "Ticket system which allows you to run support for example",
     "modules_description": "Gives you a list of all modules and their meaning",
 
     "website_documentation": "Here you can find our supportpanel:",
