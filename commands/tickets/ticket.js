@@ -1,15 +1,16 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
+exports.run = async(client, msg, args, lang) => {
 	var botconfs = client.botconfs.get('botconfs');
 
-	if (!args || args.length === 0) return msg.reply('no input!');
+	if (!args || args.length === 0) return msg.reply(lang.ticket_noinput);
 
 	const input = args.slice();
 
 	const confs = {
 		guildid: msg.guild.id,
-		author: msg.author.id,
+		authorid: msg.author.id,
+		ticketid: botconfs.ticketid + 1,
+		date: msg.createdTimestamp,
 		users: [],
 		status: "open",
 		content: input.join(" "),
@@ -21,7 +22,8 @@ exports.run = async(client, msg, args) => {
 
 	await client.botconfs.set('botconfs', botconfs);
 
-	return msg.reply(`New ticket created. You can manage it under https://lenoxbot.com/tickets/${botconfs.ticketid}`);
+	const created = lang.ticket_created.replace('%link', `https://lenoxbot.com/tickets/${botconfs.ticketid}`);
+	return msg.reply(created);
 };
 
 exports.conf = {
