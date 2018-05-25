@@ -223,6 +223,14 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!tableload.tickets) {
+		tableload.tickets = {
+			notificationstatus: false,
+			notficationchannel: ''
+		}
+		await client.guildconfs.set(msg.guild.id, tableload);
+	};
+
 	if (!tableload.globallogs) {
 		tableload.globallogs = [];
 		await client.guildconfs.set(msg.guild.id, tableload);

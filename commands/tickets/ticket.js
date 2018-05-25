@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args, lang) => {
+	const tableload = client.guildconfs.get(msg.guild.id);
 	var botconfs = client.botconfs.get('botconfs');
 
 	if (!args || args.length === 0) return msg.reply(lang.ticket_noinput);
@@ -22,7 +23,25 @@ exports.run = async(client, msg, args, lang) => {
 
 	await client.botconfs.set('botconfs', botconfs);
 
-	const created = lang.ticket_created.replace('%link', `https://lenoxbot.com/tickets/${botconfs.ticketid}`);
+	var ticket = botconfs.tickets[botconfs.ticketid];
+
+	if (tableload.tickets.status === true) {
+		const ticketembed = lang.mainfile_ticketembed.replace('%ticketid', ticket.ticketid);
+		const embed = new Discord.RichEmbed()
+		.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${ticket.ticketid}/overview`)
+		.setTimestamp()
+		.setColor('#66ff33')
+		.setTitle(lang.mainfile_ticketembedtitle)
+		.setDescription(ticketembed);
+		
+		try {
+			client.channels.get(tableload.tickets.notificationchannel).send({ embed });
+		} catch (error) {
+			undefined;
+		}
+	}
+
+	const created = lang.ticket_created.replace('%link', `https://lenoxbot.com/tickets/${botconfs.ticketid}/overview`);
 	return msg.reply(created);
 };
 
