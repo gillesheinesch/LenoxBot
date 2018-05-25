@@ -1,0 +1,206 @@
+<link rel="stylesheet" type="text/css" href="../../../../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../../../../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<script src='../../../../script/dashboardlogs.js'></script>
+<title>Tickets - LenoxBot</title>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" id="mainnavbar">
+                <li class="nav-item">
+                    <a href="../../home" class="text-size-normal nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../../documentation" class=" text-size-normal nav-link">Documentation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/invite" target="blanc" class=" text-size-normal nav-link">Invite LenoxBot</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/discord" target="blanc" class=" text-size-normal nav-link">Discord Server</a>
+                </li>
+                <li class="nav-item active">
+                    {{#if user}}
+                    <a href="../../servers" class=" text-size-normal nav-link">Dashboard
+                        <span class="label label-danger">ALPHA</span>
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="../../logout" class=" text-size-normal nav-link ">Log out</a>
+                    {{ else }}
+                    <a href="../../login" class=" text-size-normal nav-link ">Log in</a>
+                    {{/if}}
+                </li>
+                <li class="avatarnavigation">
+                    {{#if user}}
+                    <a href="https://lenoxbot.com/servers">
+                        <img class="img-fluid rounded profilepic-navbar nav-link img-thumbnail" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"
+                            height="30" width="50">
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+</header>
+
+<main>
+    {{#if submitticketanswer}}
+    <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="float:right;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
+        <span class="text"></span>
+        <strong>New music settings saved!</strong>
+        <hr class="message-inner-separator">
+        <p>
+            We saved your new music settings for {{guilds.name}}</p>
+    </div>
+    {{/if}}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="text text-white text-size-big">{{guilds.name}}</p>
+            </div>
+            <div class="col-sm-3">
+                <nav class="navbar navbar-dark bg-dark" id="dashboardnav">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="dashboardnavigationbar">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/overview" class=" text-size-normal nav-link" role="button">Overview</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/generalsettings" class=" text-size-normal nav-link" role="button">General Settings</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/logs" class=" text-size-normal nav-link" role="button">Logssettings</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/modules" class=" text-size-normal nav-link" role="button">Modules</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/chatfilter" class=" text-size-normal nav-link" role="button">Chatfilter</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/music" class=" text-size-normal nav-link" role="button">Music</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/application" class=" text-size-normal nav-link" role="button">Application</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/tickets" class=" text-size-normal nav-link active" role="button">Tickets</a>
+                            </li>
+                        </ul>
+                </nav>
+                </div>
+                <div class="col-sm-9">
+                    <div class="panel-group-dashboard">
+                        <div class="panel-group">
+                            <div class="panel panel-primary panel-ticket">
+                                <div class="panel-heading">
+                                    <p class="text text-white text-size-normal">Ticket {{ticket.ticketid}} | Status: {{ticket.status}}</p>
+                                    <div class="btn-group" role="group" aria-label="Status">
+                                        <form action="/dashboard/{{guilds.id}}/tickets/{{ticket.ticketid}}/submitnewticketstatus" method="POST">
+                                            <button type="submit" class="btn btn-success" value="open" name="newstatus">Open</button>
+                                        </form>
+                                        <form action="/dashboard/{{guilds.id}}/tickets/{{ticket.ticketid}}/submitnewticketstatus" method="POST">
+                                            <button type="submit" class="btn btn-danger" value="closed" name="newstatus">Close</button>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    {{#if status}}
+                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/tickets/{{ticket.ticketid}}/submitticketanswer" method="POST">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-2" for="newticketanswer">New answer:</label>
+                                            <div class="col-sm-10">
+                                                <textarea class="form-control" name="newticketanswer" rows="5"></textarea>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    {{/if}}
+                                    <ul class="timeline">
+                                        <li>
+                                            <div class="timeline-badge">
+                                                <i class="glyphicon glyphicon-check"></i>
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Ticket by {{ticket.author}}</h4>
+                                                    <p>
+                                                        <small class="text-muted">
+                                                            <i class="glyphicon glyphicon-time"></i> {{ticket.newdate}}</small>
+                                                    </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>{{ticket.content}}</p>
+                                                </div>
+                                            </div>
+                                        </li>
+                                        {{#if answers}} {{#each answers}}
+                                        <li class="{{timelineconf}}">
+                                            {{#if timelineconf}}
+                                            <div class="timeline-badge warning">
+                                                <i class="glyphicon glyphicon-credit-card"></i>
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Answer by {{author}} (Support-Team)</h4>
+                                                    <p>
+                                                        <small class="text-muted">
+                                                            <i class="glyphicon glyphicon-time"></i> {{newdate}}</small>
+                                                    </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>{{content}}</p>
+                                                </div>
+                                            </div>
+                                            {{else}}
+                                            <div class="timeline-badge">
+                                                <i class="glyphicon glyphicon-check"></i>
+                                            </div>
+                                            <div class="timeline-panel">
+                                                <div class="timeline-heading">
+                                                    <h4 class="timeline-title">Answer by {{author}}</h4>
+                                                    <p>
+                                                        <small class="text-muted">
+                                                            <i class="glyphicon glyphicon-time"></i> {{newdate}}</small>
+                                                    </p>
+                                                </div>
+                                                <div class="timeline-body">
+                                                    <p>{{content}}</p>
+                                                </div>
+                                            </div>
+                                            {{/if}}
+                                        </li>
+                                        {{/each}} {{/if}}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</main>
