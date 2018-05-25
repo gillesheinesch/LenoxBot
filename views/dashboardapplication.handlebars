@@ -19,7 +19,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
-                        
+
                     </a>
                 </li>
                 <li class="nav-item">
@@ -72,228 +72,225 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-				<p class="text text-white text-size-big">{{guilds.name}}</p>
-			</div>
+                <p class="text text-white text-size-big">{{guilds.name}}</p>
+            </div>
             <div class="col-sm-3">
                 <nav class="navbar navbar-dark bg-dark" id="dashboardnav">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
-					    aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="dashboardnavigationbar">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/overview" class=" text-size-normal nav-link" role="button">Overview</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/generalsettings" class=" text-size-normal nav-link" role="button">General Settings</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/logs" class=" text-size-normal nav-link" role="button">Logssettings</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/modules" class=" text-size-normal nav-link" role="button">Modules</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/chatfilter" class=" text-size-normal nav-link" role="button">Chatfilter</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/music" class=" text-size-normal nav-link" role="button">Music</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/application" class=" text-size-normal nav-link active" role="button">Application</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="#" class=" text-size-normal nav-link" role="button">Tickets
-                                <span class="label label-danger">INCOMING</span>
-                            </a>
-                        </li>
-                    </ul>
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="dashboardnavigationbar">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/overview" class=" text-size-normal nav-link" role="button">Overview</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/generalsettings" class=" text-size-normal nav-link" role="button">General Settings</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/logs" class=" text-size-normal nav-link" role="button">Logssettings</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/modules" class=" text-size-normal nav-link" role="button">Modules</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/chatfilter" class=" text-size-normal nav-link" role="button">Chatfilter</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/music" class=" text-size-normal nav-link" role="button">Music</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/application" class=" text-size-normal nav-link active" role="button">Application</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/tickets" class=" text-size-normal nav-link " role="button">Tickets</a>
+                            </li>
+                        </ul>
                 </nav>
-            </div>
-            <div class="col-sm-9">
-                <div class="panel-group-dashboard">
-                    <div class="panel-group">
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
-                                <p class="text text-white text-size-normal">Application</p>
+                </div>
+                <div class="col-sm-9">
+                    <div class="panel-group-dashboard">
+                        <div class="panel-group">
+                            <div class="panel panel-primary panel-dashboard">
+                                <div class="panel-heading">
+                                    <p class="text text-white text-size-normal">Application</p>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitapplication" method="POST">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="newapplication">Toggle Application</label>
+                                            <div class="col-sm-4">
+                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newapplication" data-actions-box="true"
+                                                    data-size="7">
+                                                    <option value="true">Activate the application system</option>
+                                                    <option value="false">Deactivate the application system</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitapplication" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newapplication">Toggle Application</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newapplication" data-actions-box="true"
-                                                data-size="7">
-                                                <option value="true">Activate the application system</option>
-                                                <option value="false">Deactivate the application system</option>
-                                            </select>
+                            <div class="panel panel-primary panel-dashboard">
+                                <div class="panel-heading">
+                                    <p class="text text-white text-size-normal">Votechannel (channel where users can vote for an application)</p>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitvotechannel" method="POST">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="newvotechannel">Set votingchannel:</label>
+                                            <div class="col-sm-4">
+                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newvotechannel" data-live-search="true"
+                                                    title="Choose votechannel" data-actions-box="true" data-size="7">
+                                                    {{#each channels}} {{#if votechannelset}}
+                                                    <option value="{{name}}" selected>{{name}}</option>
+                                                    {{else}}
+                                                    <option value="{{name}}">{{name}}</option>
+                                                    {{/if}} {{/each}}
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-default">Submit</button>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
-                                <p class="text text-white text-size-normal">Votechannel (channel where users can vote for an application)</p>
+                            <div class="panel panel-primary panel-dashboard">
+                                <div class="panel-heading">
+                                    <p class="text text-white text-size-normal">Archive</p>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitarchive" method="POST">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="newarchive">Toggle Archive:</label>
+                                            <div class="col-sm-4">
+                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newarchive" data-actions-box="true"
+                                                    data-size="7">
+                                                    <option value="true">Activate archive</option>
+                                                    <option value="false">Deactivate archive</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitvotechannel" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newvotechannel">Set votingchannel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newvotechannel"
-                                                data-live-search="true" title="Choose votechannel" data-actions-box="true" data-size="7">
-                                                {{#each channels}} {{#if votechannelset}}
-                                                <option value="{{name}}" selected>{{name}}</option>
-                                                {{else}}
-                                                <option value="{{name}}">{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
+                            <div class="panel panel-primary panel-dashboard">
+                                <div class="panel-heading">
+                                    <p class="text text-white text-size-normal">Archive channel</p>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitarchivechannel" method="POST">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="newarchivechannel">Set Archive channel:</label>
+                                            <div class="col-sm-4">
+                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newarchivechannel" data-live-search="true"
+                                                    title="Choose votechannel" data-actions-box="true" data-size="7">
+                                                    {{#each channels}} {{#if archivechannelset}}
+                                                    <option value="{{name}}" selected>{{name}}</option>
+                                                    {{else}}
+                                                    <option value="{{name}}">{{name}}</option>
+                                                    {{/if}} {{/each}}
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-default">Submit</button>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
-                                <p class="text text-white text-size-normal">Archive</p>
+                            <div class="panel panel-primary panel-dashboard">
+                                <div class="panel-heading">
+                                    <p class="text text-white text-size-normal">Reactionnumber (Needed reactions to accept or reject an application)</p>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitreactionnumber" method="POST">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="newreactionnumber">New reactionnumber:</label>
+                                            <div class="col-sm-4">
+                                                <input type="number" class="form-control" min="1" name="newreactionnumber" pattern=".{1,}" required value="{{guilds.reactionnumber}}">
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-2 col-sm-10" style="margin-top: 20px;">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitarchive" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newarchive">Toggle Archive:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newarchive" data-actions-box="true"
-                                                data-size="7">
-                                                <option value="true">Activate archive</option>
-                                                <option value="false">Deactivate archive</option>
-                                            </select>
+                            <div class="panel panel-primary panel-dashboard">
+                                <div class="panel-heading">
+                                    <p class="text text-white text-size-normal">Role for accepeted canidates</p>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitrole" method="POST">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="newrole">Select a role:</label>
+                                            <div class="col-sm-4">
+                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newrole" data-live-search="true"
+                                                    title="Choose role" data-actions-box="true" data-size="7">
+                                                    {{#each roles}} {{#if roleset}}
+                                                    <option value="{{name}}" selected>{{name}}</option>
+                                                    {{else}}
+                                                    <option value="{{name}}">{{name}}</option>
+                                                    {{/if}} {{/each}}
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-default">Submit</button>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
-                        </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
-                                <p class="text text-white text-size-normal">Archive channel</p>
-                            </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitarchivechannel" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newarchivechannel">Set Archive channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newarchivechannel"
-                                                data-live-search="true" title="Choose votechannel" data-actions-box="true" data-size="7">
-                                                {{#each channels}} {{#if archivechannelset}}
-                                                <option value="{{name}}" selected>{{name}}</option>
-                                                {{else}}
-                                                <option value="{{name}}">{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
+                            <div class="panel panel-primary panel-dashboard">
+                                <div class="panel-heading">
+                                    <p class="text text-white text-size-normal">Role for rejected canidates</p>
+                                </div>
+                                <div class="panel-body">
+                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitdenyrole" method="POST">
+                                        <div class="form-group">
+                                            <label class="control-label col-sm-3" for="newdenyrole">Select a role:</label>
+                                            <div class="col-sm-4">
+                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newdenyrole" data-live-search="true"
+                                                    title="Choose role" data-actions-box="true" data-size="7">
+                                                    {{#each roles}} {{#if denyroleset}}
+                                                    <option value="{{name}}" selected>{{name}}</option>
+                                                    {{else}}
+                                                    <option value="{{name}}">{{name}}</option>
+                                                    {{/if}} {{/each}}
+                                                </select>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-default">Submit</button>
+                                        <div class="form-group">
+                                            <div class="col-sm-offset-3 col-sm-10">
+                                                <button type="submit" class="btn btn-default">Submit</button>
+                                            </div>
                                         </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
-                                <p class="text text-white text-size-normal">Reactionnumber (Needed reactions to accept or reject an application)</p>
-                            </div>
-                            <div class="panel-body">
-                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitreactionnumber" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newreactionnumber">New reactionnumber:</label>
-                                        <div class="col-sm-4">
-                                            <input type="number" class="form-control" min="1" name="newreactionnumber" pattern=".{1,}" required value="{{guilds.reactionnumber}}">
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10" style="margin-top: 20px;">
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
-                                <p class="text text-white text-size-normal">Role for accepeted canidates</p>
-                            </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitrole" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newrole">Select a role:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newrole" data-live-search="true"
-                                                title="Choose role" data-actions-box="true" data-size="7">
-                                                {{#each roles}} {{#if roleset}}
-                                                <option value="{{name}}" selected>{{name}}</option>
-                                                {{else}}
-                                                <option value="{{name}}">{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
-                                <p class="text text-white text-size-normal">Role for rejected canidates</p>
-                            </div>
-                            <div class="panel-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitdenyrole" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newdenyrole">Select a role:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newdenyrole" data-live-search="true"
-                                                title="Choose role" data-actions-box="true" data-size="7">
-                                                {{#each roles}} {{#if denyroleset}}
-                                                <option value="{{name}}" selected>{{name}}</option>
-                                                {{else}}
-                                                <option value="{{name}}">{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-default">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
+                                    </form>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 </main>
-
