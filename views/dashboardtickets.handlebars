@@ -104,17 +104,19 @@
                         <div class="panel-group">
                             <div class="panel panel-primary panel-dashboard">
                                 <div class="panel-heading">
-                                    <p class="text text-white text-size-normal">All tickets</p>
+                                    <p class="text text-white text-size-normal">All opened tickets</p>
                                 </div>
                                 <div class="panel-body">
                                     {{#if ticketszero}}
+                                    <div class="btn-group" role="group" aria-label="All tickets" style="margin-bottom: 5px; margin-top: 5px;">
                                     {{#each tickets}}
-                                    <div class="text text-size-normal">
-                                    <a href="tickets/{{@key}}/overview">Ticket from: {{author}}</a>
+                                    <div class="text text-size-normal" style="margin-bottom: 5px; margin-top: 5px;">
+                                    <a href="tickets/{{@key}}/overview"><button type="button" class="btn btn-info">Ticket by {{author}}</button></a>
                                     </div>
                                     {{/each}}
+                                    </div>
                                     {{else}}
-                                    <p>No opened tickets!</p>
+                                    <p class="text text-size-big">No opened tickets!</p>
                                     {{/if}}
                                 </div>
                             </div>

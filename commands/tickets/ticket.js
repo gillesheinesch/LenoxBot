@@ -30,7 +30,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-	userpermissions: []
+	userpermissions: [],
+	cooldown: 300000
 };
 exports.help = {
 	name: 'ticket',
