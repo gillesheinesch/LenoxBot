@@ -142,6 +142,16 @@ exports.run = async (client, msg) => {
 	const botconfspremiumload = await client.botconfs.get('premium');
 	const botconfs = client.botconfs.get('botconfs');
 
+	if (!botconfs.generalfaq) {
+		botconfs.generalfaq = {};
+		await client.botconfs.set('botconfs', botconfs);
+	}
+
+	if (!botconfs.tutorials) {
+		botconfs.tutorials = {};
+		await client.botconfs.set('botconfs', botconfs);
+	}
+
 	if (!botconfs.tickets || !botconfs.ticketid) {
 		botconfs.ticketid = 0;
 		botconfs.tickets = {};
