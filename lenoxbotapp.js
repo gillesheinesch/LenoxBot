@@ -2018,7 +2018,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async functio
 		try {
 			const tableload = client.guildconfs.get(dashboardid);
 			const lang = require(`./languages/${tableload.language}.json`)
-			const statuschange = lang.mainfile_statuschange.replace('%status', ticket.status).replace('%link', `https://lenoxbot.com/tickets/${ticket.ticketid}`)
+			const statuschange = lang.mainfile_statuschange.replace('%status', ticket.status).replace('%link', `https://lenoxbot.com/tickets/${ticket.ticketid}/overview`)
 			client.users.get(ticket.authorid).send(statuschange);
 		} catch (error) {
 			undefined;
