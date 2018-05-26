@@ -65,7 +65,8 @@
                     <div class="card">
                         <div class="card-header" id="headinggeneralfaq{{number}}">
                             <h5 class="mb-0 text text-size-caption">
-                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsegeneralfaq{{number}}" aria-expanded="true" aria-controls="collapsegeneralfaq{{number}}">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsegeneralfaq{{number}}" aria-expanded="true"
+                                    aria-controls="collapsegeneralfaq{{number}}">
                                     {{title}}
                                 </button>
                             </h5>
@@ -73,13 +74,11 @@
 
                         <div id="collapsegeneralfaq{{number}}" class="collapse" aria-labelledby="headinggeneralfaq{{number}}" data-parent="#accordion-generalfaq">
                             <div class="card-body" style="margin: 20px;">
-                                {{content}}
-                                <br>
-                                <br>
-                                <br>
-                                <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
-                                <i class="far fa-clock"></i> Last updated: {{newdate}}
-                                </div>
+                                <span style="white-space: pre-line">{{content}}
+                                    <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
+                                        <i class="far fa-clock"></i> Last updated: {{newdate}} by {{author}}
+                                    </div>
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -91,7 +90,8 @@
                     <div class="card">
                         <div class="card-header" id="headingtutorials{{number}}">
                             <h5 class="mb-0 text text-size-caption">
-                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsetutorials{{number}}" aria-expanded="true" aria-controls="collapsetutorials{{number}}">
+                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsetutorials{{number}}" aria-expanded="true"
+                                    aria-controls="collapsetutorials{{number}}">
                                     {{title}}
                                 </button>
                             </h5>
@@ -99,13 +99,11 @@
 
                         <div id="collapsetutorials{{number}}" class="collapse" aria-labelledby="headingtutorials{{number}}" data-parent="#accordion-tutorials">
                             <div class="card-body" style="margin: 20px;">
-                                {{content}}
-                                <br>
-                                <br>
-                                <br>
-                                <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
-                                <i class="far fa-clock"></i> Last updated: {{newdate}}
-                                </div>
+                                <span style="white-space: pre-line">{{content}}
+                                    <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
+                                        <i class="far fa-clock"></i> Last updated: {{newdate}} by {{author}}
+                                    </div>
+                                </span>
                             </div>
                         </div>
                     </div>
