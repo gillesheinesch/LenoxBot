@@ -486,7 +486,7 @@ app.post('/tickets/:ticketid/submitticketanswer', async function (req, res, next
 		await client.botconfs.set('botconfs', botconfs);
 
 		if (client.guildconfs.get(ticket.guildid) && client.guildconfs.get(ticket.guildid).tickets.status === true) {
-			const tableload = client.guildconfs.get(ticket.guild.id);
+			const tableload = client.guildconfs.get(ticket.guildid);
 			const lang = require(`./languages/${tableload.language}.json`);
 
 			const ticketembedanswer = lang.mainfile_ticketembedanswer.replace('%ticketid', ticket.ticketid);
