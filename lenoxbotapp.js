@@ -1946,7 +1946,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (
 		}
 
 		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
@@ -1999,7 +1999,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async functio
 		}
 
 		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
@@ -2046,7 +2046,7 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async function (req, res, n
 		}
 
 		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
@@ -2089,7 +2089,7 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 		}
 
 		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
