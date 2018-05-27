@@ -478,6 +478,7 @@ app.post('/tickets/:ticketid/submitticketanswer', async function (req, res, next
 
 		ticket.answers[length] = {
 			authorid: req.user.id,
+			guildid: req.params.id,
 			date: new Date(),
 			content: req.body.newticketanswer,
 			timelineconf: ""
@@ -526,7 +527,29 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, n
 
 		var ticket = botconfs.tickets[req.params.ticketid];
 
+		if (ticket.status === req.body.newstatus) return res.redirect(`/tickets/${ticket.ticketid}/overview`);
+
 		ticket.status = req.body.newstatus;
+
+		const length = Object.keys(ticket.answers).length + 1;
+
+	if (ticket.status === 'closed') {
+		ticket.answers[length] = {
+			authorid: req.user.id,
+			guildid: req.params.id,
+			date: new Date(),
+			content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} closed the ticket!`,
+			timelineconf: ""
+		};
+	} else if (ticket.status === 'open') {
+		ticket.answers[length] = {
+			authorid: req.user.id,
+			guildid: req.params.id,
+			date: new Date(),
+			content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} opened the ticket!`,
+			timelineconf: ""
+		};
+	}
 
 		await client.botconfs.set('botconfs', botconfs);
 
@@ -2013,6 +2036,24 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async functio
 
 		ticket.status = req.body.newstatus;
 
+		const length = Object.keys(ticket.answers).length + 1;
+
+		if (ticket.status === 'closed') {
+			ticket.answers[length] = {
+				authorid: req.user.id,
+				date: new Date(),
+				content: `${client.users.get(req.user.id) ? client.users.get(req.user.id).tag : req.user.id} closed the ticket!`,
+				timelineconf: "timeline-inverted"
+			};
+		} else if (ticket.status === 'open') {
+			ticket.answers[length] = {
+				authorid: req.user.id,
+				date: new Date(),
+				content: `${client.users.get(req.user.id) ? client.users.get(req.user.id).tag : req.user.id} opened the ticket!`,
+				timelineconf: "timeline-inverted"
+			};
+		}
+
 		await client.botconfs.set('botconfs', botconfs);
 
 		try {
@@ -2058,7 +2099,7 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async function (req, res, n
 
 		botconfs.tickets[req.params.ticketid].newdate = moment(botconfs.tickets[req.params.ticketid].date).format('MMMM Do YYYY, h:mm:ss a')
 
-		botconfs.tickets[req.params.ticketid].author = client.users.get(botconfs.tickets[req.params.ticketid].authorid).tag;
+		botconfs.tickets[req.params.ticketid].author = client.users.get(botconfs.tickets[req.params.ticketid].authorid) ? client.users.get(botconfs.tickets[req.params.ticketid].authorid).tag : botconfs.tickets[req.params.ticketid].authorid;
 
 		for (var index in ticket.answers) {
 			ticket.answers[index].author = client.users.get(ticket.answers[index].authorid) ? client.users.get(ticket.answers[index].authorid).tag : ticket.answers[index].authorid;
@@ -2113,10 +2154,15 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 
 		const botconfs = client.botconfs.get('botconfs');
 		const newobject = {}
+		const oldobject = {}
 
 		for (var index in botconfs.tickets) {
-			if (botconfs.tickets[index].guildid === dashboardid) {
+			if (botconfs.tickets[index].guildid === dashboardid && botconfs.tickets[index].status === 'open') {
 				newobject[index] = botconfs.tickets[index]
+				botconfs.tickets[index].author = client.users.get(botconfs.tickets[index].authorid).tag;
+			}
+			if (botconfs.tickets[index].guildid === dashboardid && botconfs.tickets[index].status === 'closed') {
+				oldobject[index] = botconfs.tickets[index]
 				botconfs.tickets[index].author = client.users.get(botconfs.tickets[index].authorid).tag;
 			}
 		}
@@ -2126,7 +2172,9 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 			guilds: check,
 			client: client,
 			ticketszero: Object.keys(newobject).length === 0 ? false : true,
-			tickets: newobject
+			tickets: newobject,
+			ticketszeroold: Object.keys(oldobject).length === 0 ? false : true,
+			oldtickets: oldobject
 		});
 	} else {
 		res.redirect('../nologin');
