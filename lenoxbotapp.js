@@ -476,6 +476,8 @@ app.post('/tickets/:ticketid/submitticketanswer', async function (req, res, next
 
 		const length = Object.keys(ticket.answers).length + 1;
 
+		req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, "\n");
+
 		ticket.answers[length] = {
 			authorid: req.user.id,
 			guildid: req.params.id,
@@ -1981,6 +1983,9 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (
 
 		const length = Object.keys(ticket.answers).length + 1;
 
+		req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, "\n");
+		console.log(req.body.newticketanswer)
+
 		ticket.answers[length] = {
 			authorid: req.user.id,
 			guildid: req.params.id,
@@ -2160,10 +2165,12 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 			if (botconfs.tickets[index].guildid === dashboardid && botconfs.tickets[index].status === 'open') {
 				newobject[index] = botconfs.tickets[index]
 				botconfs.tickets[index].author = client.users.get(botconfs.tickets[index].authorid).tag;
+				botconfs.tickets[index].newdate = moment(botconfs.tickets[index].date).format('MMMM Do YYYY, h:mm:ss a')
 			}
 			if (botconfs.tickets[index].guildid === dashboardid && botconfs.tickets[index].status === 'closed') {
 				oldobject[index] = botconfs.tickets[index]
 				botconfs.tickets[index].author = client.users.get(botconfs.tickets[index].authorid).tag;
+				botconfs.tickets[index].newdate = moment(botconfs.tickets[index].date).format('MMMM Do YYYY, h:mm:ss a')
 			}
 		}
 
