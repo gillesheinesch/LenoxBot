@@ -219,6 +219,28 @@ $("document").ready(function () {
 		document.getElementById("utility-button").classList.add('active');
 	});
 
+	document.getElementById('tickets-button').addEventListener('click', () => {
+		var moderationelements = document.getElementsByClassName("tickets");
+		for (var i3 = 0; i3 < moderationelements.length; i3++) {
+			moderationelements[i3].style.display = "";
+		}
+
+		var otherelements = document.getElementsByClassName("command");
+		for (var i = 0; i < otherelements.length; i++) {
+			if (!otherelements[i].className.includes('tickets')) {
+				otherelements[i].style.display = 'none';
+			}
+		}
+
+		const buttons = document.getElementsByClassName('documentation-button');
+		for (var indexofbuttons = 0; indexofbuttons < buttons.length; indexofbuttons++) {
+			if (buttons[indexofbuttons].classList.contains('active')) {
+				buttons[indexofbuttons].classList.remove('active');
+			}
+		}
+		document.getElementById("tickets-button").classList.add('active');
+	});
+
 	document.getElementById('allcommands-button').addEventListener('click', () => {
 		var moderationelements = document.getElementsByClassName("command");
 		for (var i3 = 0; i3 < moderationelements.length; i3++) {
