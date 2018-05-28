@@ -61,7 +61,7 @@ exports.run = async(client, msg, args, lang) => {
 			}
 		}
 	}
-	var error = lang.commands_error.replace('%prefix', tableload.prefix);
+	var error = lang.commands_error.replace('%prefixmodules', `\`${tableload.prefix}modules\``);
 	msg.channel.send(error);
 };
 
