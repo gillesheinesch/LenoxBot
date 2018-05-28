@@ -1984,7 +1984,6 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (
 		const length = Object.keys(ticket.answers).length + 1;
 
 		req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, "\n");
-		console.log(req.body.newticketanswer)
 
 		ticket.answers[length] = {
 			authorid: req.user.id,
