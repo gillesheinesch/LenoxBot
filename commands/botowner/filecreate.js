@@ -1,11 +1,8 @@
 exports.run = async(client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 	var fs = require('fs');
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const commandNames = Array.from(client.commands.keys());
-	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
 
 	for (var i = 0; i < validation.length; i++) {
 	await fs.appendFile(`gitbook/html.html`, `\n${client.commands.filter(c => c.help.category === validation[i].toLowerCase() && c.conf.enabled === true).map(cmd => `\n<tr class="table-background command ${validation[i]}">\n<td class="text text-size-small text-white white-border">${cmd.help.name}</td> \n<td class="text text-size-small text-white white-border">${cmd.help.description}</td> \n<td class="text text-size-small text-white white-border">${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'any'}</td> \n</tr>`).join("\n")}`, function (err) {});
