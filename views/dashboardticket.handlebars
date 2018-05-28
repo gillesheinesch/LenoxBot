@@ -73,13 +73,13 @@
        <div class="row">
 			<div class="col-sm-3">
 				<p class="text text-white text-size-big" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
-                <nav class="navbar navbar-dark bg-dark" id="dashboardnav">
+                <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="dashboardnav">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
                         aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </button>
                     <div class="collapse navbar-collapse" id="dashboardnavigationbar">
-                        <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
                             <li class="nav-item nav-link">
                                 <a href="/dashboard/{{guilds.id}}/overview" class=" text-size-normal nav-link" role="button">Overview</a>
                             </li>
