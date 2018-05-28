@@ -1,5 +1,5 @@
-<script src='script/documentation.js'></script>
-<title>Documentation - LenoxBot</title>
+<script src='script/commands.js'></script>
+<title>Command list - LenoxBot</title>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
@@ -8,30 +8,30 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto" id="mainnavbar">
-            <li class="nav-item">
-                <a href="home" class="text-size-normal nav-link">Home</a>
-            </li>
-            <li class="nav-item active">
-                <a href="documentation" class=" text-size-normal nav-link">Documentation</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
-                    
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="https://lenoxbot.com/invite" target="blanc" class=" text-size-normal nav-link">Invite LenoxBot</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://lenoxbot.com/discord" target="blanc" class=" text-size-normal nav-link">Discord Server</a>
-            </li>
-            <li class="nav-item">
-                {{#if user}}
-                <a href="servers" class=" text-size-normal nav-link">Dashboard
-                    <span class="label label-danger">BETA</span>
-                </a>
-                {{/if}}
+            <ul class="navbar-nav mr-auto" id="mainnavbar">
+                <li class="nav-item">
+                    <a href="home" class="text-size-normal nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="documentation" class=" text-size-normal nav-link">Documentation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/invite" target="blanc" class=" text-size-normal nav-link">Invite LenoxBot</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/discord" target="blanc" class=" text-size-normal nav-link">Discord Server</a>
+                </li>
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="servers" class=" text-size-normal nav-link">Dashboard
+                        <span class="label label-danger">BETA</span>
+                    </a>
+                    {{/if}}
                 </li>
             </ul>
             <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
@@ -73,6 +73,7 @@
                     <li class="text text-white btn btn-primary btn-lg documentation-button" id="application-button">Application</li>
                     <li class="text text-white btn btn-primary btn-lg documentation-button" id="currency-button">Currency</li>
                     <li class="text text-white btn btn-primary btn-lg documentation-button" id="utility-button">Utility</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="tickets-button">Tickets</li>
                 </ul>
             </nav>
             <div class="col-xs-12">
@@ -87,6 +88,8 @@
                         </thead>
 
                         <!-- Documentation commands-->
+
+
                         <tr class="table-background command administration">
                             <td class="text text-size-small text-white white-border">activatemodule</td>
                             <td class="text text-size-small text-white white-border">Activates a module and its commands on a Discord server</td>
@@ -204,8 +207,7 @@
                         <tr class="table-background command administration">
                             <td class="text text-size-small text-white white-border">log</td>
                             <td class="text text-size-small text-white white-border">Allows you to log for different channels, different events. Use ?listevents to get a list of
-                                all events
-                            </td>
+                                all events</td>
                             <td class="text text-size-small text-white white-border">ADMINISTRATOR</td>
                         </tr>
 
@@ -564,12 +566,6 @@
                         </tr>
 
                         <tr class="table-background command utility">
-                            <td class="text text-size-small text-white white-border">donators</td>
-                            <td class="text text-size-small text-white white-border">Gives you a list with all donators who are supporting the project</td>
-                            <td class="text text-size-small text-white white-border">any</td>
-                        </tr>
-
-                        <tr class="table-background command utility">
                             <td class="text text-size-small text-white white-border">embed</td>
                             <td class="text text-size-small text-white white-border">Create an embed for you with any text. Use // to go to a new line</td>
                             <td class="text text-size-small text-white white-border">any</td>
@@ -744,12 +740,6 @@
                         </tr>
 
                         <tr class="table-background command application">
-                            <td class="text text-size-small text-white white-border">acceptmessage</td>
-                            <td class="text text-size-small text-white white-border">Sets a channel in which all new applications will be posted and can be rated accordingly</td>
-                            <td class="text text-size-small text-white white-border">ADMINISTRATOR</td>
-                        </tr>
-
-                        <tr class="table-background command application">
                             <td class="text text-size-small text-white white-border">addentry</td>
                             <td class="text text-size-small text-white white-border">Inserts a new entry in the template</td>
                             <td class="text text-size-small text-white white-border">ADMINISTRATOR</td>
@@ -780,12 +770,6 @@
                         </tr>
 
                         <tr class="table-background command application">
-                            <td class="text text-size-small text-white white-border">denymessage</td>
-                            <td class="text text-size-small text-white white-border">Sets a channel in which all new applications will be posted and can be rated accordingly</td>
-                            <td class="text text-size-small text-white white-border">ADMINISTRATOR</td>
-                        </tr>
-
-                        <tr class="table-background command application">
                             <td class="text text-size-small text-white white-border">denyrole</td>
                             <td class="text text-size-small text-white white-border">Defines the role that members get if their application has been rejected</td>
                             <td class="text text-size-small text-white white-border">ADMINISTRATOR</td>
@@ -812,12 +796,6 @@
                         <tr class="table-background command application">
                             <td class="text text-size-small text-white white-border">togglearchive</td>
                             <td class="text text-size-small text-white white-border">Sets the current channel as archive channel where all processed applications are archived</td>
-                            <td class="text text-size-small text-white white-border">ADMINISTRATOR</td>
-                        </tr>
-
-                        <tr class="table-background command application">
-                            <td class="text text-size-small text-white white-border">toggledirectvote</td>
-                            <td class="text text-size-small text-white white-border">Sets a channel in which all new applications will be posted and can be rated accordingly</td>
                             <td class="text text-size-small text-white white-border">ADMINISTRATOR</td>
                         </tr>
 
@@ -903,6 +881,18 @@
                             <td class="text text-size-small text-white white-border">templesearch</td>
                             <td class="text text-size-small text-white white-border">Search for something valuable in the long-abandoned temple in the Sahara</td>
                             <td class="text text-size-small text-white white-border">any</td>
+                        </tr>
+
+                        <tr class="table-background command tickets">
+                            <td class="text text-size-small text-white white-border">ticket</td>
+                            <td class="text text-size-small text-white white-border">Creates a new ticket</td>
+                            <td class="text text-size-small text-white white-border">any</td>
+                        </tr>
+
+                        <tr class="table-background command tickets">
+                            <td class="text text-size-small text-white white-border">ticketnotification</td>
+                            <td class="text text-size-small text-white white-border">Defines a channel in which ticket-notifications are sent</td>
+                            <td class="text text-size-small text-white white-border">ADMINISTRATOR</td>
                         </tr>
                     </table>
                 </div>
