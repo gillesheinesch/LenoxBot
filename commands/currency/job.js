@@ -4,14 +4,8 @@ const moment = require('moment');
 require('moment-duration-format');
 exports.run = async (client, msg, args, lang) => {
 	const ms = require('ms');
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const userdb = client.userdb.get(msg.author.id);
+	const userdb = await client.userdb.get(msg.author.id);
 	const Discord = require('discord.js');
-
-	if (!tableload.jobstatus) {
-		userdb.jobstatus = false;
-		await client.userdb.set(msg.author.id, userdb);
-	}
 
 	if (userdb.jobstatus === true) {
 		const timestamps = client.cooldowns.get('job');
@@ -89,8 +83,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-	userpermissions: [],
-	cooldown: 60500
+	userpermissions: []
 };
 exports.help = {
 	name: 'job',
