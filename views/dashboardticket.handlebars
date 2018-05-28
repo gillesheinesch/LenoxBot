@@ -70,9 +70,9 @@
     </div>
     {{/if}}
     <div class="container">
-       <div class="row">
-			<div class="col-sm-3">
-				<p class="text text-white text-size-big" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="text text-white text-size-big" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
                 <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="dashboardnav">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -152,7 +152,9 @@
                                                     </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>{{ticket.content}}</p>
+                                                    <span style="white-space: pre-line">
+                                                        <p>{{ticket.content}}</p>
+                                                    </span>
                                                 </div>
                                             </div>
                                         </li>
@@ -171,7 +173,9 @@
                                                     </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>{{content}}</p>
+                                                    <span style="white-space: pre-line">
+                                                        <p>{{content}}</p>
+                                                    </span>
                                                 </div>
                                             </div>
                                             {{else}}
@@ -187,7 +191,9 @@
                                                     </p>
                                                 </div>
                                                 <div class="timeline-body">
-                                                    <p>{{content}}</p>
+                                                    <span style="white-space: pre-line">
+                                                        <p>{{content}}</p>
+                                                    </span>
                                                 </div>
                                             </div>
                                             {{/if}}
