@@ -3,7 +3,11 @@ exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	var botconfs = client.botconfs.get('botconfs');
 
-	if (!args || args.length === 0) return msg.reply(lang.ticket_noinput);
+	if (!args || args.length === 0) {
+		const timestamps = client.cooldowns.get('ticket');
+		timestamps.delete(msg.author.id);
+		return msg.reply(lang.ticket_noinput);
+	}
 
 	const input = args.slice();
 
