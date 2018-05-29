@@ -37,7 +37,7 @@ exports.run = async (client, msg, args, lang) => {
 	for (var i = 0; i < tableload.application.template.length; i++) {
 		try {
 			await msg.channel.send(`${msg.author}, ${tableload.application.template[i]}`);
-			var response = await msg.channel.awaitMessages(msg2 => msg2.attachments.size === 0 && msg.author.id === msg2.author.id && !msg2.author.bot && msg2.content.length < 200, {
+			var response = await msg.channel.awaitMessages(msg2 => msg2.attachments.size === 0 && msg.author.id === msg2.author.id && !msg2.author.bot, {
 				maxMatches: 1,
 				time: 300000,
 				errors: ['time']
@@ -49,6 +49,31 @@ exports.run = async (client, msg, args, lang) => {
 			return msg.channel.send(timeerror);
 		}
 	}
+
+	var temparray = [];
+	for (var i = 0; i < tableload.application.template.length; i++) {
+		temparray.push(`${tableload.application.template[i]} \n${array[i]}`);
+	}
+
+	var content = temparray.join("\n\n");
+	
+	const confs = {
+		guildid: msg.guild.id,
+		authorid: msg.author.id,
+		applicationid: tableload.application.applicationid + 1,
+		date: msg.createdTimestamp,
+		acceptedorrejected: '',
+		status: "open",
+		content: content,
+		yes: [],
+		no: []
+	};
+
+	tableload.application.applicationid = tableload.application.applicationid + 1;
+	tableload.application.applications[tableload.application.applicationid] = confs;
+
+	await client.guildconfs.set(msg.guild.id, tableload);
+
 	msg.channel.send(lang.application_applicatiosent);
 
 	const channel = msg.guild.channels.get(tableload.application.votechannel);

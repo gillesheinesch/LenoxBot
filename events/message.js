@@ -233,6 +233,12 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!tableload.application.applications || !tableload.application.applicationid) {
+		tableload.application.applicationid = 0;
+		tableload.application.applications = {};
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.application.acceptedmessage) {
 		tableload.application.acceptedmessage = '';
 		tableload.application.rejectedmessage = '';
