@@ -1,4 +1,10 @@
 {
+    "setacceptedmessage_noinput": "You must enter your message that applicants receive!",
+    "setacceptedmessage_set": "Message saved successfully!",
+    "setacceptedmessage_description": "Sets a goodbye message to say goodbye to your users",
+
+    "setrejectedmessage_description": "Sets a custom message that receive the applicants who have been rejected",
+
     "ticketnotification_channelset": "Ticket notifications are now posted in the %channelname",
     "ticketnotification_channeldeleted": "Ticket notifications are now no longer posted!",
     "ticketnotification_description": "Defines a channel in which ticket notifications will be sent",
@@ -498,15 +504,14 @@
     "application_addentry": "First, an administrator of this server has to set the entries for this template. This can be done by using %prefixaddentry",
     "application_votechannel": "First, an administrator of this server has to set the channel in which it's possible to vote for the application. This can be done by using %prefixvotechannel",
     "application_reactionnumber": "First, an administrator of this server has to set the number of required reactions for acceptance or refusal of an application. This can be done by using %prefixreactionnumber",
+    "application_undefinedmessages": "First, an administrator of this server has to define the messages that accepted and rejected applications get. This can be done by using %prefixsetacceptedmessage and %prefixsetrejectedmessage",
     "application_newapplication": "%author, a new application was created. Please remember that every answer to the following questions can have up to 200 characters, otherwise it will be ignored!",
     "application_timeerror": "You didn't reply within 5 minutes, so your application was aborted now. If you want to write a new one, you can do this easily by using %prefixapplication.",
     "application_applicatiosent": "The application was sent successfully",
     "application_newapplicationembed": "New application by %authortag",
-    "application_accepted": "Congratulations! Your application on the %guildname server was successfully accepted.",
     "application_statusaccepted": "Status of the application: Accepted ✅, application by %authortag",
     "application_archivechannelnotexist": "On this server, an archive channel was set, but it doesn't exist anymore. Set a new channel by using %prefixtogglearchive",
     "application_error": "An error has occurred. Either the defined role for accepted applicants doesn't exist anymore or the bot hasn't enough permissions to give the role to the member.",
-    "application_denied": "We apologise for that your application on the server %guildname was denied.",
     "application_statusdenied": "Status of the application: Denied ❌, application by %authortag",
     "application_votechannelnotexist": "On this server, a vote channel was set, but it doesn't exist anymore. Set a new channel by using %prefixvotechannel",
     "application_description": "Creates a new application on this server",

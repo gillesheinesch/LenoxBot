@@ -26,6 +26,9 @@ exports.run = async (client, msg, args, lang) => {
 	var reactionnumber = lang.application_reactionnumber.replace('%prefix', tableload.prefix);
 	if (tableload.application.reactionnumber === '') return msg.channel.send(reactionnumber);
 
+	var undefinedmessages = lang.application_undefinedmessages.replace('%prefix', tableload.prefix);
+	if (tableload.application.acceptedmessage === '' || tableload.application.rejectedmessage === '') return msg.channel.send(undefinedmessages);
+
 	var newapplication = lang.application_newapplication.replace('%author', msg.author);
 	msg.channel.send(newapplication);
 
@@ -76,8 +79,7 @@ exports.run = async (client, msg, args, lang) => {
 						msg.member.addRole(role);
 					}
 
-					var accepted = lang.application_accepted.replace('%guildname', msg.guild.name);
-					msg.member.send(accepted);
+					msg.member.send(tableload.application.acceptedmessage);
 
 					if (tableload.application.archivechannel === true) {
 						try {
@@ -104,8 +106,7 @@ exports.run = async (client, msg, args, lang) => {
 					return channel.send(lang.application_error);
 				}
 			} else if (r.emoji.name === '👎' && r.count >= tableload.application.reactionnumber) {
-				var denied = lang.application_denied.replace('%guildname', msg.guild.name);
-				msg.member.send(denied);
+				msg.member.send(tableload.application.rejectedmessage);
 
 				if (tableload.application.denyrole !== '') {
 					const role = msg.guild.roles.get(tableload.application.denyrole);

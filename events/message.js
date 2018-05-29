@@ -233,6 +233,12 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!tableload.application.acceptedmessage) {
+		tableload.application.acceptedmessage = '';
+		tableload.application.rejectedmessage = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.tickets) {
 		tableload.tickets = {
 			notificationstatus: false,
