@@ -304,6 +304,12 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!tableload.application.notificationstatus) {
+		tableload.application.notificationstatus = false;
+		tableload.application.notificationchannel = '';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.togglexp) {
 		tableload.togglexp = {
 			channelids: []
