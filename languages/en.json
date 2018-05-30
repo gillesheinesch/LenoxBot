@@ -1,4 +1,8 @@
 {
+    "applicationnotification_channelset": "Application notifications are now posted in the %channelname",
+    "applicationnotification_channeldeleted": "Application notifications are now no longer posted!",
+    "applicationnotification_description": "Defines a channel in which application notifications will be sent",
+
     "setacceptedmessage_noinput": "You must enter your message that applicants receive!",
     "setacceptedmessage_set": "Message saved successfully!",
     "setacceptedmessage_description": "Sets a goodbye message to say goodbye to your users",
@@ -505,15 +509,9 @@
     "application_votechannel": "First, an administrator of this server has to set the channel in which it's possible to vote for the application. This can be done by using %prefixvotechannel",
     "application_reactionnumber": "First, an administrator of this server has to set the number of required reactions for acceptance or refusal of an application. This can be done by using %prefixreactionnumber",
     "application_undefinedmessages": "First, an administrator of this server has to define the messages that accepted and rejected applications get. This can be done by using %prefixsetacceptedmessage and %prefixsetrejectedmessage",
-    "application_newapplication": "%author, a new application was created. Please remember that every answer to the following questions can have up to 200 characters, otherwise it will be ignored!",
+    "application_newapplication": "%author, a new application was created!",
     "application_timeerror": "You didn't reply within 5 minutes, so your application was aborted now. If you want to write a new one, you can do this easily by using %prefixapplication.",
     "application_applicatiosent": "The application was sent successfully",
-    "application_newapplicationembed": "New application by %authortag",
-    "application_statusaccepted": "Status of the application: Accepted ✅, application by %authortag",
-    "application_archivechannelnotexist": "On this server, an archive channel was set, but it doesn't exist anymore. Set a new channel by using %prefixtogglearchive",
-    "application_error": "An error has occurred. Either the defined role for accepted applicants doesn't exist anymore or the bot hasn't enough permissions to give the role to the member.",
-    "application_statusdenied": "Status of the application: Denied ❌, application by %authortag",
-    "application_votechannelnotexist": "On this server, a vote channel was set, but it doesn't exist anymore. Set a new channel by using %prefixvotechannel",
     "application_description": "Creates a new application on this server",
 
     "deleteentry_noinput": "You have to decide which entry you want to remove from the template!",
@@ -539,10 +537,6 @@
     "approverole_rolenotexist": "This role does not exist at all!",
     "approverole_set": "If an application has been accepted, the author of this application will now receive the %rolename role",
     "approverole_description": "Defines the role that members get if their application has been accepted",
-
-    "togglearchive_set": "Processed applications will now be posted in the %channelname channel",
-    "togglearchive_deleted": "Processed applications are no longer posted in the Archive Channel!",
-    "togglearchive_description": "Sets the current channel as archive channel where all processed applications are archived",
 
     "votechannel_set": "All applications will now be posted in the %channelname channel and can be rated accordingly!",
     "votechannel_description": "Sets a channel in which all new applications will be posted and can be rated accordingly",
@@ -851,10 +845,6 @@
     "channels_voicechannels": "All voice-channels:",
     "channels_novoicechannels": "No voice-channels on this server!",
     "channels_description": "A list of all channels on your Discord server",
-
-    "donators_nodonators": "There are no donators who support this project!",
-    "donators_thankyou": "Thanks to all, listed below, donators! Thanks to you there is this project still! <3",
-    "donators_description": "Gives you a list with all donators who are supporting the project",
 
     "inrole_noinput": "You have to enter the name of the role!",
     "inrole_rolenotexist": "Please make sure that the role you mentioned exists!",
