@@ -18,6 +18,8 @@
     "mainfile_ticketembedtitle": "Click on me to be forwarded directly to the ticket!",
     "mainfile_ticketembedanswer": "There is a new answer on a ticket (ID: %ticketid)",
     "mainfile_ticketembed": "A new ticket has been created (ID: %ticketid)!",
+    "mainfile_applicationembedtitle": "Click on me to be forwarded directly to the application!",
+    "mainfile_applicationembed": "A new application has been created (ID: %ticketid)!",
 
     "ticket_noinput": "You forgot to enter your message to the support team!",
     "ticket_created": "Your ticket has been successfully created. We will contact you by direct message as soon as there is something new about your ticket. You can manage it at this link: %link",

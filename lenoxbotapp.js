@@ -119,7 +119,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://lenoxbot.com/callback',
+	callbackURL: 'http://localhost:80/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -1575,6 +1575,280 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var tableload = await client.guildconfs.get(dashboardid);
+		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../404error')
+
+		var check = req.user.guilds[index];
+
+		var application = tableload.application.applications[req.params.applicationid];
+
+		if (req.body.newvote === 'true') {
+			application.yes.push(req.user.id);
+		} else {
+			application.no.push(req.user.id);
+		}
+
+		try {
+			if (application.yes.length >= tableload.application.reactionnumber) {
+			await client.users.get(application.authorid).send(tableload.application.acceptedmessage);
+			const role = client.guilds.get(dashboardid).roles.get(tableload.application.role);
+			if (role) {
+				await client.guilds.get(dashboardid).members.get(application.authorid).addRole(role);
+			}
+			application.status = 'closed';
+			application.acceptedorrejected = 'accepted';
+			} else if (application.no.length >= tableload.application.reactionnumber) {
+			await client.users.get(application.authorid).send(tableload.application.rejectedmessage);
+			const role = client.guilds.get(dashboardid).roles.get(tableload.application.denyrole);
+			if (role) {
+				await client.guilds.get(dashboardid).members.get(application.authorid).addRole(role);
+			}
+			application.status = 'closed';
+			application.acceptedorrejected = 'rejected';
+			}
+		} catch (error) {
+			undefined;
+		}
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		return res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/applications/${req.params.applicationid}/overview`,
+			query: {
+				"submitnewticketstatus": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/applications/:applicationid/overview', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		const tableload = await client.guildconfs.get(dashboardid);
+		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../404error')
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		for (var index in tableload.application.applications) {
+			tableload.application.applications[index].author = client.users.get(tableload.application.applications[index].authorid) ? client.users.get(tableload.application.applications[index].authorid).tag : tableload.application.applications[index].authorid;
+			tableload.application.applications[index].newdate = moment(tableload.application.applications[index].date).format('MMMM Do YYYY, h:mm:ss a');
+		}
+
+		var votecheck = true;
+		if (tableload.application.applications[req.params.applicationid].yes.includes(req.user.id) || tableload.application.applications[req.params.applicationid].no.includes(req.user.id)) {
+			votecheck = false;
+		} else if (tableload.application.applications[req.params.applicationid].yes.length >= tableload.application.reactionnumber || tableload.application.applications[req.params.applicationid].no.length >= tableload.application.reactionnumber) {
+		}
+
+		return res.render('application', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			application: tableload.application.applications[req.params.applicationid],
+			yeslength: tableload.application.applications[req.params.applicationid].yes.length,
+			nolength: tableload.application.applications[req.params.applicationid].no.length,
+			status: tableload.application.applications[req.params.applicationid].status === 'open' ? true : false,
+			vote: votecheck
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/applications', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		const tableload = client.guildconfs.get(dashboardid);
+		const newobject = {}
+		const oldobject = {}
+
+		for (var index in tableload.application.applications) {
+			if (tableload.application.applications[index].guildid === dashboardid && tableload.application.applications[index].status === 'open') {
+				newobject[index] = tableload.application.applications[index]
+				tableload.application.applications[index].author = client.users.get(tableload.application.applications[index].authorid).tag;
+				tableload.application.applications[index].newdate = moment(tableload.application.applications[index].date).format('MMMM Do YYYY, h:mm:ss a')
+			}
+			if (tableload.application.applications[index].guildid === dashboardid && tableload.application.applications[index].status === 'closed') {
+				oldobject[index] = tableload.application.applications[index]
+				tableload.application.applications[index].author = client.users.get(tableload.application.applications[index].authorid).tag;
+				tableload.application.applications[index].newdate = moment(tableload.application.applications[index].date).format('MMMM Do YYYY, h:mm:ss a')
+			}
+		}
+
+		return res.render('dashboardapplications', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			applicationscheck: Object.keys(newobject).length === 0 ? false : true,
+			applications: newobject,
+			oldapplicationscheck: Object.keys(oldobject).length === 0 ? false : true,
+			oldapplications: oldobject
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitnewacceptedmsg', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newacceptedmsg = req.body.newacceptedmsg;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.application.acceptedmessage = newacceptedmsg;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Changed the application accepted message!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/application`,
+			query: {
+				"submitapplication": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/application/submitnewrejectedmsg', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newrejectedmsg = req.body.newrejectedmsg;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.application.rejectedmessage = newrejectedmsg;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Changed the application rejected message!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/application`,
+			query: {
+				"submitapplication": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
 app.post('/dashboard/:id/application/submitdenyrole', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -1919,6 +2193,9 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
 
 		req.user.guilds[index].reactionnumber = client.guildconfs.get(req.user.guilds[index].id).application.reactionnumber;
+
+		req.user.guilds[index].acceptedmessage = client.guildconfs.get(req.user.guilds[index].id).application.acceptedmessage;
+		req.user.guilds[index].rejectedmessage = client.guildconfs.get(req.user.guilds[index].id).application.rejectedmessage;
 
 		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 		var check = req.user.guilds[index];

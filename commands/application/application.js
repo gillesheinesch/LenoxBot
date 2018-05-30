@@ -57,7 +57,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	var content = temparray.join("\n\n");
 	
-	const confs = {
+	var confs = {
 		guildid: msg.guild.id,
 		authorid: msg.author.id,
 		applicationid: tableload.application.applicationid + 1,
@@ -74,7 +74,25 @@ exports.run = async (client, msg, args, lang) => {
 
 	await client.guildconfs.set(msg.guild.id, tableload);
 
-	msg.channel.send(lang.application_applicatiosent);
+	await msg.channel.send(lang.application_applicatiosent);
+
+	if (tableload.application.notificationstatus === true) {
+		const applicationembedanswer = lang.mainfile_applicationembed.replace('%ticketid', tableload.application.applicationid);
+		const embed = new Discord.RichEmbed()
+			.setURL(`https://lenoxbot.com/dashboard/${confs.guildid}/applications/${tableload.application.applicationid}/overview`)
+			.setTimestamp()
+			.setColor('#ccffff')
+			.setTitle(lang.mainfile_applicationembedtitle)
+			.setDescription(applicationembedanswer);
+
+		try {
+			client.channels.get(tableload.application.notificationchannel).send({
+				embed
+			});
+		} catch (error) {
+			undefined;
+		}
+	}
 };
 
 exports.conf = {
