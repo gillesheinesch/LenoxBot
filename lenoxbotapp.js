@@ -119,7 +119,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'http://localhost:80/callback',
+	callbackURL: 'https://lenoxbot.com/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -218,18 +218,8 @@ app.get('/logout', function (req, res) {
 });
 
 app.get('/commands', function (req, res, next) {
-	if (req.user) {
-		var check = [];
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (((req.user.guilds[i].permissions) & 8) === 8) {
-				check.push(req.user.guilds[i]);
-			}
-		}
-	}
-
 	res.render('commands', {
 		user: req.user,
-		guilds: check,
 		client: client
 	});
 });
