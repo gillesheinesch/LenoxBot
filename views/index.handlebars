@@ -40,7 +40,7 @@
                     {{#if user}}
                     <a href="logout" class=" text-size-normal nav-link ">Log out</a>
                     {{ else }}
-                    <a href="login" class=" text-size-normal nav-link ">Log in</a>
+                    <a href="loginpressedbutton" class=" text-size-normal nav-link ">Log in</a>
                     {{/if}}
                 </li>
                 <li class="avatarnavigation">
@@ -57,6 +57,12 @@
 </header>
 <main>
     <div class="container">
+        {{#if notloggedin}}
+        <div class="alert alert-danger alert-dismissible fade in" style="margin-top: 20px;">
+            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+            <strong>Not logged in!</strong> You have to login before you can access to the dashboard!
+        </div>
+        {{/if}}
         <div class="row">
             <div style="text-align: center;">
                 <div class="lenoxbot-shortdescription">

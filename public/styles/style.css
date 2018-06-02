@@ -296,24 +296,6 @@ a {
     border-radius: 30px !important;
 }
 
-#oauth2button {
-    font-size: 60px;
-    box-sizing: border-box;
-    width: 90%;
-    margin-top: 100px !important;
-    margin-bottom: 100px !important;
-    display: block;
-    text-align: center;
-    position: relative;
-    margin: 0 auto;
-    padding: 10px;
-}
-
-#oauth2button a {
-    border: 3px solid white;
-    text-decoration: none;
-    text-align: center;
-}
 
 .error404 {
     text-align: center;
@@ -996,23 +978,6 @@ section .section-title {
     }
     .page-sub-header {
         font-size: 2rem;
-    }
-    #oauth2button {
-        font-size: 20px;
-        box-sizing: border-box;
-        width: 90%;
-        margin-top: 100px !important;
-        margin-bottom: 100px !important;
-        display: block;
-        text-align: center;
-        position: relative;
-        margin: 0 auto;
-        padding: 10px;
-    }
-    #oauth2button a {
-        border: 3px solid white;
-        text-decoration: none;
-        text-align: center;
     }
 }
 
