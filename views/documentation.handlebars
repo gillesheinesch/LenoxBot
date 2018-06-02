@@ -59,7 +59,9 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-                <a href="/commands"><button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 50px;">Commandlist</button></a>
+                <a href="/commands">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 50px;">Commandlist</button>
+                </a>
                 <p class="text text-size-caption text-white" style="margin-top: 50px; margin-bottom: 20px;">General FAQ</p>
                 <div id="accordion-generalfaq" style="margin-bottom: 50px;">
                     {{#each generalfaq}}
@@ -75,11 +77,10 @@
 
                         <div id="collapsegeneralfaq{{number}}" class="collapse" aria-labelledby="headinggeneralfaq{{number}}" data-parent="#accordion-generalfaq">
                             <div class="card-body" style="margin: 20px;">
-                                <span style="white-space: pre-line">{{{content}}}
-                                    <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
-                                        <i class="far fa-clock"></i> Last updated: {{newdate}} by {{author}}
-                                    </div>
-                                </span>
+                                {{{content}}}
+                                <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
+                                    <i class="far fa-clock"></i> Last updated: {{newdate}} by {{author}}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -100,11 +101,10 @@
 
                         <div id="collapsetutorials{{number}}" class="collapse" aria-labelledby="headingtutorials{{number}}" data-parent="#accordion-tutorials">
                             <div class="card-body" style="margin: 20px;">
-                                <span style="white-space: pre-line">{{{content}}}
-                                    <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
-                                        <i class="far fa-clock"></i> Last updated: {{newdate}} by {{author}}
-                                    </div>
-                                </span>
+                                {{{content}}}
+                                <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
+                                    <i class="far fa-clock"></i> Last updated: {{newdate}} by {{author}}
+                                </div>
                             </div>
                         </div>
                     </div>
