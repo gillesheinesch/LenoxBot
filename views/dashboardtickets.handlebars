@@ -109,7 +109,7 @@
                                     <div class="btn-group" role="group" aria-label="All tickets" style="margin-bottom: 5px; margin-top: 5px;">
                                     {{#each tickets}}
                                     <div class="text text-size-normal" style="margin-bottom: 5px; margin-top: 5px;">
-                                    <a href="tickets/{{@key}}/overview"><button type="button" class="btn btn-success">Ticket by {{author}} - {{newdate}}</button></a>
+                                    <a href="tickets/{{@key}}/overview"><button type="button" class="btn btn-success">{{author}} - {{newdate}}</button></a>
                                     </div>
                                     {{/each}}
                                     </div>
@@ -127,7 +127,7 @@
                                     <div class="btn-group" role="group" aria-label="All tickets" style="margin-bottom: 5px; margin-top: 5px;">
                                     {{#each oldtickets}}
                                     <div class="text text-size-normal" style="margin-bottom: 5px; margin-top: 5px;">
-                                    <a href="tickets/{{@key}}/overview"><button type="button" class="btn btn-danger">Ticket by {{author}} - {{newdate}}</button></a>
+                                    <a href="tickets/{{@key}}/overview"><button type="button" class="btn btn-danger">{{author}} - {{newdate}}</button></a>
                                     </div>
                                     {{/each}}
                                     </div>
