@@ -102,7 +102,12 @@
                         <div class="panel-group">
                             <div class="panel panel-primary panel-dashboard">
                                 <div class="panel-heading">
-                                    <p class="text text-white text-size-normal">Applicationoverview</p>
+                                    <p class="text text-white text-size-normal">Application Overview</p>
+                                    <div class="btn-group" role="group" aria-label="Status">
+                                    <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitdeleteapplication" method="POST">
+                                        <button type="submit" class="btn btn-danger" value="closed" name="newstatus"><i class="far fa-trash-alt"></i></button>
+                                    </form>
+                                </div>
                                 </div>
                                 <div class="panel-body">
                                     <div>
