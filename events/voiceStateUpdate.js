@@ -1,7 +1,6 @@
 exports.run = async (client, oldMember, newMember) => {
 	const queue = client.queue;
 	const serverQueue = queue.get(newMember.guild.id);
-	console.log(serverQueue);
 	if (!serverQueue) return;
 	if (!oldMember.voiceChannel) return;
 
