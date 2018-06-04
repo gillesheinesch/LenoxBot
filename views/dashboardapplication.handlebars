@@ -36,7 +36,7 @@
                     {{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -110,12 +110,11 @@
                 <div class="col-sm-9">
                     <a href="/dashboard/{{guilds.id}}/applications"><button type="button" class="btn btn-warning btn-lg btn-block" style="margin-top: 50px;">All applications</button></a>
                     <div class="panel-group-dashboard">
-                        <div class="panel-group">
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Application</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitapplication" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newapplication">Toggle Application</label>
@@ -135,11 +134,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Votechannel (channel where users can vote for an application)</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitvotechannel" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newvotechannel">Set votingchannel:</label>
@@ -162,11 +161,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Archive</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitarchive" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newarchive">Toggle Archive:</label>
@@ -186,11 +185,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Archive channel</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitarchivechannel" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newarchivechannel">Set Archive channel:</label>
@@ -213,11 +212,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Reactionnumber (Needed reactions to accept or reject an application)</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitreactionnumber" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newreactionnumber">New reactionnumber:</label>
@@ -233,11 +232,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Role for accepeted canidates</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitrole" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newrole">Select a role:</label>
@@ -260,11 +259,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Role for rejected canidates</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitdenyrole" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newdenyrole">Select a role:</label>
@@ -287,11 +286,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Message for accepted applicants</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewacceptedmsg" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newacceptedmsg">New message:</label>
@@ -307,11 +306,11 @@
                                     </form>
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Message for rejected applicants</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewrejectedmsg" method="POST">
                                         <div class="form-group">
                                             <label class="control-label col-sm-3" for="newrejectedmsg">New message:</label>
@@ -327,7 +326,6 @@
                                     </form>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

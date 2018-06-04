@@ -36,7 +36,7 @@
                     {{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -99,12 +99,11 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="panel-group-dashboard">
-                        <div class="panel-group">
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">All opened tickets</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     {{#if ticketszero}}
                                     <div class="btn-group" role="group" aria-label="All tickets" style="margin-bottom: 5px; margin-top: 5px;">
                                     {{#each tickets}}
@@ -118,11 +117,11 @@
                                     {{/if}}
                                 </div>
                             </div>
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card  panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">All closed tickets</p>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     {{#if ticketszeroold}}
                                     <div class="btn-group" role="group" aria-label="All tickets" style="margin-bottom: 5px; margin-top: 5px;">
                                     {{#each oldtickets}}
@@ -137,7 +136,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

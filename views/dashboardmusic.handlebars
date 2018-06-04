@@ -36,7 +36,7 @@
                     {{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -109,12 +109,11 @@
             </div>
             <div class="col-sm-9">
                 <div class="panel-group-dashboard">
-                    <div class="panel-group">
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h5">Music Channelblacklist</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/music/submitchannelblacklist" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="newchannelblacklist">Set channels where LenoxBot doesn't play music:</label>
@@ -139,7 +138,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

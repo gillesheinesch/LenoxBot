@@ -34,7 +34,7 @@
 					{{/if}}
 				</li>
 			</ul>
-			<ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+			<ul class="navbar-nav navbar-right" id="mainnavbar">
 				<li class="nav-item">
 					{{#if user}}
 					<a href="logout" class=" h5 nav-link ">Log out</a>
@@ -59,11 +59,11 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12" style="margin-bottom: 50px;">
-				<div class="panel panel-primary panel-dashboard">
-					<div class="panel-heading">
+				<div class="card bg-primary panel-dashboard">
+					<div class="card-header bg-primary">
 						<p class="text text-white h5">Create a new entry</p>
 					</div>
-					<div class="panel-body">
+					<div class="card-body">
 						<form class="form-horizontal" action="/editdocumentation/submitnewdocumentationentry" method="POST">
 							<div class="form-group">
 								<label class="control-label col-sm-3" for="newapplication">Choose the category</label>
@@ -100,11 +100,11 @@
 				</div>
 				<p class="text h1 text-white" style="margin-top: 50px; margin-bottom: 20px;">General FAQ</p>
 				{{#each generalfaq}}
-				<div class="panel panel-primary panel-dashboard">
-					<div class="panel-heading">
+				<div class="card bg-primary panel-dashboard">
+					<div class="card-header bg-primary">
 						<p class="text text-white h5">{{title}}</p>
 					</div>
-					<div class="panel-body">
+					<div class="card-body">
 						<form class="form-horizontal" action="/editdocumentation/{{number}}/submitgeneralfaqupdate" method="POST">
 							<div class="form-group">
 								<label class="control-label col-sm-3" for="title">New title:</label>
@@ -132,11 +132,11 @@
 				{{/each}}
 				<p class="text h1 text-white" style="margin-top: 50px; margin-bottom: 20px;">Tutorials</p>
 				{{#each tutorials}}
-				<div class="panel panel-primary panel-dashboard">
-					<div class="panel-heading">
+				<div class="card bg-primary panel-dashboard">
+					<div class="card-header bg-primary">
 						<p class="text text-white h5">{{title}}</p>
 					</div>
-					<div class="panel-body">
+					<div class="card-body">
 						<form class="form-horizontal" action="/editdocumentation/{{number}}/submittutorialsupdate" method="POST">
 							<div class="form-group">
 								<label class="control-label col-sm-3" for="title">New title:</label>

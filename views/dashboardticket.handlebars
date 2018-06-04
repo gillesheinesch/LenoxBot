@@ -36,7 +36,7 @@
                     {{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -109,9 +109,8 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="panel-group-dashboard">
-                        <div class="panel-group">
-                            <div class="panel panel-primary panel-ticket">
-                                <div class="panel-heading">
+                            <div class="panel  panel-ticket">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Ticket {{ticket.ticketid}} | Status: {{ticket.status}}</p>
                                     <div class="btn-group" role="group" aria-label="Status">
                                         <form action="/dashboard/{{guilds.id}}/tickets/{{ticket.ticketid}}/submitnewticketstatus" method="POST">
@@ -122,7 +121,7 @@
                                         </form>
                                     </div>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     {{#if status}}
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/tickets/{{ticket.ticketid}}/submitticketanswer" method="POST">
                                         <div class="form-group">
@@ -203,7 +202,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
                 </div>
             </div>
         </div>

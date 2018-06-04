@@ -36,7 +36,7 @@
                     {{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -99,9 +99,8 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="panel-group-dashboard">
-                        <div class="panel-group">
-                            <div class="panel panel-primary panel-dashboard">
-                                <div class="panel-heading">
+                            <div class="card bg-primary panel-dashboard">
+                                <div class="card-header bg-primary">
                                     <p class="text text-white h5">Application Overview</p>
                                     <div class="btn-group" role="group" aria-label="Status">
                                     <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitdeleteapplication" method="POST">
@@ -109,7 +108,7 @@
                                     </form>
                                 </div>
                                 </div>
-                                <div class="panel-body">
+                                <div class="card-body">
                                     <div>
                                         <p class="text h5" style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Application by {{application.author}} on {{application.newdate}}</p>
                                     </div>
@@ -126,7 +125,6 @@
                                     {{/if}}
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
             </div>

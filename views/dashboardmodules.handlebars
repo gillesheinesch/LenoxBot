@@ -36,7 +36,7 @@
                     {{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -109,12 +109,11 @@
             </div>
             <div class="col-sm-9">
                 <div class="panel-group-dashboard">
-                    <div class="panel-group">
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Moderation</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="moderation">Moderation module: </label>
@@ -133,11 +132,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Help</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="help">Help module: </label>
@@ -156,11 +155,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Music</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="music">Music module: </label>
@@ -179,11 +178,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Fun</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="fun">Fun module: </label>
@@ -202,11 +201,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Searches</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="searches">Searches module: </label>
@@ -225,11 +224,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">NSFW</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="nsfw">NSFW module: </label>
@@ -248,11 +247,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Utility</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="utility">Utility module: </label>
@@ -271,11 +270,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Application</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="application">Application module: </label>
@@ -294,11 +293,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Currency</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/modules/submitmodules" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="currency">Currency module: </label>
@@ -318,7 +317,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>

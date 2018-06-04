@@ -38,7 +38,7 @@
 					{{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -101,9 +101,9 @@
 				</nav>
 			</div>
 			<div class="col-sm-9">
-				<div class="panel-group panel-group-dashboard">
-					<div class="panel panel-primary panel-dashboard">
-						<div class="panel-heading">
+				<div class="panel-group-dashboard">
+					<div class="card  panel-dashboard">
+						<div class="card-header bg-primary">
 							<p class="text text-white h3">Welcome {{user.username}},</p>
 						</div>
 					</div>
@@ -136,11 +136,11 @@
 							</div>
 						</div>
 					</div>
-					<div class="panel panel-primary panel-dashboard">
-						<div class="panel-heading">
+					<div class="card  panel-dashboard">
+						<div class="card-header bg-primary">
 							<p class="text text-white h5">Last logs:</p>
 						</div>
-						<div class="panel-body">
+						<div class="card-body">
 							<table class="table table-bordered table-responsive-sm table-striped">
 								<!-- Header of logs -->
 								<tr>

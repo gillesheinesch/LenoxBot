@@ -37,7 +37,7 @@
                     {{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -109,13 +109,13 @@
                 </nav>
                 </div>
                 <div class="col-sm-9">
-                    <div class="panel-group panel-group-dashboard">
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                    <div class="panel-group-dashboard">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h5">Prefix</p>
                             </div>
-                            <div class="panel-body">
-                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST" id="#myform">
+                            <div class="card-body">
+                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="newprefix">New prefix:</label>
                                         <div class="col-sm-4">
@@ -130,11 +130,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h5">Language</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitlanguage" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="newlanguage">Set language of the bot:</label>
@@ -156,11 +156,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h5">Welcome Message</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitwelcomemsg" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="newwelcomemsg">Set a new welcome message:</label>
@@ -176,11 +176,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h5">Bye Message</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitbyemsg" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="newbyemsg">Set a new bye message:</label>
@@ -196,11 +196,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h5">Toggle XP</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submittogglexp" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="newtogglexp">Set channels where XP don't count:</label>
@@ -223,11 +223,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h5">Self-assignable roles</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitselfassignableroles" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-3" for="newselfassignableroles">Self-assignable roles:</label>

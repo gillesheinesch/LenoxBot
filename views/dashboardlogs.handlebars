@@ -36,7 +36,7 @@
                     {{/if}}
                 </li>
             </ul>
-            <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
                     <a href="../../logout" class=" h5 nav-link ">Log out</a>
@@ -109,12 +109,11 @@
             </div>
             <div class="col-sm-9">
                 <div class="panel-group-dashboard">
-                    <div class="panel-group">
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Modlog</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="modlog">Modlog Status:</label>
@@ -151,11 +150,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Chatfilter</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="chatfilterlog">Chatfilterlog Status:</label>
@@ -192,11 +191,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Messagedelete</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="messagedeletelog">Messagedeletelog Status:</label>
@@ -233,11 +232,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Messageupdate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="messageupdatelog">Messageupdatelog Status:</label>
@@ -274,11 +273,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Channelupdate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="channelupdatelog">Channelupdatelog Status:</label>
@@ -315,11 +314,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Channelcreate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="channelcreatelog">Channelcreatelog Status:</label>
@@ -356,11 +355,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Channelupdate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="channelupdatelog">Channelupdatelog Status:</label>
@@ -397,11 +396,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Channeldelete</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="channeldeletelog">Channeldeletelog Status:</label>
@@ -438,11 +437,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Memberupdate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="memberupdatelog">Memberupdatelog Status:</label>
@@ -479,11 +478,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Presenceupdate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="presenceupdatelog">Presenceupdatelog Status:</label>
@@ -520,11 +519,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Userjoin</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="welcomelog">Userjoinlog Status:</label>
@@ -561,11 +560,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Userleft</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="byelog">Userleftlog Status:</label>
@@ -602,11 +601,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Rolecreate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="rolecreatelog">Rolecreatelog Status:</label>
@@ -643,11 +642,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Roledelete</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="roledeletelog">Roledeletelog Status:</label>
@@ -684,11 +683,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Roleupdate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="roleupdatelog">Roleupdatelog Status:</label>
@@ -725,11 +724,11 @@
                                 </form>
                             </div>
                         </div>
-                        <div class="panel panel-primary panel-dashboard">
-                            <div class="panel-heading">
+                        <div class="card  panel-dashboard">
+                            <div class="card-header bg-primary">
                                 <p class="text text-white h3">Guildupdate</p>
                             </div>
-                            <div class="panel-body">
+                            <div class="card-body">
                                 <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
                                     <div class="form-group">
                                         <label class="control-label col-sm-2" for="guildupdatelog">Guildupdatelog Status:</label>
@@ -767,7 +766,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
             </div>
         </div>
     </div>
