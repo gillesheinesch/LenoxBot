@@ -5,7 +5,7 @@ exports.run = async(client, msg, args, lang) => {
 	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
 
 	for (var i = 0; i < validation.length; i++) {
-	await fs.appendFile(`gitbook/html.html`, `\n${client.commands.filter(c => c.help.category === validation[i].toLowerCase() && c.conf.enabled === true).map(cmd => `\n<tr class="table-background command ${validation[i]}">\n<td class="text text-size-small text-white white-border">${cmd.help.name}</td> \n<td class="text text-size-small text-white white-border">${cmd.help.description}</td> \n<td class="text text-size-small text-white white-border">${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'any'}</td> \n</tr>`).join("\n")}`, function (err) {});
+	await fs.appendFile(`gitbook/html.html`, `\n${client.commands.filter(c => c.help.category === validation[i].toLowerCase() && c.conf.enabled === true).map(cmd => `\n<tr class="table-background command ${validation[i]}">\n<td class="text h5 text-white white-border">${cmd.help.name}</td> \n<td class="text h5 text-white white-border">${cmd.help.description}</td> \n<td class="text h5 text-white white-border">${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'any'}</td> \n</tr>`).join("\n")}`, function (err) {});
 	}
 	msg.reply('Files created/updated!');
 };

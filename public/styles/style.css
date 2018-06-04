@@ -701,6 +701,7 @@ section .section-title {
     text-decoration: none !important;
     background-color: transparent;
     -webkit-text-decoration-skip: objects;
+    font-size: 0.9rem;
 }
 
 #footer ul.social li {

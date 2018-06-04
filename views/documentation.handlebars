@@ -10,25 +10,25 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto" id="mainnavbar">
                 <li class="nav-item">
-                    <a href="home" class="text-size-normal nav-link">Home</a>
+                    <a href="home" class="h5 nav-link">Home</a>
                 </li>
                 <li class="nav-item active">
-                    <a href="documentation" class=" text-size-normal nav-link">Documentation</a>
+                    <a href="documentation" class=" h5 nav-link">Documentation</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
+                    <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
 
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://lenoxbot.com/invite" target="blanc" class=" text-size-normal nav-link">Invite LenoxBot</a>
+                    <a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
                 </li>
                 <li class="nav-item">
-                    <a href="https://lenoxbot.com/discord" target="blanc" class=" text-size-normal nav-link">Discord Server</a>
+                    <a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
                 </li>
                 <li class="nav-item">
                     {{#if user}}
-                    <a href="servers" class=" text-size-normal nav-link">Dashboard
+                    <a href="servers" class=" h5 nav-link">Dashboard
                         <span class="label label-danger">BETA</span>
                     </a>
                     {{/if}}
@@ -37,9 +37,9 @@
             <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
-                    <a href="logout" class=" text-size-normal nav-link ">Log out</a>
+                    <a href="logout" class=" h5 nav-link ">Log out</a>
                     {{ else }}
-                    <a href="loginpressedbutton" class=" text-size-normal nav-link ">Log in</a>
+                    <a href="loginpressedbutton" class=" h5 nav-link ">Log in</a>
                     {{/if}}
                 </li>
                 <li class="avatarnavigation">
@@ -62,12 +62,12 @@
                 <a href="/commands">
                     <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 50px;">Commandlist</button>
                 </a>
-                <p class="text text-size-caption text-white" style="margin-top: 50px; margin-bottom: 20px;">General FAQ</p>
+                <p class="text h1 text-white" style="margin-top: 50px; margin-bottom: 20px;">General FAQ</p>
                 <div id="accordion-generalfaq" style="margin-bottom: 50px;">
                     {{#each generalfaq}}
                     <div class="card">
                         <div class="card-header" id="headinggeneralfaq{{number}}">
-                            <h5 class="mb-0 text text-size-caption">
+                            <h5 class="mb-0 text h1">
                                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsegeneralfaq{{number}}" aria-expanded="true"
                                     aria-controls="collapsegeneralfaq{{number}}">
                                     {{title}}
@@ -78,7 +78,7 @@
                         <div id="collapsegeneralfaq{{number}}" class="collapse" aria-labelledby="headinggeneralfaq{{number}}" data-parent="#accordion-generalfaq">
                             <div class="card-body" style="margin: 20px;">
                                 {{{content}}}
-                                <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
+                                <div class="text h6" style="color:rgb(94, 154, 233)">
                                     <i class="far fa-clock"></i> Last updated: {{newdate}} <br>by {{author}}
                                 </div>
                             </div>
@@ -86,12 +86,12 @@
                     </div>
                     {{/each}}
                 </div>
-                <p class="text text-size-caption text-white" style="margin-top: 50px; margin-bottom: 20px;">Tutorials</p>
+                <p class="text h1 text-white" style="margin-top: 50px; margin-bottom: 20px;">Tutorials</p>
                 <div id="accordion-tutorials" style="margin-bottom: 50px;">
                     {{#each tutorials}}
                     <div class="card">
                         <div class="card-header" id="headingtutorials{{number}}">
-                            <h5 class="mb-0 text text-size-caption">
+                            <h5 class="mb-0 text h1">
                                 <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsetutorials{{number}}" aria-expanded="true"
                                     aria-controls="collapsetutorials{{number}}">
                                     {{title}}
@@ -102,7 +102,7 @@
                         <div id="collapsetutorials{{number}}" class="collapse" aria-labelledby="headingtutorials{{number}}" data-parent="#accordion-tutorials">
                             <div class="card-body" style="margin: 20px;">
                                 {{{content}}}
-                                <div class="text text-size-smallest" style="color:rgb(94, 154, 233)">
+                                <div class="text h6" style="color:rgb(94, 154, 233)">
                                     <i class="far fa-clock"></i> Last updated: {{newdate}} <br>by {{author}}
                                 </div>
                             </div>

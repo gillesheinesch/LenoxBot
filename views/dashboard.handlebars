@@ -14,25 +14,25 @@
 		<div class="collapse navbar-collapse" id="navbarSupportedContent">
 			<ul class="navbar-nav mr-auto" id="mainnavbar">
 				<li class="nav-item">
-					<a href="../../home" class="text-size-normal nav-link">Home</a>
+					<a href="../../home" class="h5 nav-link">Home</a>
 				</li>
 				<li class="nav-item">
-					<a href="../../documentation" class=" text-size-normal nav-link">Documentation</a>
+					<a href="../../documentation" class=" h5 nav-link">Documentation</a>
 				</li>
 				<li class="nav-item">
-					<a href="https://medium.com/lenoxbot" target="blanc" class=" text-size-normal nav-link">Blog
+					<a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
 						
 					</a>
 				</li>
 				<li class="nav-item">
-					<a href="https://lenoxbot.com/invite" target="blanc" class=" text-size-normal nav-link">Invite LenoxBot</a>
+					<a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
 				</li>
 				<li class="nav-item">
-					<a href="https://lenoxbot.com/discord" target="blanc" class=" text-size-normal nav-link">Discord Server</a>
+					<a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
 				</li>
 				<li class="nav-item active">
 					{{#if user}}
-					<a href="../../servers" class=" text-size-normal nav-link">Dashboard
+					<a href="../../servers" class=" h5 nav-link">Dashboard
 						<span class="label label-danger">BETA</span>
 					</a>
 					{{/if}}
@@ -41,9 +41,9 @@
             <ul class="navbar-nav mr-auto navbar-right" id="mainnavbar">
                 <li class="nav-item">
                     {{#if user}}
-                    <a href="../../logout" class=" text-size-normal nav-link ">Log out</a>
+                    <a href="../../logout" class=" h5 nav-link ">Log out</a>
                     {{ else }}
-                    <a href="../../loginpressedbutton" class=" text-size-normal nav-link ">Log in</a>
+                    <a href="../../loginpressedbutton" class=" h5 nav-link ">Log in</a>
                     {{/if}}
                 </li>
                 <li class="avatarnavigation">
@@ -64,7 +64,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-3">
-				<p class="text text-white text-size-big" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
+				<p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
 				<nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="dashboardnav">
 					<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
 					    aria-expanded="false" aria-label="Toggle navigation">
@@ -73,28 +73,28 @@
 					<div class="collapse navbar-collapse" id="dashboardnavigationbar">
 					<ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
 						<li class="nav-item nav-link">
-							<a href="/dashboard/{{guilds.id}}/overview" class=" text-size-normal nav-link active" role="button">Overview</a>
+							<a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link active" role="button">Overview</a>
 						</li>
 						<li class="nav-item nav-link">
-							<a href="/dashboard/{{guilds.id}}/generalsettings" class=" text-size-normal nav-link" role="button">General Settings</a>
+							<a href="/dashboard/{{guilds.id}}/generalsettings" class=" h5 nav-link" role="button">General Settings</a>
 						</li>
 						<li class="nav-item nav-link">
-							<a href="/dashboard/{{guilds.id}}/logs" class=" text-size-normal nav-link" role="button">Logssettings</a>
+							<a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button">Logssettings</a>
 						</li>
 						<li class="nav-item nav-link">
-							<a href="/dashboard/{{guilds.id}}/modules" class=" text-size-normal nav-link" role="button">Modules</a>
+							<a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">Modules</a>
 						</li>
 						<li class="nav-item nav-link">
-							<a href="/dashboard/{{guilds.id}}/chatfilter" class=" text-size-normal nav-link" role="button">Chatfilter</a>
+							<a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link" role="button">Chatfilter</a>
 						</li>
 						<li class="nav-item nav-link">
-							<a href="/dashboard/{{guilds.id}}/music" class=" text-size-normal nav-link" role="button">Music</a>
+							<a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">Music</a>
 						</li>
 						<li class="nav-item nav-link">
-							<a href="/dashboard/{{guilds.id}}/application" class=" text-size-normal nav-link" role="button">Application</a>
+							<a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">Application</a>
 						</li>
 						<li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/tickets" class=" text-size-normal nav-link" role="button">Tickets</a>
+                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button">Tickets</a>
                         </li>
 					</ul>
 					</div>
@@ -104,62 +104,62 @@
 				<div class="panel-group panel-group-dashboard">
 					<div class="panel panel-primary panel-dashboard">
 						<div class="panel-heading">
-							<p class="text text-white text-size-big">Welcome {{user.username}},</p>
+							<p class="text text-white h3">Welcome {{user.username}},</p>
 						</div>
 					</div>
 					<div class="card-group" style="text-align: center;">
 						<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
 							<div class="card-body">
-								<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.memberscount}}"
+								<span class="numscroller card-text text h3" style="text-align: center;" data-min='1' data-max="{{guilds.memberscount}}"
 								    data-delay='0.8' data-increment="{{guilds.memberscountincrement}}">{{guilds.memberscount}}</span>
 								<p class="text card-title" style="text-align: center;">Members</p>
 							</div>
 						</div>
 						<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
 							<div class="card-body">
-								<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.channelscount}}"
+								<span class="numscroller card-text text h3" style="text-align: center;" data-min='1' data-max="{{guilds.channelscount}}"
 								    data-delay='0.8' data-increment="{{guilds.channelscountincrement}}">{{guilds.channelscount}}</span>
 								<p class="text card-title" style="text-align: center;">Channels</p>
 							</div>
 						</div>
 						<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
 							<div class="card-body">
-								<span class="numscroller card-text text text-size-big" style="text-align: center;" data-min='1' data-max="{{guilds.rolescount}}"
+								<span class="numscroller card-text text h3" style="text-align: center;" data-min='1' data-max="{{guilds.rolescount}}"
 								    data-delay='0.8' data-increment="{{guilds.rolescountincrement}}">{{guilds.rolescount}}</span>
 								<p class="text card-title" style="text-align: center;">Roles</p>
 							</div>
 						</div>
 						<div class="card text-white bg-primary mb-3 overviewcard" style="width: 16rem;">
 							<div class="card-body">
-								<p class="card-text text text-size-big" style="text-align: center;">{{guilds.prefix}}</p>
+								<p class="card-text text h3" style="text-align: center;">{{guilds.prefix}}</p>
 								<p class="text card-title" style="text-align: center;">Prefix</p>
 							</div>
 						</div>
 					</div>
 					<div class="panel panel-primary panel-dashboard">
 						<div class="panel-heading">
-							<p class="text text-white text-size-normal">Last logs:</p>
+							<p class="text text-white h5">Last logs:</p>
 						</div>
 						<div class="panel-body">
 							<table class="table table-bordered table-responsive-sm table-striped">
 								<!-- Header of logs -->
 								<tr>
-									<th class="text text-size-normal text-black">Action</th>
-									<th class="text text-size-normal text-black">Executor</th>
-									<th class="text text-size-normal text-black">Date</th>
+									<th class="text h5 text-black">Action</th>
+									<th class="text h5 text-black">Executor</th>
+									<th class="text h5 text-black">Date</th>
 								</tr>
 								<!-- Header of logs -->
 								{{#if logs}} {{#each logs}}
 								<tr>
-									<td class="text text-size-small text-black">{{action}}</td>
-									<td class="text text-size-small text-black">{{username}}</td>
-									<td class="text text-size-small text-black">{{showeddate}}</td>
+									<td class="text h5 text-black">{{action}}</td>
+									<td class="text h5 text-black">{{username}}</td>
+									<td class="text h5 text-black">{{showeddate}}</td>
 								</tr>
 								{{/each}} {{else}}
 								<tr>
-									<td class="text text-size-small text-black">None</td>
-									<td class="text text-size-small text-black">None</td>
-									<td class="text text-size-small text-black">None</td>
+									<td class="text h5 text-black">None</td>
+									<td class="text h5 text-black">None</td>
+									<td class="text h5 text-black">None</td>
 								</tr>
 								{{/if}}
 							</table>
