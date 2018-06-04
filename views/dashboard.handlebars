@@ -33,7 +33,7 @@
 				<li class="nav-item active">
 					{{#if user}}
 					<a href="../../servers" class=" h5 nav-link">Dashboard
-						<span class="label label-danger">BETA</span>
+						<span class="badge badge-danger">BETA</span>
 					</a>
 					{{/if}}
                 </li>
@@ -102,7 +102,7 @@
 			</div>
 			<div class="col-sm-9">
 				<div class="panel-group-dashboard">
-					<div class="card  panel-dashboard">
+					<div class="card border-dark panel-dashboard">
 						<div class="card-header bg-primary">
 							<p class="text text-white h3">Welcome {{user.username}},</p>
 						</div>
@@ -136,7 +136,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="card  panel-dashboard">
+					<div class="card border-dark panel-dashboard">
 						<div class="card-header bg-primary">
 							<p class="text text-white h5">Last logs:</p>
 						</div>
@@ -144,22 +144,22 @@
 							<table class="table table-bordered table-responsive-sm table-striped">
 								<!-- Header of logs -->
 								<tr>
-									<th class="text h5 text-black">Action</th>
-									<th class="text h5 text-black">Executor</th>
-									<th class="text h5 text-black">Date</th>
+									<th class="text h6 text-black">Action</th>
+									<th class="text h6 text-black">Executor</th>
+									<th class="text h6 text-black">Date</th>
 								</tr>
 								<!-- Header of logs -->
 								{{#if logs}} {{#each logs}}
 								<tr>
-									<td class="text h5 text-black">{{action}}</td>
-									<td class="text h5 text-black">{{username}}</td>
-									<td class="text h5 text-black">{{showeddate}}</td>
+									<td class="text h6 text-black">{{action}}</td>
+									<td class="text h6 text-black">{{username}}</td>
+									<td class="text h6 text-black">{{showeddate}}</td>
 								</tr>
 								{{/each}} {{else}}
 								<tr>
-									<td class="text h5 text-black">None</td>
-									<td class="text h5 text-black">None</td>
-									<td class="text h5 text-black">None</td>
+									<td class="text h6 text-black">None</td>
+									<td class="text h6 text-black">None</td>
+									<td class="text h6 text-black">None</td>
 								</tr>
 								{{/if}}
 							</table>
