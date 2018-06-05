@@ -656,6 +656,8 @@ hr.message-inner-separator {
 }
 
 #mainnavbar li {
+    padding: 0;
+    margin: 0;
     margin-right: 5px;
 }
 
