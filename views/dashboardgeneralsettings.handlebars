@@ -117,7 +117,7 @@
                             <div class="card-body">
                                 <form class="form-vertical" action="/dashboard/{{guilds.id}}/generalsettings/submitprefix" method="POST">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newprefix">New prefix:</label>
+                                        <label class="control-label col-sm" for="newprefix">New prefix:</label>
                                         <div class="col-sm-4">
                                             <input type="text" class="form-control" id="newprefix" name="newprefix" pattern=".{1,}" required value="{{guilds.prefix}}">
                                         </div>
@@ -137,7 +137,7 @@
                             <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitlanguage" method="POST">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newlanguage">Set language of the bot:</label>
+                                        <label class="control-label col-sm" for="newlanguage">Set language of the bot:</label>
                                         <div class="col-sm-4">
                                             <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newlanguage">
                                                 {{#each languages}} {{#if set}}
@@ -163,7 +163,7 @@
                             <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitwelcomemsg" method="POST">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newwelcomemsg">Set a new welcome message:</label>
+                                        <label class="control-label col-sm" for="newwelcomemsg">Set a new welcome message:</label>
                                         <div class="col-sm-9">
                                             <textarea class="form-control" name="newwelcomemsg" rows="3">{{guilds.welcomemsg}}</textarea>
                                         </div>
@@ -183,7 +183,7 @@
                             <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitbyemsg" method="POST">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newbyemsg">Set a new bye message:</label>
+                                        <label class="control-label col-sm" for="newbyemsg">Set a new bye message:</label>
                                         <div class="col-sm-9">
                                             <textarea class="form-control" name="newbyemsg" rows="3">{{guilds.byemsg}}</textarea>
                                         </div>
@@ -203,7 +203,7 @@
                             <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submittogglexp" method="POST">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newtogglexp">Set channels where XP don't count:</label>
+                                        <label class="control-label col-sm" for="newtogglexp">Set channels where XP don't count:</label>
                                         <div class="col-sm-4">
                                             <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newtogglexp" data-live-search="true"
                                                 multiple title="Choose channel(s)" data-actions-box="true" data-size="7">
@@ -230,7 +230,7 @@
                             <div class="card-body">
                                 <form class="form-horizontal" action="/dashboard/{{guilds.id}}/generalsettings/submitselfassignableroles" method="POST">
                                     <div class="form-group">
-                                        <label class="control-label col-sm-3" for="newselfassignableroles">Self-assignable roles:</label>
+                                        <label class="control-label col-sm" for="newselfassignableroles">Self-assignable roles:</label>
                                         <div class="col-sm-4">
                                             <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newselfassignableroles" data-live-search="true"
                                                 multiple title="Choose channel(s)" data-actions-box="true" data-size="7">

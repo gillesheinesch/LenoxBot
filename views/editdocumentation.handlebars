@@ -66,7 +66,7 @@
 					<div class="card-body">
 						<form class="form-horizontal" action="/editdocumentation/submitnewdocumentationentry" method="POST">
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="newapplication">Choose the category</label>
+								<label class="control-label col-sm" for="newapplication">Choose the category</label>
 								<div class="col-sm-4">
 									<select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="category" data-actions-box="true"
 									    data-size="5">
@@ -76,13 +76,13 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="title">Title</label>
+								<label class="control-label col-sm" for="title">Title</label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" id="title" name="title" pattern=".{1,}" required placeholder="Type in your titel...">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="content">Answer</label>
+								<label class="control-label col-sm" for="content">Answer</label>
 								<div class="col-sm-9">
 									<textarea class="form-control" name="content" rows="5" placeholder="Type in your answer..." id="summernote1"></textarea>
 									<script>
@@ -107,13 +107,13 @@
 					<div class="card-body">
 						<form class="form-horizontal" action="/editdocumentation/{{number}}/submitgeneralfaqupdate" method="POST">
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="title">New title:</label>
+								<label class="control-label col-sm" for="title">New title:</label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" id="title" name="title" pattern=".{1,}" required value="{{title}}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="content">Update Answer:</label>
+								<label class="control-label col-sm" for="content">Update Answer:</label>
 								<div class="col-sm-9">
 									<textarea class="form-control summernote" name="content" rows="5" id="summernote{{number}}">{{content}}</textarea>
 									<script>
@@ -139,13 +139,13 @@
 					<div class="card-body">
 						<form class="form-horizontal" action="/editdocumentation/{{number}}/submittutorialsupdate" method="POST">
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="title">New title:</label>
+								<label class="control-label col-sm" for="title">New title:</label>
 								<div class="col-sm-4">
 									<input type="text" class="form-control" id="title" name="title" pattern=".{1,}" required value="{{title}}">
 								</div>
 							</div>
 							<div class="form-group">
-								<label class="control-label col-sm-3" for="content">Update Answer:</label>
+								<label class="control-label col-sm" for="content">Update Answer:</label>
 								<div class="col-sm-9">
 									<textarea class="form-control summernote" name="content" rows="5" id="summernote{{number}}">{{content}}</textarea>
 									<script>

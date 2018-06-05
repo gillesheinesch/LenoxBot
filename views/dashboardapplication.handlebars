@@ -117,7 +117,7 @@
                                 <div class="card-body">
                                     <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitapplication" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newapplication">Toggle Application</label>
+                                            <label class="control-label col-sm" for="newapplication">Toggle Application</label>
                                             <div class="col-sm-4">
                                                 <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newapplication" data-actions-box="true"
                                                     data-size="7">
@@ -141,7 +141,7 @@
                                 <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitvotechannel" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newvotechannel">Set votingchannel:</label>
+                                            <label class="control-label col-sm" for="newvotechannel">Set votingchannel:</label>
                                             <div class="col-sm-4">
                                                 <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newvotechannel" data-live-search="true"
                                                     title="Choose votechannel" data-actions-box="true" data-size="7">
@@ -168,7 +168,7 @@
                                 <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitarchive" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newarchive">Toggle Archive:</label>
+                                            <label class="control-label col-sm" for="newarchive">Toggle Archive:</label>
                                             <div class="col-sm-4">
                                                 <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newarchive" data-actions-box="true"
                                                     data-size="7">
@@ -192,7 +192,7 @@
                                 <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitarchivechannel" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newarchivechannel">Set Archive channel:</label>
+                                            <label class="control-label col-sm" for="newarchivechannel">Set Archive channel:</label>
                                             <div class="col-sm-4">
                                                 <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newarchivechannel" data-live-search="true"
                                                     title="Choose votechannel" data-actions-box="true" data-size="7">
@@ -219,7 +219,7 @@
                                 <div class="card-body">
                                     <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitreactionnumber" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newreactionnumber">New reactionnumber:</label>
+                                            <label class="control-label col-sm" for="newreactionnumber">New reactionnumber:</label>
                                             <div class="col-sm-4">
                                                 <input type="number" class="form-control" min="1" name="newreactionnumber" pattern=".{1,}" required value="{{guilds.reactionnumber}}">
                                             </div>
@@ -239,7 +239,7 @@
                                 <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitrole" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newrole">Select a role:</label>
+                                            <label class="control-label col-sm" for="newrole">Select a role:</label>
                                             <div class="col-sm-4">
                                                 <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newrole" data-live-search="true"
                                                     title="Choose role" data-actions-box="true" data-size="7">
@@ -266,7 +266,7 @@
                                 <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitdenyrole" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newdenyrole">Select a role:</label>
+                                            <label class="control-label col-sm" for="newdenyrole">Select a role:</label>
                                             <div class="col-sm-4">
                                                 <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newdenyrole" data-live-search="true"
                                                     title="Choose role" data-actions-box="true" data-size="7">
@@ -293,7 +293,7 @@
                                 <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewacceptedmsg" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newacceptedmsg">New message:</label>
+                                            <label class="control-label col-sm" for="newacceptedmsg">New message:</label>
                                             <div class="col-sm-9">
                                                 <textarea class="form-control" name="newacceptedmsg" rows="3">{{guilds.acceptedmessage}}</textarea>
                                             </div>
@@ -313,7 +313,7 @@
                                 <div class="card-body">
                                     <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewrejectedmsg" method="POST">
                                         <div class="form-group">
-                                            <label class="control-label col-sm-3" for="newrejectedmsg">New message:</label>
+                                            <label class="control-label col-sm" for="newrejectedmsg">New message:</label>
                                             <div class="col-sm-9">
                                                 <textarea class="form-control" name="newrejectedmsg" rows="3">{{guilds.rejectedmessage}}</textarea>
                                             </div>
