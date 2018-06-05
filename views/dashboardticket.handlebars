@@ -109,7 +109,7 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="panel-group-dashboard">
-                            <div class="panel  panel-ticket">
+                            <div class="card panel-ticket">
                                 <div class="card-header bg-primary">
                                     <p class="text text-white h5">Ticket {{ticket.ticketid}} | Status: {{ticket.status}}</p>
                                     <div class="btn-group" role="group" aria-label="Status">
@@ -140,14 +140,14 @@
                                     <ul class="timeline">
                                         <li>
                                             <div class="timeline-badge">
-                                                <i class="glyphicon glyphicon-check"></i>
+                                                <i class="fas fa-user"></i>
                                             </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Ticket by {{ticket.author}}</h4>
                                                     <p>
                                                         <small class="text-muted">
-                                                            <i class="glyphicon glyphicon-time"></i> {{ticket.newdate}}</small>
+                                                            <i class="far fa-clock"></i> {{ticket.newdate}}</small>
                                                     </p>
                                                 </div>
                                                 <div class="timeline-body">
@@ -161,14 +161,14 @@
                                         <li class="{{timelineconf}}">
                                             {{#if timelineconf}}
                                             <div class="timeline-badge warning">
-                                                <i class="glyphicon glyphicon-credit-card"></i>
+                                                <i class="fas fa-user-friends"></i>
                                             </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Answer by {{author}} (Support-Team)</h4>
                                                     <p>
                                                         <small class="text-muted">
-                                                            <i class="glyphicon glyphicon-time"></i> {{newdate}}</small>
+                                                            <i class="far fa-clock"></i> {{newdate}}</small>
                                                     </p>
                                                 </div>
                                                 <div class="timeline-body">
@@ -179,14 +179,14 @@
                                             </div>
                                             {{else}}
                                             <div class="timeline-badge">
-                                                <i class="glyphicon glyphicon-check"></i>
+                                                <i class="fas fa-user"></i>
                                             </div>
                                             <div class="timeline-panel">
                                                 <div class="timeline-heading">
                                                     <h4 class="timeline-title">Answer by {{author}}</h4>
                                                     <p>
                                                         <small class="text-muted">
-                                                            <i class="glyphicon glyphicon-time"></i> {{newdate}}</small>
+                                                            <i class="far fa-clock"></i> {{newdate}}</small>
                                                     </p>
                                                 </div>
                                                 <div class="timeline-body">
