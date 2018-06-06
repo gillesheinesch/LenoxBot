@@ -232,8 +232,6 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 		const botconfs = await client.botconfs.get('botconfs');
 
 		const category = botconfs[req.body.category];
-
-		req.body.content = req.body.content.replace(/(?:\r\n|\r|\n)/g, "\n");
 		
 		category[Object.keys(category).length + 1] = {
 			authorid: req.user.id,
@@ -265,8 +263,6 @@ app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, re
 
 		const tutorials = botconfs.tutorials;
 
-		req.body.content = req.body.content.replace(/(?:\r\n|\r|\n)/g, "\n");
-
 		tutorials[req.params.id].title = req.body.title;
 		tutorials[req.params.id].content = req.body.content;
 		tutorials[req.params.id].date = new Date();
@@ -293,8 +289,6 @@ app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, r
 		const botconfs = await client.botconfs.get('botconfs');
 
 		const generalfaq = botconfs.generalfaq;
-
-		req.body.content = req.body.content.replace(/(?:\r\n|\r|\n)/g, "\n");
 
 		generalfaq[req.params.id].title = req.body.title;
 		generalfaq[req.params.id].content = req.body.content;
@@ -389,25 +383,8 @@ app.get('/nologin', function (req, res, next) {
 		}
 	}
 
-	res.render('login', {
+	res.render('index', {
 		notloggedin: true,
-		user: req.user,
-		guilds: check,
-		client: client
-	});
-});
-
-app.get('/login', function (req, res, next) {
-	if (req.user) {
-		var check = [];
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (((req.user.guilds[i].permissions) & 8) === 8) {
-				check.push(req.user.guilds[i]);
-			}
-		}
-	}
-
-	res.render('login', {
 		user: req.user,
 		guilds: check,
 		client: client
@@ -1560,6 +1537,42 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 			channels: channels,
 			submitmusic: req.query.submitmusic ? true : false
 		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var tableload = await client.guildconfs.get(dashboardid);
+		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../404error')
+
+		var check = req.user.guilds[index];
+
+		var application = tableload.application.applications[req.params.applicationid];
+
+		delete tableload.application.applications[req.params.applicationid];
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		return res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/applications`,
+			query: {
+				"submitdeleteapplication": true
+			}
+		}));
 	} else {
 		res.redirect('../nologin');
 	}
