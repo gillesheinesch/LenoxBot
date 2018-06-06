@@ -20,9 +20,6 @@ exports.run = async (client, msg, args, lang) => {
 	var addentry = lang.application_addentry.replace('%prefix', tableload.prefix);
 	if (tableload.application.template.length === 0) return msg.channel.send(addentry);
 
-	var votechannel = lang.application_votechannel.replace('%prefix', tableload.prefix);
-	if (tableload.application.votechannel === '') return msg.channel.send(votechannel);
-
 	var reactionnumber = lang.application_reactionnumber.replace('%prefix', tableload.prefix);
 	if (tableload.application.reactionnumber === '') return msg.channel.send(reactionnumber);
 

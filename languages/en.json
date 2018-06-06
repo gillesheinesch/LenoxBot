@@ -508,7 +508,6 @@
     "addentry_description": "Inserts a new entry in the template",
 
     "application_addentry": "First, an administrator of this server has to set the entries for this template. This can be done by using %prefixaddentry",
-    "application_votechannel": "First, an administrator of this server has to set the channel in which it's possible to vote for the application. This can be done by using %prefixvotechannel",
     "application_reactionnumber": "First, an administrator of this server has to set the number of required reactions for acceptance or refusal of an application. This can be done by using %prefixreactionnumber",
     "application_undefinedmessages": "First, an administrator of this server has to define the messages that accepted and rejected applications get. This can be done by using %prefixsetacceptedmessage and %prefixsetrejectedmessage",
     "application_newapplication": "%author, a new application was created!",
