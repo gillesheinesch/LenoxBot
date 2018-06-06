@@ -62,64 +62,56 @@
                 <a href="/commands">
                     <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 50px;">Commandlist</button>
                 </a>
-                <p class="text h1 text-white" style="margin-top: 50px; margin-bottom: 20px;">General FAQ</p>
-                <div id="accordion-generalfaq" style="margin-bottom: 50px;">
-                    {{#each generalfaq}}
-                    <div class="card">
-                        <div class="card-header" id="headinggeneralfaq{{number}}">
-                            <h5 class="mb-0 text h1">
-                                <button class="btn btn-link text collapsed" data-toggle="collapse" data-target="#collapsegeneralfaq{{number}}" aria-expanded="true"
-                                    aria-controls="collapsegeneralfaq{{number}}">
-                                    {{title}}
-                                </button>
-                                <span class="documentation-entry" style="float:right;"></span>
-                            </h5>
-                        </div>
-
-                        <div id="collapsegeneralfaq{{number}}" class="collapse" aria-labelledby="headinggeneralfaq{{number}}" data-parent="#accordion-generalfaq">
-                            <div class="card-body" style="margin: 20px;">
-                                {{{content}}}
-                                <div class="text h6" style="color:rgb(94, 154, 233)">
-                                    <i class="far fa-clock"></i> Last updated: {{newdate}} <br><i class="fas fa-user"></i> {{author}}
-                                </div>
-                            </div>
+                <div class="row" style="margin-top: 50px;">
+                    <div class="col-sm-5">
+                        <input type="search" id="search" value="" class="form-control" placeholder="Search...">
+                    </div>
+                </div>
+                <p class="text h1 text-white" style="margin-top: 20px; margin-bottom: 20px;">General FAQ</p>
+                {{#each generalfaq}}
+                <div class="card" style="margin-bottom: 30px;">
+                    <div class="card-header">
+                        <h5 class="text h3 documentation-entry">
+                            {{title}}
+                        </h5>
+                    </div>
+                    <div class="card-body" style="margin: 20px;">
+                        {{{content}}}
+                    </div>
+                    <div class="card-footer">
+                        <div class="text h6" style="color:rgb(94, 154, 233)">
+                            <i class="far fa-clock"></i> Last updated: {{newdate}}
+                            <br>
+                            <i class="fas fa-user"></i> {{author}}
                         </div>
                     </div>
-                    {{/each}}
                 </div>
+                {{/each}}
                 <p class="text h1 text-white" style="margin-top: 50px; margin-bottom: 20px;">Tutorials</p>
-                <div id="accordion-tutorials" style="margin-bottom: 50px;">
-                    {{#each tutorials}}
-                    <div class="card">
-                        <div class="card-header" id="headingtutorials{{number}}">
-                            <h5 class="mb-0 text h1">
-                                <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapsetutorials{{number}}" aria-expanded="true"
-                                    aria-controls="collapsetutorials{{number}}">
-                                    {{title}}
-                                </button>
-                                <span class="documentation-entry" style="float:right;"></span>
-                            </h5>
-                        </div>
-
-                        <div id="collapsetutorials{{number}}" class="collapse" aria-labelledby="headingtutorials{{number}}" data-parent="#accordion-tutorials">
-                            <div class="card-body" style="margin: 20px;">
-                                {{{content}}}
-                                <div class="text h6" style="color:rgb(94, 154, 233)">
-                                    <i class="far fa-clock"></i> Last updated: {{newdate}} <br><i class="fas fa-user"></i> {{author}}
-                                </div>
-                            </div>
+                {{#each tutorials}}
+                <div class="card" style="margin-bottom: 30px;">
+                    <div class="card-header">
+                        <h5 class="text h3 documentation-entry">
+                            {{title}}
+                        </h5>
+                    </div>
+                    <div class="card-body" style="margin: 20px;">
+                        {{{content}}}
+                    </div>
+                    <div class="card-footer">
+                        <div class="text h6" style="color:rgb(94, 154, 233)">
+                            <i class="far fa-clock"></i> Last updated: {{newdate}}
+                            <br>
+                            <i class="fas fa-user"></i> {{author}}
                         </div>
                     </div>
-                    {{/each}}
                 </div>
+                {{/each}}
             </div>
         </div>
     </div>
 </main>
 <script>
-    anchors.options = {
-  visible: 'always',
-  icon: '#'
-};
-      anchors.add('.documentation-entry');
+    anchors.options.visible = 'always';
+    anchors.add('.documentation-entry');
 </script>
