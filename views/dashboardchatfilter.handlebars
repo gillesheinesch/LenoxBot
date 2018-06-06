@@ -19,7 +19,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
-                        
+
                     </a>
                 </li>
                 <li class="nav-item">
@@ -71,44 +71,49 @@
     {{/if}}
     <div class="container">
         <div class="row">
-			<div class="col-sm-3">
-				<p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
+            <div class="col-sm-3">
+                <p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
                 <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="dashboardnav">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
-					    aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="dashboardnavigationbar">
-                    <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">Overview</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/generalsettings" class=" h5 nav-link" role="button">General Settings</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button">Logssettings</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">Modules</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link active" role="button">Chatfilter</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">Music</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">Application</a>
-                        </li>
-                        <li class="nav-item nav-link">
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="dashboardnavigationbar">
+                        <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">Overview</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/generalsettings" class=" h5 nav-link" role="button">General Settings</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button">Logssettings</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">Modules</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link active" role="button">Chatfilter</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">Music</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">Application</a>
+                            </li>
+                            <li class="nav-item nav-link">
                                 <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link " role="button">Tickets</a>
                             </li>
-                    </ul>
+                            <li class="nav-item nav-link">
+                                <a href="#" class="h5 nav-link" role="button">Custom Commands
+                                    <span class="badge badge-warning">Incoming!</span>
+                                </a>
+                            </li>
+                        </ul>
                 </nav>
-            </div>
-            <div class="col-sm-9">
-                <div class="panel-group-dashboard">
+                </div>
+                <div class="col-sm-9">
+                    <div class="panel-group-dashboard">
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
                                 <p class="text text-white h5">Chatfilter</p>
@@ -155,7 +160,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
-    </div>
 </main>
