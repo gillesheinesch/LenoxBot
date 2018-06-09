@@ -126,7 +126,6 @@
                                 </div>
                                 <div class="card-body">
                                     {{#if oldapplicationscheck}}
-                                    <div class="btn-group" role="group" aria-label="All tickets" style="margin-bottom: 5px; margin-top: 5px;">
                                         {{#each oldapplications}}
                                         <div class="text h5" style="margin-bottom: 5px; margin-top: 5px;">
                                             <a href="applications/{{@key}}/overview">
@@ -134,7 +133,6 @@
                                             </a>
                                         </div>
                                         {{/each}}
-                                    </div>
                                     {{else}}
                                     <p class="text h3">No closed applications!</p>
                                     {{/if}}
