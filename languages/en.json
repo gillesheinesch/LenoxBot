@@ -502,7 +502,6 @@
     "welcomemsg_description": "Sets a welcome message to greet your users",
 
     "addentry_noinput": "You have to decide which new entry you want to add to the template!",
-    "addentry_limit": "There can only be 9 entries!",
     "addentry_alreadyexists": "This entry already exists in the template",
     "addentry_added": "%entry was successfully added to the template",
     "addentry_description": "Inserts a new entry in the template",

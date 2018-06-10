@@ -18,7 +18,6 @@ exports.run = async(client, msg, args, lang) => {
 	let input = args.slice().join(' ');
 
 	if (input.length < 1) return msg.reply(lang.addentry_noinput).then(m => m.delete(10000));
-	if (tableload.application.template.length >= 9) return msg.channel.send(lang.addentry_limit);
 
 		for (var i = 0; i < tableload.application.template.length; i++) {
 			if (tableload.application.template[i].toLowerCase() === input.toLowerCase()) return msg.channel.send(lang.addentry_alreadyexists);
