@@ -19,7 +19,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
-                        
+
                     </a>
                 </li>
                 <li class="nav-item">
@@ -70,706 +70,336 @@
     </div>
     {{/if}}
     <div class="container">
-       <div class="row">
-			<div class="col-sm-3">
-				<p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
                 <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="dashboardnav">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
-					    aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="dashboardnavigationbar">
-                    <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button"><i class="far fa-eye"></i> Overview</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/generalsettings" class=" h5 nav-link" role="button"><i class="fas fa-wrench"></i> General Settings</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link active" role="button"><i class="fas fa-sign-out-alt"></i> Logssettings</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button"><i class="fas fa-folder-open"></i> Modules</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link" role="button"><i class="fas fa-filter"></i> Chatfilter</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button"><i class="fas fa-music"></i> Music</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button"><i class="fab fa-wpforms"></i> Application</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button"><i class="fas fa-envelope-square"></i> Tickets</a>
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="dashboardnavigationbar">
+                        <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">
+                                    <i class="far fa-eye"></i> Overview</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="#" class="h5 nav-link" role="button"><i class="fas fa-list-ul"></i> Custom Commands <span class="badge badge-warning">Incoming!</span></a>
-                        </li>
-                    </ul>
+                                <a href="/dashboard/{{guilds.id}}/generalsettings" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-wrench"></i> General Settings</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link active" role="button">
+                                    <i class="fas fa-sign-out-alt"></i> Logssettings</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-folder-open"></i> Modules</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-filter"></i> Chatfilter</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-music"></i> Music</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">
+                                    <i class="fab fa-wpforms"></i> Application</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-envelope-square"></i> Tickets</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="#" class="h5 nav-link" role="button">
+                                    <i class="fas fa-list-ul"></i> Custom Commands
+                                    <span class="badge badge-warning">Incoming!</span>
+                                </a>
+                            </li>
+                        </ul>
                 </nav>
-            </div>
-            <div class="col-sm-9">
-                <div class="panel-group-dashboard">
+                </div>
+                <div class="col-sm-9">
+                    <div class="panel-group-dashboard">
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
-                                <p class="text text-white h3">Modlog</p>
+                                <p class="text text-white h3">Logs</p>
                             </div>
                             <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="modlog">Modlog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="modlog">
-                                                {{#if confs.modlogset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="modlog">Modlog:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="modlog">
+                                                {{#if confs.modlogdeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if modlogset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="modlogchannel">New Modlog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="modlogchannel">
-                                                {{#each channels}} {{#if modlogset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Chatfilter</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="chatfilterlog">Chatfilterlog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="chatfilterlog">
-                                                {{#if confs.chatfilterset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="chatfilter">Chatfilter:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="chatfilter">
+                                                {{#if confs.chatfilterdeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if chatfilterset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="chatfilterlogchannel">New Chatfilter channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="chatfilterlogchannel">
-                                                {{#each channels}} {{#if chatfilterset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Messagedelete</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="messagedeletelog">Messagedeletelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="messagedeletelog">
-                                                {{#if confs.messagedeleteset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="messagedeletelog">Messagdelete:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="messagedeletelog">
+                                                {{#if confs.messagedeletedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if messagedeleteset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="messagedeletelogchannel">New Messagedeletelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="messagedeletelogchannel">
-                                                {{#each channels}} {{#if messagedeleteset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Messageupdate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="messageupdatelog">Messageupdatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="messageupdatelog">
-                                                {{#if confs.messageupdateset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="messageupdatelog">Messageupdate:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="messageupdatelog">
+                                                {{#if confs.messageupdatedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if messageupdateset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="messageupdatelogchannel">New Messageupdatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="messageupdatelogchannel">
-                                                {{#each channels}} {{#if messageupdateset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Channelupdate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="channelupdatelog">Channelupdatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="channelupdatelog">
-                                                {{#if confs.channelupdatelog}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="channelupdatelog">Channelupdate:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="channelupdatelog">
+                                                {{#if confs.channelupdatedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if channelupdateset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="channelupdatelogchannel">New Channelupdatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="channelupdatelogchannel">
-                                                {{#each channels}} {{#if channelupdateset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Channelcreate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="channelcreatelog">Channelcreatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="channelcreatelog">
-                                                {{#if confs.channelcreatelog}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="channelcreatelog">Channelcreate:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="channelcreatelog">
+                                                {{#if confs.channelcreatedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if channelupdateset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="channelcreatelogchannel">New Channelcreatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="channelcreatelogchannel">
-                                                {{#each channels}} {{#if channelcreateset}}
-                                                <option>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Channelupdate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="channelupdatelog">Channelupdatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="channelupdatelog">
-                                                {{#if confs.channelupdateset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="channeldeletelog">Channeldelete:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="channeldeletelog">
+                                                {{#if confs.channeldeletedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if channeldeleteset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="channelupdatelogchannel">New Channelupdatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="channelupdatelogchannel">
-                                                {{#each channels}} {{#if channelupdateset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Channeldelete</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="channeldeletelog">Channeldeletelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="channeldeletelog">
-                                                {{#if confs.channeldeleteset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="memberupdatelog">Memberupdate:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="memberupdatelog">
+                                                {{#if confs.memberupdatdeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if memberupdateset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="channeldeletelogchannel">New Channeldeletelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="channeldeletelogchannel">
-                                                {{#each channels}} {{#if channeldeleteset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Memberupdate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="memberupdatelog">Memberupdatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="memberupdatelog">
-                                                {{#if confs.memberupdateset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="presenceupdatelog">Presenceupdate:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="presenceupdatelog">
+                                                {{#if confs.presenceupdatedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if presenceupdateset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="memberupdatelogchannel">New Memberupdatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="memberupdatelogchannel">
-                                                {{#each channels}} {{#if memberupdateset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Presenceupdate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="presenceupdatelog">Presenceupdatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="presenceupdatelog">
-                                                {{#if confs.presenceupdateset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="welcomelog">Userjoin:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="welcomelog">
+                                                {{#if confs.welcomedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if welcomeset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="presenceupdatelogchannel">New Presenceupdatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="presenceupdatelogchannel">
-                                                {{#each channels}} {{#if presenceupdateset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Userjoin</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="welcomelog">Userjoinlog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="welcomelog">
-                                                {{#if confs.welcomelogset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="byelog">Userleft:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="byelog">
+                                                {{#if confs.byelogdeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if byeset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="welcomelogchannel">New Userjoinlog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="welcomelogchannel">
-                                                {{#each channels}} {{#if welcomelogset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Userleft</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="byelog">Userleftlog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="byelog">
-                                                {{#if confs.userleftset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="rolecreatelog">Rolecreate:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="rolecreatelog">
+                                                {{#if confs.rolecreatedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if rolecreateset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="byelogchannel">New Userleftlog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="byelogchannel">
-                                                {{#each channels}} {{#if userleftset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Rolecreate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="rolecreatelog">Rolecreatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="rolecreatelog">
-                                                {{#if confs.rolecreateset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="roledeletelog">Roledelete:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="roledeletelog">
+                                                {{#if confs.roledeletedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if roledeleteset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="rolecreatelogchannel">New Rolecreatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="rolecreatelogchannel">
-                                                {{#each channels}} {{#if rolecreateset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Roledelete</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="roledeletelog">Roledeletelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="roledeletelog">
-                                                {{#if confs.roledeleteset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
+                                    <div class="form-group mb-2">
+                                        <label for="roleupdatelog">Roleupdate:</label>
+                                        <div class="form-group mx-sm-3 mb-2">
+                                            <select required class="selectpicker" data-live-search="true" data-size="7" name="roleupdatelog">
+                                                {{#if confs.roleupdatedeactivated}}
+                                                <option selected value="false">Deactivated</option>
                                                 {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
+                                                <option value="false">Deactivated</option>
+                                                {{/if}} {{#each channels}} {{#if roleupdateset}}
+                                                <option selected value="{{name}}">#{{name}}</option>
                                                 {{/if}}
+                                                <option value="{{name}}">#{{name}}</option>
+                                                {{/each}}
                                             </select>
                                         </div>
                                     </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="roledeletelogchannel">New Roledeletelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="roledeletelogchannel">
-                                                {{#each channels}} {{#if roledeleteset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Roleupdate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="roleupdatelog">Roleupdatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="roleupdatelog">
-                                                {{#if confs.roleupdateset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
-                                                {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
-                                                {{/if}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="roleupdatelogchannel">New Roleupdatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="roleupdatelogchannel">
-                                                {{#each channels}} {{#if roleupdateset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Guildupdate</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-vertical" id="newmodlog-form" action="/dashboard/{{guilds.id}}/logs/submitlogs" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="guildupdatelog">Guildupdatelog Status:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-size="7" name="guildupdatelog">
-                                                {{#if confs.guildupdateset}}
-                                                <option value="true" selected>Activate</option>
-                                                <option value="false">Deactivate</option>
-                                                {{else}}
-                                                <option value="true">Activate</option>
-                                                <option value="false" selected>Deactivate</option>
-                                                {{/if}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="guildupdatelogchannel">New Guildupdatelog channel:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" data-live-search="true" data-size="7"
-                                                name="guildupdatelogchannel">
-                                                {{#each channels}} {{#if guildupdateset}}
-                                                <option selected>{{name}}</option>
-                                                {{else}}
-                                                <option>{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-2 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         </div>
+    </div>
     </div>
 </main>
