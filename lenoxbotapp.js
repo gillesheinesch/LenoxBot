@@ -119,7 +119,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://lenoxbot.com/callback',
+	callbackURL: 'http://localhost:80/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -227,7 +227,7 @@ app.get('/commands', function (req, res, next) {
 app.post('/editdocumentation/submitnewdocumentationentry', async function (req, res, next) {
 	if (req.user) {
 		const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
-		if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../404error');
+		if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 
 		const botconfs = await client.botconfs.get('botconfs');
 
@@ -257,7 +257,7 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, res, next) {
 	if (req.user) {
 		const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
-		if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../404error');
+		if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 
 		const botconfs = await client.botconfs.get('botconfs');
 
@@ -284,7 +284,7 @@ app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, re
 app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, res, next) {
 	if (req.user) {
 		const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
-		if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../404error');
+		if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 
 		const botconfs = await client.botconfs.get('botconfs');
 
@@ -311,7 +311,7 @@ app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, r
 app.get('/editdocumentation', async function (req, res, next) {
 	if (req.user) {
 		const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
-		if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../404error');
+		if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 		const botconfs = await client.botconfs.get('botconfs');
 
 		return res.render('editdocumentation', {
@@ -368,7 +368,7 @@ app.get('/ranking/:id', async function (req, res, next) {
 			client: client
 		});
 	} catch (error) {
-		res.redirect('/404error');
+		res.redirect('/error');
 	}
 });
 */
@@ -436,8 +436,8 @@ app.get('/servers', function (req, res, next) {
 app.post('/tickets/:ticketid/submitticketanswer', async function (req, res, next) {
 	if (req.user) {
 		const botconfs = await client.botconfs.get('botconfs');
-		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error');
-		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../404error');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error');
+		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 
 		var ticket = botconfs.tickets[req.params.ticketid];
 
@@ -490,9 +490,9 @@ app.post('/tickets/:ticketid/submitticketanswer', async function (req, res, next
 app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, next) {
 	if (req.user) {
 		const botconfs = await client.botconfs.get('botconfs');
-		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error');
-		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../404error');
-		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error');
+		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error');
 
 		var ticket = botconfs.tickets[req.params.ticketid];
 
@@ -536,8 +536,8 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, n
 app.get('/tickets/:ticketid/overview', async function (req, res, next) {
 	if (req.user) {
 		const botconfs = await client.botconfs.get('botconfs');
-		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error');
-		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../404error');
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error');
+		if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 
 		var ticket = botconfs.tickets[req.params.ticketid];
 
@@ -562,6 +562,8 @@ app.get('/tickets/:ticketid/overview', async function (req, res, next) {
 	}
 });
 
+// ADMIN PANEL
+
 app.get('/dashboard/:id/overview', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -572,9 +574,9 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) throw new Error("Test")
+		if (((req.user.guilds[index].permissions) & 8) !== 8) throw new Error("Test")
+		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test")//res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).members.size / 170) + 1;
@@ -633,7 +635,54 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 	}
 });
 
-app.post('/dashboard/:id/generalsettings/submitselfassignableroles', async function (req, res, next) {
+app.post('/dashboard/:id/administration/submitlogs', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		if (req.body[Object.keys(req.body)[0]] === "false") {
+			tableload[Object.keys(req.body)[0]] = "false"
+		} else {
+			tableload[Object.keys(req.body)[0]] = "true"
+			tableload[`${[Object.keys(req.body)[0]]}channel`] = client.guilds.get(dashboardid).channels.find('name', `${req.body[Object.keys(req.body)[0]]}`).id
+		}
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+		tableload.globallogs.push({
+			action: `Changed the ${Object.keys(req.body)[0]} settings!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submitselfassignableroles', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -676,9 +725,9 @@ app.post('/dashboard/:id/generalsettings/submitselfassignableroles', async funct
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/generalsettings`,
+			pathname: `/dashboard/${dashboardid}/administration`,
 			query: {
-				"submitgeneralsettings": true
+				"submitadministration": true
 			}
 		}));
 	} else {
@@ -686,7 +735,7 @@ app.post('/dashboard/:id/generalsettings/submitselfassignableroles', async funct
 	}
 });
 
-app.post('/dashboard/:id/generalsettings/submittogglexp', async function (req, res, next) {
+app.post('/dashboard/:id/administration/submittogglexp', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -729,9 +778,9 @@ app.post('/dashboard/:id/generalsettings/submittogglexp', async function (req, r
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/generalsettings`,
+			pathname: `/dashboard/${dashboardid}/administration`,
 			query: {
-				"submitgeneralsettings": true
+				"submitadministration": true
 			}
 		}));
 	} else {
@@ -739,7 +788,7 @@ app.post('/dashboard/:id/generalsettings/submittogglexp', async function (req, r
 	}
 });
 
-app.post('/dashboard/:id/generalsettings/submitbyemsg', async function (req, res, next) {
+app.post('/dashboard/:id/administration/submitbyemsg', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -774,9 +823,9 @@ app.post('/dashboard/:id/generalsettings/submitbyemsg', async function (req, res
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/generalsettings`,
+			pathname: `/dashboard/${dashboardid}/administration`,
 			query: {
-				"submitgeneralsettings": true
+				"submitadministration": true
 			}
 		}));
 	} else {
@@ -784,7 +833,7 @@ app.post('/dashboard/:id/generalsettings/submitbyemsg', async function (req, res
 	}
 });
 
-app.post('/dashboard/:id/generalsettings/submitwelcomemsg', async function (req, res, next) {
+app.post('/dashboard/:id/administration/submitwelcomemsg', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -819,9 +868,9 @@ app.post('/dashboard/:id/generalsettings/submitwelcomemsg', async function (req,
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/generalsettings`,
+			pathname: `/dashboard/${dashboardid}/administration`,
 			query: {
-				"submitgeneralsettings": true
+				"submitadministration": true
 			}
 		}));
 	} else {
@@ -829,7 +878,7 @@ app.post('/dashboard/:id/generalsettings/submitwelcomemsg', async function (req,
 	}
 });
 
-app.post('/dashboard/:id/generalsettings/submitprefix', async function (req, res, next) {
+app.post('/dashboard/:id/administration/submitprefix', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -863,9 +912,9 @@ app.post('/dashboard/:id/generalsettings/submitprefix', async function (req, res
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/generalsettings`,
+			pathname: `/dashboard/${dashboardid}/administration`,
 			query: {
-				"submitgeneralsettings": true
+				"submitadministration": true
 			}
 		}));
 	} else {
@@ -873,7 +922,7 @@ app.post('/dashboard/:id/generalsettings/submitprefix', async function (req, res
 	}
 });
 
-app.post('/dashboard/:id/generalsettings/submitlanguage', async function (req, res, next) {
+app.post('/dashboard/:id/administration/submitlanguage', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -908,9 +957,9 @@ app.post('/dashboard/:id/generalsettings/submitlanguage', async function (req, r
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/generalsettings`,
+			pathname: `/dashboard/${dashboardid}/administration`,
 			query: {
-				"submitgeneralsettings": true
+				"submitadministration": true
 			}
 		}));
 	} else {
@@ -918,7 +967,390 @@ app.post('/dashboard/:id/generalsettings/submitlanguage', async function (req, r
 	}
 });
 
-app.get('/dashboard/:id/generalsettings', function (req, res, next) {
+app.post('/dashboard/:id/administration/submitcommanddeletion', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newcommanddeletion = req.body.newcommanddeletion;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.commanddel = newcommanddeletion;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Changed the commanddeletion settings!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submitmuterole', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newmuterole = req.body.newmuterole;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.muterole = newmuterole
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Changed the muterole!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submittogglechatfilter', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newchatfilter = req.body.newchatfilter;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.chatfilter.chatfilter = newchatfilter
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Toggled the chatfilter!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submittogglexpmessages', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newxpmessages = req.body.newxpmessages;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.xpmessages = newxpmessages
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Toggled the XP messages!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submitchatfilterarray', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		var newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
+
+		for (let i = 0; i < newchatfilterarray.length; i++) {
+			for (var index = 0; index < newchatfilterarray.length; index++) {
+				if (newchatfilterarray[i].toLowerCase() === newchatfilterarray[index].toLowerCase() && i !== index) {
+					newchatfilterarray.splice(index, 1);
+				}
+			}
+		}
+
+		tableload.chatfilter.array = newchatfilterarray;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Updated the chatfilter entries!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submittogglewelcome', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newwelcome = req.body.newwelcome;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		if (newwelcome === 'false') {
+			tableload.welcome = 'false'
+		} else {
+			tableload.welcome = 'true'
+			tableload.welcomechannel = newwelcome
+		}
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Toggled the welcome message!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submittogglebye', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newbye = req.body.newbye;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		if (newbye === 'false') {
+			tableload.bye = 'false'
+		} else {
+			tableload.bye = 'true'
+			tableload.byechannel = newbye
+		}
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Toggled the bye message!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submittoggleannounce', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		var newannounce = req.body.newannounce;
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		if (newannounce === 'false') {
+			tableload.announce = 'false'
+		} else {
+			tableload.announce = 'true'
+			tableload.announcechannel = newannounce
+		}
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Changed the announce settings!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/administration', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -957,6 +1389,15 @@ app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 				if (tableload.togglexp.channelids.includes(channels[i].id)) {
 					channels[i].togglexpset = true;
 				}
+				if (tableload.welcomechannel === channels[i].id) {
+					channels[i].welcomeset = true;
+				}
+				if (tableload.byechannel === channels[i].id) {
+					channels[i].byeset = true;
+				}
+				if (tableload.announcechannel === channels[i].id) {
+					channels[i].announceset = true;
+				}
 			}
 		}
 		var roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
@@ -965,6 +1406,9 @@ app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 		for (var index2 = 0; index2 < roles.length; index2++) {
 			if (tableload.selfassignableroles.includes(roles[index2].id)) {
 				roles[index2].selfassignablerolesset = true;
+			}
+			if (tableload.muterole === roles[index2].id) {
+				roles[index2].muteroleset = true;
 			}
 		}
 
@@ -990,14 +1434,159 @@ app.get('/dashboard/:id/generalsettings', function (req, res, next) {
 			}
 		}
 
-		return res.render('dashboardgeneralsettings', {
+		const confs = {};
+		if (tableload) {
+			for (var i = 0; i < channels.length; i++) {
+				if (channels[i].id === tableload.modlogchannel) {
+					if (tableload.modlog === 'true') {
+						channels[i].modlogset = true;
+					} else {
+						confs.modlogdeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.chatfilterlogchannel) {
+					if (tableload.chatfilterlog === 'true') {
+						channels[i].chatfilterset = true;
+						confs.chatfilterset = true;
+					} else {
+						confs.chatfilterdeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.messagedeletelogchannel) {
+					if (tableload.messagedeletelog === 'true') {
+						channels[i].messagedeleteset = true;
+						confs.messagedeleteset = true;
+					} else {
+						confs.messagedeletedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.messageupdatelogchannel) {
+					if (tableload.messageupdatelog === 'true') {
+						channels[i].messageupdateset = true;
+						confs.messageupdateset = true;
+					} else {
+						confs.messageupdatedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.channelupdatelogchannel) {
+					if (tableload.channelupdatelog === 'true') {
+						channels[i].channelupdateset = true;
+						confs.channelupdateset = true;
+					} else {
+						confs.channelupdatedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.channelcreatelogchannel) {
+					if (tableload.channeldeletelog === 'true') {
+						channels[i].channelcreateset = true;
+						confs.channelcreateset = true;
+					} else {
+						confs.channelcreatedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.channeldeletelogchannel) {
+					if (tableload.channeldeletelog === 'true') {
+						channels[i].channeldeleteset = true;
+						confs.channeldeleteset = true;
+					} else {
+						confs.channeldeletedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.memberupdatelogchannel) {
+					if (tableload.memberupdatelog === 'true') {
+						channels[i].memberupdateset = true;
+						confs.memberupdateset = true;
+					} else {
+						confs.memberupdatedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.presenceupdatelogchannel) {
+					if (tableload.presenceupdatelog === 'true') {
+						channels[i].presenceupdateset = true;
+						confs.presenceupdateset = true;
+					} else {
+						confs.presenceupdatedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.welcomelogchannel) {
+					if (tableload.welcomelog === 'true') {
+						channels[i].welcomeset = true;
+						confs.welcomeset = true;
+					} else {
+						confs.welcomelogdeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.byelogchannel) {
+					if (tableload.byelog === 'true') {
+						channels[i].byeset = true;
+						confs.byeset = true;
+					} else {
+						confs.byelogdeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.rolecreatelogchannel) {
+					if (tableload.rolecreatelog === 'true') {
+						channels[i].rolecreateset = true;
+						confs.rolecreateset = true;
+					} else {
+						confs.rolecreatedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.roledeletelogchannel) {
+					if (tableload.roledeletelog === 'true') {
+						channels[i].roledeleteset = true;
+						confs.roledeleteset = true;
+					} else {
+						confs.roledeletedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.roleupdatelogchannel) {
+					if (tableload.roleupdatelog === 'true') {
+						channels[i].roleupdateset = true;
+						confs.roleupdateset = true;
+					} else {
+						confs.roleupdatedeactivated = true;
+					}
+				}
+
+				if (channels[i].id === tableload.guildupdatelogchannel) {
+					if (tableload.guildupdatelog === 'true') {
+						channels[i].guildupdateset = true;
+						confs.guildupdateset = true;
+					} else {
+						confs.guildupdatedeactivated = true;
+					}
+				}
+			}
+		}
+
+		return res.render('dashboardadministration', {
 			user: req.user,
 			guilds: check,
 			client: client,
 			channels: channels,
 			roles: roles,
+			confs: confs,
+			announcedeactivated: client.guildconfs.get(dashboardid).announce === 'true' ? true : false,
+			commanddeletionset: client.guildconfs.get(dashboardid).commanddel === 'true' ? true : false,
+			chatfilterset: client.guildconfs.get(dashboardid).chatfilter.chatfilter === 'true' ? true : false,
+			xpmesssagesset: client.guildconfs.get(dashboardid).xpmessages === 'true' ? true : false,
 			languages: languages,
-			submitgeneralsettings: req.query.submitgeneralsettings ? true : false
+			chatfilterarray: client.guildconfs.get(req.user.guilds[index].id).chatfilter ? client.guildconfs.get(req.user.guilds[index].id).chatfilter.array.join(",") : '',
+			submitadministration: req.query.submitadministration ? true : false
 		});
 	} else {
 		res.redirect('../nologin');
@@ -1020,14 +1609,14 @@ app.post('/dashboard/:id/logs/submitlogs', async function (req, res, next) {
 
 		const tableload = client.guildconfs.get(dashboardid);
 
-		for (var i = 0; i < Object.keys(req.body).length; i++) {
-			if (Object.keys(req.body)[i].endsWith('channel')) {
-				tableload[Object.keys(req.body)[i]] = client.guilds.get(dashboardid).channels.find('name', `${req.body[Object.keys(req.body)[i]]}`).id;
-				delete req.body[Object.keys(req.body)[i]];
-			}
+		if (req.body[Object.keys(req.body)[0]] === "false") {
+			tableload[Object.keys(req.body)[0]] = "false"
+		} else {
+			tableload[Object.keys(req.body)[0]] = "true"
+			tableload[`${[Object.keys(req.body)[0]]}channel`] = client.guilds.get(dashboardid).channels.find('name', `${req.body[Object.keys(req.body)[0]]}`).id
 		}
 
-		tableload[Object.keys(req.body)[0]] = req.body[Object.keys(req.body)[0]];
+		console.log(tableload[Object.keys(req.body)[0]])
 
 		if (!tableload.globallogs) {
 			tableload.globallogs = [];
@@ -1089,107 +1678,136 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 		if (tableload) {
 			for (var i = 0; i < channels.length; i++) {
 				if (channels[i].id === tableload.modlogchannel) {
-					channels[i].modlogset = true;
 					if (tableload.modlog === 'true') {
-						confs.modlogset = true;
+						channels[i].modlogset = true;
+					} else {
+						confs.modlogdeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.chatfilterlogchannel) {
-					channels[i].chatfilterset = true;
 					if (tableload.chatfilterlog === 'true') {
+						channels[i].chatfilterset = true;
 						confs.chatfilterset = true;
+					} else {
+						confs.chatfilterdeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.messagedeletelogchannel) {
-					channels[i].messagedeleteset = true;
 					if (tableload.messagedeletelog === 'true') {
+						channels[i].messagedeleteset = true;
 						confs.messagedeleteset = true;
+					} else {
+						confs.messagedeletedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.messageupdatelogchannel) {
-					channels[i].messageupdateset = true;
 					if (tableload.messageupdatelog === 'true') {
+						channels[i].messageupdateset = true;
 						confs.messageupdateset = true;
+					} else {
+						confs.messageupdatedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.channelupdatelogchannel) {
-					channels[i].channelupdateset = true;
 					if (tableload.channelupdatelog === 'true') {
+						channels[i].channelupdateset = true;
 						confs.channelupdateset = true;
+					} else {
+						confs.channelupdatedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.channelcreatelogchannel) {
-					channels[i].channelcreateset = true;
 					if (tableload.channeldeletelog === 'true') {
+						channels[i].channelcreateset = true;
 						confs.channelcreateset = true;
+					} else {
+						confs.channelcreatedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.channeldeletelogchannel) {
-					channels[i].channeldeleteset = true;
 					if (tableload.channeldeletelog === 'true') {
+						channels[i].channeldeleteset = true;
 						confs.channeldeleteset = true;
+					} else {
+						confs.channeldeletedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.memberupdatelogchannel) {
-					channels[i].memberupdateset = true;
 					if (tableload.memberupdatelog === 'true') {
+						channels[i].memberupdateset = true;
 						confs.memberupdateset = true;
+					} else {
+						confs.memberupdatedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.presenceupdatelogchannel) {
-					channels[i].presenceupdateset = true;
 					if (tableload.presenceupdatelog === 'true') {
+						channels[i].presenceupdateset = true;
 						confs.presenceupdateset = true;
+					} else {
+						confs.presenceupdatedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.welcomelogchannel) {
-					channels[i].welcomelogset = true;
 					if (tableload.welcomelog === 'true') {
+						channels[i].welcomelogset = true;
 						confs.welcomelogset = true;
+					} else {
+						confs.welcomelogdeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.byelogchannel) {
-					channels[i].byelogset = true;
 					if (tableload.byelogchannel === 'true') {
+						channels[i].byelogset = true;
 						confs.byelogset = true;
+					} else {
+						confs.byelogdeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.rolecreatelogchannel) {
-					channels[i].rolecreateset = true;
 					if (tableload.rolecreatelog === 'true') {
+						channels[i].rolecreateset = true;
 						confs.rolecreateset = true;
+					} else {
+						confs.rolecreatedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.roledeletelogchannel) {
-					channels[i].roledeleteset = true;
 					if (tableload.roledeletelog === 'true') {
+						channels[i].roledeleteset = true;
 						confs.roledeleteset = true;
+					} else {
+						confs.roledeletedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.roleupdatelogchannel) {
-					channels[i].roleupdateset = true;
 					if (tableload.roleupdatelog === 'true') {
+						channels[i].roleupdateset = true;
 						confs.roleupdateset = true;
+					} else {
+						confs.roleupdatedeactivated = true;
 					}
 				}
 
 				if (channels[i].id === tableload.guildupdatelogchannel) {
-					channels[i].guildupdateset = true;
 					if (tableload.guildupdatelog === 'true') {
+						channels[i].guildupdateset = true;
 						confs.guildupdateset = true;
+					} else {
+						confs.guildupdatedeactivated = true;
 					}
 				}
 			}
@@ -1557,7 +2175,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', a
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		var tableload = await client.guildconfs.get(dashboardid);
-		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../404error')
+		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../error')
 
 		var check = req.user.guilds[index];
 
@@ -1593,7 +2211,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		var tableload = await client.guildconfs.get(dashboardid);
-		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../404error')
+		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../error')
 
 		var check = req.user.guilds[index];
 
@@ -1655,7 +2273,7 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async function (r
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
 
 		const tableload = await client.guildconfs.get(dashboardid);
-		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../404error')
+		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../error')
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -1987,141 +2605,6 @@ app.post('/dashboard/:id/application/submitreactionnumber', async function (req,
 	}
 });
 
-app.post('/dashboard/:id/application/submitarchivechannel', async function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
-
-		const tableload = client.guildconfs.get(dashboardid);
-
-		const newarchivechannel = req.body.newarchivechannel;
-
-		tableload.application.archivechannellog = client.guilds.get(dashboardid).channels.find('name', newarchivechannel).id;
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
-
-		tableload.globallogs.push({
-			action: `Updated the application archive channel!`,
-			username: req.user.username,
-			date: Date.now(),
-			showeddate: new Date().toUTCString()
-		});
-
-		await client.guildconfs.set(dashboardid, tableload);
-
-		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/application`,
-			query: {
-				"submitapplication": true
-			}
-		}));
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
-app.post('/dashboard/:id/application/submitarchive', async function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
-
-		const tableload = client.guildconfs.get(dashboardid);
-
-		const newarchive = req.body.newarchive;
-
-		tableload.application.archivechannel = newarchive;
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
-
-		tableload.globallogs.push({
-			action: `Activated/Deactivated application archive!`,
-			username: req.user.username,
-			date: Date.now(),
-			showeddate: new Date().toUTCString()
-		});
-
-		await client.guildconfs.set(dashboardid, tableload);
-
-		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/application`,
-			query: {
-				"submitapplication": true
-			}
-		}));
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
-app.post('/dashboard/:id/application/submitvotechannel', async function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
-
-		const tableload = client.guildconfs.get(dashboardid);
-
-		const newvotechannel = req.body.newvotechannel;
-
-		tableload.application.votechannel = client.guilds.get(dashboardid).channels.find('name', newvotechannel).id;
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
-
-		tableload.globallogs.push({
-			action: `Updated the application votechannel!`,
-			username: req.user.username,
-			date: Date.now(),
-			showeddate: new Date().toUTCString()
-		});
-
-		await client.guildconfs.set(dashboardid, tableload);
-
-		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/application`,
-			query: {
-				"submitapplication": true
-			}
-		}));
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
 app.post('/dashboard/:id/application/submitapplication', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -2255,7 +2738,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
-		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error')
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error')
 
 		var check = req.user.guilds[index];
 
@@ -2310,7 +2793,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async functio
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
-		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error')
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error')
 
 		var check = req.user.guilds[index];
 
@@ -2375,7 +2858,7 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async function (req, res, n
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
-		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../404error')
+		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error')
 
 		var check = req.user.guilds[index];
 
@@ -2467,7 +2950,7 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 	}
 });
 
-app.get('/404error', function (req, res, next) {
+app.get('/error', function (req, res, next) {
 	if (req.user) {
 		var check = [];
 		for (var i = 0; i < req.user.guilds.length; i++) {
@@ -2477,7 +2960,7 @@ app.get('/404error', function (req, res, next) {
 		}
 	}
 
-	res.render('404error', {
+	res.render('error', {
 		user: req.user,
 		guilds: check,
 		client: client
@@ -2488,7 +2971,7 @@ app.get('/404error', function (req, res, next) {
 app.use(function (req, res, next) {
 	var err = new Error('Not Found');
 	err.status = 404;
-	res.redirect('../404error');
+	res.redirect('../error');
 });
 
 function checkAuth(req, res, next) {
