@@ -662,7 +662,7 @@
     "unmute_unmuted": "%username was unmuted successfully.",
     "unmute_description": "Unmutes a user",
 
-    "warn_nomention": "You must mention a user to warn!",
+    "warn_idcheck": "This user was not found on this Discord server!",
     "warn_yourself": "You can not warn yourself!",
     "warn_noinput": "You must supply a reason for the warn!",
     "warn_warned": "%usertag was successfully warned!",

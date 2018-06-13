@@ -96,13 +96,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['wl', 'warns'],
-	userpermissions: []
+	userpermissions: ['KICK_MEMBERS']
 };
 exports.help = {
 	name: 'warnlog',
 	description: 'Shows you the warnlog from you or a user',
 	usage: 'warnlog [@User]',
 	example: ['warnlog', 'warnlog @Monkeyyy11#7584'],
-	category: 'utility',
+	category: 'moderation',
 	botpermissions: ['SEND_MESSAGES']
 };
