@@ -4,7 +4,16 @@ exports.run = async(client, msg, args, lang) => {
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply(lang.warn_nomention).then(m => m.delete(10000));
+	if (!user) {
+		try {
+			if (!msg.guild.members.get(args.slice(0, 1).join(" "))) throw 'Usernotfound';
+			user = msg.guild.members.get(args.slice(0, 1).join(" "));
+			user = user.user;
+		} catch (error) {
+			return msg.reply(lang.warn_idcheck);
+		}
+	}
+
 	if (user === msg.author) return msg.channel.send(lang.warn_yourself);
 	if (!reason) return msg.reply(lang.warn_noinput).then(m => m.delete(10000));
 
