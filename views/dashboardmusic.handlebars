@@ -112,6 +112,27 @@
             </div>
             <div class="col-sm-9">
                 <div class="panel-group-dashboard">
+                    {{#if musiccurrentlyplaying}}
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">Music Menu</p>
+                            </div>
+                            <div class="card-body">
+                                <p>Currently playing: <strong>{{song}}</strong></p>
+                                <div class="btn-group" role="group" aria-label="musicinteraction">
+                                        <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST" style="margin-right: 10px;">
+                                            <button type="submit" class="btn btn-success" value="play" name="newmusicaction"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
+                                        </form>
+                                        <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST" style="margin-right: 10px;">
+                                            <button type="submit" class="btn btn-danger" value="stop" name="newmusicaction"><i class="fas fa-stop"></i></button>
+                                        </form>
+                                        <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST" style="margin-right: 10px;">
+                                            <button type="submit" class="btn btn-info" value="skip" name="newmusicaction"><i class="fas fa-angle-double-right"></i></button>
+                                        </form>
+                                    </div>
+                            </div>
+                        </div>
+                        {{/if}}
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
                                 <p class="text text-white h5">Music Channelblacklist</p>
