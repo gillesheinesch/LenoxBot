@@ -32,8 +32,6 @@ exports.run = async(client, msg, args, lang) => {
 
 	const message = await msg.channel.send({ embed });
 
-	console.log(tableload.warnlog.length);
-
 	if (tableload.warnlog.length / 4 <= 5) return undefined;
 
 	var reaction1 = await message.react('◀');
