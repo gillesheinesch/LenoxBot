@@ -1,5 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../styles/style.css" />
 <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js"></script>
 <script src='../../script/alerts.js'></script>
 <script src='../../script/dashboardadministration.js'></script>
 <title>Dashboard - LenoxBot</title>
@@ -82,32 +83,43 @@
                     <div class="collapse navbar-collapse" id="dashboardnavigationbar">
                         <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button"><i class="far fa-eye"></i> Overview</a>
+                                <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">
+                                    <i class="far fa-eye"></i> Overview</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link active" role="button"><i class="fas fa-wrench"></i> Administration</a>
+                                <a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link active" role="button">
+                                    <i class="fas fa-wrench"></i> Administration</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button"><i class="fas fa-sign-out-alt"></i> Logssettings</a>
+                                <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-sign-out-alt"></i> Logssettings</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button"><i class="fas fa-folder-open"></i> Modules</a>
+                                <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-folder-open"></i> Modules</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link" role="button"><i class="fas fa-filter"></i> Chatfilter</a>
+                                <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-filter"></i> Chatfilter</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button"><i class="fas fa-music"></i> Music</a>
+                                <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-music"></i> Music</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button"><i class="fab fa-wpforms"></i> Application</a>
+                                <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">
+                                    <i class="fab fa-wpforms"></i> Application</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button"><i class="fas fa-envelope-square"></i> Tickets</a>
+                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-envelope-square"></i> Tickets</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="#" class="h5 nav-link" role="button"><i class="fas fa-list-ul"></i> Custom Commands <span class="badge badge-warning">Incoming!</span></a>
-                        </li>
+                                <a href="#" class="h5 nav-link" role="button">
+                                    <i class="fas fa-list-ul"></i> Custom Commands
+                                    <span class="badge badge-warning">Incoming!</span>
+                                </a>
+                            </li>
                         </ul>
                 </nav>
                 </div>
@@ -115,147 +127,140 @@
                     <div class="panel-group-dashboard">
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
-                                <p class="text text-white h5">Prefix</p>
+                                <p class="text text-white h5">General Settings</p>
                             </div>
                             <div class="card-body">
-                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/administration/submitprefix" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="newprefix">New prefix:</label>
-                                        <div class="col-sm-4">
-                                            <input type="text" class="form-control" id="newprefix" name="newprefix" pattern=".{1,}" required value="{{guilds.prefix}}">
-                                        </div>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitprefix" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="newprefix">Prefix:</label>
                                     </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10" style="margin-top: 20px;">
-                                            <button type="submit" class="btn btn-primary" id="button-newprefix" value="{{guilds.id}}">Submit</button>
-                                        </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <input type="text" class="form-control" id="newprefix" name="newprefix" pattern=".{1,}" required value="{{guilds.prefix}}">
                                     </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlanguage" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="newlanguage">Language:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newlanguage">
+                                            {{#each languages}} {{#if set}}
+                                            <option value="{{alias}}" selected>{{name}}</option>
+                                            {{else}}
+                                            <option value="{{alias}}">{{name}}</option>
+                                            {{/if}} {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitcommanddeletion" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="newcommanddeletion">Commanddeletion:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newcommanddeletion">
+                                            {{#if commanddeletionset}}
+                                            <option value="true" selected>Activated</option>
+                                            <option value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="true">Activated</option>
+                                            <option value="false" selected>Deactivated</option>
+                                            {{/if}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitmuterole" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="newmuterole">Muterole:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newmuterole" data-live-search="true" title="Choose muterole" data-actions-box="true"
+                                            data-size="7">
+                                            {{#each roles}} {{#if muteroleset}}
+                                            <option value="{{id}}" selected>@{{name}}</option>
+                                            {{else}}
+                                            <option value="{{id}}">@{{name}}</option>
+                                            {{/if}} {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglexpmessages" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="newxpmessages">Toggle XP Messages:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newxpmessages">
+                                            {{#if xpmesssagesset}}
+                                            <option value="true" selected>Activated</option>
+                                            <option value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="true">Activated</option>
+                                            <option value="false" selected>Deactivated</option>
+                                            {{/if}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglexp" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <labelfor="newxpchannels">Channels where XP doesn't count:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newxpchannels" data-live-search="true" multiple title="Choose channel(s)" data-actions-box="true"
+                                            data-size="7">
+                                            {{#each channels}} {{#if togglexpset}}
+                                            <option value="{{name}}" selected>{{name}}</option>
+                                            {{else}}
+                                            <option value="{{name}}">{{name}}</option>
+                                            {{/if}} {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitselfassignableroles" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <labelfor="newselfassignableroles">Self assignable roles:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newselfassignableroles" data-live-search="true" multiple title="Choose channel"
+                                            data-actions-box="true" data-size="7">
+                                            {{#each roles}} {{#if selfassignablerolesset}}
+                                            <option value="{{name}}" selected>@{{name}}</option>
+                                            {{else}}
+                                            <option value="{{name}}">@{{name}}</option>
+                                            {{/if}} {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittoggleannounce" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <labelfor="newannounce">Toggle announce:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newannounce" data-live-search="true" title="Choose channel" data-actions-box="true"
+                                            data-size="7">
+                                            {{#if announcedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if announceset}}
+                                            <option selected value="{{id}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{id}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
                             </div>
                         </div>
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
-                                <p class="text text-white h5">Language</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitlanguage" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="newlanguage">Set language of the bot:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newlanguage">
-                                                {{#each languages}} {{#if set}}
-                                                <option value="{{alias}}" selected>{{name}}</option>
-                                                {{else}}
-                                                <option value="{{alias}}">{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h5">Welcome Message</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitwelcomemsg" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="newwelcomemsg">Set a new welcome message:</label>
-                                        <div class="col-sm-9">
-                                            <textarea class="form-control" name="newwelcomemsg" rows="3">{{guilds.welcomemsg}}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h5">Bye Message</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitbyemsg" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="newbyemsg">Set a new bye message:</label>
-                                        <div class="col-sm-9">
-                                            <textarea class="form-control" name="newbyemsg" rows="3">{{guilds.byemsg}}</textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h5">Toggle XP</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submittogglexp" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="newtogglexp">Set channels where XP don't count:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newtogglexp" data-live-search="true"
-                                                multiple title="Choose channel(s)" data-actions-box="true" data-size="7">
-                                                {{#each channels}} {{#if togglexpset}}
-                                                <option value="{{name}}" selected>{{name}}</option>
-                                                {{else}}
-                                                <option value="{{name}}">{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h5">Self-assignable roles</p>
-                            </div>
-                            <div class="card-body">
-                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitselfassignableroles" method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label col-sm" for="newselfassignableroles">Self-assignable roles:</label>
-                                        <div class="col-sm-4">
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newselfassignableroles" data-live-search="true"
-                                                multiple title="Choose channel(s)" data-actions-box="true" data-size="7">
-                                                {{#each roles}} {{#if selfassignablerolesset}}
-                                                <option value="{{name}}" selected>{{name}}</option>
-                                                {{else}}
-                                                <option value="{{name}}">{{name}}</option>
-                                                {{/if}} {{/each}}
-                                            </select>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">Logs</p>
+                                <p class="text text-white h5">Logs</p>
                             </div>
                             <div class="card-body">
                                 <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs" method="POST">
@@ -528,6 +533,174 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
+                            </div>
+                        </div>
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">Welcome Settings</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglewelcome" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="newwelcome">Welcome:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newwelcome" data-live-search="true" data-size="7">
+                                            {{#each channels}} {{#if welcomeset}}
+                                            <option value="{{id}}" selected>#{{name}}</option>
+                                            {{else}}
+                                            <option value="{{id}}">#{{name}}</option>
+                                            {{/if}} {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitwelcomemsg" method="POST">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm" for="newwelcomemsg">Set a new welcome message:</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="newwelcomemsg" rows="3">{{guilds.welcomemsg}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">Bye Settings</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglebye" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="newbye">Bye:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newbye" data-live-search="true" data-size="7">
+                                            {{#each channels}} {{#if byeset}}
+                                            <option value="{{id}}" selected>#{{name}}</option>
+                                            {{else}}
+                                            <option value="{{id}}">#{{name}}</option>
+                                            {{/if}} {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitbyemsg" method="POST">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm" for="newbyemsg">Set a new bye message:</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="newbyemsg" rows="3">{{guilds.byemsg}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">Chatfilter</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglechatfilter" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="newchatfilter">Chatfilter:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newchatfilter">
+                                            {{#if chatfilterset}}
+                                            <option value="true" selected>Activated</option>
+                                            <option value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="true">Activated</option>
+                                            <option value="false" selected>Deactivated</option>
+                                            {{/if}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitchatfilterarray" method="POST">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm" for="newbyemsg">Update chatfilter entries (Each entry must be separated by a comma):</label>
+                                        <div class="col-sm-9">
+                                            <textarea class="form-control" name="newchatfilterarray" rows="20" pattern="^\S+$">{{chatfilterarray}}</textarea>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">Commands</p>
+                            </div>
+                            <div class="card-body">
+
+                                <div class="table-responsive">
+                                    <table class="table" style="width: 100%;">
+                                        <tbody>
+                                            {{#each commands}}
+                                            <tr>
+                                                <td>
+                                                    <div class="col-sm-8">
+                                                        <h5 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                                                            <strong>{{help.name}}</strong>
+                                                        </h5>
+                                                        <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; margin: 0; padding: 0;">{{help.description}}</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        {{#if disabled}}
+                                                        <button type="button" class="btn btn-success" style="margin-right: 10px;">
+                                                            Enable
+                                                        </button>
+                                                        {{else}}
+                                                        <button type="button" class="btn btn-danger" style="margin-right: 10px;">
+                                                            Disable
+                                                        </button>
+                                                        {{/if}}
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editcommand">
+                                                            Edit
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal fade" id="editcommand" tabindex="-1" role="dialog" aria-labelledby="editcommand" aria-hidden="true">
+                                                        <div class="modal-dialog modal-dialog-centered" role="document">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header">
+                                                                    <h5 class="modal-title">Change {{help.name}} settings:</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                        <span aria-hidden="true">&times;</span>
+                                                                    </button>
+                                                                </div>
+                                                                <div class="modal-body">
+                                                                    ...
+                                                                </div>
+                                                                <div class="modal-footer">
+                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                    <button type="button" class="btn btn-primary">Save</button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
                         </div>
                     </div>
