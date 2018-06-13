@@ -97,12 +97,14 @@ exports.run = async client => {
 	await client.botconfs.set('market', marketconfs);
 	if (!client.botconfs.has('premium')) client.botconfs.set('premium', botconfspremium);
 
-	await client.botconfs.set('botstats', {
-		botguildscount: client.guilds.size,
-		botmemberscount: client.users.size,
-		botmemberscountincrement: Math.floor(client.users.size / 170) + 1,
-		botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
-	});
+	setInterval(() => {
+		client.botconfs.set('botstats', {
+			botguildscount: client.guilds.size,
+			botmemberscount: client.users.size,
+			botmemberscountincrement: Math.floor(client.users.size / 170) + 1,
+			botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
+		});
+	}, 1800000);
 
 	const embed = new Discord.RichEmbed()
 		.setTitle('Botrestart')
