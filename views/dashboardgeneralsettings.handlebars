@@ -85,7 +85,7 @@
                                 <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button"><i class="far fa-eye"></i> Overview</a>
                             </li>
                             <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/generalsettings" class=" h5 nav-link active" role="button"><i class="fas fa-wrench"></i> General Settings</a>
+                                <a href="/dashboard/{{guilds.id}}/generalsettings" class=" h5 nav-link active" role="button"><i class="fas fa-wrench"></i> Administration</a>
                             </li>
                             <li class="nav-item nav-link">
                                 <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button"><i class="fas fa-sign-out-alt"></i> Logssettings</a>
@@ -250,6 +250,283 @@
                                             <button type="submit" class="btn btn-primary">Submit</button>
                                         </div>
                                     </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h3">Logs</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="modlog">Modlog:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="modlog">
+                                            {{#if confs.modlogdeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if modlogset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="chatfilterlog">Chatfilter:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="chatfilterlog">
+                                            {{#if confs.chatfilterdeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if chatfilterset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="messagedeletelog">Messagdelete:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="messagedeletelog">
+                                            {{#if confs.messagedeletedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if messagedeleteset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="messageupdatelog">Messageupdate:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="messageupdatelog">
+                                            {{#if confs.messageupdatedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if messageupdateset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="channelupdatelog">Channelupdate:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="channelupdatelog">
+                                            {{#if confs.channelupdatedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if channelupdateset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="channelcreatelog">Channelcreate:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="channelcreatelog">
+                                            {{#if confs.channelcreatedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if channelupdateset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="channeldeletelog">Channeldelete:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="channeldeletelog">
+                                            {{#if confs.channeldeletedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if channeldeleteset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="memberupdatelog">Memberupdate:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="memberupdatelog">
+                                            {{#if confs.memberupdatdeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if memberupdateset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="presenceupdatelog">Presenceupdate:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="presenceupdatelog">
+                                            {{#if confs.presenceupdatedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if presenceupdateset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="welcomelog">Userjoin:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="welcomelog">
+                                            {{#if confs.welcomedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if welcomeset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="byelog">Userleft:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="byelog">
+                                            {{#if confs.byelogdeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if byeset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="rolecreatelog">Rolecreate:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="rolecreatelog">
+                                            {{#if confs.rolecreatedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if rolecreateset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="roledeletelog">Roledelete:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="roledeletelog">
+                                            {{#if confs.roledeletedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if roledeleteset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/generalsettings/submitlogs" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <label for="roleupdatelog">Roleupdate:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" data-live-search="true" data-size="7" name="roleupdatelog">
+                                            {{#if confs.roleupdatedeactivated}}
+                                            <option selected value="false">Deactivated</option>
+                                            {{else}}
+                                            <option value="false">Deactivated</option>
+                                            {{/if}} {{#each channels}} {{#if roleupdateset}}
+                                            <option selected value="{{name}}">#{{name}}</option>
+                                            {{/if}}
+                                            <option value="{{name}}">#{{name}}</option>
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
                             </div>
                         </div>
