@@ -748,17 +748,17 @@ app.post('/dashboard/:id/administration/submittogglexp', async function (req, re
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
-		var newtogglexp = req.body.newtogglexp;
+		var newxpchannels = req.body.newxpchannels;
 		var array = [];
 		const tableload = client.guildconfs.get(dashboardid);
 
-		if (Array.isArray(newtogglexp)) {
-			for (var i = 0; i < newtogglexp.length; i++) {
-				array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newtogglexp[i]).id);
+		if (Array.isArray(newxpchannels)) {
+			for (var i = 0; i < newxpchannels.length; i++) {
+				array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newxpchannels[i]).id);
 			}
 			tableload.togglexp.channelids = array;
 		} else {
-			array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newtogglexp).id);
+			array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newxpchannels).id);
 			tableload.togglexp.channelids = array;
 		}
 
