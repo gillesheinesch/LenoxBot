@@ -119,7 +119,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'http://localhost:80/callback',
+	callbackURL: 'https://lenoxbot.com/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -1350,6 +1350,84 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async function (r
 	}
 });
 
+app.post('/dashboard/:id/administration/:command/submitcommandchanges', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		var array1 = [];
+		if (req.body.newallowedroles) {
+			if (Array.isArray(req.body.newallowedroles)) {
+				for (var i = 0; i < req.body.newallowedroles.length; i++) {
+					array1.push(req.body.newallowedroles[i]);
+				}
+				tableload.commands[req.params.command].allowedroles = array1;
+			} else {
+				array1.push(req.body.newallowedroles);
+				tableload.commands[req.params.command].allowedroles = array1;
+			}
+		}
+		console.log(array1)
+
+		var array2 = [];
+		if (req.body.newbannedroles) {
+			if (Array.isArray(req.body.newbannedroles)) {
+				for (var i = 0; i < req.body.newbannedroles.length; i++) {
+					array2.push(req.body.newbannedroles[i]);
+				}
+				tableload.commands[req.params.command].bannedroles = array2;
+			} else {
+				array2.push(req.body.newbannedroles);
+				tableload.commands[req.params.command].bannedroles = array2;
+			}
+		}
+
+		var array3 = [];
+		if (req.body.newbannedchannels) {
+			if (Array.isArray(req.body.newbannedchannels)) {
+				for (var i = 0; i < req.body.newbannedchannels.length; i++) {
+					array3.push(req.body.newbannedchannels[i]);
+				}
+				tableload.commands[req.params.command].bannedchannels = array3;
+			} else {
+				array3.push(req.body.newbannedchannels);
+				tableload.commands[req.params.command].bannedchannels = array3;
+			}
+		}
+
+		console.log(tableload.commands[req.params.command])
+
+		tableload.globallogs.push({
+			action: `Changed the settings of the "${req.params.command}" command!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
 app.get('/dashboard/:id/administration', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -1409,6 +1487,17 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			}
 			if (tableload.muterole === roles[index2].id) {
 				roles[index2].muteroleset = true;
+			}
+		}
+
+		for (var prop in tableload.commands) {
+			for (var index3 = 0; index3 < roles.length; index3++) {
+				if (tableload.commands[prop].allowedroles.includes(roles[index3].id)) {
+					console.log(tableload.commands[prop].allowedroles.includes(roles[index3].id), roles[index3].id)
+					roles[index3][`allowedroles${prop}`] = true;
+				} else {
+					roles[index3][`allowedroles${prop}`] = false;
+				}
 			}
 		}
 
@@ -1586,6 +1675,7 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			xpmesssagesset: client.guildconfs.get(dashboardid).xpmessages === 'true' ? true : false,
 			languages: languages,
 			chatfilterarray: client.guildconfs.get(req.user.guilds[index].id).chatfilter ? client.guildconfs.get(req.user.guilds[index].id).chatfilter.array.join(",") : '',
+			commands: client.commands.filter(r => r.help.category === 'administration').array(),
 			submitadministration: req.query.submitadministration ? true : false
 		});
 	} else {
@@ -2108,6 +2198,48 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res
 	}
 });
 
+app.post('/dashboard/:id/music/submitnewmusicaction', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const serverQueue = client.queue.get(dashboardid);
+
+		if (req.body.newmusicaction === 'play') {
+			if (serverQueue.playing === true) {
+				serverQueue.playing = false;
+				serverQueue.connection.dispatcher.pause();
+			} else {
+				serverQueue.playing = true;
+				serverQueue.connection.dispatcher.resume();
+			}
+		} else if (req.body.newmusicaction === 'stop') {
+			serverQueue.songs = [];
+			serverQueue.connection.dispatcher.destroy();
+		} else {
+			serverQueue.connection.dispatcher.destroy();
+		}
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/music`,
+			query: {
+				"submitmusic": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
 app.get('/dashboard/:id/music', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -2153,6 +2285,8 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 			guilds: check,
 			client: client,
 			channels: channels,
+			musiccurrentlyplaying: client.queue.get(dashboardid) ? true : false,
+			song: client.queue.get(dashboardid) ? client.queue.get(dashboardid).songs[0].title : false,
 			submitmusic: req.query.submitmusic ? true : false
 		});
 	} else {
