@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg) => {
     const tableload = client.guildconfs.get(msg.guild.id);
+    if (!tableload) return;
 
     if (tableload.messagedellog === 'false') return;
     const messagechannel = client.channels.get(tableload.messagedellogchannel);

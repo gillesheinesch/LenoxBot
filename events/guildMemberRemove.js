@@ -3,6 +3,7 @@ exports.run = (client, member) => {
 	if (client.user.id === member.id) return;
 
 	const tableload = client.guildconfs.get(member.guild.id);
+	if (!tableload) return;
 
 	if (tableload.language === '') {
         tableload.language = 'en';

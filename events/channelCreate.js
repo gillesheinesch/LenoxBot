@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, channel) => {
+	if (!channel) return;
 	if (channel.type !== 'text') return;
 
 	const tableload = client.guildconfs.get(channel.guild.id);

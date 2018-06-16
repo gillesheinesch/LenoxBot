@@ -1,8 +1,10 @@
 const Discord = require('discord.js');
 exports.run = (client, oldChannel, newChannel) => {
+	if (!oldChannel || !newChannel) return;
 	if (newChannel.type !== 'text' || oldChannel.type !== 'text') return;
 
 	const tableload = client.guildconfs.get(newChannel.guild.id);
+	if (!tableload) return;
 	if (tableload.channelupdatelog === 'false') return;
 
 	if (tableload.language === '') {

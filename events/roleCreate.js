@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, role) => {
     const tableload = client.guildconfs.get(role.guild.id);
+    if (!tableload) return;
     if (tableload.rolecreatelog === 'false') return;
 
     if (tableload.language === '') {

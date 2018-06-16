@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async (client, oldMsg, newMsg) => {
 	var tableload = await client.guildconfs.get(newMsg.guild.id);
+	if (!tableload) return;
 
 	if (tableload.language === '') {
 		tableload.language = 'en';

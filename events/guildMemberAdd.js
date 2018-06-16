@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, member) => {
 	const tableload = client.guildconfs.get(member.guild.id);
+	if (!tableload) return;
 
 	if (tableload.language === '') {
         tableload.language = 'en';

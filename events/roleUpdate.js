@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, oldRole, newRole) => {
     const tableload = client.guildconfs.get(oldRole.guild.id);
+    if (!tableload) return;
 
     if (tableload.rolecreatelog === 'false') return;
 

@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, role) => {
     const tableload = client.guildconfs.get(role.guild.id);
+    if (!tableload) return;
 
 	for (var i = 0; i < tableload.selfassignableroles.length; i++) {
 			if (role.id === tableload.selfassignableroles[i]) {
