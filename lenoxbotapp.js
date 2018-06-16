@@ -4,7 +4,6 @@ const token = require('./settings.json').token;
 const fs = require('fs');
 const Enmap = require('enmap');
 const NewsAPI = require('newsapi');
-const EnmapSQLite = require('enmap-sqlite');
 const EnmapLevel = require('enmap-level');
 
 var express = require('express'),
@@ -22,17 +21,17 @@ var bodyParser = require('body-parser');
 
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({
-	provider: new EnmapSQLite({
+	provider: new EnmapLevel({
 		name: 'guildsettings'
 	})
 });
 client.botconfs = new Enmap({
-	provider: new EnmapSQLite({
+	provider: new EnmapLevel({
 		name: 'botconfs'
 	})
 });
 client.redeem = new Enmap({
-	provider: new EnmapSQLite({
+	provider: new EnmapLevel({
 		name: 'redeem'
 	})
 });
