@@ -1,0 +1,197 @@
+<link rel="stylesheet" type="text/css" href="../../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<script src='../../script/alerts.js'></script>
+<title>Dashboard - LenoxBot</title>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" id="mainnavbar">
+                <li class="nav-item">
+                    <a href="../../home" class="h5 nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="../../documentation" class=" h5 nav-link">Documentation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
+                </li>
+                <li class="nav-item active">
+                    {{#if user}}
+                    <a href="../../servers" class=" h5 nav-link">Dashboard
+                        <span class="badge badge-danger">BETA</span>
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="../../logout" class=" h5 nav-link ">Log out</a>
+                    {{ else }}
+                    <a href="../../loginpressedbutton" class=" h5 nav-link ">Log in</a>
+                    {{/if}}
+                </li>
+                <li class="avatarnavigation">
+                    {{#if user}}
+                    <a href="https://lenoxbot.com/servers">
+                        <img class="img-fluid rounded profilepic-navbar nav-link img-thumbnail" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"
+                            height="30" width="50">
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+</header>
+
+<main>
+    {{#if submithelp}}
+    <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="float:right;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
+        <span class="text"></span>
+        <strong>New Logging settings saved!</strong>
+        <hr class="message-inner-separator">
+        <p>
+            We saved your new Help settings for {{guilds.name}}</p>
+    </div>
+    {{/if}}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
+                <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="dashboardnav">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse navbar-collapse" id="dashboardnavigationbar">
+                        <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
+                            <li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">
+									<i class="far fa-eye"></i> Overview</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">
+									<i class="fas fa-folder-open"></i> Modules</a>
+							</li>
+							<li>
+								<hr id="hr-dashboard-navbar" style="border: white; padding: 0; margin: 0;">
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link" role="button">
+									<i class="fas fa-wrench"></i> Administration</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/moderation" class=" h5 nav-link" role="button">
+									<i class="fas fa-user-shield"></i> Moderation</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/help" class=" h5 nav-link active" role="button">
+									<i class="fas fa-question-circle"></i> Help</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">
+									<i class="fas fa-music"></i> Music</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/fun" class=" h5 nav-link" role="button">
+									<i class="fas fa-paper-plane"></i> Fun</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/searches" class=" h5 nav-link" role="button">
+									<i class="fas fa-search"></i> Searches</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/nsfw" class=" h5 nav-link" role="button">
+									<i class="fas fa-exclamation-triangle"></i> NSFW</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/utility" class=" h5 nav-link" role="button">
+									<i class="fas fa-warehouse"></i> Utility</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">
+									<i class="fab fa-wpforms"></i> Application</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/currency" class=" h5 nav-link" role="button">
+									<i class="fas fa-money-bill-alt"></i> Currency</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button">
+									<i class="fas fa-envelope-square"></i> Tickets</a>
+							</li>
+							<li class="nav-item nav-link">
+								<a href="#" class="h5 nav-link" role="button">
+									<i class="fas fa-list-ul"></i> Custom Commands
+									<span class="badge badge-warning">Incoming!</span>
+								</a>
+							</li>
+                        </ul>
+                </nav>
+                </div>
+                <div class="col-sm-9">
+                    <div class="panel-group-dashboard">
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">Commands</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" style="width: 100%;">
+                                        <tbody>
+                                            {{#each commands}}
+                                            <tr>
+                                                <td>
+                                                    <div class="col-sm-8">
+                                                        <h5 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                                                            <strong>{{help.name}}</strong>
+                                                        </h5>
+                                                        <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; margin: 0; padding: 0;">{{help.description}}</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" role="group">
+                                                        {{#if conf.enabled}}
+                                                        <form action="/dashboard/{{../guilds.id}}/help/{{help.name}}/submitcommandstatuschange" method="POST">
+                                                            <button type="submit" class="btn btn-danger" value="false" name="statuschange">
+                                                                Disable
+                                                            </button>
+                                                        </form>
+                                                        {{else}}
+                                                        <form action="/dashboard/{{../guilds.id}}/help/{{help.name}}/submitcommandstatuschange" method="POST">
+                                                            <button type="submit" class="btn btn-success" value="true" name="statuschange">
+                                                                Enable
+                                                            </button>
+                                                        </form>
+                                                        {{/if}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+</main>

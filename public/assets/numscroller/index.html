@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>NumScroller - jQuery number increment rolling plugin</title>
+        <meta name="description" content="NumScroller - jQuery plugin for number increment rolling animation when it becomes visibile while scrolling">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+        a{text-decoration: none;color: #3181CA;}
+        .subtitle{margin: 0;margin-bottom: 20px;}
+        .header{text-align: center;}
+        .title{font-size:50px;color: #0b87c3;margin-bottom: 10px;}
+        .title,.description{}
+        body{background: #eeeeee;color: #333333;font-family: arial;font-size:14px;margin: 0;padding: 0;overflow-x:hidden;}
+        .container{width: 800px;margin: 50px auto;max-width: 95%;}
+        .section{background: #ffffff;border: 1px solid #dddddd;margin-top: 20px;margin-bottom: 20px; padding: 20px;}
+        #content,#content2{background:#ddd;height:200px;}
+        .t1{width:100px;height:100px;background:#ef8603;margin:20px;}
+        .highlight{font-weight:bold;}
+        .option-table tr{vertical-align:top;}
+        table.option-table{border-width: 1px;border-spacing: 0px;border-style: outset;border-color: #f7f7f7;border-collapse: separate;background-color: white;}
+        table.option-table th {border-width: 1px;padding: 5px;border-style: inset;border-color: #f7f7f7;background-color: white;}
+        table.option-table td {border-width: 1px;padding: 5px;border-style: inset;border-color: #f7f7f7;background-color: white;}
+        .footer{margin-top: 50px;margin-bottom: 50px;text-align: right;}
+        .share{margin-top: 20px;}
+        .clear{clear: both;}
+        .half-left{float: left;width: 40%;}
+        .half-right{float: right;width: 40%;}
+        .numscroller-big-bottom{
+            font-size: 44px;text-align: center;
+        }
+        .numscroller-info-top{
+            font-size: 12px;margin-bottom: 10px;
+        }
+        </style>
+        <link href="lib/prism.css" rel="stylesheet" />
+    </head>
+    <body>
+
+        <a href="https://github.com/tinywall/numscroller"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_red_aa0000.png" alt="Fork me on GitHub"></a>
+<div class='container'>
+    <div class='header'>
+        <h1 class='title'>NumScroller</h1>
+        <div class='description'>jQuery plugin for number increment rolling animation when it becomes visibile while scrolling</div>
+        <div class='share'>
+            <a href="https://twitter.com/share" class="twitter-share-button" data-via="tinywallinfo">Tweet</a>
+  <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+             <a href="https://twitter.com/tinywallinfo" class="twitter-follow-button" data-show-count="false">Follow @Tinywall</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <iframe src="http://ghbtns.com/github-btn.html?user=tinywall&repo=numscroller&type=watch&count=true" height="30" width="118" frameborder="0" scrolling="0" style="width:118px; height: 21px;margin-left:25px;" allowTransparency="true"></iframe>
+        </div>
+    </div>
+    
+    <div class='section section1'><h2 class='subtitle'>Intro</h2>
+    NumScroller is a jQuery plugin for number increment rolling animation when it becomes visibile while scrolling.<br/>
+    </div>
+
+    <div class='section section2'>
+        <h2 class='subtitle'>Usage Documentation</h2>
+        <a href='http://github.com/tinywall/numscroller' target='_blank'>Download</a> and include the <a href='http://jquery.com' target='_blank'>jQuery</a> library and the <a href='https://raw.github.com/tinywall/numscroller/master/numscroller-1.0.js' target='_blank'>NumScroller</a> plugin in your web page.
+        <pre class="  language-markup"><code>
+&lt;script src="jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="jquery.numscroller-1.0.js"&gt;&lt;/script&gt;
+        </code></pre>
+        <br>
+        Now in the HTML code, write the number with a class 'numscroller' as described below to get rolling animation, when it becomes visible in the screen while scrolling.<br><br>
+        <pre class="  language-markup"><code>
+&lt;span class='numscroller' data-min='1' data-max='1000' data-delay='5' data-increment='10'&gt;1000&lt;/span&gt;
+        </code></pre>
+    </div>
+
+    <br><br>
+    <h2 style='margin:0px;'>Examples</h2>
+    <div class='section half-left'>
+
+        <div class='numscroller-info-top'>Charles Babbage designs his first mechanical computer in</div>
+        <div class='numscroller numscroller-big-bottom' data-slno='1' data-min='0' data-max='1822' data-delay='10' data-increment="9">0</div>
+    </div>
+    <div class='section half-right'>
+        <div class='numscroller-info-top'>Tim Berners-Lee at CERN releases first website in</div>
+        <div class='numscroller numscroller-big-bottom' data-slno='1' data-min='0' data-max='1991' data-delay='10' data-increment="9">0</div>
+    </div>
+    <div class='clear'></div>
+    <div class='section half-left'>
+        <div class='numscroller-info-top'>Total no. websites as of 2014,</div>
+        <div class='numscroller numscroller-big-bottom' data-slno='1' data-min='0' data-max='1185000000' data-delay='5' data-increment="5987654">0</div>
+    </div>
+    <div class='section half-right'>
+        <div class='numscroller-info-top'>No of internet users world wide as of 2014,</div>
+        <div class='numscroller numscroller-big-bottom' data-slno='1' data-min='0' data-max='2923000000' data-delay='5' data-increment="9876543">0</div>
+    </div>
+    <div class='clear'></div>
+    <div class='section half-left'>
+        <div class='numscroller-info-top'>No. blood vessels in human body,</div>
+        <div class='numscroller numscroller-big-bottom' data-slno='1' data-min='0' data-max='62000' data-delay='3' data-increment="99">0</div>
+    </div>
+    <div class='section half-right'>
+        <div class='numscroller-info-top'>No. of heart beats for one day,</div>
+        <div class='numscroller numscroller-big-bottom' data-slno='1' data-min='0' data-max='10000' data-delay='5' data-increment="13">0</div>
+    </div>
+    <div class='clear'></div>
+    
+    <div class='section section3'><h2 class='subtitle'>Options</h2>
+        The tag with 'numscroller' class can have below attributes to customize the behaviour,<br><br>
+        <table class="option-table" border='1' width='100%'>
+        <tr>
+        <td width='25%'>data-min</td>
+        <td>Start number for increment rolling</td>
+        </tr>
+        <tr>
+        <td>data-max</td>
+        <td>End number for increment rolling</td>
+        </tr>
+        <tr>
+        <td>data-increment</td>
+        <td>Increment by value for each rolling</td>
+        </tr>
+        <tr>
+        <td>data-delay</td>
+        <td>Total seconds to complete the number increment rolling</td>
+        </tr>
+        </table>
+    </div>
+
+    
+
+    
+
+    
+    <div class='section section4'><h2 class='subtitle'>About</h2>
+        NumScroller is a jQuery plugin developed by <a href="http://twitter.com/arndvd" target='_blank'>Arun David</a> &amp; <a href="http://twitter.com/trendchaser4u" target='_blank'>Boobalan</a> to use it in our website <a href="http://www.doparttime.com" target='_blank'>DoPartTime.com</a>.
+    </div>
+                <!-- <div style='margin-top:8px;float:left;'>
+                    &nbsp;&nbsp;&nbsp;<a href="https://twitter.com/ArnDvd" class="twitter-follow-button" data-show-count="false">Follow @ArnDvd</a>
+<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                </div> -->
+                <div class='clear'></div>
+                <div class='footer'>Copyright 2015 &copy; <a href="http://www.tinywall.com">Tinywall Technologies</a></div>
+    </div>
+    </div>
+    <script src="lib/jquery-1.10.2.min.js"></script>
+    <script src="numscroller-1.0.js"></script>
+    <script src="lib/prism.js"></script>
+    </body>
+</html>

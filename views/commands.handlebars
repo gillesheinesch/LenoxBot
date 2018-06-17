@@ -1,0 +1,909 @@
+<script src='script/commands.js'></script>
+<title>Command list - LenoxBot</title>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" id="mainnavbar">
+                <li class="nav-item">
+                    <a href="home" class="h5 nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="documentation" class=" h5 nav-link">Documentation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
+                </li>
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="servers" class=" h5 nav-link">Dashboard
+                        <span class="badge badge-danger">BETA</span>
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="logout" class=" h5 nav-link ">Log out</a>
+                    {{ else }}
+                    <a href="loginpressedbutton" class=" h5 nav-link ">Log in</a>
+                    {{/if}}
+                </li>
+                <li class="avatarnavigation">
+                    {{#if user}}
+                     <a href="https://lenoxbot.com/servers">
+                        <img class="img-fluid rounded profilepic-navbar nav-link img-thumbnail" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"
+                            height="30" width="50">
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+</header>
+<main>
+    <div class="container">
+        <div class="row">
+            <nav class="documentation-navbar">
+                <ul>
+                    <li class="text  text-white btn btn-primary btn-lg active documentation-button" id="allcommands-button">
+                        <strong>All commands</strong>
+                    </li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="administration-button">Administration</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="moderation-button">Moderation</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="help-button">Help</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="music-button">Music</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="fun-button">Fun</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="searches-button">Searches</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="nsfw-button">NSFW</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="application-button">Application</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="currency-button">Currency</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="utility-button">Utility</li>
+                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="tickets-button">Tickets</li>
+                </ul>
+            </nav>
+            <div class="col-sm-12">
+                <div class="input-group"  style="margin-bottom: 10px;">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-search"></i></div>
+                    </div>
+                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover" style="background-color: white; width: 100%;">
+                        <thead class="thead-light">
+                            <tr>
+                                <th class="h3 text-black" scope="col">Commandname</th>
+                                <th class="h3 text-black" scope="col">Description</th>
+                                <th class="h3 text-black" scope="col">Permissions</th>
+                            </tr>
+                        </thead>
+
+                        <!-- Documentation commands-->
+
+                        <tbody id="myTable">
+                            <tr class="command administration">
+                                <td class="text h5 text-black">activatemodule</td>
+                                <td class="text h5 text-black">Activates a module and its commands on a Discord server</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">addautomaticrole</td>
+                                <td class="text h5 text-black">Adds an auto assignable role</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">addchatfilter</td>
+                                <td class="text h5 text-black">Inserts a new entry in the chat filter</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">addrole</td>
+                                <td class="text h5 text-black">Assign a role to a discord member</td>
+                                <td class="text h5 text-black">MANAGE_ROLES</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">addselfassignablerole</td>
+                                <td class="text h5 text-black">Add a role that allows users to assign themselves</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">announce</td>
+                                <td class="text h5 text-black">Write a new server announcement</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">availablelanguages</td>
+                                <td class="text h5 text-black">Shows you a list in which language the bot is available and can be changed</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">bye</td>
+                                <td class="text h5 text-black">Disable the goodbye message</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">byemsg</td>
+                                <td class="text h5 text-black">Sets a goodbye message to say goodbye to your users</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">commanddeletion</td>
+                                <td class="text h5 text-black">Toggles the deletion of a command after execution</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">createrole</td>
+                                <td class="text h5 text-black">Creates a role with a name</td>
+                                <td class="text h5 text-black">MANAGE_ROLES</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">deactivatemodule</td>
+                                <td class="text h5 text-black">Disables a module and its commands on a Discord server</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">deleteevents</td>
+                                <td class="text h5 text-black">Delete all active events on this server</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">events</td>
+                                <td class="text h5 text-black">Gives you a list of all active/disabled events</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">language</td>
+                                <td class="text h5 text-black">Changes the language of the bot for this server</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">listautomaticrole</td>
+                                <td class="text h5 text-black">Lists all auto assignable roles</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">listchatfilter</td>
+                                <td class="text h5 text-black">Lists all chat filter entries</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">listevents</td>
+                                <td class="text h5 text-black">Lists you all events that you can log on your server</td>
+                                <td class="text h5 text-black">MANAGE_GUILD</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">listmodules</td>
+                                <td class="text h5 text-black">Lists all active/disabled modules</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">log</td>
+                                <td class="text h5 text-black">Allows you to log for different channels, different events. Use ?listevents to get a list
+                                    of all events</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">msgoptions</td>
+                                <td class="text h5 text-black">Shows you a list of all available options for your welcome and bye msg</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">muterole</td>
+                                <td class="text h5 text-black">Defines a muted role which muted users will get</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">prefix</td>
+                                <td class="text h5 text-black">Changes the prefix of the server or shows you the current prefix if you just use ?prefix</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">removeautomaticrole</td>
+                                <td class="text h5 text-black">Removes an auto assignable role</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">removechatfilter</td>
+                                <td class="text h5 text-black">Removes words from the chatfilter</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">removerole</td>
+                                <td class="text h5 text-black">Remove a role to a discord member</td>
+                                <td class="text h5 text-black">MANAGE_ROLES</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">removeselfassignablerole</td>
+                                <td class="text h5 text-black">Remove a role that allows users to assign themselves</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">setchanneltopic</td>
+                                <td class="text h5 text-black">Sets a new channel topic for the current channel</td>
+                                <td class="text h5 text-black">MANAGE_CHANNELS</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">skipnumber</td>
+                                <td class="text h5 text-black">Changes the necessary votes to skip music for users</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">toggleannounce</td>
+                                <td class="text h5 text-black">Sets a channel for announcements, where you can use the announce-command</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">togglechatfilter</td>
+                                <td class="text h5 text-black">Set the chat filter on or off</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">togglexp</td>
+                                <td class="text h5 text-black">Add channels in which you can not win XP</td>
+                                <td class="text h5 text-black">MANAGE_GUILD</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">togglexpmessages</td>
+                                <td class="text h5 text-black">Set the xp messages on or off</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">welcome</td>
+                                <td class="text h5 text-black">Toggles the welcome message in this channel</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">welcomemsg</td>
+                                <td class="text h5 text-black">Sets a welcome message to greet your users</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command administration">
+                                <td class="text h5 text-black">skipvote</td>
+                                <td class="text h5 text-black">Toggles the skipvote function</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command help">
+                                <td class="text h5 text-black">commands</td>
+                                <td class="text h5 text-black">All commands of a module</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command help">
+                                <td class="text h5 text-black">help</td>
+                                <td class="text h5 text-black">Gives you informations about a command</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command help">
+                                <td class="text h5 text-black">modules</td>
+                                <td class="text h5 text-black">Gives you a list of all modules and their meaning</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command help">
+                                <td class="text h5 text-black">website</td>
+                                <td class="text h5 text-black">Shows you the Trello website of the bot</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">channelblacklist</td>
+                                <td class="text h5 text-black">Displays a list of which voicechannels have been blacklisted</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">channelblacklistadd</td>
+                                <td class="text h5 text-black">Adds a voicechannel to the blacklist</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">channelblacklistremove</td>
+                                <td class="text h5 text-black">Removes a voicechannel from the blacklist</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">forceskip</td>
+                                <td class="text h5 text-black">Forces the bot to skip the current song without a poll!</td>
+                                <td class="text h5 text-black">MANAGE_GUILD</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">nowplaying</td>
+                                <td class="text h5 text-black">Shows you the current music title</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">pause</td>
+                                <td class="text h5 text-black">Stops the current music</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">play</td>
+                                <td class="text h5 text-black">Searches for music that matches to your request</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">queue</td>
+                                <td class="text h5 text-black">Shows you the current music-queue</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">queueclear</td>
+                                <td class="text h5 text-black">Clears the whole music queue</td>
+                                <td class="text h5 text-black">MANAGE_GUILD</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">resume</td>
+                                <td class="text h5 text-black">Continues the current music</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">skip</td>
+                                <td class="text h5 text-black">Allows the users to skip a song with a poll</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">stop</td>
+                                <td class="text h5 text-black">Stops the current music and the bot leaves the voice channel</td>
+                                <td class="text h5 text-black">MANAGE_GUILD</td>
+                            </tr>
+
+                            <tr class="command music">
+                                <td class="text h5 text-black">volume</td>
+                                <td class="text h5 text-black">Changes the volume of the bot</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command fun">
+                                <td class="text h5 text-black">eightball</td>
+                                <td class="text h5 text-black">Ask the bot a question</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command fun">
+                                <td class="text h5 text-black">penissizecalculator</td>
+                                <td class="text h5 text-black">Calculates the size of the penis of you or a user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command fun">
+                                <td class="text h5 text-black">tictactoe</td>
+                                <td class="text h5 text-black">Play a round of TicTacToe against another Discord user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">bitcoin</td>
+                                <td class="text h5 text-black">Shows you information from Bitcoin (value and percentage of changes from the last day)</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">clashroyale</td>
+                                <td class="text h5 text-black">Shows you ClashRoyale stats about a player or a clan</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">fortnite</td>
+                                <td class="text h5 text-black">Shows you Fortnite stats about a player on every console</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">gif</td>
+                                <td class="text h5 text-black">Searches for a gif</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">google</td>
+                                <td class="text h5 text-black">Searches something on google</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">news</td>
+                                <td class="text h5 text-black">Use this command to request news from different newspaper</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">overwatchstats</td>
+                                <td class="text h5 text-black">Shows you overwatch-stats about a Overwatch player</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">randomfact</td>
+                                <td class="text h5 text-black">Random facts (in English only)</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">steamprofile</td>
+                                <td class="text h5 text-black">Requests Steam profile informations of a Steamuser</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">steamscammercheck</td>
+                                <td class="text h5 text-black">Checks whether a Steam user was marked as scammer</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">urban</td>
+                                <td class="text h5 text-black">Urban dictionary</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">weather</td>
+                                <td class="text h5 text-black">Weather of a town or a city</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command searches">
+                                <td class="text h5 text-black">youtube</td>
+                                <td class="text h5 text-black">Searches for a video on youtube</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command nsfw">
+                                <td class="text h5 text-black">pornhubgif</td>
+                                <td class="text h5 text-black">Searches for Pornhub gifs</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command nsfw">
+                                <td class="text h5 text-black">pornhubvideo</td>
+                                <td class="text h5 text-black">Searches for Pornhub videos</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command nsfw">
+                                <td class="text h5 text-black">redtube</td>
+                                <td class="text h5 text-black">Searches for Redtube videos</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command nsfw">
+                                <td class="text h5 text-black">sexgif</td>
+                                <td class="text h5 text-black">Searches for Sex gifs</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command nsfw">
+                                <td class="text h5 text-black">sexvideo</td>
+                                <td class="text h5 text-black">Searches for Sex videos</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">serverwarns</td>
+                                <td class="text h5 text-black">Shows you all given warns on this Discord Server</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">botinfo</td>
+                                <td class="text h5 text-black">Information about the bot</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">calculator</td>
+                                <td class="text h5 text-black">Calculates for you an calculation</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">channels</td>
+                                <td class="text h5 text-black">A list of all channels on your discord server</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">channeltopic</td>
+                                <td class="text h5 text-black">Shows you the channel topic of the current channel if one exists</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">embed</td>
+                                <td class="text h5 text-black">Create an embed for you with any text. Use // to go to a new line</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">inrole</td>
+                                <td class="text h5 text-black">Command to see which members have a specific role</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">join</td>
+                                <td class="text h5 text-black">Join a self-assignable role</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">leave</td>
+                                <td class="text h5 text-black">Leave a self-assignable role</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">listselfassignablerole</td>
+                                <td class="text h5 text-black">Shows you a list of all roles that allows users to assign themselves</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">memberstatus</td>
+                                <td class="text h5 text-black">Shows you how many members on this Discord server are AFK, online, offline or busy</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">nicknamelog</td>
+                                <td class="text h5 text-black">Shows you the nickname log of you or a user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">ping</td>
+                                <td class="text h5 text-black">Shows you how long the bot needs to send a message</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">randomnumber</td>
+                                <td class="text h5 text-black">Selects a random number between your input and 1</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">rank</td>
+                                <td class="text h5 text-black">Displays the points of you or a user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">ranks</td>
+                                <td class="text h5 text-black">Ranking list, sorted by points</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">redeem</td>
+                                <td class="text h5 text-black">Redeem a redeem key from another Discord user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">redeemkey</td>
+                                <td class="text h5 text-black">Shows you your redeem key so that other users can redeem it</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">reputation</td>
+                                <td class="text h5 text-black">Create an embed for you with any text. Use // to go to a new line</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">roles</td>
+                                <td class="text h5 text-black">A list of all roles on your discord server</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">serveractivatekey</td>
+                                <td class="text h5 text-black">Displays the points of you or a user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">serverinfo</td>
+                                <td class="text h5 text-black">Shows you some information about the current discord server</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">setprofiledescription</td>
+                                <td class="text h5 text-black">Sets a global profile description</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">useractivatekey</td>
+                                <td class="text h5 text-black">With this command you can use a premium userkey</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">userinfo</td>
+                                <td class="text h5 text-black">Gives you information about you or another user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command utility">
+                                <td class="text h5 text-black">warnlog</td>
+                                <td class="text h5 text-black">Shows you the warnlog from you or a user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command moderation">
+                                <td class="text h5 text-black">ban</td>
+                                <td class="text h5 text-black">Ban a user from the discord server with a certain reason</td>
+                                <td class="text h5 text-black">BAN_MEMBERS</td>
+                            </tr>
+
+                            <tr class="command moderation">
+                                <td class="text h5 text-black">clear</td>
+                                <td class="text h5 text-black">Deletes for you the last X messages that were sent in the current channel</td>
+                                <td class="text h5 text-black">MANAGE_MESSAGES</td>
+                            </tr>
+
+                            <tr class="command moderation">
+                                <td class="text h5 text-black">kick</td>
+                                <td class="text h5 text-black">Kick a user from the discord server with a certain reason</td>
+                                <td class="text h5 text-black">KICK_MEMBERS</td>
+                            </tr>
+
+                            <tr class="command moderation">
+                                <td class="text h5 text-black">mute</td>
+                                <td class="text h5 text-black">Mutes a user for a certain time</td>
+                                <td class="text h5 text-black">KICK_MEMBERS</td>
+                            </tr>
+
+                            <tr class="command moderation">
+                                <td class="text h5 text-black">softban</td>
+                                <td class="text h5 text-black">Bans a user and deletes his messages of the last X days. After that, he will be unbaned immediately!</td>
+                                <td class="text h5 text-black">BAN_MEMBERS</td>
+                            </tr>
+
+                            <tr class="command moderation">
+                                <td class="text h5 text-black">unban</td>
+                                <td class="text h5 text-black">Unban a user from the discord server with a certain reason</td>
+                                <td class="text h5 text-black">BAN_MEMBERS</td>
+                            </tr>
+
+                            <tr class="command moderation">
+                                <td class="text h5 text-black">unmute</td>
+                                <td class="text h5 text-black">Unmutes a user</td>
+                                <td class="text h5 text-black">KICK_MEMBERS</td>
+                            </tr>
+
+                            <tr class="command moderation">
+                                <td class="text h5 text-black">warn</td>
+                                <td class="text h5 text-black">Warn a user on the discord server with a certain reason</td>
+                                <td class="text h5 text-black">KICK_MEMBERS</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">addentry</td>
+                                <td class="text h5 text-black">Inserts a new entry in the template</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">application</td>
+                                <td class="text h5 text-black">Creates a new application on this server</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">applicationsettings</td>
+                                <td class="text h5 text-black">Shows you all settings of the application system</td>
+                                <td class="text h5 text-black">MANAGE_GUILD</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">approverole</td>
+                                <td class="text h5 text-black">Defines the role that members get if their application has been accepted</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">deleteentry</td>
+                                <td class="text h5 text-black">Deletes an entry from the template</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">denyrole</td>
+                                <td class="text h5 text-black">Defines the role that members get if their application has been rejected</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">listentry</td>
+                                <td class="text h5 text-black">Shows all entries that exist in the template</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">reactionnumber</td>
+                                <td class="text h5 text-black">Defines the number of reactions required to accept or reject an application</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">toggleapplication</td>
+                                <td class="text h5 text-black">Toggles the applications on or off</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">togglearchive</td>
+                                <td class="text h5 text-black">Sets the current channel as archive channel where all processed applications are archived</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command application">
+                                <td class="text h5 text-black">votechannel</td>
+                                <td class="text h5 text-black">Sets a channel in which all new applications will be posted and can be rated accordingly</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">creditranklist</td>
+                                <td class="text h5 text-black">Ranking, sorted by the credits</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">credits</td>
+                                <td class="text h5 text-black">Shows you the credits of you or another user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">daily</td>
+                                <td class="text h5 text-black">Get your daily reward or give it away to another discord user</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">gamble</td>
+                                <td class="text h5 text-black">Gamble your credits with a 50% chance to make a profit</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">inventory</td>
+                                <td class="text h5 text-black">Shows you your inventory</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">job</td>
+                                <td class="text h5 text-black">A full list of available jobs you can accept to earn credits</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">loot</td>
+                                <td class="text h5 text-black">Take your loot every 10 minutes</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">mine</td>
+                                <td class="text h5 text-black">With this command you can dig up minerals with your pickaxes</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">opencrate</td>
+                                <td class="text h5 text-black">With this command, you can open crates with a cratekey and win cool items!</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">paycredits</td>
+                                <td class="text h5 text-black">Allows a user to give their credits to someone</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">shop</td>
+                                <td class="text h5 text-black">You can view the list of all purchasable items and sell or buy items</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">slot</td>
+                                <td class="text h5 text-black">Play a round with the slot machine</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command currency">
+                                <td class="text h5 text-black">templesearch</td>
+                                <td class="text h5 text-black">Search for something valuable in the long-abandoned temple in the Sahara</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command tickets">
+                                <td class="text h5 text-black">ticket</td>
+                                <td class="text h5 text-black">Creates a new ticket</td>
+                                <td class="text h5 text-black">any</td>
+                            </tr>
+
+                            <tr class="command tickets">
+                                <td class="text h5 text-black">ticketnotification</td>
+                                <td class="text h5 text-black">Defines a channel in which ticket-notifications are sent</td>
+                                <td class="text h5 text-black">ADMINISTRATOR</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

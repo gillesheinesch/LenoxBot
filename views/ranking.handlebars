@@ -1,0 +1,87 @@
+<link rel="stylesheet" type="text/css" href="../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+            aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto" id="mainnavbar">
+            <li class="nav-item">
+                <a href="home" class="h5 nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="documentation" class=" h5 nav-link">Documentation</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
+                    
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
+            </li>
+            <li class="nav-item">
+                {{#if user}}
+                <a href="servers" class=" h5 nav-link">Dashboard
+                    <span class="badge badge-danger">BETA</span>
+                </a>
+                {{/if}}
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="logout" class=" h5 nav-link ">Log out</a>
+                    {{ else }}
+                    <a href="loginpressedbutton" class=" h5 nav-link ">Log in</a>
+                    {{/if}}
+                </li>
+                <li class="avatarnavigation">
+                    {{#if user}}
+                    <a href="https://lenoxbot.com/servers">
+                        <img class="img-fluid rounded profilepic-navbar nav-link img-thumbnail" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"
+                            height="30" width="50">
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+</header>
+<main>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="text h5 text-white tableheader white-border" style="border: 3px solid white;">User</th>
+                                <th class="text h5 text-white tableheader white-border" style="border: 3px solid white;">Points</th>
+                                <th class="text h5 text-white tableheader white-border" style="border: 3px solid white;">Level</th>
+                            </tr>
+                        </thead>
+
+                        <!-- Rankinglist-->
+                        <tbody>
+                        {{#each ranks}}
+                        <tr>
+                            <td>{{user}}</td>
+                            <td>{{points}}</td>
+                            <td>{{level}}</td>
+                        </tr>
+                        {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

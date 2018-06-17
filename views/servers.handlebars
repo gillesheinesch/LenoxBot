@@ -1,0 +1,106 @@
+<title>Servers - LenoxBot</title>
+<header>
+	<nav class="navbar navbar-expand-lg navbar-light bg-light">
+		<a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+		    aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto" id="mainnavbar">
+				<li class="nav-item">
+					<a href="home" class="h5 nav-link">Home</a>
+				</li>
+				<li class="nav-item">
+					<a href="documentation" class=" h5 nav-link">Documentation</a>
+				</li>
+				<li class="nav-item">
+					<a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
+
+					</a>
+				</li>
+				<li class="nav-item">
+					<a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
+				</li>
+				<li class="nav-item">
+					<a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
+				</li>
+				<li class="nav-item active">
+					{{#if user}}
+					<a href="servers" class=" h5 nav-link">Dashboard
+						<span class="badge badge-danger">BETA</span>
+					</a>
+					{{/if}}
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="logout" class=" h5 nav-link ">Log out</a>
+                    {{ else }}
+                    <a href="loginpressedbutton" class=" h5 nav-link ">Log in</a>
+                    {{/if}}
+                </li>
+                <li class="avatarnavigation">
+                    {{#if user}}
+                    <a href="https://lenoxbot.com/servers">
+                        <img class="img-fluid rounded profilepic-navbar nav-link img-thumbnail" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"
+                            height="30" width="50">
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </nav>
+	</div>
+</header>
+<main class="selectserver">
+	<section>
+		<div class="container">
+			<div class="row">
+				{{#each guilds}}
+				<div class="col-sm-6 col-lg-3 d-flex align-items-stretch">
+					<div class="card mt-3 serverscard" style="width: 25rem; margin-bottom: 20px;">
+						<figure style="margin: 20px 60px;">
+							{{#if lenoxbot}} {{#if icon}}
+							<a href="dashboard/{{id}}/overview">
+								<img id="icon-selectserver" class="card-img-top" src="https://cdn.discordapp.com/icons/{{id}}/{{icon}}.jpg" height="120"
+								    width="50">
+							</a>
+							{{else}}
+							<a href="dashboard/{{id}}/overview">
+								<img id="icon-selectserver" class="card-img-top" src="discordicon.png" height="120" width="120">
+							</a>
+							{{/if}} {{else}} {{#if icon}}
+							<a href="https://lenoxbot.com/invite">
+								<img id="icon-selectserver" class="card-img-top" src="https://cdn.discordapp.com/icons/{{id}}/{{icon}}.jpg" height="120"
+								    width="120">
+							</a>
+							{{else}}
+							<a href="https://lenoxbot.com/invite">
+								<img id="icon-selectserver" class="card-img-top" src="discordicon.png" height="120" width="120">
+							</a>
+							{{/if}} {{/if}}
+						</figure>
+						<div class="text card-body" style="margin: 0 20px;">
+							<h3 class="text h5 card-title" style="margin-top: 10px; margin-bottom: 10px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;">{{name}}</h3>
+							{{#if lenoxbot}}
+							<h6 class="text h6 card-text" style="margin-top: 10px; margin-bottom: 10px; color:rgb(28, 119, 0);">{{memberscount}} members</h6>
+							<a href="dashboard/{{id}}/overview">
+								<p class="btn btn-primary btn-lg" style="margin-top: 10px; margin-bottom: 10px;">Dashboard</p>
+							</a>
+							{{else}}
+							<h6 class="text h6" style="margin-top: 10px; margin-bottom: 10px; color:rgb(221, 56, 56);">Not using LenoxBot</h6>
+							<a href="https://lenoxbot.com/invite" target="blanc">
+								<p class="text text-white button btn btn-warning btn-lg" style="margin-top: 10px; margin-bottom: 10px;">Get LenoxBot!</p>
+							</a>
+							{{/if}}
+						</div>
+					</div>
+				</div>
+				{{/each}}
+			</div>
+			<p class="text text-white h3 servernotlist" style="font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif">If you cannot find your server in the list, log in again!</p>
+		</div>
+	</section>
+</main>
