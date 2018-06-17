@@ -136,7 +136,7 @@ app.use(passport.session());
 
 app.get('/loginpressedbutton', passport.authenticate('discord', {
 	scope: scopes
-	}), function (req, res) {});
+}), function (req, res) {});
 app.get('/callback',
 	passport.authenticate('discord', {
 		failureRedirect: '/oauth2problem'
@@ -231,7 +231,7 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 		const botconfs = await client.botconfs.get('botconfs');
 
 		const category = botconfs[req.body.category];
-		
+
 		category[Object.keys(category).length + 1] = {
 			authorid: req.user.id,
 			title: req.body.title,
@@ -501,23 +501,23 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, n
 
 		const length = Object.keys(ticket.answers).length + 1;
 
-	if (ticket.status === 'closed') {
-		ticket.answers[length] = {
-			authorid: req.user.id,
-			guildid: req.params.id,
-			date: new Date(),
-			content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} closed the ticket!`,
-			timelineconf: ""
-		};
-	} else if (ticket.status === 'open') {
-		ticket.answers[length] = {
-			authorid: req.user.id,
-			guildid: req.params.id,
-			date: new Date(),
-			content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} opened the ticket!`,
-			timelineconf: ""
-		};
-	}
+		if (ticket.status === 'closed') {
+			ticket.answers[length] = {
+				authorid: req.user.id,
+				guildid: req.params.id,
+				date: new Date(),
+				content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} closed the ticket!`,
+				timelineconf: ""
+			};
+		} else if (ticket.status === 'open') {
+			ticket.answers[length] = {
+				authorid: req.user.id,
+				guildid: req.params.id,
+				date: new Date(),
+				content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} opened the ticket!`,
+				timelineconf: ""
+			};
+		}
 
 		await client.botconfs.set('botconfs', botconfs);
 
@@ -575,7 +575,7 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 
 		if (index === -1) throw new Error("Test")
 		if (((req.user.guilds[index].permissions) & 8) !== 8) throw new Error("Test")
-		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test")//res.redirect('../botnotonserver');
+		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).members.size / 170) + 1;
@@ -2689,21 +2689,21 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 
 		try {
 			if (application.yes.length >= tableload.application.reactionnumber) {
-			await client.users.get(application.authorid).send(tableload.application.acceptedmessage);
-			const role = client.guilds.get(dashboardid).roles.get(tableload.application.role);
-			if (role) {
-				await client.guilds.get(dashboardid).members.get(application.authorid).addRole(role);
-			}
-			application.status = 'closed';
-			application.acceptedorrejected = 'accepted';
+				await client.users.get(application.authorid).send(tableload.application.acceptedmessage);
+				const role = client.guilds.get(dashboardid).roles.get(tableload.application.role);
+				if (role) {
+					await client.guilds.get(dashboardid).members.get(application.authorid).addRole(role);
+				}
+				application.status = 'closed';
+				application.acceptedorrejected = 'accepted';
 			} else if (application.no.length >= tableload.application.reactionnumber) {
-			await client.users.get(application.authorid).send(tableload.application.rejectedmessage);
-			const role = client.guilds.get(dashboardid).roles.get(tableload.application.denyrole);
-			if (role) {
-				await client.guilds.get(dashboardid).members.get(application.authorid).addRole(role);
-			}
-			application.status = 'closed';
-			application.acceptedorrejected = 'rejected';
+				await client.users.get(application.authorid).send(tableload.application.rejectedmessage);
+				const role = client.guilds.get(dashboardid).roles.get(tableload.application.denyrole);
+				if (role) {
+					await client.guilds.get(dashboardid).members.get(application.authorid).addRole(role);
+				}
+				application.status = 'closed';
+				application.acceptedorrejected = 'rejected';
 			}
 		} catch (error) {
 			undefined;
@@ -2764,8 +2764,7 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async function (r
 		var votecheck = true;
 		if (tableload.application.applications[req.params.applicationid].yes.includes(req.user.id) || tableload.application.applications[req.params.applicationid].no.includes(req.user.id)) {
 			votecheck = false;
-		} else if (tableload.application.applications[req.params.applicationid].yes.length >= tableload.application.reactionnumber || tableload.application.applications[req.params.applicationid].no.length >= tableload.application.reactionnumber) {
-		}
+		} else if (tableload.application.applications[req.params.applicationid].yes.length >= tableload.application.reactionnumber || tableload.application.applications[req.params.applicationid].no.length >= tableload.application.reactionnumber) {}
 
 		return res.render('application', {
 			user: req.user,
