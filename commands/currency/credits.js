@@ -33,7 +33,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['balance'],
-	userpermissions: [], dashboardsettings: true
+	userpermissions: [], dashboardsettings: false
 };
 exports.help = {
 	name: 'credits',

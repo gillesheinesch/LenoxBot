@@ -69,7 +69,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['cmds'],
-    userpermissions: [], dashboardsettings: true
+    userpermissions: [], dashboardsettings: false
 };
 exports.help = {
 	name: 'commands',

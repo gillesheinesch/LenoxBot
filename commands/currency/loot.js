@@ -115,7 +115,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['l'],
-	userpermissions: [], dashboardsettings: true,
+	userpermissions: [], dashboardsettings: false,
 	cooldown: 600000
 };
 exports.help = {

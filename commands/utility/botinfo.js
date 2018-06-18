@@ -28,7 +28,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['binfo', 'bi'],
-	userpermissions: [], dashboardsettings: true
+	userpermissions: [], dashboardsettings: false
 };
 exports.help = {
 	name: 'botinfo',

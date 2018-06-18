@@ -227,7 +227,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['market'],
-	userpermissions: [], dashboardsettings: true
+	userpermissions: [], dashboardsettings: false
 };
 exports.help = {
 	name: 'shop',

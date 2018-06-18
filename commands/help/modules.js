@@ -27,7 +27,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['m'],
-    userpermissions: [], dashboardsettings: true
+    userpermissions: [], dashboardsettings: false
 };
 
 exports.help = {
