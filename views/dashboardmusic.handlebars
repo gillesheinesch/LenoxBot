@@ -19,11 +19,6 @@
                 </li>
                 <li class="nav-item">
                     <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
-
-                        
-
-
-
                     </a>
                 </li>
                 <li class="nav-item">
@@ -74,51 +69,6 @@
     </div>
     {{/if}}
     <div class="container">
-
-       <div class="row">
-			<div class="col-sm-3">
-				<p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
-                <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="dashboardnav">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
-					    aria-expanded="false" aria-label="Toggle navigation">
-						<span class="navbar-toggler-icon"></span>
-					</button>
-					<div class="collapse navbar-collapse" id="dashboardnavigationbar">
-                    <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button"><i class="far fa-eye"></i> Overview</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link" role="button"><i class="fas fa-wrench"></i> Administration</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button"><i class="fas fa-sign-out-alt"></i> Logssettings</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button"><i class="fas fa-folder-open"></i> Modules</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link" role="button"><i class="fas fa-filter"></i> Chatfilter</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link active" role="button"><i class="fas fa-music"></i> Music</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                            <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button"><i class="fab fa-wpforms"></i> Application</a>
-                        </li>
-                        <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button"><i class="fas fa-envelope-square"></i> Tickets</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="#" class="h5 nav-link" role="button"><i class="fas fa-list-ul"></i> Custom Commands <span class="badge badge-warning">Incoming!</span></a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-            <div class="col-sm-9">
-                <div class="panel-group-dashboard">
-                    {{#if musiccurrentlyplaying}}
-
         <div class="row">
             <div class="col-sm-3">
                 <p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
@@ -196,26 +146,11 @@
                 <div class="col-sm-9">
                     <div class="panel-group-dashboard">
                         {{#if musiccurrentlyplaying}}
-
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
                                 <p class="text text-white h5">Music Menu</p>
                             </div>
                             <div class="card-body">
-
-                                <p>Currently playing: <strong>{{song}}</strong></p>
-                                <div class="btn-group" role="group" aria-label="musicinteraction">
-                                        <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST" style="margin-right: 10px;">
-                                            <button type="submit" class="btn btn-success" value="play" name="newmusicaction"><i class="fas fa-play"></i><i class="fas fa-pause"></i></button>
-                                        </form>
-                                        <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST" style="margin-right: 10px;">
-                                            <button type="submit" class="btn btn-danger" value="stop" name="newmusicaction"><i class="fas fa-stop"></i></button>
-                                        </form>
-                                        <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST" style="margin-right: 10px;">
-                                            <button type="submit" class="btn btn-info" value="skip" name="newmusicaction"><i class="fas fa-angle-double-right"></i></button>
-                                        </form>
-                                    </div>
-
                                 <p>Currently playing:
                                     <strong>{{song}}</strong>
                                 </p>
@@ -237,7 +172,6 @@
                                         </button>
                                     </form>
                                 </div>
-
                             </div>
                         </div>
                         {{/if}}
@@ -250,14 +184,8 @@
                                     <div class="form-group">
                                         <label class="control-label col-sm" for="newchannelblacklist">Set channels where LenoxBot doesn't play music:</label>
                                         <div class="col-sm-4">
-
-                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newchannelblacklist"
-                                                data-live-search="true" multiple title="Choose voicechannel(s)" data-actions-box="true"
-                                                data-size="7">
-
                                             <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newchannelblacklist" data-live-search="true"
                                                 multiple title="Choose voicechannel(s)" data-actions-box="true" data-size="7">
-
                                                 {{#each channels}} {{#if channelblacklistset}}
                                                 <option value="{{name}}" selected>{{name}}</option>
                                                 {{else}}
@@ -274,13 +202,6 @@
                                 </form>
                             </div>
                         </div>
-
-                    </div>
-            </div>
-        </div>
-    </div>
-</main>
-
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
                                 <p class="text text-white h5">Commands</p>
@@ -328,4 +249,3 @@
             </div>
         </div>
 </main>
-

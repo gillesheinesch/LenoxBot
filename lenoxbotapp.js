@@ -3414,6 +3414,121 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const name = Object.keys(req.body)[0];
+		tableload.modules[name.toLowerCase()] = req.body[name];
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/modules`,
+			query: {
+				"submitmodules": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/modules', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		var modules = {};
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets']
+
+		for (var i = 0; i < moduleslist.length; i++) {
+			var config = {
+				name: '',
+				description: '',
+				status: ''
+			};
+
+			config.name = moduleslist[i];
+
+			const lang = require('./languages/en.json');
+			config.description = lang[`modules_${moduleslist[i].toLowerCase()}`];
+
+			if (tableload.modules[moduleslist[i].toLowerCase()] === 'true') {
+				config.status = true;
+			} else {
+				config.status = false;
+			}
+
+			modules[moduleslist[i].toLowerCase()] = config;
+		}
+
+		return res.render('dashboardmodules', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+			modules: modules,
+			submitmodules: req.query.submitmodules ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
 app.get('/error', function (req, res, next) {
 	if (req.user) {
 		var check = [];

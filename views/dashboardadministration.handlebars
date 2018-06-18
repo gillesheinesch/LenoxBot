@@ -1,9 +1,5 @@
 <link rel="stylesheet" type="text/css" href="../../styles/style.css" />
 <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-slider/10.0.2/bootstrap-slider.min.js"></script>
-
-
 <script src='../../script/alerts.js'></script>
 <script src='../../script/dashboardadministration.js'></script>
 <title>Dashboard - LenoxBot</title>
@@ -90,22 +86,6 @@
                                     <i class="far fa-eye"></i> Overview</a>
                             </li>
                             <li class="nav-item nav-link">
-
-                                <a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link active" role="button">
-                                    <i class="fas fa-wrench"></i> Administration</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-sign-out-alt"></i> Logssettings</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-folder-open"></i> Modules</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-filter"></i> Chatfilter</a>
-
                                 <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">
                                     <i class="fas fa-folder-open"></i> Modules</a>
                             </li>
@@ -123,15 +103,12 @@
                             <li class="nav-item nav-link">
                                 <a href="/dashboard/{{guilds.id}}/help" class=" h5 nav-link" role="button">
                                     <i class="fas fa-question-circle"></i> Help</a>
-
                             </li>
                             <li class="nav-item nav-link">
                                 <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">
                                     <i class="fas fa-music"></i> Music</a>
                             </li>
                             <li class="nav-item nav-link">
-
-
                                 <a href="/dashboard/{{guilds.id}}/fun" class=" h5 nav-link" role="button">
                                     <i class="fas fa-paper-plane"></i> Fun</a>
                             </li>
@@ -148,18 +125,14 @@
                                     <i class="fas fa-warehouse"></i> Utility</a>
                             </li>
                             <li class="nav-item nav-link">
-
                                 <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">
                                     <i class="fab fa-wpforms"></i> Application</a>
                             </li>
                             <li class="nav-item nav-link">
-
-
                                 <a href="/dashboard/{{guilds.id}}/currency" class=" h5 nav-link" role="button">
                                     <i class="fas fa-money-bill-alt"></i> Currency</a>
                             </li>
                             <li class="nav-item nav-link">
-
                                 <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button">
                                     <i class="fas fa-envelope-square"></i> Tickets</a>
                             </li>
@@ -696,10 +669,6 @@
                                 <p class="text text-white h5">Commands</p>
                             </div>
                             <div class="card-body">
-
-
-
-
                                 <div class="table-responsive">
                                     <table class="table" style="width: 100%;">
                                         <tbody>
@@ -715,39 +684,6 @@
                                                 </td>
                                                 <td>
                                                     <div class="btn-group" role="group">
-
-                                                        {{#if disabled}}
-                                                        <button type="button" class="btn btn-success" style="margin-right: 10px;">
-                                                            Enable
-                                                        </button>
-                                                        {{else}}
-                                                        <button type="button" class="btn btn-danger" style="margin-right: 10px;">
-                                                            Disable
-                                                        </button>
-                                                        {{/if}}
-                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#editcommand">
-                                                            Edit
-                                                        </button>
-                                                    </div>
-                                                    <div class="modal fade" id="editcommand" tabindex="-1" role="dialog" aria-labelledby="editcommand" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Change {{help.name}} settings:</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    ...
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                    <button type="button" class="btn btn-primary">Save</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
                                                         {{#if conf.enabled}}
                                                         <form action="/dashboard/{{../guilds.id}}/administration/{{help.name}}/submitcommandstatuschange" method="POST">
                                                             <button type="submit" class="btn btn-danger" value="false" name="statuschange">
@@ -761,7 +697,6 @@
                                                             </button>
                                                         </form>
                                                         {{/if}}
-
                                                     </div>
                                                 </td>
                                             </tr>

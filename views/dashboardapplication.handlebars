@@ -81,34 +81,6 @@
                     <div class="collapse navbar-collapse" id="dashboardnavigationbar">
                         <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
                             <li class="nav-item nav-link">
-
-                                <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button"><i class="far fa-eye"></i> Overview</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link" role="button"><i class="fas fa-wrench"></i> Administration</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/logs" class=" h5 nav-link" role="button"><i class="fas fa-sign-out-alt"></i> Logssettings</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button"><i class="fas fa-folder-open"></i> Modules</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/chatfilter" class=" h5 nav-link" role="button"><i class="fas fa-filter"></i> Chatfilter</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button"><i class="fas fa-music"></i> Music</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/application" class="h5 nav-link active" role="button"><i class="fab fa-wpforms"></i> Application</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button"><i class="fas fa-envelope-square"></i> Tickets</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="#" class="h5 nav-link" role="button"><i class="fas fa-list-ul"></i> Custom Commands <span class="badge badge-warning">Incoming!</span></a>
-                        </li>
-
                                 <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">
                                     <i class="far fa-eye"></i> Overview</a>
                             </li>
@@ -169,153 +141,10 @@
                                     <span class="badge badge-warning">Incoming!</span>
                                 </a>
                             </li>
-
                         </ul>
                 </nav>
                 </div>
                 <div class="col-sm-9">
-
-                    <a href="/dashboard/{{guilds.id}}/applications"><button type="button" class="btn btn-warning btn-lg btn-block" style="margin-top: 50px;">All applications</button></a>
-                    <div class="panel-group-dashboard">
-                            <div class="card border-dark panel-dashboard">
-                                <div class="card-header bg-primary">
-                                    <p class="text text-white h5">Application</p>
-                                </div>
-                                <div class="card-body">
-                                    <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitapplication" method="POST">
-                                        <div class="form-group">
-                                            <label class="control-label col-sm" for="newapplication">Toggle Application</label>
-                                            <div class="col-sm-4">
-                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newapplication" data-actions-box="true"
-                                                    data-size="7">
-                                                    <option value="true">Activate the application system</option>
-                                                    <option value="false">Deactivate the application system</option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-3 col-sm-10">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="card border-dark panel-dashboard">
-                                <div class="card-header bg-primary">
-                                    <p class="text text-white h5">Reactionnumber (Needed reactions to accept or reject an application)</p>
-                                </div>
-                                <div class="card-body">
-                                    <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitreactionnumber" method="POST">
-                                        <div class="form-group">
-                                            <label class="control-label col-sm" for="newreactionnumber">New reactionnumber:</label>
-                                            <div class="col-sm-4">
-                                                <input type="number" class="form-control" min="1" name="newreactionnumber" pattern=".{1,}" required value="{{guilds.reactionnumber}}">
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-2 col-sm-10" style="margin-top: 20px;">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="card border-dark panel-dashboard">
-                                <div class="card-header bg-primary">
-                                    <p class="text text-white h5">Role for accepeted canidates</p>
-                                </div>
-                                <div class="card-body">
-                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitrole" method="POST">
-                                        <div class="form-group">
-                                            <label class="control-label col-sm" for="newrole">Select a role:</label>
-                                            <div class="col-sm-4">
-                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newrole" data-live-search="true"
-                                                    title="Choose role" data-actions-box="true" data-size="7">
-                                                    {{#each roles}} {{#if roleset}}
-                                                    <option value="{{name}}" selected>{{name}}</option>
-                                                    {{else}}
-                                                    <option value="{{name}}">{{name}}</option>
-                                                    {{/if}} {{/each}}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-3 col-sm-10">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="card border-dark panel-dashboard">
-                                <div class="card-header bg-primary">
-                                    <p class="text text-white h5">Role for rejected canidates</p>
-                                </div>
-                                <div class="card-body">
-                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitdenyrole" method="POST">
-                                        <div class="form-group">
-                                            <label class="control-label col-sm" for="newdenyrole">Select a role:</label>
-                                            <div class="col-sm-4">
-                                                <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newdenyrole" data-live-search="true"
-                                                    title="Choose role" data-actions-box="true" data-size="7">
-                                                    {{#each roles}} {{#if denyroleset}}
-                                                    <option value="{{name}}" selected>{{name}}</option>
-                                                    {{else}}
-                                                    <option value="{{name}}">{{name}}</option>
-                                                    {{/if}} {{/each}}
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-3 col-sm-10">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="card border-dark panel-dashboard">
-                                <div class="card-header bg-primary">
-                                    <p class="text text-white h5">Message for accepted applicants</p>
-                                </div>
-                                <div class="card-body">
-                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewacceptedmsg" method="POST">
-                                        <div class="form-group">
-                                            <label class="control-label col-sm" for="newacceptedmsg">New message:</label>
-                                            <div class="col-sm-9">
-                                                <textarea class="form-control" name="newacceptedmsg" rows="3">{{guilds.acceptedmessage}}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-3 col-sm-10">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="card border-dark panel-dashboard">
-                                <div class="card-header bg-primary">
-                                    <p class="text text-white h5">Message for rejected applicants</p>
-                                </div>
-                                <div class="card-body">
-                                    <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewrejectedmsg" method="POST">
-                                        <div class="form-group">
-                                            <label class="control-label col-sm" for="newrejectedmsg">New message:</label>
-                                            <div class="col-sm-9">
-                                                <textarea class="form-control" name="newrejectedmsg" rows="3">{{guilds.rejectedmessage}}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <div class="col-sm-offset-3 col-sm-10">
-                                                <button type="submit" class="btn btn-primary">Submit</button>
-                                            </div>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-
                     <a href="/dashboard/{{guilds.id}}/applications">
                         <button type="button" class="btn btn-warning btn-lg btn-block" style="margin-top: 50px;">All applications</button>
                     </a>
@@ -500,7 +329,6 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

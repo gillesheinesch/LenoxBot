@@ -672,8 +672,6 @@ exports.run = async (client, msg) => {
 				}
 			}
 
-
-
 			if (tableload.commands[cmd.help.name].status === "false") return msg.reply('This command has been deactivated!');
 
 
