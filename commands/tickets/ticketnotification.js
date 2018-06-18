@@ -21,8 +21,6 @@ exports.conf = {
 	guildOnly: true,
 	aliases: [],
 
-	userpermissions: ['ADMINISTRATOR']
-
 	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
 
 };
