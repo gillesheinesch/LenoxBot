@@ -136,7 +136,11 @@ app.use(passport.session());
 
 app.get('/loginpressedbutton', passport.authenticate('discord', {
 	scope: scopes
+<<<<<<< HEAD
 	}), function (req, res) {});
+=======
+}), function (req, res) {});
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 app.get('/callback',
 	passport.authenticate('discord', {
 		failureRedirect: '/oauth2problem'
@@ -231,7 +235,11 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 		const botconfs = await client.botconfs.get('botconfs');
 
 		const category = botconfs[req.body.category];
+<<<<<<< HEAD
 		
+=======
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 		category[Object.keys(category).length + 1] = {
 			authorid: req.user.id,
 			title: req.body.title,
@@ -501,6 +509,7 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, n
 
 		const length = Object.keys(ticket.answers).length + 1;
 
+<<<<<<< HEAD
 	if (ticket.status === 'closed') {
 		ticket.answers[length] = {
 			authorid: req.user.id,
@@ -518,6 +527,25 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, n
 			timelineconf: ""
 		};
 	}
+=======
+		if (ticket.status === 'closed') {
+			ticket.answers[length] = {
+				authorid: req.user.id,
+				guildid: req.params.id,
+				date: new Date(),
+				content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} closed the ticket!`,
+				timelineconf: ""
+			};
+		} else if (ticket.status === 'open') {
+			ticket.answers[length] = {
+				authorid: req.user.id,
+				guildid: req.params.id,
+				date: new Date(),
+				content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} opened the ticket!`,
+				timelineconf: ""
+			};
+		}
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 
 		await client.botconfs.set('botconfs', botconfs);
 
@@ -575,7 +603,11 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 
 		if (index === -1) throw new Error("Test")
 		if (((req.user.guilds[index].permissions) & 8) !== 8) throw new Error("Test")
+<<<<<<< HEAD
 		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test")//res.redirect('../botnotonserver');
+=======
+		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test") //res.redirect('../botnotonserver');
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).members.size / 170) + 1;
@@ -634,6 +666,124 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 	}
 });
 
+<<<<<<< HEAD
+=======
+app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const name = Object.keys(req.body)[0];
+		tableload.modules[name.toLowerCase()] = req.body[name];
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/modules`,
+			query: {
+				"submitmodules": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/modules', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		var modules = {};
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets']
+
+		for (var i = 0; i < moduleslist.length; i++) {
+			var config = {
+				name: '',
+				description: '',
+				status: ''
+			};
+
+			config.name = moduleslist[i];
+
+			const lang = require('./languages/en.json');
+			config.description = lang[`modules_${moduleslist[i].toLowerCase()}`];
+
+			if (tableload.modules[moduleslist[i].toLowerCase()] === 'true') {
+				config.status = true;
+			} else {
+				config.status = false;
+			}
+
+			modules[moduleslist[i].toLowerCase()] = config;
+		}
+
+		return res.render('dashboardmodules', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+			modules: modules,
+			submitmodules: req.query.submitmodules ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 app.post('/dashboard/:id/administration/submitlogs', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -1349,7 +1499,11 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async function (r
 	}
 });
 
+<<<<<<< HEAD
 app.post('/dashboard/:id/administration/:command/submitcommandchanges', async function (req, res, next) {
+=======
+app.post('/dashboard/:id/administration/:command/submitcommandstatuschange', async function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -1365,6 +1519,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandchanges', async fu
 
 		const tableload = client.guildconfs.get(dashboardid);
 
+<<<<<<< HEAD
 		var array1 = [];
 		if (req.body.newallowedroles) {
 			if (Array.isArray(req.body.newallowedroles)) {
@@ -1409,6 +1564,12 @@ app.post('/dashboard/:id/administration/:command/submitcommandchanges', async fu
 
 		tableload.globallogs.push({
 			action: `Changed the settings of the "${req.params.command}" command!`,
+=======
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			username: req.user.username,
 			date: Date.now(),
 			showeddate: new Date().toUTCString()
@@ -1489,6 +1650,7 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			}
 		}
 
+<<<<<<< HEAD
 		for (var prop in tableload.commands) {
 			for (var index3 = 0; index3 < roles.length; index3++) {
 				if (tableload.commands[prop].allowedroles.includes(roles[index3].id)) {
@@ -1497,6 +1659,14 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 				} else {
 					roles[index3][`allowedroles${prop}`] = false;
 				}
+=======
+		var commands = client.commands.filter(r => r.help.category === 'administration' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			}
 		}
 
@@ -1674,7 +1844,11 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			xpmesssagesset: client.guildconfs.get(dashboardid).xpmessages === 'true' ? true : false,
 			languages: languages,
 			chatfilterarray: client.guildconfs.get(req.user.guilds[index].id).chatfilter ? client.guildconfs.get(req.user.guilds[index].id).chatfilter.array.join(",") : '',
+<<<<<<< HEAD
 			commands: client.commands.filter(r => r.help.category === 'administration').array(),
+=======
+			commands: commands,
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			submitadministration: req.query.submitadministration ? true : false
 		});
 	} else {
@@ -1682,7 +1856,11 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 	}
 });
 
+<<<<<<< HEAD
 app.post('/dashboard/:id/logs/submitlogs', async function (req, res, next) {
+=======
+app.post('/dashboard/:id/moderation/:command/submitcommandstatuschange', async function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -1698,6 +1876,7 @@ app.post('/dashboard/:id/logs/submitlogs', async function (req, res, next) {
 
 		const tableload = client.guildconfs.get(dashboardid);
 
+<<<<<<< HEAD
 		if (req.body[Object.keys(req.body)[0]] === "false") {
 			tableload[Object.keys(req.body)[0]] = "false"
 		} else {
@@ -1713,6 +1892,12 @@ app.post('/dashboard/:id/logs/submitlogs', async function (req, res, next) {
 		}
 		tableload.globallogs.push({
 			action: `Changed the ${Object.keys(req.body)[0]} settings!`,
+=======
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			username: req.user.username,
 			date: Date.now(),
 			showeddate: new Date().toUTCString()
@@ -1721,9 +1906,15 @@ app.post('/dashboard/:id/logs/submitlogs', async function (req, res, next) {
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
+<<<<<<< HEAD
 			pathname: `/dashboard/${dashboardid}/logs`,
 			query: {
 				"submitlogs": true
+=======
+			pathname: `/dashboard/${dashboardid}/moderation`,
+			query: {
+				"submitmoderation": true
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			}
 		}));
 	} else {
@@ -1731,7 +1922,11 @@ app.post('/dashboard/:id/logs/submitlogs', async function (req, res, next) {
 	}
 });
 
+<<<<<<< HEAD
 app.get('/dashboard/:id/logs', function (req, res, next) {
+=======
+app.get('/dashboard/:id/moderation', function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -1763,6 +1958,7 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 		var check = req.user.guilds[index];
 
 		const tableload = client.guildconfs.get(dashboardid);
+<<<<<<< HEAD
 		const confs = {};
 		if (tableload) {
 			for (var i = 0; i < channels.length; i++) {
@@ -1903,19 +2099,31 @@ app.get('/dashboard/:id/logs', function (req, res, next) {
 		}
 
 		return res.render('dashboardlogs', {
+=======
+
+		var commands = client.commands.filter(r => r.help.category === 'moderation' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+		return res.render('dashboardmoderation', {
 			user: req.user,
 			guilds: check,
 			client: client,
 			channels: channels,
-			confs: confs,
-			submitlogs: req.query.submitlogs ? true : false
+			commands: commands,
+			submitmoderation: req.query.submitmoderation ? true : false
 		});
 	} else {
 		res.redirect('../nologin');
 	}
 });
 
-app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
+app.post('/dashboard/:id/help/:command/submitcommandstatuschange', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -1931,15 +2139,10 @@ app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next)
 
 		const tableload = client.guildconfs.get(dashboardid);
 
-		tableload.modules[Object.keys(req.body)[0]] = `${req.body[Object.keys(req.body)[0]]}`;
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
+		tableload.commands[req.params.command].status = req.body.statuschange;
 
 		tableload.globallogs.push({
-			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
 			username: req.user.username,
 			date: Date.now(),
 			showeddate: new Date().toUTCString()
@@ -1948,9 +2151,9 @@ app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next)
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/modules`,
+			pathname: `/dashboard/${dashboardid}/help`,
 			query: {
-				"submitmodules": true
+				"submithelp": true
 			}
 		}));
 	} else {
@@ -1958,7 +2161,7 @@ app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next)
 	}
 });
 
-app.get('/dashboard/:id/modules', function (req, res, next) {
+app.get('/dashboard/:id/help', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -1989,19 +2192,155 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 		var check = req.user.guilds[index];
 
-		return res.render('dashboardmodules', {
+		const tableload = client.guildconfs.get(dashboardid);
+
+		var commands = client.commands.filter(r => r.help.category === 'help'  && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+		return res.render('dashboardhelp', {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			user: req.user,
 			guilds: check,
 			client: client,
 			channels: channels,
-			submitmodules: req.query.submitmodules ? true : false
+<<<<<<< HEAD
+			confs: confs,
+			submitlogs: req.query.submitlogs ? true : false
+=======
+			commands: commands,
+			submithelp: req.query.submithelp ? true : false
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 		});
 	} else {
 		res.redirect('../nologin');
 	}
 });
 
-app.post('/dashboard/:id/chatfilter/submitchatfilter', async function (req, res, next) {
+<<<<<<< HEAD
+app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
+=======
+app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+<<<<<<< HEAD
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.modules[Object.keys(req.body)[0]] = `${req.body[Object.keys(req.body)[0]]}`;
+=======
+		var newchannelblacklist = req.body.newchannelblacklist;
+		var array = [];
+		const tableload = client.guildconfs.get(dashboardid);
+
+		if (Array.isArray(newchannelblacklist)) {
+			for (var i = 0; i < newchannelblacklist.length; i++) {
+				array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newchannelblacklist[i]).id);
+			}
+			tableload.musicchannelblacklist = array;
+		} else {
+			array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newchannelblacklist).id);
+			tableload.musicchannelblacklist = array;
+		}
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+<<<<<<< HEAD
+			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
+=======
+			action: `Updated blacklisted music-channels!`,
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+<<<<<<< HEAD
+			pathname: `/dashboard/${dashboardid}/modules`,
+			query: {
+				"submitmodules": true
+=======
+			pathname: `/dashboard/${dashboardid}/music`,
+			query: {
+				"submitmusic": true
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+<<<<<<< HEAD
+app.get('/dashboard/:id/modules', function (req, res, next) {
+=======
+app.post('/dashboard/:id/music/submitnewmusicaction', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const serverQueue = client.queue.get(dashboardid);
+
+		if (req.body.newmusicaction === 'play') {
+			if (serverQueue.playing === true) {
+				serverQueue.playing = false;
+				serverQueue.connection.dispatcher.pause();
+			} else {
+				serverQueue.playing = true;
+				serverQueue.connection.dispatcher.resume();
+			}
+		} else if (req.body.newmusicaction === 'stop') {
+			serverQueue.songs = [];
+			serverQueue.connection.dispatcher.destroy();
+		} else {
+			serverQueue.connection.dispatcher.destroy();
+		}
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/music`,
+			query: {
+				"submitmusic": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/music/:command/submitcommandstatuschange', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -2017,17 +2356,10 @@ app.post('/dashboard/:id/chatfilter/submitchatfilter', async function (req, res,
 
 		const tableload = client.guildconfs.get(dashboardid);
 
-		const newchatfilter = req.body.newchatfilter;
-
-		tableload.chatfilter.chatfilter = newchatfilter;
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
+		tableload.commands[req.params.command].status = req.body.statuschange;
 
 		tableload.globallogs.push({
-			action: `Activated/Deactivated the chatfilter!`,
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
 			username: req.user.username,
 			date: Date.now(),
 			showeddate: new Date().toUTCString()
@@ -2036,9 +2368,9 @@ app.post('/dashboard/:id/chatfilter/submitchatfilter', async function (req, res,
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/chatfilter`,
+			pathname: `/dashboard/${dashboardid}/music`,
 			query: {
-				"submitchatfilter": true
+				"submitmusic": true
 			}
 		}));
 	} else {
@@ -2046,7 +2378,8 @@ app.post('/dashboard/:id/chatfilter/submitchatfilter', async function (req, res,
 	}
 });
 
-app.post('/dashboard/:id/chatfilter/submitchatfilterarray', async function (req, res, next) {
+app.get('/dashboard/:id/music', function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -2058,6 +2391,241 @@ app.post('/dashboard/:id/chatfilter/submitchatfilterarray', async function (req,
 
 		if (index === -1) return res.redirect("../servers");
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+<<<<<<< HEAD
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		return res.render('dashboardmodules', {
+=======
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `voice`).array();
+		var check = req.user.guilds[index];
+
+		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+		if (tableload.musicchannelblacklist) {
+			for (var i = 0; i < channels.length; i++) {
+				if (tableload.musicchannelblacklist.includes(channels[i].id)) {
+					channels[i].channelblacklistset = true;
+				}
+			}
+		}
+
+		var commands = client.commands.filter(r => r.help.category === 'music' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+		return res.render('dashboardmusic', {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+<<<<<<< HEAD
+			submitmodules: req.query.submitmodules ? true : false
+=======
+			musiccurrentlyplaying: client.queue.get(dashboardid) ? true : false,
+			song: client.queue.get(dashboardid) ? client.queue.get(dashboardid).songs[0].title : false,
+			commands: commands,
+			submitmusic: req.query.submitmusic ? true : false
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+<<<<<<< HEAD
+app.post('/dashboard/:id/chatfilter/submitchatfilter', async function (req, res, next) {
+=======
+app.post('/dashboard/:id/fun/:command/submitcommandstatuschange', async function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+<<<<<<< HEAD
+		const newchatfilter = req.body.newchatfilter;
+
+		tableload.chatfilter.chatfilter = newchatfilter;
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the chatfilter!`,
+=======
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/fun`,
+			query: {
+				"submitfun": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/fun', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `voice`).array();
+		var check = req.user.guilds[index];
+
+		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+
+		var commands = client.commands.filter(r => r.help.category === 'fun' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+		return res.render('dashboardfun', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+			commands: commands,
+			submitfun: req.query.submitfun ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/searches/:command/submitcommandstatuschange', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+<<<<<<< HEAD
+			pathname: `/dashboard/${dashboardid}/chatfilter`,
+			query: {
+				"submitchatfilter": true
+=======
+			pathname: `/dashboard/${dashboardid}/searches`,
+			query: {
+				"submitsearches": true
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+<<<<<<< HEAD
+app.post('/dashboard/:id/chatfilter/submitchatfilterarray', async function (req, res, next) {
+=======
+app.get('/dashboard/:id/searches', function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+<<<<<<< HEAD
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
@@ -2081,6 +2649,71 @@ app.post('/dashboard/:id/chatfilter/submitchatfilterarray', async function (req,
 
 		tableload.globallogs.push({
 			action: `Updated the chatfilter entries!`,
+=======
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `voice`).array();
+		var check = req.user.guilds[index];
+
+		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+
+		var commands = client.commands.filter(r => r.help.category === 'searches' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+		return res.render('dashboardsearches', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+			commands: commands,
+			submitsearches: req.query.submitsearches ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.post('/dashboard/:id/nsfw/:command/submitcommandstatuschange', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			username: req.user.username,
 			date: Date.now(),
 			showeddate: new Date().toUTCString()
@@ -2089,9 +2722,15 @@ app.post('/dashboard/:id/chatfilter/submitchatfilterarray', async function (req,
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
+<<<<<<< HEAD
 			pathname: `/dashboard/${dashboardid}/chatfilter`,
 			query: {
 				"submitchatfilter": true
+=======
+			pathname: `/dashboard/${dashboardid}/nsfw`,
+			query: {
+				"submitnsfw": true
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			}
 		}));
 	} else {
@@ -2099,7 +2738,11 @@ app.post('/dashboard/:id/chatfilter/submitchatfilterarray', async function (req,
 	}
 });
 
+<<<<<<< HEAD
 app.get('/dashboard/:id/chatfilter', function (req, res, next) {
+=======
+app.get('/dashboard/:id/nsfw', function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -2127,24 +2770,51 @@ app.get('/dashboard/:id/chatfilter', function (req, res, next) {
 
 		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
 
+<<<<<<< HEAD
 		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 		var check = req.user.guilds[index];
 		var chatfilterarray = client.guildconfs.get(req.user.guilds[index].id).chatfilter ? client.guildconfs.get(req.user.guilds[index].id).chatfilter.array.join(",") : '';
 
 		return res.render('dashboardchatfilter', {
+=======
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `voice`).array();
+		var check = req.user.guilds[index];
+
+		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+
+		var commands = client.commands.filter(r => r.help.category === 'nsfw' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+		return res.render('dashboardnsfw', {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			user: req.user,
 			guilds: check,
 			client: client,
 			channels: channels,
+<<<<<<< HEAD
 			chatfilterarray: chatfilterarray,
 			submitchatfilter: req.query.submitchatfilter ? true : false
+=======
+			commands: commands,
+			submitnsfw: req.query.submitnsfw ? true : false
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 		});
 	} else {
 		res.redirect('../nologin');
 	}
 });
 
+<<<<<<< HEAD
 app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res, next) {
+=======
+app.post('/dashboard/:id/utility/:command/submitcommandstatuschange', async function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -2158,6 +2828,7 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
 
+<<<<<<< HEAD
 		var newchannelblacklist = req.body.newchannelblacklist;
 		var array = [];
 		const tableload = client.guildconfs.get(dashboardid);
@@ -2179,6 +2850,14 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res
 
 		tableload.globallogs.push({
 			action: `Updated blacklisted music-channels!`,
+=======
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			username: req.user.username,
 			date: Date.now(),
 			showeddate: new Date().toUTCString()
@@ -2187,6 +2866,7 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res
 		await client.guildconfs.set(dashboardid, tableload);
 
 		res.redirect(url.format({
+<<<<<<< HEAD
 			pathname: `/dashboard/${dashboardid}/music`,
 			query: {
 				"submitmusic": true
@@ -2232,6 +2912,11 @@ app.post('/dashboard/:id/music/submitnewmusicaction', async function (req, res, 
 			pathname: `/dashboard/${dashboardid}/music`,
 			query: {
 				"submitmusic": true
+=======
+			pathname: `/dashboard/${dashboardid}/utility`,
+			query: {
+				"submitutility": true
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			}
 		}));
 	} else {
@@ -2239,7 +2924,11 @@ app.post('/dashboard/:id/music/submitnewmusicaction', async function (req, res, 
 	}
 });
 
+<<<<<<< HEAD
 app.get('/dashboard/:id/music', function (req, res, next) {
+=======
+app.get('/dashboard/:id/utility', function (req, res, next) {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -2271,6 +2960,7 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 		var check = req.user.guilds[index];
 
 		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+<<<<<<< HEAD
 		if (tableload.musicchannelblacklist) {
 			for (var i = 0; i < channels.length; i++) {
 				if (tableload.musicchannelblacklist.includes(channels[i].id)) {
@@ -2280,13 +2970,31 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 		}
 
 		return res.render('dashboardmusic', {
+=======
+
+		var commands = client.commands.filter(r => r.help.category === 'utility' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+		return res.render('dashboardutility', {
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			user: req.user,
 			guilds: check,
 			client: client,
 			channels: channels,
+<<<<<<< HEAD
 			musiccurrentlyplaying: client.queue.get(dashboardid) ? true : false,
 			song: client.queue.get(dashboardid) ? client.queue.get(dashboardid).songs[0].title : false,
 			submitmusic: req.query.submitmusic ? true : false
+=======
+			commands: commands,
+			submitutility: req.query.submitutility ? true : false
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 		});
 	} else {
 		res.redirect('../nologin');
@@ -2358,6 +3066,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 
 		try {
 			if (application.yes.length >= tableload.application.reactionnumber) {
+<<<<<<< HEAD
 			await client.users.get(application.authorid).send(tableload.application.acceptedmessage);
 			const role = client.guilds.get(dashboardid).roles.get(tableload.application.role);
 			if (role) {
@@ -2373,6 +3082,23 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 			}
 			application.status = 'closed';
 			application.acceptedorrejected = 'rejected';
+=======
+				await client.users.get(application.authorid).send(tableload.application.acceptedmessage);
+				const role = client.guilds.get(dashboardid).roles.get(tableload.application.role);
+				if (role) {
+					await client.guilds.get(dashboardid).members.get(application.authorid).addRole(role);
+				}
+				application.status = 'closed';
+				application.acceptedorrejected = 'accepted';
+			} else if (application.no.length >= tableload.application.reactionnumber) {
+				await client.users.get(application.authorid).send(tableload.application.rejectedmessage);
+				const role = client.guilds.get(dashboardid).roles.get(tableload.application.denyrole);
+				if (role) {
+					await client.guilds.get(dashboardid).members.get(application.authorid).addRole(role);
+				}
+				application.status = 'closed';
+				application.acceptedorrejected = 'rejected';
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			}
 		} catch (error) {
 			undefined;
@@ -2433,8 +3159,12 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async function (r
 		var votecheck = true;
 		if (tableload.application.applications[req.params.applicationid].yes.includes(req.user.id) || tableload.application.applications[req.params.applicationid].no.includes(req.user.id)) {
 			votecheck = false;
+<<<<<<< HEAD
 		} else if (tableload.application.applications[req.params.applicationid].yes.length >= tableload.application.reactionnumber || tableload.application.applications[req.params.applicationid].no.length >= tableload.application.reactionnumber) {
 		}
+=======
+		} else if (tableload.application.applications[req.params.applicationid].yes.length >= tableload.application.reactionnumber || tableload.application.applications[req.params.applicationid].no.length >= tableload.application.reactionnumber) {}
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 
 		return res.render('application', {
 			user: req.user,
@@ -2783,6 +3513,47 @@ app.post('/dashboard/:id/application/submitapplication', async function (req, re
 	}
 });
 
+<<<<<<< HEAD
+=======
+app.post('/dashboard/:id/application/:command/submitcommandstatuschange', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/application`,
+			query: {
+				"submitapplication": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 app.get('/dashboard/:id/application', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -2843,12 +3614,28 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 			}
 		}
 
+<<<<<<< HEAD
+=======
+		var commands = client.commands.filter(r => r.help.category === 'application' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 		return res.render('dashboardapplication', {
 			user: req.user,
 			guilds: check,
 			client: client,
 			channels: channels,
 			roles: roles,
+<<<<<<< HEAD
+=======
+			commands: commands,
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			submitapplication: req.query.submitapplication ? true : false
 		});
 	} else {
@@ -2856,6 +3643,102 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 	}
 });
 
+<<<<<<< HEAD
+=======
+app.post('/dashboard/:id/currency/:command/submitcommandstatuschange', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/currency`,
+			query: {
+				"submitcurrency": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/currency', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `voice`).array();
+		var check = req.user.guilds[index];
+
+		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+
+		var commands = client.commands.filter(r => r.help.category === 'currency' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+		return res.render('dashboardcurrency', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+			commands: commands,
+			submitcurrency: req.query.submitcurrency ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -3019,6 +3902,47 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async function (req, res, n
 	}
 });
 
+<<<<<<< HEAD
+=======
+app.post('/dashboard/:id/tickets/:command/submitcommandstatuschange', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.commands[req.params.command].status = req.body.statuschange;
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the "${req.params.command}" command!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/tickets`,
+			query: {
+				"submittickets": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 app.get('/dashboard/:id/tickets', function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -3069,14 +3993,37 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 			}
 		}
 
+<<<<<<< HEAD
+=======
+		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+		var commands = client.commands.filter(r => r.help.category === 'tickets' && r.conf.dashboardsettings === true).array();
+		for (var i = 0; i < commands.length; i++) {
+			if (tableload.commands[commands[i].help.name].status === "true") {
+				commands[i].conf.enabled = true;
+			} else {
+				commands[i].conf.enabled = false;
+			}
+		}
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 		return res.render('dashboardtickets', {
 			user: req.user,
 			guilds: check,
 			client: client,
+<<<<<<< HEAD
 			ticketszero: Object.keys(newobject).length === 0 ? false : true,
 			tickets: newobject,
 			ticketszeroold: Object.keys(oldobject).length === 0 ? false : true,
 			oldtickets: oldobject
+=======
+			channels: channels,
+			ticketszero: Object.keys(newobject).length === 0 ? false : true,
+			tickets: newobject,
+			ticketszeroold: Object.keys(oldobject).length === 0 ? false : true,
+			oldtickets: oldobject,
+			commands: commands,
+			submittickets: req.query.submittickets ? true : false
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 		});
 	} else {
 		res.redirect('../nologin');

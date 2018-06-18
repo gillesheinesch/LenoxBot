@@ -10,6 +10,7 @@ exports.run = async (client, msg) => {
 		if (msg.guild.id !== '332612123492483094') return undefined;
 	}
 
+<<<<<<< HEAD
 	if (msg.guild.id === '352896116812939264' && (msg.channel.id === '440184907411619851' || msg.channel.id === '440184885781594113')) {
 		const noemoji = msg.guild.emojis.find('name', 'no');
 		const yesemoji = msg.guild.emojis.find('name', 'yes');
@@ -18,6 +19,8 @@ exports.run = async (client, msg) => {
 		await msg.react(noemoji);
 	}
 
+=======
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	const userconfs = {
 		inventory: {
 			crate: 0,
@@ -233,6 +236,24 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+<<<<<<< HEAD
+=======
+	for (var i = 0; i < client.commands.array().length; i++) {
+		if (!tableload.commands) tableload.commands = {};
+		if (!tableload.commands[client.commands.array()[i].help.name]) {
+			tableload.commands[client.commands.array()[i].help.name] = {
+				name: client.commands.array()[i].help.name,
+				status: "true",
+				allowedroles: [],
+				bannedroles: [],
+				bannedchannels: [],
+				cooldown: '3000'
+			};
+		}
+	}
+	await client.guildconfs.set(msg.guild.id, tableload);
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 	if (!tableload.application.applications || !tableload.application.applicationid) {
 		tableload.application.applicationid = 0;
 		tableload.application.applications = {};
@@ -664,6 +685,11 @@ exports.run = async (client, msg) => {
 				}
 			}
 
+<<<<<<< HEAD
+=======
+			if (tableload.commands[cmd.help.name].status === "false") return msg.reply('This command has been deactivated!');
+
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 			if (!client.cooldowns.has(cmd.help.name)) {
 				client.cooldowns.set(cmd.help.name, new Discord.Collection());
 			}

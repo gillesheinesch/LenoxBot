@@ -59,7 +59,11 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['uinfo', 'ui'],
+<<<<<<< HEAD
 	userpermissions: []
+=======
+	userpermissions: [], dashboardsettings: true
+>>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
 };
 exports.help = {
 	name: 'userinfo',
