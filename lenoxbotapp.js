@@ -135,22 +135,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/loginpressedbutton', passport.authenticate('discord', {
-<<<<<<< HEAD
 	scope: scopes
-<<<<<<< HEAD
-<<<<<<< HEAD
-	}), function (req, res) {});
-=======
-}), function (req, res) {});
->>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
-=======
 }));
->>>>>>> 87d5974b1fd348f1341a7f83ff637e74a74b936a
-=======
-				scope: scopes
-			})
-		);
->>>>>>> 8b6b502447e6f92c87df2fd7d87ab8d3e0ae22ce
+
 app.get('/callback',
 	passport.authenticate('discord', {
 		failureRedirect: '/oauth2problem'
