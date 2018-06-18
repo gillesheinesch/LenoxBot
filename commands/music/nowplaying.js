@@ -11,7 +11,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['np'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'nowplaying',

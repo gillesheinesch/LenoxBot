@@ -55,7 +55,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['w'],
-    userpermissions: ['KICK_MEMBERS']
+    userpermissions: ['KICK_MEMBERS'], dashboardsettings: true
 };
 exports.help = {
 	name: 'warn',

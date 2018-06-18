@@ -20,7 +20,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['ta'],
-    userpermissions: ['ADMINISTRATOR']
+    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
 };
 exports.help = {
 	name: 'toggleannounce',

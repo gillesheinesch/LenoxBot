@@ -14,7 +14,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['fc'],
-	userpermissions: []
+	userpermissions: [], dashboardsettings: true
 };
 
 exports.help = {

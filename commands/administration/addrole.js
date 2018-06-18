@@ -16,7 +16,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['ar'],
-    userpermissions: ['MANAGE_ROLES']
+    userpermissions: ['MANAGE_ROLES'], dashboardsettings: true
 };
 exports.help = {
 	name: 'addrole',

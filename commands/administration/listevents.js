@@ -18,7 +18,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-    userpermissions: ['MANAGE_GUILD']
+    userpermissions: ['MANAGE_GUILD'], dashboardsettings: true
 };
 exports.help = {
 	name: 'listevents',

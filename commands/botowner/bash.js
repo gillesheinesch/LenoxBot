@@ -16,7 +16,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['exec'],
-  userpermissions: []
+  userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'bash',

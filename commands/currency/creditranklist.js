@@ -77,7 +77,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['richest'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'creditranklist',

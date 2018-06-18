@@ -22,7 +22,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['lsar'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'listselfassignablerole',

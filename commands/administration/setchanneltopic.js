@@ -15,7 +15,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-	userpermissions: ['MANAGE_CHANNELS']
+	userpermissions: ['MANAGE_CHANNELS'], dashboardsettings: true
 };
 exports.help = {
 	name: 'setchanneltopic',

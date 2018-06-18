@@ -39,7 +39,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['u'],
-    userpermissions: ['BAN_MEMBERS']
+    userpermissions: ['BAN_MEMBERS'], dashboardsettings: true
 };
 exports.help = {
 	name: 'unban',

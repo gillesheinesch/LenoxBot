@@ -8,7 +8,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['reboot'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'restart',

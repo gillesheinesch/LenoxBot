@@ -23,7 +23,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
     aliases: ['gm'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'removecredits',

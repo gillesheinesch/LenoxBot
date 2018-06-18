@@ -31,7 +31,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['aar'],
-	userpermissions: ['ADMINISTRATOR']
+	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
 };
 exports.help = {
 	name: 'addautomaticrole',

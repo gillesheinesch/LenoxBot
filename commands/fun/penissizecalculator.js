@@ -18,7 +18,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['psc'],
-	userpermissions: []
+	userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'penissizecalculator',

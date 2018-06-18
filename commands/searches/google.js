@@ -53,7 +53,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['g'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'google',

@@ -89,7 +89,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['owstats'],
-	userpermissions: []
+	userpermissions: [], dashboardsettings: true
 };
 
 exports.help = {

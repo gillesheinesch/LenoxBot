@@ -136,7 +136,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['inv'],
-	userpermissions: []
+	userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'inventory',

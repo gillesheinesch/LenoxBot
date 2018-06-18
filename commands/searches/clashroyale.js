@@ -67,7 +67,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['cr'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'clashroyale',

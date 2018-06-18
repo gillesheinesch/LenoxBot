@@ -39,7 +39,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'rank',

@@ -42,7 +42,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['lm'],
-	userpermissions: ['ADMINISTRATOR']
+	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
 };
 exports.help = {
 	name: 'listmodules',

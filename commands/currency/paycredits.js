@@ -46,7 +46,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['pc'],
-	userpermissions: []
+	userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'paycredits',

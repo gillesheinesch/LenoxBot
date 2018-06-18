@@ -53,7 +53,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['sinfo', 'si'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'serverinfo',

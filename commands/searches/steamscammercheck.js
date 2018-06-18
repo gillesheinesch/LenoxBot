@@ -27,7 +27,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['ssc'],
-	userpermissions: []
+	userpermissions: [], dashboardsettings: true
 };
 
 exports.help = {

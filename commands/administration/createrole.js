@@ -13,7 +13,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-	userpermissions: ['MANAGE_ROLES']
+	userpermissions: ['MANAGE_ROLES'], dashboardsettings: true
 };
 exports.help = {
 	name: 'createrole',

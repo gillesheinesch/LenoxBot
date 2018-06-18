@@ -17,7 +17,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['rn'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'randomnumber',

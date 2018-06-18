@@ -25,7 +25,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['cal'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'calculator',

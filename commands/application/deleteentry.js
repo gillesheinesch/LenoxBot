@@ -40,7 +40,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-    userpermissions: ['ADMINISTRATOR']
+    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
 };
 exports.help = {
 	name: 'deleteentry',

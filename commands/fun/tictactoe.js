@@ -362,7 +362,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['ttt'],
-    userpermissions: []
+    userpermissions: [], dashboardsettings: true
 };
 exports.help = {
 	name: 'tictactoe',
