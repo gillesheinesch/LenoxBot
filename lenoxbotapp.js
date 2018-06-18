@@ -136,7 +136,7 @@ app.use(passport.session());
 
 app.get('/loginpressedbutton', passport.authenticate('discord', {
 	scope: scopes
-}), function (req, res) {});
+}));
 app.get('/callback',
 	passport.authenticate('discord', {
 		failureRedirect: '/oauth2problem'
