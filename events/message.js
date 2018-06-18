@@ -671,7 +671,7 @@ exports.run = async (client, msg) => {
 				}
 			}
 
-			if (tableload.commands[cmd.help.name].status === "false") return msg.reply('Command deactivated!');
+			if (tableload.commands[cmd.help.name].status === "false") return msg.reply('This command has been deactivated!');
 
 			if (!client.cooldowns.has(cmd.help.name)) {
 				client.cooldowns.set(cmd.help.name, new Discord.Collection());

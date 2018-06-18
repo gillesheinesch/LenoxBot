@@ -634,6 +634,121 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const name = Object.keys(req.body)[0];
+		tableload.modules[name.toLowerCase()] = req.body[name];
+
+		if (!tableload.globallogs) {
+			tableload.globallogs = [];
+			client.guildconfs.set(dashboardid, tableload);
+		}
+
+		tableload.globallogs.push({
+			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/modules`,
+			query: {
+				"submitmodules": true
+			}
+		}));
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
+app.get('/dashboard/:id/modules', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("../servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+		var check = req.user.guilds[index];
+
+		var modules = {};
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets']
+
+		for (var i = 0; i < moduleslist.length; i++) {
+			var config = {
+				name: '',
+				description: '',
+				status: ''
+			};
+
+			config.name = moduleslist[i];
+
+			const lang = require('./languages/en.json');
+			config.description = lang[`modules_${moduleslist[i].toLowerCase()}`];
+
+			if (tableload.modules[moduleslist[i].toLowerCase()] === 'true') {
+				config.status = true;
+			} else {
+				config.status = false;
+			}
+
+			modules[moduleslist[i].toLowerCase()] = config;
+		}
+
+		return res.render('dashboardmodules', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			channels: channels,
+			modules: modules,
+			submitmodules: req.query.submitmodules ? true : false
+		});
+	} else {
+		res.redirect('../nologin');
+	}
+});
+
 app.post('/dashboard/:id/administration/submitlogs', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
@@ -1449,7 +1564,7 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			}
 		}
 
-		var commands = client.commands.filter(r => r.help.category === 'administration').array();
+		var commands = client.commands.filter(r => r.help.category === 'administration' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -1711,7 +1826,7 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 
 		const tableload = client.guildconfs.get(dashboardid);
 
-		var commands = client.commands.filter(r => r.help.category === 'moderation').array();
+		var commands = client.commands.filter(r => r.help.category === 'moderation' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -1804,7 +1919,7 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 
 		const tableload = client.guildconfs.get(dashboardid);
 
-		var commands = client.commands.filter(r => r.help.category === 'help').array();
+		var commands = client.commands.filter(r => r.help.category === 'help'  && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -1820,235 +1935,6 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 			channels: channels,
 			commands: commands,
 			submithelp: req.query.submithelp ? true : false
-		});
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
-app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
-
-		const tableload = client.guildconfs.get(dashboardid);
-
-		tableload.modules[Object.keys(req.body)[0]] = `${req.body[Object.keys(req.body)[0]]}`;
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
-
-		tableload.globallogs.push({
-			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
-			username: req.user.username,
-			date: Date.now(),
-			showeddate: new Date().toUTCString()
-		});
-
-		await client.guildconfs.set(dashboardid, tableload);
-
-		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/modules`,
-			query: {
-				"submitmodules": true
-			}
-		}));
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
-app.get('/dashboard/:id/modules', function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
-
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
-		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
-
-		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
-
-		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
-
-		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
-
-		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
-
-		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
-		var check = req.user.guilds[index];
-
-		return res.render('dashboardmodules', {
-			user: req.user,
-			guilds: check,
-			client: client,
-			channels: channels,
-			submitmodules: req.query.submitmodules ? true : false
-		});
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
-app.post('/dashboard/:id/chatfilter/submitchatfilter', async function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
-
-		const tableload = client.guildconfs.get(dashboardid);
-
-		const newchatfilter = req.body.newchatfilter;
-
-		tableload.chatfilter.chatfilter = newchatfilter;
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
-
-		tableload.globallogs.push({
-			action: `Activated/Deactivated the chatfilter!`,
-			username: req.user.username,
-			date: Date.now(),
-			showeddate: new Date().toUTCString()
-		});
-
-		await client.guildconfs.set(dashboardid, tableload);
-
-		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/chatfilter`,
-			query: {
-				"submitchatfilter": true
-			}
-		}));
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
-app.post('/dashboard/:id/chatfilter/submitchatfilterarray', async function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
-
-		const tableload = client.guildconfs.get(dashboardid);
-
-		var newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
-
-		for (let i = 0; i < newchatfilterarray.length; i++) {
-			for (var index = 0; index < newchatfilterarray.length; index++) {
-				if (newchatfilterarray[i].toLowerCase() === newchatfilterarray[index].toLowerCase() && i !== index) {
-					newchatfilterarray.splice(index, 1);
-				}
-			}
-		}
-
-		tableload.chatfilter.array = newchatfilterarray;
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
-
-		tableload.globallogs.push({
-			action: `Updated the chatfilter entries!`,
-			username: req.user.username,
-			date: Date.now(),
-			showeddate: new Date().toUTCString()
-		});
-
-		await client.guildconfs.set(dashboardid, tableload);
-
-		res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/chatfilter`,
-			query: {
-				"submitchatfilter": true
-			}
-		}));
-	} else {
-		res.redirect('../nologin');
-	}
-});
-
-app.get('/dashboard/:id/chatfilter', function (req, res, next) {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
-
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
-		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
-
-		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
-
-		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
-
-		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
-
-		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
-
-		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
-		var check = req.user.guilds[index];
-		var chatfilterarray = client.guildconfs.get(req.user.guilds[index].id).chatfilter ? client.guildconfs.get(req.user.guilds[index].id).chatfilter.array.join(",") : '';
-
-		return res.render('dashboardchatfilter', {
-			user: req.user,
-			guilds: check,
-			client: client,
-			channels: channels,
-			chatfilterarray: chatfilterarray,
-			submitchatfilter: req.query.submitchatfilter ? true : false
 		});
 	} else {
 		res.redirect('../nologin');
@@ -2228,7 +2114,7 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 			}
 		}
 
-		var commands = client.commands.filter(r => r.help.category === 'music').array();
+		var commands = client.commands.filter(r => r.help.category === 'music' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -2323,7 +2209,7 @@ app.get('/dashboard/:id/fun', function (req, res, next) {
 
 		const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
-		var commands = client.commands.filter(r => r.help.category === 'fun').array();
+		var commands = client.commands.filter(r => r.help.category === 'fun' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -2416,7 +2302,7 @@ app.get('/dashboard/:id/searches', function (req, res, next) {
 
 		const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
-		var commands = client.commands.filter(r => r.help.category === 'searches').array();
+		var commands = client.commands.filter(r => r.help.category === 'searches' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -2509,7 +2395,7 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 
 		const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
-		var commands = client.commands.filter(r => r.help.category === 'nsfw').array();
+		var commands = client.commands.filter(r => r.help.category === 'nsfw' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -2602,7 +2488,7 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 
 		const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
-		var commands = client.commands.filter(r => r.help.category === 'utility').array();
+		var commands = client.commands.filter(r => r.help.category === 'utility' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -3211,7 +3097,7 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 			}
 		}
 
-		var commands = client.commands.filter(r => r.help.category === 'application').array();
+		var commands = client.commands.filter(r => r.help.category === 'application' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -3305,7 +3191,7 @@ app.get('/dashboard/:id/currency', function (req, res, next) {
 
 		const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
-		var commands = client.commands.filter(r => r.help.category === 'currency').array();
+		var commands = client.commands.filter(r => r.help.category === 'currency' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -3579,7 +3465,7 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 		}
 
 		const tableload = client.guildconfs.get(req.user.guilds[index].id);
-		var commands = client.commands.filter(r => r.help.category === 'tickets').array();
+		var commands = client.commands.filter(r => r.help.category === 'tickets' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
