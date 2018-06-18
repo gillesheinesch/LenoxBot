@@ -540,11 +540,11 @@ hr.message-inner-separator {
 }
 
 #dashboardnav ul li a {
-<<<<<<< HEAD
+
     padding: 10px;
-=======
+
     padding: 6px;
->>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+
 }
 
 .serverscard {
@@ -794,8 +794,8 @@ section .section-title {
     margin-top: 5px;
 }
 
-<<<<<<< HEAD
-=======
+
+
 #hr-dashboard-navbar {
     display: block;
     height: 1px;
@@ -805,7 +805,7 @@ section .section-title {
     padding: 0; 
 }
 
->>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+
 @media (max-width: 767px) {
     ul.timeline:before {
         left: 40px;

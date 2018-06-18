@@ -583,11 +583,11 @@
     "modules_moderation": "Basic commands for a simple and good moderation on the Discord server",
     "modules_help": "Commands that explain the bot and its commands and modules",
     "modules_music": "You want to listen to music with your friends? \nNo problem, this module gives you a lot of music features",
-<<<<<<< HEAD
+
     "modules_fun": "Minigames",
-=======
+
     "modules_fun": "Minigames that you can play with or without your friends",
->>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+
     "modules_searches": "Commands that are looking for something on the internet such as google or the weather",
     "modules_nsfw": "Gifs, images, videos containing pornography",
     "modules_utility": "Commands that all users can use and which are useful",

@@ -16,11 +16,9 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['rr'],
-<<<<<<< HEAD
-    userpermissions: ['MANAGE_ROLES']
-=======
+
     userpermissions: ['MANAGE_ROLES'], dashboardsettings: true
->>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+
 };
 exports.help = {
 	name: 'removerole',
