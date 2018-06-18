@@ -86,7 +86,7 @@ categories.forEach((c, i) => {
 	});
 });
 
-client.login(token);
+	client.login(token);
 
 // WEBSITE
 
@@ -135,8 +135,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.get('/loginpressedbutton', passport.authenticate('discord', {
-	scope: scopes
-}));
+				scope: scopes
+			})
+		);
 app.get('/callback',
 	passport.authenticate('discord', {
 		failureRedirect: '/oauth2problem'
