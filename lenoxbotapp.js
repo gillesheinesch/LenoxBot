@@ -137,10 +137,14 @@ app.use(passport.session());
 app.get('/loginpressedbutton', passport.authenticate('discord', {
 	scope: scopes
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}), function (req, res) {});
 =======
 }), function (req, res) {});
 >>>>>>> 0557862ab221a2e5a3717e2c754abc37a5c72aaa
+=======
+}));
+>>>>>>> 87d5974b1fd348f1341a7f83ff637e74a74b936a
 app.get('/callback',
 	passport.authenticate('discord', {
 		failureRedirect: '/oauth2problem'
