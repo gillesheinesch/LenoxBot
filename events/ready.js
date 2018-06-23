@@ -88,10 +88,6 @@ exports.run = async client => {
 		client.userdb.set(u.id, userdb);
 	});
 
-	await client.channels.filter(ch => ch.type === 'text' && ch.permissionsFor(client.user).has('READ_MESSAGES')).map(ch => ch.fetchMessages({
-		limit: 100
-	}));
-
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
 	await client.botconfs.set('market', marketconfs);
