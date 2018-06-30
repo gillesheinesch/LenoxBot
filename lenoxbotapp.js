@@ -232,6 +232,13 @@ app.get('/donate', function (req, res, next) {
 	});
 });
 
+app.get('/donationsuccess', function (req, res, next) {
+	res.render('donationsuccess', {
+		user: req.user,
+		client: client
+	});
+});
+
 app.post('/editdocumentation/submitnewdocumentationentry', async function (req, res, next) {
 	if (req.user) {
 		const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
