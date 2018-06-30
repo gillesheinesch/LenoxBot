@@ -594,12 +594,6 @@
 <td class="text h5 text-white white-border">any</td> 
 </tr>
 
-<tr class="table-background command utility">
-<td class="text h5 text-white white-border">warnlog</td> 
-<td class="text h5 text-white white-border">Shows you the warnlog from you or a user</td> 
-<td class="text h5 text-white white-border">any</td> 
-</tr>
-
 <tr class="table-background command moderation">
 <td class="text h5 text-white white-border">ban</td> 
 <td class="text h5 text-white white-border">Ban a user from the discord server with a certain reason</td> 
@@ -648,6 +642,12 @@
 <td class="text h5 text-white white-border">KICK_MEMBERS</td> 
 </tr>
 
+<tr class="table-background command moderation">
+<td class="text h5 text-white white-border">warnlog</td> 
+<td class="text h5 text-white white-border">Shows you the warnlog from you or a user</td> 
+<td class="text h5 text-white white-border">KICK_MEMBERS</td> 
+</tr>
+
 <tr class="table-background command application">
 <td class="text h5 text-white white-border">addentry</td> 
 <td class="text h5 text-white white-border">Inserts a new entry in the template</td> 
@@ -658,6 +658,12 @@
 <td class="text h5 text-white white-border">application</td> 
 <td class="text h5 text-white white-border">Creates a new application on this server</td> 
 <td class="text h5 text-white white-border">any</td> 
+</tr>
+
+<tr class="table-background command application">
+<td class="text h5 text-white white-border">applicationnotification</td> 
+<td class="text h5 text-white white-border">Defines a channel in which application notifications will be sent</td> 
+<td class="text h5 text-white white-border">ADMINISTRATOR</td> 
 </tr>
 
 <tr class="table-background command application">
@@ -697,14 +703,20 @@
 </tr>
 
 <tr class="table-background command application">
-<td class="text h5 text-white white-border">toggleapplication</td> 
-<td class="text h5 text-white white-border">Toggles the applications on or off</td> 
+<td class="text h5 text-white white-border">setacceptedmessage</td> 
+<td class="text h5 text-white white-border">Sets a custom message that receive the applicants who have been accepted</td> 
 <td class="text h5 text-white white-border">ADMINISTRATOR</td> 
 </tr>
 
 <tr class="table-background command application">
-<td class="text h5 text-white white-border">togglearchive</td> 
-<td class="text h5 text-white white-border">Sets the current channel as archive channel where all processed applications are archived</td> 
+<td class="text h5 text-white white-border">setrejectedmessage</td> 
+<td class="text h5 text-white white-border">Sets a custom message that receive the applicants who have been rejected</td> 
+<td class="text h5 text-white white-border">ADMINISTRATOR</td> 
+</tr>
+
+<tr class="table-background command application">
+<td class="text h5 text-white white-border">toggleapplication</td> 
+<td class="text h5 text-white white-border">Toggles the applications on or off</td> 
 <td class="text h5 text-white white-border">ADMINISTRATOR</td> 
 </tr>
 
