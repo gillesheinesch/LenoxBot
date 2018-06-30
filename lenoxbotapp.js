@@ -59,7 +59,7 @@ fs.readdir('./events/', (err, files) => {
 	});
 });
 
-
+/*
 process.on('unhandledRejection', (reason) => {
 	if (reason.name === 'DiscordAPIError') return;
 	console.error(reason);
@@ -67,6 +67,7 @@ process.on('unhandledRejection', (reason) => {
 process.on('uncaughtException', (reason) => {
 	console.error(reason);
 });
+*/
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -86,7 +87,7 @@ categories.forEach((c, i) => {
 	});
 });
 
-	client.login(token);
+client.login(token);
 
 // WEBSITE
 
@@ -224,6 +225,13 @@ app.get('/commands', function (req, res, next) {
 	});
 });
 
+app.get('/donate', function (req, res, next) {
+	res.render('donate', {
+		user: req.user,
+		client: client
+	});
+});
+
 app.post('/editdocumentation/submitnewdocumentationentry', async function (req, res, next) {
 	if (req.user) {
 		const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
@@ -232,7 +240,7 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 		const botconfs = await client.botconfs.get('botconfs');
 
 		const category = botconfs[req.body.category];
-		
+
 		category[Object.keys(category).length + 1] = {
 			authorid: req.user.id,
 			title: req.body.title,
@@ -502,23 +510,23 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, n
 
 		const length = Object.keys(ticket.answers).length + 1;
 
-	if (ticket.status === 'closed') {
-		ticket.answers[length] = {
-			authorid: req.user.id,
-			guildid: req.params.id,
-			date: new Date(),
-			content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} closed the ticket!`,
-			timelineconf: ""
-		};
-	} else if (ticket.status === 'open') {
-		ticket.answers[length] = {
-			authorid: req.user.id,
-			guildid: req.params.id,
-			date: new Date(),
-			content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} opened the ticket!`,
-			timelineconf: ""
-		};
-	}
+		if (ticket.status === 'closed') {
+			ticket.answers[length] = {
+				authorid: req.user.id,
+				guildid: req.params.id,
+				date: new Date(),
+				content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} closed the ticket!`,
+				timelineconf: ""
+			};
+		} else if (ticket.status === 'open') {
+			ticket.answers[length] = {
+				authorid: req.user.id,
+				guildid: req.params.id,
+				date: new Date(),
+				content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} opened the ticket!`,
+				timelineconf: ""
+			};
+		}
 
 		await client.botconfs.set('botconfs', botconfs);
 
@@ -576,7 +584,7 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 
 		if (index === -1) throw new Error("Test")
 		if (((req.user.guilds[index].permissions) & 8) !== 8) throw new Error("Test")
-		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test")//res.redirect('../botnotonserver');
+		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).members.size / 170) + 1;
@@ -1350,7 +1358,7 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async function (r
 	}
 });
 
-app.post('/dashboard/:id/administration/:command/submitcommandchanges', async function (req, res, next) {
+app.post('/dashboard/:id/administration/:command/submitcommandstatuschange', async function (req, res, next) {
 	var dashboardid = res.req.originalUrl.substr(11, 18);
 	if (req.user) {
 		var index = -1;
@@ -1366,44 +1374,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandchanges', async fu
 
 		const tableload = client.guildconfs.get(dashboardid);
 
-		var array1 = [];
-		if (req.body.newallowedroles) {
-			if (Array.isArray(req.body.newallowedroles)) {
-				for (var i = 0; i < req.body.newallowedroles.length; i++) {
-					array1.push(req.body.newallowedroles[i]);
-				}
-				tableload.commands[req.params.command].allowedroles = array1;
-			} else {
-				array1.push(req.body.newallowedroles);
-				tableload.commands[req.params.command].allowedroles = array1;
-			}
-		}
-
-		var array2 = [];
-		if (req.body.newbannedroles) {
-			if (Array.isArray(req.body.newbannedroles)) {
-				for (var i = 0; i < req.body.newbannedroles.length; i++) {
-					array2.push(req.body.newbannedroles[i]);
-				}
-				tableload.commands[req.params.command].bannedroles = array2;
-			} else {
-				array2.push(req.body.newbannedroles);
-				tableload.commands[req.params.command].bannedroles = array2;
-			}
-		}
-
-		var array3 = [];
-		if (req.body.newbannedchannels) {
-			if (Array.isArray(req.body.newbannedchannels)) {
-				for (var i = 0; i < req.body.newbannedchannels.length; i++) {
-					array3.push(req.body.newbannedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = array3;
-			} else {
-				array3.push(req.body.newbannedchannels);
-				tableload.commands[req.params.command].bannedchannels = array3;
-			}
-		}
+		tableload.commands[req.params.command].status = req.body.statuschange;
 
 		tableload.globallogs.push({
 			action: `Changed the settings of the "${req.params.command}" command!`,
@@ -1842,7 +1813,7 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 
 		const tableload = client.guildconfs.get(dashboardid);
 
-		var commands = client.commands.filter(r => r.help.category === 'help'  && r.conf.dashboardsettings === true).array();
+		var commands = client.commands.filter(r => r.help.category === 'help' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
@@ -3544,6 +3515,48 @@ app.get('/error', function (req, res, next) {
 		guilds: check,
 		client: client
 	});
+});
+
+app.get('/dashboard/:id/lastlogs', function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) throw new Error("Test")
+		if (((req.user.guilds[index].permissions) & 8) !== 8) throw new Error("Test")
+		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test") //res.redirect('../botnotonserver');
+
+		var check = req.user.guilds[index];
+
+		if (client.guildconfs.get(dashboardid).globallogs) {
+			const thelogs = client.guildconfs.get(dashboardid).globallogs;
+			var logs = thelogs.sort(function (a, b) {
+				if (a.date < b.date) {
+					return 1;
+				}
+				if (a.date > b.date) {
+					return -1;
+				}
+				return 0;
+			});
+		} else {
+			var logs = null;
+		}
+
+		return res.render('dashboardlastlogs', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			logs: logs
+		});
+	} else {
+		res.redirect('../nologin');
+	}
 });
 
 // catch 404 and forward to error handler
