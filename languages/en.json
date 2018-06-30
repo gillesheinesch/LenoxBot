@@ -1,5 +1,5 @@
 {
-    "applicationnotification_channelset": "Application notifications are now posted in the %channelname",
+    "applicationnotification_channelset": "Application notifications are now posted in the %channelname!",
     "applicationnotification_channeldeleted": "Application notifications are now no longer posted!",
     "applicationnotification_description": "Defines a channel in which application notifications will be sent",
 
@@ -9,21 +9,21 @@
 
     "setrejectedmessage_description": "Sets a custom message that receive the applicants who have been rejected",
 
-    "ticketnotification_channelset": "Ticket notifications are now posted in the %channelname",
+    "ticketnotification_channelset": "Ticket notifications are now posted in the %channelname!",
     "ticketnotification_channeldeleted": "Ticket notifications are now no longer posted!",
     "ticketnotification_description": "Defines a channel in which ticket notifications will be sent",
 
     "mainfile_statuschange": "The status of your ticket has changed to '%status'. You can manage your ticket at this link: %link",
     "mainfile_newanswer": "There is a new answer to your ticket. You can see it under the following link: %link",
     "mainfile_ticketembedtitle": "Click on me to be forwarded directly to the ticket!",
-    "mainfile_ticketembedanswer": "There is a new answer on a ticket (ID: %ticketid)",
+    "mainfile_ticketembedanswer": "There is a new answer on a ticket (ID: %ticketid)!",
     "mainfile_ticketembed": "A new ticket has been created (ID: %ticketid)!",
     "mainfile_applicationembedtitle": "Click on me to be forwarded directly to the application!",
     "mainfile_applicationembed": "A new application has been created (ID: %ticketid)!",
 
     "ticket_noinput": "You forgot to enter your message to the support team!",
     "ticket_created": "Your ticket has been successfully created. We will contact you by direct message as soon as there is something new about your ticket. You can manage it at this link: %link",
-    "ticket_description": "Create a new support ticket which will be forwarded to the support team",
+    "ticket_description": "Create a new ticket which will be forwarded to the Discord Server Team",
 
     "togglexp_noinput": "You forgot to enter a channel name!",
     "togglexp_notexist": "This channel doesn't exist!",
@@ -583,11 +583,7 @@
     "modules_moderation": "Basic commands for a simple and good moderation on the Discord server",
     "modules_help": "Commands that explain the bot and its commands and modules",
     "modules_music": "You want to listen to music with your friends? \nNo problem, this module gives you a lot of music features",
-
-    "modules_fun": "Minigames",
-
     "modules_fun": "Minigames that you can play with or without your friends",
-
     "modules_searches": "Commands that are looking for something on the internet such as google or the weather",
     "modules_nsfw": "Gifs, images, videos containing pornography",
     "modules_utility": "Commands that all users can use and which are useful",
@@ -596,7 +592,7 @@
     "modules_tickets": "Ticket system which allows you to run support for example",
     "modules_description": "Gives you a list of all modules and their meaning",
 
-    "website_documentation": "Here you can find our supportpanel:",
+    "website_documentation": "Here you can find our website including our new dashboard:",
     "website_description": "Shows you the link of the Lenoxbot-Website",
 
     "ban_nomention": "You must mention a user to ban!",
@@ -816,7 +812,7 @@
     "urban_example": "Example",
     "urban_thumbsup": "Thumbs up",
     "urban_thumbsdown": "Thumbs down",
-    "urban_error": "Could not find anything to your query!",
+    "urban_error": "We're sorry, we couldn't find anything to your query!",
     "urban_description": "Urban is a dictionary in which you can search for a definition for something",
 
     "youtube_noinput": "You must include a query. Alternatively, you can check usage via",
@@ -827,13 +823,13 @@
     "botinfo_runtime": "Runtime since the last restart",
     "botinfo_memory": "Memory usage",
     "botinfo_stats": "Statistics about the bot",
-    "botinfo_online": "Online on %guilds guilds for %users User",
-    "botinfo_doc": "Documentation",
-    "botinfo_support": "Support us!",
-    "botinfo_invite": "You want this bot on your server?",
-    "botinfo_supportserver": "Join our Discord Server",
+    "botinfo_online": "Online on %guilds discord servers for %users users",
+    "botinfo_doc": "Website (including the new dashboard)",
+    "botinfo_support": "Support us on Patreon",
+    "botinfo_invite": "You want this bot on your server? Add it to your Discord Server",
+    "botinfo_supportserver": "Join our Community&Support Discord Server",
     "botinfo_version": "Version of the bot",
-    "botinfo_description": "Information about the bot",
+    "botinfo_description": "Informations about the bot",
 
     "calculator_noinput": "You have to specify what you would like to count on!",
     "calculator_invalid": "Invalid mathematical calculation!",
@@ -1042,6 +1038,7 @@
     "messageevent_anticommandspam": "Please wait %time before reusing the %commandname command.",
     "messageevent_chatfilterembed": "Message deleted from %authortag by the chatfilter",
     "messageevent_messagedeleted": "%author, your message has been deleted because you have used a word/number which has been blocked by the chatfilter!",
+    "messageevent_commanddeactivated": "This command has been deactivated!",
 
     "messagedeleteevent_deleted": "Message deleted!",
     "messagedeleteevent_author": "Author",
