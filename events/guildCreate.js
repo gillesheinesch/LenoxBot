@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, guild) => {
+exports.run = async (client, guild) => {
 	const defaultSettings = {
 		prefix: '?',
 		modlog: 'false',
@@ -65,28 +65,32 @@ exports.run = async(client, guild) => {
 		language: 'en'
 	};
 	await client.guildconfs.set(guild.id, defaultSettings);
-	
+
 	const tableload = client.guildconfs.get(guild.id);
 
 	if (tableload.language === '') {
-        tableload.language = 'en';
-        await client.guildconfs.set(guild.id, tableload);
+		tableload.language = 'en';
+		await client.guildconfs.set(guild.id, tableload);
 	}
-	
-	const embed1 = new Discord.RichEmbed()
-	.setColor('#0066ff#ccff33')
-	.setDescription(`**Hello ${guild.owner.user.username},** \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server (https://lenoxbot.com/discord/) or create a ticket on our website (https://lenoxbot.com)`)
-	.setAuthor('Thanks for choosing LenoxBot!', client.user.displayAvatarURL);
 
-	guild.owner.send({ embed: embed1 });
-	
+	const embed1 = new Discord.RichEmbed()
+		.setColor('#0066ff#ccff33')
+		.setDescription(`**Hello ${guild.owner.user.username},** \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server (https://lenoxbot.com/discord/) or create a ticket on our website (https://lenoxbot.com)`)
+		.setAuthor('Thanks for choosing LenoxBot!', client.user.displayAvatarURL);
+
+	guild.owner.send({
+		embed: embed1
+	});
+
 	const embed = new Discord.RichEmbed()
-	.setTimestamp()
-	.setAuthor(`${guild.name} (${guild.id})`)
-	.addField(`Owner`, `${guild.owner.user.tag} (${guild.ownerID})`)
-	.addField(`Channels`, `${guild.channels.size}`)
-	.addField(`Members`, `${guild.memberCount}`)
-	.setColor('#00ff00')
-	.setFooter('JOINED DISCORD SERVER');
-	client.channels.get('353989483517181962').send({ embed: embed });
+		.setTimestamp()
+		.setAuthor(`${guild.name} (${guild.id})`)
+		.addField(`Owner`, `${guild.owner.user.tag} (${guild.ownerID})`)
+		.addField(`Channels`, `${guild.channels.size}`)
+		.addField(`Members`, `${guild.memberCount}`)
+		.setColor('#00ff00')
+		.setFooter('JOINED DISCORD SERVER');
+	client.channels.get('353989483517181962').send({
+		embed: embed
+	});
 };
