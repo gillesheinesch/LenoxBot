@@ -3,7 +3,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (!msg.channel.nsfw) return msg.channel.send(lang.pornsearch_nsfw);
 	if (!args.slice().length === 0) return msg.channel.send(lang.pornsearch_type);
 	if (args.slice() > 1) return msg.channel.send(lang.pornsearch_error);
-	const Pornsearch = require('pornsearch').default;
+	const Pornsearch = require('pornsearch');
 
 	try {
 		const Searcher = new Pornsearch(args.slice().join(" "), driver = 'pornhub');
