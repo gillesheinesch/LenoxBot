@@ -22,7 +22,7 @@ exports.conf = {
 };
 
 exports.help = {
-	name: 'filecreate',
+	name: 'createcommandslist',
 	description: 'You can submit a new proposal by using this command',
 	usage: 'proposal {title of the proposal} | {description}',
 	example: ['proposal ping command | I want to have a ping command'],
