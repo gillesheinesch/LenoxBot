@@ -74,8 +74,8 @@ exports.run = async (client, guild) => {
 	}
 
 	const embed1 = new Discord.RichEmbed()
-		.setColor('#0066ff#ccff33')
-		.setDescription(`**Hello ${guild.owner.user.username},** \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server (https://lenoxbot.com/discord/) or create a ticket on our website (https://lenoxbot.com)`)
+		.setColor('#ccff33')
+		.setDescription(`**Hello ${guild.owner.user.username},** \n\nYou can use the command **?modules** to see all modules of the bot \nTo see all commands of a module, just use **?commands {modulename}** \nTo see more details about a command, just use **?help {commandname}** \n\nIf you need any help you can join our discord server (https://lenoxbot.com/discord/) or visit our website (https://lenoxbot.com)`)
 		.setAuthor('Thanks for choosing LenoxBot!', client.user.displayAvatarURL);
 
 	guild.owner.send({
