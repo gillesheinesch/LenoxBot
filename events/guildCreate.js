@@ -84,6 +84,8 @@ exports.run = async(client, guild) => {
 	.setTimestamp()
 	.setAuthor(`${guild.name} (${guild.id})`)
 	.addField(`Owner`, `${guild.owner.user.tag} (${guild.ownerID})`)
+	.addField(`Channels`, `${guild.channels.size}`)
+	.addField(`Members`, `${guild.memberCount}`)
 	.setColor('#00ff00')
 	.setFooter('JOINED DISCORD SERVER');
 	client.channels.get('353989483517181962').send({ embed: embed });
