@@ -28,10 +28,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['binfo', 'bi'],
-
-	
-
-	userpermissions: [], dashboardsettings: false
+	userpermissions: [],
+	dashboardsettings: false
 
 };
 exports.help = {
