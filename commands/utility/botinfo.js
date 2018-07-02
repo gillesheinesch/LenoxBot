@@ -14,7 +14,7 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`🛠 ${lang.botinfo_memory}`, `${(process.memoryUsage().heapUsed / 1024 / 1024).toFixed(2)} MB`, true)
 		.addField(`📡 ${lang.botinfo_stats}`, online)
 		.addField(`💻 ${lang.botinfo_doc}`, `http://www.lenoxbot.com/`)
-		.addField(`💎 ${lang.botinfo_support}`, `https://www.patreon.com/lenoxbot`)
+		.addField(`💎 ${lang.botinfo_support}`, `https://lenoxbot.com/donate`)
 		.addField(`📤 ${lang.botinfo_invite}`, `https://lenoxbot.com/invite/`)
 		.addField(`📢 ${lang.botinfo_supportserver}`, 'https://lenoxbot.com/discord/')
 		.addField(`🔛 ${lang.botinfo_version}`, version);
