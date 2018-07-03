@@ -258,6 +258,15 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 
 		await client.botconfs.set('botconfs', botconfs);
 
+		const channel = client.channels.get('460850963914162176');
+		const embed = new Discord.RichEmbed()
+		.setColor('#66ff66')
+		.setDescription(`New documentation entry`)
+		.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
+		.addField('Title', req.body.title)
+		.setTimestamp();
+		channel.send({ embed });
+
 		return res.redirect(url.format({
 			pathname: `/editdocumentation`,
 			query: {
@@ -285,6 +294,15 @@ app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, re
 
 		await client.botconfs.set('botconfs', botconfs);
 
+		const channel = client.channels.get('460850963914162176');
+		const embed = new Discord.RichEmbed()
+		.setColor('#ff9966')
+		.setDescription(`Updated documentation entry`)
+		.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
+		.addField('Title', req.body.title)
+		.setTimestamp();
+		channel.send({ embed });
+
 		return res.redirect(url.format({
 			pathname: `/editdocumentation`,
 			query: {
@@ -311,6 +329,15 @@ app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, r
 		generalfaq[req.params.id].authorid = req.user.id;
 
 		await client.botconfs.set('botconfs', botconfs);
+
+		const channel = client.channels.get('460850963914162176');
+		const embed = new Discord.RichEmbed()
+		.setColor('#ff9966')
+		.setDescription(`Updated documentation entry`)
+		.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
+		.addField('Title', req.body.title)
+		.setTimestamp();
+		channel.send({ embed });
 
 		return res.redirect(url.format({
 			pathname: `/editdocumentation`,
@@ -2606,12 +2633,12 @@ app.get('/dashboard/:id/applications', function (req, res, next) {
 		for (var index in tableload.application.applications) {
 			if (tableload.application.applications[index].guildid === dashboardid && tableload.application.applications[index].status === 'open') {
 				newobject[index] = tableload.application.applications[index]
-				tableload.application.applications[index].author = client.users.get(tableload.application.applications[index].authorid).tag;
+				tableload.application.applications[index].author = client.users.get(tableload.application.applications[index].authorid) ? client.users.get(tableload.application.applications[index].authorid).tag : tableload.application.applications[index].authorid;
 				tableload.application.applications[index].newdate = moment(tableload.application.applications[index].date).format('MMMM Do YYYY, h:mm:ss a')
 			}
 			if (tableload.application.applications[index].guildid === dashboardid && tableload.application.applications[index].status === 'closed') {
 				oldobject[index] = tableload.application.applications[index]
-				tableload.application.applications[index].author = client.users.get(tableload.application.applications[index].authorid).tag;
+				tableload.application.applications[index].author = client.users.get(tableload.application.applications[index].authorid) ? client.users.get(tableload.application.applications[index].authorid).tag : tableload.application.applications[index].authorid;
 				tableload.application.applications[index].newdate = moment(tableload.application.applications[index].date).format('MMMM Do YYYY, h:mm:ss a')
 			}
 		}
