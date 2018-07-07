@@ -541,16 +541,17 @@
     "votechannel_set": "All applications will now be posted in the %channelname channel and can be rated accordingly!",
     "votechannel_description": "Sets a channel in which all new applications will be posted and can be rated accordingly",
 
-    "eightball_noinput": "You have to specify what you want to ask the bot?",
-    "eightball_question": "Your Question",
-    "eightball_answer": "Answer",
+    "eightball_noinput": "You have to specify what you want to ask the bot!",
+    "eightball_question": "Your Question:",
+    "eightball_answer": "Answer:",
     "eightball_description": "Ask the bot a question",
 
     "penissizecalculator_1": "Your penis is 2.30 millimeters small. There's still more to go on!",
     "penissizecalculator_2": "Your penis is 2.80 millimeters long. You did a major step forward, I'm proud of you!",
     "penissizecalculator_3": "Your penis is 3.00 meters long. I think you set a new world record, congratulations!",
     "penissizecalculator_4": "Your penis isn't even 1 millimeter small. I would recommend you to consult a doctor.",
-    "penissizecalculator_5": "Your penis is so small that there isn't a unit. Sorry!",
+    "penissizecalculator_5": "Your penis is so small that there isn't a unit. Sorry :(",
+    "penissizecalculator_6": "Your penis is very big ... 30 meters! I'm speechless...",
     "penissizecalculator_description": "Calculates the size of the penis of you or a user",
 
     "slot_error": "You must have at least 50 credits to play a round slot!",

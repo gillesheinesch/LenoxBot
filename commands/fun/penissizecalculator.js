@@ -4,7 +4,8 @@ exports.run = (client, msg, args, lang) => {
 		lang.penissizecalculator_2,
 		lang.penissizecalculator_3,
 		lang.penissizecalculator_4,
-		lang.penissizecalculator_5];
+		lang.penissizecalculator_5,
+		lang.penissizecalculator_6];
 	var rand = Math.floor(Math.random() * randomsize.length);
 
 	if (!msg.mentions.members.first()) {
@@ -18,12 +19,10 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['psc'],
-
-	
-
-	userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
+
 exports.help = {
 	name: 'penissizecalculator',
 	description: 'Calculates the size of the penis of you or a user',
