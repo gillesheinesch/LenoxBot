@@ -162,6 +162,13 @@
                                             <button type="submit" class="btn btn-danger" value="false" name="newvote"><i class="fas fa-thumbs-down"></i> {{nolength}}</button>
                                         </form>
                                     </div>
+                                    {{else}}
+                                    <div class="btn-group" role="group" aria-label="Status">
+                                        <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitnewvote" method="POST">
+                                            <button type="submit" disabled class="btn btn-success" value="true" name="newvote"><i class="fas fa-thumbs-up"> {{yeslength}}</i></button>
+                                            <button type="submit" disabled class="btn btn-danger" value="false" name="newvote"><i class="fas fa-thumbs-down"></i> {{nolength}}</button>
+                                        </form>
+                                    </div>
                                     {{/if}}
                                 </div>
                             </div>

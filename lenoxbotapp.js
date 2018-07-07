@@ -6,14 +6,14 @@ const Enmap = require('enmap');
 const NewsAPI = require('newsapi');
 const EnmapLevel = require('enmap-level');
 
-var express = require('express'),
-	session = require('express-session'),
-	url = require('url'),
-	moment = require('moment'),
-	passport = require('passport'),
-	Strategy = require('passport-discord').Strategy,
-	handlebars = require('express-handlebars'),
-	app = express();
+var express = require('express');
+var	session = require('express-session');
+var	url = require('url');
+var	moment = require('moment');
+var	passport = require('passport');
+var	Strategy = require('passport-discord').Strategy;
+var	handlebars = require('express-handlebars');
+var	app = express();
 const path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
@@ -59,7 +59,6 @@ fs.readdir('./events/', (err, files) => {
 	});
 });
 
-/*
 process.on('unhandledRejection', (reason) => {
 	if (reason.name === 'DiscordAPIError') return;
 	console.error(reason);
@@ -67,7 +66,6 @@ process.on('unhandledRejection', (reason) => {
 process.on('uncaughtException', (reason) => {
 	console.error(reason);
 });
-*/
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
@@ -2495,9 +2493,9 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 
 		var application = tableload.application.applications[req.params.applicationid];
 
-		if (req.body.newvote === 'true') {
+		if (req.body.newvote === 'true' && !application.yes.includes(req.user.id) && !application.no.includes(req.user.id)) {
 			application.yes.push(req.user.id);
-		} else {
+		} else if(!application.no.includes(req.user.id) && !application.yes.includes(req.user.id)) {
 			application.no.push(req.user.id);
 		}
 
