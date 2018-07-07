@@ -7,16 +7,18 @@ const NewsAPI = require('newsapi');
 const EnmapLevel = require('enmap-level');
 
 var express = require('express');
-var	session = require('express-session');
-var	url = require('url');
-var	moment = require('moment');
-var	passport = require('passport');
-var	Strategy = require('passport-discord').Strategy;
-var	handlebars = require('express-handlebars');
-var	app = express();
+var session = require('express-session');
+var url = require('url');
+var moment = require('moment');
+var passport = require('passport');
+var Strategy = require('passport-discord').Strategy;
+var handlebars = require('express-handlebars');
+var app = express();
 const path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var PastebinAPI = require('pastebin-js')
+var pastebin = new PastebinAPI('beac6cbeec3f782e30ec6edab22169c5');
 
 
 client.wait = require("util").promisify(setTimeout);
@@ -256,14 +258,24 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 
 		await client.botconfs.set('botconfs', botconfs);
 
+		var pastebinlink = await pastebin.createPaste({
+			text: req.body.content,
+			title: req.body.title,
+			format: null,
+			privacy: 0
+		});
+
 		const channel = client.channels.get('460850963914162176');
 		const embed = new Discord.RichEmbed()
-		.setColor('#66ff66')
-		.setDescription(`New documentation entry`)
-		.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
-		.addField('Title', req.body.title)
-		.setTimestamp();
-		channel.send({ embed });
+			.setColor('#66ff66')
+			.setDescription(`New documentation entry`)
+			.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
+			.addField('Title', req.body.title)
+			.addField('Link', pastebinlink)
+			.setTimestamp();
+		channel.send({
+			embed
+		});
 
 		return res.redirect(url.format({
 			pathname: `/editdocumentation`,
@@ -292,14 +304,24 @@ app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, re
 
 		await client.botconfs.set('botconfs', botconfs);
 
+		var pastebinlink = await pastebin.createPaste({
+			text: req.body.content,
+			title: req.body.title,
+			format: null,
+			privacy: 0
+		});
+
 		const channel = client.channels.get('460850963914162176');
 		const embed = new Discord.RichEmbed()
-		.setColor('#ff9966')
-		.setDescription(`Updated documentation entry`)
-		.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
-		.addField('Title', req.body.title)
-		.setTimestamp();
-		channel.send({ embed });
+			.setColor('#ff9966')
+			.setDescription(`Updated documentation entry`)
+			.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
+			.addField('Title', req.body.title)
+			.addField('Link', pastebinlink)
+			.setTimestamp();
+		channel.send({
+			embed
+		});
 
 		return res.redirect(url.format({
 			pathname: `/editdocumentation`,
@@ -328,14 +350,24 @@ app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, r
 
 		await client.botconfs.set('botconfs', botconfs);
 
+		var pastebinlink = await pastebin.createPaste({
+			text: req.body.content,
+			title: req.body.title,
+			format: null,
+			privacy: 0
+		});
+
 		const channel = client.channels.get('460850963914162176');
 		const embed = new Discord.RichEmbed()
-		.setColor('#ff9966')
-		.setDescription(`Updated documentation entry`)
-		.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
-		.addField('Title', req.body.title)
-		.setTimestamp();
-		channel.send({ embed });
+			.setColor('#ff9966')
+			.setDescription(`Updated documentation entry`)
+			.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
+			.addField('Title', req.body.title)
+			.addField('Link', pastebinlink)
+			.setTimestamp();
+		channel.send({
+			embed
+		});
 
 		return res.redirect(url.format({
 			pathname: `/editdocumentation`,
@@ -2495,7 +2527,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 
 		if (req.body.newvote === 'true' && !application.yes.includes(req.user.id) && !application.no.includes(req.user.id)) {
 			application.yes.push(req.user.id);
-		} else if(!application.no.includes(req.user.id) && !application.yes.includes(req.user.id)) {
+		} else if (!application.no.includes(req.user.id) && !application.yes.includes(req.user.id)) {
 			application.no.push(req.user.id);
 		}
 
