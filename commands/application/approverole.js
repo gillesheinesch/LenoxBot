@@ -18,12 +18,12 @@ exports.run = async(client, msg, args, lang) => {
 	if (args.length < 1) return msg.reply(lang.role_noinput);
 
 	const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(" ").toLowerCase());
-	if (!role) return msg.reply(lang.role_rolenotexist).then(m => m.delete(10000));
+	if (!role) return msg.reply(lang.approverole_rolenotexist).then(m => m.delete(10000));
 
 	tableload.application.role = role.id;
 	await client.guildconfs.set(msg.guild.id, tableload);
 
-	var set = lang.role_set.replace('%rolename', role.name);
+	var set = lang.approverole_set.replace('%rolename', role.name);
 	return msg.channel.send(set);
 };
 
@@ -31,11 +31,10 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-
-
-    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
+
 exports.help = {
 	name: 'approverole',
 	description: 'Defines the role that members get if their application has been accepted',
