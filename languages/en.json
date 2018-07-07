@@ -509,14 +509,14 @@
     "application_addentry": "First, an administrator of this server has to set the entries for this template. This can be done by using %prefixaddentry",
     "application_reactionnumber": "First, an administrator of this server has to set the number of required reactions for acceptance or refusal of an application. This can be done by using %prefixreactionnumber",
     "application_undefinedmessages": "First, an administrator of this server has to define the messages that accepted and rejected applications get. This can be done by using %prefixsetacceptedmessage and %prefixsetrejectedmessage",
-    "application_newapplication": "%author, a new application was created!",
+    "application_newapplication": "%author, a new application form was created!",
     "application_timeerror": "You didn't reply within 5 minutes, so your application was aborted now. If you want to write a new one, you can do this easily by using %prefixapplication.",
-    "application_applicatiosent": "The application was sent successfully",
+    "application_applicatiosent": "The application was sent successfully! Now you just have to wait until your application has been rated. If your application has been processed, then you will receive a direct message from the bot!",
     "application_description": "Creates a new application on this server",
 
     "deleteentry_noinput": "You have to decide which entry you want to remove from the template!",
-    "deleteentry_removed": "%entry was successfully removed from the template",
-    "deleteentry_notexists": "This entry does not exist in the template",
+    "deleteentry_removed": "%entry was successfully removed from the template!",
+    "deleteentry_notexists": "This entry does not exist in the template!",
     "deleteentry_description": "Deletes an entry from the template",
 
     "listentry_current": "All current templates:",
@@ -557,10 +557,10 @@
     "slot_error": "You must have at least 50 credits to play a round slot!",
     "slot_triple": "Triple! Congratulations, you won 100 credits!",
     "slot_double": "Double! Congratulations, you won 25 credits!",
-    "slot_nothing": "Unfortunately you lost 50 credits!",
-    "slot_description": "Play with the slot machine",
+    "slot_nothing": "Unfortunately you lost 50 credits! I hope you have more luck next time...",
+    "slot_description": "Play with the slot machine and win/lose credits",
 
-    "commands_embedinfo": "For more information about a command, type in %prefixhelp commandname",
+    "commands_embedinfo": "For more information about a command, type in %prefixhelp {commandname}",
     "commands_error": "There was an error. See %prefixmodules to get a list of all available modules that you can use!",
     "commands_description": "All commands of a module",
 
@@ -593,8 +593,10 @@
     "modules_tickets": "Ticket system which allows you to run support for example",
     "modules_description": "Gives you a list of all modules and their meaning",
 
-    "website_documentation": "Here you can find our website including our new dashboard:",
-    "website_description": "Shows you the link of the Lenoxbot-Website",
+    "website_website": "Here you can find our website including our new dashboard:",
+    "website_documentation": "If you have any questions, you should look over here:",
+    "website_trello": "On our Trello page all bugs and suggestions are listed:",
+    "website_description": "Shows you all links that have to do with LenoxBot",
 
     "ban_nomention": "You must mention a user to ban!",
     "ban_yourself": "You can not ban yourself!",
