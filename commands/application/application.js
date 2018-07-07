@@ -23,7 +23,7 @@ exports.run = async (client, msg, args, lang) => {
 	var reactionnumber = lang.application_reactionnumber.replace('%prefix', tableload.prefix);
 	if (tableload.application.reactionnumber === '') return msg.channel.send(reactionnumber);
 
-	var undefinedmessages = lang.application_undefinedmessages.replace('%prefix', tableload.prefix);
+	var undefinedmessages = lang.application_undefinedmessages.replace('%prefix', tableload.prefix).replace('%prefix', tableload.prefix);
 	if (tableload.application.acceptedmessage === '' || tableload.application.rejectedmessage === '') return msg.channel.send(undefinedmessages);
 
 	var newapplication = lang.application_newapplication.replace('%author', msg.author);
