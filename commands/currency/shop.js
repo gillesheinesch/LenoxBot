@@ -3,6 +3,7 @@ const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
+	const botconfs = client.botconfs.get('market');
 	const validationforbuysell = ['sell', 'buy'];
 	const validationforitemsbuysell = ['📁', '🔑', '⛏', '🕹', '🏠', '👜', '💠', '🐶', '🐱', '🍎', '⚽', '🚙', '📱', '💻', '📷', '⏰', '📩', '🌹', '☂', '🍔', '🥐', '🏀', '⌚', '📽', '🔦', '🛏', '🔨', '📖', '🔍', '🍌', '🚜', '💉', '🔫', '🔪'];
 	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana', 'tractor', 'syringe', 'gun', 'knife'];
@@ -108,7 +109,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (isNaN(howmanycheck[0])) {
 		const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
-		// return msg.reply(commanderror);
+		return msg.reply(commanderror);
 	}
 
 	for (i = 0; i < sellorbuycheck.length; i++) {
@@ -125,6 +126,13 @@ exports.run = async (client, msg, args, lang) => {
 							const amount = parseInt(marketconfs[itemsnames[i]][2]) * parseInt(howmanycheck[0]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] - parseInt(howmanycheck[0]);
 
+							if (botconfs[itemsnames[i]][2] >= (parseInt(botconfs[itemsnames[i]][4]) / 4) && botconfs[itemsnames[i]][2] <= (parseInt(botconfs[itemsnames[i]][4]) * 4)) {
+								botconfs[itemsnames[i]][2] = Number(botconfs[itemsnames[i]][2]) - Math.ceil((Number(botconfs[itemsnames[i]][2]) / 100) * 2);
+							}
+							if (botconfs[itemsnames[i]][1] >= (parseInt(botconfs[itemsnames[i]][3]) / 4) && botconfs[itemsnames[i]][1] <= (parseInt(botconfs[itemsnames[i]][3]) * 4)) {
+								botconfs[itemsnames[i]][1] = Number(botconfs[itemsnames[i]][1]) + Math.ceil((Number(botconfs[itemsnames[i]][1]) / 100) * 2);
+							}
+
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
 									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
@@ -132,6 +140,7 @@ exports.run = async (client, msg, args, lang) => {
 								sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
 							});
 
+							await client.botconfs.set('market', botconfs);
 							await client.userdb.set(msg.author.id, userdb);
 
 							const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
@@ -139,6 +148,7 @@ exports.run = async (client, msg, args, lang) => {
 						}
 					}
 				}
+
 				if (args.slice(1).join(" ").toLowerCase() == "all") {
 					var inventoryslotcheck = 0;
 					for (var x = 0; x < itemsnames.length; x++) {
@@ -163,8 +173,15 @@ exports.run = async (client, msg, args, lang) => {
 
 					for (var xxx = 0; xxx < allitemsininventory.length; xxx++) {
 						userdb.inventory[allitemsininventory[xxx][4]] = 0;
+						if (botconfs[allitemsininventory[xxx][4]][2] >= (parseInt(botconfs[allitemsininventory[xxx][4]][4]) / 4) && botconfs[allitemsininventory[xxx][4]][2] <= (parseInt(botconfs[allitemsininventory[xxx][4]][4]) * 4)) {
+							botconfs[allitemsininventory[xxx][4]][2] = Number(botconfs[allitemsininventory[xxx][4]][2]) - Math.ceil((Number(botconfs[allitemsininventory[xxx][4]][2]) / 100) * 2);
+						}
+						if (botconfs[allitemsininventory[xxx][4]][1] >= (parseInt(botconfs[allitemsininventory[xxx][4]][3]) / 4) && botconfs[allitemsininventory[xxx][4]][1] <= (parseInt(botconfs[allitemsininventory[xxx][4]][3]) * 4)) {
+							botconfs[allitemsininventory[xxx][4]][1] = Number(botconfs[allitemsininventory[xxx][4]][1]) + Math.ceil((Number(botconfs[allitemsininventory[xxx][4]][1]) / 100) * 2);
+						}
 					}
 
+					await client.botconfs.set('market', botconfs);
 					await client.userdb.set(msg.author.id, userdb);
 
 					var messageedit = [];
@@ -202,6 +219,13 @@ exports.run = async (client, msg, args, lang) => {
 							const amount = parseInt(marketconfs[itemsnames[i]][1]) * parseInt(howmanycheck[0]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] + parseInt(howmanycheck[0]);
 
+							if (botconfs[itemsnames[i]][1] >= (parseInt(botconfs[itemsnames[i]][3]) / 4) && botconfs[itemsnames[i]][1] <= (parseInt(botconfs[itemsnames[i]][3]) * 4)) {
+								botconfs[itemsnames[i]][1] = Number(botconfs[itemsnames[i]][1]) - Math.ceil((Number(botconfs[itemsnames[i]][1]) / 100) * 2);
+							}
+							if (botconfs[itemsnames[i]][2] >= (parseInt(botconfs[itemsnames[i]][4]) / 4) && botconfs[itemsnames[i]][2] <= (parseInt(botconfs[itemsnames[i]][4]) * 4)) {
+								botconfs[itemsnames[i]][2] = Number(botconfs[itemsnames[i]][2]) + Math.ceil((Number(botconfs[itemsnames[i]][2]) / 100) * 2);
+							}
+
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
 									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
@@ -209,6 +233,7 @@ exports.run = async (client, msg, args, lang) => {
 								sql.run(`UPDATE medals SET medals = ${row.medals - amount} WHERE userId = ${msg.author.id}`);
 							});
 
+							await client.botconfs.set('market', botconfs);
 							await client.userdb.set(msg.author.id, userdb);
 
 							const bought = lang.shop_bought.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
@@ -227,11 +252,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['market'],
-
-	
-
-	userpermissions: [], dashboardsettings: false
-
+	userpermissions: [],
+	dashboardsettings: false
 };
 exports.help = {
 	name: 'shop',
