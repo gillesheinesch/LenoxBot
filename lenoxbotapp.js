@@ -284,7 +284,7 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 			}
 		}));
 	} else {
-		return res.redirect('../nologin');
+		return res.redirect('/nologin');
 	}
 });
 
@@ -330,7 +330,7 @@ app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, re
 			}
 		}));
 	} else {
-		return res.redirect('../nologin');
+		return res.redirect('/nologin');
 	}
 });
 
@@ -376,7 +376,7 @@ app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, r
 			}
 		}));
 	} else {
-		return res.redirect('../nologin');
+		return res.redirect('/nologin');
 	}
 });
 
@@ -393,7 +393,7 @@ app.get('/editdocumentation', async function (req, res, next) {
 			tutorials: botconfs.tutorials
 		});
 	} else {
-		return res.redirect('../nologin');
+		return res.redirect('/nologin');
 	}
 });
 
@@ -410,11 +410,20 @@ app.get('/documentation', async function (req, res, next) {
 		botconfs.tutorials[index2].author = client.users.get(botconfs.tutorials[index2].authorid) ? client.users.get(botconfs.tutorials[index2].authorid).tag : botconfs.tutorials[index2].authorid;
 	}
 
+	var documentationmoderator = false;
+	if (req.user) {
+		const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
+		if (client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) {
+			documentationmoderator = true;
+		}
+	}
+
 	res.render('documentation', {
 		user: req.user,
 		client: client,
 		generalfaq: botconfs.generalfaq,
-		tutorials: botconfs.tutorials
+		tutorials: botconfs.tutorials,
+		documentationmoderator: documentationmoderator
 	});
 });
 
@@ -555,7 +564,7 @@ app.post('/tickets/:ticketid/submitticketanswer', async function (req, res, next
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -601,7 +610,7 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async function (req, res, n
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -630,7 +639,7 @@ app.get('/tickets/:ticketid/overview', async function (req, res, next) {
 			status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -646,9 +655,9 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) throw new Error("Test")
-		if (((req.user.guilds[index].permissions) & 8) !== 8) throw new Error("Test")
-		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers")
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect("/servers")
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).members.size / 170) + 1;
@@ -703,7 +712,7 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 			logs: logs
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -717,9 +726,9 @@ app.post('/dashboard/:id/administration/submitlogs', async function (req, res, n
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -750,7 +759,7 @@ app.post('/dashboard/:id/administration/submitlogs', async function (req, res, n
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -764,9 +773,9 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async functi
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newselfassignableroles = req.body.newselfassignableroles;
 		var array = [];
@@ -803,7 +812,7 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async functi
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -817,9 +826,9 @@ app.post('/dashboard/:id/administration/submittogglexp', async function (req, re
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newxpchannels = req.body.newxpchannels;
 		var array = [];
@@ -856,7 +865,7 @@ app.post('/dashboard/:id/administration/submittogglexp', async function (req, re
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -870,9 +879,9 @@ app.post('/dashboard/:id/administration/submitbyemsg', async function (req, res,
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newbyemsg = req.body.newbyemsg;
 
@@ -901,7 +910,7 @@ app.post('/dashboard/:id/administration/submitbyemsg', async function (req, res,
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -915,9 +924,9 @@ app.post('/dashboard/:id/administration/submitwelcomemsg', async function (req, 
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newwelcomemsg = req.body.newwelcomemsg;
 
@@ -946,7 +955,7 @@ app.post('/dashboard/:id/administration/submitwelcomemsg', async function (req, 
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -960,9 +969,9 @@ app.post('/dashboard/:id/administration/submitprefix', async function (req, res,
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newprefix = req.body.newprefix;
 
@@ -990,7 +999,7 @@ app.post('/dashboard/:id/administration/submitprefix', async function (req, res,
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1004,9 +1013,9 @@ app.post('/dashboard/:id/administration/submitlanguage', async function (req, re
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newlanguage = req.body.newlanguage;
 
@@ -1035,7 +1044,7 @@ app.post('/dashboard/:id/administration/submitlanguage', async function (req, re
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1049,9 +1058,9 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async function (
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newcommanddeletion = req.body.newcommanddeletion;
 
@@ -1080,7 +1089,7 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async function (
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1094,9 +1103,9 @@ app.post('/dashboard/:id/administration/submitmuterole', async function (req, re
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newmuterole = req.body.newmuterole;
 
@@ -1125,7 +1134,7 @@ app.post('/dashboard/:id/administration/submitmuterole', async function (req, re
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1139,9 +1148,9 @@ app.post('/dashboard/:id/administration/submittogglechatfilter', async function 
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newchatfilter = req.body.newchatfilter;
 
@@ -1170,7 +1179,7 @@ app.post('/dashboard/:id/administration/submittogglechatfilter', async function 
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1184,9 +1193,9 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async function 
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newxpmessages = req.body.newxpmessages;
 
@@ -1215,7 +1224,7 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async function 
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1229,9 +1238,9 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async function (
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -1268,7 +1277,7 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async function (
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1282,9 +1291,9 @@ app.post('/dashboard/:id/administration/submittogglewelcome', async function (re
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newwelcome = req.body.newwelcome;
 
@@ -1318,7 +1327,7 @@ app.post('/dashboard/:id/administration/submittogglewelcome', async function (re
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1332,9 +1341,9 @@ app.post('/dashboard/:id/administration/submittogglebye', async function (req, r
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newbye = req.body.newbye;
 
@@ -1368,7 +1377,7 @@ app.post('/dashboard/:id/administration/submittogglebye', async function (req, r
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1382,9 +1391,9 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async function (r
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newannounce = req.body.newannounce;
 
@@ -1418,7 +1427,7 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async function (r
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1432,9 +1441,9 @@ app.post('/dashboard/:id/administration/:command/submitcommandstatuschange', asy
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -1456,7 +1465,83 @@ app.post('/dashboard/:id/administration/:command/submitcommandstatuschange', asy
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submitpermissionsticket', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.dashboardticketpermissions = Number(req.body.newpermissionticket);
+
+		tableload.globallogs.push({
+			action: `Changed the required permissions for the ticket panel!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('/nologin');
+	}
+});
+
+app.post('/dashboard/:id/administration/submitpermissionsapplication', async function (req, res, next) {
+	var dashboardid = res.req.originalUrl.substr(11, 18);
+	if (req.user) {
+		var index = -1;
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (req.user.guilds[i].id === dashboardid) {
+				index = i;
+			}
+		}
+
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+		const tableload = client.guildconfs.get(dashboardid);
+
+		tableload.dashboardapplicationpermissions = Number(req.body.newpermissionapplication);
+
+		tableload.globallogs.push({
+			action: `Changed the required permissions for the applications panel!`,
+			username: req.user.username,
+			date: Date.now(),
+			showeddate: new Date().toUTCString()
+		});
+
+		await client.guildconfs.set(dashboardid, tableload);
+
+		res.redirect(url.format({
+			pathname: `/dashboard/${dashboardid}/administration`,
+			query: {
+				"submitadministration": true
+			}
+		}));
+	} else {
+		res.redirect('/nologin');
 	}
 });
 
@@ -1470,9 +1555,9 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -1692,6 +1777,34 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			}
 		}
 
+		var permissions = {
+			administrator: {
+				name: 'Administrator',
+				number: 8
+			},
+			kickmembersbanmembers: {
+				name: 'Kick Members & Ban Members (Standard)',
+				number: 6
+			},
+			manageserver: {
+				name: 'Manage Server',
+				number: 32
+			},
+			managemessages: {
+				name: 'Manage Messages',
+				number: 8192
+			}
+		}
+
+		for (var x in permissions) {
+			if (tableload.dashboardticketpermissions === permissions[x].number) {
+				permissions[x].ticketpermissionset = true;
+			}
+			if (tableload.dashboardapplicationpermissions === permissions[x].number) {
+				permissions[x].applicationpermissionset = true;
+			}
+		}
+
 		return res.render('dashboardadministration', {
 			user: req.user,
 			guilds: check,
@@ -1706,10 +1819,11 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			languages: languages,
 			chatfilterarray: client.guildconfs.get(req.user.guilds[index].id).chatfilter ? client.guildconfs.get(req.user.guilds[index].id).chatfilter.array.join(",") : '',
 			commands: commands,
+			permissions: permissions,
 			submitadministration: req.query.submitadministration ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1723,9 +1837,9 @@ app.post('/dashboard/:id/moderation/:command/submitcommandstatuschange', async f
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -1747,7 +1861,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandstatuschange', async f
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1761,9 +1875,9 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -1802,7 +1916,7 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 			submitmoderation: req.query.submitmoderation ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1816,9 +1930,9 @@ app.post('/dashboard/:id/help/:command/submitcommandstatuschange', async functio
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -1840,7 +1954,7 @@ app.post('/dashboard/:id/help/:command/submitcommandstatuschange', async functio
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1854,9 +1968,9 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -1895,7 +2009,7 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 			submithelp: req.query.submithelp ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1909,9 +2023,9 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newchannelblacklist = req.body.newchannelblacklist;
 		var array = [];
@@ -1948,7 +2062,7 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -1962,9 +2076,9 @@ app.post('/dashboard/:id/music/submitnewmusicaction', async function (req, res, 
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const serverQueue = client.queue.get(dashboardid);
 
@@ -1990,7 +2104,7 @@ app.post('/dashboard/:id/music/submitnewmusicaction', async function (req, res, 
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2004,9 +2118,9 @@ app.post('/dashboard/:id/music/:command/submitcommandstatuschange', async functi
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2028,7 +2142,7 @@ app.post('/dashboard/:id/music/:command/submitcommandstatuschange', async functi
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2042,9 +2156,9 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -2092,7 +2206,7 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 			submitmusic: req.query.submitmusic ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2106,9 +2220,9 @@ app.post('/dashboard/:id/fun/:command/submitcommandstatuschange', async function
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2130,7 +2244,7 @@ app.post('/dashboard/:id/fun/:command/submitcommandstatuschange', async function
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2144,9 +2258,9 @@ app.get('/dashboard/:id/fun', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -2185,7 +2299,7 @@ app.get('/dashboard/:id/fun', function (req, res, next) {
 			submitfun: req.query.submitfun ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2199,9 +2313,9 @@ app.post('/dashboard/:id/searches/:command/submitcommandstatuschange', async fun
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2223,7 +2337,7 @@ app.post('/dashboard/:id/searches/:command/submitcommandstatuschange', async fun
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2237,9 +2351,9 @@ app.get('/dashboard/:id/searches', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -2278,7 +2392,7 @@ app.get('/dashboard/:id/searches', function (req, res, next) {
 			submitsearches: req.query.submitsearches ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2292,9 +2406,9 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandstatuschange', async functio
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2316,7 +2430,7 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandstatuschange', async functio
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2330,9 +2444,9 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -2371,7 +2485,7 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 			submitnsfw: req.query.submitnsfw ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2385,9 +2499,9 @@ app.post('/dashboard/:id/utility/:command/submitcommandstatuschange', async func
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2409,7 +2523,7 @@ app.post('/dashboard/:id/utility/:command/submitcommandstatuschange', async func
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2423,9 +2537,9 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -2464,7 +2578,7 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 			submitutility: req.query.submitutility ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2478,9 +2592,9 @@ app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', a
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var tableload = await client.guildconfs.get(dashboardid);
 		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../error')
@@ -2500,7 +2614,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', a
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2514,9 +2628,9 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var tableload = await client.guildconfs.get(dashboardid);
 		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../error')
@@ -2562,7 +2676,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2576,9 +2690,9 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async function (r
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		const tableload = await client.guildconfs.get(dashboardid);
 		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../error')
@@ -2621,7 +2735,7 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async function (r
 			vote: votecheck
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2635,9 +2749,15 @@ app.get('/dashboard/:id/applications', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		
+		if (client.guildconfs.get(dashboardid).dashboardapplicationpermissions) {
+			if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardapplicationpermissions) !== client.guildconfs.get(dashboardid).dashboardapplicationpermissions) return res.redirect('/servers');
+		} else {
+			if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+		}
+
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -2683,7 +2803,7 @@ app.get('/dashboard/:id/applications', function (req, res, next) {
 			oldapplications: oldobject
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2697,9 +2817,9 @@ app.post('/dashboard/:id/application/submitnewacceptedmsg', async function (req,
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newacceptedmsg = req.body.newacceptedmsg;
 
@@ -2728,7 +2848,7 @@ app.post('/dashboard/:id/application/submitnewacceptedmsg', async function (req,
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2742,9 +2862,9 @@ app.post('/dashboard/:id/application/submitnewrejectedmsg', async function (req,
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		var newrejectedmsg = req.body.newrejectedmsg;
 
@@ -2773,7 +2893,7 @@ app.post('/dashboard/:id/application/submitnewrejectedmsg', async function (req,
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2787,9 +2907,9 @@ app.post('/dashboard/:id/application/submitdenyrole', async function (req, res, 
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2818,7 +2938,7 @@ app.post('/dashboard/:id/application/submitdenyrole', async function (req, res, 
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2832,9 +2952,9 @@ app.post('/dashboard/:id/application/submitrole', async function (req, res, next
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2863,7 +2983,7 @@ app.post('/dashboard/:id/application/submitrole', async function (req, res, next
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2877,9 +2997,9 @@ app.post('/dashboard/:id/application/submitreactionnumber', async function (req,
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2908,7 +3028,7 @@ app.post('/dashboard/:id/application/submitreactionnumber', async function (req,
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2922,9 +3042,9 @@ app.post('/dashboard/:id/application/submitapplication', async function (req, re
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2953,7 +3073,7 @@ app.post('/dashboard/:id/application/submitapplication', async function (req, re
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -2967,9 +3087,9 @@ app.post('/dashboard/:id/application/:command/submitcommandstatuschange', async 
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -2991,7 +3111,7 @@ app.post('/dashboard/:id/application/:command/submitcommandstatuschange', async 
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3005,9 +3125,9 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -3074,7 +3194,7 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 			submitapplication: req.query.submitapplication ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3088,9 +3208,9 @@ app.post('/dashboard/:id/currency/:command/submitcommandstatuschange', async fun
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -3112,7 +3232,7 @@ app.post('/dashboard/:id/currency/:command/submitcommandstatuschange', async fun
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3126,9 +3246,9 @@ app.get('/dashboard/:id/currency', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -3167,7 +3287,7 @@ app.get('/dashboard/:id/currency', function (req, res, next) {
 			submitcurrency: req.query.submitcurrency ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3181,9 +3301,9 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
 		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error')
@@ -3222,7 +3342,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3236,9 +3356,9 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async functio
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
 		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error')
@@ -3287,7 +3407,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async functio
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3301,9 +3421,9 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async function (req, res, n
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const botconfs = await client.botconfs.get('botconfs');
 		if (botconfs.tickets[req.params.ticketid] === undefined) return res.redirect('../error')
@@ -3330,7 +3450,7 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async function (req, res, n
 			status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3344,9 +3464,9 @@ app.post('/dashboard/:id/tickets/:command/submitcommandstatuschange', async func
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -3368,7 +3488,7 @@ app.post('/dashboard/:id/tickets/:command/submitcommandstatuschange', async func
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3382,9 +3502,15 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+
+		if (client.guildconfs.get(dashboardid).dashboardticketpermissions) {
+			if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardticketpermissions) !== client.guildconfs.get(dashboardid).dashboardticketpermissions) return res.redirect('/servers');
+		} else {
+			if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+		}
+
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -3445,7 +3571,7 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 			submittickets: req.query.submittickets ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3459,9 +3585,9 @@ app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next)
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers");
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 		const tableload = client.guildconfs.get(dashboardid);
 
@@ -3489,7 +3615,7 @@ app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next)
 			}
 		}));
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
 });
 
@@ -3503,9 +3629,9 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) return res.redirect("../servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('../servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("../servers") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers");
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
@@ -3560,25 +3686,8 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 			submitmodules: req.query.submitmodules ? true : false
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
-});
-
-app.get('/error', function (req, res, next) {
-	if (req.user) {
-		var check = [];
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (((req.user.guilds[i].permissions) & 8) === 8) {
-				check.push(req.user.guilds[i]);
-			}
-		}
-	}
-
-	res.render('error', {
-		user: req.user,
-		guilds: check,
-		client: client
-	});
 });
 
 app.get('/dashboard/:id/lastlogs', function (req, res, next) {
@@ -3591,9 +3700,9 @@ app.get('/dashboard/:id/lastlogs', function (req, res, next) {
 			}
 		}
 
-		if (index === -1) throw new Error("Test")
-		if (((req.user.guilds[index].permissions) & 8) !== 8) throw new Error("Test")
-		if (!client.guilds.get(req.user.guilds[index].id)) throw new Error("Test") //res.redirect('../botnotonserver');
+		if (index === -1) return res.redirect("/servers")
+		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect("/servers")
+		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 		var check = req.user.guilds[index];
 
@@ -3619,8 +3728,25 @@ app.get('/dashboard/:id/lastlogs', function (req, res, next) {
 			logs: logs
 		});
 	} else {
-		res.redirect('../nologin');
+		res.redirect('/nologin');
 	}
+});
+
+app.get('/error', function (req, res, next) {
+	if (req.user) {
+		var check = [];
+		for (var i = 0; i < req.user.guilds.length; i++) {
+			if (((req.user.guilds[i].permissions) & 8) === 8) {
+				check.push(req.user.guilds[i]);
+			}
+		}
+	}
+
+	res.render('error', {
+		user: req.user,
+		guilds: check,
+		client: client
+	});
 });
 
 // catch 404 and forward to error handler
