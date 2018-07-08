@@ -312,6 +312,16 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!tableload.dashboardticketpermissions) {
+		tableload.dashboardticketpermissions = 6;
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (!tableload.dashboardapplicationpermissions) {
+		tableload.dashboardapplicationpermissions = 6;
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.application.notificationstatus) {
 		tableload.application.notificationstatus = false;
 		tableload.application.notificationchannel = '';

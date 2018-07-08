@@ -281,6 +281,42 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitpermissionsticket" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <labelfor="newpermissionticket">Permissions Tickets Panel:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newpermissionticket" data-live-search="true" title="Choose permission" data-actions-box="true"
+                                            data-size="7">
+                                            {{#each permissions}} 
+                                            {{#if ticketpermissionset}}
+                                            <option selected value="{{number}}">{{name}}</option>
+                                            {{else}}
+                                            <option value="{{number}}">{{name}}</option>
+                                            {{/if}}
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitpermissionsapplication" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <labelfor="newpermissionapplication">Permission Applications Panel:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select required class="selectpicker" name="newpermissionapplication" data-live-search="true" title="Choose permission" data-actions-box="true"
+                                            data-size="7">
+                                            {{#each permissions}} 
+                                            {{#if applicationpermissionset}}
+                                            <option selected value="{{number}}">{{name}}</option>
+                                            {{else}}
+                                            <option value="{{number}}">{{name}}</option>
+                                            {{/if}}
+                                            {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
                             </div>
                         </div>
                         <div class="card border-dark panel-dashboard">
