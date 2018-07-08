@@ -16,7 +16,9 @@
                     <a href="documentation" class=" h5 nav-link">Documentation</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/donate" class=" h5 nav-link">Donate  <span class="badge badge-info">NEW</span></a>
+                    <a href="/donate" class=" h5 nav-link">Donate
+                        <span class="badge badge-info">NEW</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
@@ -32,7 +34,7 @@
                 <li class="nav-item">
                     {{#if user}}
                     <a href="servers" class=" h5 nav-link">Dashboard
-                        
+
                     </a>
                     {{/if}}
                 </li>
@@ -62,17 +64,28 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
+                {{#if documentationmoderator}}
+                <a href="/editdocumentation">
+                    <button type="button" class="btn btn-warning btn-lg btn-block" style="margin-top: 50px;">Edit documentation entries</button>
+                </a>
+                <a href="/commands">
+                    <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 10px;">Commandlist</button>
+                </a>
+                {{else}}
                 <a href="/commands">
                     <button type="button" class="btn btn-primary btn-lg btn-block" style="margin-top: 50px;">Commandlist</button>
                 </a>
+                {{/if}}
                 <div class="row" style="margin-top: 50px;">
                     <div class="col-sm-12">
-                        <div class="input-group"  style="margin-bottom: 10px;">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text"><i class="fas fa-search"></i></div>
-                    </div>
-                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
-                </div>
+                        <div class="input-group" style="margin-bottom: 10px;">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text">
+                                    <i class="fas fa-search"></i>
+                                </div>
+                            </div>
+                            <input class="form-control" id="myInput" type="text" placeholder="Search for documentation entries...">
+                        </div>
                     </div>
                 </div>
                 <p class="text display-4 text-white" style="margin-top: 20px; margin-bottom: 20px;">General FAQ</p>
@@ -83,11 +96,11 @@
                             {{title}}
                         </h5>
                     </div>
-                    <div class="card-body" style="margin: 20px;">
+                    <div class="card-body" style="margin: 10px;">
                         {{{content}}}
                     </div>
                     <div class="card-footer">
-                        <div class="text h6" style="color:rgb(94, 154, 233)">
+                        <div class="text" style="color:rgb(94, 154, 233); font-size: 12px;">
                             <i class="far fa-clock"></i> Last updated: {{newdate}}
                             <br>
                             <i class="fas fa-user"></i> {{author}}
@@ -106,11 +119,11 @@
                             {{title}}
                         </h5>
                     </div>
-                    <div class="card-body" style="margin: 20px;">
+                    <div class="card-body" style="margin: 10px;">
                         {{{content}}}
                     </div>
                     <div class="card-footer">
-                        <div class="text h6" style="color:rgb(94, 154, 233)">
+                        <div class="text" style="color:rgb(94, 154, 233); font-size: 12px;">
                             <i class="far fa-clock"></i> Last updated: {{newdate}}
                             <br>
                             <i class="fas fa-user"></i> {{author}}
