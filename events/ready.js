@@ -3,16 +3,16 @@ exports.run = async client => {
 	const chalk = require('chalk');
 
 	client.guildconfs.defer.then(() => {
-		console.log(client.guildconfs.size + "keys loaded for all discord servers");
+		console.log(chalk.red(client.guildconfs.size + "keys loaded for all discord servers"));
 	});
 	client.botconfs.defer.then(() => {
-		console.log(client.botconfs.size + "keys loaded for all bot configs");
+		console.log(chalk.red(client.botconfs.size + "keys loaded for all bot configs"));
 	});
 	client.redeem.defer.then(() => {
-		console.log(client.redeem.size + "keys loaded for all redeem keys");
+		console.log(chalk.red(client.redeem.size + "keys loaded for all redeem keys"));
 	});
 	client.userdb.defer.then(() => {
-		console.log(client.userdb.size + "keys loaded for all user keys");
+		console.log(chalk.red(client.userdb.size + "keys loaded for all user keys"));
 	});
 
 	const botconfsdefault = {
