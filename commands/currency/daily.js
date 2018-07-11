@@ -5,16 +5,10 @@ exports.run = async (client, msg, args, lang) => {
 	const mentioncheck = msg.mentions.users.first();
 	const userdb = client.userdb.get(msg.author.id);
 
-	const validation = ['-remind', '-r'];
-
-	for (i = 0; i < args.slice().length; i++) {
-		if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
-			if (args.slice()[0].toLowerCase() == "-remind" || args.slice()[0].toLowerCase() == "-r") {
-				setTimeout(function () {
-					msg.reply(lang.daily_remind);
-				}, 86400000);
-			}
-		}
+	if (userdb.dailyremind === true) {
+		setTimeout(function () {
+			msg.reply(lang.daily_remind);
+		}, 86400000);
 	}
 
 	if (!mentioncheck) {
@@ -27,9 +21,9 @@ exports.run = async (client, msg, args, lang) => {
 
 		const author = lang.daily_author.replace('%amount', userdb.premium.status === false ? `$200` : `$400`);
 
-			if (args.slice().length !== 0 && (args.slice()[0].toLowerCase() == "-remind" || args.slice()[0].toLowerCase() == "-r")) {
-				return msg.channel.send(`🎁 ${author} ${lang.daily_remindmsg}`);
-			} else {
+		if (userdb.dailyremind === true) {
+			return msg.channel.send(`🎁 ${author} ${lang.daily_remindmsg}`);
+		} else {
 			return msg.channel.send(`🎁 ${author}`);
 		}
 	} else {
@@ -41,7 +35,7 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 		const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', userdb.premium.status === false ? `$200` : `$400`);
-		if (args.slice()[0].toLowerCase() == "-remind" || args.slice()[0].toLowerCase() == "-r") {
+		if (userdb.dailyremind === true) {
 			return msg.channel.send(`🎁 ${mention} ${lang.daily_remindmsg}`);
 		} else {
 			return msg.channel.send(`🎁 ${mention}`);
@@ -53,10 +47,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['d'],
-
-
-	userpermissions: [], dashboardsettings: false,
-
+	userpermissions: [],
+	dashboardsettings: false,
 	cooldown: 86400000
 };
 exports.help = {

@@ -189,6 +189,12 @@ exports.run = async (client, msg) => {
 		});
 	});
 
+
+	if (!userdb.dailyremind) {
+		userdb.dailyremind = false;
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	if (!userdb.creditsmessage) {
 		userdb.creditsmessage = false;
 		await client.userdb.set(msg.author.id, userdb);
@@ -257,9 +263,9 @@ exports.run = async (client, msg) => {
 		tableload.tickets = {
 			notificationstatus: false,
 			notficationchannel: ''
-		}
+		};
 		await client.guildconfs.set(msg.guild.id, tableload);
-	};
+	}
 
 	if (!tableload.globallogs) {
 		tableload.globallogs = [];

@@ -1,4 +1,8 @@
 {
+    "dailyremind_set": "You have activated the dailyremind. (If you run the %prefixdaily command, you'll be reminded 24 hours later to pick up your daily reward again)",
+    "dailyremind_removed": "You have deactivated the dailyremind.",
+    "dailyremind_description": "Enables or disables the dailyremind",
+
     "applicationnotification_channelset": "Application notifications are now posted in the %channelname!",
     "applicationnotification_channeldeleted": "Application notifications are now no longer posted!",
     "applicationnotification_description": "Defines a channel in which application notifications will be sent",
