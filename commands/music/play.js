@@ -15,7 +15,6 @@ exports.run = async (client, msg, args, lang) => {
 	const skipvote = client.skipvote;
 	const input = msg.content.split(' ');
 	const ytdl = require('ytdl-core');
-	if (msg.author.bot) return undefined;
 	const searchString = input.slice(1).join(' ');
 	const url = input[1] ? input[1].replace(/<(.+)>/g, '$1') : '';
 
