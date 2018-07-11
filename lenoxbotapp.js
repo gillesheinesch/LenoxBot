@@ -3548,7 +3548,7 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 			}
 		}
 
-		const tableload = client.guildconfs.get(req.user.guilds[index].id);
+		const tableload = client.guildconfs.get(dashboardid);
 		var commands = client.commands.filter(r => r.help.category === 'tickets' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
 			if (tableload.commands[commands[i].help.name].status === "true") {
