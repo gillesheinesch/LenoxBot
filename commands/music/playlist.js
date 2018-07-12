@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
+	const userdb = client.userdb.get(msg.author.id);
 	const config = require('../../settings.json');
 	const ytdl = require('ytdl-core');
 	const {
@@ -15,42 +16,32 @@ exports.run = async (client, msg, args, lang) => {
 	var newplaylisttitle = '';
 	var newplaylistsongs = [];
 
-	// Guild premium check
-	// Song premium check if length is < 30 min
-	// Check content length if new playlist title is created
+	// if (tableload.premium.status === false) return msg.reply(lang.playlist_noguildpremium);
 
 	for (var i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'new') {
-				if (Object.keys(tableload.playlist).length >= 8) return msg.reply('Currently you can just add 8 playlists!');
+				if (Object.keys(tableload.playlist).length >= 8) return msg.reply(lang.playlist_maxplaylist);
+				if (!args.slice(1) || args.slice(1).length === 0) return msg.reply(lang.playlist_errortitle);
+				if (args.slice(1).join(" ").length > 30) return msg.reply(lang.playlist_titlelengtherror);
+				if (tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply(lang.playlist_alreadyexists);
 
-				await msg.reply('What should be the title of the new playlist? (under 30 characters)');
-				try {
-					var responsetitle = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-						maxMatches: 1,
-						time: 10000,
-						errors: ['time']
-					});
-					newplaylisttitle = responsetitle.first().content;
-				} catch (err) {
-					return msg.channel.send('Time error');
-				}
+				newplaylisttitle = args.slice(1).join(" ").toLowerCase();
 
-				if (tableload.playlist[responsetitle.first().content.toLowerCase()]) return msg.reply('Playlist already existed!');
-
-				await msg.reply(`Which song should be added in the playlist (**${newplaylisttitle}**)? \n(Type in "finish" if you have finished adding songs to your playlist)`);
+				const addnewsong = lang.playlist_addnewsong.replace('%playlistname', newplaylisttitle);
+				await msg.reply(addnewsong);
 				for (var i = 0; i < 100; i++) {
 					try {
 						var responsesongs = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
 							maxMatches: 1,
-							time: 50000,
+							time: 60000,
 							errors: ['time']
 						});
 
 						if (responsesongs.first().content.toLowerCase() === 'finish') {
 							tableload.playlist[newplaylisttitle.toLowerCase()] = newplaylistsongs;
 							await client.guildconfs.set(msg.guild.id, tableload);
-							return msg.reply('Playlist finished and saved!');
+							return msg.reply(lang.playlist_finish);
 						}
 
 						const url = responsesongs.first().content ? responsesongs.first().content.replace(/<(.+)>/g, '$1') : '';
@@ -59,10 +50,15 @@ exports.run = async (client, msg, args, lang) => {
 							const videos = await playlist.getVideos();
 							for (const video of Object.values(videos)) {
 								const video2 = await youtube.getVideoByID(video.id);
+								if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
+									return msg.reply(lang.play_songlengthlimit);
+								} else {
+									newplaylistsongs.push(video2);
+								}
 							}
 							await responsesongs.delete();
-							var playlistadded = lang.play_playlistadded.replace('%playlisttitle', `**${playlist.title}**`);
-							msg.channel.send('Song added!');
+							const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', playlist.title);
+							msg.channel.send(newsongaddedtoplaylist);
 						} else {
 							try {
 								var video = await youtube.getVideo(url);
@@ -91,49 +87,52 @@ exports.run = async (client, msg, args, lang) => {
 									try {
 										var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
 											maxMatches: 1,
-											time: 50000,
+											time: 60000,
 											errors: ['time']
 										});
 									} catch (err) {
-										return msg.channel.send('time error');
+										return msg.channel.send(lang.playlist_timeerror);
 									}
 									const videoIndex = parseInt(response.first().content);
 									var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
 									await firstmessage.delete();
 									await secondmessage.delete();
-									newplaylistsongs.push(video);
+
+									if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
+										return msg.reply(lang.play_songlengthlimit);
+									} else {
+										newplaylistsongs.push(video);
+									}
 
 									if (newplaylistsongs.length === 12) {
 										tableload.playlist[newplaylisttitle.toLowerCase()] = newplaylistsongs;
 										await client.guildconfs.set(msg.guild.id, tableload);
-										console.log(tableload.playlist);
-										return msg.reply('playlist saved');
+										return msg.reply(lang.playlist_finish);
 									} else {
-										msg.reply('Song has been added to the new playlist! Enter a next title to enter a new song');
+										const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', Util.escapeMarkdown(video.title));
+										msg.reply(newsongaddedtoplaylist);
 									}
-
-									console.log(Util.escapeMarkdown(video.title));
 								} catch (err) {
-									return msg.channel.send('No result');
+									return msg.channel.send(lang.play_noresult);
 								}
 							}
 						}
 					} catch (err) {
-						console.log(err);
-						return msg.channel.send('Time error');
+						return msg.channel.send(lang.playlist_timeerror);
 					}
 				}
 
 			} else if (margs[1].toLowerCase() === 'list') {
-				if (Object.keys(tableload.playlist).length === 0) return msg.reply('No playlist added yet!');
+				const noplaylistaddedyet = lang.playlist_noplaylistaddedyet.replace('%prefix', tableload.prefix)
+				if (Object.keys(tableload.playlist).length === 0) return msg.reply(noplaylistaddedyet);
 
 				if (args.slice(1).length !== 0 && args.slice(1) !== '') {
 					const input = args.slice(1);
 
-					if (!tableload.playlist[input.join(" ").toLowerCase()]) return msg.reply('Playlist doesn\'t exist!');
+					if (!tableload.playlist[input.join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 					const listsongplaylist = new Discord.RichEmbed()
-						.setAuthor('All songs in this playlist:')
+						.setAuthor(lang.playlist_embedtitle)
 						.setColor('#66ff33');
 
 					const songtitlearray = [];
@@ -149,7 +148,7 @@ exports.run = async (client, msg, args, lang) => {
 				}
 				var listplaylistobject = [];
 				const listplaylistembed = new Discord.RichEmbed()
-					.setAuthor('All playlists:')
+					.setAuthor(lang.playlist_playlistserverembed)
 					.setColor('#66ff33');
 
 				for (var x in tableload.playlist) {
@@ -162,32 +161,141 @@ exports.run = async (client, msg, args, lang) => {
 					embed: listplaylistembed
 				});
 			} else if (margs[1].toLowerCase() === 'delete') {
-				if (!tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply('Playlist doesn\'t exist');
+				if (!tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 				delete tableload.playlist[args.slice(1).join(" ").toLowerCase()];
 				await client.guildconfs.set(msg.guild.id, tableload);
 
-				return msg.reply('Deleted playlist');
+				return msg.reply(lang.playlist_deleted);
+			} else if (margs[1].toLowerCase() === 'addsong') {
+				if (!tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+				if (tableload.playlist[args.slice(1).join(" ").toLowerCase()].length >= 12) return msg.reply(lang.playlist_max12songs);
+
+				const selectedplaylist = tableload.playlist[args.slice(1).join(" ").toLowerCase()];
+
+				await msg.channel.send(lang.playlist_questionaddnewsong);
+				try {
+					var newsongaddtoplaylist = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
+						maxMatches: 1,
+						time: 60000,
+						errors: ['time']
+					});
+
+					const url = newsongaddtoplaylist.first().content ? newsongaddtoplaylist.first().content.replace(/<(.+)>/g, '$1') : '';
+					if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
+						const playlist = await youtube.getPlaylist(url);
+						const videos = await playlist.getVideos();
+						for (const video of Object.values(videos)) {
+							const video2 = await youtube.getVideoByID(video.id);
+							if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
+								return msg.reply(lang.play_songlengthlimit);
+							} else {
+								selectedplaylist.push(video2);
+							}
+						}
+						await client.guildconfs.set(msg.guild.id, tableload);
+						const newsongadded = lang.playlist_newsongadded.replace('%songname', playlist.title);
+						return msg.channel.send(newsongadded);
+					} else {
+						try {
+							var video = await youtube.getVideo(url);
+						} catch (error) {
+							try {
+								const searchString = newsongaddtoplaylist.first().content;
+								var videos = await youtube.searchVideos(searchString, 10);
+
+								if (videos.length === 0) return msg.channel.send(lang.play_noresult);
+
+								let index = 0;
+								const embed = new Discord.RichEmbed()
+									.setColor('#7BB3FF')
+									.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
+									.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
+
+								const embed2 = new Discord.RichEmbed()
+									.setColor('#0066CC')
+									.setDescription(lang.play_value);
+
+								await msg.channel.send({
+									embed
+								});
+								await msg.channel.send({
+									embed: embed2
+								});
+								try {
+									var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
+										maxMatches: 1,
+										time: 60000,
+										errors: ['time']
+									});
+								} catch (err) {
+									return msg.channel.send(lang.playlist_timeerror);
+								}
+								const videoIndex = parseInt(response.first().content);
+								var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+
+								if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
+									return msg.reply(lang.play_songlengthlimit);
+								} else {
+									selectedplaylist.push(video);
+								}
+
+								await client.guildconfs.set(msg.guild.id, tableload);
+
+								const newsongadded = lang.playlist_newsongadded.replace('%songname', Util.escapeMarkdown(video.title))
+								return msg.reply(newsongadded);
+							} catch (err) {
+								return msg.channel.send(lang.play_noresult);
+							}
+						}
+					}
+				} catch (err) {
+					return msg.channel.send(lang.playlist_timeerror);
+				}
+			} else if (margs[1].toLowerCase() === 'removesong') {
+				if (!tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+
+				await msg.reply(lang.playlist_questionremovesong);
+				try {
+					var removesong = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
+						maxMatches: 1,
+						time: 60000,
+						errors: ['time']
+					});
+				} catch (err) {
+					return msg.channel.send(lang.playlist_timeerror);
+				}
+
+				for (var x in tableload.playlist[args.slice(1).join(" ").toLowerCase()]) {
+					if (tableload.playlist[args.slice(1).join(" ").toLowerCase()][x].title.toLowerCase() === removesong.first().content.toLowerCase()) {
+						delete tableload.playlist[args.slice(1).join(" ").toLowerCase()][x];
+						await client.guildconfs.set(msg.guild.id, tableload);
+
+						const removedsong = lang.playlist_removedsong.replace('%songname', x.title);
+						return msg.reply(removedsong);
+					}
+				}
+				return msg.reply(lang.playlist_songnotinplaylist);
 			}
 		}
 	}
-
-	return msg.reply('Command incorrectly used!');
+	const error = lang.playlist_error.replace('%prefix', tableload.prefix);
+	return msg.reply(error);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-	userpermissions: [],
+	userpermissions: ['MANAGE_GUILD'],
 	dashboardsettings: true
 };
 
 exports.help = {
 	name: 'playlist',
-	description: '',
-	usage: '',
-	example: [''],
+	description: 'Create new Music playlists on this Discord server',
+	usage: 'playlist {new/delete/list/addsong/removesong} {name of the playlist}',
+	example: ['playlist new DJKhaled', 'playlist list', 'playlist list DJKhaled', 'playlist delete DJKhaled', 'playlist addsong DJKhaled', 'playlist removesong DJKhaled'],
 	category: 'music',
 	botpermissions: ['SEND_MESSAGES']
 };
