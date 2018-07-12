@@ -26,9 +26,9 @@ exports.conf = {
 };
 exports.help = {
 	name: 'dailyremind',
-	description: '',
-	usage: '',
-	example: [],
+	description: 'Enables or disables the dailyremind',
+	usage: 'dailyremind',
+	example: ['dailyremind'],
 	category: 'currency',
 	botpermissions: ['SEND_MESSAGES']
 };
