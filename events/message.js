@@ -246,6 +246,10 @@ exports.run = async (client, msg) => {
 	}
 	await client.guildconfs.set(msg.guild.id, tableload);
 
+	if (!tableload.playlist) {
+		tableload.playlist = {};
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
 
 	if (!tableload.application.applications || !tableload.application.applicationid) {
 		tableload.application.applicationid = 0;
