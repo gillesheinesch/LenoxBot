@@ -26,7 +26,7 @@
     "dailyremind_removed": "You have deactivated the dailyremind!",
     "dailyremind_description": "Enables or disables the dailyremind",
 
-    "applicationnotification_channelset": "Application notifications are now posted in the %channelname!",
+    "applicationnotification_channelset": "Application notifications are now posted in %channelname!",
     "applicationnotification_channeldeleted": "Application notifications are now no longer posted!",
     "applicationnotification_description": "Defines a channel in which application notifications will be sent",
 
@@ -1051,7 +1051,7 @@
     "guildupdateevent_newowner": "New owner:",
 
     "messageevent_commanddisabled": "This command is currently disabled. This may be due to the fact that errors are being corrected or improvements are being made. Please be patient until the command works again",
-    "messageevent_error": "You must run the commands on a Discord server on which the Discord Bot is available",
+    "messageevent_error": "You must run the commands on a Discord server where LenoxBot has joined",
     "messageevent_levelup": "Congratulations %author! You just advanced to level %level!",
     "messageevent_automaticrolegotten": "You have succesfully gotten the **%rolename** role! 🎊",
     "messageevent_banlist": "Unfortunately, this server was set to the bot's banlist. All users on this server cannot execute commands of this bot anymore.",
@@ -1066,7 +1066,7 @@
     "messageevent_hours": "hours",
     "messageevent_days": "days",
     "messageevent_anticommandspam": "Please wait %time before reusing the %commandname command.",
-    "messageevent_chatfilterembed": "Message deleted from %authortag by the chatfilter",
+    "messageevent_chatfilterembed": "Message from %authortag was deleted by the chatfilter",
     "messageevent_messagedeleted": "%author, your message has been deleted because you have used a word/number which has been blocked by the chatfilter!",
     "messageevent_commanddeactivated": "This command has been deactivated!",
 
