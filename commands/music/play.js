@@ -118,7 +118,7 @@ exports.run = async (client, msg, args, lang) => {
 				return msg.channel.send(lang.play_errorjoin);
 			}
 		} else {
-			if (serverQueue.songs.length >= 8 && tableload.premium.status === false) return msg.reply(lang.play_limitreached);
+			if (serverQueue.songs.length > 8 && tableload.premium.status === false) return msg.reply(lang.play_limitreached);
 			await serverQueue.songs.push(song);
 			if (playlist) return undefined;
 			else {
