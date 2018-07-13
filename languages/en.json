@@ -1,4 +1,7 @@
 {
+    "playplaylist_error": "You forgot to enter the name of the playlist!",
+    "playplaylist_description": "Plays a music playlist",
+
     "playlist_noguildpremium": "This is a premium-only command. To get access to the premium-only features, you have to donate at least $3! More information can be found on https://lenoxbot.com/donate or you can join our Discord support server: https://lenoxbot.com/discord",
     "playlist_maxplaylist": "Limit reached! You can create a maximum of 8 playlists!",
     "playlist_errortitle": "You forgot to enter the title for the new playlist!",
