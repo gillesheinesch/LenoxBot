@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 	var newplaylisttitle = '';
 	var newplaylistsongs = [];
 
-	// if (tableload.premium.status === false) return msg.reply(lang.playlist_noguildpremium);
+	if (tableload.premium.status === false) return msg.reply(lang.playlist_noguildpremium);
 
 	for (var i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
