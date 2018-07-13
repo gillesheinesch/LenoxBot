@@ -125,15 +125,17 @@ exports.run = async (client, msg, args, lang) => {
 				const duration = lang.play_duration.replace('%duration', song.duration);
 				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
 				const embed = new Discord.RichEmbed()
-				.setAuthor(lang.play_songadded)
-				.setDescription(duration)
-				.setThumbnail(song.thumbnail)
-				.setColor('#009900')
-				.setURL(song.url)
-				.setFooter(published)
-				.setTitle(song.title);
+					.setAuthor(lang.play_songadded)
+					.setDescription(duration)
+					.setThumbnail(song.thumbnail)
+					.setColor('#009900')
+					.setURL(song.url)
+					.setFooter(published)
+					.setTitle(song.title);
 
-				return msg.channel.send({ embed });
+				return msg.channel.send({
+					embed
+				});
 			}
 		}
 		return undefined;
@@ -164,17 +166,19 @@ exports.run = async (client, msg, args, lang) => {
 		skipvote.set(msg.guild.id, vote);
 
 		const duration = lang.play_duration.replace('%duration', song.duration);
-				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-				const embed = new Discord.RichEmbed()
-				.setAuthor(lang.play_startplaying)
-				.setDescription(duration)
-				.setThumbnail(song.thumbnail)
-				.setColor('#009900')
-				.setURL(song.url)
-				.setFooter(published)
-				.setTitle(song.title);
+		const published = lang.play_published.replace('%publishedatdate', song.publishedat);
+		const embed = new Discord.RichEmbed()
+			.setAuthor(lang.play_startplaying)
+			.setDescription(duration)
+			.setThumbnail(song.thumbnail)
+			.setColor('#009900')
+			.setURL(song.url)
+			.setFooter(published)
+			.setTitle(song.title);
 
-				return msg.channel.send({ embed });
+		return msg.channel.send({
+			embed
+		});
 	}
 };
 
