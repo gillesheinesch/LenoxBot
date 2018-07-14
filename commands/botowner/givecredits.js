@@ -32,7 +32,7 @@ exports.help = {
 	name: 'givecredits',
 	description: 'Gives a user a certain amount of credits',
 	usage: 'givecredits {@USER} {count}',
-	example: 'givecredits @Monkeyyy11 2000',
+	example: ['givecredits @Monkeyyy11 2000'],
 	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES']
 };
