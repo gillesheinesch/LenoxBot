@@ -296,7 +296,6 @@ a {
     border-radius: 30px !important;
 }
 
-
 .error404 {
     text-align: center;
     border: 2px solid red;
@@ -472,7 +471,6 @@ a {
     font-family: Mont, sans-serif;
 }
 
-
 .servernotlist {
     text-align: center;
     margin-top: 30px;
@@ -540,11 +538,8 @@ hr.message-inner-separator {
 }
 
 #dashboardnav ul li a {
-
     padding: 10px;
-
     padding: 6px;
-
 }
 
 .serverscard {
@@ -794,17 +789,14 @@ section .section-title {
     margin-top: 5px;
 }
 
-
-
 #hr-dashboard-navbar {
     display: block;
     height: 1px;
     border: 0;
     border-top: 1px solid #ccc !important;
     margin: 1em 0;
-    padding: 0; 
+    padding: 0;
 }
-
 
 @media (max-width: 767px) {
     ul.timeline:before {
@@ -1056,3 +1048,20 @@ section .section-title {
         padding: 3% 0;
     }
 }
+
+@include media-breakpoint-up(sm) {
+    html {
+        font-size: 1.2rem;
+    }
+}
+
+@include media-breakpoint-up(md) {
+    html {
+        font-size: 1.4rem;
+    }
+}
+
+@include media-breakpoint-up(lg) {
+    html {
+        font-size: 1.6rem;
+    }
