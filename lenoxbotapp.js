@@ -3,6 +3,7 @@ const client = new Discord.Client();
 const token = require('./settings.json').token;
 const fs = require('fs');
 const Enmap = require('enmap');
+const chalk = require('chalk');
 const NewsAPI = require('newsapi');
 const EnmapLevel = require('enmap-level');
 
@@ -75,7 +76,7 @@ const categories = ['partner', 'currency', 'botowner', 'administration', 'modera
 categories.forEach((c, i) => {
 	fs.readdir(`./commands/${c}/`, (err, files) => {
 		if (err) throw err;
-		console.log(`[Commands] Loading ${files.length} commands... (category: ${c})`);
+		console.log(chalk.green(`[Commands] Loading ${files.length} commands... (category: ${c})`));
 
 		files.forEach((f) => {
 			let props = require(`./commands/${c}/${f}`);
@@ -119,7 +120,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://lenoxbot.com/callback',
+	callbackURL: 'http://localhost:80/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -150,7 +151,7 @@ app.get('/callback',
 
 app.listen(80, function (err) {
 	if (err) return console.log(err);
-	console.log('Listening at https://lenoxbot.com/');
+	console.log(chalk.green('Listening at https://lenoxbot.com/'));
 });
 
 app.get('/', function (req, res, next) {
@@ -498,7 +499,7 @@ app.get('/servers', function (req, res, next) {
 				req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
 
 				if (req.user.guilds[i].lenoxbot === true) {
-					req.user.guilds[i].memberscount = client.guilds.get(req.user.guilds[i].id).members.size;
+					req.user.guilds[i].memberscount = client.guilds.get(req.user.guilds[i].id).memberCount;
 				}
 
 				check.push(req.user.guilds[i]);
@@ -659,8 +660,8 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect("/servers")
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
-		req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).members.size / 170) + 1;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
+		req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).memberCount / 170) + 1;
 
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
@@ -1559,7 +1560,7 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -1609,6 +1610,8 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'administration' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -1879,7 +1882,7 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -1900,6 +1903,8 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'moderation' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -1972,7 +1977,7 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -1993,6 +1998,8 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'help' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -2160,7 +2167,7 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -2188,6 +2195,8 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'music' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -2262,7 +2271,7 @@ app.get('/dashboard/:id/fun', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -2283,6 +2292,8 @@ app.get('/dashboard/:id/fun', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'fun' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -2355,7 +2366,7 @@ app.get('/dashboard/:id/searches', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -2376,6 +2387,8 @@ app.get('/dashboard/:id/searches', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'searches' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -2448,7 +2461,7 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -2469,6 +2482,8 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'nsfw' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -2541,7 +2556,7 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -2562,6 +2577,8 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'utility' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -2697,7 +2714,7 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async function (r
 		const tableload = await client.guildconfs.get(dashboardid);
 		if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../error')
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -2759,7 +2776,7 @@ app.get('/dashboard/:id/applications', function (req, res, next) {
 
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -3129,7 +3146,7 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -3177,6 +3194,8 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'application' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -3250,7 +3269,7 @@ app.get('/dashboard/:id/currency', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -3271,6 +3290,8 @@ app.get('/dashboard/:id/currency', function (req, res, next) {
 
 		var commands = client.commands.filter(r => r.help.category === 'currency' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -3512,7 +3533,7 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -3551,6 +3572,8 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 		const tableload = client.guildconfs.get(dashboardid);
 		var commands = client.commands.filter(r => r.help.category === 'tickets' && r.conf.dashboardsettings === true).array();
 		for (var i = 0; i < commands.length; i++) {
+			var englishstrings = require('./languages/en.json');
+			commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 			if (tableload.commands[commands[i].help.name].status === "true") {
 				commands[i].conf.enabled = true;
 			} else {
@@ -3633,7 +3656,7 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
 		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).members.size;
+		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
 		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
 		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
@@ -3753,7 +3776,7 @@ app.get('/error', function (req, res, next) {
 app.use(function (req, res, next) {
 	var err = new Error('Not Found');
 	err.status = 404;
-	res.redirect('../error');
+	res.redirect('/error');
 });
 
 function checkAuth(req, res, next) {
