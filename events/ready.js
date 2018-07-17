@@ -93,10 +93,21 @@ exports.run = async client => {
 	await client.botconfs.set('market', marketconfs);
 	if (!client.botconfs.has('premium')) client.botconfs.set('premium', botconfspremium);
 
+	client.botconfs.set('botstats', {
+		botguildscount: client.guilds.size,
+		botmemberscount: client.users.size,
+		botcommands: client.botconfs.get('botconfs').commandsexecuted,
+		botcommandsincrement: Math.floor(client.botconfs.get('botconfs').commandsexecuted / 170) + 1,
+		botmemberscountincrement: Math.floor(client.users.size / 170) + 1,
+		botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
+	});
+
 	setInterval(() => {
 		client.botconfs.set('botstats', {
 			botguildscount: client.guilds.size,
 			botmemberscount: client.users.size,
+			botcommands: client.botconfs.get('botconfs').commandsexecuted,
+			botcommandsincrement: Math.floor(client.botconfs.get('botconfs').commandsexecuted / 170) + 1,
 			botmemberscountincrement: Math.floor(client.users.size / 170) + 1,
 			botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
 		});
@@ -104,7 +115,7 @@ exports.run = async client => {
 
 	const embed = new Discord.RichEmbed()
 		.setTitle('Botrestart')
-		.setDescription('The bot had a restart and is back again!\nEveryone can now execute commands!')
+		.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
 		.setColor('#99ff66')
 		.setAuthor(client.user.tag, client.user.displayAvatarURL);
 

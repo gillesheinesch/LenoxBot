@@ -134,6 +134,11 @@ exports.run = async (client, msg) => {
 	const botconfspremiumload = await client.botconfs.get('premium');
 	const botconfs = client.botconfs.get('botconfs');
 
+	if (!botconfs.commandsexecuted) {
+		botconfs.commandsexecuted = 0;
+		await client.botconfs.set('botconfs', botconfs);
+	}
+
 	if (!botconfs.generalfaq) {
 		botconfs.generalfaq = {};
 		await client.botconfs.set('botconfs', botconfs);
@@ -734,6 +739,10 @@ exports.run = async (client, msg) => {
 			}
 
 			cmd.run(client, msg, args, lang);
+
+			botconfs.commandsexecuted = botconfs.commandsexecuted + 1;
+			client.botconfs.set('botconfs', botconfs);
+
 			if (tableload.commanddel === 'true') {
 				msg.delete();
 			}
