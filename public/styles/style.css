@@ -841,6 +841,10 @@ section .section-title {
     text-align: center;
 }
 
+#features-list .card-group .card {
+    border-radius: 10px !important;
+}
+
 /*Handy S*/
 
 @media only screen and (min-width: 320px) and (max-width: 374px) {
