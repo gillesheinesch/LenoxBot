@@ -59,8 +59,16 @@
 </header>
 
 <main>
+    <div style="margin-bottom: 200px !important;">
     <div class="error404">
-        <p class="text-white h3 text">Error 404</p>
-        <p class="text-white h5 text">Page not found!</p>
+        <p class="text-white h3 text">Error {{statuscode}}</p>
+        <p class="text-white h5 text">{{message}}</p>
+    </div>
+    {{#if fix}}
+    <div class="howtofix">
+        <p class="text-white h3 text" style="text-align;">How to fix?</p>
+        <p class="text-white h5 text">{{howtofix}}</p>
+    </div>
+    {{/if}}
     </div>
 </main>

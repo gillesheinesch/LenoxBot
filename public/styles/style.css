@@ -305,6 +305,18 @@ a {
     margin: 0 auto;
     width: 50%;
     margin-top: 100px;
+    margin-bottom: 20px;
+}
+
+.howtofix {
+    text-align: center;
+    border: 2px solid rgb(83, 184, 52);
+    background-color: rgb(83, 184, 52);
+    border-radius: 10px;
+    padding: 10px 30px;
+    margin: 0 auto;
+    width: 50%;
+    margin-top: 20px;
     margin-bottom: 100px;
 }
 
