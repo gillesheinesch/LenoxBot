@@ -2,7 +2,7 @@
     "playplaylist_error": "You forgot to enter the name of the playlist!",
     "playplaylist_description": "Plays a music playlist",
 
-    "playlist_noguildpremium": "This is a premium-only command. To get access to the premium-only features, you only have to pay $3! More information can be found on https://lenoxbot.com/donate or you can join our Discord support server: https://lenoxbot.com/discord",
+    "playlist_noguildpremium": "This is a premium-only command. To get access to the premium-only features, you only have to pay $3! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "playlist_maxplaylist": "Limit reached! You can create a maximum of 8 playlists!",
     "playlist_errortitle": "You forgot to enter a title for the new playlist!",
     "playlist_titlelengtherror": "Your title for the new playlist can not exceed 30 characters!",
@@ -20,7 +20,7 @@
     "playlist_questionaddnewsong": "Which song should be added to the playlist?",
     "playlist_newsongadded": "A new song (%songname) has been added to your playlist!",
     "playlist_questionremovesong": "Which song should be removed from the playlist? (Please enter the exact title of the song)",
-    "playlist_removedsong": "The song (%songname) was successfully removed from the playlist...",
+    "playlist_removedsong": "The song (%songname) was successfully removed from the playlist!",
     "playlist_songnotinplaylist": "This song is not in the playlist!",
     "playlist_error": "You used the command incorrectly. Please use **%prefixhelp playlist** to read the correct usage of the command!",
     "playlist_description": "Create new Music playlists on this Discord server",
@@ -35,7 +35,7 @@
 
     "setacceptedmessage_noinput": "You must enter your message that applicants receive!",
     "setacceptedmessage_set": "Message saved successfully!",
-    "setacceptedmessage_description": "Sets a goodbye message to say goodbye to your users",
+    "setacceptedmessage_description": "Sets a custom message that receive the applicants who have been accepted",
 
     "setrejectedmessage_description": "Sets a custom message that receive the applicants who have been rejected",
 
@@ -211,7 +211,7 @@
     "embed_description": "Create an embed for you with any text. Use // to go to a new line",
 
     "setprofiledescription_noinput": "You forgot to enter a profile description!",
-    "setprofiledescription_error": "Your description is too long. If you want a longer description, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or you can join our Discord support server: https://lenoxbot.com/discord",
+    "setprofiledescription_error": "Your description is too long. If you want a longer description, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "setprofiledescription_error2": "Your description is too long.",
     "setprofiledescription_set": "The profile description has been set successfully!", 
     "setprofiledescription_description": "Sets a global profile description",
@@ -268,7 +268,7 @@
     "channelblacklistadd_channelnotfind": "This voicechannel could not be found.",
     "channelblacklistadd_wrongtype": "You can only add **voicechannel** to the blacklist",
     "channelblacklistadd_already": "This voicechannel has already been added to the blacklist",
-    "channelblacklistadd_added": "The voicechannel has been successfully added to the blacklist",
+    "channelblacklistadd_added": "The voicechannel has been added to the blacklist",
     "channelblacklistadd_description": "Adds a voicechannel to the blacklist",
 
     "channelblacklistremove_error": "You forgot to enter the name of the voice channel you want to remove from the blacklist",
@@ -381,7 +381,7 @@
 
     "byemsg_noinput": "You must enter your goodbye message!",
     "byemsg_goodbyemsgset": "Goodbye message saved successfully!",
-    "byemsg_description": "Sets a goodbye message to say goodbye to your users",
+    "byemsg_description": "Sets a message to say goodbye to your users",
 
     "commanddeletion_deletionset": "Commands are now deleted after execution",
     "commanddeletion_nodeletionset": "Commands are no longer deleted after execution",
@@ -429,7 +429,7 @@
     "listevents_userleft": "Logs all recently left members on this Discord server",
     "listevents_guildupdate": "Logs all changes of the guild on this Discord server",
     "listevents_chatfilter": "Logs all messages deleted by the chatfilter on this Discord server",
-    "listevents_memberupdate": "Logs all user changes",
+    "listevents_memberupdate": "Logs all user changes on this Discord server",
     "listevents_description": "Lists you all events that you can log on your server",
 
     "listmodules_embed": "All active/disabled modules!",
@@ -470,8 +470,8 @@
     "log_guildupdatedeleted": "All guild updates will no longer be logged!",
     "log_chatfilterset": "All messages deleted by the chatfilter are now logged in channel",
     "log_chatfilterdeleted": "All messages deleted by the chatfilter will no longer be logged!",
-    "log_error": "Hmm, that event doesnt exist. You can check all events that you can log with",
-    "log_description": "Allows you to log for different channels, different events. Use ?listevents to get a list of all events",
+    "log_error": "Hmm, that event doesn't exist. You can check all events that you can log with",
+    "log_description": "Allows you to log for different channels, different events. The command 'listevents' will give you a list of all events",
 
     "msgoptions_$usertag$": "Usertag of the new member \n**Example:** __Monkeyyy11#0001__ joined the server!",
     "msgoptions_$usermention$": "Mention of the new member (Just available for the welcome message) \n**Example:** __@Monkeyyy11#0001__ joined the server!",
@@ -594,7 +594,7 @@
     "commands_error": "There was an error. See %prefixmodules to get a list of all available modules that you can use!",
     "commands_description": "All commands of a module",
 
-    "help_addthebot": "To add this bot to your Discordserver:",
+    "help_addthebot": "To add this bot to your Discord server:",
     "help_discordserver": "Any questions/suggestions/bugs? Join our Discord server:",
     "help_modulecommand": "To see all modules of the bot:",
     "help_commandscommand": "To see all commands of a module:",
@@ -620,7 +620,7 @@
     "modules_utility": "Commands that all users can use and which are useful",
     "modules_application": "Entire application system with many settings options",
     "modules_currency": "Commands that allow you to receive credits and items (You can sell items)",
-    "modules_tickets": "Ticket system which allows you to run support for example",
+    "modules_tickets": "Ticket system which allows you for example to provide support",
     "modules_description": "Gives you a list of all modules and their meaning",
 
     "website_website": "Here you can find our website including our new dashboard:",
@@ -657,9 +657,9 @@
     "mute_muteroleundefined": "First of all, you have to define the mute role by using the **%prefixmuterole** command",
     "mute_nomention": "You forgot to mention the user who has to be muted.",
     "mute_notime": "You forgot to enter how long you want to mute that user.",
-    "mute_noinput": "You forgot to enter a reason for this mute.",
+    "mute_noinput": "You forgot to enter a reason for this mute!",
     "mute_rolenotexist": "It looks like this role does not exist anymore. Please define a new mute role with the **%prefixmuterole** command",
-    "mute_invalidtimeformat": "You used an invalid format for your mute.",
+    "mute_invalidtimeformat": "You used an invalid format for your mute!",
     "mute_alreadymuted": "%username is already muted.",
     "mute_mutedby": "Muted by %authortag",
     "mute_mutedescription": "**Action**: Mute \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Muted for**: %mutetime",
@@ -668,9 +668,9 @@
 
     "softban_nomention": "You must mention a user to softban!",
     "softban_yourself": "You can not softban yourself!",
-    "softban_daysundefined": "You haven't specified the number of days.",
+    "softban_daysundefined": "You haven't specified the number of days!",
     "softban_nonumber": "You have to specify of how many days you want to have the messages of @User deleted! (Up to 7 days)",
-    "softban_max7": "You can only delete the messages up to the last 7 days.",
+    "softban_max7": "You can only delete the messages up to the last 7 days!",
     "softban_noinput": "You must specify a reason for the softban!",
     "softban_nopermission": "I can not softban this user!",
     "softban_softbanned": "%usertag was successfully softbaned and the messages of the last %days days were deleted!",
@@ -688,7 +688,7 @@
 
     "unmute_muteroleundefined": "First of all, you have to define the mute role by using the **%prefixmuterole** command",
     "unmute_nomention": "You forgot to mention the user who has to be unmuted.",
-    "unmute_noinput": "You forgot to enter the reason for this unmute.",
+    "unmute_noinput": "You forgot to enter the reason for this unmute!",
     "unmute_rolenotexist": "It looks like this role does not exist anymore. Please define a new mute role with the **%prefixmuterole** command",
     "unmute_unmutedby": "Unmuted by",
     "unmute_unmutedescription": "**Action**: Unmute \n**User**: %usertag (%userid) \n**Reason**: %reason",
@@ -723,8 +723,8 @@
     "play_error": "No or invalid value entered, cancelling video selection.",
     "play_noresult": "I could not obtain any search results.",
     "play_errorjoin": "I could not join the voice channel.",
-    "play_songlengthlimit": "You can only add videos that are less than 30 minutes to the queue. If you want to queue longer videos, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or you can join our Discord support server: https://lenoxbot.com/discord",
-    "play_limitreached": "Only a maximum of 8 songs can be queued on this Discord server. If you want to add more, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or you can join our Discord support server: https://lenoxbot.com/discord",
+    "play_songlengthlimit": "You can only add videos that are less than 30 minutes to the queue. If you want to queue longer videos, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+    "play_limitreached": "Only a maximum of 8 songs can be queued on this Discord server. If you want to add more, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "play_songadded": "New Song added to the queue:",
     "play_duration": "**Duration:** %duration",
     "play_published": "Published at %publishedatdate",
@@ -762,7 +762,7 @@
     "stop_leftchannel": "I have left the voice channel!",
     "stop_description": "Stops the current music and the bot leaves the voice channel",
 
-    "volume_nopremium": "This is a premium-only command. To get access to the premium-only features, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or you can join our Discord support server: https://lenoxbot.com/discord",
+    "volume_nopremium": "This is a premium-only command. To get access to the premium-only features, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "volume_notvoicechannel": "You are not in a voice channel, please join a voice channel to play music!",
     "volume_nothing": "There is nothing playing.",
     "volume_currentvolume": "The current volume is: **%volume**",
@@ -820,7 +820,7 @@
     "news_noauthor": "No author",
     "news_nodescription": "No description",
     "news_nopubdate": "No publication date",
-    "news_articlenotexist": "It looks like you have selected a wrong article. Please make sure that the article really exists! found!",
+    "news_articlenotexist": "It looks like you have selected a wrong article. Please make sure that the article really exists!",
     "news_noanswer": "Command cancelled. You haven't replied for 20 seconds!",
     "news_description": "Use this command to request news from different newspaper",
 
@@ -882,14 +882,14 @@
 
     "inrole_noinput": "You have to enter the name of the role!",
     "inrole_rolenotexist": "Please make sure that the role you mentioned exists!",
-    "inrole_description": "Command to see which members have a specific role",
+    "inrole_description": "Allows you to see which members have a specific role",
 
     "join_noinput": "You must specify the name of the role!",
     "join_notwhitelisted": "This role isn't in the list of self-assignables roles",
     "join_rolenotexist": "This role does not exist at all!",
     "join_alreadyhave": "You already have this role!",
     "join_roleassigned": "Role successfully assigned!",
-    "join_nopermission": "I don't have the necessary permissions to give you this role. Please take a look at the rights of your roles and the order of your roles!",
+    "join_nopermission": "I don't have the necessary permissions to give you this role. Please take a look at the right and the order of your roles!",
     "join_description": "Join a self-assignable role",
 
     "leave_noinput": "You must specify the name of the role!",
@@ -1071,7 +1071,7 @@
     "messageevent_anticommandspam": "Please wait %time before reusing the %commandname command.",
     "messageevent_chatfilterembed": "Message from %authortag was deleted by the chatfilter",
     "messageevent_messagedeleted": "%author, your message has been deleted because you have used a word/number which has been blocked by the chatfilter!",
-    "messageevent_commanddeactivated": "This command has been deactivated!",
+    "messageevent_commanddeactivated": "This command is currently disabled!",
 
     "messagedeleteevent_deleted": "Message deleted!",
     "messagedeleteevent_author": "Author",
