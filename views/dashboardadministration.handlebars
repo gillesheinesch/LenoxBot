@@ -19,7 +19,9 @@
                     <a href="/documentation" class=" h5 nav-link">Documentation</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/donate" class=" h5 nav-link">Donate  <span class="badge badge-info">NEW</span></a>
+                    <a href="/donate" class=" h5 nav-link">Donate
+                        <span class="badge badge-info">NEW</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
@@ -35,7 +37,7 @@
                 <li class="nav-item active">
                     {{#if user}}
                     <a href="/servers" class=" h5 nav-link">Dashboard
-                        
+
                     </a>
                     {{/if}}
                 </li>
@@ -288,13 +290,11 @@
                                     <div class="form-group mx-sm-3 mb-2 col-sm-4">
                                         <select required class="selectpicker" name="newpermissionticket" data-live-search="true" title="Choose permission" data-actions-box="true"
                                             data-size="7">
-                                            {{#each permissions}} 
-                                            {{#if ticketpermissionset}}
+                                            {{#each permissions}} {{#if ticketpermissionset}}
                                             <option selected value="{{number}}">{{name}}</option>
                                             {{else}}
                                             <option value="{{number}}">{{name}}</option>
-                                            {{/if}}
-                                            {{/each}}
+                                            {{/if}} {{/each}}
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-2">Submit</button>
@@ -306,13 +306,11 @@
                                     <div class="form-group mx-sm-3 mb-2 col-sm-4">
                                         <select required class="selectpicker" name="newpermissionapplication" data-live-search="true" title="Choose permission" data-actions-box="true"
                                             data-size="7">
-                                            {{#each permissions}} 
-                                            {{#if applicationpermissionset}}
+                                            {{#each permissions}} {{#if applicationpermissionset}}
                                             <option selected value="{{number}}">{{name}}</option>
                                             {{else}}
                                             <option value="{{number}}">{{name}}</option>
-                                            {{/if}}
-                                            {{/each}}
+                                            {{/if}} {{/each}}
                                         </select>
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-2">Submit</button>

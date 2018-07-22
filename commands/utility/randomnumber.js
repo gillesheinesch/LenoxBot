@@ -17,12 +17,10 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['rn'],
-
-    
-
-    userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
+
 exports.help = {
 	name: 'randomnumber',
 	description: 'Selects a random number between your input and 1',
