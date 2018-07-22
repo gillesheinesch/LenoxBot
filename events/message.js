@@ -731,12 +731,13 @@ exports.run = async (client, msg) => {
 				setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
 			}
 
-			if (cmd.conf.enabled === false) {
+			/* if (cmd.conf.enabled === false) {
 				if (tableload.commanddel === 'true') {
 					msg.delete();
 				}
 				return msg.reply(lang.messageevent_commanddisabled);
 			}
+			*/
 
 			cmd.run(client, msg, args, lang);
 
