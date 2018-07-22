@@ -93,6 +93,7 @@ client.login(token);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
+	limit: '50mb',
 	extended: false
 }));
 app.use(cookieParser());
