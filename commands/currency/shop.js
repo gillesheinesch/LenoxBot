@@ -107,48 +107,10 @@ exports.run = async (client, msg, args, lang) => {
 		return undefined;
 	}
 
-	if (isNaN(howmanycheck[0])) {
-		const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
-		return msg.reply(commanderror);
-	}
-
 	for (i = 0; i < sellorbuycheck.length; i++) {
 		if (validationforbuysell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
 			if (sellorbuycheck[0].toLowerCase() == "sell") {
 				// Check if the item exists in the user's inventory
-				for (i = 0; i < itemcheck.length; i++) {
-					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
-						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
-						if (itemcheck[0] == validationforitemsbuysell[i]) {
-							const notown = lang.shop_notown.replace('%prefix', tableload.prefix);
-							if (userdb.inventory[itemsnames[i]] < howmanycheck) return msg.reply(notown);
-
-							const amount = parseInt(marketconfs[itemsnames[i]][2]) * parseInt(howmanycheck[0]);
-							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] - parseInt(howmanycheck[0]);
-
-							if (botconfs[itemsnames[i]][2] >= (parseInt(botconfs[itemsnames[i]][4]) / 4) && botconfs[itemsnames[i]][2] <= (parseInt(botconfs[itemsnames[i]][4]) * 4)) {
-								botconfs[itemsnames[i]][2] = Number(botconfs[itemsnames[i]][2]) - Math.ceil((Number(botconfs[itemsnames[i]][2]) / 100) * 2);
-							}
-							if (botconfs[itemsnames[i]][1] >= (parseInt(botconfs[itemsnames[i]][3]) / 4) && botconfs[itemsnames[i]][1] <= (parseInt(botconfs[itemsnames[i]][3]) * 4)) {
-								botconfs[itemsnames[i]][1] = Number(botconfs[itemsnames[i]][1]) + Math.ceil((Number(botconfs[itemsnames[i]][1]) / 100) * 2);
-							}
-
-							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
-								if (!row) {
-									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
-								}
-								sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
-							});
-
-							await client.botconfs.set('market', botconfs);
-							await client.userdb.set(msg.author.id, userdb);
-
-							const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
-							return msg.reply(sold);
-						}
-					}
-				}
-
 				if (args.slice(1).join(" ").toLowerCase() == "all") {
 					var inventoryslotcheck = 0;
 					for (var x = 0; x < itemsnames.length; x++) {
@@ -198,6 +160,45 @@ exports.run = async (client, msg, args, lang) => {
 
 					const sellall = lang.shop_sellall.replace('%items', messageedit.join(", ")).replace('%amount', `**${amounttoreceive}**`);
 					return msg.reply(sellall);
+				}
+
+
+				if (isNaN(howmanycheck[0])) {
+					const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
+					return msg.reply(commanderror);
+				}
+
+				for (i = 0; i < itemcheck.length; i++) {
+					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
+						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
+						if (itemcheck[0] == validationforitemsbuysell[i]) {
+							const notown = lang.shop_notown.replace('%prefix', tableload.prefix);
+							if (userdb.inventory[itemsnames[i]] < howmanycheck) return msg.reply(notown);
+
+							const amount = parseInt(marketconfs[itemsnames[i]][2]) * parseInt(howmanycheck[0]);
+							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] - parseInt(howmanycheck[0]);
+
+							if (botconfs[itemsnames[i]][2] >= (parseInt(botconfs[itemsnames[i]][4]) / 4) && botconfs[itemsnames[i]][2] <= (parseInt(botconfs[itemsnames[i]][4]) * 4)) {
+								botconfs[itemsnames[i]][2] = Number(botconfs[itemsnames[i]][2]) - Math.ceil((Number(botconfs[itemsnames[i]][2]) / 100) * 2);
+							}
+							if (botconfs[itemsnames[i]][1] >= (parseInt(botconfs[itemsnames[i]][3]) / 4) && botconfs[itemsnames[i]][1] <= (parseInt(botconfs[itemsnames[i]][3]) * 4)) {
+								botconfs[itemsnames[i]][1] = Number(botconfs[itemsnames[i]][1]) + Math.ceil((Number(botconfs[itemsnames[i]][1]) / 100) * 2);
+							}
+
+							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
+								if (!row) {
+									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+								}
+								sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
+							});
+
+							await client.botconfs.set('market', botconfs);
+							await client.userdb.set(msg.author.id, userdb);
+
+							const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
+							return msg.reply(sold);
+						}
+					}
 				}
 			} else if (sellorbuycheck[0].toLowerCase() == "buy") {
 				// Check if the use can buy this item
