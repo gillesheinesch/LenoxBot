@@ -3014,6 +3014,86 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/utility/submitsendembed', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			var embed = new Discord.RichEmbed();
+		
+			embed.setTitle(req.body.embedtitle);
+
+			try {
+				embed.setColor(req.body.embedcolor)
+			} catch (error) {
+				throw "No color selected"
+			}
+
+			if (req.body.embeddescription) {
+				embed.setDescription(req.body.embeddescription)
+			}
+
+			if (req.body.embedlink) {
+				embed.setURL(req.body.embedlink)
+			}
+
+			if (req.body.embedtimestamp) {
+				embed.setTimestamp()
+			}
+
+			if (req.body.embedthumbnail) {
+					embed.setThumbnail(req.body.embedthumbnail)
+			}
+
+			if (req.body.embedfooter) {
+				embed.setFooter(req.body.embedfooter)
+			}
+
+			const embedchannel = client.guilds.get(dashboardid).channels.get(req.body.sendembedchannel);
+
+			embedchannel.send({embed})
+
+			tableload.globallogs.push({
+				action: `An embed was sent (#${embedchannel.name}) `,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/utility`,
+				query: {
+					"submitutility": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
 app.post('/dashboard/:id/utility/:command/submitcommandstatuschange', async function (req, res, next) {
 	try {
 		var dashboardid = res.req.originalUrl.substr(11, 18);
@@ -3091,7 +3171,7 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 
 			req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
 
-			var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `voice`).array();
+			var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			var check = req.user.guilds[index];
 
 			const tableload = client.guildconfs.get(req.user.guilds[index].id);
