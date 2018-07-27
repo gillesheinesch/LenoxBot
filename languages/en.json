@@ -903,7 +903,7 @@
     "listselfassignablerole_nolroles": "There are no roles on this server that you can assign yourself!",
     "listselfassignablerole_description": "Shows you a list of all roles that allows users to assign themselves",
 
-    "credits_credits": "credits:",
+    "credits_credits": "Credits:",
     "credits_hint": "Hint how to earn credits quickly:",
     "credits_hintembed": "You ran the command **?credits** for the first time, so let's give you a little hint on how to earn 30,000 credits within 30 days. \n\nEvery day you have the opportunity to upvote the LenoxBot here: https://Discordbots.org/bot/354712333853130752/vote \nEach upvote gives you directly 1000 credits. After 24 hours you can then vote again...",
     "credits_description": "Shows you the credits of you or another user",

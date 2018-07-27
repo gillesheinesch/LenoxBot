@@ -22,7 +22,7 @@ exports.run = async(client, msg, args, lang) => {
 	sql.get(`SELECT * FROM medals WHERE userId = "${user1.id}"`).then(row => {
 		var embed = new Discord.RichEmbed()
 		.setAuthor(user1.tag, user1.avatarURL)
-		.setDescription(`${lenoxbotcoin} **${lang.credits_credits}** ${row.medals}`)
+		.setDescription(`**${lang.credits_credits}** ${row.medals} ${lenoxbotcoin} `)
 		.setColor('#009933');
 
 		msg.channel.send({ embed });
