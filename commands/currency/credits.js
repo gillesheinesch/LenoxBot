@@ -32,10 +32,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	aliases: ['balance'],
-
-	
-
+	aliases: ['balance', 'c'],
 	userpermissions: [], dashboardsettings: false
 
 };
