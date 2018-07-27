@@ -22,7 +22,6 @@ exports.run = async(client, msg, args, lang) => {
 	}
 
 	let embed = new Discord.RichEmbed()
-	.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 	.setColor('#A4F2DF')
 	.addField(lang.ranks_name, tempArray.slice(0, 20).join('\n'), true)
 	.addField(lang.ranks_points, moneyArray.slice(0, 20).join('\n'), true)
@@ -30,6 +29,8 @@ exports.run = async(client, msg, args, lang) => {
 
 		const message = await msg.channel.send({ embed });
 		
+		if (levelArray.length < 21) return undefined; //Check if reactions are needed
+
 		await message.react('◀');
 		await message.react('▶');
 		
@@ -86,11 +87,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-
-    
-
-    userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'ranks',
