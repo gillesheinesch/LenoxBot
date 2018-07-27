@@ -880,6 +880,7 @@
     "channels_description": "A list of all channels on your Discord server",
 
     "inrole_noinput": "You have to enter the name of the role!",
+    "inrole_members": "members have this role",
     "inrole_rolenotexist": "Please make sure that the role you mentioned exists!",
     "inrole_description": "Allows you to see which members have a specific role",
 
