@@ -29,7 +29,6 @@ exports.conf = {
 	aliases: ['binfo', 'bi'],
 	userpermissions: [],
 	dashboardsettings: false
-
 };
 exports.help = {
 	name: 'botinfo',
