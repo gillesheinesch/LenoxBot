@@ -207,10 +207,11 @@
                                         <div class="col-sm-4">
                                             <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newrole" data-live-search="true"
                                                 title="Choose role" data-actions-box="true" data-size="7">
+                                                <option value="false">No role!</option>
                                                 {{#each roles}} {{#if roleset}}
-                                                <option value="{{name}}" selected>{{name}}</option>
+                                                <option value="{{id}}" selected>#{{name}}</option>
                                                 {{else}}
-                                                <option value="{{name}}">{{name}}</option>
+                                                <option value="{{id}}">#{{name}}</option>
                                                 {{/if}} {{/each}}
                                             </select>
                                         </div>
@@ -234,10 +235,11 @@
                                         <div class="col-sm-4">
                                             <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newdenyrole" data-live-search="true"
                                                 title="Choose role" data-actions-box="true" data-size="7">
+                                                <option value="false">No role!</option>
                                                 {{#each roles}} {{#if denyroleset}}
-                                                <option value="{{name}}" selected>{{name}}</option>
+                                                <option value="{{id}}" selected>#{{name}}</option>
                                                 {{else}}
-                                                <option value="{{name}}">{{name}}</option>
+                                                <option value="{{id}}">#{{name}}</option>
                                                 {{/if}} {{/each}}
                                             </select>
                                         </div>
