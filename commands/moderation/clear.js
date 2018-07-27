@@ -27,9 +27,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['purge'],
-
     userpermissions: ['MANAGE_MESSAGES'], dashboardsettings: true
-
 };
 exports.help = {
 	name: 'clear',
