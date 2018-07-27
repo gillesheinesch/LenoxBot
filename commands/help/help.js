@@ -7,9 +7,9 @@ exports.run = (client, msg, args, lang) => {
 		.addField(lang.help_addthebot, `https://lenoxbot.com/invite/`)
 		.addField(lang.help_discordserver, `https://lenoxbot.com/discord/`)
 		.addField(lang.help_modulecommand, `${prefix}modules`)
-		.addField(lang.help_commandscommand, `${prefix}commands {modulename}`)
-		.addField(lang.help_helpcommand, `${prefix}help {commandname}`)
-		.addField(lang.help_documentation, 'https://lenoxbot.com/')
+		.addField(lang.help_commandscommand, `${prefix}commands {${lang.help_modulename}}`)
+		.addField(lang.help_helpcommand, `${prefix}help {${lang.help_command}}`)
+		.addField(lang.botinfo_doc, 'https://lenoxbot.com/')
 		.addField(lang.help_ludushosting, 'http://go.ludus-hosting.de/lenoxbot')
 		.setColor('#ff3300')
 		.setAuthor(client.user.username, client.user.displayAvatarURL);
@@ -87,11 +87,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['h'],
-
-    
-
-    userpermissions: [], dashboardsettings: false
-
+	userpermissions: [],
+	dashboardsettings: false
 };
 exports.help = {
 	name: 'help',
