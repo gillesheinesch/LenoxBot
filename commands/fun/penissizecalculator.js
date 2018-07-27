@@ -11,7 +11,7 @@ exports.run = (client, msg, args, lang) => {
 	if (!msg.mentions.members.first()) {
 		return msg.channel.send(`${msg.author}, ${randomsize[rand]}`);
 	} else {
-		msg.channel.send(`${msg.mentions.members.first()}, ${randomsize[rand]}`);
+		msg.channel.send(`${msg.mentions.members.first().displayName}, ${randomsize[rand]}`);
 	}
 };
 
