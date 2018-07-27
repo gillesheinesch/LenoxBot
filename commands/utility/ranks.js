@@ -12,8 +12,8 @@ exports.run = async(client, msg, args, lang) => {
 		let tempArray = [];
 
 	rows.forEach(row => {
-		const member = msg.guild.member(row.userId);
-		userArray.push(member ? member.displayName : row.userId);
+		const member = client.users.get(row.userId);
+		userArray.push(member ? member.tag : row.userId);
 		moneyArray.push(row.points);
 		levelArray.push(row.level);
 	});
