@@ -910,7 +910,7 @@
 
     "creditranklist_name": "Name",
     "creditranklist_credits": "Credits",
-    "creditranklist_description": "Ranking, sorted by the credits",
+    "creditranklist_description": "Top 20 ranking of the richest botusers (sorted by the credits)",
 
     "memberstatus_online": "%memberscount members are online",
     "memberstatus_dnd": "%memberscount members are busy",
