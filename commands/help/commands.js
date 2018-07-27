@@ -7,9 +7,6 @@ exports.run = async(client, msg, args, lang) => {
 	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
 	var embedinfo = lang.commands_embedinfo.replace('%prefix', tableload.prefix);
-	const embed = new Discord.RichEmbed()
-	.setColor('#0066CC')
-	.setDescription(embedinfo);
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
