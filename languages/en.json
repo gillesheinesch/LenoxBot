@@ -590,7 +590,6 @@
     "slot_nothing": "Unfortunately you lost 50 credits! I hope you have more luck next time...",
     "slot_description": "Play with the slot machine and win/lose credits",
 
-    "commands_embedinfo": "For more information about a command, type in %prefixhelp {commandname}",
     "commands_error": "There was an error. See %prefixmodules to get a list of all available modules that you can use!",
     "commands_description": "All commands of a module",
 

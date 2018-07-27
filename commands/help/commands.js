@@ -6,8 +6,6 @@ exports.run = async(client, msg, args, lang) => {
 	const commandNames = Array.from(client.commands.keys());
 	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);
 
-	var embedinfo = lang.commands_embedinfo.replace('%prefix', tableload.prefix);
-
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			for (var index = 0; index < validation.length; index++) {
