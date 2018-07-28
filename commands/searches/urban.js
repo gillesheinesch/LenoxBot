@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const snekfetch = require('snekfetch');
 exports.run = async(client, msg, args, lang) => {
+	if (!msg.channel.nsfw) return msg.channel.send(lang.pornsearch_nsfw);
 	const content = args.slice().join(" ");
 	await snekfetch.get(`http://api.urbandictionary.com/v0/define?term=${content}`)
 	.then(r => {
@@ -27,11 +28,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-
-	
-
-	userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'urban',
