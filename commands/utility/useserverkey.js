@@ -7,11 +7,11 @@ exports.run = async (client, msg, args, lang) => {
 	require('moment-duration-format');
 	const ms = require('ms');
 
-	if (!input || input.length === 0) return msg.reply(lang.serveractivatekey_noinput);
-	if (isNaN(input.join(" "))) return msg.reply(lang.serveractivatekey_error);
-	if (botconfspremiumload.keys.numberofguildkeys < input.join(" ")) return msg.reply(lang.serveractivatekey_notexist);
+	if (!input || input.length === 0) return msg.reply(lang.useserverkey_noinput);
+	if (isNaN(input.join(" "))) return msg.reply(lang.useserverkey_error);
+	if (botconfspremiumload.keys.numberofguildkeys < input.join(" ")) return msg.reply(lang.useserverkey_notexist);
 
-	if (botconfspremiumload.keys.redeemedguildkeys.includes(input.join(" "))) return msg.reply(lang.serveractivatekey_already);
+	if (botconfspremiumload.keys.redeemedguildkeys.includes(input.join(" "))) return msg.reply(lang.useserverkey_already);
 
 	if (tableload.premium.status === false) {
 		tableload.premium.status = true;
@@ -25,7 +25,7 @@ exports.run = async (client, msg, args, lang) => {
 		await client.guildconfs.set(msg.author.id, tableload);
 		await client.botconfs.set('premium', botconfspremiumload);
 
-		const timestamps = client.cooldowns.get('serveractivatekey');
+		const timestamps = client.cooldowns.get('useserverkey');
 		timestamps.delete(msg.author.id);
 
 		const embed = new Discord.RichEmbed()
@@ -38,7 +38,7 @@ exports.run = async (client, msg, args, lang) => {
 			embed
 		});
 
-		const redeemed = lang.serveractivatekey_redeemed.replace('%date', `\`${tableload.premium.end.toUTCString()}\``);
+		const redeemed = lang.useserverkey_redeemed.replace('%date', `\`${tableload.premium.end.toUTCString()}\``);
 		return msg.reply(redeemed);
 	} else {
 		tableload.premium.bought.push(new Date().getTime);
@@ -50,7 +50,7 @@ exports.run = async (client, msg, args, lang) => {
 		await client.guildconfs.set(msg.author.id, tableload);
 		await client.botconfs.set('premium', botconfspremiumload);
 
-		const timestamps = client.cooldowns.get('serveractivatekey');
+		const timestamps = client.cooldowns.get('useserverkey');
 		timestamps.delete(msg.author.id);
 
 		const embed = new Discord.RichEmbed()
@@ -63,7 +63,7 @@ exports.run = async (client, msg, args, lang) => {
 			embed
 		});
 
-		const extended = lang.serveractivatekey_extended.replace('%date', `\`${new Date(Date.parse(tableload.premium.end) + 7776000000).toUTCString()}\``);
+		const extended = lang.useserverkey_extended.replace('%date', `\`${new Date(Date.parse(tableload.premium.end) + 7776000000).toUTCString()}\``);
 		return msg.reply(extended);
 	}
 };
@@ -79,8 +79,8 @@ exports.conf = {
 exports.help = {
 	name: 'useserverkey',
 	description: 'Displays the points of you or a user',
-	usage: 'serveractivatekey {key}',
-	example: ['serveractivatekey 1122'],
+	usage: 'useserverkey {key}',
+	example: ['useserverkey 1122'],
 	category: 'utility',
 	botpermissions: ['SEND_MESSAGES']
 };

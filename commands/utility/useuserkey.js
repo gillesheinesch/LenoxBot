@@ -7,11 +7,11 @@ exports.run = async (client, msg, args, lang) => {
 	require('moment-duration-format');
 	const ms = require('ms');
 
-	if (!input || input.length === 0) return msg.reply(lang.useractivatekey_noinput);
-	if (isNaN(input.join(" "))) return msg.reply(lang.useractivatekey_error);
-	if (botconfspremiumload.keys.numberofuserkeys < input.join(" ")) return msg.reply(lang.useractivatekey_notexist);
+	if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
+	if (isNaN(input.join(" "))) return msg.reply(lang.useuserkey_error);
+	if (botconfspremiumload.keys.numberofuserkeys < input.join(" ")) return msg.reply(lang.useuserkey_notexist);
 
-	if (botconfspremiumload.keys.redeemeduserkeys.includes(input.join(" "))) return msg.reply(lang.useractivatekey_already);
+	if (botconfspremiumload.keys.redeemeduserkeys.includes(input.join(" "))) return msg.reply(lang.useuserkey_already);
 
 	if (userdb.premium.status === false) {
 		userdb.premium.status = true;
@@ -25,7 +25,7 @@ exports.run = async (client, msg, args, lang) => {
 		await client.userdb.set(msg.author.id, userdb);
 		await client.botconfs.set('premium', botconfspremiumload);
 
-		const timestamps = client.cooldowns.get('useractivatekey');
+		const timestamps = client.cooldowns.get('useuserkey');
 		timestamps.delete(msg.author.id);
 
 		const embed = new Discord.RichEmbed()
@@ -38,7 +38,7 @@ exports.run = async (client, msg, args, lang) => {
 			embed
 		});
 
-		const redeemed = lang.useractivatekey_redeemed.replace('%date', `\`${userdb.premium.end.toUTCString()}\``);
+		const redeemed = lang.useuserkey_redeemed.replace('%date', `\`${userdb.premium.end.toUTCString()}\``);
 		return msg.reply(redeemed);
 	} else {
 		userdb.premium.bought.push(new Date().getTime);
@@ -50,7 +50,7 @@ exports.run = async (client, msg, args, lang) => {
 		await client.userdb.set(msg.author.id, userdb);
 		await client.botconfs.set('premium', botconfspremiumload);
 
-		const timestamps = client.cooldowns.get('useractivatekey');
+		const timestamps = client.cooldowns.get('useuserkey');
 		timestamps.delete(msg.author.id);
 
 		const embed = new Discord.RichEmbed()
@@ -63,7 +63,7 @@ exports.run = async (client, msg, args, lang) => {
 			embed
 		});
 
-		const extended = lang.useractivatekey_extended.replace('%date', `\`${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}\``);
+		const extended = lang.useuserkey_extended.replace('%date', `\`${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}\``);
 		return msg.reply(extended);
 	}
 };
@@ -79,8 +79,8 @@ exports.conf = {
 exports.help = {
 	name: 'useuserkey',
 	description: 'With this command you can use a premium userkey',
-	usage: 'useractivatekey {key}',
-	example: ['useractivatekey 122'],
+	usage: 'useuserkey {key}',
+	example: ['useuserkey 122'],
 	category: 'utility',
 	botpermissions: ['SEND_MESSAGES']
 };
