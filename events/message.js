@@ -242,7 +242,6 @@ exports.run = async (client, msg) => {
 			tableload.commands[client.commands.array()[i].help.name] = {
 				name: client.commands.array()[i].help.name,
 				status: "true",
-				allowedroles: [],
 				bannedroles: [],
 				bannedchannels: [],
 				cooldown: '3000'
@@ -444,7 +443,7 @@ exports.run = async (client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	// Check if all channels exist
+	// Check if all channels still exist
 	if (tableload.modlogchannel !== '' && !msg.guild.channels.get(tableload.modlogchannel)) {
 		tableload.modlog = 'false';
 		tableload.modlogchannel = '';
@@ -700,7 +699,10 @@ exports.run = async (client, msg) => {
 			}
 
 			if (tableload.commands[cmd.help.name].status === "false") return msg.reply(lang.messageevent_commanddeactivated);
-
+			if (tableload.commands[cmd.help.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
+			for (var index = 0; index < tableload.commands[cmd.help.name].bannedroles.length; index++) {
+				if (msg.member.roles.has(tableload.commands[cmd.help.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole)
+			}
 
 			if (!client.cooldowns.has(cmd.help.name)) {
 				client.cooldowns.set(cmd.help.name, new Discord.Collection());
@@ -708,7 +710,11 @@ exports.run = async (client, msg) => {
 
 			const now = Date.now();
 			const timestamps = client.cooldowns.get(cmd.help.name);
-			const cooldownAmount = cmd.conf.cooldown || 3 * 1000;
+				if (tableload.commands[cmd.help.name]) {
+					var cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
+				} else {
+					var cooldownAmount = cmd.conf.cooldown || 3 * 1000;
+				}
 
 			if (!timestamps.has(msg.author.id)) {
 				timestamps.set(msg.author.id, now);
