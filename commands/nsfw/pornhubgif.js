@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args, lang) => {
-	if (!msg.channel.nsfw) return msg.channel.send(lang.pornsearch_nsfw);
-	if (!args.slice().length === 0) return msg.channel.send(lang.pornsearch_type);
-	if (args.slice() > 1) return msg.channel.send(lang.pornsearch_error);
+	if (!msg.channel.nsfw) return msg.channel.send(lang.pornhubgif_nsfw);
+	if (!args.slice().length === 0) return msg.channel.send(lang.pornhubgif_type);
+	if (args.slice() > 1) return msg.channel.send(lang.pornhubgif_error);
 	const Pornsearch = require('pornsearch');
 
 	try {
