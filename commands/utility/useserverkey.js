@@ -72,14 +72,12 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-
 	userpermissions: [],
 	dashboardsettings: false,
-
 	cooldown: 43200000
 };
 exports.help = {
-	name: 'serveractivatekey',
+	name: 'useserverkey',
 	description: 'Displays the points of you or a user',
 	usage: 'serveractivatekey {key}',
 	example: ['serveractivatekey 1122'],
