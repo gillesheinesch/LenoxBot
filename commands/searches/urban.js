@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const snekfetch = require('snekfetch');
 exports.run = async(client, msg, args, lang) => {
-	if (!msg.channel.nsfw) return msg.channel.send(lang.pornsearch_nsfw);
+	if (!msg.channel.nsfw) return msg.channel.send(lang.pornhubgif_nsfw);
 	const content = args.slice().join(" ");
 	await snekfetch.get(`http://api.urbandictionary.com/v0/define?term=${content}`)
 	.then(r => {
