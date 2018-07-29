@@ -54,8 +54,7 @@ exports.conf = {
 	guildOnly: false,
 	aliases: [],
 	userpermissions: [],
-	dashboardsettings: true,
-	cooldown: 300000
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'ticket',
