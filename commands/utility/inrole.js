@@ -12,7 +12,7 @@ exports.run = (client, msg, args, lang) => {
 		const embed = new Discord.RichEmbed()
 			.setDescription(array.join(', '))
 			.setColor('#ABCDEF')
-			.setAuthor(`${role.name} (${array.length} ${lang.inrole_members})`);
+			.setAuthor(`${role.name} (${lang.inrole_members} ${array.length})`);
 		msg.channel.send({
 			embed
 		});
