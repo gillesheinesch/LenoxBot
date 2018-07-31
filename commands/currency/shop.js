@@ -135,12 +135,6 @@ exports.run = async (client, msg, args, lang) => {
 
 					for (var xxx = 0; xxx < allitemsininventory.length; xxx++) {
 						userdb.inventory[allitemsininventory[xxx][4]] = 0;
-						if (botconfs[allitemsininventory[xxx][4]][2] >= (parseInt(botconfs[allitemsininventory[xxx][4]][4]) / 4) && botconfs[allitemsininventory[xxx][4]][2] <= (parseInt(botconfs[allitemsininventory[xxx][4]][4]) * 4)) {
-							botconfs[allitemsininventory[xxx][4]][2] = Number(botconfs[allitemsininventory[xxx][4]][2]) - Math.ceil((Number(botconfs[allitemsininventory[xxx][4]][2]) / 100) * 2);
-						}
-						if (botconfs[allitemsininventory[xxx][4]][1] >= (parseInt(botconfs[allitemsininventory[xxx][4]][3]) / 4) && botconfs[allitemsininventory[xxx][4]][1] <= (parseInt(botconfs[allitemsininventory[xxx][4]][3]) * 4)) {
-							botconfs[allitemsininventory[xxx][4]][1] = Number(botconfs[allitemsininventory[xxx][4]][1]) + Math.ceil((Number(botconfs[allitemsininventory[xxx][4]][1]) / 100) * 2);
-						}
 					}
 
 					await client.botconfs.set('market', botconfs);
@@ -178,13 +172,6 @@ exports.run = async (client, msg, args, lang) => {
 							const amount = parseInt(marketconfs[itemsnames[i]][2]) * parseInt(howmanycheck[0]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] - parseInt(howmanycheck[0]);
 
-							if (botconfs[itemsnames[i]][2] >= (parseInt(botconfs[itemsnames[i]][4]) / 4) && botconfs[itemsnames[i]][2] <= (parseInt(botconfs[itemsnames[i]][4]) * 4)) {
-								botconfs[itemsnames[i]][2] = Number(botconfs[itemsnames[i]][2]) - Math.ceil((Number(botconfs[itemsnames[i]][2]) / 100) * 2);
-							}
-							if (botconfs[itemsnames[i]][1] >= (parseInt(botconfs[itemsnames[i]][3]) / 4) && botconfs[itemsnames[i]][1] <= (parseInt(botconfs[itemsnames[i]][3]) * 4)) {
-								botconfs[itemsnames[i]][1] = Number(botconfs[itemsnames[i]][1]) + Math.ceil((Number(botconfs[itemsnames[i]][1]) / 100) * 2);
-							}
-
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
 									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
@@ -219,13 +206,6 @@ exports.run = async (client, msg, args, lang) => {
 
 							const amount = parseInt(marketconfs[itemsnames[i]][1]) * parseInt(howmanycheck[0]);
 							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] + parseInt(howmanycheck[0]);
-
-							if (botconfs[itemsnames[i]][1] >= (parseInt(botconfs[itemsnames[i]][3]) / 4) && botconfs[itemsnames[i]][1] <= (parseInt(botconfs[itemsnames[i]][3]) * 4)) {
-								botconfs[itemsnames[i]][1] = Number(botconfs[itemsnames[i]][1]) - Math.ceil((Number(botconfs[itemsnames[i]][1]) / 100) * 2);
-							}
-							if (botconfs[itemsnames[i]][2] >= (parseInt(botconfs[itemsnames[i]][4]) / 4) && botconfs[itemsnames[i]][2] <= (parseInt(botconfs[itemsnames[i]][4]) * 4)) {
-								botconfs[itemsnames[i]][2] = Number(botconfs[itemsnames[i]][2]) + Math.ceil((Number(botconfs[itemsnames[i]][2]) / 100) * 2);
-							}
 
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
