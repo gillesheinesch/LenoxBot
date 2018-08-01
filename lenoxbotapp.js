@@ -326,7 +326,7 @@ app.get('/donationsuccess', function (req, res, next) {
 app.post('/editdocumentation/submitnewdocumentationentry', async function (req, res, next) {
 	try {
 		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
+			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
 			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 
 			const botconfs = await client.botconfs.get('botconfs');
@@ -385,7 +385,7 @@ app.post('/editdocumentation/submitnewdocumentationentry', async function (req, 
 app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, res, next) {
 	try {
 		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
+			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
 			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 
 			const botconfs = await client.botconfs.get('botconfs');
@@ -441,7 +441,7 @@ app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, re
 app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, res, next) {
 	try {
 		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
+			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
 			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 
 			const botconfs = await client.botconfs.get('botconfs');
@@ -497,7 +497,7 @@ app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, r
 app.get('/editdocumentation', async function (req, res, next) {
 	try {
 		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
+			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
 			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 			const botconfs = await client.botconfs.get('botconfs');
 
@@ -537,7 +537,7 @@ app.get('/documentation', async function (req, res, next) {
 
 		var documentationmoderator = false;
 		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentationmoderator').id;
+			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
 			if (client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) {
 				documentationmoderator = true;
 			}
