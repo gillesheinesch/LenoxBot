@@ -5300,20 +5300,6 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
-
-			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
-
-			req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
-
-			req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
-
-			req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
-
 			req.user.guilds[index].reactionnumber = client.guildconfs.get(req.user.guilds[index].id).application.reactionnumber;
 
 			var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
@@ -5352,7 +5338,7 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
-			var roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
+			var roles = client.guilds.get(dashboardid).roles.filter(r => r.name !== '@everyone').array();
 
 			return res.render('dashboardtickets', {
 				user: req.user,
