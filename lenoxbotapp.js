@@ -224,6 +224,10 @@ app.get('/discord', function (req, res, next) {
 	return res.redirect('https://discordapp.com/invite/c7DUz35');
 });
 
+app.get('/status', function (req, res, next) {
+	return res.redirect('https://lenoxbot.statuskit.com/');
+});
+
 app.get('/blog', function (req, res, next) {
 	return res.redirect('https://medium.com/lenoxbot');
 });
@@ -257,9 +261,22 @@ app.get('/logout', function (req, res) {
 
 app.get('/commands', function (req, res, next) {
 	try {
+		const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
+
+		var commandlist = client.commands.filter(c => validation.includes(c.help.category) && c.conf.enabled === true).array()
+		var newcommandlist = [];
+		commandlist.map(cmd => {
+				var lang = require('./languages/en.json');
+				cmd.help.description = lang[`${cmd.help.name}_description`];
+				cmd.conf.newuserpermissions = cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : '';
+				cmd.conf.newaliases = cmd.conf.aliases.length > 0 ? cmd.conf.aliases.join(", ") : '';
+				newcommandlist.push(cmd);
+			});
+
 		return res.render('commands', {
 			user: req.user,
-			client: client
+			client: client,
+			commands: newcommandlist
 		});
 	} catch (error) {
 		return res.redirect(url.format({
@@ -543,33 +560,6 @@ app.get('/documentation', async function (req, res, next) {
 		}));
 	}
 });
-
-/*
-app.get('/ranking/:id', async function (req, res, next) {
-	try {
-		const sql = require("sqlite");
-		sql.open("../lenoxbotscore.sqlite");
-		const rows = await sql.all(`SELECT * FROM scores WHERE guildId = "${req.params.id}" GROUP BY userId ORDER BY points DESC`);
-
-		let ranks = Object();
-
-	rows.forEach(row => {
-		const member = client.guilds.get(req.params.id).member(row.userId);
-		ranks.user = member ? member.displayName : row.userId;
-		ranks.points = row.points;
-		ranks.level = row.level;
-	});
-	console.log(ranks);
-
-		res.render('ranking', {
-			ranks: ranks,
-			client: client
-		});
-	} catch (error) {
-		res.redirect('/error');
-	}
-});
-*/
 
 app.get('/nologin', function (req, res, next) {
 	try {
