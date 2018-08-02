@@ -70,10 +70,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-
-	userpermissions: [], dashboardsettings: true,
-
-	cooldown: 120000
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'opencrate',
