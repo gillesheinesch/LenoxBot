@@ -20,10 +20,10 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var PastebinAPI = require('pastebin-js');
 var pastebin = new PastebinAPI({
-	'api_dev_key' : 'beac6cbeec3f782e30ec6edab22169c5',
-	'api_user_name' : 'Monkeyyy11',
-	'api_user_password' : 'lenoxbotpastebin11'
-  });
+	'api_dev_key': 'beac6cbeec3f782e30ec6edab22169c5',
+	'api_user_name': 'Monkeyyy11',
+	'api_user_password': 'lenoxbotpastebin11'
+});
 
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({
@@ -126,7 +126,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'http://localhost:80/callback',
+	callbackURL: 'https://lenoxbot.com/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -266,12 +266,12 @@ app.get('/commands', function (req, res, next) {
 		var commandlist = client.commands.filter(c => validation.includes(c.help.category) && c.conf.enabled === true).array()
 		var newcommandlist = [];
 		commandlist.map(cmd => {
-				var lang = require('./languages/en.json');
-				cmd.help.description = lang[`${cmd.help.name}_description`];
-				cmd.conf.newuserpermissions = cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : '';
-				cmd.conf.newaliases = cmd.conf.aliases.length > 0 ? cmd.conf.aliases.join(", ") : '';
-				newcommandlist.push(cmd);
-			});
+			var lang = require('./languages/en.json');
+			cmd.help.description = lang[`${cmd.help.name}_description`];
+			cmd.conf.newuserpermissions = cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : '';
+			cmd.conf.newaliases = cmd.conf.aliases.length > 0 ? cmd.conf.aliases.join(", ") : '';
+			newcommandlist.push(cmd);
+		});
 
 		return res.render('commands', {
 			user: req.user,
@@ -329,11 +329,23 @@ app.get('/editdocumentation', async function (req, res, next) {
 			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
 			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 
-			const generalfaq = test;
+			var generalfaq = [];
+			var generalfaqpath = require("path").join(__dirname, "docs/General FAQ");
+			fs.readdirSync(generalfaqpath).forEach(function (file) {
+				generalfaq.push(require("./docs/General FAQ/" + file));
+			});
+
+			var tutorials = [];
+			var tutorialspath = require("path").join(__dirname, "docs/Tutorials");
+			fs.readdirSync(tutorialspath).forEach(function (file) {
+				tutorials.push(require("./docs/Tutorials/" + file));
+			});
 
 			return res.render('editdocumentation', {
 				user: req.user,
-				client: client
+				client: client,
+				generalfaq: generalfaq,
+				tutorials: tutorials
 			});
 		} else {
 			return res.redirect('/nologin');
@@ -351,17 +363,17 @@ app.get('/editdocumentation', async function (req, res, next) {
 
 app.get('/documentation', async function (req, res, next) {
 	try {
-		const botconfs = await client.botconfs.get('botconfs');
+		var generalfaq = [];
+		var generalfaqpath = require("path").join(__dirname, "docs/General FAQ");
+		fs.readdirSync(generalfaqpath).forEach(function (file) {
+			generalfaq.push(require("./docs/General FAQ/" + file));
+		});
 
-		for (var index in botconfs.generalfaq) {
-			botconfs.generalfaq[index].newdate = moment(botconfs.generalfaq[index].date).format('MMMM Do YYYY, h:mm:ss a');
-			botconfs.generalfaq[index].author = client.users.get(botconfs.generalfaq[index].authorid) ? client.users.get(botconfs.generalfaq[index].authorid).tag : botconfs.generalfaq[index].authorid;
-		}
-
-		for (var index2 in botconfs.tutorials) {
-			botconfs.tutorials[index2].newdate = moment(botconfs.tutorials[index2].date).format('MMMM Do YYYY, h:mm:ss a');
-			botconfs.tutorials[index2].author = client.users.get(botconfs.tutorials[index2].authorid) ? client.users.get(botconfs.tutorials[index2].authorid).tag : botconfs.tutorials[index2].authorid;
-		}
+		var tutorials = [];
+		var tutorialspath = require("path").join(__dirname, "docs/Tutorials");
+		fs.readdirSync(tutorialspath).forEach(function (file) {
+			tutorials.push(require("./docs/Tutorials/" + file));
+		});
 
 		var documentationmoderator = false;
 		if (req.user) {
@@ -374,8 +386,8 @@ app.get('/documentation', async function (req, res, next) {
 		res.render('documentation', {
 			user: req.user,
 			client: client,
-			generalfaq: botconfs.generalfaq,
-			tutorials: botconfs.tutorials,
+			generalfaq: generalfaq,
+			tutorials: tutorials,
 			documentationmoderator: documentationmoderator
 		});
 	} catch (error) {
@@ -796,17 +808,17 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async functi
 			var tableload = client.guildconfs.get(dashboardid);
 
 			if (req.body.newselfassignableroles) {
-			var newselfassignableroles = req.body.newselfassignableroles;
-			var array = [];
+				var newselfassignableroles = req.body.newselfassignableroles;
+				var array = [];
 
-			if (Array.isArray(newselfassignableroles)) {
-				for (var i = 0; i < newselfassignableroles.length; i++) {
-					array.push(newselfassignableroles[i]);
-				}
-				tableload.selfassignableroles = array;
+				if (Array.isArray(newselfassignableroles)) {
+					for (var i = 0; i < newselfassignableroles.length; i++) {
+						array.push(newselfassignableroles[i]);
+					}
+					tableload.selfassignableroles = array;
 				} else {
-				array.push(newselfassignableroles);
-				tableload.selfassignableroles = array;
+					array.push(newselfassignableroles);
+					tableload.selfassignableroles = array;
 				}
 			} else {
 				tableload.selfassignableroles = [];
@@ -1662,14 +1674,14 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async fun
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -1681,13 +1693,13 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async fun
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -1889,9 +1901,9 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 				} else {
 					commands[i].conf.enabled = false;
 				}
-					commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
-					commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
-					commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
+				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
+				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
 			const languages = [{
@@ -2185,14 +2197,14 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async functio
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -2204,13 +2216,13 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async functio
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -2389,14 +2401,14 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async function (req
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -2408,13 +2420,13 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async function (req
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -2708,14 +2720,14 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async function (re
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -2727,13 +2739,13 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async function (re
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -2923,14 +2935,14 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async function (req,
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -2942,13 +2954,13 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async function (req,
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -3127,14 +3139,14 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async function 
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -3146,13 +3158,13 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async function 
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -3331,14 +3343,14 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async function (req
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -3350,13 +3362,13 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async function (req
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -3482,7 +3494,7 @@ app.post('/dashboard/:id/utility/submitsendembed', async function (req, res, nex
 			const tableload = client.guildconfs.get(dashboardid);
 
 			var embed = new Discord.RichEmbed();
-		
+
 			embed.setTitle(req.body.embedtitle);
 
 			try {
@@ -3504,7 +3516,7 @@ app.post('/dashboard/:id/utility/submitsendembed', async function (req, res, nex
 			}
 
 			if (req.body.embedthumbnail) {
-					embed.setThumbnail(req.body.embedthumbnail)
+				embed.setThumbnail(req.body.embedthumbnail)
 			}
 
 			if (req.body.embedfooter) {
@@ -3513,7 +3525,9 @@ app.post('/dashboard/:id/utility/submitsendembed', async function (req, res, nex
 
 			const embedchannel = client.guilds.get(dashboardid).channels.get(req.body.sendembedchannel);
 
-			embedchannel.send({embed})
+			embedchannel.send({
+				embed
+			})
 
 			tableload.globallogs.push({
 				action: `An embed was sent (#${embedchannel.name}) `,
@@ -3615,14 +3629,14 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async function (
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -3634,13 +3648,13 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async function (
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -4141,9 +4155,9 @@ app.post('/dashboard/:id/application/submitdenyrole', async function (req, res, 
 			const tableload = client.guildconfs.get(dashboardid);
 
 			if (req.body.newdenyrole !== 'false') {
-			const newdenyrole = req.body.newdenyrole;
+				const newdenyrole = req.body.newdenyrole;
 
-			tableload.application.denyrole = newdenyrole;
+				tableload.application.denyrole = newdenyrole;
 			} else {
 				tableload.application.denyrole = "";
 			}
@@ -4200,9 +4214,9 @@ app.post('/dashboard/:id/application/submitrole', async function (req, res, next
 			const tableload = client.guildconfs.get(dashboardid);
 
 			if (req.body.newrole !== 'false') {
-			const newrole = req.body.newrole;
+				const newrole = req.body.newrole;
 
-			tableload.application.role = newrole;
+				tableload.application.role = newrole;
 			} else {
 				tableload.application.role = "";
 			}
@@ -4422,14 +4436,14 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async functi
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -4441,13 +4455,13 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async functi
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -4651,14 +4665,14 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async function 
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -4670,13 +4684,13 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async function 
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -5048,14 +5062,14 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async function (
 			var rolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
-			if (Array.isArray(req.body.newblacklistedchannels)) {
-				for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
-					channelsarray.push(req.body.newblacklistedchannels[i]);
-				}
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				} else {
 					channelsarray.push(req.body.newblacklistedchannels);
-				tableload.commands[req.params.command].bannedchannels = channelsarray;
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
 				}
 			} else {
 				tableload.commands[req.params.command].bannedchannels = [];
@@ -5067,13 +5081,13 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async function (
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
-					} else {
-						rolesarray.push(req.body.newblacklistedroles);
-					tableload.commands[req.params.command].bannedroles = rolesarray;
-					}
 				} else {
-					tableload.commands[req.params.command].bannedroles = [];
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
 				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
 			tableload.commands[req.params.command].cooldown = `${newcooldown}`
@@ -5197,189 +5211,189 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 
 app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
 	try {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
 			}
+
+			if (index === -1) return res.redirect("/servers");
+			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			const name = Object.keys(req.body)[0];
+			tableload.modules[name.toLowerCase()] = req.body[name];
+
+			if (!tableload.globallogs) {
+				tableload.globallogs = [];
+				client.guildconfs.set(dashboardid, tableload);
+			}
+
+			tableload.globallogs.push({
+				action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/modules`,
+				query: {
+					"submitmodules": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
 		}
-
-		if (index === -1) return res.redirect("/servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
-
-		const tableload = client.guildconfs.get(dashboardid);
-
-		const name = Object.keys(req.body)[0];
-		tableload.modules[name.toLowerCase()] = req.body[name];
-
-		if (!tableload.globallogs) {
-			tableload.globallogs = [];
-			client.guildconfs.set(dashboardid, tableload);
-		}
-
-		tableload.globallogs.push({
-			action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
-			username: req.user.username,
-			date: Date.now(),
-			showeddate: new Date().toUTCString()
-		});
-
-		await client.guildconfs.set(dashboardid, tableload);
-
+	} catch (error) {
 		return res.redirect(url.format({
-			pathname: `/dashboard/${dashboardid}/modules`,
+			pathname: `/error`,
 			query: {
-				"submitmodules": true
+				"statuscode": 500,
+				"message": error.message
 			}
 		}));
-	} else {
-		return res.redirect('/nologin');
 	}
-} catch (error) {
-	return res.redirect(url.format({
-		pathname: `/error`,
-		query: {
-			"statuscode": 500,
-			"message": error.message
-		}
-	}));
-}
 });
 
 app.get('/dashboard/:id/modules', function (req, res, next) {
 	try {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
-			}
-		}
-
-		if (index === -1) return res.redirect("/servers");
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
-
-		req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-		req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-		req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-		req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-		req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
-
-		req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
-
-		req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
-
-		req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
-
-		req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
-
-		var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
-		var check = req.user.guilds[index];
-
-		var modules = {};
-
-		const tableload = client.guildconfs.get(dashboardid);
-
-		const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets']
-
-		for (var i = 0; i < moduleslist.length; i++) {
-			var config = {
-				name: '',
-				description: '',
-				status: ''
-			};
-
-			config.name = moduleslist[i];
-
-			const lang = require('./languages/en.json');
-			config.description = lang[`modules_${moduleslist[i].toLowerCase()}`];
-
-			if (tableload.modules[moduleslist[i].toLowerCase()] === 'true') {
-				config.status = true;
-			} else {
-				config.status = false;
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
 			}
 
-			modules[moduleslist[i].toLowerCase()] = config;
-		}
+			if (index === -1) return res.redirect("/servers");
+			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		return res.render('dashboardmodules', {
-			user: req.user,
-			guilds: check,
-			client: client,
-			channels: channels,
-			modules: modules,
-			submitmodules: req.query.submitmodules ? true : false
-		});
-	} else {
-		return res.redirect('/nologin');
+			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+
+			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
+
+			req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
+
+			req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
+
+			req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
+
+			var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+			var check = req.user.guilds[index];
+
+			var modules = {};
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets']
+
+			for (var i = 0; i < moduleslist.length; i++) {
+				var config = {
+					name: '',
+					description: '',
+					status: ''
+				};
+
+				config.name = moduleslist[i];
+
+				const lang = require('./languages/en.json');
+				config.description = lang[`modules_${moduleslist[i].toLowerCase()}`];
+
+				if (tableload.modules[moduleslist[i].toLowerCase()] === 'true') {
+					config.status = true;
+				} else {
+					config.status = false;
+				}
+
+				modules[moduleslist[i].toLowerCase()] = config;
+			}
+
+			return res.render('dashboardmodules', {
+				user: req.user,
+				guilds: check,
+				client: client,
+				channels: channels,
+				modules: modules,
+				submitmodules: req.query.submitmodules ? true : false
+			});
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
 	}
-} catch (error) {
-	return res.redirect(url.format({
-		pathname: `/error`,
-		query: {
-			"statuscode": 500,
-			"message": error.message
-		}
-	}));
-}
 });
 
 app.get('/dashboard/:id/lastlogs', function (req, res, next) {
 	try {
-	var dashboardid = res.req.originalUrl.substr(11, 18);
-	if (req.user) {
-		var index = -1;
-		for (var i = 0; i < req.user.guilds.length; i++) {
-			if (req.user.guilds[i].id === dashboardid) {
-				index = i;
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
 			}
-		}
 
-		if (index === -1) return res.redirect("/servers")
-		if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect("/servers")
-		if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
+			if (index === -1) return res.redirect("/servers")
+			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect("/servers")
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-		var check = req.user.guilds[index];
+			var check = req.user.guilds[index];
 
-		if (client.guildconfs.get(dashboardid).globallogs) {
-			const thelogs = client.guildconfs.get(dashboardid).globallogs;
-			var logs = thelogs.sort(function (a, b) {
-				if (a.date < b.date) {
-					return 1;
-				}
-				if (a.date > b.date) {
-					return -1;
-				}
-				return 0;
+			if (client.guildconfs.get(dashboardid).globallogs) {
+				const thelogs = client.guildconfs.get(dashboardid).globallogs;
+				var logs = thelogs.sort(function (a, b) {
+					if (a.date < b.date) {
+						return 1;
+					}
+					if (a.date > b.date) {
+						return -1;
+					}
+					return 0;
+				});
+			} else {
+				var logs = null;
+			}
+
+			return res.render('dashboardlastlogs', {
+				user: req.user,
+				guilds: check,
+				client: client,
+				logs: logs
 			});
 		} else {
-			var logs = null;
+			return res.redirect('/nologin');
 		}
-
-		return res.render('dashboardlastlogs', {
-			user: req.user,
-			guilds: check,
-			client: client,
-			logs: logs
-		});
-	} else {
-		return res.redirect('/nologin');
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
 	}
-} catch (error) {
-	return res.redirect(url.format({
-		pathname: `/error`,
-		query: {
-			"statuscode": 500,
-			"message": error.message
-		}
-	}));
-}
 });
 
 app.get('/error', function (req, res, next) {
@@ -5391,7 +5405,7 @@ app.get('/error', function (req, res, next) {
 			}
 		}
 	}
-	
+
 	var fix = false;
 	var howtofix = '';
 

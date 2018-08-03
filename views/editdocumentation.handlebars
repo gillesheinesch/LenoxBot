@@ -16,8 +16,10 @@
 					<a href="documentation" class=" h5 nav-link">Documentation</a>
 				</li>
 				<li class="nav-item">
-                    <a href="/donate" class=" h5 nav-link">Donate  <span class="badge badge-info">NEW</span></a>
-                </li>
+					<a href="/donate" class=" h5 nav-link">Donate
+						<span class="badge badge-info">NEW</span>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
 
@@ -32,7 +34,7 @@
 				<li class="nav-item">
 					{{#if user}}
 					<a href="servers" class=" h5 nav-link">Dashboard
-						
+
 					</a>
 					{{/if}}
 				</li>
@@ -60,55 +62,34 @@
 </header>
 <main>
 	{{#if submitedit}}
-    <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="float:right;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
-        <span class="text"></span>
-        <strong>Documentation changes!</strong>
-        <hr class="message-inner-separator">
-        <p>
-            We successfully updated the documentation entries!</p>
-    </div>
-    {{/if}}
+	<div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="float:right;">
+		<button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
+		<span class="text"></span>
+		<strong>Documentation changes!</strong>
+		<hr class="message-inner-separator">
+		<p>
+			We successfully updated the documentation entries!</p>
+	</div>
+	{{/if}}
 	<div class="container">
 		<div class="row">
 			<div class="col-sm-12" style="margin-bottom: 50px;">
 				<div class="card panel-dashboard">
 					<div class="card-header bg-primary">
-						<p class="text text-white h5">Create a new entry</p>
+						<p class="text text-white h5">HTML Online Editor</p>
 					</div>
 					<div class="card-body">
-						<form class="form-horizontal" action="/editdocumentation/submitnewdocumentationentry" method="POST">
-							<div class="form-group">
-								<label class="control-label col-sm" for="newapplication">Choose the category</label>
-								<div class="col-sm-4">
-									<select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="category" data-actions-box="true"
-									    data-size="5">
-										<option value="generalfaq">General FAQ</option>
-										<option value="tutorials">Tutorials</option>
-									</select>
-								</div>
+						<div class="form-group">
+							<label class="control-label col-sm" for="content">Answer</label>
+							<div class="col-sm-9">
+								<textarea class="form-control" name="content" rows="5" placeholder="Type in your answer..." id="summernote1"></textarea>
+								<script>
+									$('#summernote1').summernote({
+										height: 300
+									});
+								</script>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-sm" for="title">Title</label>
-								<div class="col-sm-4">
-									<input type="text" class="form-control" id="title" name="title" pattern=".{1,}" required placeholder="Type in your titel...">
-								</div>
-							</div>
-							<div class="form-group">
-								<label class="control-label col-sm" for="content">Answer</label>
-								<div class="col-sm-9">
-									<textarea class="form-control" name="content" rows="5" placeholder="Type in your answer..." id="summernote1"></textarea>
-									<script>
-										$('#summernote1').summernote({height: 300});
-									</script>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-3 col-sm-10">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 				<p class="text h1 text-white" style="margin-top: 50px; margin-bottom: 20px;">General FAQ</p>
@@ -118,28 +99,17 @@
 						<p class="text text-white h5">{{title}}</p>
 					</div>
 					<div class="card-body">
-						<form class="form-horizontal" action="/editdocumentation/{{number}}/submitgeneralfaqupdate" method="POST">
-							<div class="form-group">
-								<label class="control-label col-sm" for="title">New title:</label>
-								<div class="col-sm-4">
-									<input type="text" class="form-control" id="title" name="title" pattern=".{1,}" required value="{{title}}">
-								</div>
+						<div class="form-group">
+							<label class="control-label col-sm" for="content">Update Answer:</label>
+							<div class="col-sm-9">
+								<textarea class="form-control summernote" name="content" rows="5" id="summernote{{number}}">{{content}}</textarea>
+								<script>
+									$('.summernote').summernote({
+										height: 300
+									});
+								</script>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-sm" for="content">Update Answer:</label>
-								<div class="col-sm-9">
-									<textarea class="form-control summernote" name="content" rows="5" id="summernote{{number}}">{{content}}</textarea>
-									<script>
-										$('.summernote').summernote({height: 300});
-									</script>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-3 col-sm-10">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 				{{/each}}
@@ -150,28 +120,17 @@
 						<p class="text text-white h5">{{title}}</p>
 					</div>
 					<div class="card-body">
-						<form class="form-horizontal" action="/editdocumentation/{{number}}/submittutorialsupdate" method="POST">
-							<div class="form-group">
-								<label class="control-label col-sm" for="title">New title:</label>
-								<div class="col-sm-4">
-									<input type="text" class="form-control" id="title" name="title" pattern=".{1,}" required value="{{title}}">
-								</div>
+						<div class="form-group">
+							<label class="control-label col-sm" for="content">Update Answer:</label>
+							<div class="col-sm-9">
+								<textarea class="form-control summernote" name="content" rows="5" id="summernote{{number}}">{{content}}</textarea>
+								<script>
+									$(".summernote").summernote({
+										height: 300
+									});
+								</script>
 							</div>
-							<div class="form-group">
-								<label class="control-label col-sm" for="content">Update Answer:</label>
-								<div class="col-sm-9">
-									<textarea class="form-control summernote" name="content" rows="5" id="summernote{{number}}">{{content}}</textarea>
-									<script>
-										$(".summernote").summernote({height: 300});
-									</script>
-								</div>
-							</div>
-							<div class="form-group">
-								<div class="col-sm-offset-3 col-sm-10">
-									<button type="submit" class="btn btn-primary">Submit</button>
-								</div>
-							</div>
-						</form>
+						</div>
 					</div>
 				</div>
 				{{/each}}
