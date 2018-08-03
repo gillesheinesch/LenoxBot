@@ -126,7 +126,7 @@ var scopes = ['identify', 'guilds'];
 passport.use(new Strategy({
 	clientID: '431457499892416513',
 	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://lenoxbot.com/callback',
+	callbackURL: 'http://localhost:80/callback',
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -323,189 +323,17 @@ app.get('/donationsuccess', function (req, res, next) {
 	}
 });
 
-app.post('/editdocumentation/submitnewdocumentationentry', async function (req, res, next) {
-	try {
-		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
-			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
-
-			const botconfs = await client.botconfs.get('botconfs');
-
-			const category = botconfs[req.body.category];
-
-			category[Object.keys(category).length + 1] = {
-				authorid: req.user.id,
-				title: req.body.title,
-				number: Object.keys(category).length + 1,
-				content: req.body.content,
-				date: new Date()
-			};
-
-			await client.botconfs.set('botconfs', botconfs);
-
-			var pastebinlink = await pastebin.createPaste({
-				text: req.body.content,
-				title: req.body.title,
-				format: null,
-				privacy: 3
-			});
-
-			const channel = client.channels.get('460850963914162176');
-			const embed = new Discord.RichEmbed()
-				.setColor('#66ff66')
-				.setDescription(`New documentation entry`)
-				.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
-				.addField('Title', req.body.title)
-				.addField('Link', pastebinlink)
-				.setTimestamp();
-			channel.send({
-				embed
-			});
-
-			return res.redirect(url.format({
-				pathname: `/editdocumentation`,
-				query: {
-					"submitnewentry": true
-				}
-			}));
-		} else {
-			return res.redirect('/nologin');
-		}
-	} catch (error) {
-		return res.redirect(url.format({
-			pathname: `/error`,
-			query: {
-				"statuscode": 500,
-				"message": error.message
-			}
-		}));
-	}
-});
-
-app.post('/editdocumentation/:id/submittutorialsupdate', async function (req, res, next) {
-	try {
-		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
-			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
-
-			const botconfs = await client.botconfs.get('botconfs');
-
-			const tutorials = botconfs.tutorials;
-
-			tutorials[req.params.id].title = req.body.title;
-			tutorials[req.params.id].content = req.body.content;
-			tutorials[req.params.id].date = new Date();
-			tutorials[req.params.id].authorid = req.user.id;
-
-			await client.botconfs.set('botconfs', botconfs);
-
-			var pastebinlink = await pastebin.createPaste({
-				text: req.body.content,
-				title: req.body.title,
-				format: null,
-				privacy: 3
-			});
-
-			const channel = client.channels.get('460850963914162176');
-			const embed = new Discord.RichEmbed()
-				.setColor('#ff9966')
-				.setDescription(`Updated documentation entry`)
-				.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
-				.addField('Title', req.body.title)
-				.addField('Link', pastebinlink)
-				.setTimestamp();
-			channel.send({
-				embed
-			});
-
-			return res.redirect(url.format({
-				pathname: `/editdocumentation`,
-				query: {
-					"submitedit": true
-				}
-			}));
-		} else {
-			return res.redirect('/nologin');
-		}
-	} catch (error) {
-		return res.redirect(url.format({
-			pathname: `/error`,
-			query: {
-				"statuscode": 500,
-				"message": error.message
-			}
-		}));
-	}
-});
-
-app.post('/editdocumentation/:id/submitgeneralfaqupdate', async function (req, res, next) {
-	try {
-		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
-			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
-
-			const botconfs = await client.botconfs.get('botconfs');
-
-			const generalfaq = botconfs.generalfaq;
-
-			generalfaq[req.params.id].title = req.body.title;
-			generalfaq[req.params.id].content = req.body.content;
-			generalfaq[req.params.id].date = new Date();
-			generalfaq[req.params.id].authorid = req.user.id;
-
-			await client.botconfs.set('botconfs', botconfs);
-
-			var pastebinlink = await pastebin.createPaste({
-				text: req.body.content,
-				title: req.body.title,
-				format: null,
-				privacy: 3
-			});
-
-			const channel = client.channels.get('460850963914162176');
-			const embed = new Discord.RichEmbed()
-				.setColor('#ff9966')
-				.setDescription(`Updated documentation entry`)
-				.addField('Author', `${client.users.get(req.user.id)} (${req.user.id})`)
-				.addField('Title', req.body.title)
-				.addField('Link', pastebinlink)
-				.setTimestamp();
-			channel.send({
-				embed
-			});
-
-			return res.redirect(url.format({
-				pathname: `/editdocumentation`,
-				query: {
-					"submitedit": true
-				}
-			}));
-		} else {
-			return res.redirect('/nologin');
-		}
-	} catch (error) {
-		return res.redirect(url.format({
-			pathname: `/error`,
-			query: {
-				"statuscode": 500,
-				"message": error.message
-			}
-		}));
-	}
-});
-
 app.get('/editdocumentation', async function (req, res, next) {
 	try {
 		if (req.user) {
 			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
 			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
-			const botconfs = await client.botconfs.get('botconfs');
+
+			const generalfaq: 
 
 			return res.render('editdocumentation', {
 				user: req.user,
-				client: client,
-				generalfaq: botconfs.generalfaq,
-				tutorials: botconfs.tutorials
+				client: client
 			});
 		} else {
 			return res.redirect('/nologin');
