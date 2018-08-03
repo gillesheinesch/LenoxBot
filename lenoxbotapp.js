@@ -329,7 +329,7 @@ app.get('/editdocumentation', async function (req, res, next) {
 			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
 			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
 
-			const generalfaq: 
+			const generalfaq = test;
 
 			return res.render('editdocumentation', {
 				user: req.user,
