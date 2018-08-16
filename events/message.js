@@ -194,6 +194,10 @@ exports.run = async (client, msg) => {
 		});
 	});
 
+	if (!tableload.modules.tickets) {
+		tableload.modules.tickets = 'true';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
 
 	if (!userdb.dailyremind) {
 		userdb.dailyremind = false;
