@@ -20,7 +20,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (args.slice().length === 0) return msg.channel.send(lang.activatemodule_noinput);
 
 	const margs = msg.content.split(" ");
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner', 'tickets'];
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
