@@ -22,32 +22,6 @@ exports.run = async (client, oldMember, newMember) => {
 		await client.guildconfs.set(newMember.id, tableload);
 	}
 
-	/* Patreon Automatic Role
-
-	if (oldMember.roles.size < newMember.roles.size && oldMember.guild.id === '352896116812939264') {
-		for (const role of newMember.roles.map(x => x.id)) {
-			if (!oldMember.roles.has(role)) {
-				if (oldMember.guild.roles.get(role).name.toLowerCase() === 'patreon') {
-					const botconfspremiumload = await client.botconfs.get('premium');
-					botconfspremiumload.keys.numberofuserkeys = botconfspremiumload.keys.numberofuserkeys + 1;
-					await client.botconfs.set('premium', botconfspremiumload);
-					oldMember.send(`Hey, \n\nWe thank you very much for your donation! \nAs a little thank you, you now get the promised Premium Key: \`${botconfspremiumload.keys.numberofuserkeys}\` \nYou can use this premium userkey with \`?useractivatekey {key}\`\n\nIf you have donated more than a dollar, please contact Monkeyyy11#0001 and you will get the remaining keys! \n\nThank you again! \n-LenoxBot Team`);
-
-					const embed = new Discord.RichEmbed()
-						.setDescription(`This user got a premium userkey (Code: ${botconfspremiumload.keys.numberofuserkeys})!`)
-						.setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL)
-						.setTimestamp()
-						.setColor('#66ff33')
-						.setTitle('New Userkey created!');
-					await client.channels.get('419877966265319424').send({
-						embed
-					});
-				}
-			}
-		}
-	}
-	*/
-
 	if (tableload.guildmemberupdatelog === 'false') return;
 
 	const messagechannel = client.channels.get(tableload.guildmemberupdatelogchannel);
