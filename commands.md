@@ -1,0 +1,171 @@
+---administration---
+
+* `activatemodule {modulename}` - Activates a module and its commands on a Discord server (Needed permissions: ADMINISTRATOR)
+* `addautomaticrole {points} {rolename}` - Adds an auto assignable role (Needed permissions: ADMINISTRATOR)
+* `addchatfilter` - Inserts a new entry in the chatfilter (Needed permissions: ADMINISTRATOR)
+* `addrole @User {rolename}` - Assigns a role to a Discord member (Needed permissions: MANAGE_ROLES)
+* `addselfassignablerole {rolename}` - Add a role that allows users to assign themselves (Needed permissions: ADMINISTRATOR)
+* `announce {text}` - Write a new server announcement (Needed permissions: ADMINISTRATOR)
+* `availablelanguages` - Shows you a list in which language the bot is available and can be changed (Needed permissions: none)
+* `bye` - Disables the goodbye message (Needed permissions: ADMINISTRATOR)
+* `byemsg {bye msg}` - Sets a message to say goodbye to your users (Needed permissions: ADMINISTRATOR)
+* `commanddeletion` - Toggles the deletion of a command after execution (Needed permissions: ADMINISTRATOR)
+* `createrole {rolename}` - Creates a role with a color and a name (Needed permissions: MANAGE_ROLES)
+* `deactivatemodule {modulename}` - Disables a module and its commands on a Discord server (Needed permissions: ADMINISTRATOR)
+* `delevents` - Deletes all active events on this server (Needed permissions: ADMINISTRATOR)
+* `events` - Gives you a list of all active/disabled events (Needed permissions: ADMINISTRATOR)
+* `language {name of the language (in english)}` - Changes the language of the bot for this server (Needed permissions: ADMINISTRATOR)
+* `listautomaticrole` - Lists all auto assignable roles (Needed permissions: ADMINISTRATOR)
+* `listchatfilter` - Lists all chatfilter entries (Needed permissions: ADMINISTRATOR)
+* `listevents` - Lists you all events that you can log on your server (Needed permissions: MANAGE_GUILD)
+* `listmodules` - Lists all active/disabled modules (Needed permissions: ADMINISTRATOR)
+* `log {event}` - Allows you to log for different channels, different events. The command 'listevents' will give you a list of all events (Needed permissions: ADMINISTRATOR)
+* `msgoptions` - Shows you a list of all available options for your welcome and bye message (Needed permissions: none)
+* `muterole {rolename}` - Defines a muted role which muted users will get (Needed permissions: ADMINISTRATOR)
+* `prefix {new prefix}` - Changes the prefix of the server or shows you the current prefix if you just use ?prefix (Needed permissions: ADMINISTRATOR)
+* `removeautomaticrole {rolename}` - Removes an auto assignable role (Needed permissions: ADMINISTRATOR)
+* `removechatfilter bitch` - Removes words from the chatfilter (Needed permissions: ADMINISTRATOR)
+* `removerole @User {rolename}` - Removes a role to a Discord member (Needed permissions: MANAGE_ROLES)
+* `removeselfassignablerole {rolename}` - Remove a role that allows users to assign themselves (Needed permissions: ADMINISTRATOR)
+* `setchanneltopic {New Channeltopic}` - Sets a new channel topic for the current channel (Needed permissions: MANAGE_CHANNELS)
+* `skipnumber {number}` - Changes the necessary votes to skip music for users (Needed permissions: ADMINISTRATOR)
+* `toggleannounce` - Sets a channel for announcements, where you can use the announce-command (Needed permissions: ADMINISTRATOR)
+* `togglechatfilter` - Set the chatfilter on or off (Needed permissions: ADMINISTRATOR)
+* `togglexp {add/remove/list} [channelname]` - Add channels in which you can not get XP (Needed permissions: MANAGE_GUILD)
+* `togglexpmessages` - Set the xp messages on or off (Needed permissions: ADMINISTRATOR)
+* `welcome` - Toggles the welcome message in this channel (Needed permissions: ADMINISTRATOR)
+* `welcomemsg {welcome msg}` - Sets a welcome message to greet your users (Needed permissions: ADMINISTRATOR)
+* `skipvote` - Toggles the skipvote function (Needed permissions: ADMINISTRATOR)
+
+---help---
+
+* `commands {Modulename}` - All commands of a module (Needed permissions: none)
+* `help {commandname}` - Gives you informations about a command (Needed permissions: none)
+* `modules` - Gives you a list of all modules and their meaning (Needed permissions: none)
+* `website` - Shows you all links that have to do with LenoxBot (Needed permissions: none)
+
+---music---
+
+* `channelblacklist` - Displays a list of which voicechannels have been blacklisted (Needed permissions: ADMINISTRATOR)
+* `channelblacklistadd {name of the voicechannel}` - Adds a voicechannel to the blacklist (Needed permissions: ADMINISTRATOR)
+* `channelblacklistremove {name of the voicechannel}` - Removes a voicechannel from the blacklist (Needed permissions: ADMINISTRATOR)
+* `forceskip` - Forces the bot to skip the current song without a poll! (Needed permissions: MANAGE_GUILD)
+* `nowplaying` - Shows you the current music title (Needed permissions: none)
+* `pause` - Stops the current music (Needed permissions: none)
+* `play {query}` - Searches for music that matches to your request (Needed permissions: none)
+* `playlist {new/delete/list/addsong/removesong} {name of the playlist}` - Create new Music playlists on this Discord server (Needed permissions: MANAGE_GUILD)
+* `playplaylist {name of the playlist}` - Plays a music playlist (Needed permissions: none)
+* `queue` - Shows you the current music-queue (Needed permissions: none)
+* `queueclear` - Clears the whole music queue (Needed permissions: MANAGE_GUILD)
+* `resume` - Continues the current music (Needed permissions: none)
+* `skip` - Allows the users to skip a song with a poll (Needed permissions: none)
+* `stop` - Stops the current music and the bot leaves the voice channel (Needed permissions: MANAGE_GUILD)
+* `volume {1-5}` - Changes the volume of the bot (Needed permissions: none)
+
+---fun---
+
+* `eightball {question}` - Ask the bot a question (Needed permissions: none)
+* `penissizecalculator [@User]` - Calculates the size of the penis of you or a user (Needed permissions: none)
+* `tictactoe {@User}` - Play a round of TicTacToe against another Discord user (Needed permissions: none)
+
+---searches---
+
+* `bitcoin` - Shows you information from Bitcoin (value and percentage of changes from the last day) (Needed permissions: none)
+* `clashroyale {profile or clan}` - Shows you ClashRoyale stats about a player or a clan (Needed permissions: none)
+* `fortnite {EpicGames Username} [pc, xbl, psn (pc default)]` - Shows you Fortnite stats about a player on every console (Needed permissions: none)
+* `gif {query}` - Searches for a gif (Needed permissions: none)
+* `google {query}` - Searches something on Google (Needed permissions: none)
+* `news {newspaper}` - Use this command to request news from different newspaper (Needed permissions: none)
+* `overwatch {profile, quickplay, competitive} {BATTLETAG}` - Shows you overwatch-stats about a Overwatch player (Needed permissions: none)
+* `randomfact` - Random facts (in English only) (Needed permissions: none)
+* `steamprofile {SteamID64}` - Requests Steam profile informations of a Steamuser (Needed permissions: none)
+* `steamscammercheck {SteamID64}` - Checks whether a Steam user was marked as scammer (Needed permissions: none)
+* `urban {query}` - Urban is a dictionary in which you can search for a definition for something (Needed permissions: none)
+* `weather {location}` - Weather of a town or a city (Needed permissions: none)
+* `youtube {input}` - Searches for a video on youtube (Needed permissions: none)
+
+---nsfw---
+
+* `pornhubgif {query}` - Searches for Pornhub gifs (Needed permissions: none)
+* `pornhubvideo {query}` - Searches for Pornhub videos (Needed permissions: none)
+* `pornhubvideo {query}` - Searches for Redtube videos (Needed permissions: none)
+* `sexgif {query}` - Searches for Sex gifs (Needed permissions: none)
+* `sexvideo {query}` - Searches for Sex videos (Needed permissions: none)
+
+---utility---
+
+* `serverwarns` - Shows you all given warns on this Discord Server (Needed permissions: none)
+* `botinfo` - Informations about the bot (Needed permissions: none)
+* `calculator {calculation}` - Calculates for you an calculation (Needed permissions: none)
+* `channels` - A list of all channels on your Discord server (Needed permissions: none)
+* `channeltopic` - Shows you the channel topic of the current channel if one exists (Needed permissions: none)
+* `embed {text}` - Create an embed for you with any text. Use // to go to a new line (Needed permissions: none)
+* `inrole {rolename}` - Allows you to see which members have a specific role (Needed permissions: none)
+* `join {rolename}` - Join a self-assignable role (Needed permissions: none)
+* `leave {rolename}` - Leave a self-assignable role (Needed permissions: none)
+* `listselfassignablerole` - Shows you a list of all roles that allows users to assign themselves (Needed permissions: none)
+* `memberstatus` - Shows you how many members on this Discord server are online, idle, offline or busy (Needed permissions: none)
+* `nicknamelog [@User]` - Shows you the nickname log of you or another user (Needed permissions: none)
+* `ping` - Shows you how long the bot needs to send a message (Needed permissions: none)
+* `randomnumber {input}` - Selects a random number between your input and 1 (Needed permissions: none)
+* `rank [@USER]` - Displays the points of you or another user (Needed permissions: none)
+* `ranks` - Ranking list, sorted by points (Needed permissions: none)
+* `redeem {key}` - Redeem a redeem key from another Discord user (Needed permissions: none)
+* `redeemkey` - Shows you your redeem key so that other users can redeem it (Needed permissions: none)
+* `embed {text}` - undefined (Needed permissions: none)
+* `roles` - A list of all roles on your Discord server (Needed permissions: none)
+* `serverinfo` - Shows you some information about the current Discord server (Needed permissions: none)
+* `setprofiledescription {description}` - Sets a global profile description (Needed permissions: none)
+* `userinfo [@User/UserID]` - Gives you information about you or another user (Needed permissions: none)
+* `useserverkey {key}` - With this command you can use a premium serverkey for a Discord server (Needed permissions: none)
+* `useuserkey {key}` - With this command, you can use a premium userkey for your Discord account (Needed permissions: none)
+
+---moderation---
+
+* `ban {@User/UserID} {reason}` - Bans a user from the Discord server with a certain reason (Needed permissions: BAN_MEMBERS)
+* `clear {2-100}` - Deletes for you the last X messages that were sent in the current channel (Needed permissions: MANAGE_MESSAGES)
+* `kick @User {reason}` - Kick a user from the Discord server with a certain reason (Needed permissions: KICK_MEMBERS)
+* `mute {@User} {time (d, h, m, s)} {reason}` - Mutes a user for a certain time (Needed permissions: KICK_MEMBERS)
+* `softban @User {days} {reason}` - Bans a user and deletes his messages of the last X days. After that, he will be unbaned immediately! (Needed permissions: BAN_MEMBERS)
+* `unban {userid} {reason}` - Unban a user from the Discord server with a certain reason (Needed permissions: BAN_MEMBERS)
+* `unmute {@User} {reason}` - Unmutes a user (Needed permissions: KICK_MEMBERS)
+* `warn @User {reason}` - Warn a user on the Discord server with a certain reason (Needed permissions: KICK_MEMBERS)
+* `warnlog [@User]` - Shows you the warnlog from you or another user (Needed permissions: KICK_MEMBERS)
+
+---application---
+
+* `addentry {new entry}` - Inserts a new entry in the template (Needed permissions: ADMINISTRATOR)
+* `application` - Creates a new application on this server (Needed permissions: none)
+* `applicationnotification` - Defines a channel in which application notifications will be sent (Needed permissions: ADMINISTRATOR)
+* `applicationsettings` - Shows you all settings of the application system (Needed permissions: MANAGE_GUILD)
+* `approverole {name of the role}` - Defines the role that members get if their application has been accepted (Needed permissions: ADMINISTRATOR)
+* `deleteentry {entry}` - Deletes an entry from the template (Needed permissions: ADMINISTRATOR)
+* `denyrole {name of the role}` - Defines the role that members get if their application has been rejected (Needed permissions: ADMINISTRATOR)
+* `listentry ` - Shows all entries that exist in the template (Needed permissions: ADMINISTRATOR)
+* `reactionnumber {number}` - Defines the number of reactions required to accept or reject an application (Needed permissions: ADMINISTRATOR)
+* `setacceptedmessage {message}` - Sets a custom message that receive the applicants who have been accepted (Needed permissions: ADMINISTRATOR)
+* `setrejectedmessage {message}` - Sets a custom message that receive the applicants who have been rejected (Needed permissions: ADMINISTRATOR)
+* `toggleapplication` - Toggles the applications on or off (Needed permissions: ADMINISTRATOR)
+
+---currency---
+
+* `creditranklist` - Top 20 ranking of the richest botusers (sorted by credits) (Needed permissions: none)
+* `credits [@User]` - Shows you the credits of you or another user (Needed permissions: none)
+* `daily [-remind] [@User]` - Get your daily reward or give it away to another Discord user (Needed permissions: none)
+* `dailyremind` - Enables or disables the dailyremind (Needed permissions: none)
+* `gamble {number}` - Gamble your credits with a 50% chance to make a profit (Needed permissions: none)
+* `inventory [upgrade]` - Shows you your inventory (Needed permissions: none)
+* `job` - A full list of available jobs you can accept to earn credits (Needed permissions: none)
+* `loot` - Collect your loot every 10 minutes (Needed permissions: none)
+* `mine` - With this command you can dig up minerals with your pickaxes (Needed permissions: none)
+* `opencrate` - With this command, you can open crates with a cratekey and win cool items! (Needed permissions: none)
+* `paycredits {@User} {Amount}` - Allows a user to give their credits to someone (Needed permissions: none)
+* `shop [buy/sell] [amount/all (just works for sell)] [emoji of the item]` - You can view the list of all purchasable items and sell or buy items (Needed permissions: none)
+* `slot` - Play with the slot machine and win/lose credits (Needed permissions: none)
+* `templesearch` - Search for something valuable in the long-abandoned temple in the Sahara (Needed permissions: none)
+
+---tickets---
+
+* `ticket {text}` - Create a new ticket which will be forwarded to the Discord Server Team (Needed permissions: none)
+* `ticketnotification` - Defines a channel in which ticket notifications will be sent (Needed permissions: ADMINISTRATOR)
+

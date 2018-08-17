@@ -5,7 +5,7 @@ exports.run = async(client, msg, args, lang) => {
 	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
 
 	for (var i = 0; i < validation.length; i++) {
-	await fs.appendFile(`commandlist/commands.html`, `\n${client.commands.filter(c => c.help.category === validation[i].toLowerCase() && c.conf.enabled === true).map(cmd => `\n<tr class="command ${validation[i]}">\n<td class="text h5 text-black">${cmd.help.name}</td> \n<td class="text h5 text-black">${lang[`${cmd.help.name}_description`]}</td> \n<td class="text h5 text-black">${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : ''}</td>\n<td class="text h5 text-black">${cmd.conf.aliases.length > 0 ? cmd.conf.aliases.join(", ") : ''}</td> \n</tr>`).join("\n")}`, function (err) {});
+	await fs.appendFile(`commands.md`, `---${validation[i]}---\n\n${client.commands.filter(c => c.help.category === validation[i].toLowerCase() && c.conf.enabled === true).map(cmd => `* \`${cmd.help.usage}\` - ${lang[`${cmd.help.name}_description`]} (Needed permissions: ${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'none'})`).join("\n")}\n\n`, function (err) {});
 	}
 	msg.reply('Files created/updated!');
 };
