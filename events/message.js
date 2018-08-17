@@ -248,8 +248,18 @@ exports.run = async (client, msg) => {
 				status: "true",
 				bannedroles: [],
 				bannedchannels: [],
-				cooldown: '3000'
+				cooldown: '3000',
+				ifBlacklistForRoles: "true",
+				ifBlacklistForChannels: "true",
+				whitelistedroles: [],
+				whitelistedchannels: []
 			};
+		}
+		if (!tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
+			tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = "true";
+			tableload.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = "true";
+			tableload.commands[client.commands.array()[i].help.name].whitelistedroles = [];
+			tableload.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
 		}
 	}
 	await client.guildconfs.set(msg.guild.id, tableload);
@@ -704,8 +714,20 @@ exports.run = async (client, msg) => {
 
 			if (tableload.commands[cmd.help.name].status === "false") return msg.reply(lang.messageevent_commanddeactivated);
 			if (tableload.commands[cmd.help.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
-			for (var index = 0; index < tableload.commands[cmd.help.name].bannedroles.length; index++) {
-				if (msg.member.roles.has(tableload.commands[cmd.help.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole)
+			if (tableload.commands[cmd.help.name].whitelistedroles.length === 0) {
+				for (var index = 0; index < tableload.commands[cmd.help.name].bannedroles.length; index++) {
+					if (msg.member.roles.has(tableload.commands[cmd.help.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole);
+				}
+			} else {
+				var allwhitelistedrolesoftheuser = 0;
+				for (var index2 = 0; index2 < tableload.commands[cmd.help.name].whitelistedroles.length; index2++) {
+					if (!msg.member.roles.has(tableload.commands[cmd.help.name].whitelistedroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === tableload.commands[cmd.help.name].whitelistedroles.length) {
+					return msg.reply(lang.messageevent_nowhitelistedroles);
+				}
 			}
 
 			if (!client.cooldowns.has(cmd.help.name)) {
@@ -714,11 +736,11 @@ exports.run = async (client, msg) => {
 
 			const now = Date.now();
 			const timestamps = client.cooldowns.get(cmd.help.name);
-				if (tableload.commands[cmd.help.name]) {
-					var cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
-				} else {
-					var cooldownAmount = cmd.conf.cooldown || 3 * 1000;
-				}
+			if (tableload.commands[cmd.help.name]) {
+				var cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
+			} else {
+				var cooldownAmount = cmd.conf.cooldown || 3 * 1000;
+			}
 
 			if (!timestamps.has(msg.author.id)) {
 				timestamps.set(msg.author.id, now);

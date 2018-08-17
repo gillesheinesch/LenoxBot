@@ -1057,6 +1057,7 @@
     "messageevent_commanddisabled": "This command is currently disabled. This may be due to the fact that errors are being corrected or improvements are being made. Please be patient until the command works again",
     "messageevent_bannedchannel": "You can not run this command in this channel!",
     "messageevent_bannedrole": "This command is disabled for you because you have a role that is on the blacklist of this command!",
+    "messageevent_nowhitelistedroles": "This command is disabled for you because you don't a role that is on the whitelist of this command!",
     "messageevent_error": "You must run the commands on a Discord server where LenoxBot has joined",
     "messageevent_levelup": "Congratulations %author! You just advanced to level %level!",
     "messageevent_automaticrolegotten": "You have succesfully gotten the **%rolename** role! 🎊",
