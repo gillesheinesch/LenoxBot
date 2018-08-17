@@ -282,6 +282,22 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary mb-2">Submit</button>
                                 </form>
+                                <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitpermissionsdashboard" method="POST">
+                                    <div class="form-group mb-2 col-sm-2">
+                                        <labelfor="newpermissiondashboard">Permissions Dashboard:</label>
+                                    </div>
+                                    <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                        <select multiple class="selectpicker" name="newpermissiondashboard" data-live-search="true" title="Choose role(s)" data-actions-box="true"
+                                            data-size="7">
+                                            {{#each roles}} {{#if dashboardpermissionset}}
+                                            <option selected value="{{id}}">@{{name}}</option>
+                                            {{else}}
+                                            <option value="{{id}}">@{{name}}</option>
+                                            {{/if}} {{/each}}
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                                </form>
                                 <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitpermissionsticket" method="POST">
                                     <div class="form-group mb-2 col-sm-2">
                                         <labelfor="newpermissionticket">Permissions Tickets Panel:</label>

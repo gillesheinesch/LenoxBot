@@ -739,7 +739,27 @@ app.post('/dashboard/:id/administration/submitlogs', async function (req, res, n
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -796,7 +816,27 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async functi
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var tableload = client.guildconfs.get(dashboardid);
@@ -864,7 +904,27 @@ app.post('/dashboard/:id/administration/submittogglexp', async function (req, re
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newxpchannels = req.body.newxpchannels;
@@ -927,7 +987,27 @@ app.post('/dashboard/:id/administration/submitbyemsg', async function (req, res,
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newbyemsg = req.body.newbyemsg;
@@ -982,7 +1062,27 @@ app.post('/dashboard/:id/administration/submitwelcomemsg', async function (req, 
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newwelcomemsg = req.body.newwelcomemsg;
@@ -1037,7 +1137,27 @@ app.post('/dashboard/:id/administration/submitprefix', async function (req, res,
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newprefix = req.body.newprefix;
@@ -1091,7 +1211,27 @@ app.post('/dashboard/:id/administration/submitlanguage', async function (req, re
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newlanguage = req.body.newlanguage;
@@ -1146,7 +1286,27 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async function (
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newcommanddeletion = req.body.newcommanddeletion;
@@ -1201,7 +1361,27 @@ app.post('/dashboard/:id/administration/submitmuterole', async function (req, re
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newmuterole = req.body.newmuterole;
@@ -1256,7 +1436,27 @@ app.post('/dashboard/:id/administration/submittogglechatfilter', async function 
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newchatfilter = req.body.newchatfilter;
@@ -1311,7 +1511,27 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async function 
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newxpmessages = req.body.newxpmessages;
@@ -1366,7 +1586,27 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async function (
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -1429,7 +1669,27 @@ app.post('/dashboard/:id/administration/submittogglewelcome', async function (re
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newwelcome = req.body.newwelcome;
@@ -1489,7 +1749,27 @@ app.post('/dashboard/:id/administration/submittogglebye', async function (req, r
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newbye = req.body.newbye;
@@ -1549,7 +1829,27 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async function (r
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newannounce = req.body.newannounce;
@@ -1609,7 +1909,27 @@ app.post('/dashboard/:id/administration/:command/submitcommandstatuschange', asy
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -1657,7 +1977,27 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async fun
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -1754,7 +2094,27 @@ app.post('/dashboard/:id/administration/submitpermissionsticket', async function
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -1802,7 +2162,27 @@ app.post('/dashboard/:id/administration/submitpermissionsapplication', async fun
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -1811,6 +2191,93 @@ app.post('/dashboard/:id/administration/submitpermissionsapplication', async fun
 
 			tableload.globallogs.push({
 				action: `Changed the required permissions for the applications panel!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/administration`,
+				query: {
+					"submitadministration": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
+app.post('/dashboard/:id/administration/submitpermissionsdashboard', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			if (!tableload.dashboardpermissionroles) {
+				tableload.dashboardpermissionroles = [];
+			}
+
+			if (req.body.newpermissiondashboard) {
+				var newpermissiondashboard = req.body.newpermissiondashboard;
+				var array = [];
+
+				if (Array.isArray(newpermissiondashboard)) {
+					for (var i = 0; i < newpermissiondashboard.length; i++) {
+						array.push(newpermissiondashboard[i]);
+					}
+					tableload.dashboardpermissionroles = array;
+				} else {
+					array.push(newpermissiondashboard);
+					tableload.dashboardpermissionroles = array;
+				}
+			} else {
+				tableload.dashboardpermissionroles = [];
+			}
+
+			tableload.globallogs.push({
+				action: `Changed the required permissions for the dashboard!`,
 				username: req.user.username,
 				date: Date.now(),
 				showeddate: new Date().toUTCString()
@@ -1850,7 +2317,27 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+	
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -1898,6 +2385,9 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 				}
 				if (tableload.muterole === roles[index2].id) {
 					roles[index2].muteroleset = true;
+				}
+				if (tableload.dashboardpermissionroles.includes(roles[index2].id)) {
+					roles[index2].dashboardpermissionset = true;
 				}
 			}
 
@@ -2105,6 +2595,8 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 				}
 			}
 
+			console.log(tableload.dashboardpermissionroles)
+
 			return res.render('dashboardadministration', {
 				user: req.user,
 				guilds: check,
@@ -2148,7 +2640,27 @@ app.post('/dashboard/:id/moderation/:command/submitcommandstatuschange', async f
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -2196,7 +2708,27 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async functio
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -2293,7 +2825,27 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -2368,7 +2920,27 @@ app.post('/dashboard/:id/help/:command/submitcommandstatuschange', async functio
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -2416,7 +2988,27 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async function (req
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -2513,7 +3105,27 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -2588,7 +3200,27 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async function (req, res
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newchannelblacklist = req.body.newchannelblacklist;
@@ -2651,7 +3283,27 @@ app.post('/dashboard/:id/music/submitnewmusicaction', async function (req, res, 
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const serverQueue = client.queue.get(dashboardid);
@@ -2703,7 +3355,27 @@ app.post('/dashboard/:id/music/:command/submitcommandstatuschange', async functi
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -2751,7 +3423,27 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async function (re
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -2848,7 +3540,27 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -2934,7 +3646,27 @@ app.post('/dashboard/:id/fun/:command/submitcommandstatuschange', async function
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -2982,7 +3714,27 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async function (req,
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -3079,7 +3831,27 @@ app.get('/dashboard/:id/fun', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -3154,7 +3926,27 @@ app.post('/dashboard/:id/searches/:command/submitcommandstatuschange', async fun
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -3202,7 +3994,27 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async function 
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -3299,7 +4111,27 @@ app.get('/dashboard/:id/searches', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -3374,7 +4206,27 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandstatuschange', async functio
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -3422,7 +4274,27 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async function (req
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -3519,7 +4391,27 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -3594,7 +4486,27 @@ app.post('/dashboard/:id/utility/submitsendembed', async function (req, res, nex
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -3676,7 +4588,27 @@ app.post('/dashboard/:id/utility/:command/submitcommandstatuschange', async func
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -3724,7 +4656,27 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async function (
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -3821,7 +4773,27 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -4161,7 +5133,27 @@ app.post('/dashboard/:id/application/submitnewacceptedmsg', async function (req,
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newacceptedmsg = req.body.newacceptedmsg;
@@ -4216,7 +5208,27 @@ app.post('/dashboard/:id/application/submitnewrejectedmsg', async function (req,
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var newrejectedmsg = req.body.newrejectedmsg;
@@ -4271,7 +5283,27 @@ app.post('/dashboard/:id/application/submitdenyrole', async function (req, res, 
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -4330,7 +5362,27 @@ app.post('/dashboard/:id/application/submitrole', async function (req, res, next
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -4389,7 +5441,27 @@ app.post('/dashboard/:id/application/submitreactionnumber', async function (req,
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -4444,7 +5516,27 @@ app.post('/dashboard/:id/application/submitapplication', async function (req, re
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -4499,7 +5591,27 @@ app.post('/dashboard/:id/application/:command/submitcommandstatuschange', async 
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -4547,7 +5659,27 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async functi
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -4644,7 +5776,27 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -4744,7 +5896,27 @@ app.post('/dashboard/:id/currency/:command/submitcommandstatuschange', async fun
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -4792,7 +5964,27 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async function 
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -4889,7 +6081,27 @@ app.get('/dashboard/:id/currency', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -5157,7 +6369,27 @@ app.post('/dashboard/:id/tickets/:command/submitcommandstatuschange', async func
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -5205,7 +6437,27 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async function (
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -5391,7 +6643,27 @@ app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next)
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const tableload = client.guildconfs.get(dashboardid);
@@ -5445,7 +6717,27 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -5526,7 +6818,27 @@ app.get('/dashboard/:id/lastlogs', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers")
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect("/servers")
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			var check = req.user.guilds[index];
