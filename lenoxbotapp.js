@@ -18,12 +18,6 @@ var app = express();
 const path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var PastebinAPI = require('pastebin-js');
-var pastebin = new PastebinAPI({
-	'api_dev_key': 'beac6cbeec3f782e30ec6edab22169c5',
-	'api_user_name': 'Monkeyyy11',
-	'api_user_password': 'lenoxbotpastebin11'
-});
 
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({
@@ -1672,6 +1666,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async fun
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -1699,6 +1694,20 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async fun
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -1903,6 +1912,7 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 				}
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -2195,6 +2205,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async functio
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -2222,6 +2233,20 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async functio
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -2302,6 +2327,7 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -2399,6 +2425,7 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async function (req
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -2426,6 +2453,20 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async function (req
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -2506,6 +2547,7 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -2718,6 +2760,7 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async function (re
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -2745,6 +2788,20 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async function (re
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -2833,6 +2890,7 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -2933,6 +2991,7 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async function (req,
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -2960,6 +3019,20 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async function (req,
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -3040,6 +3113,7 @@ app.get('/dashboard/:id/fun', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -3137,6 +3211,7 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async function 
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -3164,6 +3239,20 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async function 
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -3244,6 +3333,7 @@ app.get('/dashboard/:id/searches', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -3341,6 +3431,7 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async function (req
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -3368,6 +3459,20 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async function (req
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -3448,6 +3553,7 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -3627,6 +3733,7 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async function (
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -3654,6 +3761,20 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async function (
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -3734,6 +3855,7 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -4434,6 +4556,7 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async functi
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -4461,6 +4584,20 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async functi
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -4568,6 +4705,7 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -4663,6 +4801,7 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async function 
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -4690,6 +4829,20 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async function 
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -4770,6 +4923,7 @@ app.get('/dashboard/:id/currency', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 
@@ -5060,6 +5214,7 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async function (
 
 			var channelsarray = [];
 			var rolesarray = [];
+			var whitelistedrolesarray = [];
 			var newcooldown = ''
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
@@ -5087,6 +5242,20 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async function (
 				}
 			} else {
 				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
 			}
 
 			newcooldown = Number(req.body.newcooldown) * 1000
@@ -5177,6 +5346,7 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 
 				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
 				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
 			}
 

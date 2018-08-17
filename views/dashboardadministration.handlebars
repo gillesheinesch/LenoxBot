@@ -1,7 +1,6 @@
 <link rel="stylesheet" type="text/css" href="../../styles/style.css" />
 <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
 <script src='../../script/alerts.js'></script>
-<script src='../../script/dashboardadministration.js'></script>
 <title>Dashboard - LenoxBot</title>
 <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -746,6 +745,20 @@
                                                                                     <option value="{{id}}" selected>#{{name}}</option>
                                                                                     {{else}}
                                                                                     <option value="{{id}}">#{{name}}</option>
+                                                                                    {{/inArray}} {{/each}}
+                                                                                </select>
+                                                                            </div>
+                                                                            <hr>
+                                                                            <div class="form-group mb-2">
+                                                                                <label for="newwhitelistedroles">Whitelisted roles:</label>
+                                                                            </div>
+                                                                            <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                                                <select class="selectpicker" name="newwhitelistedroles" data-live-search="true" multiple title="Choose roles(s)" data-actions-box="true"
+                                                                                    data-size="7">
+                                                                                    {{#each ../roles}} {{#inArray ../whitelistedroles id}}
+                                                                                    <option value="{{id}}" selected>@{{name}}</option>
+                                                                                    {{else}}
+                                                                                    <option value="{{id}}">@{{name}}</option>
                                                                                     {{/inArray}} {{/each}}
                                                                                 </select>
                                                                             </div>
