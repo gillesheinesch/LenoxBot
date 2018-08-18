@@ -1,6 +1,4 @@
 const Discord = require('discord.js');
-const ms = require('ms');
-
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	let membermention = msg.mentions.members.first();
@@ -16,8 +14,8 @@ exports.run = async (client, msg, args, lang) => {
 
 	const role = msg.guild.roles.get(tableload.muterole);
 
-	if (membermention.roles.get(tableload.muterole)) {
-		membermention.removeRole(role);
+	if (membermention.roles.has(tableload.muterole)) {
+		await membermention.removeRole(role);
 
 		var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		var unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" "));
@@ -45,6 +43,9 @@ exports.run = async (client, msg, args, lang) => {
 		msg.channel.send({
 			embed: unmuteembed
 		});
+	} else {
+		const notownrole = lang.unmute_notownrole.replace('%username', user.username);
+		msg.reply(notownrole)
 	}
 };
 
