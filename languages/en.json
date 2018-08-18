@@ -690,8 +690,10 @@
     "unmute_nomention": "You forgot to mention the user who has to be unmuted.",
     "unmute_noinput": "You forgot to enter the reason for this unmute!",
     "unmute_rolenotexist": "It looks like this role does not exist anymore. Please define a new mute role with the **%prefixmuterole** command",
-    "unmute_unmutedby": "Unmuted by",
+    "unmute_notownrole": "%username isn't muted!",
+    "unmute_unmutedby": "Unmuted by %authortag",
     "unmute_unmutedescription": "**Action**: Unmute \n**User**: %usertag (%userid) \n**Reason**: %reason",
+    "unmute_automaticunmutedescription": "**Action**: Automatic unmute \n**User**: %usertag (%userid) \n**Reason**: The timer has expired",
     "unmute_unmuted": "%username was unmuted successfully.",
     "unmute_description": "Unmutes a user",
 
