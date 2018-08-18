@@ -1,8 +1,9 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
+	const botconfs = client.botconfs.get('botconfs');
 	let membermention = msg.mentions.members.first();
 	let user = msg.mentions.users.first();
 
@@ -28,26 +29,68 @@ exports.run = async(client, msg, args, lang) => {
 	var mutedby = lang.mute_mutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 	var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" ")).replace('%mutetime', ms(mutetime));
 	const embed = new Discord.RichEmbed()
-	.setAuthor(mutedby, msg.author.displayAvatarURL)
-	.setThumbnail(user.displayAvatarURL)
-	.setColor('#FF0000')
-	.setTimestamp()
-	.setDescription(mutedescription);
+		.setAuthor(mutedby, msg.author.displayAvatarURL)
+		.setThumbnail(user.displayAvatarURL)
+		.setColor('#FF0000')
+		.setTimestamp()
+		.setDescription(mutedescription);
 
-	user.send({ embed: embed });
+	user.send({
+		embed: embed
+	});
 
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);
-		modlogchannel.send({ embed: embed });
+		modlogchannel.send({
+			embed: embed
+		});
 	}
 
-	setInterval(function() { membermention.removeRole(role); }, mutetime);
+	const mutesettings = {
+		discordserverid: msg.guild.id,
+		memberid: membermention.id,
+		roleid: role.id,
+		mutetime: mutetime,
+		muteCreatedAt: Date.now(),
+		muteEndDate: Date.now() + mutetime,
+		mutescount: botconfs.mutescount + 1
+	};
+
+	botconfs.mutes[botconfs.mutescount + 1] = mutesettings;
+	botconfs.mutescount = botconfs.mutescount + 1;
+	await client.botconfs.set('botconfs', botconfs);
+
+	setTimeout(async function () {
+		if (membermention.roles.has(tableload.muterole)) {
+			await membermention.removeRole(role);
+
+			var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
+			var automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+			const unmutedembed = new Discord.RichEmbed()
+				.setAuthor(unmutedby, client.user.displayAvatarURL)
+				.setThumbnail(user.displayAvatarURL)
+				.setColor('#FF0000')
+				.setTimestamp()
+				.setDescription(automaticunmutedescription);
+
+			if (tableload.modlog === 'true') {
+				const modlogchannel = client.channels.get(tableload.modlogchannel);
+				await modlogchannel.send({
+					embed: unmutedembed
+				});
+			}
+		}
+		delete botconfs.mutes[botconfs.mutescount];
+		await client.botconfs.set('botconfs', botconfs);
+	}, mutetime);
 
 	var muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
 	const muteembed = new Discord.RichEmbed()
-	.setColor('#99ff66')
-	.setDescription(`✅ ${muted}`);
-	msg.channel.send({ embed: muteembed });
+		.setColor('#99ff66')
+		.setDescription(`✅ ${muted}`);
+	msg.channel.send({
+		embed: muteembed
+	});
 };
 
 exports.conf = {

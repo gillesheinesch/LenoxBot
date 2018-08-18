@@ -131,6 +131,42 @@ exports.run = async client => {
 		}, 1800000);
 	}
 
+	if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
+		for (var index in client.botconfs.get('botconfs').mutes) {
+			var muteconf = client.botconfs.get('botconfs');
+			const newMuteTime = muteconf.mutes[index].muteEndDate - Date.now();
+			setTimeout(async function () {
+				const membermention = client.guilds.get(muteconf.mutes[index].discordserverid).members.get(muteconf.mutes[index].memberid);
+				const role = client.guilds.get(muteconf.mutes[index].discordserverid).roles.get(muteconf.mutes[index].roleid);
+				const user = client.users.get(muteconf.mutes[index].memberid);
+				const tableload = client.guildconfs.get(muteconf.mutes[index].discordserverid);
+
+				if (membermention.roles.has(tableload.muterole)) {
+					await membermention.removeRole(role);
+
+					var lang = require(`../languages/${tableload.language}.json`);
+					var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
+					var automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+					const unmutedembed = new Discord.RichEmbed()
+						.setAuthor(unmutedby, client.user.displayAvatarURL)
+						.setThumbnail(user.displayAvatarURL)
+						.setColor('#FF0000')
+						.setTimestamp()
+						.setDescription(automaticunmutedescription);
+
+					if (tableload.modlog === 'true') {
+						const modlogchannel = client.channels.get(tableload.modlogchannel);
+						modlogchannel.send({
+							embed: unmutedembed
+						});
+					}
+				}
+				delete muteconf.mutes[muteconf.mutes[index].mutescount];
+				await client.botconfs.set('botconfs', muteconf);
+			}, newMuteTime);
+		}
+	}
+
 	setInterval(() => {
 		client.guilds.filter(g => client.guilds.has(g.id)).forEach(g => {
 			const tableload = client.guildconfs.get(g.id);

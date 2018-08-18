@@ -134,6 +134,12 @@ exports.run = async (client, msg) => {
 	const botconfspremiumload = await client.botconfs.get('premium');
 	const botconfs = client.botconfs.get('botconfs');
 
+	if (!botconfs.mutes) {
+		botconfs.mutescount = 0;
+		botconfs.mutes = {};
+		await client.botconfs.set('botconfs', botconfs);
+	}
+
 	if (!botconfs.commandsexecuted) {
 		botconfs.commandsexecuted = 0;
 		await client.botconfs.set('botconfs', botconfs);
