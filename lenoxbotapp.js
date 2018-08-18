@@ -451,12 +451,53 @@ app.get('/oauth2problem', function (req, res, next) {
 	}
 });
 
-app.get('/servers', function (req, res, next) {
+app.get('/servers', async function (req, res, next) {
 	try {
 		if (req.user) {
 			var check = [];
+
 			for (var i = 0; i < req.user.guilds.length; i++) {
-				if (((req.user.guilds[i].permissions) & 8) === 8) {
+				if (client.guildconfs.get(req.user.guilds[i].id) && client.guilds.get(req.user.guilds[i].id)) {
+					const dashboardid = req.user.guilds[i].id;
+					console.log(req.user.guilds[i].name);
+					const tableload = client.guildconfs.get(dashboardid);
+
+
+					if (!tableload.dashboardpermissionroles) {
+						tableload.dashboardpermissionroles = [];
+						await client.guildconfs.set(dashboardid, tableload);
+					}
+
+					console.log(tableload.dashboardpermissionroles);
+
+					if (tableload.dashboardpermissionroles.length !== 0) {
+						var allwhitelistedrolesoftheuser = 0;
+				
+						for (var index2 = 0; index2 < tableload.dashboardpermissionroles.length; index2++) {
+							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(tableload.dashboardpermissionroles[index2])) {
+								allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+							}
+						}
+						if (allwhitelistedrolesoftheuser !== tableload.dashboardpermissionroles.length) {
+							req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
+
+						if (req.user.guilds[i].lenoxbot === true) {
+							req.user.guilds[i].memberscount = client.guilds.get(req.user.guilds[i].id).memberCount;
+						}
+							check.push(req.user.guilds[i]);
+						}
+					} else if (((req.user.guilds[i].permissions) & 8) === 8)  {
+						req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
+
+						if (req.user.guilds[i].lenoxbot === true) {
+							req.user.guilds[i].memberscount = client.guilds.get(req.user.guilds[i].id).memberCount;
+						}
+
+						check.push(req.user.guilds[i]);
+					}
+
+				} else if (((req.user.guilds[i].permissions) & 8) === 8) {
 					req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
 
 					if (req.user.guilds[i].lenoxbot === true) {
@@ -475,6 +516,7 @@ app.get('/servers', function (req, res, next) {
 			return res.redirect('nologin');
 		}
 	} catch (error) {
+		console.log(error)
 		return res.redirect(url.format({
 			pathname: `/error`,
 			query: {
@@ -658,7 +700,27 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 			}
 
 			if (index === -1) return res.redirect("/servers")
-			if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect("/servers")
+				
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -2594,8 +2656,6 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 					permissions[x].applicationpermissionset = true;
 				}
 			}
-
-			console.log(tableload.dashboardpermissionroles)
 
 			return res.render('dashboardadministration', {
 				user: req.user,
@@ -4868,7 +4928,11 @@ app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', a
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			if (client.guildconfs.get(dashboardid).dashboardapplicationpermissions) {
+				if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardapplicationpermissions) !== client.guildconfs.get(dashboardid).dashboardapplicationpermissions) return res.redirect('/servers');
+			} else {
+				if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var tableload = await client.guildconfs.get(dashboardid);
@@ -4914,7 +4978,11 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async funct
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			if (client.guildconfs.get(dashboardid).dashboardapplicationpermissions) {
+				if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardapplicationpermissions) !== client.guildconfs.get(dashboardid).dashboardapplicationpermissions) return res.redirect('/servers');
+			} else {
+				if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			var tableload = await client.guildconfs.get(dashboardid);
@@ -4986,7 +5054,11 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async function (r
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			if (client.guildconfs.get(dashboardid).dashboardapplicationpermissions) {
+				if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardapplicationpermissions) !== client.guildconfs.get(dashboardid).dashboardapplicationpermissions) return res.redirect('/servers');
+			} else {
+				if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			const tableload = await client.guildconfs.get(dashboardid);
@@ -6176,7 +6248,11 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async function (
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			if (client.guildconfs.get(dashboardid).dashboardticketpermissions) {
+				if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardticketpermissions) !== client.guildconfs.get(dashboardid).dashboardticketpermissions) return res.redirect('/servers');
+			} else {
+				if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const botconfs = await client.botconfs.get('botconfs');
@@ -6241,7 +6317,11 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async functio
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			if (client.guildconfs.get(dashboardid).dashboardticketpermissions) {
+				if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardticketpermissions) !== client.guildconfs.get(dashboardid).dashboardticketpermissions) return res.redirect('/servers');
+			} else {
+				if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const botconfs = await client.botconfs.get('botconfs');
@@ -6316,7 +6396,11 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async function (req, res, n
 			}
 
 			if (index === -1) return res.redirect("/servers");
-			if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			if (client.guildconfs.get(dashboardid).dashboardticketpermissions) {
+				if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardticketpermissions) !== client.guildconfs.get(dashboardid).dashboardticketpermissions) return res.redirect('/servers');
+			} else {
+				if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
 
 			const botconfs = await client.botconfs.get('botconfs');
@@ -6892,6 +6976,10 @@ app.get('/error', function (req, res, next) {
 	var howtofix = '';
 
 	if (req.query.message === "Cannot read property 'prefix' of null") {
+		fix = true;
+		howtofix = 'Write a textmessage in a textchannel on your discord server'
+	}
+	if (req.query.message === "Cannot read property 'dashboardpermissionroles' of null") {
 		fix = true;
 		howtofix = 'Write a textmessage in a textchannel on your discord server'
 	}
