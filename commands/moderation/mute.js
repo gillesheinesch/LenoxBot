@@ -1,6 +1,5 @@
 const Discord = require('discord.js');
 const ms = require('ms');
-
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const botconfs = client.botconfs.get('botconfs');
