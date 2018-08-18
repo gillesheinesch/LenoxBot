@@ -131,6 +131,42 @@ exports.run = async client => {
 		}, 1800000);
 	}
 
+	if (Object.keys(client.botconfs.get('botconfs').bans).length !== 0) {
+		for (var index in client.botconfs.get('botconfs').bans) {
+			var bansconf = client.botconfs.get('botconfs');
+			const newBanTime = bansconf.bans[index].banEndDate - Date.now();
+			setTimeout(async function () {
+				const fetchedbans = await client.guilds.get(bansconf.bans[index].discordserverid).fetchBans();
+				const tableload = client.guildconfs.get(bansconf.bans[index].discordserverid);
+
+				if (fetchedbans.has(bansconf.bans[index].memberid)) {
+					const user = fetchedbans.get(bansconf.bans[index].memberid);
+
+					await client.guilds.get(bansconf.bans[index].discordserverid).unban(user);
+
+					var lang = require(`../languages/${tableload.language}.json`);
+					var unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
+					var automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+					const unmutedembed = new Discord.RichEmbed()
+						.setAuthor(unbannedby, client.user.displayAvatarURL)
+						.setThumbnail(user.displayAvatarURL)
+						.setColor('#FF0000')
+						.setTimestamp()
+						.setDescription(automaticbandescription);
+		
+					if (tableload.modlog === 'true') {
+						const modlogchannel = client.channels.get(tableload.modlogchannel);
+						await modlogchannel.send({
+							embed: unmutedembed
+						});
+					}
+				}
+				delete bansconf.bans[botconfs.banscount];
+				await client.botconfs.set('botconfs', bansconf);
+			}, newBanTime);
+		}
+	}
+
 	if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
 		for (var index in client.botconfs.get('botconfs').mutes) {
 			var muteconf = client.botconfs.get('botconfs');

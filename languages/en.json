@@ -1,4 +1,13 @@
 {
+    "temporaryban_yourself": "You can not temporarily ban yourself!",
+    "temporaryban_noinput": "You must specify a reason for the temporarily ban!",
+    "temporaryban_invalidtimeformat": "You used an invalid format for your temporary ban!",
+    "temporaryban_banned": "%usertag was successfully banned for %bantime!",
+    "temporaryban_bannedby": "Temporarily banned by",
+    "temporaryban_bandescription": "**Action**: Temporary ban \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Banned for**: %bantime",
+    "temporaryban_automaticbandescription": "**Action**: Automatic unban \n**User**: %usertag (%userid) \n**Reason**: The timer has expired",
+    "temporaryban_description": "Bans an user temporary",
+
     "playplaylist_error": "You forgot to enter the name of the playlist!",
     "playplaylist_description": "Plays a music playlist",
 
