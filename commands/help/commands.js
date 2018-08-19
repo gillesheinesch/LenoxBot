@@ -64,17 +64,14 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['cmds'],
-
-    
-
-    userpermissions: [], dashboardsettings: false
-
+	userpermissions: [],
+	dashboardsettings: false
 };
 exports.help = {
 	name: 'commands',
 	description: 'All commands of a module',
-	usage: 'commands {Modulename}',
-	example: ['commands Help'],
+	usage: 'commands {name of the module}',
+	example: ['commands help', 'commands administration'],
 	category: 'help',
     botpermissions: ['SEND_MESSAGES']
 };

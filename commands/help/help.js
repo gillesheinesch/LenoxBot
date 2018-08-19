@@ -93,7 +93,7 @@ exports.conf = {
 exports.help = {
 	name: 'help',
 	description: 'Gives you informations about a command',
-	usage: 'help {commandname}',
+	usage: 'help {name of the command}',
 	example: ['help botinfo', 'help'],
 	category: 'help',
     botpermissions: ['SEND_MESSAGES']
