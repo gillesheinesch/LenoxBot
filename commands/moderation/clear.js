@@ -27,12 +27,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['purge'],
-    userpermissions: ['MANAGE_MESSAGES'], dashboardsettings: true
+	userpermissions: ['MANAGE_MESSAGES'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'clear',
 	description: 'Deletes for you the last X messages that were sent in the current channel',
-	usage: 'clear {2-100}',
+	usage: 'clear {amount of messages between 2 and 100}',
 	example: ['clear 50'],
 	category: 'moderation',
     botpermissions: ['MANAGE_MESSAGES', 'SEND_MESSAGES']

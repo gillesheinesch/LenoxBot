@@ -39,15 +39,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['u'],
-
-
-    userpermissions: ['BAN_MEMBERS'], dashboardsettings: true
-
+	userpermissions: ['BAN_MEMBERS'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'unban',
 	description: 'Unban a user from the discord server with a certain reason',
-	usage: 'unban {userid} {reason}',
+	usage: 'unban {userID} {reason}',
 	example: ['unban 238590234135101440 Mistake'],
 	category: 'moderation',
     botpermissions: ['BAN_MEMBERS', 'MANAGE_GUILD', 'SEND_MESSAGES']

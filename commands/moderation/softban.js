@@ -41,11 +41,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-
-
-
-	userpermissions: ['BAN_MEMBERS'], dashboardsettings: true
-
+	userpermissions: ['BAN_MEMBERS'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'softban',

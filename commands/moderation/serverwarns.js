@@ -77,7 +77,6 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-
 	userpermissions: [],
 	dashboardsettings: true
 };

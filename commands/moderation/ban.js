@@ -44,10 +44,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['b'],
-
-
-    userpermissions: ['BAN_MEMBERS'], dashboardsettings: true
-
+	userpermissions: ['BAN_MEMBERS'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'ban',

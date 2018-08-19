@@ -55,15 +55,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['w'],
-
-
-    userpermissions: ['KICK_MEMBERS'], dashboardsettings: true
-
+	userpermissions: ['KICK_MEMBERS'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'warn',
 	description: 'Warn a user on the discord server with a certain reason',
-	usage: 'warn @User {reason}',
+	usage: 'warn {@User/UserID} {reason}',
 	example: ['warn @Monkeyyy11#7584 Spam'],
 	category: 'moderation',
     botpermissions: ['KICK_MEMBERS', 'SEND_MESSAGES']

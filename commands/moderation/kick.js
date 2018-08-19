@@ -37,15 +37,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['k'],
-
-
-    userpermissions: ['KICK_MEMBERS'], dashboardsettings: true
-
+	userpermissions: ['KICK_MEMBERS'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'kick',
 	description: 'Kick a user from the discord server with a certain reason',
-	usage: 'kick @User {reason}',
+	usage: 'kick {@User} {reason}',
 	example: ['kick @Monkeyyy11#7584 Spam'],
 	category: 'moderation',
     botpermissions: ['KICK_MEMBERS', 'SEND_MESSAGES']

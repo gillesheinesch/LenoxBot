@@ -96,10 +96,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['wl', 'warns'],
-
-
-	userpermissions: ['KICK_MEMBERS'], dashboardsettings: true
-
+	userpermissions: ['KICK_MEMBERS'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'warnlog',
