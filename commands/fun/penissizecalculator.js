@@ -27,7 +27,7 @@ exports.help = {
 	name: 'penissizecalculator',
 	description: 'Calculates the size of the penis of you or a user',
 	usage: 'penissizecalculator [@User]',
-	example: ['randomnumber @Tester#8234'],
+	example: ['penissizecalculator', 'penissizecalculator @Tester#8234'],
 	category: 'fun',
 	botpermissions: ['SEND_MESSAGES']
 };

@@ -16,11 +16,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['eightball'],
-
-	
-
-	userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'eightball',
