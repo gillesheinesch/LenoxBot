@@ -34,14 +34,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['rar'],
-
-	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'removeautomaticrole',
 	description: 'Removes an auto assignable role',
-	usage: 'removeautomaticrole {rolename}',
+	usage: 'removeautomaticrole {name of the role}',
 	example: ['removeautomaticrole TestRole'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']

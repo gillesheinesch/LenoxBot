@@ -27,15 +27,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['rsar'],
-
-
-    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'removeselfassignablerole',
 	description: 'Remove a role that allows users to assign themselves',
-	usage: 'removeselfassignablerole {rolename}',
+	usage: 'removeselfassignablerole {name of the role}',
 	example: ['removeselfassignablerole Member'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']

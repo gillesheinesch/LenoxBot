@@ -19,11 +19,9 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	aliases: ['ta'],
-
-
-    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	aliases: [],
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'toggleannounce',

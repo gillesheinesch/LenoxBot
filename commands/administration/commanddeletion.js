@@ -17,7 +17,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['cmddel'],
-    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'commanddeletion',

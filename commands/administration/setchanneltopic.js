@@ -15,14 +15,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-
-	userpermissions: ['MANAGE_CHANNELS'], dashboardsettings: true
-
+	userpermissions: ['MANAGE_CHANNELS'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'setchanneltopic',
 	description: 'Sets a new channel topic for the current channel',
-	usage: 'setchanneltopic {New Channeltopic}',
+	usage: 'setchanneltopic {New channeltopic}',
 	example: ['setchanneltopic Hello World'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS']

@@ -30,15 +30,14 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-
-	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'removechatfilter',
 	description: 'Removes words from the chatfilter',
-	usage: 'removechatfilter bitch',
-	example: ['removechatfilter bitch', 'removechatfilter idiot'],
+	usage: 'removechatfilter {word}',
+	example: ['removechatfilter bastard', 'removechatfilter idiot'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']
 };

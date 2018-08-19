@@ -67,17 +67,14 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['delev'],
-
-
-
-    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+    userpermissions: ['ADMINISTRATOR'],
+    dashboardsettings: true
 };
 exports.help = {
 	name: 'deleteevents',
 	description: 'Delete all active events on this server',
-	usage: 'delevents',
-	example: ['delevents'],
+	usage: 'deleteevents',
+	example: ['deleteevents'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']
 };

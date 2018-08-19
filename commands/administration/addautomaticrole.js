@@ -36,7 +36,7 @@ exports.conf = {
 exports.help = {
 	name: 'addautomaticrole',
 	description: 'Adds an auto assignable role',
-	usage: 'addautomaticrole {points} {rolename}',
+	usage: 'addautomaticrole {points} {name of the role}',
 	example: ['addautomaticrole 10 TestRole'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']

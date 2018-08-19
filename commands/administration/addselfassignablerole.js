@@ -19,12 +19,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['asar'],
-    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'addselfassignablerole',
 	description: 'Add a role that allows users to assign themselves',
-	usage: 'addselfassignablerole {rolename}',
+	usage: 'addselfassignablerole {name of the role}',
 	example: ['addselfassignablerole Member'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']

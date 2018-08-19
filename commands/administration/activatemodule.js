@@ -97,7 +97,7 @@ exports.conf = {
 exports.help = {
 	name: 'activatemodule',
 	description: 'Activates a module and its commands on a Discord server',
-	usage: 'activatemodule {modulename}',
+	usage: 'activatemodule {name of the module}',
 	example: ['activatemodule help'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']

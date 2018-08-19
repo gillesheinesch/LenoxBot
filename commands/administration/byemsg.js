@@ -12,13 +12,14 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-    userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 
 exports.help = {
 	name: 'byemsg',
 	description: 'Sets a goodbye message to say goodbye to your users',
-	usage: 'byemsg {bye msg}',
+	usage: 'byemsg {goodbye message}',
 	example: ['byemsg Bye $user$, we gonna miss you on the $servername$ discord-server!'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES']

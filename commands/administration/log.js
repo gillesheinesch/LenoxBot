@@ -236,7 +236,7 @@ exports.conf = {
 exports.help = {
 	name: 'log',
 	description: 'Allows you to log for different channels, different events. Use ?listevents to get a list of all events',
-	usage: 'log {event}',
+	usage: 'log {name of the event}',
 	example: ['log modlog'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']

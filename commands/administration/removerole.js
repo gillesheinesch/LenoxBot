@@ -16,14 +16,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['rr'],
-
-    userpermissions: ['MANAGE_ROLES'], dashboardsettings: true
-
+	userpermissions: ['MANAGE_ROLES'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'removerole',
 	description: 'Remove a role to a discord member',
-	usage: 'removerole @User {rolename}',
+	usage: 'removerole {@User} {name of the role}',
 	example: ['removerole @Monkeyyy11#7584 Member'],
 	category: 'administration',
     botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']

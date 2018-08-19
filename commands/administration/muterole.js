@@ -22,17 +22,14 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['m'],
-
-	
-
-	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 
 exports.help = {
 	name: 'muterole',
 	description: 'Defines a muted role which muted users will get',
-	usage: 'muterole {rolename}',
+	usage: 'muterole {name of the role}',
 	example: ['muterole muted'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']

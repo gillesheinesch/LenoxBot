@@ -13,13 +13,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-	userpermissions: ['MANAGE_ROLES'], dashboardsettings: true
-
+	userpermissions: ['MANAGE_ROLES'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'createrole',
 	description: 'Creates a role with a name',
-	usage: 'createrole {rolename}',
+	usage: 'createrole {name of the role}',
 	example: ['createrole Test'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']

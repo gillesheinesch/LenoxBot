@@ -35,7 +35,7 @@ exports.conf = {
 exports.help = {
 	name: 'addchatfilter',
 	description: 'Inserts a new entry in the chat filter',
-	usage: 'addchatfilter',
+	usage: 'addchatfilter {word}',
 	example: ['addchatfilter bitch', 'addchatfilter idiot'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']

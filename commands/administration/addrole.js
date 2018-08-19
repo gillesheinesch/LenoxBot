@@ -16,12 +16,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['ar'],
-    userpermissions: ['MANAGE_ROLES'], dashboardsettings: true
+	userpermissions: ['MANAGE_ROLES'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'addrole',
 	description: 'Assign a role to a discord member',
-	usage: 'addrole @User {rolename}',
+	usage: 'addrole {@User} {name of the role}',
 	example: ['addrole @Monkeyyy11#7584 Member'],
 	category: 'administration',
     botpermissions: ['MANAGE_ROLES', 'SEND_MESSAGES']

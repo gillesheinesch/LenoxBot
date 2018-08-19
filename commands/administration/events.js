@@ -134,10 +134,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['e'],
-
-
-	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'events',

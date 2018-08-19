@@ -92,13 +92,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['dm'],
-	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'deactivatemodule',
 	description: 'Disables a module and its commands on a Discord server',
-	usage: 'deactivatemodule {modulename}',
+	usage: 'deactivatemodule {name of the module}',
 	example: ['deactivatemodule help'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']
