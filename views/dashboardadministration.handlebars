@@ -639,6 +639,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-10">
                                             <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button id="popover-for-msgoptions1" type="button" class="btn btn-secondary" data-toggle="popover" title="All message options:" data-content="$usertag$<br>$usermention$<br>$username$<br>$userid$<br>$guildname$<br>$guildid$">Show all message options</button>
                                         </div>
                                     </div>
                                 </form>
@@ -674,6 +675,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-10">
                                             <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button id="popover-for-msgoptions2" type="button" class="btn btn-secondary" data-toggle="popover" title="All message options:" data-content="$usertag$<br>$username$<br>$userid$<br>$guildname$<br>$guildid$">Show all message options</button>
                                         </div>
                                     </div>
                                 </form>
@@ -835,4 +837,16 @@
                 </div>
             </div>
         </div>
+        <script>
+            $(function () {
+                $('#popover-for-msgoptions1').popover({
+                    container: 'body',
+                    html: true
+                })
+                $('#popover-for-msgoptions2').popover({
+                    container: 'body',
+                    html: true
+                })
+            })
+        </script>
 </main>
