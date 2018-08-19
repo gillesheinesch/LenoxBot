@@ -13,16 +13,14 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-
-
-	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 
 exports.help = {
 	name: 'setrejectedmessage',
 	description: 'Sets a custom message that receive the applicants who have been rejected',
-	usage: 'setrejectedmessage {message}',
+	usage: 'setrejectedmessage {custom message}',
 	example: ['setrejectedmessage You have been rejected!'],
 	category: 'application',
 	botpermissions: ['SEND_MESSAGES']

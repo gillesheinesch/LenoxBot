@@ -96,9 +96,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: ['apply'],
-
-	userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'application',

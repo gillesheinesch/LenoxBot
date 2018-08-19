@@ -13,17 +13,14 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: [],
-
-
-
-	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-
+	userpermissions: ['ADMINISTRATOR'],
+	dashboardsettings: true
 };
 
 exports.help = {
 	name: 'setacceptedmessage',
 	description: 'Sets a custom message that receive the applicants who have been accepted',
-	usage: 'setacceptedmessage {message}',
+	usage: 'setacceptedmessage {custom message}',
 	example: ['setacceptedmessage You have been accepted!'],
 	category: 'application',
 	botpermissions: ['SEND_MESSAGES']
