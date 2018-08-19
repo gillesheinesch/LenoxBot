@@ -56,16 +56,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: true,
 	aliases: [],
-
-	
-
-	userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'gamble',
 	description: 'Gamble your credits with a 50% chance to make a profit',
-	usage: 'gamble {number}',
+	usage: 'gamble {amount}',
 	example: ['gamble 1000', 'gamble 8344', 'gamble 828', 'gamble 10'],
 	category: 'currency',
     botpermissions: ['SEND_MESSAGES']

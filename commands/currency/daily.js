@@ -54,8 +54,8 @@ exports.conf = {
 exports.help = {
 	name: 'daily',
 	description: 'Get your daily reward or give it away to another discord user',
-	usage: 'daily [-remind] [@User]',
-	example: ['daily', 'daily -remind', 'daily -r @Tester#3873'],
+	usage: 'daily [@User]',
+	example: ['daily', 'daily @Tester#3873'],
 	category: 'currency',
 	botpermissions: ['SEND_MESSAGES']
 };

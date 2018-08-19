@@ -46,16 +46,13 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['pc'],
-
-	
-
-	userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'paycredits',
 	description: 'Allows a user to give their credits to someone',
-	usage: 'paycredits {@User} {Amount}',
+	usage: 'paycredits {@User} {amount}',
 	example: ['paycredits @Monkeyyy11#7584 100'],
 	category: 'currency',
 	botpermissions: ['SEND_MESSAGES']
