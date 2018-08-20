@@ -2662,6 +2662,7 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 				roles: roles,
 				confs: confs,
 				announcedeactivated: client.guildconfs.get(dashboardid).announce === 'true' ? true : false,
+				muteroledeactivated: client.guildconfs.get(dashboardid).muterole === '' ? true : false,
 				commanddeletionset: client.guildconfs.get(dashboardid).commanddel === 'true' ? true : false,
 				chatfilterset: client.guildconfs.get(dashboardid).chatfilter.chatfilter === 'true' ? true : false,
 				xpmesssagesset: client.guildconfs.get(dashboardid).xpmessages === 'true' ? true : false,
@@ -2671,6 +2672,162 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 				permissions: permissions,
 				submitadministration: req.query.submitadministration ? true : false
 			});
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
+app.post('/dashboard/:id/moderation/submittempbananonymous', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			if (!tableload.muteanonymous) {
+				tableload.muteanonymous = "false";
+				await client.guildconfs.set(msg.guild.id, tableload);
+			}
+		
+			if (!tableload.tempbananonymous) {
+				tableload.tempbananonymous = "false";
+				await client.guildconfs.set(msg.guild.id, tableload);
+			}
+
+			tableload.tempbananonymous = req.body.newtempbananonymous;
+
+			tableload.globallogs.push({
+				action: `Changed the settings of the anonymous temporary ban!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/moderation`,
+				query: {
+					"submitmoderation": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
+app.post('/dashboard/:id/moderation/submitmuteanonymous', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			if (!tableload.muteanonymous) {
+				tableload.muteanonymous = "false";
+				await client.guildconfs.set(msg.guild.id, tableload);
+			}
+		
+			if (!tableload.tempbananonymous) {
+				tableload.tempbananonymous = "false";
+				await client.guildconfs.set(msg.guild.id, tableload);
+			}
+
+			tableload.muteanonymous = req.body.newmuteanonymous;
+
+			tableload.globallogs.push({
+				action: `Changed the settings of the anonymous mute!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/moderation`,
+				query: {
+					"submitmoderation": true
+				}
+			}));
 		} else {
 			return res.redirect('/nologin');
 		}
@@ -2870,7 +3027,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async functio
 	}
 });
 
-app.get('/dashboard/:id/moderation', function (req, res, next) {
+app.get('/dashboard/:id/moderation', async function (req, res, next) {
 	try {
 		var dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2942,8 +3099,20 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 
 			var roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
 
+			if (!tableload.muteanonymous) {
+				tableload.muteanonymous = "false";
+				await client.guildconfs.set(dashboardid, tableload);
+			}
+		
+			if (!tableload.tempbananonymous) {
+				tableload.tempbananonymous = "false";
+				await client.guildconfs.set(dashboardid, tableload);
+			}
+
 			return res.render('dashboardmoderation', {
 				user: req.user,
+				muteanonymous: tableload.muteanonymous === "true" ? true : false,
+				tempbananonymous: tableload.tempbananonymous === "true" ? true : false,
 				guilds: check,
 				client: client,
 				channels: channels,

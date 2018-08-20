@@ -27,16 +27,30 @@ exports.run = async (client, msg, args, lang) => {
 
 	var mutedby = lang.mute_mutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 	var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" ")).replace('%mutetime', ms(mutetime));
-	const embed = new Discord.RichEmbed()
+	var embed = new Discord.RichEmbed()
 		.setAuthor(mutedby, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
 		.setColor('#FF0000')
 		.setTimestamp()
 		.setDescription(mutedescription);
 
-	user.send({
-		embed: embed
-	});
+	if (tableload.muteanonymous === "true") {
+		var mutedby = lang.mute_mutedby.replace('%authortag', `${client.user.username}#${client.user.discriminator}`);
+		var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" ")).replace('%mutetime', ms(mutetime));
+		const anonymousembed = new Discord.RichEmbed()
+			.setAuthor(mutedby, client.user.displayAvatarURL)
+			.setThumbnail(user.displayAvatarURL)
+			.setColor('#FF0000')
+			.setTimestamp()
+			.setDescription(mutedescription);
+		await user.send({
+			embed: anonymousembed
+		});
+	} else {
+		await user.send({
+			embed: embed
+		});
+	}
 
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);

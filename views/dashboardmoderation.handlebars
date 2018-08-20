@@ -15,10 +15,12 @@
                     <a href="/home" class="h5 nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                   <a href="https://docs.lenoxbot.com" class=" h5 nav-link">Documentation</a>
+                    <a href="https://docs.lenoxbot.com" class=" h5 nav-link">Documentation</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/donate" class=" h5 nav-link">Donate  <span class="badge badge-info">NEW</span></a>
+                    <a href="/donate" class=" h5 nav-link">Donate
+                        <span class="badge badge-info">NEW</span>
+                    </a>
                 </li>
                 <li class="nav-item">
                     <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
@@ -34,7 +36,7 @@
                 <li class="nav-item active">
                     {{#if user}}
                     <a href="/servers" class=" h5 nav-link">Dashboard
-                        
+
                     </a>
                     {{/if}}
                 </li>
@@ -84,71 +86,129 @@
                     <div class="collapse navbar-collapse" id="dashboardnavigationbar">
                         <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
                             <li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">
-									<i class="far fa-eye"></i> Overview</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">
-									<i class="fas fa-folder-open"></i> Modules</a>
-							</li>
-							<li>
-								<hr id="hr-dashboard-navbar" style="border: white; padding: 0; margin: 0;">
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link" role="button">
-									<i class="fas fa-wrench"></i> Administration</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/moderation" class=" h5 nav-link active" role="button">
-									<i class="fas fa-user-shield"></i> Moderation</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/help" class=" h5 nav-link" role="button">
-									<i class="fas fa-question-circle"></i> Help</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">
-									<i class="fas fa-music"></i> Music</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/fun" class=" h5 nav-link" role="button">
-									<i class="fas fa-paper-plane"></i> Fun</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/searches" class=" h5 nav-link" role="button">
-									<i class="fas fa-search"></i> Searches</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/nsfw" class=" h5 nav-link" role="button">
-									<i class="fas fa-exclamation-triangle"></i> NSFW</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/utility" class=" h5 nav-link" role="button">
-									<i class="fas fa-warehouse"></i> Utility</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">
-									<i class="fab fa-wpforms"></i> Application</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/currency" class=" h5 nav-link" role="button">
-									<i class="fas fa-money-bill-alt"></i> Currency</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button">
-									<i class="fas fa-envelope-square"></i> Tickets</a>
-							</li>
-							<li class="nav-item nav-link">
-								<a href="#" class="h5 nav-link" role="button">
-									<i class="fas fa-list-ul"></i> Custom Commands
-									<span class="badge badge-warning">Incoming!</span>
-								</a>
-							</li>
+                                <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">
+                                    <i class="far fa-eye"></i> Overview</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-folder-open"></i> Modules</a>
+                            </li>
+                            <li>
+                                <hr id="hr-dashboard-navbar" style="border: white; padding: 0; margin: 0;">
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-wrench"></i> Administration</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/moderation" class=" h5 nav-link active" role="button">
+                                    <i class="fas fa-user-shield"></i> Moderation</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/help" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-question-circle"></i> Help</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-music"></i> Music</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/fun" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-paper-plane"></i> Fun</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/searches" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-search"></i> Searches</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/nsfw" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-exclamation-triangle"></i> NSFW</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/utility" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-warehouse"></i> Utility</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">
+                                    <i class="fab fa-wpforms"></i> Application</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/currency" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-money-bill-alt"></i> Currency</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button">
+                                    <i class="fas fa-envelope-square"></i> Tickets</a>
+                            </li>
+                            <li class="nav-item nav-link">
+                                <a href="#" class="h5 nav-link" role="button">
+                                    <i class="fas fa-list-ul"></i> Custom Commands
+                                    <span class="badge badge-warning">Incoming!</span>
+                                </a>
+                            </li>
                         </ul>
                 </nav>
                 </div>
                 <div class="col-sm-9">
                     <div class="panel-group-dashboard">
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">Anonymous mute (The user doesn't know who banned/muted him)</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/moderation/submitmuteanonymous" method="POST">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm" for="newmuteanonymous">Anonymous mute</label>
+                                        <div class="col-sm-4">
+                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newmuteanonymous" data-actions-box="true"
+                                                data-size="7">
+                                                {{#if muteanonymous}}
+                                                <option value="true" selected>Activate</option>
+                                                <option value="false">Deactivate</option>
+                                                {{else}}
+                                                <option value="true">Activate</option>
+                                                <option value="false" selected>Deactivate</option>
+                                                {{/if}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">Anonymous temporary ban (The user doesn't know who temporarily banned him)</p>
+                            </div>
+                            <div class="card-body">
+                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/moderation/submittempbananonymous" method="POST">
+                                    <div class="form-group">
+                                        <label class="control-label col-sm" for="newtempbananonymous">Anonymous temporary ban</label>
+                                        <div class="col-sm-4">
+                                            <select required class="form-control custom-select custom-select-lg mb-3 selectpicker" name="newtempbananonymous" data-actions-box="true"
+                                                data-size="7">
+                                                {{#if tempbananonymous}}
+                                                <option value="true" selected>Activate</option>
+                                                <option value="false">Deactivate</option>
+                                                {{else}}
+                                                <option value="true">Activate</option>
+                                                <option value="false" selected>Deactivate</option>
+                                                {{/if}}
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <div class="col-sm-offset-3 col-sm-10">
+                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
                                 <p class="text text-white h5">Commands</p>

@@ -352,6 +352,16 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!tableload.muteanonymous) {
+		tableload.muteanonymous = "false";
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (!tableload.tempbananonymous) {
+		tableload.tempbananonymous = "false";
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.dashboardpermissionroles) {
 		tableload.dashboardpermissionroles = [];
 		await client.guildconfs.set(msg.guild.id, tableload);

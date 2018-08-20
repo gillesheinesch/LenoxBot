@@ -25,31 +25,49 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission).then(m => m.delete(10000));
 	msg.guild.ban(user);
-	
+
 	const bantime = ms(args.slice(1, 2).join(" "));
 	if (bantime === undefined) return msg.channel.send(lang.temporaryban_invalidtimeformat);
 
 	var banned = lang.temporaryban_banned.replace('%usertag', user.tag).replace('%bantime', ms(bantime));
 	const banembed = new Discord.RichEmbed()
-	.setColor('#99ff66')
-	.setDescription(`✅ ${banned}`);
-	msg.channel.send({ embed: banembed });
+		.setColor('#99ff66')
+		.setDescription(`✅ ${banned}`);
+	msg.channel.send({
+		embed: banembed
+	});
 
 	var bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason).replace('%bantime', ms(bantime));
-	const embed = new Discord.RichEmbed()
-	.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
-	.setThumbnail(user.displayAvatarURL)
-	.setColor('#FF0000')
-	.setTimestamp()
-	.setDescription(bandescription);
+	var embed = new Discord.RichEmbed()
+		.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
+		.setThumbnail(user.displayAvatarURL)
+		.setColor('#FF0000')
+		.setTimestamp()
+		.setDescription(bandescription);
 
-	user.send({
-		embed: embed
-	});
+	if (tableload.tempbananonymous === "true") {
+		var bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason).replace('%bantime', ms(bantime));
+		const ananonymousembed = new Discord.RichEmbed()
+			.setAuthor(`${lang.temporaryban_bannedby} ${client.user.username}${client.user.discriminator}`, client.user.displayAvatarURL)
+			.setThumbnail(user.displayAvatarURL)
+			.setColor('#FF0000')
+			.setTimestamp()
+			.setDescription(bandescription);
+
+		await user.send({
+			embed: ananonymousembed
+		});
+	} else {
+		await user.send({
+			embed: embed
+		});
+	}
 
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);
-		modlogchannel.send({ embed: embed });
+		modlogchannel.send({
+			embed: embed
+		});
 	}
 	const bansettings = {
 		discordserverid: msg.guild.id,
@@ -105,4 +123,3 @@ exports.help = {
 	category: 'moderation',
 	botpermissions: ['BAN_MEMBERS', 'SEND_MESSAGES']
 };
-
