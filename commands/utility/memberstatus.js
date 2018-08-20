@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args, lang) => {
-	const onlinecount = msg.guild.members.filterArray(m => m.presence.status === 'online').length;
-	const offlinecount = msg.guild.members.filterArray(m => m.presence.status === 'offline').length;
-	const dndcount = msg.guild.members.filterArray(m => m.presence.status === 'dnd').length;
-	const afkcount = msg.guild.members.filterArray(m => m.presence.status === 'idle').length;
+	const onlinecount = msg.guild.members.array().filter(m => m.presence.status === 'online').length;
+	const offlinecount = msg.guild.members.array().filter(m => m.presence.status === 'offline').length;
+	const dndcount = msg.guild.members.array().filter(m => m.presence.status === 'dnd').length;
+	const afkcount = msg.guild.members.array().filter(m => m.presence.status === 'idle').length;
 
 	var online = lang.memberstatus_online.replace('%memberscount', onlinecount);
 	var dnd = lang.memberstatus_dnd.replace('%memberscount', dndcount);
