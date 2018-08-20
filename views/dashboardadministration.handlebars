@@ -202,8 +202,13 @@
                                         <label for="newmuterole">Muterole:</label>
                                     </div>
                                     <div class="form-group mx-sm-3 mb-2 col-sm-4">
-                                        <select required class="selectpicker" name="newmuterole" data-live-search="true" title="Choose muterole" data-actions-box="true"
+                                        <select class="selectpicker" name="newmuterole" data-live-search="true" title="Choose muterole" data-actions-box="true"
                                             data-size="7">
+                                            {{#if muteroledeactivated}}
+                                            <option selected value="">None</option>
+                                            {{else}}
+                                            <option value="">None</option>
+                                            {{/if}} 
                                             {{#each roles}} {{#if muteroleset}}
                                             <option value="{{id}}" selected>@{{name}}</option>
                                             {{else}}
