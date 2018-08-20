@@ -43,6 +43,10 @@ exports.run = async (client, msg, args, lang) => {
 	.setTimestamp()
 	.setDescription(bandescription);
 
+	user.send({
+		embed: embed
+	});
+
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);
 		modlogchannel.send({ embed: embed });
