@@ -153,7 +153,7 @@ exports.run = async client => {
 						.setColor('#FF0000')
 						.setTimestamp()
 						.setDescription(automaticbandescription);
-		
+
 					if (tableload.modlog === 'true') {
 						const modlogchannel = client.channels.get(tableload.modlogchannel);
 						await modlogchannel.send({
@@ -189,6 +189,10 @@ exports.run = async client => {
 						.setColor('#FF0000')
 						.setTimestamp()
 						.setDescription(automaticunmutedescription);
+
+					user.send({
+						embed: embed
+					});
 
 					if (tableload.modlog === 'true') {
 						const modlogchannel = client.channels.get(tableload.modlogchannel);
