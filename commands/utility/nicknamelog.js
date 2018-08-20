@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 exports.run = async(client, msg, args, lang) => {
-	const mention = msg.mentions.members.first() || msg.author;
+	const mention = msg.mentions.users.first() || msg.author;
 	const tableload = client.guildconfs.get(msg.guild.id);
 	let dateArray = [];
 	let oldnickname = [];
