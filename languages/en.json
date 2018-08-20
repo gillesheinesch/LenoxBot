@@ -5,7 +5,7 @@
     "temporaryban_banned": "%usertag was successfully banned for %bantime!",
     "temporaryban_bannedby": "Temporarily banned by",
     "temporaryban_bandescription": "**Action**: Temporary ban \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Banned for**: %bantime",
-    "temporaryban_automaticbandescription": "**Action**: Automatic unban \n**User**: %usertag (%userid) \n**Reason**: The timer has expired",
+    "temporaryban_automaticbandescription": "**Action**: Automatic unban \n**User**: %usertag (%userid) \n**Reason**: The bantime has expired",
     "temporaryban_description": "Bans an user temporary",
 
     "playplaylist_error": "You forgot to enter the name of the playlist!",
@@ -222,7 +222,7 @@
     "setprofiledescription_noinput": "You forgot to enter a profile description!",
     "setprofiledescription_error": "Your description is too long. If you want to have a longer description, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "setprofiledescription_error2": "Your description is too long.",
-    "setprofiledescription_set": "The profile description has been set successfully!", 
+    "setprofiledescription_set": "The profile description has been set successfully!",
     "setprofiledescription_description": "Sets a global profile description",
 
     "applicationsettings_embedauthor": "Application settings",
@@ -321,8 +321,8 @@
 
     "toggleapplication_error": "The application system is currently disabled for this server",
     "toggleapplication_activated": "The application system was successfully activated!",
-    "toggleapplication_disabled": "The application system was successfully deactivated!",  
-    "toggleapplication_description": "Toggles the applications on or off", 
+    "toggleapplication_disabled": "The application system was successfully deactivated!",
+    "toggleapplication_description": "Toggles the applications on or off",
 
     "bitcoin_descriptionembed": "Bitcoin Value ($): **%value** \nBitcoin Percentage of changes in the last day: **%percentage** %",
     "bitcoin_authorembed": "Bitcoin informations",
@@ -685,7 +685,7 @@
     "softban_softbanned": "%usertag was successfully softbaned and the messages of the last %days days were deleted!",
     "softban_softbanby": "Softban by %authortag",
     "softban_softbandescription": "**Action**: Softban \n**User**: %usertag (%userid) \n**Reason**: %reason \nMessages of **%days** got deleted:",
-    "softban_description": "Bans a user and deletes his messages of the last X days. After that, he will be unbaned immediately!",
+    "softban_description": "Bans a user and deletes his messages of the last X days (max 14 days). After that, he will be unbaned immediately!",
 
     "unban_nouserid": "You must enter the userID to unban the user!",
     "unban_noinput": "You must specify a reason for the unban!",
@@ -702,7 +702,7 @@
     "unmute_notownrole": "%username isn't muted!",
     "unmute_unmutedby": "Unmuted by %authortag",
     "unmute_unmutedescription": "**Action**: Unmute \n**User**: %usertag (%userid) \n**Reason**: %reason",
-    "unmute_automaticunmutedescription": "**Action**: Automatic unmute \n**User**: %usertag (%userid) \n**Reason**: The timer has expired",
+    "unmute_automaticunmutedescription": "**Action**: Automatic unmute \n**User**: %usertag (%userid) \n**Reason**: The mutetime has expired",
     "unmute_unmuted": "%username was unmuted successfully.",
     "unmute_description": "Unmutes a user",
 
@@ -822,7 +822,7 @@
     "gif_noinput": "You have to specify which GIF you would like to search for!",
     "gif_error": "Could not find a gif to your specification!",
     "gif_description": "Searches for a gif",
-    
+
     "google_noinput": "Please specify what you are looking for",
     "google_nsfw": "You can not use the Google command for such things",
     "google_description": "Searches something on Google",
@@ -1068,7 +1068,7 @@
     "messageevent_commanddisabled": "This command is currently disabled. This may be due to the fact that errors are being corrected or improvements are being made. Please be patient until the command works again",
     "messageevent_bannedchannel": "You can not run this command in this channel!",
     "messageevent_bannedrole": "This command is disabled for you because you have a role that is on the blacklist of this command!",
-    "messageevent_nowhitelistedroles": "This command is disabled for you because you don't a role that is on the whitelist of this command!",
+    "messageevent_nowhitelistedroles": "This command is disabled for you because you don't have a role that is on the whitelist of this command!",
     "messageevent_error": "You must run the commands on a Discord server where LenoxBot has joined",
     "messageevent_levelup": "Congratulations %author! You just advanced to level %level!",
     "messageevent_automaticrolegotten": "You have succesfully gotten the **%rolename** role! 🎊",
