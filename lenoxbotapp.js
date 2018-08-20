@@ -459,7 +459,6 @@ app.get('/servers', async function (req, res, next) {
 			for (var i = 0; i < req.user.guilds.length; i++) {
 				if (client.guildconfs.get(req.user.guilds[i].id) && client.guilds.get(req.user.guilds[i].id)) {
 					const dashboardid = req.user.guilds[i].id;
-					console.log(req.user.guilds[i].name);
 					const tableload = client.guildconfs.get(dashboardid);
 
 
@@ -467,8 +466,6 @@ app.get('/servers', async function (req, res, next) {
 						tableload.dashboardpermissionroles = [];
 						await client.guildconfs.set(dashboardid, tableload);
 					}
-
-					console.log(tableload.dashboardpermissionroles);
 
 					if (tableload.dashboardpermissionroles.length !== 0) {
 						var allwhitelistedrolesoftheuser = 0;
@@ -688,7 +685,7 @@ app.get('/tickets/:ticketid/overview', async function (req, res, next) {
 
 // ADMIN PANEL
 
-app.get('/dashboard/:id/overview', function (req, res, next) {
+app.get('/dashboard/:id/overview', async function (req, res, next) {
 	try {
 		var dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -726,10 +723,10 @@ app.get('/dashboard/:id/overview', function (req, res, next) {
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
 			req.user.guilds[index].memberscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).memberCount / 170) + 1;
 
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 			req.user.guilds[index].channelscountincrement = Math.floor(client.guilds.get(req.user.guilds[index].id).channels.size / 170) + 1;
@@ -2403,10 +2400,10 @@ app.get('/dashboard/:id/administration', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -2909,10 +2906,10 @@ app.get('/dashboard/:id/moderation', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -3189,10 +3186,10 @@ app.get('/dashboard/:id/help', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -3624,10 +3621,10 @@ app.get('/dashboard/:id/music', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -3915,10 +3912,10 @@ app.get('/dashboard/:id/fun', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -4195,10 +4192,10 @@ app.get('/dashboard/:id/searches', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -4475,10 +4472,10 @@ app.get('/dashboard/:id/nsfw', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -4857,10 +4854,10 @@ app.get('/dashboard/:id/utility', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -5065,10 +5062,10 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async function (r
 			if (tableload.application.applications[req.params.applicationid] === undefined) return res.redirect('../error')
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -5137,10 +5134,10 @@ app.get('/dashboard/:id/applications', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -5872,10 +5869,10 @@ app.get('/dashboard/:id/application', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -6177,10 +6174,10 @@ app.get('/dashboard/:id/currency', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
@@ -6825,10 +6822,10 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.filterArray(m => m.presence.status === 'offline').length;
+			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
+			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
+			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
+			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
 
 			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
 
