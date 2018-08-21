@@ -1,4 +1,14 @@
 {
+    "currentlymuted_error": "There are currently no active mutes!",
+    "currentlymuted_embedauthor": "Currently muted user:",
+    "currentlymuted_embeddescription": "Moderator: %moderatortag \nMuted: %muteddate \nRemaining mutetime: %remainingmutetime \nReason: %reason",
+    "currentlymuted_description": "",
+
+    "currentlybanned_error": "There are currently no active temporary bans!",
+    "currentlybanned_embedauthor": "Currently temporarily banned user:",
+    "currentlybanned_embeddescription": "Moderator: %moderatortag \nTemporarily banned: %banneddate \nRemaining bantime: %remainingbantime \nReason: %reason",
+    "currentlybanned_description": "",
+
     "temporaryban_yourself": "You can not temporarily ban yourself!",
     "temporaryban_noinput": "You must specify a reason for the temporarily ban!",
     "temporaryban_invalidtimeformat": "You used an invalid format for your temporary ban!",
