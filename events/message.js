@@ -134,17 +134,17 @@ exports.run = async (client, msg) => {
 	const userdb = await client.userdb.get(msg.author.id);
 	const redeemload = client.redeem.get(msg.author.id);
 	const botconfspremiumload = await client.botconfs.get('premium');
-	const botconfs = client.botconfs.get('botconfs');
+	const botconfs = await client.botconfs.get('botconfs');
 
 	if (!botconfs.bans) {
-		botconfs.banscount = 0;
 		botconfs.bans = {};
+		botconfs.banscount = 0;
 		await client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (!botconfs.mutes) {
-		botconfs.mutescount = 0;
 		botconfs.mutes = {};
+		botconfs.mutescount = 0;
 		await client.botconfs.set('botconfs', botconfs);
 	}
 

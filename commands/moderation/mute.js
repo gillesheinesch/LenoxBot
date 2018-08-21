@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	const botconfs = client.botconfs.get('botconfs');
+	const botconfs = await client.botconfs.get('botconfs');
 	let membermention = msg.mentions.members.first();
 	let user = msg.mentions.users.first();
 
@@ -43,11 +43,11 @@ exports.run = async (client, msg, args, lang) => {
 			.setColor('#FF0000')
 			.setTimestamp()
 			.setDescription(mutedescription);
-		await user.send({
+		user.send({
 			embed: anonymousembed
 		});
 	} else {
-		await user.send({
+		user.send({
 			embed: embed
 		});
 	}
@@ -59,20 +59,30 @@ exports.run = async (client, msg, args, lang) => {
 		});
 	}
 
+	botconfs.mutescount = botconfs.mutescount + 1;
+
 	const mutesettings = {
 		discordserverid: msg.guild.id,
 		memberid: membermention.id,
 		moderatorid: msg.author.id,
+		reason: args.slice(2).join(" "),
 		roleid: role.id,
 		mutetime: mutetime,
 		muteCreatedAt: Date.now(),
 		muteEndDate: Date.now() + mutetime,
-		mutescount: botconfs.mutescount + 1
+		mutescount: botconfs.mutescount
 	};
 
-	botconfs.mutes[botconfs.mutescount + 1] = mutesettings;
-	botconfs.mutescount = botconfs.mutescount + 1;
+	botconfs.mutes[botconfs.mutescount] = mutesettings;
 	await client.botconfs.set('botconfs', botconfs);
+
+	var muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
+	const muteembed = new Discord.RichEmbed()
+		.setColor('#99ff66')
+		.setDescription(`✅ ${muted}`);
+	msg.channel.send({
+		embed: muteembed
+	});
 
 	setTimeout(async function () {
 		if (tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
@@ -97,14 +107,6 @@ exports.run = async (client, msg, args, lang) => {
 		delete botconfs.mutes[botconfs.mutescount];
 		await client.botconfs.set('botconfs', botconfs);
 	}, mutetime);
-
-	var muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
-	const muteembed = new Discord.RichEmbed()
-		.setColor('#99ff66')
-		.setDescription(`✅ ${muted}`);
-	msg.channel.send({
-		embed: muteembed
-	});
 };
 
 exports.conf = {

@@ -54,11 +54,11 @@ exports.run = async (client, msg, args, lang) => {
 			.setTimestamp()
 			.setDescription(bandescription);
 
-		await user.send({
+		user.send({
 			embed: ananonymousembed
 		});
 	} else {
-		await user.send({
+		user.send({
 			embed: embed
 		});
 	}
@@ -69,18 +69,20 @@ exports.run = async (client, msg, args, lang) => {
 			embed: embed
 		});
 	}
+
+	botconfs.banscount = botconfs.banscount + 1;
 	const bansettings = {
 		discordserverid: msg.guild.id,
 		memberid: membermention.id,
 		moderatorid: msg.author.id,
+		reason: reason,
 		bantime: bantime,
 		banCreatedAt: Date.now(),
 		banEndDate: Date.now() + bantime,
-		banscount: botconfs.banscount + 1
+		banscount: botconfs.banscount
 	};
 
-	botconfs.bans[botconfs.banscount + 1] = bansettings;
-	botconfs.banscount = botconfs.banscount + 1;
+	botconfs.bans[botconfs.banscount] = bansettings;
 	await client.botconfs.set('botconfs', botconfs);
 
 	setTimeout(async function () {

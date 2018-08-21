@@ -133,8 +133,8 @@ exports.run = async client => {
 
 	if (Object.keys(client.botconfs.get('botconfs').bans).length !== 0) {
 		for (var index in client.botconfs.get('botconfs').bans) {
-			var bansconf = client.botconfs.get('botconfs');
-			const newBanTime = bansconf.bans[index].banEndDate - Date.now();
+			var bansconf = await client.botconfs.get('botconfs');
+			var newBanTime = bansconf.bans[index].banEndDate - Date.now();
 			setTimeout(async function () {
 				const fetchedbans = await client.guilds.get(bansconf.bans[index].discordserverid).fetchBans();
 				const tableload = client.guildconfs.get(bansconf.bans[index].discordserverid);
@@ -168,42 +168,42 @@ exports.run = async client => {
 	}
 
 	if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
-		for (var index in client.botconfs.get('botconfs').mutes) {
-			var muteconf = client.botconfs.get('botconfs');
-			const newMuteTime = muteconf.mutes[index].muteEndDate - Date.now();
-			setTimeout(async function () {
-				const membermention = client.guilds.get(muteconf.mutes[index].discordserverid).members.get(muteconf.mutes[index].memberid);
-				const role = client.guilds.get(muteconf.mutes[index].discordserverid).roles.get(muteconf.mutes[index].roleid);
-				const user = client.users.get(muteconf.mutes[index].memberid);
-				const tableload = client.guildconfs.get(muteconf.mutes[index].discordserverid);
+		for (var index2 in client.botconfs.get('botconfs').mutes) {
+			var muteconf = await client.botconfs.get('botconfs');
+			var newMuteTime = muteconf.mutes[index2].muteEndDate - Date.now();
+				setTimeout(async function () {
+					const membermention = client.guilds.get(muteconf.mutes[index2].discordserverid).members.get(muteconf.mutes[index2].memberid);
+					const role = client.guilds.get(muteconf.mutes[index2].discordserverid).roles.get(muteconf.mutes[index2].roleid);
+					const user = client.users.get(muteconf.mutes[index2].memberid);
+					const tableload = client.guildconfs.get(muteconf.mutes[index2].discordserverid);
 
-				if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
-					await membermention.removeRole(role);
+					if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
+						await membermention.removeRole(role);
 
-					var lang = require(`../languages/${tableload.language}.json`);
-					var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
-					var automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-					const unmutedembed = new Discord.RichEmbed()
-						.setAuthor(unmutedby, client.user.displayAvatarURL)
-						.setThumbnail(user.displayAvatarURL)
-						.setColor('#FF0000')
-						.setTimestamp()
-						.setDescription(automaticunmutedescription);
+						var lang = require(`../languages/${tableload.language}.json`);
+						var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
+						var automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+						const unmutedembed = new Discord.RichEmbed()
+							.setAuthor(unmutedby, client.user.displayAvatarURL)
+							.setThumbnail(user.displayAvatarURL)
+							.setColor('#FF0000')
+							.setTimestamp()
+							.setDescription(automaticunmutedescription);
 
-					user.send({
-						embed: embed
-					});
-
-					if (tableload.modlog === 'true') {
-						const modlogchannel = client.channels.get(tableload.modlogchannel);
-						modlogchannel.send({
+						user.send({
 							embed: unmutedembed
 						});
+
+						if (tableload.modlog === 'true') {
+							const modlogchannel = client.channels.get(tableload.modlogchannel);
+							modlogchannel.send({
+								embed: unmutedembed
+							});
+						}
 					}
-				}
-				delete muteconf.mutes[muteconf.mutes[index].mutescount];
-				await client.botconfs.set('botconfs', muteconf);
-			}, newMuteTime);
+					delete muteconf.mutes[muteconf.mutes[index2].mutescount];
+					await client.botconfs.set('botconfs', muteconf);
+				}, newMuteTime);
 		}
 	}
 
