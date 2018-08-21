@@ -62,6 +62,7 @@ exports.run = async (client, msg, args, lang) => {
 	const mutesettings = {
 		discordserverid: msg.guild.id,
 		memberid: membermention.id,
+		moderatorid: msg.author.id,
 		roleid: role.id,
 		mutetime: mutetime,
 		muteCreatedAt: Date.now(),

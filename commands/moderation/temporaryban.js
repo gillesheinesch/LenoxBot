@@ -72,6 +72,7 @@ exports.run = async (client, msg, args, lang) => {
 	const bansettings = {
 		discordserverid: msg.guild.id,
 		memberid: membermention.id,
+		moderatorid: msg.author.id,
 		bantime: bantime,
 		banCreatedAt: Date.now(),
 		banEndDate: Date.now() + bantime,
