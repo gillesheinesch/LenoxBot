@@ -133,78 +133,89 @@ exports.run = async client => {
 
 	if (Object.keys(client.botconfs.get('botconfs').bans).length !== 0) {
 		for (var index in client.botconfs.get('botconfs').bans) {
-			var bansconf = await client.botconfs.get('botconfs');
-			var newBanTime = bansconf.bans[index].banEndDate - Date.now();
-			setTimeout(async function () {
-				const fetchedbans = await client.guilds.get(bansconf.bans[index].discordserverid).fetchBans();
-				const tableload = client.guildconfs.get(bansconf.bans[index].discordserverid);
-
-				if (fetchedbans.has(bansconf.bans[index].memberid)) {
-					const user = fetchedbans.get(bansconf.bans[index].memberid);
-
-					await client.guilds.get(bansconf.bans[index].discordserverid).unban(user);
-
-					var lang = require(`../languages/${tableload.language}.json`);
-					var unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
-					var automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-					const unmutedembed = new Discord.RichEmbed()
-						.setAuthor(unbannedby, client.user.displayAvatarURL)
-						.setThumbnail(user.displayAvatarURL)
-						.setColor('#FF0000')
-						.setTimestamp()
-						.setDescription(automaticbandescription);
-
-					if (tableload.modlog === 'true') {
-						const modlogchannel = client.channels.get(tableload.modlogchannel);
-						await modlogchannel.send({
-							embed: unmutedembed
-						});
-					}
-				}
-				delete bansconf.bans[botconfs.banscount];
-				await client.botconfs.set('botconfs', bansconf);
-			}, newBanTime);
+			const bansconf = await client.botconfs.get('botconfs');
+			const newBanTime = bansconf.bans[index].banEndDate - Date.now();
+			const fetchedbans = await client.guilds.get(bansconf.bans[index].discordserverid).fetchBans();
+			timeoutForBan(bansconf.bans[index], newBanTime, fetchedbans);
 		}
 	}
 
 	if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
 		for (var index2 in client.botconfs.get('botconfs').mutes) {
-			var muteconf = await client.botconfs.get('botconfs');
-			var newMuteTime = muteconf.mutes[index2].muteEndDate - Date.now();
-				setTimeout(async function () {
-					const membermention = client.guilds.get(muteconf.mutes[index2].discordserverid).members.get(muteconf.mutes[index2].memberid);
-					const role = client.guilds.get(muteconf.mutes[index2].discordserverid).roles.get(muteconf.mutes[index2].roleid);
-					const user = client.users.get(muteconf.mutes[index2].memberid);
-					const tableload = client.guildconfs.get(muteconf.mutes[index2].discordserverid);
-
-					if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
-						await membermention.removeRole(role);
-
-						var lang = require(`../languages/${tableload.language}.json`);
-						var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
-						var automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-						const unmutedembed = new Discord.RichEmbed()
-							.setAuthor(unmutedby, client.user.displayAvatarURL)
-							.setThumbnail(user.displayAvatarURL)
-							.setColor('#FF0000')
-							.setTimestamp()
-							.setDescription(automaticunmutedescription);
-
-						user.send({
-							embed: unmutedembed
-						});
-
-						if (tableload.modlog === 'true') {
-							const modlogchannel = client.channels.get(tableload.modlogchannel);
-							modlogchannel.send({
-								embed: unmutedembed
-							});
-						}
-					}
-					delete muteconf.mutes[muteconf.mutes[index2].mutescount];
-					await client.botconfs.set('botconfs', muteconf);
-				}, newMuteTime);
+			const muteconf = await client.botconfs.get('botconfs');
+			const newMuteTime = muteconf.mutes[index2].muteEndDate - Date.now();
+			timeoutForMute(muteconf.mutes[index2], newMuteTime);
 		}
+	}
+
+	function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
+		setTimeout(function () {
+			const fetchedbans = fetchedbansfromfunction;
+			const tableload = client.guildconfs.get(bansconf.discordserverid);
+
+			if (fetchedbans.has(bansconf.memberid)) {
+				const user = fetchedbans.get(bansconf.memberid);
+
+				client.guilds.get(bansconf.discordserverid).unban(user);
+
+				var lang = require(`../languages/${tableload.language}.json`);
+				var unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
+				var automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+				const unmutedembed = new Discord.RichEmbed()
+					.setAuthor(unbannedby, client.user.displayAvatarURL)
+					.setThumbnail(user.displayAvatarURL)
+					.setColor('#FF0000')
+					.setTimestamp()
+					.setDescription(automaticbandescription);
+
+				if (tableload.modlog === 'true') {
+					const modlogchannel = client.channels.get(tableload.modlogchannel);
+					modlogchannel.send({
+						embed: unmutedembed
+					});
+				}
+			}
+			var newbansconf = client.botconfs.get('botconfs');
+			delete newbansconf.bans[botconfs.banscount];
+			client.botconfs.set('botconfs', newbansconf);
+		}, newBanTime);
+	}
+
+	function timeoutForMute(muteconf, newMuteTime) {
+		setTimeout(function() {
+			const membermention = client.guilds.get(muteconf.discordserverid).members.get(muteconf.memberid);
+			const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
+			const user = client.users.get(muteconf.memberid);
+			const tableload = client.guildconfs.get(muteconf.discordserverid);
+
+			if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
+				membermention.removeRole(role);
+
+				var lang = require(`../languages/${tableload.language}.json`);
+				var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
+				var automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+				const unmutedembed = new Discord.RichEmbed()
+					.setAuthor(unmutedby, client.user.displayAvatarURL)
+					.setThumbnail(user.displayAvatarURL)
+					.setColor('#FF0000')
+					.setTimestamp()
+					.setDescription(automaticunmutedescription);
+
+				user.send({
+					embed: unmutedembed
+				});
+
+				if (tableload.modlog === 'true') {
+					const modlogchannel = client.channels.get(tableload.modlogchannel);
+					modlogchannel.send({
+						embed: unmutedembed
+					});
+				}
+			}
+			var newmuteconf = client.botconfs.get('botconfs');
+			delete newmuteconf.mutes[muteconf.mutescount];
+			client.botconfs.set('botconfs', newmuteconf);
+		}, newMuteTime);
 	}
 
 	setInterval(() => {

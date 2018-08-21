@@ -5,7 +5,7 @@ exports.run = async (client, msg, args, lang) => {
 	var time = args.slice(1, 2).join(' ');
 	var user = msg.mentions.users.first();
 	var membermention = msg.mentions.members.first();
-	const botconfs = client.botconfs.get('botconfs');
+	const botconfs = await client.botconfs.get('botconfs');
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) {
@@ -71,6 +71,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	botconfs.banscount = botconfs.banscount + 1;
+
 	const bansettings = {
 		discordserverid: msg.guild.id,
 		memberid: membermention.id,
