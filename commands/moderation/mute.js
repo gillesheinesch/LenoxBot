@@ -74,7 +74,7 @@ exports.run = async (client, msg, args, lang) => {
 	await client.botconfs.set('botconfs', botconfs);
 
 	setTimeout(async function () {
-		if (membermention.roles.has(tableload.muterole)) {
+		if (tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
 			await membermention.removeRole(role);
 
 			var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);

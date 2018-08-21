@@ -177,7 +177,7 @@ exports.run = async client => {
 				const user = client.users.get(muteconf.mutes[index].memberid);
 				const tableload = client.guildconfs.get(muteconf.mutes[index].discordserverid);
 
-				if (membermention.roles.has(tableload.muterole)) {
+				if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
 					await membermention.removeRole(role);
 
 					var lang = require(`../languages/${tableload.language}.json`);
