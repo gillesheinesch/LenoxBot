@@ -239,5 +239,5 @@ exports.run = async client => {
 		});
 	}, 86400000);
 
-	console.log(chalk.green(`LENXOBOT: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`));
+	console.log(chalk.green(`LenoxBot: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`));
 };
