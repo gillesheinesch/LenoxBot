@@ -12,6 +12,41 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (mutesOfThisServer.length === 0) return msg.reply(lang.currentlymuted_error);
 
+	if (args.slice().length !== 0) {
+		var user = msg.mentions.users.first();
+		if (!user) {
+			try {
+				if (!msg.guild.members.get(args.slice().join(" "))) throw 'Usernotfound';
+				user = msg.guild.members.get(args.slice().join(" ")).user;
+			} catch (error) {
+				return msg.reply(lang.ban_idcheck);
+			}
+		}
+		var checkIfMuted = false;
+		var muteSettings;
+		await mutesOfThisServer.forEach(r => {
+			if (r.memberid === user.id) {
+				checkIfMuted = true;
+				muteSettings = r;
+			}
+		});
+
+		var notownrole = lang.unmute_notownrole.replace('%username', user.tag);
+		if (!checkIfMuted) return msg.reply(notownrole);
+
+		var userembed = new Discord.RichEmbed()
+		.setAuthor(lang.currentlymuted_embedauthor)
+		.setColor('#ff9900')
+		.setTimestamp();
+
+		var embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(muteSettings.moderatorid).tag).replace('%muteddate', new Date(muteSettings.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(muteSettings.muteEndDate - Date.now())).replace('%reason', muteSettings.reason);
+		userembed.addField(client.users.get(muteSettings.memberid).tag, embeddescription);
+
+		return msg.channel.send({
+			embed: userembed
+		});
+	}
+
 	var embed = new Discord.RichEmbed()
 		.setAuthor(lang.currentlymuted_embedauthor)
 		.setColor('#ff9900')
@@ -68,7 +103,8 @@ exports.run = async (client, msg, args, lang) => {
 						r.reason = undefined;
 					}
 
-					var embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now())).replace('%reason', r.reason);					newembed.addField(client.users.get(r.memberid).tag, embeddescription);
+					var embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now())).replace('%reason', r.reason);
+					newembed.addField(client.users.get(r.memberid).tag, embeddescription);
 				});
 
 				message.edit({
@@ -123,8 +159,8 @@ exports.conf = {
 exports.help = {
 	name: 'currentlymuted',
 	description: 'currentlymuted',
-	usage: 'currentlymuted',
-	example: ['currentlymuted'],
+	usage: 'currentlymuted [@USER/UserID]',
+	example: ['currentlymuted', 'currentlymuted @Monkeyyy11#0001', 'currentlymuted 353115097318555649'],
 	category: 'moderation',
 	botpermissions: ['SEND_MESSAGES']
 };

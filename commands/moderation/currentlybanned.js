@@ -3,6 +3,7 @@ const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
 	const botconfs = client.botconfs.get('botconfs');
 	var bansOfThisServer = [];
+	var fetchedBans = await msg.guild.fetchBans();
 
 	for (var i in botconfs.bans) {
 		if (botconfs.bans[i].discordserverid === msg.guild.id) {
@@ -12,22 +13,60 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (bansOfThisServer.length === 0) return msg.reply(lang.currentlybanned_error);
 
+	if (args.slice().length !== 0) {
+		var user = msg.mentions.users.first();
+		if (!user) {
+			try {
+				if (!fetchedBans.get(args.slice().join(" "))) throw 'Usernotfound';
+				user = fetchedBans.get(args.slice().join(" "));
+			} catch (error) {
+				return msg.reply(lang.ban_idcheck);
+			}
+		}
+		var checkIfBanned = false;
+		var banSettings;
+		await bansOfThisServer.forEach(r => {
+			if (r.memberid === user.id) {
+				checkIfBanned = true;
+				banSettings = r;
+			}
+		});
+
+		if (!checkIfBanned) return msg.reply(lang.unban_notbanned);
+
+		var userembed = new Discord.RichEmbed()
+			.setAuthor(lang.currentlybanned_embedauthor)
+			.setColor('#ff9900')
+			.setTimestamp();
+
+		var embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(banSettings.moderatorid).tag).replace('%banneddate', new Date(banSettings.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(banSettings.banEndDate - Date.now())).replace('%reason', banSettings.reason);
+		userembed.addField(`${user.username}#${user.discriminator}`, embeddescription);
+
+		return msg.channel.send({
+			embed: userembed
+		});
+	}
+
 	var embed = new Discord.RichEmbed()
 		.setAuthor(lang.currentlybanned_embedauthor)
 		.setColor('#ff3300')
 		.setTimestamp();
 
 	bansOfThisServer.slice(0, 4).forEach(r => {
-		if (!r.moderatorid) {
-			r.moderatorid = client.user.id;
-		}
+		if (fetchedBans.get(r.memberid)) {
+			if (!r.moderatorid) {
+				r.moderatorid = client.user.id;
+			}
 
-		if (!r.reason) {
-			r.reason = undefined;
-		}
+			if (!r.reason) {
+				r.reason = undefined;
+			}
 
-		var embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now())).replace('%reason', r.reason);
-		embed.addField(client.users.get(r.memberid).tag, embeddescription);
+			user = fetchedBans.get(r.memberid);
+
+			var embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now())).replace('%reason', r.reason);
+			embed.addField(`${user.username}#${user.discriminator}`, embeddescription);
+		}
 	});
 
 	var message = await msg.channel.send({
@@ -124,8 +163,8 @@ exports.conf = {
 exports.help = {
 	name: 'currentlybanned',
 	description: 'currentlybanned',
-	usage: 'currentlybanned',
-	example: ['currentlybanned'],
+	usage: 'currentlybanned [@USER/UserID]',
+	example: ['currentlybanned', 'currentlybanned @Monkeyyy11#0001', 'currentlybanned 353115097318555649'],
 	category: 'moderation',
 	botpermissions: ['SEND_MESSAGES']
 };
