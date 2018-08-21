@@ -5,6 +5,8 @@ require('moment-duration-format');
 const Discord = require('discord.js');
 exports.run = async (client, msg) => {
 	if (msg.author.bot) return;
+	var englishlang = require(`../languages/en.json`);
+	if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 
 	if (client.user.id === '353115097318555649') {
 		if (msg.guild.id !== '332612123492483094') return undefined;

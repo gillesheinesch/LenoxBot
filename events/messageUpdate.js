@@ -1,5 +1,8 @@
 const Discord = require('discord.js');
 exports.run = async (client, oldMsg, newMsg) => {
+	if (newMsg.author.bot) return;
+	if (newMsg.channel.type !== 'text') return undefined;
+
 	var tableload = await client.guildconfs.get(newMsg.guild.id);
 	if (!tableload) return;
 
@@ -9,9 +12,6 @@ exports.run = async (client, oldMsg, newMsg) => {
 	}
 
 	var lang = require(`../languages/${tableload.language}.json`);
-
-	if (newMsg.author.bot) return;
-	if (newMsg.channel.type !== 'text') return newMsg.reply(lang.messageevent_error);
 
 	if (tableload.messageupdatelog === 'true') {
 		const messagechannel = client.channels.get(tableload.messageupdatelogchannel);
