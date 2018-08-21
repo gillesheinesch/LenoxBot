@@ -708,7 +708,8 @@ exports.run = async (client, msg) => {
 				}
 				return msg.channel.send(botnopermission);
 			}
-			if (cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
+
+			if (tableload.commands[cmd.help.name].whitelistedroles.length === 0 && cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
 				if (tableload.commanddel === 'true') {
 					msg.delete();
 				}
