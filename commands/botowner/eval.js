@@ -1,5 +1,5 @@
 const Discord = require("discord.js");
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 	try {
 		const code = args.join(" ");
@@ -16,7 +16,7 @@ exports.run = async(client, msg, args, lang) => {
 	}
 };
 
-function clean(text) {
+async function clean(text) {
 	if (typeof (text) === "string")
 		return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
 	else
@@ -35,5 +35,5 @@ exports.help = {
 	usage: 'eval {command}',
 	example: ['eval msg.channel.send(1);'],
 	category: 'botowner',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };
