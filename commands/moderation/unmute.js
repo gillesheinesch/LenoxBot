@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
+	const tableload = await client.guildconfs.get(msg.guild.id);
+	const botconfs = await client.botconfs.get('botconfs');
 	let membermention = msg.mentions.members.first();
 	let user = msg.mentions.users.first();
 
@@ -36,6 +37,7 @@ exports.run = async (client, msg, args, lang) => {
 				embed: embed
 			});
 		}
+
 		var unmuted = lang.unmute_unmuted.replace('%username', user.username);
 		const unmuteembed = new Discord.RichEmbed()
 			.setColor('#99ff66')
@@ -43,9 +45,18 @@ exports.run = async (client, msg, args, lang) => {
 		msg.channel.send({
 			embed: unmuteembed
 		});
+
+		for (var i in botconfs.mutes) {
+			if (botconfs.mutes[i].discordserverid === membermention.guild.id && botconfs.mutes[i].memberid === membermention.id) {
+				var muteOfThisUser = botconfs.mutes[i]
+			}
+		}
+
+		delete botconfs.mutes[muteOfThisUser.mutescount];
+		await client.botconfs.set('botconfs', botconfs);
 	} else {
 		const notownrole = lang.unmute_notownrole.replace('%username', user.username);
-		msg.reply(notownrole)
+		msg.reply(notownrole);
 	}
 };
 
