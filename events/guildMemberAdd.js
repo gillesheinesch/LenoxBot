@@ -18,9 +18,14 @@ exports.run = async (client, member) => {
 	}
 
 	if (muteOfThisUser) {
-		if (member.guild.roles.get(muteOfThisUser.roleid)) {
-			const mutedRole = member.guild.roles.get(muteOfThisUser.roleid);
-			member.addRole(mutedRole);
+		if ((muteOfThisUser.muteEndDate - Date.now()) > 0) {
+			if (member.guild.roles.get(muteOfThisUser.roleid)) {
+				const mutedRole = member.guild.roles.get(muteOfThisUser.roleid);
+				member.addRole(mutedRole);
+			}
+		} else {
+			delete botconfs.mutes[muteOfThisUser.mutescount];
+			await client.botconfs.set('botconfs', botconfs);
 		}
 	}
 
