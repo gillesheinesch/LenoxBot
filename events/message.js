@@ -282,6 +282,11 @@ exports.run = async (client, msg) => {
 	}
 	await client.guildconfs.set(msg.guild.id, tableload);
 
+	if (!tableload.customcommands) {
+		tableload.customcommands = [];
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.playlist) {
 		tableload.playlist = {};
 		await client.guildconfs.set(msg.guild.id, tableload);
@@ -647,10 +652,23 @@ exports.run = async (client, msg) => {
 		var command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
 		var cmd;
 
+		var customcommandstatus = false;
+		for (var index = 0; index < tableload.customcommands.length; index++) {
+			if (tableload.customcommands[index].name === command) {
+				customcommandstatus = true;
+				var customcommand = tableload.customcommands[index];
+			}
+		}
+
+		var botCommandExists = false;
 		if (client.commands.has(command)) {
+			botCommandExists = true;
 			cmd = client.commands.get(command);
 		} else if (client.aliases.has(command)) {
+			botCommandExists = true;
 			cmd = client.commands.get(client.aliases.get(command));
+		} else if (customcommandstatus) {
+			cmd = customcommand;
 		}
 
 		if (cmd) {
@@ -695,20 +713,22 @@ exports.run = async (client, msg) => {
 				});
 			}
 
-			var botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.help.botpermissions.join(', '));
-			var usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.conf.userpermissions.join(', '));
-			if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
-				if (tableload.commanddel === 'true') {
-					msg.delete();
+			if (botCommandExists) {
+				var botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.help.botpermissions.join(', '));
+				var usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.conf.userpermissions.join(', '));
+				if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
+					if (tableload.commanddel === 'true') {
+						msg.delete();
+					}
+					return msg.channel.send(botnopermission);
 				}
-				return msg.channel.send(botnopermission);
-			}
 
-			if (tableload.commands[cmd.help.name].whitelistedroles.length === 0 && cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
-				if (tableload.commanddel === 'true') {
-					msg.delete();
+				if (tableload.commands[cmd.help.name].whitelistedroles.length === 0 && cmd.conf.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
+					if (tableload.commanddel === 'true') {
+						msg.delete();
+					}
+					return msg.channel.send(usernopermission);
 				}
-				return msg.channel.send(usernopermission);
 			}
 
 			if (!tableload.modules) {
@@ -725,67 +745,69 @@ exports.run = async (client, msg) => {
 				await client.guildconfs.set(msg.guild.id, tableload);
 			}
 
-			for (var prop in tableload.modules) {
-				if (prop === cmd.help.category) {
-					if (tableload.modules[prop] === 'false') {
-						var moduledeactivated = lang.messageevent_moduledeactivated.replace('%modulename', prop).replace('%prefix', tableload.prefix);
+			if (botCommandExists) {
+				for (var prop in tableload.modules) {
+					if (prop === cmd.help.category) {
+						if (tableload.modules[prop] === 'false') {
+							var moduledeactivated = lang.messageevent_moduledeactivated.replace('%modulename', prop).replace('%prefix', tableload.prefix);
+							if (tableload.commanddel === 'true') {
+								msg.delete();
+							}
+							return msg.channel.send(moduledeactivated);
+						}
+					}
+				}
+
+				if (tableload.commands[cmd.help.name].status === "false") return msg.reply(lang.messageevent_commanddeactivated);
+				if (tableload.commands[cmd.help.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
+				if (tableload.commands[cmd.help.name].whitelistedroles.length === 0) {
+					for (var index = 0; index < tableload.commands[cmd.help.name].bannedroles.length; index++) {
+						if (msg.member.roles.has(tableload.commands[cmd.help.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole);
+					}
+				} else {
+					var allwhitelistedrolesoftheuser = 0;
+					for (var index2 = 0; index2 < tableload.commands[cmd.help.name].whitelistedroles.length; index2++) {
+						if (!msg.member.roles.has(tableload.commands[cmd.help.name].whitelistedroles[index2])) {
+							allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+						}
+					}
+					if (allwhitelistedrolesoftheuser === tableload.commands[cmd.help.name].whitelistedroles.length) {
+						return msg.reply(lang.messageevent_nowhitelistedroles);
+					}
+				}
+
+				if (!client.cooldowns.has(cmd.help.name)) {
+					client.cooldowns.set(cmd.help.name, new Discord.Collection());
+				}
+
+				const now = Date.now();
+				const timestamps = client.cooldowns.get(cmd.help.name);
+				if (tableload.commands[cmd.help.name]) {
+					var cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
+				} else {
+					var cooldownAmount = cmd.conf.cooldown || 3 * 1000;
+				}
+
+				if (!timestamps.has(msg.author.id)) {
+					timestamps.set(msg.author.id, now);
+					setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
+				} else {
+					const expirationTime = timestamps.get(msg.author.id) + cooldownAmount;
+
+					if (now < expirationTime) {
+						const timeLeft = (expirationTime - now) / 1000;
+
+						const time = moment.duration(parseInt(timeLeft.toFixed(2)), "seconds").format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
+						var anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
 						if (tableload.commanddel === 'true') {
 							msg.delete();
 						}
-						return msg.channel.send(moduledeactivated);
+						return msg.reply(anticommandspam);
 					}
+
+					timestamps.set(msg.author.id, now);
+					setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
 				}
-			}
-
-			if (tableload.commands[cmd.help.name].status === "false") return msg.reply(lang.messageevent_commanddeactivated);
-			if (tableload.commands[cmd.help.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
-			if (tableload.commands[cmd.help.name].whitelistedroles.length === 0) {
-				for (var index = 0; index < tableload.commands[cmd.help.name].bannedroles.length; index++) {
-					if (msg.member.roles.has(tableload.commands[cmd.help.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole);
-				}
-			} else {
-				var allwhitelistedrolesoftheuser = 0;
-				for (var index2 = 0; index2 < tableload.commands[cmd.help.name].whitelistedroles.length; index2++) {
-					if (!msg.member.roles.has(tableload.commands[cmd.help.name].whitelistedroles[index2])) {
-						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
-					}
-				}
-				if (allwhitelistedrolesoftheuser === tableload.commands[cmd.help.name].whitelistedroles.length) {
-					return msg.reply(lang.messageevent_nowhitelistedroles);
-				}
-			}
-
-			if (!client.cooldowns.has(cmd.help.name)) {
-				client.cooldowns.set(cmd.help.name, new Discord.Collection());
-			}
-
-			const now = Date.now();
-			const timestamps = client.cooldowns.get(cmd.help.name);
-			if (tableload.commands[cmd.help.name]) {
-				var cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
-			} else {
-				var cooldownAmount = cmd.conf.cooldown || 3 * 1000;
-			}
-
-			if (!timestamps.has(msg.author.id)) {
-				timestamps.set(msg.author.id, now);
-				setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
-			} else {
-				const expirationTime = timestamps.get(msg.author.id) + cooldownAmount;
-
-				if (now < expirationTime) {
-					const timeLeft = (expirationTime - now) / 1000;
-
-					const time = moment.duration(parseInt(timeLeft.toFixed(2)), "seconds").format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
-					var anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
-					if (tableload.commanddel === 'true') {
-						msg.delete();
-					}
-					return msg.reply(anticommandspam);
-				}
-
-				timestamps.set(msg.author.id, now);
-				setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
 			}
 
 			/* if (cmd.conf.enabled === false) {
@@ -796,7 +818,11 @@ exports.run = async (client, msg) => {
 			}
 			*/
 
-			cmd.run(client, msg, args, lang);
+			if (botCommandExists) {
+				cmd.run(client, msg, args, lang);
+			} else {
+				msg.channel.send(customcommand.commandanswer);
+			}
 
 			botconfs.commandsexecuted = botconfs.commandsexecuted + 1;
 			client.botconfs.set('botconfs', botconfs);
