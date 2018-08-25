@@ -1,7 +1,7 @@
 {
     "currentlymuted_error": "There are currently no active mutes!",
     "currentlymuted_embedauthor": "Currently muted user:",
-    "currentlymuted_embeddescription": "Moderator: %moderatortag \nMuted: %muteddate \nRemaining mutetime: %remainingmutetime \nReason: %reason",
+    "currentlymuted_embeddescription": "Moderator: %moderatortag \nTemorary muted: %muteddate \nRemaining mutetime: %remainingmutetime \nReason: %reason",
     "currentlymuted_description": "",
 
     "currentlybanned_error": "There are currently no active temporary bans!",
