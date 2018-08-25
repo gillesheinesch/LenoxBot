@@ -72,7 +72,7 @@ exports.run = async client => {
 
 	const botconfspremium = {};
 
-	client.user.setPresence({
+	await client.user.setPresence({
 		game: {
 			name: `?help | www.lenoxbot.com`,
 			type: 0
