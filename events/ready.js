@@ -8,9 +8,6 @@ exports.run = async client => {
 	client.botconfs.defer.then(() => {
 		console.log(chalk.green(client.botconfs.size + "keys loaded for all bot configs"));
 	});
-	client.redeem.defer.then(() => {
-		console.log(chalk.green(client.redeem.size + "keys loaded for all redeem keys"));
-	});
 	client.userdb.defer.then(() => {
 		console.log(chalk.green(client.userdb.size + "keys loaded for all user keys"));
 	});
@@ -25,12 +22,6 @@ exports.run = async client => {
 		activitychannel: '',
 		tickets: {},
 		ticketid: 0
-	};
-
-	const redeemconfs = {
-		redeemkey: '',
-		redeemed: '',
-		redeemkeyowner: ''
 	};
 
 	const marketconfs = {
@@ -78,8 +69,6 @@ exports.run = async client => {
 			type: 0
 		}
 	});
-
-	await client.users.filter(u => !client.redeem.has(u.id)).forEach(u => client.redeem.set(u.id, redeemconfs));
 
 	await client.users.filter(u => client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : undefined).forEach(u => {
 		client.users.get(u.id).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');

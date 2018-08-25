@@ -132,7 +132,6 @@ exports.run = async (client, msg) => {
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
 	const userdb = await client.userdb.get(msg.author.id);
-	const redeemload = client.redeem.get(msg.author.id);
 	const botconfspremiumload = await client.botconfs.get('premium');
 	const botconfs = await client.botconfs.get('botconfs');
 
@@ -395,15 +394,6 @@ exports.run = async (client, msg) => {
 	if (!tableload.application.denyrole) {
 		tableload.application.denyrole = '';
 		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!redeemload) {
-		const confs = {
-			redeemkey: '',
-			redeemed: '',
-			redeemkeyowner: msg.author.id
-		};
-		await client.redeem.set(msg.author.id, confs);
 	}
 
 	if (!tableload.modules.tickets) {
