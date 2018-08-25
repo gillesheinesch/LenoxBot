@@ -1,5 +1,6 @@
 exports.run = (client, msg, args, lang) => {
     if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+
 	const input = args.slice().join(' ');
 	if (!input) return msg.reply('You must specify a game state to run this command');
     client.user.setPresence({ game: { name: `${input}`, type: 0 } });
@@ -10,11 +11,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
     aliases: [],
-
-    
-
-    userpermissions: [], dashboardsettings: true
-
+    userpermissions: [],
+    dashboardsettings: true
 };
 exports.help = {
 	name: 'setgame',
