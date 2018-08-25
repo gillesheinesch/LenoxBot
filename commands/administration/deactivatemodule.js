@@ -20,7 +20,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (args.slice().length === 0) return msg.channel.send(lang.deactivatemodule_noinput);
 
 	const margs = msg.content.split(" ");
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner', 'tickets'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
@@ -80,6 +80,12 @@ exports.run = async(client, msg, args, lang) => {
 				if (tableload.modules.currency === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
 				
 				tableload.modules.currency = 'false';
+			    await client.guildconfs.set(msg.guild.id, tableload);
+				return msg.channel.send(moduledeactivated);
+			} else if (margs[1].toLowerCase() == "customcommands") {
+				if (tableload.modules.customcommands === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+				
+				tableload.modules.customcommands = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduledeactivated);
 			}

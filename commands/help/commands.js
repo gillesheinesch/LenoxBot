@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets'];
+	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 	const margs = msg.content.split(" ");
 	const commandNames = Array.from(client.commands.keys());
 	const longest = commandNames.reduce((long, str) => Math.max(long, str.length), 0);

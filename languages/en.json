@@ -335,7 +335,7 @@
     "channeltopic_description": "Shows you the channel topic of the current channel if one exists",
 
     "availablelanguages_languages": "All available languages",
-    "availablelanguages_descriptionembed": "English \nGerman",
+    "availablelanguages_descriptionembed": "English \nGerman \nFrench",
     "availablelanguages_description": "Shows you a list in which language the bot is available and can be changed",
 
     "language_noinput": "You forgot to specify the language in which you want to change your bot!",
@@ -626,6 +626,7 @@
     "modules_application": "Entire application system with many settings options",
     "modules_currency": "Commands that allow you to receive credits and items (You can sell items)",
     "modules_tickets": "Ticket system which allows you for example to provide support",
+    "modules_customcommands": "Allows each Discord server to add its own commands",
     "modules_description": "Gives you a list of all modules and their meaning",
 
     "website_website": "Here you can find our website including our new dashboard:",

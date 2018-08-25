@@ -18,6 +18,7 @@ exports.run = (client, msg, args, lang) => {
 	.addField('Application', lang.modules_application)
 	.addField('Currency', lang.modules_currency)
 	.addField('Tickets', lang.modules_tickets)
+	.addField('Customcommands', lang.modules_customcommands)
 	.setTitle(lang.modules_embed);
 
 	msg.channel.send({ embed });

@@ -207,6 +207,11 @@ exports.run = async (client, msg) => {
 		});
 	});
 
+	if (!tableload.modules.customcommands) {
+		tableload.modules.customcommands = 'true';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
 	if (!tableload.modules.tickets) {
 		tableload.modules.tickets = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
