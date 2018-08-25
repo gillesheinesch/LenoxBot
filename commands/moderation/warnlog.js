@@ -13,9 +13,9 @@ exports.run = async(client, msg, args, lang) => {
 	for (var i = 0; i < tableload.warnlog.length; i += 4) {
 		if (mention.id === tableload.warnlog[i]) {
 			array.push(true);
-			const member = msg.guild.member(tableload.warnlog[i + 3]);
+			const member = msg.guild.member(tableload.warnlog[i + 3]) ? msg.guild.member(tableload.warnlog[i + 3]).user.tag : tableload.warnlog[i + 3];
 
-			var warnedbyandon = lang.warnlog_warnedbyandon.replace('%membername', member.displayName).replace('%date', new Date(tableload.warnlog[i + 1]));
+			var warnedbyandon = lang.warnlog_warnedbyandon.replace('%membername', member).replace('%date', new Date(tableload.warnlog[i + 1]).toUTCString());
 			firstfield.push(warnedbyandon);
 			secondfield.push(tableload.warnlog[i + 2]);
 		}
