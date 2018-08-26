@@ -667,7 +667,7 @@ exports.run = async (client, msg) => {
 		} else if (client.aliases.has(command)) {
 			botCommandExists = true;
 			cmd = client.commands.get(client.aliases.get(command));
-		} else if (customcommandstatus) {
+		} else if (customcommandstatus && customcommand.enabled) {
 			cmd = customcommand;
 		}
 
@@ -757,8 +757,15 @@ exports.run = async (client, msg) => {
 						}
 					}
 				}
+			}
 
+			if (botCommandExists) {
 				if (tableload.commands[cmd.help.name].status === "false") return msg.reply(lang.messageevent_commanddeactivated);
+			} else {
+				if (customcommand.enabled === "false") return msg.reply(lang.messageevent_commanddeactivated);
+			}
+
+			if (botCommandExists) {
 				if (tableload.commands[cmd.help.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
 				if (tableload.commands[cmd.help.name].whitelistedroles.length === 0) {
 					for (var index = 0; index < tableload.commands[cmd.help.name].bannedroles.length; index++) {
@@ -821,7 +828,17 @@ exports.run = async (client, msg) => {
 			if (botCommandExists) {
 				cmd.run(client, msg, args, lang);
 			} else {
-				msg.channel.send(customcommand.commandanswer);
+				if (customcommand.embed === 'false') {
+					msg.channel.send(customcommand.commandanswer);
+				} else {
+					const customCommandEmbed = new Discord.RichEmbed()
+						.setColor('#33cc33')
+						.setDescription(customcommand.commandanswer);
+
+					msg.channel.send({
+						embed: customCommandEmbed
+					});
+				}
 			}
 
 			botconfs.commandsexecuted = botconfs.commandsexecuted + 1;
