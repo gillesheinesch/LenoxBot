@@ -74,7 +74,7 @@ exports.conf = {
 	guildOnly: true,
 	aliases: ['lcc'],
 	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: false
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'listcustomcommands',

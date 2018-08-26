@@ -19,7 +19,7 @@ exports.conf = {
 	guildOnly: true,
 	aliases: ['dcc'],
 	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: false
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'deletecustomcommand',

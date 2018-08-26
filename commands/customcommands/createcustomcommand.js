@@ -30,7 +30,7 @@ exports.conf = {
 	guildOnly: true,
 	aliases: ['ccc'],
 	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: false
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'createcustomcommand',
