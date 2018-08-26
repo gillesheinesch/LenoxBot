@@ -157,7 +157,7 @@
                                 <div class="table-responsive">
                                     <table class="table" style="width: 100%;">
                                         <tbody>
-                                            {{#each customcommands}}
+                                            {{#if isCustomCommands}} {{#each customcommands}}
                                             <tr>
                                                 <td>
                                                     <div class="col-sm-8">
@@ -185,7 +185,10 @@
                                                                     <form class="form-inline" action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandchange"
                                                                         method="POST">
                                                                         <div class="modal-body">
-                                                                            <p>Created by <strong>{{newcreator}}</strong> on <strong>{{newcommandCreatedAt}}</strong></p>
+                                                                            <p>Created by
+                                                                                <strong>{{newcreator}}</strong> on
+                                                                                <strong>{{newcommandCreatedAt}}</strong>
+                                                                            </p>
                                                                             <hr>
                                                                             <div class="form-group mb-2">
                                                                                 <label for="newdescription">Description of the custom command:</label>
@@ -209,22 +212,32 @@
                                                             </div>
                                                         </div>
                                                         {{#if newstatus}}
-                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange" method="POST">
+                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange" method="POST"
+                                                            style="margin-right: 8px;">
                                                             <button type="submit" class="btn btn-danger" value="false" name="statuschange">
                                                                 Disable
                                                             </button>
                                                         </form>
                                                         {{else}}
-                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange" method="POST">
+                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange" method="POST"
+                                                            style="margin-right: 8px;">
                                                             <button type="submit" class="btn btn-success" value="true" name="statuschange">
                                                                 Enable
                                                             </button>
                                                         </form>
                                                         {{/if}}
+                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitdeletecommand" method="POST">
+                                                            <button type="submit" class="btn btn-danger">
+                                                                Delete
+                                                            </button>
+                                                        </form>
                                                     </div>
                                                 </td>
                                             </tr>
-                                            {{/each}}
+                                            {{/each}} 
+                                            {{else}}
+                                            <p class="text h3">No custom commands have been created!</p>
+                                            {{/if}}
                                         </tbody>
                                     </table>
                                 </div>
