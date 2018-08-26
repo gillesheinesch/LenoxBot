@@ -17,11 +17,13 @@
 					<a href="/home" class="h5 nav-link">Home</a>
 				</li>
 				<li class="nav-item">
-<a href="https://docs.lenoxbot.com" class=" h5 nav-link">Documentation</a>
+					<a href="/documentation" class=" h5 nav-link">Documentation</a>
 				</li>
 				<li class="nav-item">
-                    <a href="/donate" class=" h5 nav-link">Donate  <span class="badge badge-info">NEW</span></a>
-                </li>
+					<a href="/donate" class=" h5 nav-link">Donate
+						<span class="badge badge-info">NEW</span>
+					</a>
+				</li>
 				<li class="nav-item">
 					<a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
 					</a>
@@ -35,7 +37,7 @@
 				<li class="nav-item active">
 					{{#if user}}
 					<a href="/servers" class=" h5 nav-link">Dashboard
-						
+
 					</a>
 					{{/if}}
 				</li>
@@ -130,9 +132,9 @@
 									<i class="fas fa-envelope-square"></i> Tickets</a>
 							</li>
 							<li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/customcommands" class="h5 nav-link" role="button">
-                                    <i class="fas fa-list-ul"></i> Custom commands</a>
-                            </li>
+								<a href="/dashboard/{{guilds.id}}/customcommands" class="h5 nav-link" role="button">
+									<i class="fas fa-list-ul"></i> Custom commands</a>
+							</li>
 						</ul>
 					</div>
 				</nav>
@@ -200,7 +202,9 @@
 								</tr>
 								{{/if}}
 							</table>
-							<a href="/dashboard/{{guilds.id}}/lastlogs"><button role="button" class="btn btn-lg btn-primary">All logged actions</button></a>
+							<a href="/dashboard/{{guilds.id}}/lastlogs">
+								<button role="button" class="btn btn-lg btn-primary">All logged actions</button>
+							</a>
 						</div>
 					</div>
 				</div>
