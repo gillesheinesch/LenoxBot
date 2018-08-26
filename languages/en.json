@@ -1,4 +1,20 @@
 {
+    "deletecustomcommand_noinput": "You forgot to enter the name of the command you want to delete!",
+    "deletecustomcommand_deleted": "The command was deleted successfully!",
+    "deletecustomcommand_notexists": "This command does not exist!",
+    "deletecustomcommand_description": "Deletes a custom command",
+
+    "listcustomcommand_nocustommcommands": "So far, no custom commands have been created!",
+    "listcustomcommand_embedtitle": "All custom commands:",
+    "listcustomcommand_description": "Lists all custom commands",
+
+    "createcustomcommand_noinput": "You forgot to enter a command name and a command response!",
+    "createcustomcommand_nocommandanswer": "You forgot to enter a command response!",
+    "createcustomcommand_premiumneeded": "You can only create a maximum of 5 custom commands! If you want to create more than 5 custom commands, you only have to pay $3! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+    "createcustomcommand_already": "This custom command name is already taken!",
+    "createcustomcommand_created": "The custom command was created successfully!",
+    "createcustomcommand_description": "Creates a custom command",
+
     "currentlymuted_error": "There are currently no active mutes!",
     "currentlymuted_embedauthor": "Currently muted user:",
     "currentlymuted_embeddescription": "Moderator: %moderatortag \nTemorary muted: %muteddate \nRemaining mutetime: %remainingmutetime \nReason: %reason",
