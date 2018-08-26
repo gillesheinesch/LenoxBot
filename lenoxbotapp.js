@@ -30,11 +30,6 @@ client.botconfs = new Enmap({
 		name: 'botconfs'
 	})
 });
-client.redeem = new Enmap({
-	provider: new EnmapLevel({
-		name: 'redeem'
-	})
-});
 client.userdb = new Enmap({
 	provider: new EnmapLevel({
 		name: 'userdb'
@@ -70,7 +65,7 @@ process.on('uncaughtException', (reason) => {
 
 client.commands = new Discord.Collection();
 client.aliases = new Discord.Collection();
-const categories = ['partner', 'currency', 'botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'utility', 'staff', 'application', 'tickets'];
+const categories = ['partner', 'currency', 'botowner', 'administration', 'moderation', 'fun', 'help', 'music', 'nsfw', 'searches', 'utility', 'staff', 'application', 'tickets', 'customcommands'];
 categories.forEach((c, i) => {
 	fs.readdir(`./commands/${c}/`, (err, files) => {
 		if (err) throw err;
@@ -317,82 +312,8 @@ app.get('/donationsuccess', function (req, res, next) {
 	}
 });
 
-app.get('/editdocumentation', async function (req, res, next) {
-	try {
-		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
-			if (!client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) return res.redirect('../error');
-
-			var generalfaq = [];
-			var generalfaqpath = require("path").join(__dirname, "docs/General FAQ");
-			fs.readdirSync(generalfaqpath).forEach(function (file) {
-				generalfaq.push(require("./docs/General FAQ/" + file));
-			});
-
-			var tutorials = [];
-			var tutorialspath = require("path").join(__dirname, "docs/Tutorials");
-			fs.readdirSync(tutorialspath).forEach(function (file) {
-				tutorials.push(require("./docs/Tutorials/" + file));
-			});
-
-			return res.render('editdocumentation', {
-				user: req.user,
-				client: client,
-				generalfaq: generalfaq,
-				tutorials: tutorials
-			});
-		} else {
-			return res.redirect('/nologin');
-		}
-	} catch (error) {
-		return res.redirect(url.format({
-			pathname: `/error`,
-			query: {
-				"statuscode": 500,
-				"message": error.message
-			}
-		}));
-	}
-});
-
 app.get('/documentation', async function (req, res, next) {
-	try {
-		var generalfaq = [];
-		var generalfaqpath = require("path").join(__dirname, "docs/General FAQ");
-		fs.readdirSync(generalfaqpath).forEach(function (file) {
-			generalfaq.push(require("./docs/General FAQ/" + file));
-		});
-
-		var tutorials = [];
-		var tutorialspath = require("path").join(__dirname, "docs/Tutorials");
-		fs.readdirSync(tutorialspath).forEach(function (file) {
-			tutorials.push(require("./docs/Tutorials/" + file));
-		});
-
-		var documentationmoderator = false;
-		if (req.user) {
-			const moderatorrole = client.guilds.get('352896116812939264').roles.find('name', 'Documentation-Moderator').id;
-			if (client.guilds.get('352896116812939264').members.get(req.user.id).roles.get(moderatorrole)) {
-				documentationmoderator = true;
-			}
-		}
-
-		res.render('documentation', {
-			user: req.user,
-			client: client,
-			generalfaq: generalfaq,
-			tutorials: tutorials,
-			documentationmoderator: documentationmoderator
-		});
-	} catch (error) {
-		return res.redirect(url.format({
-			pathname: `/error`,
-			query: {
-				"statuscode": 500,
-				"message": error.message
-			}
-		}));
-	}
+	return res.redirect('https://docs.lenoxbot.com');
 });
 
 app.get('/nologin', function (req, res, next) {
@@ -6881,6 +6802,426 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstatuschange', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = await client.guildconfs.get(dashboardid);
+
+			for (var i = 0; i < tableload.customcommands.length; i++) {
+				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
+					tableload.customcommands[i].enabled = req.body.statuschange
+				}
+			}
+
+			tableload.globallogs.push({
+				action: `Activated/Deactivated the "${req.params.command}" custom command!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/customcommands`,
+				query: {
+					"submitcustomcommands": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
+app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchange', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = await client.guildconfs.get(dashboardid);
+
+			var newDescription;
+			var newResponse = req.body.newcommandanswer
+			if (req.body.newdescription) {
+				newDescription = req.body.newdescription
+			};
+			
+			for (var i = 0; i < tableload.customcommands.length; i++) {
+				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
+					tableload.customcommands[i].description = newDescription;
+					tableload.customcommands[i].commandanswer = newResponse;
+				}
+			}
+
+			tableload.globallogs.push({
+				action: `Changed the settings of the "${req.params.command}" custom command!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/customcommands`,
+				query: {
+					"submitcustomcommands": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
+app.post('/dashboard/:id/customcommands/:command/submitcommandstatuschange', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			tableload.commands[req.params.command].status = req.body.statuschange;
+
+			tableload.globallogs.push({
+				action: `Activated/Deactivated the "${req.params.command}" command!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/customcommands`,
+				query: {
+					"submitcustomcommands": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
+app.post('/dashboard/:id/customcommands/:command/submitcommandchange', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			tableload.commands[req.params.command].bannedchannels = req.body.newblacklistedchannels;
+
+			var channelsarray = [];
+			var rolesarray = [];
+			var whitelistedrolesarray = [];
+			var newcooldown = ''
+			if (req.body.newblacklistedchannels) {
+				if (Array.isArray(req.body.newblacklistedchannels)) {
+					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						channelsarray.push(req.body.newblacklistedchannels[i]);
+					}
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
+				} else {
+					channelsarray.push(req.body.newblacklistedchannels);
+					tableload.commands[req.params.command].bannedchannels = channelsarray;
+				}
+			} else {
+				tableload.commands[req.params.command].bannedchannels = [];
+			}
+
+			if (req.body.newblacklistedroles) {
+				if (Array.isArray(req.body.newblacklistedroles)) {
+					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+						rolesarray.push(req.body.newblacklistedroles[i]);
+					}
+					tableload.commands[req.params.command].bannedroles = rolesarray;
+				} else {
+					rolesarray.push(req.body.newblacklistedroles);
+					tableload.commands[req.params.command].bannedroles = rolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].bannedroles = [];
+			}
+
+			if (req.body.newwhitelistedroles) {
+				if (Array.isArray(req.body.newwhitelistedroles)) {
+					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+					}
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				} else {
+					whitelistedrolesarray.push(req.body.newwhitelistedroles);
+					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+				}
+			} else {
+				tableload.commands[req.params.command].whitelistedroles = [];
+			}
+
+			newcooldown = Number(req.body.newcooldown) * 1000
+			tableload.commands[req.params.command].cooldown = `${newcooldown}`
+
+			tableload.globallogs.push({
+				action: `Changed the settings of the "${req.params.command}" command!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/customcommands`,
+				query: {
+					"submitcustomcommands": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
+app.get('/dashboard/:id/customcommands', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+
+			if (client.guildconfs.get(dashboardid).dashboardticketpermissions) {
+				if (((req.user.guilds[index].permissions) & client.guildconfs.get(dashboardid).dashboardticketpermissions) !== client.guildconfs.get(dashboardid).dashboardticketpermissions) return res.redirect('/servers');
+			} else {
+				if (((req.user.guilds[index].permissions) & 6) !== 6) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
+
+			req.user.guilds[index].reactionnumber = client.guildconfs.get(req.user.guilds[index].id).application.reactionnumber;
+
+			var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
+			var check = req.user.guilds[index];
+
+			const tableload = client.guildconfs.get(dashboardid);
+			var commands = client.commands.filter(r => r.help.category === 'customcommands' && r.conf.dashboardsettings === true).array();
+			for (var i = 0; i < commands.length; i++) {
+				var englishstrings = require('./languages/en.json');
+				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
+				if (tableload.commands[commands[i].help.name].status === "true") {
+					commands[i].conf.enabled = true;
+				} else {
+					commands[i].conf.enabled = false;
+				}
+
+				commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels
+				commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles
+				commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles
+				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000
+			}
+
+			if (!tableload.customcommands) {
+				tableload.customcommands = [];
+				await client.guildconfs.set(msg.guild.id, tableload);
+			}
+
+			var customcommands = tableload.customcommands;
+
+			for (var index = 0; index < tableload.customcommands.length; index++) {
+				if (client.users.get(tableload.customcommands[index].creator)) {
+					customcommands[index].newcreator = client.users.get(tableload.customcommands[index].creator).tag;
+				}
+				customcommands[index].newcommandCreatedAt = new Date(tableload.customcommands[index].commandCreatedAt).toUTCString()
+				customcommands[index].newstatus = tableload.customcommands[index].enabled === 'true' ? true : false
+			}
+
+			var roles = client.guilds.get(dashboardid).roles.filter(r => r.name !== '@everyone').array();
+
+			return res.render('dashboardcustomcommands', {
+				user: req.user,
+				guilds: check,
+				client: client,
+				channels: channels,
+				roles: roles,
+				commands: commands,
+				customcommands: customcommands,
+				submitcustomcommands: req.query.submitcustomcommands ? true : false
+			});
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
 app.post('/dashboard/:id/modules/submitmodules', async function (req, res, next) {
 	try {
 		var dashboardid = res.req.originalUrl.substr(11, 18);
@@ -6990,20 +7331,6 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers") //res.redirect('../botnotonserver');
 
-			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-			req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
-			req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
-			req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
-			req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
-
-			req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
-
-			req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
-
-			req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
-
-			req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
-
 			var channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			var check = req.user.guilds[index];
 
@@ -7011,7 +7338,7 @@ app.get('/dashboard/:id/modules', function (req, res, next) {
 
 			const tableload = client.guildconfs.get(dashboardid);
 
-			const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets']
+			const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets', 'Customcommands']
 
 			for (var i = 0; i < moduleslist.length; i++) {
 				var config = {

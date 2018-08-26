@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 		descriptionOfTheCommand: '',
 		embed: "false",
 		commandCreatedAt: Date.now(),
-		enabled: true
+		enabled: "true"
 	};
 
 	tableload.customcommands.push(newcommandsettings);

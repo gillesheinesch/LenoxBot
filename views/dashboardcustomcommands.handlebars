@@ -19,7 +19,7 @@
                 </li>
                 <li class="nav-item">
                     <a href="/donate" class=" h5 nav-link">Donate
-                        
+
                     </a>
                 </li>
                 <li class="nav-item">
@@ -149,6 +149,87 @@
                 </div>
                 <div class="col-sm-9">
                     <div class="panel-group-dashboard">
+                        <div class="card border-dark panel-dashboard">
+                            <div class="card-header bg-primary">
+                                <p class="text text-white h5">All custom commands</p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table" style="width: 100%;">
+                                        <tbody>
+                                            {{#each customcommands}}
+                                            <tr>
+                                                <td>
+                                                    <div class="col-sm-8">
+                                                        <h5 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
+                                                            <strong>{{name}}</strong>
+                                                        </h5>
+                                                        <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; margin: 0; padding: 0;">{{description}}</p>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group" role="group" style="float:right;">
+                                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#{{name}}" style="margin-right: 8px;">
+                                                            Edit
+                                                        </button>
+                                                        <div class="modal fade" id="{{name}}" tabindex="-1" role="dialog" aria-labelledby="{{name}}Title" aria-hidden="true">
+                                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header">
+                                                                        <h5 class="modal-title" id="exampleModalLongTitle">Settings of {{name}} command</h5>
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                            <span aria-hidden="true">&times;</span>
+                                                                        </button>
+                                                                    </div>
+
+                                                                    <form class="form-inline" action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandchange"
+                                                                        method="POST">
+                                                                        <div class="modal-body">
+                                                                            <p>Created by <strong>{{newcreator}}</strong> on <strong>{{newcommandCreatedAt}}</strong></p>
+                                                                            <hr>
+                                                                            <div class="form-group mb-2">
+                                                                                <label for="newdescription">Description of the custom command:</label>
+                                                                            </div>
+                                                                            <div class="form-group mx-sm-3 mb-2 col-sm-12">
+                                                                                <textarea class="form-control" name="newdescription" rows="2" maxlength="60">{{description}}</textarea>
+                                                                            </div>
+                                                                            <div class="form-group mb-2">
+                                                                                <label for="newcommandanswer">Response of the custom command:</label>
+                                                                            </div>
+                                                                            <div class="form-group mx-sm-3 mb-2 col-sm-12">
+                                                                                <textarea required class="form-control" name="newcommandanswer" rows="2" maxlength="2000">{{commandanswer}}</textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="modal-footer">
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                            <button type="submit" class="btn btn-primary">Save changes</button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        {{#if newstatus}}
+                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange" method="POST">
+                                                            <button type="submit" class="btn btn-danger" value="false" name="statuschange">
+                                                                Disable
+                                                            </button>
+                                                        </form>
+                                                        {{else}}
+                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange" method="POST">
+                                                            <button type="submit" class="btn btn-success" value="true" name="statuschange">
+                                                                Enable
+                                                            </button>
+                                                        </form>
+                                                        {{/if}}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            {{/each}}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
                         <div class="card border-dark panel-dashboard">
                             <div class="card-header bg-primary">
                                 <p class="text text-white h5">Commands</p>
