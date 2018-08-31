@@ -60,8 +60,7 @@
         gtag('config', 'UA-117570240-1');
     </script>
     <!-- Cookies Alert-->
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css"
-    />
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
     <script>
         window.addEventListener("load", function () {
@@ -76,7 +75,12 @@
                     }
                 },
                 "theme": "classic",
-                "position": "bottom-right"
+                "position": "bottom-right",
+                "type": "opt-in",
+                "content": {
+                    "link": "Learn more",
+                    "href": "/policy"
+                }
             })
         });
     </script>
@@ -188,7 +192,11 @@
                         </li>
                         <li>
                             <a href="https://lenoxbot.com/donate">
-                                <i class="fa fa-angle-double-right"></i>Donate now!</a>
+                                <i class="fa fa-angle-double-right"></i>Donate now</a>
+                        </li>
+                        <li>
+                            <a href="https://lenoxbot.com/policy">
+                                <i class="fa fa-angle-double-right"></i>Policy</a>
                         </li>
                     </ul>
                 </div>

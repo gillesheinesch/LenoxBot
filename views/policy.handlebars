@@ -1,0 +1,94 @@
+<link rel="stylesheet" type="text/css" href="../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome/css/font-awesome.min.css" />
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto" id="mainnavbar">
+                <li class="nav-item">
+                    <a href="home" class="h5 nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/documentation" class=" h5 nav-link">Documentation</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/donate" class=" h5 nav-link">Donate</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
+
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
+                </li>
+                <li class="nav-item">
+                    <a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
+                </li>
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="servers" class=" h5 nav-link">Dashboard
+
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+            <ul class="navbar-nav navbar-right" id="mainnavbar">
+                <li class="nav-item">
+                    {{#if user}}
+                    <a href="logout" class=" h5 nav-link ">Log out</a>
+                    {{ else }}
+                    <a href="loginpressedbutton" class=" h5 nav-link ">Log in</a>
+                    {{/if}}
+                </li>
+                <li class="avatarnavigation">
+                    {{#if user}}
+                    <a href="https://lenoxbot.com/servers">
+                        <img class="img-fluid rounded profilepic-navbar nav-link img-thumbnail" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"
+                            height="30" width="50">
+                    </a>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+    </nav>
+    </div>
+</header>
+<main>
+    <div class="container">
+        <div style="color: white;">
+            <h1>According to &sect; 5 TMG</h1>
+            <h4><br />Gilles Heinesch</h4>
+            <h2><br />Contact</h2>
+            <h4><br />E-mail: <a href="mailto:heineschgilles@gmail.com">heineschgilles@gmail.com</a></h4>
+            <h2><br />Liability for content</h2>
+            <h4><br />As a service provider we are in accordance with &sect; 7 Abs.1 TMG for own content on these pages
+                after the<br />responsible for general laws. According to &sect;&sect; 8 to 10 TMG we are not as a
+                service provider<br />obliged to monitor transmitted or stored third-party information or according to
+                circumstances<br />research that indicates unlawful activity.<br />Obligations to remove or block the
+                use of information according to the general<br />Laws remain unaffected. A liability in this regard,
+                however, is only from the date of<br />Knowledge of a concrete infringement possible. Upon becoming
+                aware of appropriate<br />Violations, we will remove this content immediately.</h4>
+            <h2><br />Liability for links</h2>
+            <h4><br />Our offer contains links to external websites of third parties on whose contents we have no
+                influence.<br />Therefore, we can not assume any liability for these external contents. For the
+                contents of<br />linked pages is always the respective provider or operator of the pages responsible.
+                The linked<br />Pages were checked for possible legal violations at the time of linking. Unlawful
+                content<br />were not recognizable at the time of linking.<br />However, a permanent content control of
+                the linked pages is without concrete evidence of a<br />Infringement unreasonable. Upon notification of
+                violations, we will be such links<br />remove immediately.</h4>
+            <h2><br />Copyright</h2>
+            <h4><br />The contents and works on these sides created by the side operators are subject to the German<br />2/4<br />Copyright.
+                Duplication, editing, distribution and any kind of exploitation outside the<br />Limits of copyright
+                require the written consent of the respective author or creator.<br />Downloads and copies of this site
+                are for private, non-commercial use only.<br />As far as the contents on this side were not created by
+                the operator, the copyrights of third parties<br />respected. In particular contents of third parties
+                are marked as such. Should you still on one<br />Copyright infringement attention, we ask for a notice.
+                at<br />We will immediately remove such content if we become aware of any violations.</h4>
+        </div>
+    </div>
+</main>
