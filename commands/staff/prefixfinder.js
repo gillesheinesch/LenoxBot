@@ -27,11 +27,8 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	aliases: ['pf'],
-
-    
-
-    userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'prefixfinder',
