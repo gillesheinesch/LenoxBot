@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 	for (var i = 0; i < botconfs.banlist.length; i++) {
 		banlist.push(botconfs.banlist[i]);
 	}
-	banlist.forEach(r => embed.addField(`${r.discordServerID}`, `Moderator: ${client.users.get(r.moderator) ? client.users.get(r.moderator).tag : r.moderator} \n\nReason: ${r.reason}`));
+	banlist.forEach(r => embed.addField(`${r.discordServerID}`, `Moderator: ${client.users.get(r.moderator) ? client.users.get(r.moderator).tag : r.moderator} \nReason: ${r.reason}`));
 
 	await msg.channel.send({
 		embed
