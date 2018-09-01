@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setTitle("Banned Discord servers:")
 		.setFooter(`To ban/unban a discord server, use ?banlistadd/?banlistremove`);
 
-	if (botconfs.banlist.length < 1) return msg.channel.send('There is no banned Discord Server!');
+	if (botconfs.banlist.length < 1) return msg.channel.send('There are no banned Discord Server!');
 	for (var i = 0; i < botconfs.banlist.length; i++) {
 		banlist.push(botconfs.banlist[i]);
 	}
