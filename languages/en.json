@@ -298,7 +298,7 @@
     "channelblacklistremove_channelnotblacklisted": "This voicechannel has not been added to the blacklist",
     "channelblacklistremove_description": "Removes a voicechannel from the blacklist",
 
-    "botownercommands_error": "You dont have permissions to execute this command!",
+    "botownercommands_error": "You don't have permissions to execute this command!",
 
     "overwatchstats_missinginput": "You have to decide if you want to see the profile, quickplay, competitive stats from the Overwatch player",
     "overwatchstats_error": "You forgot to enter your BattleTag. Attention: the case is capitalized",
