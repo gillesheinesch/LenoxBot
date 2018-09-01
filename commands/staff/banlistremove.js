@@ -21,7 +21,7 @@ exports.run = async (client, msg, args, lang) => {
 				embed: embed
 			});
 
-			botconfs.banlist.slice(i, 1);
+			botconfs.banlist.splice(i, 1);
 			await client.botconfs.set('blackbanlist', botconfs);
 
 			return msg.reply('The Discord server has been successfully unbanned!');
