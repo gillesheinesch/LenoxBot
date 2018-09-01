@@ -10,7 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const embed = new Discord.RichEmbed()
 		.setTitle("Banned Discord servers:")
-		.setFooter(`To add/remove a discord server, use ?banlistadd/?banlistremove`);
+		.setFooter(`To ban/unban a discord server, use ?banlistadd/?banlistremove`);
 
 	if (botconfs.banlist.length < 1) return msg.channel.send('There is no banned Discord Server!');
 	for (var i = 0; i < botconfs.banlist.length; i++) {
