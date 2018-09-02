@@ -19,10 +19,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setDescription(`${lang.applicationsettings_applicationstatus} \`${tableload.application.status === 'false' ? lang.applicationsettings_deactivated : lang.applicationsettings_activated}\` \n\
 ${lang.applicationsettings_reactionnnumber} \`${tableload.application.reactionnumber === '' ? lang.serverinfo_emojisnone : tableload.application.reactionnumber}\`\n\
 ${lang.applicationsettings_approverole} \`${tableload.application.role === '' ? lang.applicationsettings_norole : msg.guild.roles.get(tableload.application.role).name}\` \n\
-${lang.applicationsettings_denyrole} \`${tableload.application.denyrole === '' ? lang.applicationsettings_norole : msg.guild.roles.get(tableload.application.denyrole).name}\` \n\
-${lang.applicationsettings_votechannel} \`${tableload.application.votechannel === '' ? lang.applicationsettings_nochannel : `#${msg.guild.channels.get(tableload.application.votechannel).name}`}\` \n\
-${lang.applicationsettings_archivestatus} \`${tableload.application.archivechannel === false ? lang.applicationsettings_deactivated : lang.applicationsettings_activated}\` \n\
-${lang.applicationsettings_archivechannellog}  \`${tableload.application.archivechannellog === '' ? lang.applicationsettings_nochannel : client.channels.get(tableload.application.archivechannellog).name}\``)
+${lang.applicationsettings_denyrole} \`${tableload.application.denyrole === '' ? lang.applicationsettings_norole : msg.guild.roles.get(tableload.application.denyrole).name}\` \n`)
 		.addField(lang.applicationsettings_entries, tableload.application.template.length === 0 ? lang.serverinfo_emojisnone : tableload.application.template.join("\n"))
 		.setAuthor(lang.applicationsettings_embedauthor)
 		.setColor('#00ff00');
