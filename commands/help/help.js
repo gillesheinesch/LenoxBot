@@ -86,7 +86,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Helps",
+	shortDescription: "Help",
 	aliases: ['h'],
 	userpermissions: [],
 	dashboardsettings: false

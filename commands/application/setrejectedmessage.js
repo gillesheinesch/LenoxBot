@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Message",
+	shortDescription: "Settings",
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
