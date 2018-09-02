@@ -19,10 +19,10 @@ exports.run = async(client, msg, args, lang) => {
 				var normalevent = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to react with "🏅". \n\nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command: ?credits`)
+					.setDescription(`To participate, you only have to react with "✅". \n\nWhen you have done that, you will be credited with 100 credits. \nTo see how many credits you have, use the following command: ?credits`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('The credit collection event has begun!');
+					.setAuthor('The credits collection event has begun!');
 
 				const message = await msg.channel.send({
 					embed
@@ -30,7 +30,7 @@ exports.run = async(client, msg, args, lang) => {
 
 				await message.react('🏅');
 
-				var normaleventcollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '🏅' && !user.bot, {
+				var normaleventcollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '✅' && !user.bot, {
 					time: 86400000
 				});
 				normaleventcollector.on('collect', r => {
@@ -57,7 +57,7 @@ exports.run = async(client, msg, args, lang) => {
 				var lenoxbot = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to write "LenoxBot" in the #spam channel. \n\nWhen you have done that, you will be credited with 100 🏅. \nThen you can call these with the following command: ?credits`)
+					.setDescription(`To participate, you only have to write "LenoxBot" in the #spam channel. \n\nWhen you have done that, you will be credited with 100 credits. \nTo see how many credits you have, use the following command: ?credits`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
 					.setAuthor('The "LenoxBot" SPAM event has begun!');
@@ -96,10 +96,10 @@ exports.run = async(client, msg, args, lang) => {
 				var extramedalevent = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to react with "🏅". \n\nWhen you have done that, you will be credited with **500** 🏅. \nThen you can call these with the following command: ?medals`)
+					.setDescription(`To participate, you only have to react with "✅". \n\nWhen you have done that, you will be credited with **500** credits. \nTo see how many credits you have, use the following command: ?credits`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('The extra medal collection event has begun!');
+					.setAuthor('The credits collection event has begun!');
 
 				const message = await msg.channel.send({
 					embed
@@ -107,7 +107,7 @@ exports.run = async(client, msg, args, lang) => {
 
 				await message.react('🏅');
 
-				var extramedaleventcollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '🏅' && !user.bot, {
+				var extramedaleventcollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '✅' && !user.bot, {
 					time: 86400000
 				});
 				extramedaleventcollector.on('collect', r => {
@@ -145,7 +145,7 @@ exports.help = {
 	name: 'startevent',
 	description: 'Starts an event on the LenoxBot server',
 	usage: 'startevent',
-	example: ['startevent lenoxbot', 'startevent medalevent'],
+	example: ['startevent lenoxbot', 'startevent medalevent', 'startevent extracreditevent'],
 	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES']
 };
