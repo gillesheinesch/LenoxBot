@@ -45,6 +45,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
+	shortDescription: "Credits",
 	aliases: ['pc'],
 	userpermissions: [],
 	dashboardsettings: true
