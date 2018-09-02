@@ -10,7 +10,7 @@ exports.run = async(client, msg, args, lang) => {
 	const now = new Date().getTime();
 	const margs = msg.content.split(" ");
 
-	const validation = ['creditsevent', 'lenoxbot', 'extracreditevent'];
+	const validation = ['creditsevent', 'lenoxbot', 'extracreditevent', 'birthdaybadge'];
 
 
 	for (i = 0; i < margs.length; i++) {
@@ -128,6 +128,55 @@ exports.run = async(client, msg, args, lang) => {
 					}
 				});
 				extramedaleventcollector.on('end', (collected, reason) => {
+					message.delete();
+				});
+			} else if (margs[1].toLowerCase() == "birthdaybadge") {
+				var eventArray = [];
+
+				const embed = new Discord.RichEmbed()
+					.setDescription(`To participate, you only have to react with "✅". \n\nWhen you have done that, you will be credited with 100 credits. \nTo see how many credits you have, use the following command: ?credits`)
+					.setColor('#ff5050')
+					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
+					.setAuthor('The credits collection event has begun!');
+
+				const message = await msg.channel.send({
+					embed
+				});
+
+				await message.react('🎈');
+
+				var birthdaybadgecollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '🎈' && !user.bot, {
+					time: 86400000
+				});
+				birthdaybadgecollector.on('collect', async r => {
+					if (!eventArray.includes(r.users.last().id)) {
+						eventArray.push(r.users.last().id);
+
+						var userdb = await client.userdb.get(r.users.last().id);
+
+						if (!userdb.badges) {
+							userdb.badges = [];
+							await client.userdb.set(msg.author.id, userdb);
+						}
+
+						const badgeSettings = {
+							name: "Birthday2018",
+							rarity: 1,
+							staff: false,
+							date: Date.now()
+						};
+
+						for (var index = 0; index < userdb.badges.length; index++) {
+							if (userdb.badges[index].name.toLowerCase() === 'birthday2018') return undefined;
+						}
+
+						client.users.get(r.users.last().id).send('Congratulations, you got the Birthday Badge 2018. \nAt the moment you do not have the possibility to see your badges, but this will follow in the near future! Thanks for participating! 🎈🎈🎈');
+
+						userdb.badges.push(badgeSettings);
+						await client.userdb.set(msg.author.id, userdb);
+					}
+				});
+				birthdaybadgecollector.on('end', (collected, reason) => {
 					message.delete();
 				});
 			}
