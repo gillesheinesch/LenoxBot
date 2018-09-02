@@ -9,11 +9,10 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Skip",
 	aliases: [],
-
-
-    userpermissions: ['MANAGE_GUILD'], dashboardsettings: true
-
+	userpermissions: ['MANAGE_GUILD'],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'forceskip',

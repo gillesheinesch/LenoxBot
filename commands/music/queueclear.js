@@ -8,10 +8,10 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Queue",
 	aliases: [],
-
-    userpermissions: ['MANAGE_GUILD'], dashboardsettings: true
-
+	userpermissions: ['MANAGE_GUILD'],
+	dashboardsettings: true
 };
 
 exports.help = {

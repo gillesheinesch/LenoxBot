@@ -17,12 +17,10 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
+	shortDescription: "Queue",
 	aliases: [],
-
-	
-
-	userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 
 exports.help = {
