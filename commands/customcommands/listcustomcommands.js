@@ -72,6 +72,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Customcommands",
 	aliases: ['lcc'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

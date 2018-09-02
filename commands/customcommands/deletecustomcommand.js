@@ -17,6 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Customcommands",
 	aliases: ['dcc'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
