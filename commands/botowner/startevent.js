@@ -57,7 +57,7 @@ exports.run = async(client, msg, args, lang) => {
 				var lenoxbot = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to write "LenoxBot" in the #spam channel. \n\nWhen you have done that, you will be credited with 100 credits. \nTo see how many credits you have, use the following command: ?credits`)
+					.setDescription(`To participate, you only have to write "LenoxBot" in the #spam channel. \n\nWhen you have done that, you will get 100 credits. \nTo see how many credits you have, use the following command: ?credits`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
 					.setAuthor('The "LenoxBot" SPAM event has begun!');
@@ -96,7 +96,7 @@ exports.run = async(client, msg, args, lang) => {
 				var extramedalevent = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to react with "✅". \n\nWhen you have done that, you will be credited with **500** credits. \nTo see how many credits you have, use the following command: ?credits`)
+					.setDescription(`To participate, you only have to react with "✅". \n\nWhen you have done that, you will get 500 credits. \nTo see how many credits you have, use the following command: ?credits`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
 					.setAuthor('The credits collection event has begun!');
@@ -134,10 +134,10 @@ exports.run = async(client, msg, args, lang) => {
 				var eventArray = [];
 
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to react with "✅". \n\nWhen you have done that, you will be credited with 100 credits. \nTo see how many credits you have, use the following command: ?credits`)
+					.setDescription(`To get the Birthday Badge 2018, you just have to react "🎈". As a result, you will normally receive a confirmation message from the bot! \nWe thank you very much for participating!`)
 					.setColor('#ff5050')
 					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('The credits collection event has begun!');
+					.setAuthor('The Birthday Badge 2018 Collection event has begun!');
 
 				const message = await msg.channel.send({
 					embed
