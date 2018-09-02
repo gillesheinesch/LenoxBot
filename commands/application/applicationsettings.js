@@ -35,6 +35,7 @@ ${lang.applicationsettings_archivechannellog}  \`${tableload.application.archive
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Settings",
 	aliases: [],
 	userpermissions: ['MANAGE_GUILD'],
 	dashboardsettings: true
