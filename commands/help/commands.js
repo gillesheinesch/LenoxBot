@@ -10,6 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 				if (margs[1].toLowerCase() == validation[index]) {
 					var commandShortDescriptions = [];
 					var embed = new Discord.RichEmbed()
+					.setDescription(lang[`modules_${validation[index].toLowerCase()}`] ? lang[`modules_${validation[index].toLowerCase()}`] : "No description")
 						.setColor('#009900');
 
 					var commands = client.commands.filter(c => c.help.category === validation[index]).array();
@@ -20,74 +21,60 @@ exports.run = async (client, msg, args, lang) => {
 						}
 					}
 
-					for (var index2 = 0; index2 < commandShortDescriptions.length; index2++) {
+					for (var index2 = 0; index2 < commandShortDescriptions.slice(0, 7).length; index2++) {
 						var newCommands = commands.filter(c => c.conf.shortDescription.toLowerCase() === commandShortDescriptions[index2].toLowerCase());
-						embed.addField(lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`] : commandShortDescriptions[index2], `\`\`\`asciidoc\n${newCommands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}\`\`\``);
+						const shortDescriptionCheck = await lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`];
+						embed.addField(shortDescriptionCheck !== undefined ? lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`] : commandShortDescriptions[index2], `\`\`\`asciidoc\n${newCommands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join("\n")}\`\`\``);
 					}
 
 					const message = await msg.channel.send({
 						embed: embed
-					})
+					});
 
-					if (client.commands.filter(c => c.help.category === validation[index]).array().length <= 20) return undefined;
-
-					await message.react('◀');
-					await message.react('▶');
+					if (commandShortDescriptions.length <= 7) return undefined;
+					var reaction1 = await message.react('◀');
+					var reaction2 = await message.react('▶');
 
 					var first = 0;
-					var second = 20;
+					var second = 7;
 
 					var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 						time: 60000
 					});
 					collector.on('collect', r => {
-						var reactionadd = client.commands.filter(c => c.help.category === validation[index]).array().slice(first + 20, second + 20).length;
-						var reactionremove = client.commands.filter(c => c.help.category === validation[index]).array().slice(first - 20, second - 20).length;
+						var reactionadd = commandShortDescriptions.slice(first + 7, second + 7).length;
+						var reactionremove = commandShortDescriptions.slice(first - 7, second - 7).length;
 
 						if (r.emoji.name === '▶' && reactionadd !== 0) {
 							r.remove(msg.author.id);
-							var newCommands = client.commands.filter(c => c.help.category === validation[index]).array().slice(first + 20, second + 20);
-							var newCommandShortDescriptions = [];
+							var newCommandShortDescriptions = commandShortDescriptions.slice(first + 7, second + 7);
 							var newEmbed = new Discord.RichEmbed()
 								.setColor('#009900');
 
-							for (var i = 0; i < newCommands.length; i++) {
-								if (!newCommandShortDescriptions.includes(newCommands[i].conf.shortDescription)) {
-									newCommandShortDescriptions.push(newCommands[i].conf.shortDescription);
-								}
-							}
-
 							for (var index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
-								var new2Commands = newCommands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
-								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}\`\`\``);
+								var new2Commands = commands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
+								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join("\n")}\`\`\``);
 							}
 
-							first = first + 20;
-							second = second + 20;
+							first = first + 7;
+							second = second + 7;
 
 							message.edit({
 								embed: newEmbed
 							});
 						} else if (r.emoji.name === '◀' && reactionremove !== 0) {
 							r.remove(msg.author.id);
-							var newCommands = client.commands.filter(c => c.help.category === validation[index]).array().slice(first - 20, second - 20);
-							var newCommandShortDescriptions = [];
+							var newCommandShortDescriptions = commandShortDescriptions.slice(first - 7, second - 7);
 							var newEmbed = new Discord.RichEmbed()
 								.setColor('#009900');
 
-							for (var i = 0; i < newCommands.length; i++) {
-								if (!newCommandShortDescriptions.includes(newCommands[i].conf.shortDescription)) {
-									newCommandShortDescriptions.push(newCommands[i].conf.shortDescription);
-								}
-							}
-
 							for (var index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
-								var new2Commands = newCommands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
-								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`]}`).join("\n")}\`\`\``);
+								var new2Commands = commands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
+								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join("\n")}\`\`\``);
 							}
 
-							first = first - 20;
-							second = second - 20;
+							first = first - 7;
+							second = second - 7;
 
 							message.edit({
 								embed: newEmbed
@@ -95,7 +82,8 @@ exports.run = async (client, msg, args, lang) => {
 						}
 					});
 					collector.on('end', (collected, reason) => {
-						message.react('❌');
+						reaction1.remove();
+						reaction2.remove();
 					});
 					return undefined;
 				}
