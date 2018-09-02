@@ -41,6 +41,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Modules",
 	aliases: ['lm'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

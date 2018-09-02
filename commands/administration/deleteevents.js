@@ -65,7 +65,8 @@ exports.run = async(client, msg, args, lang) => {
 
 exports.conf = {
 	enabled: true,
-	guildOnly: true,
+    guildOnly: true,
+    shortDescription: "Events",
 	aliases: ['delev'],
     userpermissions: ['ADMINISTRATOR'],
     dashboardsettings: true

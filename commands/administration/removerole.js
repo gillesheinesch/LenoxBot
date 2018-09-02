@@ -15,6 +15,7 @@ exports.run = function(client, msg, args, lang) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Roles",
 	aliases: ['rr'],
 	userpermissions: ['MANAGE_ROLES'],
 	dashboardsettings: true

@@ -16,6 +16,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "General",
 	aliases: ['cmddel'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

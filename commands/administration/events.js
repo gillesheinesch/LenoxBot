@@ -133,6 +133,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Events",
 	aliases: ['e'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

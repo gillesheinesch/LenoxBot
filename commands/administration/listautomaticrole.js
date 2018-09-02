@@ -31,6 +31,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Automaticroles",
 	aliases: ['lar'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
