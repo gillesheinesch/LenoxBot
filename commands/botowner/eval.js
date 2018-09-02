@@ -25,6 +25,7 @@ async function clean(text) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "General",
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

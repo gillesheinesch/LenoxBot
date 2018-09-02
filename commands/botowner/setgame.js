@@ -9,7 +9,8 @@ exports.run = (client, msg, args, lang) => {
 
 exports.conf = {
 	enabled: true,
-	guildOnly: false,
+    guildOnly: false,
+    shortDescription: "General",
     aliases: [],
     userpermissions: [],
     dashboardsettings: true
