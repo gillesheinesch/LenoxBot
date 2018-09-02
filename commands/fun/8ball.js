@@ -15,6 +15,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
+	shortDescription: "Games",
 	aliases: ['eightball'],
 	userpermissions: [],
 	dashboardsettings: true
