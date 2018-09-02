@@ -26,6 +26,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Messages",
 	aliases: ['purge'],
 	userpermissions: ['MANAGE_MESSAGES'],
 	dashboardsettings: true

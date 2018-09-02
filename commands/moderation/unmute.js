@@ -63,6 +63,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Mute",
 	aliases: [],
 	userpermissions: ['KICK_MEMBERS'],
 	dashboardsettings: true
