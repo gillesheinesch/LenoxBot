@@ -18,12 +18,12 @@
     "currentlymuted_error": "There are currently no active mutes!",
     "currentlymuted_embedauthor": "Currently muted user:",
     "currentlymuted_embeddescription": "Moderator: %moderatortag \nTemorary muted: %muteddate \nRemaining mutetime: %remainingmutetime \nReason: %reason",
-    "currentlymuted_description": "",
+    "currentlymuted_description": "Shows you all currently muted users on this Discord server",
 
     "currentlybanned_error": "There are currently no active temporary bans!",
     "currentlybanned_embedauthor": "Currently temporarily banned user:",
     "currentlybanned_embeddescription": "Moderator: %moderatortag \nTemporarily banned: %banneddate \nRemaining bantime: %remainingbantime \nReason: %reason",
-    "currentlybanned_description": "",
+    "currentlybanned_description": "Shows you all currently banned users on this Discord server",
 
     "temporaryban_yourself": "You can not temporarily ban yourself!",
     "temporaryban_noinput": "You must specify a reason for the temporarily ban!",
@@ -259,10 +259,6 @@
     "applicationsettings_approverole": "Role for accepted applicants:",
     "applicationsettings_norole": "No role set!",
     "applicationsettings_denyrole": "Role for rejected applicants:",
-    "applicationsettings_votechannel": "Votechannel:",
-    "applicationsettings_nochannel": "No channel set!",
-    "applicationsettings_archivestatus": "Archivechannel status:",
-    "applicationsettings_archivechannellog": "Archivechannellog channel:",
     "applicationsettings_entries": "Entries:",
     "applicationsettings_description": "Shows you all settings of the application system",
 
@@ -407,10 +403,6 @@
     "commanddeletion_deletionset": "Commands are now deleted after execution",
     "commanddeletion_nodeletionset": "Commands are no longer deleted after execution",
     "commanddeletion_description": "Toggles the deletion of a command after execution",
-
-    "createrole_norolename": "You forgot to enter the name of the role!",
-    "createrole_rolecreated": "The role was created successfully!",
-    "createrole_description": "Creates a role with a color and a name",
 
     "deactivatemodule_noinput": "You forgot to enter the name of the module you want to disable.",
     "deactivatemodule_administration": "Administration commands are always activated and cannot be disabled.",
@@ -636,7 +628,6 @@
     "commands_queue": "Music Queue",
     "commands_games": "Games",
     "commands_jokes": "Jokes",
-    "commands_steam": "Steam",
     "commands_gifs": "Gifs",
     "commands_videos": "Videos",
     "commands_information": "Information",
@@ -678,11 +669,6 @@
     "modules_tickets": "Ticket system which allows you for example to provide support",
     "modules_customcommands": "Allows each Discord server to add its own commands",
     "modules_description": "Gives you a list of all modules and their meaning",
-
-    "website_website": "Here you can find our website including our new dashboard:",
-    "website_documentation": "If you have any questions, you should look over here:",
-    "website_trello": "On our Trello page all bugs and suggestions are listed:",
-    "website_description": "Shows you all links that have to do with LenoxBot",
 
     "ban_nomention": "You must mention a user to ban!",
     "ban_yourself": "You can not ban yourself!",
