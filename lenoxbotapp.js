@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
+const settingsJSON = require('./settings.json');
 const token = require('./settings.json').token;
 const fs = require('fs');
 const Enmap = require('enmap');
@@ -18,6 +19,7 @@ var app = express();
 const path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var superagent = require('superagent');
 
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({
@@ -113,9 +115,9 @@ passport.deserializeUser(function (obj, done) {
 var scopes = ['identify', 'guilds'];
 
 passport.use(new Strategy({
-	clientID: '431457499892416513',
-	clientSecret: 'VPdGHqR4yzRW-lDd0jIdfe6EwPzhoJ_t',
-	callbackURL: 'https://lenoxbot.com/callback',
+	clientID: settingsJSON.clientID_Auth,
+	clientSecret: settingsJSON.clientSecret_Auth,
+	callbackURL: settingsJSON.callbackURL_Auth,
 	scope: scopes
 }, function (accessToken, refreshToken, profile, done) {
 	process.nextTick(function () {
@@ -137,7 +139,7 @@ app.get('/loginpressedbutton', passport.authenticate('discord', {
 
 app.get('/callback',
 	passport.authenticate('discord', {
-		failureRedirect: '/oauth2problem'
+		failureRedirect: '/error'
 	}),
 	function (req, res) {
 		res.redirect('/servers');
@@ -215,6 +217,10 @@ app.get('/discord', function (req, res, next) {
 
 app.get('/status', function (req, res, next) {
 	return res.redirect('https://lenoxbot.statuskit.com/');
+});
+
+app.get('/policy', function (req, res, next) {
+	return res.render('policy');
 });
 
 app.get('/blog', function (req, res, next) {
@@ -6802,6 +6808,78 @@ app.get('/dashboard/:id/tickets', function (req, res, next) {
 	}
 });
 
+app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecommand', async function (req, res, next) {
+	try {
+		var dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			var index = -1;
+			for (var i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect("/servers");
+			
+			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
+				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			}
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+				var allwhitelistedrolesoftheuser = 0;
+
+				for (var index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect("/servers");
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect("/servers");
+				}
+			} else {
+				if (((req.user.guilds[index].permissions) & 8) !== 8) return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect("/servers");
+
+			const tableload = await client.guildconfs.get(dashboardid);
+
+			for (var i = 0; i < tableload.customcommands.length; i++) {
+				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
+					tableload.customcommands.splice(i, 1);
+				}
+			}
+
+			tableload.globallogs.push({
+				action: `Deleted the "${req.params.command}" custom command!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			await client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/customcommands`,
+				query: {
+					"submitcustomcommands": true
+				}
+			}));
+		} else {
+			return res.redirect('/nologin');
+		}
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				"statuscode": 500,
+				"message": error.message
+			}
+		}));
+	}
+});
+
 app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstatuschange', async function (req, res, next) {
 	try {
 		var dashboardid = res.req.originalUrl.substr(11, 18);
@@ -7206,6 +7284,7 @@ app.get('/dashboard/:id/customcommands', async function (req, res, next) {
 				roles: roles,
 				commands: commands,
 				customcommands: customcommands,
+				isCustomCommands: customcommands.length === 0 ? false : true,
 				submitcustomcommands: req.query.submitcustomcommands ? true : false
 			});
 		} else {
