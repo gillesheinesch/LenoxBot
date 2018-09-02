@@ -207,6 +207,11 @@ exports.run = async (client, msg) => {
 		});
 	});
 
+	if (!userdb.badges) {
+		userdb.badges = [];
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	if (!tableload.modules.customcommands) {
 		tableload.modules.customcommands = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
