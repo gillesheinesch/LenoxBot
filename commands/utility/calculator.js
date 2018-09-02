@@ -24,6 +24,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
+	shortDescription: "General",
 	aliases: ['cal'],
 	userpermissions: [],
 	dashboardsettings: true

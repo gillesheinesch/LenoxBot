@@ -52,10 +52,10 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
+	shortDescription: "Information",
 	aliases: ['sinfo', 'si'],
 	userpermissions: [],
 	dashboardsettings: true
-
 };
 exports.help = {
 	name: 'serverinfo',
