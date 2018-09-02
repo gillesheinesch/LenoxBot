@@ -33,6 +33,6 @@ exports.help = {
 	description: 'Toggles the skipvote function',
 	usage: 'skipvote',
 	example: ['skipvote'],
-	category: 'administration',
+	category: 'music',
     botpermissions: ['SEND_MESSAGES']
 };
