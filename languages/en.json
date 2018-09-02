@@ -624,7 +624,7 @@
     "commands_help": "Help",
     "commands_channelblacklist": "Channelblacklist",
     "commands_skip": "Skip system",
-    "commands_playersettings": "Player settings",
+    "commands_musicplayersettings": "Musicplayer settings",
     "commands_queue": "Music Queue",
     "commands_games": "Games",
     "commands_jokes": "Jokes",
