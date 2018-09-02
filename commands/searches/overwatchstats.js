@@ -88,12 +88,10 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
+	shortDescription: "Games",
 	aliases: ['owstats'],
-
-	
-
-	userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 
 exports.help = {

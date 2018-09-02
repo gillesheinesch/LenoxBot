@@ -52,12 +52,10 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
+	shortDescription: "General",
 	aliases: ['g'],
-
-    
-
-    userpermissions: [], dashboardsettings: true
-
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'google',
