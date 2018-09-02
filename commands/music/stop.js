@@ -12,7 +12,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Playersettings",
+	shortDescription: "Musicplayersettings",
 	aliases: [],
 	userpermissions: ['MANAGE_GUILD'],
 	dashboardsettings: true

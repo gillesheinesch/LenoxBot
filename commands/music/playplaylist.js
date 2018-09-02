@@ -140,7 +140,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Playersettings",
+	shortDescription: "Musicplayersettings",
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
