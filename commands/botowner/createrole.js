@@ -22,6 +22,6 @@ exports.help = {
 	description: 'Creates a role with a name',
 	usage: 'createrole {name of the role}',
 	example: ['createrole Test'],
-	category: 'administration',
+	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
 };
