@@ -39,6 +39,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
+	shortDescription: "Blacklist",
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
