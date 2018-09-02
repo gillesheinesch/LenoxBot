@@ -688,12 +688,12 @@ exports.run = async (client, msg) => {
 
 			const botconfsload = client.botconfs.get('blackbanlist');
 			for (var i = 0; i < botconfsload.banlist.length; i++) {
-				if (msg.guild.id === botconfsload.banlist[i]) return msg.channel.send({
+				if (msg.guild.id === botconfsload.banlist[i].discordServerID) return msg.channel.send({
 					embed: banlistembed
 				});
 			}
 			for (var i = 0; i < botconfsload.blacklist.length; i++) {
-				if (msg.author.id === botconfsload.blacklist[i]) return msg.channel.send({
+				if (msg.author.id === botconfsload.blacklist[i].userID) return msg.channel.send({
 					embed: blacklistembed
 				});
 			}
