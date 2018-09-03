@@ -333,7 +333,7 @@
     "toggleapplication_description": "Toggles the applications on or off",
 
     "bitcoin_descriptionembed": "Bitcoin Value ($): **%value** \nBitcoin Percentage of changes in the last day: **%percentage** %",
-    "bitcoin_authorembed": "Bitcoin informations",
+    "bitcoin_authorembed": "Bitcoin information",
     "bitcoin_description": "Shows you information from Bitcoin (value and percentage of changes from the last day)",
 
     "randomfact_description": "Random facts (in English only)",
@@ -652,7 +652,7 @@
     "help_example": "Example",
     "help_category": "Module: %category",
     "help_error": "This command name or command alias doesn't exist",
-    "help_description": "Gives you informations about a command",
+    "help_description": "Gives you information about a command",
 
     "modules_commandscommand": "You can use %prefixcommands {name of the module} to get a list of all commands of a module.",
     "modules_embed": "A list of all modules",
@@ -875,7 +875,7 @@
     "steamprofile_vban": "VAC ban(s)",
     "steamprofile_membersince": "Member since",
     "steamprofile_error": "That Steamprofile could not be found. Please make sure, that you have insert a valid SteamID64.",
-    "steamprofile_description": "Requests Steam profile informations of a Steamuser",
+    "steamprofile_description": "Requests Steam profile information of a Steamuser",
 
     "steamscammercheck_validsteamid": "Please make sure that you have inserted a valid SteamID64! Here you can get your Steam64ID: https://steamid.io/",
     "steamscammercheck_nosteamid": "This isn't a Steam64ID. Here you can get your Steam64ID: https://steamid.io/",
@@ -905,7 +905,7 @@
     "botinfo_invite": "You want this bot on your server? Add it to your Discord Server",
     "botinfo_supportserver": "Join our Community&Support Discord Server",
     "botinfo_version": "Version of the bot",
-    "botinfo_description": "Informations about the bot",
+    "botinfo_description": "Information about the bot",
 
     "calculator_noinput": "You have to specify what you would like to count on!",
     "calculator_invalid": "Invalid mathematical calculation!",
