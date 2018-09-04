@@ -83,9 +83,11 @@ categories.forEach((c, i) => {
 	});
 });
 
+
+// Client login to Discord API
 client.login(token);
 
-// WEBSITE
+// All website stuff
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
