@@ -16,6 +16,8 @@ exports.run = (client, oldChannel, newChannel) => {
 
 	if (!client.channels.get(tableload.channelupdatelogchannel)) return undefined;
 
+	const messagechannel = client.channels.get(tableload.channelcreatelogchannel);
+
 	if (oldChannel.name !== newChannel.name) {
 		const embed = new Discord.RichEmbed()
 			.setColor('#FE2E2E')
