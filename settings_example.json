@@ -1,0 +1,9 @@
+{
+	"token": "Your token",
+    "prefix": "Standard Prefix",
+    "googleKey": "Google Custom Search API Key",
+    "googlekey": "Youtube API key",
+    "clientID_Auth": "Client ID Auth",
+    "clientSecret_Auth": "Client Secret Auth",
+    "callbackURL_Auth": "Callback URL Auth"
+}
