@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args) => {
-	const guild = client.guilds.get('352896116812939264').roles.find('name', 'Moderator').id;
-	if (!msg.member.roles.get(guild)) return msg.reply('You dont have permissions to execute this command!').then(m => m.delete(10000));
+	const guild = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 	const content = args.slice().join(" ");
 	if (!content) return msg.reply('You have to enter a guildid!');
