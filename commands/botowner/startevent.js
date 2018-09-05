@@ -156,7 +156,7 @@ exports.run = async(client, msg, args, lang) => {
 
 						if (!userdb.badges) {
 							userdb.badges = [];
-							await client.userdb.set(msg.author.id, userdb);
+							await client.userdb.set(r.users.last().id, userdb);
 						}
 
 						const badgeSettings = {
@@ -173,7 +173,7 @@ exports.run = async(client, msg, args, lang) => {
 						client.users.get(r.users.last().id).send('Congratulations, you got the Birthday Badge 2018. \nAt the moment you do not have the possibility to see your badges, but this will follow in the near future! Thanks for participating! 🎈🎈🎈');
 
 						userdb.badges.push(badgeSettings);
-						await client.userdb.set(msg.author.id, userdb);
+						await client.userdb.set(r.users.last().id, userdb);
 					}
 				});
 				birthdaybadgecollector.on('end', (collected, reason) => {
