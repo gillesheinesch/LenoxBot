@@ -8,6 +8,15 @@ exports.run = async (client, msg, args, lang) => {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			for (var index = 0; index < validation.length; index++) {
 				if (margs[1].toLowerCase() == validation[index]) {
+					if (validation[index] === 'botowner' && msg.author.id !== '238590234135101440') {
+						return msg.channel.send(lang.botownercommands_error);
+					}
+
+					const moderatorRole = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+					if (validation[index] === 'staff' && !msg.member.roles.get(moderatorRole)) {
+						return msg.channel.send(lang.botownercommands_error);
+					}
+
 					var commandShortDescriptions = [];
 					var embed = new Discord.RichEmbed()
 					.setDescription(lang[`modules_${validation[index].toLowerCase()}`] ? lang[`modules_${validation[index].toLowerCase()}`] : "No description")
