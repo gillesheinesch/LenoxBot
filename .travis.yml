@@ -3,7 +3,10 @@ node_js:
   - "iojs"
   - "8"
 before_install:
-  - npm i
+  - "sudo apt-get install build-essential && npm i better-sqlite-pool"
+  - "sudo apt install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev"
+install:
+  - "npm i"
 cache:
   directories:
     - "node_modules"
