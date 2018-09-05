@@ -7,7 +7,6 @@ before_install:
   - "npm install -g npm@latest"
   - "sudo apt-get install build-essential"
   - "sudo apt install build-essential libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev"
-  - "npm i better-sqlite-pool"
 install:
   - "npm i"
 cache:
