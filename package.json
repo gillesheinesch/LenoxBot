@@ -42,6 +42,7 @@
     "got": "^7.1.0",
     "handlebars-helpers": "^0.10.0",
     "http": "^0.0.0",
+    "lint": "^1.1.2",
     "math-expression-evaluator": "^1.2.17",
     "mocha": "^5.2.0",
     "moment": "^2.22.2",
@@ -80,7 +81,8 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "mocha spec"
+    "test": "npm run lint",
+    "lint": "eslint sharding.js"
   },
   "author": "",
   "license": "ISC"
