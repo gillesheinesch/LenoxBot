@@ -985,7 +985,7 @@
     "ping_description": "Shows you how long the bot needs to send a message",
 
     "randomnumber_number": "You must enter a number!",
-    "randomnumber_randomnumber": "The random number is: %randomnumber",
+    "randomnumber_randomnumber": "The random number is: %randomnumber!",
     "randomnumber_description": "Selects a random number between your input and 1",
 
     "rank_points": "Points",
