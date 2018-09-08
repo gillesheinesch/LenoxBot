@@ -1,16 +1,22 @@
-exports.run = (client, msg, args, lang) => {
+exports.run = async(client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+
 	const tableload = client.botconfs.get('botconfs');
 	const channelId = msg.channel.id;
+
 	if (tableload.activity === false) {
 		tableload.activity = true;
 		tableload.activitychannel = channelId;
-		msg.channel.send('Activity now activated in this channel!');
+
+		const set = lang.activity_set.replace('%channelname', `#${msg.channel.name}`)
+		return msg.channel.send(set);
 	} else {
 		tableload.activity = false;
-		msg.channel.send('Activity now deactivated!');
+
+		const unset = lang.activity_unset.replace('%channelname', `#${msg.channel.name}`)
+		msg.channel.send(unset);
 	}
-	client.botconfs.set('botconfs', tableload);
+	await client.botconfs.set('botconfs', tableload);
 };
 
 exports.conf = {
@@ -22,7 +28,7 @@ exports.conf = {
 	dashboardsettings: true
 };
 exports.help = {
-	name: 'activity',
+	name: 'toggleactivity',
 	description: 'Shows the current bot usage',
 	usage: 'activity',
 	example: ['activity'],
