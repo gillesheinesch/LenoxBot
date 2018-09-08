@@ -11,9 +11,10 @@ exports.run = (client, msg, args, lang) => {
 		.addField(lang.help_helpcommand, `${prefix}help {${lang.help_command}}`)
 		.addField(lang.botinfo_doc, 'https://lenoxbot.com/')
 		.addField(lang.help_ludushosting, 'http://go.ludus-hosting.de/lenoxbot')
+        .addField(lang.help_translation, 'https://crowdin.com/project/lenoxbot')
 		.setColor('#ff3300')
 		.setAuthor(client.user.username, client.user.displayAvatarURL);
-	
+
 		return msg.channel.send({ embed });
 	} else {
 		let command = args[0];
@@ -46,7 +47,7 @@ exports.run = (client, msg, args, lang) => {
 			.addField(lang.help_permissions, command.conf.userpermissions.length === 0 ? '/' : command.conf.userpermissions.join(", "))
 			.addField(lang.help_example, examples.join("\n"))
 			.setFooter(category);
-		
+
 			return msg.channel.send({ embed: commandembed });
 		} else if (client.aliases.has(command)) {
 			command = client.commands.get(client.aliases.get(command));

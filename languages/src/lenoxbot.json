@@ -667,6 +667,7 @@
 
     "help_modulename": "name of the module",
     "help_command": "name of the command",
+    "help_translation": "Our Crowdin project:",
     "help_addthebot": "To add this bot to your Discord server:",
     "help_discordserver": "Any questions/suggestions/bugs? Join our Discord server:",
     "help_modulecommand": "To see all modules of the bot:",
