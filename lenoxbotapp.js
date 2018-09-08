@@ -19,7 +19,6 @@ var app = express();
 const path = require('path');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var superagent = require('superagent');
 
 client.wait = require("util").promisify(setTimeout);
 client.guildconfs = new Enmap({

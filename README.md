@@ -44,5 +44,7 @@ If you need any help, you can join our [Discord Server](https://lenoxbot.com/dis
 
 # Support
 [Twitter](https://twitter.com/lenoxbot)
+
 [Discord Server](https://lenoxbot.com/discord)
+
 [Documentation](https://docs.lenoxbot.com)
