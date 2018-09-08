@@ -1,7 +1,7 @@
 exports.run = async (client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 	const code = args.join(' ');
-	if (!code) return args.channel.send('❌ You must include a code!');
+	if (!code) return args.channel.send(lang.bash_error);
 
 	const {
 		exec
@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 		if (stdout) msg.channel.send(stdout, {
 			code: 'xl'
 		});
-		if (!stderr && !stdout) msg.channel.send('✅ Done (no output)');
+		if (!stderr && !stdout) msg.channel.send(lang.bash_done);
 	});
 };
 
@@ -27,12 +27,12 @@ exports.conf = {
 	aliases: ['exec'],
 	userpermissions: [],
 	dashboardsettings: true
-
 };
+
 exports.help = {
 	name: 'bash',
 	description: 'Discord',
-	usage: 'bash {command}',
+	usage: 'bash {code}',
 	example: ['bash git help'],
 	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES']

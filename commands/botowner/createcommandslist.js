@@ -7,7 +7,7 @@ exports.run = async(client, msg, args, lang) => {
 	for (var i = 0; i < validation.length; i++) {
 	await fs.appendFile(`commands.md`, `---${validation[i]}---\n\n${client.commands.filter(c => c.help.category === validation[i].toLowerCase() && c.conf.enabled === true).map(cmd => `* \`${cmd.help.usage}\` - ${lang[`${cmd.help.name}_description`]} (Needed permissions: ${cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(", ") : 'none'})`).join("\n")}\n\n`, function (err) {});
 	}
-	msg.reply('Files created/updated!');
+	msg.reply(lang.createcommandlist_done);
 };
 
 exports.conf = {
@@ -21,9 +21,9 @@ exports.conf = {
 
 exports.help = {
 	name: 'createcommandslist',
-	description: 'You can submit a new proposal by using this command',
-	usage: 'proposal {title of the proposal} | {description}',
-	example: ['proposal ping command | I want to have a ping command'],
+	description: 'Creates a list of all commands in Markdown (.md) format',
+	usage: 'createcommandslist',
+	example: ['createcommandslist'],
 	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES']
 };
