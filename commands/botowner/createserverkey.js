@@ -6,15 +6,16 @@ exports.run = async (client, msg, args, lang) => {
 	botconfspremiumload.keys.numberofguildkeys = botconfspremiumload.keys.numberofguildkeys + 1;
 	await client.botconfs.set('premium', botconfspremiumload);
 
+	const embeddescription = lang.createserverkey_embeddescription.replace('%premiumcode', botconfspremiumload.keys.numberofguildkeys);
 	const embed = new Discord.RichEmbed()
-	.setDescription(`This user has created a new serverkey (Code: ${botconfspremiumload.keys.numberofguildkeys})!`)
+	.setDescription(lang.embeddescription)
 	.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 	.setTimestamp()
 	.setColor('#cc99ff')
-	.setTitle('New Serverkey created');
+	.setTitle(lang.createserverkey_embedtitle);
 	await client.channels.get('419877966265319424').send({ embed });
 
-	msg.reply(`Guildkey created: \`${botconfspremiumload.keys.numberofguildkeys}\``);
+	msg.reply(lang.createserverkey_message);
 };
 
 exports.conf = {
@@ -26,10 +27,10 @@ exports.conf = {
 	dashboardsettings: true
 };
 exports.help = {
-	name: 'createguildkey',
-	description: 'Leave a self-assignable role',
-	usage: 'leave {rolename}',
-	example: ['leave Member'],
+	name: 'createserverkey',
+	description: 'Creates a premium serverkey',
+	usage: 'createserverkey',
+	example: ['createserverkey'],
 	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
 };

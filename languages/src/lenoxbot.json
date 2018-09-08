@@ -1,7 +1,29 @@
 {
-    "activity_set": "All executed commands are now logged in %channelname",
-    "activity_unset": "All executed commands are now no longer logged in %channelname",
-    "activity_": "Logs all executed commands of the bot in a specific textchannel",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+    "": "",
+
+    "createserverkey_embeddescription": "A new premium serverkey has been created (Code: %premiumcode)!",
+    "createserverkey_embedtitle": "New premium serverkey created!",
+    "createserverkey_message": "You have created a new premium serverkey!",
+    "createserverkey_description": "Creates a premium serverkey",
+
+    "createcommandlist_done": "Markdown has been created!",
+    "createcommandlist_description": "Creates a list of all commands in Markdown (.md) format",
+
+    "bash_error": "You must include a code to execute!",
+    "bash_done": "Code executed! There is no output.",
+    "bash_description": "Executes a code for you",
+
+    "toggleactivity_set": "All executed commands are now logged in %channelname!",
+    "toggleactivity_unset": "All executed commands are now no longer logged in %channelname!",
+    "toggleactivity_description": "Logs all executed commands of the bot in a specific textchannel",
 
     "deletecustomcommand_noinput": "You forgot to enter the name of the command you want to delete!",
     "deletecustomcommand_deleted": "The command was deleted successfully!",
