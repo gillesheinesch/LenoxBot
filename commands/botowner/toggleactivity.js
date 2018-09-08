@@ -8,12 +8,12 @@ exports.run = async(client, msg, args, lang) => {
 		tableload.activity = true;
 		tableload.activitychannel = channelId;
 
-		const set = lang.activity_set.replace('%channelname', `#${msg.channel.name}`)
+		const set = lang.toggleactivity_set.replace('%channelname', `#${msg.channel.name}`)
 		return msg.channel.send(set);
 	} else {
 		tableload.activity = false;
 
-		const unset = lang.activity_unset.replace('%channelname', `#${msg.channel.name}`)
+		const unset = lang.toggleactivity_unset.replace('%channelname', `#${msg.channel.name}`)
 		msg.channel.send(unset);
 	}
 	await client.botconfs.set('botconfs', tableload);
@@ -30,8 +30,8 @@ exports.conf = {
 exports.help = {
 	name: 'toggleactivity',
 	description: 'Shows the current bot usage',
-	usage: 'activity',
-	example: ['activity'],
+	usage: 'toggleactivity',
+	example: ['toggleactivity'],
 	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES']
 };
