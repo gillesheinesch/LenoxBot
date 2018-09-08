@@ -1,4 +1,8 @@
 {
+    "activity_set": "All executed commands are now logged in %channel",
+    "activity_unset": "All executed commands are now no longer logged in %channel",
+    "activity_": "Logs all executed commands of the bot in a specific textchannel",
+
     "deletecustomcommand_noinput": "You forgot to enter the name of the command you want to delete!",
     "deletecustomcommand_deleted": "The command was deleted successfully!",
     "deletecustomcommand_notexists": "This command does not exist!",
