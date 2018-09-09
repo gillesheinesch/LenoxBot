@@ -27,81 +27,11 @@ exports.run = async (client, msg, args, lang) => {
 		if ((serverQueue.songs.length + Object.keys(tableload.playlist[args.slice().join(' ').toLowerCase()]).length) > 8 && tableload.premium.status === false) return msg.reply(lang.play_limitreached);
 	}
 
-	for (const song in tableload.playlist[args.slice().join(' ').toLowerCase()]) {
-		const video = tableload.playlist[args.slice().join(' ').toLowerCase()][song];
-		await handleVideo(video, msg, voiceChannel);
-	}
-
-	async function handleVideo(video, msg, voiceChannel, playlist = false) {
-		const serverQueue = queue.get(msg.guild.id);
-		const song = {
-			duration: moment.duration(video.duration).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`),
-			thumbnail: video.thumbnails.default.url,
-			publishedat: video.publishedAt,
-			id: video.id,
-			title: Util.escapeMarkdown(video.title),
-			url: `https://www.youtube.com/watch?v=${video.id}`
-		};
-
-		if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) return msg.reply(lang.play_songlengthlimit);
-
-		if (!serverQueue) {
-			const queueConstruct = {
-				textChannel: msg.channel,
-				voiceChannel: voiceChannel,
-				connection: null,
-				songs: [],
-				volume: 2,
-				playing: true
-			};
-			await queue.set(msg.guild.id, queueConstruct);
-
-			await queueConstruct.songs.push(song);
-
-			const vote = {
-				users: []
-			};
-
-			skipvote.set(msg.guild.id, vote);
-
-			try {
-				const connection = await voiceChannel.join();
-				queueConstruct.connection = connection;
-				await play(msg.guild, queueConstruct.songs[0]);
-			} catch (error) {
-				await queue.delete(msg.guild.id);
-				await skipvote.delete(msg.guild.id);
-				return msg.channel.send(lang.play_errorjoin);
-			}
-		} else {
-			await serverQueue.songs.push(song);
-			if (playlist) return undefined;
-
-			const duration = lang.play_duration.replace('%duration', song.duration);
-			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-			const embed = new Discord.RichEmbed()
-				.setAuthor(lang.play_songadded)
-				.setDescription(duration)
-				.setThumbnail(song.thumbnail)
-				.setColor('#009900')
-				.setURL(song.url)
-				.setFooter(published)
-				.setTitle(song.title);
-
-			return msg.channel.send({
-				embed
-			});
-		}
-		return undefined;
-	}
-
 	async function play(guild, song) {
-		const serverQueue = await queue.get(guild.id);
-
 		if (!song) {
 			await serverQueue.voiceChannel.leave();
 			await queue.delete(guild.id);
-			return undefined;
+			return;
 		}
 		const dispatcher = await serverQueue.connection.playStream(ytdl(song.url), {
 			filter: 'audioonly'
@@ -133,6 +63,73 @@ exports.run = async (client, msg, args, lang) => {
 		return msg.channel.send({
 			embed
 		});
+	}
+
+	async function handleVideo(video, playlist = false) {
+		const song = {
+			duration: moment.duration(video.duration).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`),
+			thumbnail: video.thumbnails.default.url,
+			publishedat: video.publishedAt,
+			id: video.id,
+			title: Util.escapeMarkdown(video.title),
+			url: `https://www.youtube.com/watch?v=${video.id}`
+		};
+
+		if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) return msg.reply(lang.play_songlengthlimit);
+
+		if (serverQueue) {
+			await serverQueue.songs.push(song);
+			if (playlist) return;
+
+			const duration = lang.play_duration.replace('%duration', song.duration);
+			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
+			const embed = new Discord.RichEmbed()
+				.setAuthor(lang.play_songadded)
+				.setDescription(duration)
+				.setThumbnail(song.thumbnail)
+				.setColor('#009900')
+				.setURL(song.url)
+				.setFooter(published)
+				.setTitle(song.title);
+
+			return msg.channel.send({
+				embed: embed
+			});
+		} else {
+			/* eslint no-else-return: 0 */
+			const queueConstruct = {
+				textChannel: msg.channel,
+				voiceChannel: voiceChannel,
+				connection: null,
+				songs: [],
+				volume: 2,
+				playing: true
+			};
+			await queue.set(msg.guild.id, queueConstruct);
+
+			await queueConstruct.songs.push(song);
+
+			const vote = {
+				users: []
+			};
+
+			skipvote.set(msg.guild.id, vote);
+
+			try {
+				const connection = await voiceChannel.join();
+				queueConstruct.connection = connection;
+				await play(msg.guild, queueConstruct.songs[0]);
+			} catch (error) {
+				await queue.delete(msg.guild.id);
+				await skipvote.delete(msg.guild.id);
+				return msg.channel.send(lang.play_errorjoin);
+			}
+		}
+	}
+	/* eslint guard-for-in: 0 */
+	for (const song in tableload.playlist[args.slice().join(' ').toLowerCase()]) {
+		const video = tableload.playlist[args.slice().join(' ').toLowerCase()][song];
+		await handleVideo(video, msg, voiceChannel);
 	}
 };
 

@@ -10,7 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (msg.member.voiceChannel.members.size === 2) {
 		msg.channel.send(lang.skip_skippedalone);
 		await serverQueue.connection.dispatcher.destroy();
-		return undefined;
+		return;
 	}
 
 	const map = client.skipvote;
@@ -36,13 +36,12 @@ exports.run = async (client, msg, args, lang) => {
 		msg.channel.send(vote);
 	}
 
-	const number = parseInt(tableconfig.skipnumber);
+	const number = parseInt(tableconfig.skipnumber, 10);
 
-	if (mapload.users.length !== number) return undefined;
+	if (mapload.users.length !== number) return;
 
 	msg.channel.send(lang.skip_skipped);
 	await serverQueue.connection.dispatcher.destroy();
-	return undefined;
 };
 
 exports.conf = {
