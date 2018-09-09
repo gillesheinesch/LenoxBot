@@ -21,8 +21,8 @@ exports.run = (client, msg, args, lang) => {
 		if (client.commands.has(command)) {
 			command = client.commands.get(command);
 
-			if (command.help.category == 'botowner' && msg.author.id !== '238590234135101440') return msg.channel.send('You dont have permissions to execute this command!');
-			if (command.help.category == 'staff' && !msg.member.roles.get('386627285119402006')) return msg.channel.send('You dont have permissions to execute this command!');
+			if (command.help.category == 'botowner' && msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+			if (command.help.category == 'staff' && !msg.member.roles.get('386627285119402006')) return msg.channel.send(lang.botownercommands_error);
 
 			var aliases = [];
 			if (command.conf.aliases.length !== 0) {
