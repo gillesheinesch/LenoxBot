@@ -7,15 +7,21 @@ exports.run = async (client, msg, args, lang) => {
 		exec
 	} = require('child_process');
 	exec(code, (err, stdout, stderr) => {
-		if (err) msg.channel.send(err, {
-			code: 'xl'
-		});
-		if (stderr) msg.channel.send(stderr, {
-			code: 'xl'
-		});
-		if (stdout) msg.channel.send(stdout, {
-			code: 'xl'
-		});
+		if (err) {
+			msg.channel.send(err, {
+				code: 'xl'
+			});
+		}
+		if (stderr) {
+			msg.channel.send(stderr, {
+				code: 'xl'
+			});
+		}
+		if (stdout) {
+			msg.channel.send(stdout, {
+				code: 'xl'
+			});
+		}
 		if (!stderr && !stdout) msg.channel.send(lang.bash_done);
 	});
 };
@@ -23,7 +29,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['exec'],
 	userpermissions: [],
 	dashboardsettings: true

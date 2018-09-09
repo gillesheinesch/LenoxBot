@@ -3,8 +3,8 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (args.slice(0).length === 0) return msg.reply(lang.deletecustomcommand_noinput);
 
-	for (var i = 0; i < tableload.customcommands.length; i++) {
-		if (tableload.customcommands[i].name.toLowerCase() === args.slice(0).join(" ").toLowerCase()) {
+	for (let i = 0; i < tableload.customcommands.length; i++) {
+		if (tableload.customcommands[i].name.toLowerCase() === args.slice(0).join(' ').toLowerCase()) {
 			tableload.customcommands.splice(i, 1);
 			await client.guildconfs.set(msg.guild.id, tableload);
 
@@ -17,7 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Customcommands",
+	shortDescription: 'Customcommands',
 	aliases: ['dcc'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

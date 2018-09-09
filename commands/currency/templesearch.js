@@ -1,7 +1,7 @@
 const sql = require('sqlite');
-sql.open("../lenoxbotscore.sqlite");
-exports.run = async(client, msg, args, lang) => {
-	var random = Math.random();
+sql.open('../lenoxbotscore.sqlite');
+exports.run = async (client, msg, args, lang) => {
+	const random = Math.random();
 	const userdb = client.userdb.get(msg.author.id);
 
 	if (userdb.inventory.flashlight === 0) {
@@ -15,7 +15,7 @@ exports.run = async(client, msg, args, lang) => {
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {
-				sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+				sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 			}
 			sql.run(`UPDATE medals SET medals = ${row.medals + result} WHERE userId = ${msg.author.id}`);
 		});
@@ -25,18 +25,17 @@ exports.run = async(client, msg, args, lang) => {
 
 		const received = lang.templesearch_received.replace('%amount', `\`$${result}\``);
 		return msg.reply(received);
-	} else {
-		userdb.inventory.pickaxe = userdb.inventory.flashlight - 1;
-		await client.userdb.set(msg.author.id, userdb);
-
-		return msg.reply(lang.templesearch_dust);
 	}
+	userdb.inventory.pickaxe = userdb.inventory.flashlight - 1;
+	await client.userdb.set(msg.author.id, userdb);
+
+	return msg.reply(lang.templesearch_dust);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Games",
+	shortDescription: 'Games',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true,
@@ -48,5 +47,5 @@ exports.help = {
 	usage: 'templesearch',
 	example: ['templesearch'],
 	category: 'currency',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

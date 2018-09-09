@@ -1,18 +1,18 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const api = client.newsapi;
-	var index = 0;
-	var margs = msg.content.split(" ");
+	let index = 0;
+	const margs = msg.content.split(' ');
 
 	const validationofnewspaper = ['abc-news-au', 'al-jazeera-english', 'ars-technica', 'associated-press', 'bbc-news', 'bbc-sport', 'bild', 'bloomberg', 'breitbart-news', 'business-insider', 'business-insider-uk', 'buzzfeed', 'cnbc', 'cnn', 'daily-mail', 'der-tagesspiegel', 'die-zeit', 'engadget'];
-	
-	var newsnotexist = lang.news_newsnotexist.replace('%newslist', validationofnewspaper.join(', '));
-	var newspaper = new Discord.RichEmbed()
-	.setDescription(newsnotexist)
-	.setColor('#76c65d');
+
+	const newsnotexist = lang.news_newsnotexist.replace('%newslist', validationofnewspaper.join(', '));
+	const newspaper = new Discord.RichEmbed()
+		.setDescription(newsnotexist)
+		.setColor('#76c65d');
 
 	if (!margs[1]) return msg.channel.send({ embed: newspaper });
-	for (var i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validationofnewspaper.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'bild') {
 				const r = await api.articles({
@@ -669,7 +669,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
@@ -680,5 +680,5 @@ exports.help = {
 	usage: 'news {newspaper}',
 	example: ['news bild'],
 	category: 'searches',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

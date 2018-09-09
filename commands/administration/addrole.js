@@ -1,6 +1,6 @@
 exports.run = function(client, msg, args, lang) {
-	let addedrole = args.slice(1).join(' ');
-	let user = msg.mentions.members.first();
+	const addedrole = args.slice(1).join(' ');
+	const user = msg.mentions.members.first();
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
 
 	if (msg.mentions.members.size < 1) return msg.reply(lang.addrole_nomention);
@@ -15,7 +15,7 @@ exports.run = function(client, msg, args, lang) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Roles",
+	shortDescription: 'Roles',
 	aliases: ['ar'],
 	userpermissions: ['MANAGE_ROLES'],
 	dashboardsettings: true
@@ -26,5 +26,5 @@ exports.help = {
 	usage: 'addrole {@User} {name of the role}',
 	example: ['addrole @Monkeyyy11#7584 Member'],
 	category: 'administration',
-    botpermissions: ['MANAGE_ROLES', 'SEND_MESSAGES']
+	botpermissions: ['MANAGE_ROLES', 'SEND_MESSAGES']
 };

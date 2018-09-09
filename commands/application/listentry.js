@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.application) {
@@ -15,25 +15,25 @@ exports.run = async(client, msg, args, lang) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-    const templates = [];
+	const templates = [];
 	const embed = new Discord.RichEmbed()
-	.setColor('#ABCDEF');
+		.setColor('#ABCDEF');
 
 	try {
-		for (var i = 0; i < tableload.application.template.length; i++) {
+		for (let i = 0; i < tableload.application.template.length; i++) {
 			templates.push(tableload.application.template[i]);
 		}
-		embed.addField(lang.listentry_current, templates.join("\n"), true);
+		embed.addField(lang.listentry_current, templates.join('\n'), true);
 		return msg.channel.send({ embed: embed });
 	} catch (error) {
 		return msg.channel.send(lang.listentry_error);
-    }
+	}
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Entries",
+	shortDescription: 'Entries',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
@@ -44,5 +44,5 @@ exports.help = {
 	usage: 'listentry',
 	example: ['listentry'],
 	category: 'application',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

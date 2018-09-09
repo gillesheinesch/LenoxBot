@@ -1,4 +1,4 @@
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
 	const tableconfig = client.guildconfs.get(msg.guild.id);
@@ -12,7 +12,7 @@ exports.run = async(client, msg, args, lang) => {
 		await serverQueue.connection.dispatcher.destroy();
 		return undefined;
 	}
-	
+
 	const map = client.skipvote;
 
 	const mapload = map.get(msg.guild.id);
@@ -24,16 +24,15 @@ exports.run = async(client, msg, args, lang) => {
 	if (!tableconfig.skipnumber) {
 		tableconfig.skipnumber = 1;
 		await client.guildconfs.set(msg.guild.id, tableconfig);
-		
 	}
 
 	if (mapload.users.length === 1) {
-		var newvote = lang.skip_newvote.replace('%author', msg.author).replace('%skipnumber', tableconfig.skipnumber);
+		const newvote = lang.skip_newvote.replace('%author', msg.author).replace('%skipnumber', tableconfig.skipnumber);
 		msg.channel.send(newvote);
 	}
 
 	if (mapload.users.length > 1) {
-		var vote = lang.skip_vote.replace('%author', msg.author).replace('%currentvotes', mapload.users.length).replace('%skipnumber', tableconfig.skipnumber);
+		const vote = lang.skip_vote.replace('%author', msg.author).replace('%currentvotes', mapload.users.length).replace('%skipnumber', tableconfig.skipnumber);
 		msg.channel.send(vote);
 	}
 
@@ -49,7 +48,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Skip",
+	shortDescription: 'Skip',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
@@ -60,5 +59,5 @@ exports.help = {
 	usage: 'skip',
 	example: ['skip'],
 	category: 'music',
-    botpermissions: ['SEND_MESSAGES', 'SPEAK']
+	botpermissions: ['SEND_MESSAGES', 'SPEAK']
 };

@@ -1,17 +1,17 @@
 const Discord = require('discord.js');
 const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
-	var reason = args.slice(2).join(' ');
-	var time = args.slice(1, 2).join(' ');
-	var user = msg.mentions.users.first();
-	var membermention = msg.mentions.members.first();
+	const reason = args.slice(2).join(' ');
+	const time = args.slice(1, 2).join(' ');
+	let user = msg.mentions.users.first();
+	const membermention = msg.mentions.members.first();
 	const botconfs = await client.botconfs.get('botconfs');
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) {
 		try {
-			if (!msg.guild.members.get(args.slice(0, 1).join(" "))) throw 'Usernotfound';
-			user = msg.guild.members.get(args.slice(0, 1).join(" "));
+			if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw 'Usernotfound';
+			user = msg.guild.members.get(args.slice(0, 1).join(' '));
 			user = user.user;
 		} catch (error) {
 			return msg.reply(lang.ban_idcheck);
@@ -26,10 +26,10 @@ exports.run = async (client, msg, args, lang) => {
 	if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission);
 	msg.guild.ban(user);
 
-	const bantime = ms(args.slice(1, 2).join(" "));
+	const bantime = ms(args.slice(1, 2).join(' '));
 	if (bantime === undefined) return msg.channel.send(lang.temporaryban_invalidtimeformat);
 
-	var banned = lang.temporaryban_banned.replace('%usertag', user.tag).replace('%bantime', ms(bantime));
+	const banned = lang.temporaryban_banned.replace('%usertag', user.tag).replace('%bantime', ms(bantime));
 	const banembed = new Discord.RichEmbed()
 		.setColor('#99ff66')
 		.setDescription(`✅ ${banned}`);
@@ -37,16 +37,18 @@ exports.run = async (client, msg, args, lang) => {
 		embed: banembed
 	});
 
-	var bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason).replace('%bantime', ms(bantime));
-	var embed = new Discord.RichEmbed()
+	var bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
+		.replace('%bantime', ms(bantime));
+	const embed = new Discord.RichEmbed()
 		.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
 		.setColor('#FF0000')
 		.setTimestamp()
 		.setDescription(bandescription);
 
-	if (tableload.tempbananonymous === "true") {
-		var bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason).replace('%bantime', ms(bantime));
+	if (tableload.tempbananonymous === 'true') {
+		var bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
+			.replace('%bantime', ms(bantime));
 		const ananonymousembed = new Discord.RichEmbed()
 			.setAuthor(`${lang.temporaryban_bannedby} ${client.user.username}${client.user.discriminator}`, client.user.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)
@@ -70,7 +72,7 @@ exports.run = async (client, msg, args, lang) => {
 		});
 	}
 
-	botconfs.banscount = botconfs.banscount + 1;
+	botconfs.banscount += 1;
 
 	const bansettings = {
 		discordserverid: msg.guild.id,
@@ -86,13 +88,13 @@ exports.run = async (client, msg, args, lang) => {
 	botconfs.bans[botconfs.banscount] = bansettings;
 	await client.botconfs.set('botconfs', botconfs);
 
-	setTimeout(async function () {
+	setTimeout(async () => {
 		const fetchedbans = await msg.guild.fetchBans();
 		if (fetchedbans.has(user.id)) {
 			await msg.guild.unban(user);
 
-			var unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
-			var automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+			const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
+			const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 			const unmutedembed = new Discord.RichEmbed()
 				.setAuthor(unbannedby, client.user.displayAvatarURL)
 				.setThumbnail(user.displayAvatarURL)
@@ -115,7 +117,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Ban",
+	shortDescription: 'Ban',
 	aliases: ['tempban'],
 	userpermissions: ['BAN_MEMBERS'],
 	dashboardsettings: true

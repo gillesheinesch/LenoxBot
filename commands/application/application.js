@@ -17,24 +17,24 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (tableload.application.status === 'false') return msg.channel.send(lang.toggleapplication_error);
 
-	var addentry = lang.application_addentry.replace('%prefix', tableload.prefix);
+	const addentry = lang.application_addentry.replace('%prefix', tableload.prefix);
 	if (tableload.application.template.length === 0) return msg.channel.send(addentry);
 
-	var reactionnumber = lang.application_reactionnumber.replace('%prefix', tableload.prefix);
+	const reactionnumber = lang.application_reactionnumber.replace('%prefix', tableload.prefix);
 	if (tableload.application.reactionnumber === '') return msg.channel.send(reactionnumber);
 
-	var undefinedmessages = lang.application_undefinedmessages.replace('%prefix', tableload.prefix).replace('%prefix', tableload.prefix);
+	const undefinedmessages = lang.application_undefinedmessages.replace('%prefix', tableload.prefix).replace('%prefix', tableload.prefix);
 	if (tableload.application.acceptedmessage === '' || tableload.application.rejectedmessage === '') return msg.channel.send(undefinedmessages);
 
-	var newapplication = lang.application_newapplication.replace('%author', msg.author);
+	const newapplication = lang.application_newapplication.replace('%author', msg.author);
 	msg.channel.send(newapplication);
 
-	var array = [];
+	const array = [];
 
 	for (var i = 0; i < tableload.application.template.length; i++) {
 		try {
 			await msg.channel.send(`${msg.author}, ${tableload.application.template[i]}`);
-			var response = await msg.channel.awaitMessages(msg2 => msg2.attachments.size === 0 && msg.author.id === msg2.author.id && !msg2.author.bot, {
+			const response = await msg.channel.awaitMessages(msg2 => msg2.attachments.size === 0 && msg.author.id === msg2.author.id && !msg2.author.bot, {
 				maxMatches: 1,
 				time: 300000,
 				errors: ['time']
@@ -42,25 +42,25 @@ exports.run = async (client, msg, args, lang) => {
 			array.push(response.first().content);
 			await response.first().delete();
 		} catch (error) {
-			var timeerror = lang.application_timeerror.replace('%prefix', tableload.prefix);
+			const timeerror = lang.application_timeerror.replace('%prefix', tableload.prefix);
 			return msg.channel.send(timeerror);
 		}
 	}
 
-	var temparray = [];
+	const temparray = [];
 	for (var i = 0; i < tableload.application.template.length; i++) {
 		temparray.push(`${tableload.application.template[i]} \n${array[i]}`);
 	}
 
-	var content = temparray.join("\n\n");
-	
-	var confs = {
+	const content = temparray.join('\n\n');
+
+	const confs = {
 		guildid: msg.guild.id,
 		authorid: msg.author.id,
 		applicationid: tableload.application.applicationid + 1,
 		date: msg.createdTimestamp,
 		acceptedorrejected: '',
-		status: "open",
+		status: 'open',
 		content: content,
 		yes: [],
 		no: []
@@ -95,7 +95,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['apply'],
 	userpermissions: [],
 	dashboardsettings: true

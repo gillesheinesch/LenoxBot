@@ -2,15 +2,15 @@ const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = await client.guildconfs.get(msg.guild.id);
 	const botconfs = await client.botconfs.get('botconfs');
-	let membermention = msg.mentions.members.first();
-	let user = msg.mentions.users.first();
+	const membermention = msg.mentions.members.first();
+	const user = msg.mentions.users.first();
 
-	var muteroleundefined = lang.unmute_muteroleundefined.replace('%prefix', tableload.prefix);
+	const muteroleundefined = lang.unmute_muteroleundefined.replace('%prefix', tableload.prefix);
 	if (tableload.muterole === '') return msg.channel.send(muteroleundefined);
 	if (!membermention) return msg.channel.send(lang.unmute_nomention);
 	if (!args.slice(1).join(' ')) return msg.channel.send(lang.unmute_noinput);
 
-	var rolenotexist = lang.unmute_rolenotexist.replace('%prefix', tableload.prefix);
+	const rolenotexist = lang.unmute_rolenotexist.replace('%prefix', tableload.prefix);
 	if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(rolenotexist);
 
 	const role = msg.guild.roles.get(tableload.muterole);
@@ -18,8 +18,8 @@ exports.run = async (client, msg, args, lang) => {
 	if (membermention.roles.has(tableload.muterole)) {
 		await membermention.removeRole(role);
 
-		var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
-		var unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(1).join(" "));
+		const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+		const unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(1).join(' '));
 		const embed = new Discord.RichEmbed()
 			.setAuthor(unmutedby, msg.author.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)
@@ -38,7 +38,7 @@ exports.run = async (client, msg, args, lang) => {
 			});
 		}
 
-		var unmuted = lang.unmute_unmuted.replace('%username', user.username);
+		const unmuted = lang.unmute_unmuted.replace('%username', user.username);
 		const unmuteembed = new Discord.RichEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${unmuted}`);
@@ -46,9 +46,9 @@ exports.run = async (client, msg, args, lang) => {
 			embed: unmuteembed
 		});
 
-		for (var i in botconfs.mutes) {
+		for (const i in botconfs.mutes) {
 			if (botconfs.mutes[i].discordserverid === membermention.guild.id && botconfs.mutes[i].memberid === membermention.id) {
-				var muteOfThisUser = botconfs.mutes[i]
+				var muteOfThisUser = botconfs.mutes[i];
 			}
 		}
 
@@ -63,7 +63,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Mute",
+	shortDescription: 'Mute',
 	aliases: [],
 	userpermissions: ['KICK_MEMBERS'],
 	dashboardsettings: true

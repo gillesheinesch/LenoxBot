@@ -12,9 +12,9 @@ exports.run = async (client, msg, args, lang) => {
 	const YouTube = require('simple-youtube-api');
 	const youtube = new YouTube(config.googlekey);
 	const validation = ['new', 'delete', 'list', 'addsong', 'removesong'];
-	const margs = msg.content.split(" ");
-	var newplaylisttitle = '';
-	var newplaylistsongs = [];
+	const margs = msg.content.split(' ');
+	let newplaylisttitle = '';
+	const newplaylistsongs = [];
 
 	if (tableload.premium.status === false) return msg.reply(lang.playlist_noguildpremium);
 
@@ -23,16 +23,16 @@ exports.run = async (client, msg, args, lang) => {
 			if (margs[1].toLowerCase() === 'new') {
 				if (Object.keys(tableload.playlist).length >= 8) return msg.reply(lang.playlist_maxplaylist);
 				if (!args.slice(1) || args.slice(1).length === 0) return msg.reply(lang.playlist_errortitle);
-				if (args.slice(1).join(" ").length > 30) return msg.reply(lang.playlist_titlelengtherror);
-				if (tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply(lang.playlist_alreadyexists);
+				if (args.slice(1).join(' ').length > 30) return msg.reply(lang.playlist_titlelengtherror);
+				if (tableload.playlist[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_alreadyexists);
 
-				newplaylisttitle = args.slice(1).join(" ").toLowerCase();
+				newplaylisttitle = args.slice(1).join(' ').toLowerCase();
 
 				const addnewsong = lang.playlist_addnewsong.replace('%playlistname', newplaylisttitle);
 				await msg.reply(addnewsong);
 				for (var i = 0; i < 100; i++) {
 					try {
-						var responsesongs = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
+						const responsesongs = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
 							maxMatches: 1,
 							time: 60000,
 							errors: ['time']
@@ -52,9 +52,8 @@ exports.run = async (client, msg, args, lang) => {
 								const video2 = await youtube.getVideoByID(video.id);
 								if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
 									return msg.reply(lang.play_songlengthlimit);
-								} else {
-									newplaylistsongs.push(video2);
 								}
+								newplaylistsongs.push(video2);
 							}
 							await responsesongs.delete();
 							const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', playlist.title);
@@ -100,18 +99,17 @@ exports.run = async (client, msg, args, lang) => {
 
 									if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
 										return msg.reply(lang.play_songlengthlimit);
-									} else {
-										newplaylistsongs.push(video);
 									}
+									newplaylistsongs.push(video);
+
 
 									if (newplaylistsongs.length === 12) {
 										tableload.playlist[newplaylisttitle.toLowerCase()] = newplaylistsongs;
 										await client.guildconfs.set(msg.guild.id, tableload);
 										return msg.reply(lang.playlist_finish);
-									} else {
-										const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', Util.escapeMarkdown(video.title));
-										msg.reply(newsongaddedtoplaylist);
 									}
+									const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', Util.escapeMarkdown(video.title));
+									msg.reply(newsongaddedtoplaylist);
 								} catch (err) {
 									return msg.channel.send(lang.play_noresult);
 								}
@@ -121,32 +119,31 @@ exports.run = async (client, msg, args, lang) => {
 						return msg.channel.send(lang.playlist_timeerror);
 					}
 				}
-
 			} else if (margs[1].toLowerCase() === 'list') {
-				const noplaylistaddedyet = lang.playlist_noplaylistaddedyet.replace('%prefix', tableload.prefix)
+				const noplaylistaddedyet = lang.playlist_noplaylistaddedyet.replace('%prefix', tableload.prefix);
 				if (Object.keys(tableload.playlist).length === 0) return msg.reply(noplaylistaddedyet);
 
 				if (args.slice(1).length !== 0 && args.slice(1) !== '') {
 					const input = args.slice(1);
 
-					if (!tableload.playlist[input.join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+					if (!tableload.playlist[input.join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 					const listsongplaylist = new Discord.RichEmbed()
 						.setAuthor(lang.playlist_embedtitle)
 						.setColor('#66ff33');
 
 					const songtitlearray = [];
-					for (var x in tableload.playlist[input.join(" ").toLowerCase()]) {
-						songtitlearray.push(tableload.playlist[input.join(" ").toLowerCase()][x].title);
+					for (var x in tableload.playlist[input.join(' ').toLowerCase()]) {
+						songtitlearray.push(tableload.playlist[input.join(' ').toLowerCase()][x].title);
 					}
 
-					listsongplaylist.setDescription(`${songtitlearray.join("\n")}`);
+					listsongplaylist.setDescription(`${songtitlearray.join('\n')}`);
 
 					return msg.channel.send({
 						embed: listsongplaylist
 					});
 				}
-				var listplaylistobject = [];
+				const listplaylistobject = [];
 				const listplaylistembed = new Discord.RichEmbed()
 					.setAuthor(lang.playlist_playlistserverembed)
 					.setColor('#66ff33');
@@ -155,27 +152,27 @@ exports.run = async (client, msg, args, lang) => {
 					listplaylistobject.push(x);
 				}
 
-				listplaylistembed.setDescription(`${listplaylistobject.join("\n")}`)
+				listplaylistembed.setDescription(`${listplaylistobject.join('\n')}`);
 
 				return msg.channel.send({
 					embed: listplaylistembed
 				});
 			} else if (margs[1].toLowerCase() === 'delete') {
-				if (!tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+				if (!tableload.playlist[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
-				delete tableload.playlist[args.slice(1).join(" ").toLowerCase()];
+				delete tableload.playlist[args.slice(1).join(' ').toLowerCase()];
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.reply(lang.playlist_deleted);
 			} else if (margs[1].toLowerCase() === 'addsong') {
-				if (!tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
-				if (tableload.playlist[args.slice(1).join(" ").toLowerCase()].length >= 12) return msg.reply(lang.playlist_max12songs);
+				if (!tableload.playlist[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+				if (tableload.playlist[args.slice(1).join(' ').toLowerCase()].length >= 12) return msg.reply(lang.playlist_max12songs);
 
-				const selectedplaylist = tableload.playlist[args.slice(1).join(" ").toLowerCase()];
+				const selectedplaylist = tableload.playlist[args.slice(1).join(' ').toLowerCase()];
 
 				await msg.channel.send(lang.playlist_questionaddnewsong);
 				try {
-					var newsongaddtoplaylist = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
+					const newsongaddtoplaylist = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 60000,
 						errors: ['time']
@@ -189,71 +186,69 @@ exports.run = async (client, msg, args, lang) => {
 							const video2 = await youtube.getVideoByID(video.id);
 							if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
 								return msg.reply(lang.play_songlengthlimit);
-							} else {
-								selectedplaylist.push(video2);
 							}
+							selectedplaylist.push(video2);
 						}
 						await client.guildconfs.set(msg.guild.id, tableload);
 						const newsongadded = lang.playlist_newsongadded.replace('%songname', playlist.title);
 						return msg.channel.send(newsongadded);
-					} else {
+					}
+					try {
+						var video = await youtube.getVideo(url);
+					} catch (error) {
 						try {
-							var video = await youtube.getVideo(url);
-						} catch (error) {
+							const searchString = newsongaddtoplaylist.first().content;
+							var videos = await youtube.searchVideos(searchString, 10);
+
+							if (videos.length === 0) return msg.channel.send(lang.play_noresult);
+
+							let index = 0;
+							const embed = new Discord.RichEmbed()
+								.setColor('#7BB3FF')
+								.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
+								.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
+
+							const embed2 = new Discord.RichEmbed()
+								.setColor('#0066CC')
+								.setDescription(lang.play_value);
+
+							await msg.channel.send({
+								embed
+							});
+							await msg.channel.send({
+								embed: embed2
+							});
 							try {
-								const searchString = newsongaddtoplaylist.first().content;
-								var videos = await youtube.searchVideos(searchString, 10);
-
-								if (videos.length === 0) return msg.channel.send(lang.play_noresult);
-
-								let index = 0;
-								const embed = new Discord.RichEmbed()
-									.setColor('#7BB3FF')
-									.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
-									.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
-
-								const embed2 = new Discord.RichEmbed()
-									.setColor('#0066CC')
-									.setDescription(lang.play_value);
-
-								await msg.channel.send({
-									embed
+								var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
+									maxMatches: 1,
+									time: 60000,
+									errors: ['time']
 								});
-								await msg.channel.send({
-									embed: embed2
-								});
-								try {
-									var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
-										maxMatches: 1,
-										time: 60000,
-										errors: ['time']
-									});
-								} catch (err) {
-									return msg.channel.send(lang.playlist_timeerror);
-								}
-								const videoIndex = parseInt(response.first().content);
-								var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-
-								if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
-									return msg.reply(lang.play_songlengthlimit);
-								} else {
-									selectedplaylist.push(video);
-								}
-
-								await client.guildconfs.set(msg.guild.id, tableload);
-
-								const newsongadded = lang.playlist_newsongadded.replace('%songname', Util.escapeMarkdown(video.title))
-								return msg.reply(newsongadded);
 							} catch (err) {
-								return msg.channel.send(lang.play_noresult);
+								return msg.channel.send(lang.playlist_timeerror);
 							}
+							const videoIndex = parseInt(response.first().content);
+							var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+
+							if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
+								return msg.reply(lang.play_songlengthlimit);
+							}
+							selectedplaylist.push(video);
+
+
+							await client.guildconfs.set(msg.guild.id, tableload);
+
+							const newsongadded = lang.playlist_newsongadded.replace('%songname', Util.escapeMarkdown(video.title));
+							return msg.reply(newsongadded);
+						} catch (err) {
+							return msg.channel.send(lang.play_noresult);
 						}
 					}
 				} catch (err) {
 					return msg.channel.send(lang.playlist_timeerror);
 				}
 			} else if (margs[1].toLowerCase() === 'removesong') {
-				if (!tableload.playlist[args.slice(1).join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+				if (!tableload.playlist[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 				await msg.reply(lang.playlist_questionremovesong);
 				try {
@@ -266,9 +261,9 @@ exports.run = async (client, msg, args, lang) => {
 					return msg.channel.send(lang.playlist_timeerror);
 				}
 
-				for (var x in tableload.playlist[args.slice(1).join(" ").toLowerCase()]) {
-					if (tableload.playlist[args.slice(1).join(" ").toLowerCase()][x].title.toLowerCase() === removesong.first().content.toLowerCase()) {
-						delete tableload.playlist[args.slice(1).join(" ").toLowerCase()][x];
+				for (var x in tableload.playlist[args.slice(1).join(' ').toLowerCase()]) {
+					if (tableload.playlist[args.slice(1).join(' ').toLowerCase()][x].title.toLowerCase() === removesong.first().content.toLowerCase()) {
+						delete tableload.playlist[args.slice(1).join(' ').toLowerCase()][x];
 						await client.guildconfs.set(msg.guild.id, tableload);
 
 						const removedsong = lang.playlist_removedsong.replace('%songname', x.title);
@@ -286,7 +281,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: ['MANAGE_GUILD'],
 	dashboardsettings: true

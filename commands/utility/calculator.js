@@ -15,16 +15,16 @@ exports.run = (client, msg, args, lang) => {
 	}
 
 	const embed = new Discord.RichEmbed()
-	.setDescription(`**${lang.calculator_calculation}**\n\`\`\`\n${question}\n\`\`\` **${lang.calculator_result}**\n\`\`\`\n${answer}\n\`\`\``)
-	.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
-	.setColor('#0066CC');
+		.setDescription(`**${lang.calculator_calculation}**\n\`\`\`\n${question}\n\`\`\` **${lang.calculator_result}**\n\`\`\`\n${answer}\n\`\`\``)
+		.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+		.setColor('#0066CC');
 	msg.channel.send({ embed });
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['cal'],
 	userpermissions: [],
 	dashboardsettings: true
@@ -35,5 +35,5 @@ exports.help = {
 	usage: 'calculator {calculation}',
 	example: ['calculator 1*20', 'calculator 100/10', 'calculator 100+10', 'calculator 100-10'],
 	category: 'utility',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

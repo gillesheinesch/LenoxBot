@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const botconfs = await client.botconfs.get('botconfs');
-	let reason = args.slice(1).join(' ');
+	const reason = args.slice(1).join(' ');
 	client.unbanReason = reason;
 	client.unbanAuth = msg.author;
-	let user = args[0];
+	const user = args[0];
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) return msg.reply(lang.unban_nouserid);
@@ -15,7 +15,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	await msg.guild.unban(user);
 
-	var unbanned = lang.unban_unbanned.replace('%userid', user);
+	const unbanned = lang.unban_unbanned.replace('%userid', user);
 	const unbanembed = new Discord.RichEmbed()
 		.setColor('#99ff66')
 		.setDescription(`✅ ${unbanned}`);
@@ -23,8 +23,8 @@ exports.run = async (client, msg, args, lang) => {
 		embed: unbanembed
 	});
 
-	var unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
-	var unbandescription = lang.unban_unbandescription.replace('%userid', user).replace('%reason', reason);
+	const unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	const unbandescription = lang.unban_unbandescription.replace('%userid', user).replace('%reason', reason);
 	const embed = new Discord.RichEmbed()
 		.setAuthor(unbannedby, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
@@ -38,9 +38,9 @@ exports.run = async (client, msg, args, lang) => {
 			embed: embed
 		});
 	}
-	for (var i in botconfs.bans) {
+	for (const i in botconfs.bans) {
 		if (botconfs.bans[i].discordserverid === msg.guild.id && botconfs.mutes[i].memberid === user) {
-			var banOfThisUser = botconfs.bans[i]
+			var banOfThisUser = botconfs.bans[i];
 		}
 	}
 	if (banOfThisUser) {
@@ -52,7 +52,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Ban",
+	shortDescription: 'Ban',
 	aliases: ['u'],
 	userpermissions: ['BAN_MEMBERS'],
 	dashboardsettings: true

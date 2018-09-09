@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.application) {
@@ -18,7 +18,7 @@ exports.run = async(client, msg, args, lang) => {
 
 	const number = args.slice();
 
-	var current = lang.reactionnumber_current.replace('%reactionnumber', tableload.reactionnumber);
+	const current = lang.reactionnumber_current.replace('%reactionnumber', tableload.reactionnumber);
 	if (number.length === 0 && tableload.application.reactionnumber !== '') return msg.channel.send(current);
 
 	if (number.length > 1) return msg.channel.send(lang.reactionnumber_error);
@@ -28,14 +28,14 @@ exports.run = async(client, msg, args, lang) => {
 	tableload.application.reactionnumber = number;
 	await client.guildconfs.set(msg.guild.id, tableload);
 
-	var changed = lang.reactionnumber_changed.replace('%newreactionnumber', number);
+	const changed = lang.reactionnumber_changed.replace('%newreactionnumber', number);
 	msg.channel.send(changed);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Settings",
+	shortDescription: 'Settings',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
@@ -46,5 +46,5 @@ exports.help = {
 	usage: 'reactionnumber {number}',
 	example: ['reactionnumber 2'],
 	category: 'application',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

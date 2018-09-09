@@ -1,24 +1,23 @@
 const Discord = require(`discord.js`);
 exports.run = (client, msg, args, lang) => {
-	let randomsize = [lang.penissizecalculator_1,
+	const randomsize = [lang.penissizecalculator_1,
 		lang.penissizecalculator_2,
 		lang.penissizecalculator_3,
 		lang.penissizecalculator_4,
 		lang.penissizecalculator_5,
 		lang.penissizecalculator_6];
-	var rand = Math.floor(Math.random() * randomsize.length);
+	const rand = Math.floor(Math.random() * randomsize.length);
 
 	if (!msg.mentions.members.first()) {
 		return msg.channel.send(`${msg.author}, ${randomsize[rand]}`);
-	} else {
-		msg.channel.send(`${msg.mentions.members.first().displayName}, ${randomsize[rand]}`);
 	}
+	msg.channel.send(`${msg.mentions.members.first().displayName}, ${randomsize[rand]}`);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Jokes",
+	shortDescription: 'Jokes',
 	aliases: ['psc'],
 	userpermissions: [],
 	dashboardsettings: true

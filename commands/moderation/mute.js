@@ -3,40 +3,42 @@ const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const botconfs = await client.botconfs.get('botconfs');
-	let membermention = msg.mentions.members.first();
-	let user = msg.mentions.users.first();
+	const membermention = msg.mentions.members.first();
+	const user = msg.mentions.users.first();
 
-	var muteroleundefined = lang.mute_muteroleundefined.replace('%prefix', tableload.prefix);
+	const muteroleundefined = lang.mute_muteroleundefined.replace('%prefix', tableload.prefix);
 	if (tableload.muterole === '') return msg.channel.send(muteroleundefined);
 	if (!membermention) return msg.channel.send(lang.mute_nomention);
 	if (!args.slice(1).join(' ')) return msg.channel.send(lang.mute_notime);
 	if (!args.slice(2).join(' ')) return msg.channel.send(lang.mute_noinput);
 
-	var rolenotexist = lang.mute_rolenotexist.replace('%prefix', tableload.prefix)
+	const rolenotexist = lang.mute_rolenotexist.replace('%prefix', tableload.prefix);
 	if (!msg.guild.roles.get(tableload.muterole)) return msg.channel.send(rolenotexist);
 
 	const role = msg.guild.roles.get(tableload.muterole);
 
-	const mutetime = ms(args.slice(1, 2).join(" "));
+	const mutetime = ms(args.slice(1, 2).join(' '));
 	if (mutetime === undefined) return msg.channel.send(lang.mute_invalidtimeformat);
 
-	var alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
+	const alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
 	if (membermention.roles.get(tableload.muterole)) return msg.channel.send(alreadymuted);
 
 	membermention.addRole(role);
 
 	var mutedby = lang.mute_mutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
-	var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" ")).replace('%mutetime', ms(mutetime));
-	var embed = new Discord.RichEmbed()
+	var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(' '))
+		.replace('%mutetime', ms(mutetime));
+	const embed = new Discord.RichEmbed()
 		.setAuthor(mutedby, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
 		.setColor('#FF0000')
 		.setTimestamp()
 		.setDescription(mutedescription);
 
-	if (tableload.muteanonymous === "true") {
+	if (tableload.muteanonymous === 'true') {
 		var mutedby = lang.mute_mutedby.replace('%authortag', `${client.user.username}#${client.user.discriminator}`);
-		var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(" ")).replace('%mutetime', ms(mutetime));
+		var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(' '))
+			.replace('%mutetime', ms(mutetime));
 		const anonymousembed = new Discord.RichEmbed()
 			.setAuthor(mutedby, client.user.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)
@@ -59,13 +61,13 @@ exports.run = async (client, msg, args, lang) => {
 		});
 	}
 
-	botconfs.mutescount = botconfs.mutescount + 1;
+	botconfs.mutescount += 1;
 
 	const mutesettings = {
 		discordserverid: msg.guild.id,
 		memberid: membermention.id,
 		moderatorid: msg.author.id,
-		reason: args.slice(2).join(" "),
+		reason: args.slice(2).join(' '),
 		roleid: role.id,
 		mutetime: mutetime,
 		muteCreatedAt: Date.now(),
@@ -76,7 +78,7 @@ exports.run = async (client, msg, args, lang) => {
 	botconfs.mutes[botconfs.mutescount] = mutesettings;
 	await client.botconfs.set('botconfs', botconfs);
 
-	var muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
+	const muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
 	const muteembed = new Discord.RichEmbed()
 		.setColor('#99ff66')
 		.setDescription(`✅ ${muted}`);
@@ -84,12 +86,12 @@ exports.run = async (client, msg, args, lang) => {
 		embed: muteembed
 	});
 
-	setTimeout(async function () {
+	setTimeout(async () => {
 		if (tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
 			await membermention.removeRole(role);
 
-			var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
-			var automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+			const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
+			const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 			const unmutedembed = new Discord.RichEmbed()
 				.setAuthor(unmutedby, client.user.displayAvatarURL)
 				.setThumbnail(user.displayAvatarURL)
@@ -112,7 +114,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Mute",
+	shortDescription: 'Mute',
 	aliases: [],
 	userpermissions: ['KICK_MEMBERS'],
 	dashboardsettings: true

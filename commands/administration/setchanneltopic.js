@@ -1,20 +1,20 @@
 const Discord = require('discord.js');
 
-exports.run = async(client, msg, args, lang) => {
-    const input = args.slice();
+exports.run = async (client, msg, args, lang) => {
+	const input = args.slice();
 
-    if (input.length === 0) return msg.channel.send(lang.setchanneltopic_error);
+	if (input.length === 0) return msg.channel.send(lang.setchanneltopic_error);
 
-    await msg.channel.setTopic(input.join(" "));
+	await msg.channel.setTopic(input.join(' '));
 
-    const set = lang.setchanneltopic_set.replace('%channelname', msg.channel.name);
+	const set = lang.setchanneltopic_set.replace('%channelname', msg.channel.name);
 	msg.channel.send(set);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: ['MANAGE_CHANNELS'],
 	dashboardsettings: true

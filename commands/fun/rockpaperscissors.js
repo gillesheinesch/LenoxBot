@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
-	var margs = msg.content.split(' ');
-	let validation = ['scissors', 'rock', 'paper'];
-	let randomofvalidation = validation[Math.floor(Math.random() * validation.length)];
+exports.run = async (client, msg, args, lang) => {
+	const margs = msg.content.split(' ');
+	const validation = ['scissors', 'rock', 'paper'];
+	const randomofvalidation = validation[Math.floor(Math.random() * validation.length)];
 
 	if (!args.slice() || args.slice().length === 0) return msg.reply(lang.rockpaperscissors_noinput);
 
-	for (var i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'rock') {
 				if (randomofvalidation === 'rock') {
@@ -107,13 +107,13 @@ exports.run = async(client, msg, args, lang) => {
 			}
 		}
 	}
-	return msg.reply(lang.rockpaperscissors_error)
+	return msg.reply(lang.rockpaperscissors_error);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['rps'],
 	userpermissions: [],
 	dashboardsettings: true

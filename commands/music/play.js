@@ -22,7 +22,7 @@ exports.run = async (client, msg, args, lang) => {
 	const voiceChannel = msg.member.voiceChannel;
 	if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
 
-	for (var i = 0; i < tableload.musicchannelblacklist.length; i++) {
+	for (let i = 0; i < tableload.musicchannelblacklist.length; i++) {
 		if (voiceChannel.id === tableload.musicchannelblacklist[i]) return msg.reply(lang.play_blacklistchannel);
 	}
 
@@ -33,49 +33,49 @@ exports.run = async (client, msg, args, lang) => {
 			const video2 = await youtube.getVideoByID(video.id);
 			await handleVideo(video2, msg, voiceChannel, true);
 		}
-		var playlistadded = lang.play_playlistadded.replace('%playlisttitle', `**${playlist.title}**`);
+		const playlistadded = lang.play_playlistadded.replace('%playlisttitle', `**${playlist.title}**`);
 		return msg.channel.send(playlistadded);
-	} else {
-		try {
-			var video = await youtube.getVideo(url);
-		} catch (error) {
-			try {
-				var videos = await youtube.searchVideos(searchString, 10);
-
-				if (videos.length === 0) return msg.channel.send(lang.play_noresult);
-
-				let index = 0;
-				const embed = new Discord.RichEmbed()
-					.setColor('#7BB3FF')
-					.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
-					.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
-
-				const embed2 = new Discord.RichEmbed()
-					.setColor('#0066CC')
-					.setDescription(lang.play_value);
-				msg.channel.send({
-					embed
-				});
-				msg.channel.send({
-					embed: embed2
-				});
-				try {
-					var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
-						maxMatches: 1,
-						time: 10000,
-						errors: ['time']
-					});
-				} catch (err) {
-					return msg.channel.send(lang.play_error);
-				}
-				const videoIndex = parseInt(response.first().content);
-				var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-			} catch (err) {
-				return msg.channel.send(lang.play_noresult);
-			}
-		}
-		return handleVideo(video, msg, voiceChannel);
 	}
+	try {
+		var video = await youtube.getVideo(url);
+	} catch (error) {
+		try {
+			const videos = await youtube.searchVideos(searchString, 10);
+
+			if (videos.length === 0) return msg.channel.send(lang.play_noresult);
+
+			let index = 0;
+			const embed = new Discord.RichEmbed()
+				.setColor('#7BB3FF')
+				.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
+				.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
+
+			const embed2 = new Discord.RichEmbed()
+				.setColor('#0066CC')
+				.setDescription(lang.play_value);
+			msg.channel.send({
+				embed
+			});
+			msg.channel.send({
+				embed: embed2
+			});
+			try {
+				var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
+					maxMatches: 1,
+					time: 10000,
+					errors: ['time']
+				});
+			} catch (err) {
+				return msg.channel.send(lang.play_error);
+			}
+			const videoIndex = parseInt(response.first().content);
+			var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+		} catch (err) {
+			return msg.channel.send(lang.play_noresult);
+		}
+	}
+	return handleVideo(video, msg, voiceChannel);
+
 	async function handleVideo(video, msg, voiceChannel, playlist = false) {
 		const serverQueue = queue.get(msg.guild.id);
 		const song = {
@@ -109,7 +109,7 @@ exports.run = async (client, msg, args, lang) => {
 			skipvote.set(msg.guild.id, vote);
 
 			try {
-				var connection = await voiceChannel.join();
+				const connection = await voiceChannel.join();
 				queueConstruct.connection = connection;
 				await play(msg.guild, queueConstruct.songs[0]);
 			} catch (error) {
@@ -121,22 +121,21 @@ exports.run = async (client, msg, args, lang) => {
 			if (serverQueue.songs.length > 8 && tableload.premium.status === false) return msg.reply(lang.play_limitreached);
 			await serverQueue.songs.push(song);
 			if (playlist) return undefined;
-			else {
-				const duration = lang.play_duration.replace('%duration', song.duration);
-				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-				const embed = new Discord.RichEmbed()
-					.setAuthor(lang.play_songadded)
-					.setDescription(duration)
-					.setThumbnail(song.thumbnail)
-					.setColor('#009900')
-					.setURL(song.url)
-					.setFooter(published)
-					.setTitle(song.title);
 
-				return msg.channel.send({
-					embed
-				});
-			}
+			const duration = lang.play_duration.replace('%duration', song.duration);
+			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
+			const embed = new Discord.RichEmbed()
+				.setAuthor(lang.play_songadded)
+				.setDescription(duration)
+				.setThumbnail(song.thumbnail)
+				.setColor('#009900')
+				.setURL(song.url)
+				.setFooter(published)
+				.setTitle(song.title);
+
+			return msg.channel.send({
+				embed
+			});
 		}
 		return undefined;
 	}
@@ -150,8 +149,8 @@ exports.run = async (client, msg, args, lang) => {
 			return undefined;
 		}
 		const dispatcher = await serverQueue.connection.playStream(ytdl(song.url), {
-				filter: 'audioonly'
-			})
+			filter: 'audioonly'
+		})
 			.on('end', async reason => {
 				if (reason === 'Stream is not generating quickly enough.');
 				serverQueue.songs.shift('Stream is not generating quickly enough');
@@ -185,7 +184,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Musicplayersettings",
+	shortDescription: 'Musicplayersettings',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

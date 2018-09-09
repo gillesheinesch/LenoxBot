@@ -1,22 +1,22 @@
 const Discord = require(`discord.js`);
 exports.run = (client, msg, args, lang) => {
-	let input = parseInt(args.slice().join(' '));
-	let randomnumberfinished = Math.floor((Math.random() * input) + 1);
+	const input = parseInt(args.slice().join(' '));
+	const randomnumberfinished = Math.floor((Math.random() * input) + 1);
 
 	if (!input) return msg.reply(lang.randomnumber_number);
 
-	var randomnumber = lang.randomnumber_randomnumber.replace('%randomnumber', randomnumberfinished);
+	const randomnumber = lang.randomnumber_randomnumber.replace('%randomnumber', randomnumberfinished);
 	const embed = new Discord.RichEmbed()
-	.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
-    .setColor('#0066CC')
-	.setDescription(randomnumber);
+		.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+		.setColor('#0066CC')
+		.setDescription(randomnumber);
 	msg.channel.send({ embed: embed });
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['rn'],
 	userpermissions: [],
 	dashboardsettings: true
@@ -28,5 +28,5 @@ exports.help = {
 	usage: 'randomnumber {input}',
 	example: ['randomnumber 100'],
 	category: 'utility',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

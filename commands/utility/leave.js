@@ -1,6 +1,6 @@
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	let addedrole = args.slice().join(' ');
+	const addedrole = args.slice().join(' ');
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
 	const author = msg.guild.members.get(msg.author.id);
 	const channelID = msg.channel.id;
@@ -9,7 +9,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (!foundRole) return msg.reply(lang.leave_rolenotexist);
 	if (!msg.member.roles.has(foundRole.id)) return msg.reply(lang.leave_error);
 
-	for (var i = 0; i < tableload.selfassignableroles.length; i++) {
+	for (let i = 0; i < tableload.selfassignableroles.length; i++) {
 		if (foundRole.id === tableload.selfassignableroles[i]) {
 			try {
 				return author.removeRole(foundRole).then(m => m.guild.channels.get(channelID).send(lang.leave_roleremoved));
@@ -24,7 +24,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Selfassignableroles",
+	shortDescription: 'Selfassignableroles',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

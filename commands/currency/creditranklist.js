@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
-const sql = require("sqlite");
-sql.open("../lenoxbotscore.sqlite");
-exports.run = async(client, msg, args, lang) => {
+const sql = require('sqlite');
+sql.open('../lenoxbotscore.sqlite');
+exports.run = async (client, msg, args, lang) => {
 	const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
 
-		let userArray = [];
-		let moneyArray = [];
-		let tempArray = [];
+	const userArray = [];
+	const moneyArray = [];
+	const tempArray = [];
 
 	rows.forEach(row => {
 		const member = client.users.get(row.userId);
@@ -14,14 +14,14 @@ exports.run = async(client, msg, args, lang) => {
 		moneyArray.push(row.medals);
 	});
 	for (i = 0; i < userArray.length; i++) {
-		tempArray.push((i+1) + ". " + userArray[i]);
+		tempArray.push(`${i + 1}. ${userArray[i]}`);
 	}
 
-	let embed = new Discord.RichEmbed()
-	.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
-	.setColor('#009933')
-	.addField(lang.creditranklist_name, tempArray.slice(0, 20).join('\n'), true)
-	.addField(lang.creditranklist_credits, moneyArray.slice(0, 20).join('\n'), true);
+	const embed = new Discord.RichEmbed()
+		.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+		.setColor('#009933')
+		.addField(lang.creditranklist_name, tempArray.slice(0, 20).join('\n'), true)
+		.addField(lang.creditranklist_credits, moneyArray.slice(0, 20).join('\n'), true);
 
 	await msg.channel.send({ embed });
 };
@@ -29,7 +29,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Credits",
+	shortDescription: 'Credits',
 	aliases: ['richest'],
 	userpermissions: [],
 	dashboardsettings: true
@@ -40,5 +40,5 @@ exports.help = {
 	usage: 'creditranklist',
 	example: ['creditranklist'],
 	category: 'currency',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

@@ -1,4 +1,4 @@
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const margs = msg.content.split(' ');
 	const input = args.slice();
@@ -10,7 +10,7 @@ exports.run = async(client, msg, args, lang) => {
 
 	if (!input || input.length === 0) return msg.reply(lang.language_noinput);
 
-	for (var i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'english') {
 				if (tableload.language === 'en') return msg.channel.send(already);
@@ -42,7 +42,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Localization",
+	shortDescription: 'Localization',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

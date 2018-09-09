@@ -4,8 +4,8 @@ exports.run = (client, msg, args, lang) => {
 	const serverQueue = queue.get(msg.guild.id);
 	if (!serverQueue) return msg.channel.send(lang.queue_nothing);
 
-	var nowplaying = lang.queue_nowplaying.replace('%songtitle', serverQueue.songs[0].title);
-	var songqueue = lang.queue_songqueue.replace('%songtitle', serverQueue.songs[0].title);
+	const nowplaying = lang.queue_nowplaying.replace('%songtitle', serverQueue.songs[0].title);
+	const songqueue = lang.queue_songqueue.replace('%songtitle', serverQueue.songs[0].title);
 	const embed = new Discord.RichEmbed()
 		.setColor('#009696')
 		.setDescription(`${serverQueue.songs.map(song => `**-** ${song.title}`).join('\n')}
@@ -17,7 +17,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Queue",
+	shortDescription: 'Queue',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

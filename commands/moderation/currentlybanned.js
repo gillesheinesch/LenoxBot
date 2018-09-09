@@ -2,10 +2,10 @@ const Discord = require('discord.js');
 const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
 	const botconfs = client.botconfs.get('botconfs');
-	var bansOfThisServer = [];
-	var fetchedBans = await msg.guild.fetchBans();
+	const bansOfThisServer = [];
+	const fetchedBans = await msg.guild.fetchBans();
 
-	for (var i in botconfs.bans) {
+	for (const i in botconfs.bans) {
 		if (botconfs.bans[i].discordserverid === msg.guild.id) {
 			bansOfThisServer.push(botconfs.bans[i]);
 		}
@@ -17,14 +17,14 @@ exports.run = async (client, msg, args, lang) => {
 		var user = msg.mentions.users.first();
 		if (!user) {
 			try {
-				if (!fetchedBans.get(args.slice().join(" "))) throw 'Usernotfound';
-				user = fetchedBans.get(args.slice().join(" "));
+				if (!fetchedBans.get(args.slice().join(' '))) throw 'Usernotfound';
+				user = fetchedBans.get(args.slice().join(' '));
 			} catch (error) {
 				return msg.reply(lang.ban_idcheck);
 			}
 		}
-		var checkIfBanned = false;
-		var banSettings;
+		let checkIfBanned = false;
+		let banSettings;
 		await bansOfThisServer.forEach(r => {
 			if (r.memberid === user.id) {
 				checkIfBanned = true;
@@ -34,12 +34,13 @@ exports.run = async (client, msg, args, lang) => {
 
 		if (!checkIfBanned) return msg.reply(lang.unban_notbanned);
 
-		var userembed = new Discord.RichEmbed()
+		const userembed = new Discord.RichEmbed()
 			.setAuthor(lang.currentlybanned_embedauthor)
 			.setColor('#ff9900')
 			.setTimestamp();
 
-		var embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(banSettings.moderatorid).tag).replace('%banneddate', new Date(banSettings.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(banSettings.banEndDate - Date.now())).replace('%reason', banSettings.reason);
+		const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(banSettings.moderatorid).tag).replace('%banneddate', new Date(banSettings.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(banSettings.banEndDate - Date.now()))
+			.replace('%reason', banSettings.reason);
 		userembed.addField(`${user.username}#${user.discriminator}`, embeddescription);
 
 		return msg.channel.send({
@@ -47,7 +48,7 @@ exports.run = async (client, msg, args, lang) => {
 		});
 	}
 
-	var embed = new Discord.RichEmbed()
+	const embed = new Discord.RichEmbed()
 		.setAuthor(lang.currentlybanned_embedauthor)
 		.setColor('#ff3300')
 		.setTimestamp();
@@ -64,34 +65,35 @@ exports.run = async (client, msg, args, lang) => {
 
 			user = fetchedBans.get(r.memberid);
 
-			var embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now())).replace('%reason', r.reason);
+			const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now()))
+				.replace('%reason', r.reason);
 			embed.addField(`${user.username}#${user.discriminator}`, embeddescription);
 		}
 	});
 
-	var message = await msg.channel.send({
+	const message = await msg.channel.send({
 		embed: embed
 	});
 
 	if (bansOfThisServer.length > 4) {
-		var reaction1 = await message.react('◀');
-		var reaction2 = await message.react('▶');
+		const reaction1 = await message.react('◀');
+		const reaction2 = await message.react('▶');
 
-		var first = 0;
-		var second = 4;
+		let first = 0;
+		let second = 4;
 
-		var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+		const collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 			time: 200000
 		});
 		collector.on('collect', r => {
-			var reactionadd = bansOfThisServer.slice(first + 4, second + 4).length;
-			var reactionremove = bansOfThisServer.slice(first - 4, second - 4).length;
+			const reactionadd = bansOfThisServer.slice(first + 4, second + 4).length;
+			const reactionremove = bansOfThisServer.slice(first - 4, second - 4).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
 				r.remove(msg.author.id);
 
-				first = first + 4;
-				second = second + 4;
+				first += 4;
+				second += 4;
 
 				var newembed = new Discord.RichEmbed()
 					.setAuthor(lang.currentlybanned_embedauthor)
@@ -107,7 +109,8 @@ exports.run = async (client, msg, args, lang) => {
 						r.reason = undefined;
 					}
 
-					var embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now())).replace('%reason', r.reason);
+					const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now()))
+						.replace('%reason', r.reason);
 					newembed.addField(client.users.get(r.memberid).tag, embeddescription);
 				});
 
@@ -115,10 +118,10 @@ exports.run = async (client, msg, args, lang) => {
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id)
+				r.remove(msg.author.id);
 
-				first = first - 4;
-				second = second - 4;
+				first -= 4;
+				second -= 4;
 
 				var newembed = new Discord.RichEmbed()
 					.setAuthor(lang.currentlybanned_embedauthor)
@@ -134,7 +137,8 @@ exports.run = async (client, msg, args, lang) => {
 						r.reason = undefined;
 					}
 
-					var embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now())).replace('%reason', r.reason);
+					const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now()))
+						.replace('%reason', r.reason);
 					newembed.addField(client.users.get(r.memberid).tag, embeddescription);
 				});
 
@@ -155,7 +159,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Ban",
+	shortDescription: 'Ban',
 	aliases: ['cb'],
 	userpermissions: ['KICK_MEMBERS'],
 	dashboardsettings: true

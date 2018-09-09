@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.modules) {
-        tableload.modules = {};
+		tableload.modules = {};
 		tableload.modules.fun = 'true';
 		tableload.modules.help = 'true';
 		tableload.modules.moderation = 'true';
@@ -18,13 +18,13 @@ exports.run = async(client, msg, args, lang) => {
 	}
 
 	const embed = new Discord.RichEmbed()
-	.setColor('0066CC')
-	.setAuthor(lang.listmodules_embed);
+		.setColor('0066CC')
+		.setAuthor(lang.listmodules_embed);
 
-	var disabledmodules = [];
-	var activatedmodules = [];
+	const disabledmodules = [];
+	const activatedmodules = [];
 
-	for (var i in tableload.modules) {
+	for (const i in tableload.modules) {
 		if (tableload.modules[i] === 'false') {
 			disabledmodules.push(i);
 		} else {
@@ -32,8 +32,8 @@ exports.run = async(client, msg, args, lang) => {
 		}
 	}
 
-	embed.addField(lang.listmodules_activemodules, activatedmodules.length !== 0 ? activatedmodules.join("\n") : lang.listmodules_noactivemodules);
-	embed.addField(lang.listmodules_disabledmodules, disabledmodules.length !== 0 ? disabledmodules.join("\n") : lang.listmodules_nodisabledmodules);
+	embed.addField(lang.listmodules_activemodules, activatedmodules.length !== 0 ? activatedmodules.join('\n') : lang.listmodules_noactivemodules);
+	embed.addField(lang.listmodules_disabledmodules, disabledmodules.length !== 0 ? disabledmodules.join('\n') : lang.listmodules_nodisabledmodules);
 
 	msg.channel.send({ embed });
 };
@@ -41,7 +41,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Modules",
+	shortDescription: 'Modules',
 	aliases: ['lm'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

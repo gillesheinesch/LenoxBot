@@ -4,24 +4,24 @@ exports.run = async (client, msg, args, lang) => {
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 	const botconfs = await client.botconfs.get('blackbanlist');
-	const guildId = args.slice(0, 1).join(" ");
+	const guildId = args.slice(0, 1).join(' ');
 
 	if (!guildId || isNaN(guildId)) return msg.reply(lang.banlistadd_noguildid);
 	if (args.slice(1).length === 0) return msg.reply(lang.banlistadd_noreason);
 
-	for (var i = 0; i < botconfs.banlist.length; i++) {
+	for (let i = 0; i < botconfs.banlist.length; i++) {
 		if (botconfs.banlist[i].discordServerID === guildId) return msg.reply(lang.banlistadd_alreadybanned);
 	}
 
 	const discordServerBanSettings = {
 		discordServerID: guildId,
 		moderator: msg.author.id,
-		reason: args.slice(1).join(" "),
+		reason: args.slice(1).join(' '),
 		createdAt: Date.now()
 	};
 
 	const embedtitle = lang.banlistadd_embedtitle.replace('%guildid', guildId);
-	const embeddescription = lang.banlistadd_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(" "))
+	const embeddescription = lang.banlistadd_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
 	const embed = new Discord.RichEmbed()
 		.setColor('#ff0000')
 		.setTimestamp()
@@ -41,7 +41,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Ban",
+	shortDescription: 'Ban',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

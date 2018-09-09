@@ -15,20 +15,20 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (tableload.premium.status === false) return msg.reply(lang.playlist_noguildpremium);
 	if (args.slice().length === 0 || !args) return msg.reply(lang.playplaylist_error);
-	if (!tableload.playlist[args.slice().join(" ").toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+	if (!tableload.playlist[args.slice().join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 	if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
 
-	for (var i = 0; i < tableload.musicchannelblacklist.length; i++) {
+	for (let i = 0; i < tableload.musicchannelblacklist.length; i++) {
 		if (voiceChannel.id === tableload.musicchannelblacklist[i]) return msg.reply(lang.play_blacklistchannel);
 	}
 
 	if (serverQueue) {
-		if ((serverQueue.songs.length + Object.keys(tableload.playlist[args.slice().join(" ").toLowerCase()]).length) > 8 && tableload.premium.status === false) return msg.reply(lang.play_limitreached);
+		if ((serverQueue.songs.length + Object.keys(tableload.playlist[args.slice().join(' ').toLowerCase()]).length) > 8 && tableload.premium.status === false) return msg.reply(lang.play_limitreached);
 	}
 
-	for (var song in tableload.playlist[args.slice().join(" ").toLowerCase()]) {
-		var video = tableload.playlist[args.slice().join(" ").toLowerCase()][song];
+	for (const song in tableload.playlist[args.slice().join(' ').toLowerCase()]) {
+		const video = tableload.playlist[args.slice().join(' ').toLowerCase()][song];
 		await handleVideo(video, msg, voiceChannel);
 	}
 
@@ -65,7 +65,7 @@ exports.run = async (client, msg, args, lang) => {
 			skipvote.set(msg.guild.id, vote);
 
 			try {
-				var connection = await voiceChannel.join();
+				const connection = await voiceChannel.join();
 				queueConstruct.connection = connection;
 				await play(msg.guild, queueConstruct.songs[0]);
 			} catch (error) {
@@ -76,22 +76,21 @@ exports.run = async (client, msg, args, lang) => {
 		} else {
 			await serverQueue.songs.push(song);
 			if (playlist) return undefined;
-			else {
-				const duration = lang.play_duration.replace('%duration', song.duration);
-				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-				const embed = new Discord.RichEmbed()
-					.setAuthor(lang.play_songadded)
-					.setDescription(duration)
-					.setThumbnail(song.thumbnail)
-					.setColor('#009900')
-					.setURL(song.url)
-					.setFooter(published)
-					.setTitle(song.title);
 
-				return msg.channel.send({
-					embed
-				});
-			}
+			const duration = lang.play_duration.replace('%duration', song.duration);
+			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
+			const embed = new Discord.RichEmbed()
+				.setAuthor(lang.play_songadded)
+				.setDescription(duration)
+				.setThumbnail(song.thumbnail)
+				.setColor('#009900')
+				.setURL(song.url)
+				.setFooter(published)
+				.setTitle(song.title);
+
+			return msg.channel.send({
+				embed
+			});
 		}
 		return undefined;
 	}
@@ -105,8 +104,8 @@ exports.run = async (client, msg, args, lang) => {
 			return undefined;
 		}
 		const dispatcher = await serverQueue.connection.playStream(ytdl(song.url), {
-				filter: 'audioonly'
-			})
+			filter: 'audioonly'
+		})
 			.on('end', async reason => {
 				if (reason === 'Stream is not generating quickly enough.');
 				serverQueue.songs.shift('Stream is not generating quickly enough');
@@ -140,7 +139,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Musicplayersettings",
+	shortDescription: 'Musicplayersettings',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

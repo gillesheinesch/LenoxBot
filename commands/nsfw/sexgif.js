@@ -1,24 +1,24 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	if (!msg.channel.nsfw) return msg.channel.send(lang.pornhubgif_nsfw);
 	if (!args.slice().length === 0) return msg.channel.send(lang.pornhubgif_type);
 	if (args.slice() > 1) return msg.channel.send(lang.pornhubgif_error);
 	const Pornsearch = require('pornsearch');
 
 	try {
-		const Searcher = new Pornsearch(args.slice().join(" "), driver = 'sex');
-		var gifs = await Searcher.gifs();
+		const Searcher = new Pornsearch(args.slice().join(' '), driver = 'sex');
+		const gifs = await Searcher.gifs();
 
-		var result = Math.floor(Math.random() * gifs.length);
+		const result = Math.floor(Math.random() * gifs.length);
 
-		var url = gifs[result - 1].url;
-	
+		const url = gifs[result - 1].url;
+
 		const embed = new Discord.RichEmbed()
 			.setImage(url)
 			.setColor('#ff0000')
 			.setURL(url)
 			.setAuthor(url);
-	
+
 		msg.channel.send({
 			embed
 		});
@@ -30,7 +30,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "GIFS",
+	shortDescription: 'GIFS',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const embed = new Discord.RichEmbed()
-	.setColor('')
-	.setDescription(lang.availablelanguages_descriptionembed)
-	.setAuthor(lang.availablelanguages_languages);
+		.setColor('')
+		.setDescription(lang.availablelanguages_descriptionembed)
+		.setAuthor(lang.availablelanguages_languages);
 
 	msg.channel.send({ embed });
 };
@@ -11,7 +11,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Localization",
+	shortDescription: 'Localization',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

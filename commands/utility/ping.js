@@ -1,13 +1,13 @@
-exports.run = async(client, msg, args, lang) => {
-		const message = await msg.channel.send('Hmm...Ping?');
-		var newmsg = lang.ping_ping.replace('%timestamp', message.createdTimestamp - msg.createdTimestamp);
+exports.run = async (client, msg, args, lang) => {
+	const message = await msg.channel.send('Hmm...Ping?');
+	const newmsg = lang.ping_ping.replace('%timestamp', message.createdTimestamp - msg.createdTimestamp);
 	message.edit(newmsg);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Information",
+	shortDescription: 'Information',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
@@ -19,5 +19,5 @@ exports.help = {
 	usage: 'ping',
 	example: ['ping'],
 	category: 'utility',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

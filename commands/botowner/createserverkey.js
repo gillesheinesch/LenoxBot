@@ -8,11 +8,11 @@ exports.run = async (client, msg, args, lang) => {
 
 	const embeddescription = lang.createserverkey_embeddescription.replace('%premiumcode', botconfspremiumload.keys.numberofguildkeys);
 	const embed = new Discord.RichEmbed()
-	.setDescription(lang.embeddescription)
-	.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-	.setTimestamp()
-	.setColor('#cc99ff')
-	.setTitle(lang.createserverkey_embedtitle);
+		.setDescription(lang.embeddescription)
+		.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+		.setTimestamp()
+		.setColor('#cc99ff')
+		.setTitle(lang.createserverkey_embedtitle);
 	await client.channels.get('419877966265319424').send({ embed });
 
 	msg.reply(lang.createserverkey_message);
@@ -21,7 +21,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

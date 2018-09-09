@@ -5,18 +5,18 @@ exports.run = async (client, msg, args, lang) => {
 	if (args.slice(1).length === 0) return msg.reply(lang.createcustomcommand_nocommandanswer);
 	if (tableload.premium.status === false && tableload.customcommands.length >= 5) return msg.reply(lang.createcustomcommand_premiumneeded);
 
-	for (var i = 0; i < tableload.customcommands.length; i++) {
-		if (tableload.customcommands[i].name.toLowerCase() === args.slice(0, 1).join(" ").toLowerCase()) return msg.reply(lang.createcustomcommand_already);
+	for (let i = 0; i < tableload.customcommands.length; i++) {
+		if (tableload.customcommands[i].name.toLowerCase() === args.slice(0, 1).join(' ').toLowerCase()) return msg.reply(lang.createcustomcommand_already);
 	}
 
-	var newcommandsettings = {
-		name: args.slice(0, 1).join(" ").toLowerCase(),
+	const newcommandsettings = {
+		name: args.slice(0, 1).join(' ').toLowerCase(),
 		creator: msg.author.id,
-		commandanswer: args.slice(1).join(" "),
+		commandanswer: args.slice(1).join(' '),
 		descriptionOfTheCommand: '',
-		embed: "false",
+		embed: 'false',
 		commandCreatedAt: Date.now(),
-		enabled: "true"
+		enabled: 'true'
 	};
 
 	tableload.customcommands.push(newcommandsettings);
@@ -28,7 +28,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Customcommands",
+	shortDescription: 'Customcommands',
 	aliases: ['ccc'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

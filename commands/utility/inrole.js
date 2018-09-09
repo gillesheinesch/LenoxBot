@@ -3,11 +3,11 @@ exports.run = (client, msg, args, lang) => {
 	if (!args.slice().length >= 1) return msg.channel.send(lang.inrole_noinput);
 	try {
 		const role = msg.guild.roles.find(r => r.name.toLowerCase() === args.slice().join(' ').toLowerCase());
-		var inRole = role.members.array();
-		var array = [];
-		inRole.forEach(function (element) {
+		const inRole = role.members.array();
+		const array = [];
+		inRole.forEach(element => {
 			array.push(element.user.tag);
-		})
+		});
 
 		const embed = new Discord.RichEmbed()
 			.setDescription(array.join(', '))
@@ -24,7 +24,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Information",
+	shortDescription: 'Information',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

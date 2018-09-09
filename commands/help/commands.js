@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
-	const margs = msg.content.split(" ");
+	const margs = msg.content.split(' ');
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
@@ -18,8 +18,8 @@ exports.run = async (client, msg, args, lang) => {
 					}
 
 					var commandShortDescriptions = [];
-					var embed = new Discord.RichEmbed()
-					.setDescription(lang[`modules_${validation[index].toLowerCase()}`] ? lang[`modules_${validation[index].toLowerCase()}`] : "No description")
+					const embed = new Discord.RichEmbed()
+						.setDescription(lang[`modules_${validation[index].toLowerCase()}`] ? lang[`modules_${validation[index].toLowerCase()}`] : 'No description')
 						.setColor('#009900');
 
 					var commands = client.commands.filter(c => c.help.category === validation[index]).array();
@@ -31,9 +31,9 @@ exports.run = async (client, msg, args, lang) => {
 					}
 
 					for (var index2 = 0; index2 < commandShortDescriptions.slice(0, 7).length; index2++) {
-						var newCommands = commands.filter(c => c.conf.shortDescription.toLowerCase() === commandShortDescriptions[index2].toLowerCase());
+						const newCommands = commands.filter(c => c.conf.shortDescription.toLowerCase() === commandShortDescriptions[index2].toLowerCase());
 						const shortDescriptionCheck = await lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`];
-						embed.addField(shortDescriptionCheck !== undefined ? lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`] : commandShortDescriptions[index2], `\`\`\`asciidoc\n${newCommands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join("\n")}\`\`\``);
+						embed.addField(shortDescriptionCheck !== undefined ? lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`] : commandShortDescriptions[index2], `\`\`\`asciidoc\n${newCommands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join('\n')}\`\`\``);
 					}
 
 					const message = await msg.channel.send({
@@ -47,12 +47,12 @@ exports.run = async (client, msg, args, lang) => {
 					var first = 0;
 					var second = 7;
 
-					var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+					const collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 						time: 60000
 					});
 					collector.on('collect', r => {
-						var reactionadd = commandShortDescriptions.slice(first + 7, second + 7).length;
-						var reactionremove = commandShortDescriptions.slice(first - 7, second - 7).length;
+						const reactionadd = commandShortDescriptions.slice(first + 7, second + 7).length;
+						const reactionremove = commandShortDescriptions.slice(first - 7, second - 7).length;
 
 						if (r.emoji.name === '▶' && reactionadd !== 0) {
 							r.remove(msg.author.id);
@@ -62,11 +62,11 @@ exports.run = async (client, msg, args, lang) => {
 
 							for (var index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
 								var new2Commands = commands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
-								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join("\n")}\`\`\``);
+								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join('\n')}\`\`\``);
 							}
 
-							first = first + 7;
-							second = second + 7;
+							first += 7;
+							second += 7;
 
 							message.edit({
 								embed: newEmbed
@@ -79,11 +79,11 @@ exports.run = async (client, msg, args, lang) => {
 
 							for (var index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
 								var new2Commands = commands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
-								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join("\n")}\`\`\``);
+								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join('\n')}\`\`\``);
 							}
 
-							first = first - 7;
-							second = second - 7;
+							first -= 7;
+							second -= 7;
 
 							message.edit({
 								embed: newEmbed
@@ -99,14 +99,14 @@ exports.run = async (client, msg, args, lang) => {
 			}
 		}
 	}
-	var error = lang.commands_error.replace('%prefixmodules', `\`${tableload.prefix}modules\``);
+	const error = lang.commands_error.replace('%prefixmodules', `\`${tableload.prefix}modules\``);
 	msg.channel.send(error);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Help",
+	shortDescription: 'Help',
 	aliases: ['cmds'],
 	userpermissions: [],
 	dashboardsettings: false

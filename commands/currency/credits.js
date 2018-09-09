@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const sql = require('sqlite');
-sql.open("../lenoxbotscore.sqlite");
+sql.open('../lenoxbotscore.sqlite');
 exports.run = async (client, msg, args, lang) => {
 	const user1 = msg.mentions.users.first() || msg.author;
 	const userdb = client.userdb.get(msg.author.id);
@@ -21,11 +21,11 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
-	let useridsArray = [];
-	let userArray = [];
-	let moneyArray = [];
-	let tempArray = [];
-	var globalrank = [];
+	const useridsArray = [];
+	const userArray = [];
+	const moneyArray = [];
+	const tempArray = [];
+	const globalrank = [];
 	rows.forEach(row => {
 		useridsArray.push(row.userId);
 		const member = client.users.get(row.userId);
@@ -36,14 +36,14 @@ exports.run = async (client, msg, args, lang) => {
 		tempArray.push((i + 1));
 	}
 
-	for (var index = 0; index < userArray.length; index++) {
+	for (let index = 0; index < userArray.length; index++) {
 		if (useridsArray[index] === user1.id) {
 			globalrank.push(tempArray[index]);
 		}
 	}
 
 	sql.get(`SELECT * FROM medals WHERE userId = "${user1.id}"`).then(row => {
-		var embed = new Discord.RichEmbed()
+		const embed = new Discord.RichEmbed()
 			.setAuthor(`${user1.tag} (${lang.credits_globalrank} #${globalrank})`, user1.avatarURL)
 			.setDescription(`**${lang.credits_credits}** ${row.medals} ${lenoxbotcoin} `)
 			.setColor('#009933');
@@ -57,7 +57,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Credits",
+	shortDescription: 'Credits',
 	aliases: ['balance', 'c'],
 	userpermissions: [],
 	dashboardsettings: false

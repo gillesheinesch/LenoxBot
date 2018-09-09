@@ -4,9 +4,9 @@ exports.run = (client, msg, args, lang) => {
 	if (msg.channel.topic === null || msg.channel.topic === '') return msg.channel.send(lang.channeltopic_error);
 
 	const embed = new Discord.RichEmbed()
-	.setColor('#99ff99')
-	.setDescription(`${lang.channeltopic_embed} \n\n${msg.channel.topic}`)
-	.setAuthor(`${msg.channel.name} (${msg.channel.id})`);
+		.setColor('#99ff99')
+		.setDescription(`${lang.channeltopic_embed} \n\n${msg.channel.topic}`)
+		.setAuthor(`${msg.channel.name} (${msg.channel.id})`);
 
 	msg.channel.send({ embed });
 };
@@ -14,7 +14,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Information",
+	shortDescription: 'Information',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

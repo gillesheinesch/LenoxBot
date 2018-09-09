@@ -1,5 +1,5 @@
 const sql = require('sqlite');
-sql.open("../lenoxbotscore.sqlite");
+sql.open('../lenoxbotscore.sqlite');
 exports.run = async (client, msg, args, lang) => {
 	const userdb = client.userdb.get(msg.author.id);
 	const tableload = client.guildconfs.get(msg.guild.id);
@@ -24,9 +24,9 @@ exports.run = async (client, msg, args, lang) => {
 
 	const result = Math.floor(Math.random() * validation.length);
 
-	var inventoryslotcheck = 0;
+	let inventoryslotcheck = 0;
 	for (const index in userdb.inventory) {
-		inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[index]);
+		inventoryslotcheck += parseInt(userdb.inventory[index]);
 	}
 	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
 	if (inventoryslotcheck >= userdb.inventoryslots) {
@@ -53,7 +53,7 @@ exports.run = async (client, msg, args, lang) => {
 		return msg.reply(lang.opencrate_nocratekey);
 	}
 
-	for (var i = 0; i < validation[result].length; i++) {
+	for (let i = 0; i < validation[result].length; i++) {
 		userdb.inventory[validation[result][i]] = userdb.inventory[validation[result][i]] + 1;
 		await client.userdb.set(msg.author.id, userdb);
 	}
@@ -62,14 +62,17 @@ exports.run = async (client, msg, args, lang) => {
 	userdb.inventory.crate = userdb.inventory.crate - 1;
 	await client.userdb.set(msg.author.id, userdb);
 
-	const won = lang.opencrate_won.replace('%item1', `${marketconfs[validation[result][0]][0]} ${lang[`loot_${validation[result][0]}`]}`).replace('%amount1', marketconfs[validation[result][0]][1]).replace('%item2', `${marketconfs[validation[result][1]][0]} ${lang[`loot_${validation[result][1]}`]}`).replace('%amount2', marketconfs[validation[result][1]][1]).replace('%item3', `${marketconfs[validation[result][2]][0]} ${lang[`loot_${validation[result][2]}`]}`).replace('%amount3', marketconfs[validation[result][2]][1]);
+	const won = lang.opencrate_won.replace('%item1', `${marketconfs[validation[result][0]][0]} ${lang[`loot_${validation[result][0]}`]}`).replace('%amount1', marketconfs[validation[result][0]][1]).replace('%item2', `${marketconfs[validation[result][1]][0]} ${lang[`loot_${validation[result][1]}`]}`)
+		.replace('%amount2', marketconfs[validation[result][1]][1])
+		.replace('%item3', `${marketconfs[validation[result][2]][0]} ${lang[`loot_${validation[result][2]}`]}`)
+		.replace('%amount3', marketconfs[validation[result][2]][1]);
 	msg.reply(`📁 ${won}`);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Games",
+	shortDescription: 'Games',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

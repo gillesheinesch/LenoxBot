@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 
 exports.run = (client, msg, args, lang) => {
-	let arg = msg.content.split(' ').slice(2).join(' ');
-	let validation = ['profile', 'quickplay', 'competitive'];
+	const arg = msg.content.split(' ').slice(2).join(' ');
+	const validation = ['profile', 'quickplay', 'competitive'];
 	const OWStats = require('overwatch-stats');
-	var margs = msg.content.split(" ");
+	const margs = msg.content.split(' ');
 
-	if (typeof margs[1] !== "undefined");
+	if (typeof margs[1] !== 'undefined');
 
 	if (!margs[0]) return msg.reply(lang.overwatchstats_missinginput).then(m => m.delete(30000));
 	if (!margs[1]) return msg.reply(lang.overwatchstats_error).then(m => m.delete(30000));
@@ -15,7 +15,7 @@ exports.run = (client, msg, args, lang) => {
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			if (margs[1].toLowerCase() === "profile") {
+			if (margs[1].toLowerCase() === 'profile') {
 				OWStats.load(arg)
 					.then(data => {
 						if (!data.body.eu.stats.quickplay.overall_stats.avatar) {
@@ -34,10 +34,10 @@ exports.run = (client, msg, args, lang) => {
 							embed
 						}).catch(console.error);
 					}).catch(err => {
-						msg.channel.send(lang.overwatchstats_errorrequest + " " + arg);
+						msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`);
 					});
 			} else
-			if (margs[1].toLowerCase() === "quickplay") {
+			if (margs[1].toLowerCase() === 'quickplay') {
 				OWStats.load(arg)
 					.then(data => {
 						if (!data.body.eu.stats.quickplay.overall_stats.avatar) {
@@ -45,7 +45,8 @@ exports.run = (client, msg, args, lang) => {
 						}
 
 						const quickplay = lang.overwatchstats_quickplay.replace('%user', arg);
-						const quickplaystats = lang.overwatchstats_quickplaystats.replace('%winrate', data.body.eu.stats.quickplay.overall_stats.win_rate).replace('%gamestotal', data.body.eu.stats.quickplay.overall_stats.games).replace('%wins', data.body.eu.stats.quickplay.overall_stats.wins).replace('%losses', data.body.eu.stats.quickplay.overall_stats.losses);
+						const quickplaystats = lang.overwatchstats_quickplaystats.replace('%winrate', data.body.eu.stats.quickplay.overall_stats.win_rate).replace('%gamestotal', data.body.eu.stats.quickplay.overall_stats.games).replace('%wins', data.body.eu.stats.quickplay.overall_stats.wins)
+							.replace('%losses', data.body.eu.stats.quickplay.overall_stats.losses);
 
 						const embed = new Discord.RichEmbed()
 							.setAuthor(quickplay, data.body.eu.stats.competitive.overall_stats.avatar)
@@ -56,10 +57,10 @@ exports.run = (client, msg, args, lang) => {
 							embed
 						}).catch(console.error);
 					}).catch(err => {
-						msg.channel.send(lang.overwatchstats_errorrequest + " " + arg);
+						msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`);
 					});
 			} else
-			if (margs[1].toLowerCase() === "competitive") {
+			if (margs[1].toLowerCase() === 'competitive') {
 				OWStats.load(arg)
 					.then(data => {
 						if (!data.body.eu.stats.quickplay.overall_stats.avatar) {
@@ -67,7 +68,8 @@ exports.run = (client, msg, args, lang) => {
 						}
 
 						const competitive = lang.overwatchstats_competitive.replace('%user', arg);
-						const competitivestats = lang.overwatchstats_competitivestats.replace('%winrate', data.body.eu.stats.competitive.overall_stats.win_rate).replace('%gamestotal', data.body.eu.stats.competitive.overall_stats.games).replace('%wins', data.body.eu.stats.competitive.overall_stats.wins).replace('%losses', data.body.eu.stats.competitive.overall_stats.losses);
+						const competitivestats = lang.overwatchstats_competitivestats.replace('%winrate', data.body.eu.stats.competitive.overall_stats.win_rate).replace('%gamestotal', data.body.eu.stats.competitive.overall_stats.games).replace('%wins', data.body.eu.stats.competitive.overall_stats.wins)
+							.replace('%losses', data.body.eu.stats.competitive.overall_stats.losses);
 
 						const embed = new Discord.RichEmbed()
 							.setAuthor(competitive, data.body.eu.stats.competitive.overall_stats.avatar)
@@ -78,7 +80,7 @@ exports.run = (client, msg, args, lang) => {
 							embed
 						}).catch(console.error);
 					}).catch(err => {
-						msg.channel.send(lang.overwatchstats_errorrequest + " " + arg);
+						msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`);
 					});
 			}
 		}
@@ -88,7 +90,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Games",
+	shortDescription: 'Games',
 	aliases: ['owstats'],
 	userpermissions: [],
 	dashboardsettings: true

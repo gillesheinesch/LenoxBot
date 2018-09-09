@@ -10,7 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 	} else {
 		userdb.dailyremind = false;
 
-		const removed = lang.dailyremind_removed.replace('%prefix', tableload.prefix)
+		const removed = lang.dailyremind_removed.replace('%prefix', tableload.prefix);
 		msg.reply(removed);
 	}
 
@@ -20,10 +20,10 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Daily",
+	shortDescription: 'Daily',
 	aliases: [],
-    userpermissions: [],
-    dashboardsettings: false
+	userpermissions: [],
+	dashboardsettings: false
 };
 exports.help = {
 	name: 'dailyremind',

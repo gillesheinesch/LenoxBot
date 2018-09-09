@@ -1,4 +1,4 @@
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const channelid = msg.channel.id;
 	if (tableload.tickets.status === false) {
@@ -6,20 +6,19 @@ exports.run = async(client, msg, args, lang) => {
 		tableload.tickets.notificationchannel = channelid;
 		await client.guildconfs.set(msg.guild.id, tableload);
 
-		var channelset = lang.ticketnotification_channelset.replace('%channelname', `**#${msg.channel.name}**`);
+		const channelset = lang.ticketnotification_channelset.replace('%channelname', `**#${msg.channel.name}**`);
 		return msg.channel.send(channelset);
-	} else {
-		tableload.tickets.status = false;
-		await client.guildconfs.set(msg.guild.id, tableload);
-		
-		return msg.channel.send(lang.ticketnotification_channeldeleted);
 	}
+	tableload.tickets.status = false;
+	await client.guildconfs.set(msg.guild.id, tableload);
+
+	return msg.channel.send(lang.ticketnotification_channeldeleted);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

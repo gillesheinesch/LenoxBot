@@ -8,10 +8,10 @@ exports.run = async (client, msg, args, lang) => {
 	const ms = require('ms');
 
 	if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
-	if (isNaN(input.join(" "))) return msg.reply(lang.useuserkey_error);
-	if (botconfspremiumload.keys.numberofuserkeys < input.join(" ")) return msg.reply(lang.useuserkey_notexist);
+	if (isNaN(input.join(' '))) return msg.reply(lang.useuserkey_error);
+	if (botconfspremiumload.keys.numberofuserkeys < input.join(' ')) return msg.reply(lang.useuserkey_notexist);
 
-	if (botconfspremiumload.keys.redeemeduserkeys.includes(input.join(" "))) return msg.reply(lang.useuserkey_already);
+	if (botconfspremiumload.keys.redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
 
 	if (userdb.premium.status === false) {
 		userdb.premium.status = true;
@@ -20,7 +20,7 @@ exports.run = async (client, msg, args, lang) => {
 		const now = new Date().getTime();
 		userdb.premium.end = new Date(now + 15552000000);
 
-		botconfspremiumload.keys.redeemeduserkeys.push(input.join(" "));
+		botconfspremiumload.keys.redeemeduserkeys.push(input.join(' '));
 
 		await client.userdb.set(msg.author.id, userdb);
 		await client.botconfs.set('premium', botconfspremiumload);
@@ -29,7 +29,7 @@ exports.run = async (client, msg, args, lang) => {
 		timestamps.delete(msg.author.id);
 
 		const embed = new Discord.RichEmbed()
-			.setDescription(`This user used a premium userkey (Code: ${input.join(" ")})! \n\nThis user has premium until ${userdb.premium.end.toUTCString()}`)
+			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${userdb.premium.end.toUTCString()}`)
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 			.setTimestamp()
 			.setColor('#66ff33')
@@ -40,38 +40,37 @@ exports.run = async (client, msg, args, lang) => {
 
 		const redeemed = lang.useuserkey_redeemed.replace('%date', `\`${userdb.premium.end.toUTCString()}\``);
 		return msg.reply(redeemed);
-	} else {
-		userdb.premium.bought.push(new Date().getTime);
-
-		userdb.premium.end = new Date(Date.parse(userdb.premium.end) + 15552000000);
-
-		botconfspremiumload.keys.redeemeduserkeys.push(input.join(" "));
-
-		await client.userdb.set(msg.author.id, userdb);
-		await client.botconfs.set('premium', botconfspremiumload);
-
-		const timestamps = client.cooldowns.get('useuserkey');
-		timestamps.delete(msg.author.id);
-
-		const embed = new Discord.RichEmbed()
-			.setDescription(`This user used a premium userkey (Code: ${input.join(" ")})! \n\nThis user has premium until ${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}`)
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-			.setTimestamp()
-			.setColor('#66ff33')
-			.setTitle('Userkey used!');
-		client.channels.get('419877966265319424').send({
-			embed
-		});
-
-		const extended = lang.useuserkey_extended.replace('%date', `\`${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}\``);
-		return msg.reply(extended);
 	}
+	userdb.premium.bought.push(new Date().getTime);
+
+	userdb.premium.end = new Date(Date.parse(userdb.premium.end) + 15552000000);
+
+	botconfspremiumload.keys.redeemeduserkeys.push(input.join(' '));
+
+	await client.userdb.set(msg.author.id, userdb);
+	await client.botconfs.set('premium', botconfspremiumload);
+
+	const timestamps = client.cooldowns.get('useuserkey');
+	timestamps.delete(msg.author.id);
+
+	const embed = new Discord.RichEmbed()
+		.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}`)
+		.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+		.setTimestamp()
+		.setColor('#66ff33')
+		.setTitle('Userkey used!');
+	client.channels.get('419877966265319424').send({
+		embed
+	});
+
+	const extended = lang.useuserkey_extended.replace('%date', `\`${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}\``);
+	return msg.reply(extended);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Premium",
+	shortDescription: 'Premium',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: false,

@@ -1,4 +1,4 @@
-exports.run = async(client, msg, args, lang) => {	
+exports.run = async (client, msg, args, lang) => {
 	const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
 	if (!msg.member.voiceChannel) return msg.channel.send(lang.forceskip_notvoicechannel);
@@ -9,7 +9,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Skip",
+	shortDescription: 'Skip',
 	aliases: [],
 	userpermissions: ['MANAGE_GUILD'],
 	dashboardsettings: true
@@ -20,5 +20,5 @@ exports.help = {
 	usage: 'forceskip',
 	example: ['forceskip'],
 	category: 'music',
-    botpermissions: ['ADMINISTRATOR', 'SEND_MESSAGES', 'SPEAK']
+	botpermissions: ['ADMINISTRATOR', 'SEND_MESSAGES', 'SPEAK']
 };

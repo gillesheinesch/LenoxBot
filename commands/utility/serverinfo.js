@@ -4,7 +4,7 @@ require('moment-duration-format');
 exports.run = (client, msg, args, lang) => {
 	const servercreated = moment(msg.guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 
-	var emojis = [];
+	const emojis = [];
 	if (msg.guild.emojis.size !== 0) {
 		msg.guild.emojis.forEach(r => {
 			const emoji = client.emojis.get(r.id);
@@ -12,25 +12,25 @@ exports.run = (client, msg, args, lang) => {
 		});
 	}
 
-	var emojisembed = [];
+	const emojisembed = [];
 	if (emojis.length === 0) {
 		emojisembed.push(lang.serverinfo_emojisnone);
-	} else if (emojis.join(" ").length > 1020) {
-		var emojislength = '';
-		var status = false;
+	} else if (emojis.join(' ').length > 1020) {
+		let emojislength = '';
+		let status = false;
 
-		for (var i = 0; i < emojis.length; i++) {
+		for (let i = 0; i < emojis.length; i++) {
 			if (emojislength.length > 1020 && status === false) {
 				status = true;
-				for (var index = 0; index < i - 2; index++) {
+				for (let index = 0; index < i - 2; index++) {
 					emojisembed.push(emojis[index]);
 				}
 			}
-			emojislength = emojislength + emojis[i];
+			emojislength += emojis[i];
 		}
 		emojisembed.push('...');
 	} else {
-		emojisembed.push(emojis.join(" "));
+		emojisembed.push(emojis.join(' '));
 	}
 
 	const embed = new Discord.RichEmbed()
@@ -44,7 +44,7 @@ exports.run = (client, msg, args, lang) => {
 		.addField(`⏳ ${lang.serverinfo_created}`, servercreated)
 		.addField(`☑ ${lang.serverinfo_verification}`, msg.guild.verificationLevel || lang.serverinfo_noverification)
 		.addField(`📤 ${lang.serverinfo_afkchannel}`, msg.guild.afkChannel === null ? lang.serverinfo_noafkchannel : msg.guild.afkChannel.name)
-		.addField(`🎊 ${lang.serverinfo_emojis}`, emojisembed.join(" "));
+		.addField(`🎊 ${lang.serverinfo_emojis}`, emojisembed.join(' '));
 
 	msg.channel.send({ embed: embed });
 };
@@ -52,7 +52,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Information",
+	shortDescription: 'Information',
 	aliases: ['sinfo', 'si'],
 	userpermissions: [],
 	dashboardsettings: true
@@ -63,5 +63,5 @@ exports.help = {
 	usage: 'serverinfo',
 	example: ['serverinfo'],
 	category: 'utility',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

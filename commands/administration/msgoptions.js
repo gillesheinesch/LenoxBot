@@ -6,9 +6,9 @@ exports.run = (client, msg, args, lang) => {
 		.setColor('#7FFFD4')
 		.setAuthor(lang.msgoptions_embed);
 
-		for (var i = 0; i < validation.length; i++) {
-			embed.addField(validation[i], lang[`msgoptions_${validation[i]}`]);
-		}
+	for (let i = 0; i < validation.length; i++) {
+		embed.addField(validation[i], lang[`msgoptions_${validation[i]}`]);
+	}
 
 	msg.channel.send({
 		embed
@@ -18,7 +18,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

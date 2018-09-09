@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
-	var mention = msg.mentions.members.first();
-	var validation = [0, 0, 0, 0, 0, 0, 0, 0, 0];
+exports.run = async (client, msg, args, lang) => {
+	const mention = msg.mentions.members.first();
+	const validation = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 	if (!mention) return msg.channel.send(lang.tictactoe_nomention);
 	if (mention.presence.status === 'offline') return msg.reply(lang.tictactoe_notoline);
@@ -9,7 +9,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (msg.author.id === mention.id) return msg.channel.send(lang.tictactoe_error);
 
 	await msg.channel.send(`${lang.tictactoe_gamecreated} 😼`);
-	var game = await msg.channel.send('``` 1 | 2 | 3 \n---|---|--- \n 4 | 5 | 6 \n---|---|--- \n 7 | 8 | 9 ```');
+	let game = await msg.channel.send('``` 1 | 2 | 3 \n---|---|--- \n 4 | 5 | 6 \n---|---|--- \n 7 | 8 | 9 ```');
 
 	try {
 		await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
@@ -353,15 +353,14 @@ exports.run = async(client, msg, args, lang) => {
 	} else if (validation[3] === 2 && validation[4] === 2 && validation[6] === 2) {
 		const win = lang.tictactoe_win.replace('%user', mention);
 		return msg.channel.send(win);
-	} else {
-		return msg.channel.send(lang.tictactoe_draw);
 	}
+	return msg.channel.send(lang.tictactoe_draw);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Games",
+	shortDescription: 'Games',
 	aliases: ['ttt'],
 	userpermissions: [],
 	dashboardsettings: true
@@ -372,5 +371,5 @@ exports.help = {
 	usage: 'tictactoe {@User}',
 	example: ['tictactoe @Tester#7584'],
 	category: 'fun',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

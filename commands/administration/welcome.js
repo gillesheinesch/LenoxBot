@@ -1,12 +1,12 @@
-exports.run = async(client, msg, args, lang) => {    
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	if (tableload.welcome === 'false') {
 		tableload.welcome = 'true';
-	
+
 		const channelid = msg.channel.id;
 		tableload.welcomechannel = channelid;
-	
-		var channelset = lang.welcome_channelset.replace('%channelname', `#**${msg.channel.name}**`);
+
+		const channelset = lang.welcome_channelset.replace('%channelname', `#**${msg.channel.name}**`);
 		msg.channel.send(channelset);
 	} else if (tableload.welcome === 'true') {
 		tableload.welcome = 'false';
@@ -18,7 +18,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Welcome",
+	shortDescription: 'Welcome',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

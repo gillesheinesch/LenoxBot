@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 const sql = require('sqlite');
-sql.open("../lenoxbotscore.sqlite");
+sql.open('../lenoxbotscore.sqlite');
 require('moment-duration-format');
-exports.run = async(client, msg, args, lang) => {
-	var user = msg.mentions.users.first();
+exports.run = async (client, msg, args, lang) => {
+	let user = msg.mentions.users.first();
 
 	if (!user && args.slice().length === 0) {
 		user = msg.author;
@@ -13,9 +13,9 @@ exports.run = async(client, msg, args, lang) => {
 		if (user.bot) return msg.reply(lang.userinfo_botinfo);
 	} else {
 		try {
-			if (!msg.guild.members.get(args.slice().join(" "))) throw 'Usernotfound';
-			
-			user = await msg.guild.members.get(args.slice().join(" "));
+			if (!msg.guild.members.get(args.slice().join(' '))) throw 'Usernotfound';
+
+			user = await msg.guild.members.get(args.slice().join(' '));
 			user = user.user;
 
 			if (user.bot) return msg.reply(lang.userinfo_botinfo);
@@ -32,7 +32,7 @@ exports.run = async(client, msg, args, lang) => {
 	const credits = await sql.get(`SELECT * FROM medals WHERE userId = "${user.id}"`);
 	const lenoxbotcoin = client.emojis.get('412952854354067456');
 
-	var description = '';
+	let description = '';
 
 	try {
 		description = userdb.description.length === 0 ? lang.userinfo_descriptioninfo : userdb.description;
@@ -58,7 +58,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Information",
+	shortDescription: 'Information',
 	aliases: ['uinfo', 'ui'],
 	userpermissions: [],
 	dashboardsettings: true

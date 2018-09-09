@@ -8,10 +8,10 @@ exports.run = async (client, msg, args, lang) => {
 	const ms = require('ms');
 
 	if (!input || input.length === 0) return msg.reply(lang.useserverkey_noinput);
-	if (isNaN(input.join(" "))) return msg.reply(lang.useserverkey_error);
-	if (botconfspremiumload.keys.numberofguildkeys < input.join(" ")) return msg.reply(lang.useserverkey_notexist);
+	if (isNaN(input.join(' '))) return msg.reply(lang.useserverkey_error);
+	if (botconfspremiumload.keys.numberofguildkeys < input.join(' ')) return msg.reply(lang.useserverkey_notexist);
 
-	if (botconfspremiumload.keys.redeemedguildkeys.includes(input.join(" "))) return msg.reply(lang.useserverkey_already);
+	if (botconfspremiumload.keys.redeemedguildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_already);
 
 	if (tableload.premium.status === false) {
 		tableload.premium.status = true;
@@ -20,7 +20,7 @@ exports.run = async (client, msg, args, lang) => {
 		const now = new Date().getTime();
 		tableload.premium.end = new Date(now + 7776000000);
 
-		botconfspremiumload.keys.redeemedguildkeys.push(input.join(" "));
+		botconfspremiumload.keys.redeemedguildkeys.push(input.join(' '));
 
 		await client.guildconfs.set(msg.author.id, tableload);
 		await client.botconfs.set('premium', botconfspremiumload);
@@ -29,7 +29,7 @@ exports.run = async (client, msg, args, lang) => {
 		timestamps.delete(msg.author.id);
 
 		const embed = new Discord.RichEmbed()
-			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(" ")})! \n\nThis discord server has premium until ${tableload.premium.end.toUTCString()}`)
+			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${tableload.premium.end.toUTCString()}`)
 			.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
 			.setTimestamp()
 			.setColor('#ff0000')
@@ -40,38 +40,37 @@ exports.run = async (client, msg, args, lang) => {
 
 		const redeemed = lang.useserverkey_redeemed.replace('%date', `\`${tableload.premium.end.toUTCString()}\``);
 		return msg.reply(redeemed);
-	} else {
-		tableload.premium.bought.push(new Date().getTime);
-
-		tableload.premium.end = new Date(Date.parse(tableload.premium.end) + 7776000000);
-
-		botconfspremiumload.keys.redeemedguildkeys.push(input.join(" "));
-
-		await client.guildconfs.set(msg.author.id, tableload);
-		await client.botconfs.set('premium', botconfspremiumload);
-
-		const timestamps = client.cooldowns.get('useserverkey');
-		timestamps.delete(msg.author.id);
-
-		const embed = new Discord.RichEmbed()
-			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(" ")})! \n\nThis discord server has premium until ${new Date(Date.parse(tableload.premium.end) + 7776000000).toUTCString()}`)
-			.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
-			.setTimestamp()
-			.setColor('#ff0000')
-			.setTitle('New Serverkey used!');
-		client.channels.get('419877966265319424').send({
-			embed
-		});
-
-		const extended = lang.useserverkey_extended.replace('%date', `\`${new Date(Date.parse(tableload.premium.end) + 7776000000).toUTCString()}\``);
-		return msg.reply(extended);
 	}
+	tableload.premium.bought.push(new Date().getTime);
+
+	tableload.premium.end = new Date(Date.parse(tableload.premium.end) + 7776000000);
+
+	botconfspremiumload.keys.redeemedguildkeys.push(input.join(' '));
+
+	await client.guildconfs.set(msg.author.id, tableload);
+	await client.botconfs.set('premium', botconfspremiumload);
+
+	const timestamps = client.cooldowns.get('useserverkey');
+	timestamps.delete(msg.author.id);
+
+	const embed = new Discord.RichEmbed()
+		.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(tableload.premium.end) + 7776000000).toUTCString()}`)
+		.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
+		.setTimestamp()
+		.setColor('#ff0000')
+		.setTitle('New Serverkey used!');
+	client.channels.get('419877966265319424').send({
+		embed
+	});
+
+	const extended = lang.useserverkey_extended.replace('%date', `\`${new Date(Date.parse(tableload.premium.end) + 7776000000).toUTCString()}\``);
+	return msg.reply(extended);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Premium",
+	shortDescription: 'Premium',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: false,

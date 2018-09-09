@@ -1,27 +1,27 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const guild = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 	const botconfs = await client.botconfs.get('blackbanlist');
-	const userId = args.slice(0, 1).join(" ");
+	const userId = args.slice(0, 1).join(' ');
 
 	if (!userId || isNaN(userId)) return msg.reply(lang.blacklistadd_noguildid);
 	if (args.slice(1).length === 0) return msg.reply(lang.blacklistadd_noreason);
 
-	for (var i = 0; i < botconfs.blacklist.length; i++) {
+	for (let i = 0; i < botconfs.blacklist.length; i++) {
 		if (botconfs.blacklist[i].userID === userId) return msg.reply(lang.blacklistadd_already);
 	}
 
 	const discordUserBanSettings = {
 		userID: userId,
 		moderator: msg.author.id,
-		reason: args.slice(1).join(" "),
+		reason: args.slice(1).join(' '),
 		createdAt: Date.now()
 	};
 
 	const embedtitle = lang.blacklistadd_embedtitle.replace('%userid', userId);
-	const embeddescription = lang.blacklistadd_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(" "));
+	const embeddescription = lang.blacklistadd_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
 	const embed = new Discord.RichEmbed()
 		.setColor('#ff0000')
 		.setTimestamp()
@@ -41,7 +41,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Blacklist",
+	shortDescription: 'Blacklist',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

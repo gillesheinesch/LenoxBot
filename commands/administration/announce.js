@@ -1,8 +1,8 @@
 exports.run = (client, msg, args, lang) => {
-    const tableload = client.guildconfs.get(msg.guild.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
 	const text = args.slice().join(' ');
-	
-	var announceactivated = lang.announce_announcedeactivated.replace('%prefix', tableload.prefix);
+
+	const announceactivated = lang.announce_announcedeactivated.replace('%prefix', tableload.prefix);
 	if (tableload.announce === 'false') return msg.channel.send(announceactivated);
 
 	if (!text) return msg.channel.send(lang.annnounce_noinput);
@@ -16,7 +16,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Announcements",
+	shortDescription: 'Announcements',
 	aliases: ['a'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
@@ -27,5 +27,5 @@ exports.help = {
 	usage: 'announce {announcement text}',
 	example: ['announce Today we reached 5000 members. Thank you for that!'],
 	category: 'administration',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const sql = require('sqlite');
-sql.open("../lenoxbotscore.sqlite");
+sql.open('../lenoxbotscore.sqlite');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const botconfs = client.botconfs.get('market');
@@ -16,8 +16,8 @@ exports.run = async (client, msg, args, lang) => {
 	const howmanycheck = args.slice(1, 2);
 
 	if (!input || input.length === 0) {
-		var array1 = [];
-		var array2 = [];
+		const array1 = [];
+		const array2 = [];
 
 		const shop = lang.shop_shop.replace('%lenoxbot', client.user.username);
 		const embed = new Discord.RichEmbed()
@@ -45,23 +45,23 @@ exports.run = async (client, msg, args, lang) => {
 		await message.react('◀');
 		await message.react('▶');
 
-		var firsttext = 0;
-		var secondtext = 14;
+		let firsttext = 0;
+		let secondtext = 14;
 
-		var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+		const collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 			time: 30000
 		});
 		collector.on('collect', r => {
-			var reactionadd = array1.slice(firsttext + 14, secondtext + 14).length;
-			var reactionremove = array1.slice(firsttext - 14, secondtext - 14).length;
+			const reactionadd = array1.slice(firsttext + 14, secondtext + 14).length;
+			const reactionremove = array1.slice(firsttext - 14, secondtext - 14).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
 				r.remove(msg.author.id);
 				const embedaddfield1 = array1.slice(firsttext + 14, secondtext + 14);
 				const embedaddfield2 = array2.slice(firsttext + 14, secondtext + 14);
 
-				firsttext = firsttext + 14;
-				secondtext = secondtext + 14;
+				firsttext += 14;
+				secondtext += 14;
 
 				const shop = lang.shop_shop.replace('%lenoxbot', client.user.username);
 				const newembed = new Discord.RichEmbed()
@@ -82,8 +82,8 @@ exports.run = async (client, msg, args, lang) => {
 				const embedaddfield1 = array1.slice(firsttext - 14, secondtext - 14);
 				const embedaddfield2 = array2.slice(firsttext - 14, secondtext - 14);
 
-				firsttext = firsttext - 14;
-				secondtext = secondtext - 14;
+				firsttext -= 14;
+				secondtext -= 14;
 
 				const shop = lang.shop_shop.replace('%lenoxbot', client.user.username);
 				const newembed = new Discord.RichEmbed()
@@ -109,50 +109,50 @@ exports.run = async (client, msg, args, lang) => {
 
 	for (i = 0; i < sellorbuycheck.length; i++) {
 		if (validationforbuysell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
-			if (sellorbuycheck[0].toLowerCase() == "sell") {
+			if (sellorbuycheck[0].toLowerCase() == 'sell') {
 				// Check if the item exists in the user's inventory
-				if (args.slice(1).join(" ").toLowerCase() == "all") {
+				if (args.slice(1).join(' ').toLowerCase() == 'all') {
 					var inventoryslotcheck = 0;
 					for (var x = 0; x < itemsnames.length; x++) {
-						inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[itemsnames[x]]);
+						inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]]);
 					}
 					const error = lang.inventory_error.replace('%prefix', tableload.prefix);
 					if (inventoryslotcheck === 0) return msg.reply(error);
 
-					var allitemsininventory = [];
-					for (var xx = 0; xx < itemsnames.length; xx++) {
+					const allitemsininventory = [];
+					for (let xx = 0; xx < itemsnames.length; xx++) {
 						if (userdb.inventory[itemsnames[xx]] !== 0) {
 							allitemsininventory.push([xx, userdb.inventory[itemsnames[xx]], marketconfs[itemsnames[xx]][0], marketconfs[itemsnames[xx]][2], itemsnames[xx]]);
 						}
 					}
 
 					var amounttoreceive = 0;
-					for (var xxxxx = 0; xxxxx < allitemsininventory.length; xxxxx++) {
-						amounttoreceive = amounttoreceive + parseInt(allitemsininventory[xxxxx][3] * allitemsininventory[xxxxx][1]);
+					for (let xxxxx = 0; xxxxx < allitemsininventory.length; xxxxx++) {
+						amounttoreceive += parseInt(allitemsininventory[xxxxx][3] * allitemsininventory[xxxxx][1]);
 					}
 
 					amounttoreceive = parseInt(amounttoreceive);
 
-					for (var xxx = 0; xxx < allitemsininventory.length; xxx++) {
+					for (let xxx = 0; xxx < allitemsininventory.length; xxx++) {
 						userdb.inventory[allitemsininventory[xxx][4]] = 0;
 					}
 
 					await client.botconfs.set('market', botconfs);
 					await client.userdb.set(msg.author.id, userdb);
 
-					var messageedit = [];
-					for (var xxxx = 0; xxxx < allitemsininventory.length; xxxx++) {
+					const messageedit = [];
+					for (let xxxx = 0; xxxx < allitemsininventory.length; xxxx++) {
 						messageedit.push(`${allitemsininventory[xxxx][1]}x ${allitemsininventory[xxxx][2]} ${lang[`loot_${allitemsininventory[xxxx][4]}`]}`);
 					}
 
 					await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 						if (!row) {
-							sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+							sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 						}
 						sql.run(`UPDATE medals SET medals = ${row.medals + amounttoreceive} WHERE userId = ${msg.author.id}`);
 					});
 
-					const sellall = lang.shop_sellall.replace('%items', messageedit.join(", ")).replace('%amount', `**${amounttoreceive}**`);
+					const sellall = lang.shop_sellall.replace('%items', messageedit.join(', ')).replace('%amount', `**${amounttoreceive}**`);
 					return msg.reply(sellall);
 				}
 
@@ -174,7 +174,7 @@ exports.run = async (client, msg, args, lang) => {
 
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
-									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+									sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 								}
 								sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
 							});
@@ -187,7 +187,7 @@ exports.run = async (client, msg, args, lang) => {
 						}
 					}
 				}
-			} else if (sellorbuycheck[0].toLowerCase() == "buy") {
+			} else if (sellorbuycheck[0].toLowerCase() == 'buy') {
 				// Check if the use can buy this item
 				for (i = 0; i < itemcheck.length; i++) {
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
@@ -195,7 +195,7 @@ exports.run = async (client, msg, args, lang) => {
 						if (itemcheck[0] == validationforitemsbuysell[i]) {
 							var inventoryslotcheck = 0;
 							for (var x = 0; x < itemsnames.length; x++) {
-								inventoryslotcheck = inventoryslotcheck + parseInt(userdb.inventory[itemsnames[x]]);
+								inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]]);
 							}
 
 							const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
@@ -209,7 +209,7 @@ exports.run = async (client, msg, args, lang) => {
 
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
-									sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+									sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 								}
 								sql.run(`UPDATE medals SET medals = ${row.medals - amount} WHERE userId = ${msg.author.id}`);
 							});
@@ -232,7 +232,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['market'],
 	userpermissions: [],
 	dashboardsettings: false

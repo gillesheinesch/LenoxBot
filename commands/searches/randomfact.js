@@ -1,14 +1,14 @@
 const Discord = require('discord.js');
 
 exports.run = (client, msg, args, lang) => {
-    var rf = require('random-facts');
-    msg.channel.send(rf.randomFact());
+	const rf = require('random-facts');
+	msg.channel.send(rf.randomFact());
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
@@ -19,5 +19,5 @@ exports.help = {
 	usage: 'randomfact',
 	example: ['randomfact'],
 	category: 'searches',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

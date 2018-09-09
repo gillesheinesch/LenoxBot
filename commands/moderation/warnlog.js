@@ -1,13 +1,13 @@
 const Discord = require('discord.js');
 const ms = require('ms');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const mention = msg.mentions.users.first() || msg.author;
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (tableload.warnlog.length === 0) return msg.channel.send(lang.warnlog_error);
 
-	var firstfield = [];
-	var secondfield = [];
+	const firstfield = [];
+	const secondfield = [];
 
 	const array = [];
 	for (var i = 0; i < tableload.warnlog.length; i += 4) {
@@ -15,7 +15,7 @@ exports.run = async(client, msg, args, lang) => {
 			array.push(true);
 			const member = msg.guild.member(tableload.warnlog[i + 3]) ? msg.guild.member(tableload.warnlog[i + 3]).user.tag : tableload.warnlog[i + 3];
 
-			var warnedbyandon = lang.warnlog_warnedbyandon.replace('%membername', member).replace('%date', new Date(tableload.warnlog[i + 1]).toUTCString());
+			const warnedbyandon = lang.warnlog_warnedbyandon.replace('%membername', member).replace('%date', new Date(tableload.warnlog[i + 1]).toUTCString());
 			firstfield.push(warnedbyandon);
 			secondfield.push(tableload.warnlog[i + 2]);
 		}
@@ -23,9 +23,9 @@ exports.run = async(client, msg, args, lang) => {
 
 	if (array.length === 0) return msg.channel.send(lang.warnlog_notwarned);
 
-	let embed = new Discord.RichEmbed()
-	.setColor('#fff024')
-	.setAuthor(mention.tag, mention.displayAvatarURL);
+	const embed = new Discord.RichEmbed()
+		.setColor('#fff024')
+		.setAuthor(mention.tag, mention.displayAvatarURL);
 
 	const x = firstfield.slice(0, 5);
 	const xx = secondfield.slice(0, 5);
@@ -39,26 +39,26 @@ exports.run = async(client, msg, args, lang) => {
 	await message.react('◀');
 	await message.react('▶');
 
-	var first = 0;
-	var second = 5;
+	let first = 0;
+	let second = 5;
 
-	var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+	const collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 		time: 30000
 	});
 	collector.on('collect', r => {
-		var reactionadd = firstfield.slice(first + 5, second + 5).length;
-		var reactionremove = firstfield.slice(first - 5, second - 5).length;
+		const reactionadd = firstfield.slice(first + 5, second + 5).length;
+		const reactionremove = firstfield.slice(first - 5, second - 5).length;
 
 		if (r.emoji.name === '▶' && reactionadd !== 0) {
 			const thefirst = firstfield.slice(first + 5, second + 5);
 			const thesecond = secondfield.slice(first + 5, second + 5);
 
-			first = first + 5;
-			second = second + 5;
+			first += 5;
+			second += 5;
 
 			var newembed = new Discord.RichEmbed()
-			.setColor('#fff024')
-			.setAuthor(mention.tag, mention.displayAvatarURL);
+				.setColor('#fff024')
+				.setAuthor(mention.tag, mention.displayAvatarURL);
 
 			for (var i = 0; i < thefirst.length; i++) {
 				newembed.addField(thefirst[i], thesecond[i]);
@@ -71,12 +71,12 @@ exports.run = async(client, msg, args, lang) => {
 			const thefirst = firstfield.slice(first - 5, second - 5);
 			const thesecond = secondfield.slice(first - 5, second - 5);
 
-			first = first - 5;
-			second = second - 5;
+			first -= 5;
+			second -= 5;
 
 			var newembed = new Discord.RichEmbed()
-			.setColor('#fff024')
-			.setAuthor(mention.tag, mention.displayAvatarURL);
+				.setColor('#fff024')
+				.setAuthor(mention.tag, mention.displayAvatarURL);
 
 			for (var i = 0; i < thefirst.length; i++) {
 				newembed.addField(thefirst[i], thesecond[i]);
@@ -95,7 +95,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Warn",
+	shortDescription: 'Warn',
 	aliases: ['wl', 'warns'],
 	userpermissions: ['KICK_MEMBERS'],
 	dashboardsettings: true

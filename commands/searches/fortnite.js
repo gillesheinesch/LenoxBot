@@ -1,4 +1,4 @@
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	const Fortnite = require('fortnite');
 	const fortniteclient = new Fortnite('f00bb1ee-0be8-4474-bbf4-58a382e3245d');
@@ -16,22 +16,22 @@ exports.run = async(client, msg, args, lang) => {
 		return msg.channel.send(lang.fortnite_playernotfound);
 	}
 
-		const embed = new Discord.RichEmbed()
+	const embed = new Discord.RichEmbed()
 		.setURL(stats.url)
 		.setColor('#f45942')
 		.setAuthor(`${stats.username} || ${stats.platformNameLong}`);
-		for (var i = 0; i < stats.lifetimeStats.length; i++) {
-            var stat = stats.lifetimeStats[i].stat;
-            var value = stats.lifetimeStats[i].value;
-            embed.addField(stat, value, true);
-        }
-		return msg.channel.send({ embed });
+	for (let i = 0; i < stats.lifetimeStats.length; i++) {
+		const stat = stats.lifetimeStats[i].stat;
+		const value = stats.lifetimeStats[i].value;
+		embed.addField(stat, value, true);
+	}
+	return msg.channel.send({ embed });
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Games",
+	shortDescription: 'Games',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

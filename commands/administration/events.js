@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	var commandinfo = lang.events_commandinfo.replace('%prefix', tableload.prefix);
+	const commandinfo = lang.events_commandinfo.replace('%prefix', tableload.prefix);
 
 	const embed = new Discord.RichEmbed()
-	.setColor('0066CC')
-	.setFooter(commandinfo)
-	.setAuthor(lang.events_events);
+		.setColor('0066CC')
+		.setFooter(commandinfo)
+		.setAuthor(lang.events_events);
 
 	if (tableload.modlog === 'true') {
 		const channelID = tableload.modlogchannel;
@@ -133,7 +133,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Events",
+	shortDescription: 'Events',
 	aliases: ['e'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

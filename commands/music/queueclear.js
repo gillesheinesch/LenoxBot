@@ -1,14 +1,14 @@
 exports.run = (client, msg, args, lang) => {
-    const queue = client.queue;
+	const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
-    if (!serverQueue) return msg.channel.send(lang.queueclear_queueempty);
-    return serverQueue.songs = [];
+	if (!serverQueue) return msg.channel.send(lang.queueclear_queueempty);
+	return serverQueue.songs = [];
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Queue",
+	shortDescription: 'Queue',
 	aliases: [],
 	userpermissions: ['MANAGE_GUILD'],
 	dashboardsettings: true
@@ -20,5 +20,5 @@ exports.help = {
 	usage: 'queueclear',
 	example: ['queueclear'],
 	category: 'music',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

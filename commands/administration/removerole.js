@@ -1,6 +1,6 @@
 exports.run = function(client, msg, args, lang) {
-	let addedrole = args.slice(1).join(' ');
-	let user = msg.mentions.members.first();
+	const addedrole = args.slice(1).join(' ');
+	const user = msg.mentions.members.first();
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
 
 	if (msg.mentions.members.size < 1) return msg.reply(lang.removerole_nomention);
@@ -15,7 +15,7 @@ exports.run = function(client, msg, args, lang) {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Roles",
+	shortDescription: 'Roles',
 	aliases: ['rr'],
 	userpermissions: ['MANAGE_ROLES'],
 	dashboardsettings: true
@@ -26,5 +26,5 @@ exports.help = {
 	usage: 'removerole {@User} {name of the role}',
 	example: ['removerole @Monkeyyy11#7584 Member'],
 	category: 'administration',
-    botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
+	botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
 };

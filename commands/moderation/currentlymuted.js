@@ -2,9 +2,9 @@ const Discord = require('discord.js');
 const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
 	const botconfs = client.botconfs.get('botconfs');
-	var mutesOfThisServer = [];
+	const mutesOfThisServer = [];
 
-	for (var i in botconfs.mutes) {
+	for (const i in botconfs.mutes) {
 		if (botconfs.mutes[i].discordserverid === msg.guild.id) {
 			mutesOfThisServer.push(botconfs.mutes[i]);
 		}
@@ -13,17 +13,17 @@ exports.run = async (client, msg, args, lang) => {
 	if (mutesOfThisServer.length === 0) return msg.reply(lang.currentlymuted_error);
 
 	if (args.slice().length !== 0) {
-		var user = msg.mentions.users.first();
+		let user = msg.mentions.users.first();
 		if (!user) {
 			try {
-				if (!msg.guild.members.get(args.slice().join(" "))) throw 'Usernotfound';
-				user = msg.guild.members.get(args.slice().join(" ")).user;
+				if (!msg.guild.members.get(args.slice().join(' '))) throw 'Usernotfound';
+				user = msg.guild.members.get(args.slice().join(' ')).user;
 			} catch (error) {
 				return msg.reply(lang.ban_idcheck);
 			}
 		}
-		var checkIfMuted = false;
-		var muteSettings;
+		let checkIfMuted = false;
+		let muteSettings;
 		await mutesOfThisServer.forEach(r => {
 			if (r.memberid === user.id) {
 				checkIfMuted = true;
@@ -31,15 +31,16 @@ exports.run = async (client, msg, args, lang) => {
 			}
 		});
 
-		var notownrole = lang.unmute_notownrole.replace('%username', user.tag);
+		const notownrole = lang.unmute_notownrole.replace('%username', user.tag);
 		if (!checkIfMuted) return msg.reply(notownrole);
 
-		var userembed = new Discord.RichEmbed()
-		.setAuthor(lang.currentlymuted_embedauthor)
-		.setColor('#ff9900')
-		.setTimestamp();
+		const userembed = new Discord.RichEmbed()
+			.setAuthor(lang.currentlymuted_embedauthor)
+			.setColor('#ff9900')
+			.setTimestamp();
 
-		var embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(muteSettings.moderatorid).tag).replace('%muteddate', new Date(muteSettings.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(muteSettings.muteEndDate - Date.now())).replace('%reason', muteSettings.reason);
+		const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(muteSettings.moderatorid).tag).replace('%muteddate', new Date(muteSettings.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(muteSettings.muteEndDate - Date.now()))
+			.replace('%reason', muteSettings.reason);
 		userembed.addField(client.users.get(muteSettings.memberid).tag, embeddescription);
 
 		return msg.channel.send({
@@ -47,7 +48,7 @@ exports.run = async (client, msg, args, lang) => {
 		});
 	}
 
-	var embed = new Discord.RichEmbed()
+	const embed = new Discord.RichEmbed()
 		.setAuthor(lang.currentlymuted_embedauthor)
 		.setColor('#ff9900')
 		.setTimestamp();
@@ -61,33 +62,34 @@ exports.run = async (client, msg, args, lang) => {
 			r.reason = undefined;
 		}
 
-		var embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now())).replace('%reason', r.reason);
+		const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
+			.replace('%reason', r.reason);
 		embed.addField(client.users.get(r.memberid).tag, embeddescription);
 	});
 
-	var message = await msg.channel.send({
+	const message = await msg.channel.send({
 		embed: embed
 	});
 
 	if (mutesOfThisServer.length > 4) {
-		var reaction1 = await message.react('◀');
-		var reaction2 = await message.react('▶');
+		const reaction1 = await message.react('◀');
+		const reaction2 = await message.react('▶');
 
-		var first = 0;
-		var second = 4;
+		let first = 0;
+		let second = 4;
 
-		var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+		const collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 			time: 200000
 		});
 		collector.on('collect', r => {
-			var reactionadd = mutesOfThisServer.slice(first + 4, second + 4).length;
-			var reactionremove = mutesOfThisServer.slice(first - 4, second - 4).length;
+			const reactionadd = mutesOfThisServer.slice(first + 4, second + 4).length;
+			const reactionremove = mutesOfThisServer.slice(first - 4, second - 4).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
 				r.remove(msg.author.id);
 
-				first = first + 4;
-				second = second + 4;
+				first += 4;
+				second += 4;
 
 				var newembed = new Discord.RichEmbed()
 					.setAuthor(lang.currentlymuted_embedauthor)
@@ -103,7 +105,8 @@ exports.run = async (client, msg, args, lang) => {
 						r.reason = undefined;
 					}
 
-					var embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now())).replace('%reason', r.reason);
+					const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
+						.replace('%reason', r.reason);
 					newembed.addField(client.users.get(r.memberid).tag, embeddescription);
 				});
 
@@ -111,10 +114,10 @@ exports.run = async (client, msg, args, lang) => {
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id)
+				r.remove(msg.author.id);
 
-				first = first - 4;
-				second = second - 4;
+				first -= 4;
+				second -= 4;
 
 				var newembed = new Discord.RichEmbed()
 					.setAuthor(lang.currentlymuted_embedauthor)
@@ -130,7 +133,8 @@ exports.run = async (client, msg, args, lang) => {
 						r.reason = undefined;
 					}
 
-					var embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now())).replace('%reason', r.reason);
+					const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
+						.replace('%reason', r.reason);
 					newembed.addField(client.users.get(r.memberid).tag, embeddescription);
 				});
 
@@ -151,7 +155,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Mute",
+	shortDescription: 'Mute',
 	aliases: ['cm'],
 	userpermissions: ['KICK_MEMBERS'],
 	dashboardsettings: true

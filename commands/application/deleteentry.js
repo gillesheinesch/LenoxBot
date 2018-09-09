@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.application) {
@@ -14,24 +14,24 @@ exports.run = async(client, msg, args, lang) => {
 		};
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
-    
-    let input = args.slice().join(' ');
+
+	const input = args.slice().join(' ');
 
 	if (input.length < 1) return msg.reply(lang.deleteentry_noinput);
 
 	for (var i = 0; i < tableload.application.template.length; i++) {
 		if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {
-				for (var i = 0; i < tableload.application.template.length; i++) {
-					if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {
-						tableload.application.template.splice(i, 1);
-						await client.guildconfs.set(msg.guild.id, tableload);
-					}
+			for (var i = 0; i < tableload.application.template.length; i++) {
+				if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {
+					tableload.application.template.splice(i, 1);
+					await client.guildconfs.set(msg.guild.id, tableload);
 				}
-				await client.guildconfs.set(msg.guild.id, tableload);
-		
-				var removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
-				return msg.channel.send(removed);
-		} 
+			}
+			await client.guildconfs.set(msg.guild.id, tableload);
+
+			const removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
+			return msg.channel.send(removed);
+		}
 	}
 	return msg.channel.send(lang.deleteentry_notexists);
 };
@@ -39,7 +39,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Entries",
+	shortDescription: 'Entries',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
@@ -50,5 +50,5 @@ exports.help = {
 	usage: 'deleteentry {entry}',
 	example: ['deleteentry How old are you?'],
 	category: 'application',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

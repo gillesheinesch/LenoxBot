@@ -20,7 +20,7 @@ exports.run = async (client, msg, args, lang) => {
 ${lang.applicationsettings_reactionnnumber} \`${tableload.application.reactionnumber === '' ? lang.serverinfo_emojisnone : tableload.application.reactionnumber}\`\n\
 ${lang.applicationsettings_approverole} \`${tableload.application.role === '' ? lang.applicationsettings_norole : msg.guild.roles.get(tableload.application.role).name}\` \n\
 ${lang.applicationsettings_denyrole} \`${tableload.application.denyrole === '' ? lang.applicationsettings_norole : msg.guild.roles.get(tableload.application.denyrole).name}\` \n`)
-		.addField(lang.applicationsettings_entries, tableload.application.template.length === 0 ? lang.serverinfo_emojisnone : tableload.application.template.join("\n"))
+		.addField(lang.applicationsettings_entries, tableload.application.template.length === 0 ? lang.serverinfo_emojisnone : tableload.application.template.join('\n'))
 		.setAuthor(lang.applicationsettings_embedauthor)
 		.setColor('#00ff00');
 
@@ -32,7 +32,7 @@ ${lang.applicationsettings_denyrole} \`${tableload.application.denyrole === '' ?
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Settings",
+	shortDescription: 'Settings',
 	aliases: [],
 	userpermissions: ['MANAGE_GUILD'],
 	dashboardsettings: true

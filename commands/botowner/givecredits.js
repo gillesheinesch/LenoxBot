@@ -1,5 +1,5 @@
-const sql = require("sqlite");
-sql.open("../lenoxbotscore.sqlite");
+const sql = require('sqlite');
+sql.open('../lenoxbotscore.sqlite');
 exports.run = (client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
@@ -11,13 +11,13 @@ exports.run = (client, msg, args, lang) => {
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${user.id}"`).then(row => {
 		if (!row) {
-			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [user.id, 0]);
+			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [user.id, 0]);
 		}
 		sql.run(`UPDATE medals SET medals = ${row.medals + amountofcoins} WHERE userId = ${user.id}`);
-	}).catch((error) => {
+	}).catch(error => {
 		console.error(error);
-		sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
-			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [user.id, 0]);
+		sql.run('CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)').then(() => {
+			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [user.id, 0]);
 		});
 	});
 
@@ -27,7 +27,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

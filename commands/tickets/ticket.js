@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	var botconfs = client.botconfs.get('botconfs');
+	const botconfs = client.botconfs.get('botconfs');
 
 	if (!args || args.length === 0) {
 		const timestamps = client.cooldowns.get('ticket');
@@ -17,27 +17,27 @@ exports.run = async(client, msg, args, lang) => {
 		ticketid: botconfs.ticketid + 1,
 		date: msg.createdTimestamp,
 		users: [],
-		status: "open",
-		content: input.join(" "),
+		status: 'open',
+		content: input.join(' '),
 		answers: {}
 	};
 
-	botconfs.ticketid = botconfs.ticketid + 1;
+	botconfs.ticketid += 1;
 	botconfs.tickets[botconfs.ticketid] = confs;
 
 	await client.botconfs.set('botconfs', botconfs);
 
-	var ticket = botconfs.tickets[botconfs.ticketid];
+	const ticket = botconfs.tickets[botconfs.ticketid];
 
 	if (tableload.tickets.status === true) {
 		const ticketembed = lang.mainfile_ticketembed.replace('%ticketid', ticket.ticketid);
 		const embed = new Discord.RichEmbed()
-		.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${ticket.ticketid}/overview`)
-		.setTimestamp()
-		.setColor('#66ff33')
-		.setTitle(lang.mainfile_ticketembedtitle)
-		.setDescription(ticketembed);
-		
+			.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${ticket.ticketid}/overview`)
+			.setTimestamp()
+			.setColor('#66ff33')
+			.setTitle(lang.mainfile_ticketembedtitle)
+			.setDescription(ticketembed);
+
 		try {
 			client.channels.get(tableload.tickets.notificationchannel).send({ embed });
 		} catch (error) {
@@ -52,7 +52,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

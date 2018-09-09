@@ -1,13 +1,13 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
-	let reason = args.slice(1).join(' ');
+exports.run = async (client, msg, args, lang) => {
+	const reason = args.slice(1).join(' ');
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) {
 		try {
-			if (!msg.guild.members.get(args.slice(0, 1).join(" "))) throw 'Usernotfound';
-			user = msg.guild.members.get(args.slice(0, 1).join(" "));
+			if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw 'Usernotfound';
+			user = msg.guild.members.get(args.slice(0, 1).join(' '));
 			user = user.user;
 		} catch (error) {
 			return msg.reply(lang.warn_idcheck);
@@ -17,14 +17,14 @@ exports.run = async(client, msg, args, lang) => {
 	if (user === msg.author) return msg.channel.send(lang.warn_yourself);
 	if (!reason) return msg.reply(lang.warn_noinput);
 
-	var warned = lang.warn_warned.replace('%usertag', user.tag);
+	const warned = lang.warn_warned.replace('%usertag', user.tag);
 	const warnembed = new Discord.RichEmbed()
-	.setColor('#99ff66')
-	.setDescription(`✅ ${warned}`);
+		.setColor('#99ff66')
+		.setDescription(`✅ ${warned}`);
 	msg.channel.send({ embed: warnembed });
 
-	var warnedby = lang.warn_warnedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
-	var warndescription = lang.warn_warndescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
+	const warnedby = lang.warn_warnedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	const warndescription = lang.warn_warndescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 	const embed = new Discord.RichEmbed()
 		.setAuthor(warnedby, msg.author.displayAvatarURL)
 		.setThumbnail(user.displayAvatarURL)
@@ -47,14 +47,14 @@ exports.run = async(client, msg, args, lang) => {
 
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);
-	return modlogchannel.send({ embed: embed });
+		return modlogchannel.send({ embed: embed });
 	}
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Warn",
+	shortDescription: 'Warn',
 	aliases: ['w'],
 	userpermissions: ['KICK_MEMBERS'],
 	dashboardsettings: true
@@ -65,5 +65,5 @@ exports.help = {
 	usage: 'warn {@User/UserID} {reason}',
 	example: ['warn @Monkeyyy11#7584 Spam'],
 	category: 'moderation',
-    botpermissions: ['KICK_MEMBERS', 'SEND_MESSAGES']
+	botpermissions: ['KICK_MEMBERS', 'SEND_MESSAGES']
 };

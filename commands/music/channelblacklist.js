@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (tableload.musicchannelblacklist.length === 0) return msg.reply(lang.channelblacklist_error);
 
-	var array = [];
+	const array = [];
 
-	for (var i = 0; i < tableload.musicchannelblacklist.length; i++) {
+	for (let i = 0; i < tableload.musicchannelblacklist.length; i++) {
 		try {
 			const channelname = msg.guild.channels.get(tableload.musicchannelblacklist[i]).name;
 			array.push(`${channelname} (${tableload.musicchannelblacklist[i]})`);
@@ -17,9 +17,9 @@ exports.run = async(client, msg, args, lang) => {
 	}
 
 	const embed = new Discord.RichEmbed()
-	.setColor('#ff9933')
-	.setDescription(array.join("\n"))
-	.setAuthor(lang.channelblacklist_embed);
+		.setColor('#ff9933')
+		.setDescription(array.join('\n'))
+		.setAuthor(lang.channelblacklist_embed);
 
 	msg.channel.send({ embed });
 };
@@ -27,7 +27,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Channelblacklist",
+	shortDescription: 'Channelblacklist',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

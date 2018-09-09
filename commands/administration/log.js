@@ -1,13 +1,13 @@
 exports.run = async (client, msg, args, lang) => {
 	const validation = ['chatfilter', 'modlog', 'messagedelete', 'messageupdate', 'channelupdate', 'channelcreate', 'channeldelete', 'memberupdate', 'presenceupdate', 'userjoin', 'userleft', 'rolecreate', 'roledelete', 'roleupdate', 'guildupdate'];
 	const tableload = client.guildconfs.get(msg.guild.id);
-	const content = args.slice().join(" ");
+	const content = args.slice().join(' ');
 	const margs = msg.content.split(' ');
 
-	var noinput = lang.log_noinput.replace('%prefix', tableload.prefix);
+	const noinput = lang.log_noinput.replace('%prefix', tableload.prefix);
 	if (!content) return msg.channel.send(noinput);
 
-	for (var i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'messagedelete') {
 				if (tableload.messagedellog === 'false') {
@@ -17,12 +17,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const messagedeleteset = lang.log_messagedeleteset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(messagedeleteset);
-				} else {
-					tableload.messagedellog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_messagedeletedeleted);
 				}
+				tableload.messagedellog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_messagedeletedeleted);
 			} else if (margs[1].toLowerCase() === 'messageupdate') {
 				if (tableload.messageupdatelog === 'false') {
 					tableload.messageupdatelogchannel = `${msg.channel.id}`;
@@ -31,12 +30,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const messageupdateset = lang.log_messageupdateset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(messageupdateset);
-				} else {
-					tableload.messageupdatelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_messageupdatedeleted);
 				}
+				tableload.messageupdatelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_messageupdatedeleted);
 			} else if (margs[1].toLowerCase() === 'channelupdate') {
 				if (tableload.channelupdatelog === 'false') {
 					tableload.channelupdatelogchannel = `${msg.channel.id}`;
@@ -45,12 +43,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const channelupdateset = lang.log_channelupdateset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(channelupdateset);
-				} else {
-					tableload.channelupdatelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_channelupdatedeleted);
 				}
+				tableload.channelupdatelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_channelupdatedeleted);
 			} else if (margs[1].toLowerCase() === 'memberupdate') {
 				if (tableload.guildmemberupdatelog === 'false') {
 					tableload.guildmemberupdatelogchannel = `${msg.channel.id}`;
@@ -59,12 +56,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const memberupdateset = lang.log_memberupdateset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(memberupdateset);
-				} else {
-					tableload.guildmemberupdatelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_memberupdatedeleted);
 				}
+				tableload.guildmemberupdatelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_memberupdatedeleted);
 			} else if (margs[1].toLowerCase() === 'channelcreate') {
 				if (tableload.channelcreatelog === 'false') {
 					tableload.channelcreatelogchannel = `${msg.channel.id}`;
@@ -73,12 +69,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const channelcreateset = lang.log_channelcreateset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(channelcreateset);
-				} else {
-					tableload.channelcreatelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_channelcreatedeleted);
 				}
+				tableload.channelcreatelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_channelcreatedeleted);
 			} else if (margs[1].toLowerCase() === 'channeldelete') {
 				if (tableload.channeldeletelog === 'false') {
 					tableload.channeldeletelogchannel = `${msg.channel.id}`;
@@ -87,12 +82,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const channeldeleteset = lang.log_channeldeleteset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(channeldeleteset);
-				} else {
-					tableload.channeldeletelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_channeldeletedeleted);
 				}
+				tableload.channeldeletelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_channeldeletedeleted);
 			} else if (margs[1].toLowerCase() === 'userjoin') {
 				if (tableload.welcomelog === 'false') {
 					tableload.welcomelogchannel = `${msg.channel.id}`;
@@ -101,12 +95,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const userjoinset = lang.log_userjoinset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(userjoinset);
-				} else {
-					tableload.welcomelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_userjoindeleted);
 				}
+				tableload.welcomelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_userjoindeleted);
 			} else if (margs[1].toLowerCase() === 'userleft') {
 				if (tableload.byelog === 'false') {
 					tableload.byelogchannel = `${msg.channel.id}`;
@@ -115,12 +108,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const userleftset = lang.log_userleftset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(userleftset);
-				} else {
-					tableload.byelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_userleftdeleted);
 				}
+				tableload.byelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_userleftdeleted);
 			} else if (margs[1].toLowerCase() === 'modlog') {
 				if (tableload.modlog === 'false') {
 					tableload.modlogchannel = `${msg.channel.id}`;
@@ -129,12 +121,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const modlogset = lang.log_modlogset.replace('%chnanelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(modlogset);
-				} else {
-					tableload.modlog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_modlogdeleted);
 				}
+				tableload.modlog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_modlogdeleted);
 			} else if (margs[1].toLowerCase() === 'rolecreate') {
 				if (tableload.rolecreatelog === 'false') {
 					tableload.rolecreatelogchannel = `${msg.channel.id}`;
@@ -143,12 +134,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const rolecreateset = lang.log_rolecreateset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(rolecreateset);
-				} else {
-					tableload.rolecreatelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_rolecreatedeleted);
 				}
+				tableload.rolecreatelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_rolecreatedeleted);
 			} else if (margs[1].toLowerCase() === 'roledelete') {
 				if (tableload.roledeletelog === 'false') {
 					tableload.roledeletelogchannel = `${msg.channel.id}`;
@@ -157,12 +147,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const roledeleteset = lang.log_roledeleteset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(roledeleteset);
-				} else {
-					tableload.roledeletelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_roledeletedeleted);
 				}
+				tableload.roledeletelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_roledeletedeleted);
 			} else if (margs[1].toLowerCase() === 'roleupdate') {
 				if (tableload.roleupdatelog === 'false') {
 					tableload.roleupdatelogchannel = `${msg.channel.id}`;
@@ -171,12 +160,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const roleupdateset = lang.log_roleupdateset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(roleupdateset);
-				} else {
-					tableload.roleupdatelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_roleupdatedeleted);
 				}
+				tableload.roleupdatelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_roleupdatedeleted);
 			} else if (margs[1].toLowerCase() === 'presenceupdate') {
 				if (tableload.presenceupdatelog === 'false') {
 					tableload.presenceupdatelogchannel = `${msg.channel.id}`;
@@ -185,26 +173,24 @@ exports.run = async (client, msg, args, lang) => {
 
 					const presenceupdateset = lang.log_presenceupdateset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(presenceupdateset);
-				} else {
-					tableload.presenceupdatelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_presenceupdatedeleted);
 				}
+				tableload.presenceupdatelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_presenceupdatedeleted);
 			} else if (margs[1].toLowerCase() === 'guildupdate') {
 				if (tableload.guildupdatelog === 'false') {
 					tableload.guildupdatelogchannel = `${msg.channel.id}`;
 					tableload.guildupdatelog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
 
-					const guildupdateset = lang.log_guildupdateset.replace('%channelname', `**#${msg.channel.name}**`)
+					const guildupdateset = lang.log_guildupdateset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(guildupdateset);
-				} else {
-					tableload.guildupdatelog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_guildupdatedeleted);
 				}
+				tableload.guildupdatelog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_guildupdatedeleted);
 			} else if (margs[1].toLowerCase() === 'chatfilter') {
 				if (tableload.chatfilterlog === 'false') {
 					tableload.chatfilterlogchannel = `${msg.channel.id}`;
@@ -213,12 +199,11 @@ exports.run = async (client, msg, args, lang) => {
 
 					const chatfilterset = lang.log_chatfilterset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(chatfilterset);
-				} else {
-					tableload.chatfilterlog = 'false';
-					await client.guildconfs.set(msg.guild.id, tableload);
-
-					return msg.channel.send(lang.log_chatfilterdeleted);
 				}
+				tableload.chatfilterlog = 'false';
+				await client.guildconfs.set(msg.guild.id, tableload);
+
+				return msg.channel.send(lang.log_chatfilterdeleted);
 			}
 		}
 	}
@@ -229,7 +214,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Events",
+	shortDescription: 'Events',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

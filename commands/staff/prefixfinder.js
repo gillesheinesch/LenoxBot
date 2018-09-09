@@ -3,21 +3,21 @@ exports.run = (client, msg, args) => {
 	const guild = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
-	const content = args.slice().join(" ");
+	const content = args.slice().join(' ');
 	if (!content || isNaN(content)) return msg.reply(lang.prefixfinder_noguildid);
 
 	const tableload = client.guildconfs.get(content);
 	if (!tableload) return msg.channel.send(lang.prefixfinder_nofetch);
 
 	const guildload = client.guilds.get(content);
-	const requestedby = lang.prefixfinder_requestedby.replace('%authortag', msg.author.tag)
+	const requestedby = lang.prefixfinder_requestedby.replace('%authortag', msg.author.tag);
 	const embed = new Discord.RichEmbed()
-	.setColor('#FF7F24')
-	.setThumbnail(guildload.iconURL)
-	.addField(lang.prefixfinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
-	.addField(lang.prefixfinder_embedfield2, tableload.prefix)
-	.setFooter(requestedby)
-	.setAuthor(`${guildload.name} (${guildload.id})`);
+		.setColor('#FF7F24')
+		.setThumbnail(guildload.iconURL)
+		.addField(lang.prefixfinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
+		.addField(lang.prefixfinder_embedfield2, tableload.prefix)
+		.setFooter(requestedby)
+		.setAuthor(`${guildload.name} (${guildload.id})`);
 
 	return client.channels.get('425752252180070401').send({ embed: embed });
 };
@@ -26,7 +26,7 @@ exports.run = (client, msg, args) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['pf'],
 	userpermissions: [],
 	dashboardsettings: true
@@ -37,5 +37,5 @@ exports.help = {
 	usage: 'prefixfinder {guildid}',
 	example: ['prefixfinder 352896116812939264'],
 	category: 'staff',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

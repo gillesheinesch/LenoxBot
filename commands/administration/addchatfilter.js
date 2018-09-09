@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const input = args.slice();
 
@@ -16,20 +16,20 @@ exports.run = async(client, msg, args, lang) => {
 
 	// Check ob der Eintrag bereits im Chatfilter vorhanden ist
 	for (let i = 0; i < tableload.chatfilter.array.length; i++) {
-		if (input.join(" ").toLowerCase() === tableload.chatfilter.array[i].toLowerCase()) return msg.channel.send(lang.addchatfilter_already);
+		if (input.join(' ').toLowerCase() === tableload.chatfilter.array[i].toLowerCase()) return msg.channel.send(lang.addchatfilter_already);
 	}
 
-	tableload.chatfilter.array.push(input.join(" ").toLowerCase());
+	tableload.chatfilter.array.push(input.join(' ').toLowerCase());
 	await client.guildconfs.set(msg.guild.id, tableload);
 
-	const added = lang.addchatfilter_added.replace('%input', input.join(" "));
+	const added = lang.addchatfilter_added.replace('%input', input.join(' '));
 	msg.channel.send(added);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Chatfilter",
+	shortDescription: 'Chatfilter',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
 };

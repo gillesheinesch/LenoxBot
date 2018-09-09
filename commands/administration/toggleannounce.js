@@ -1,4 +1,4 @@
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const channelid = msg.channel.id;
 	if (tableload.announce === 'false') {
@@ -6,20 +6,19 @@ exports.run = async(client, msg, args, lang) => {
 		tableload.announcechannel = channelid;
 		await client.guildconfs.set(msg.guild.id, tableload);
 
-		var channelset = lang.toggleannounce_channelset.replace('%channelname', `**#${msg.channel.name}**`);
+		const channelset = lang.toggleannounce_channelset.replace('%channelname', `**#${msg.channel.name}**`);
 		return msg.channel.send(channelset);
-	} else {
-		tableload.announce = 'false';
-		await client.guildconfs.set(msg.guild.id, tableload);
-		
-		return msg.channel.send(lang.toggleannounce_channeldeleted);
 	}
+	tableload.announce = 'false';
+	await client.guildconfs.set(msg.guild.id, tableload);
+
+	return msg.channel.send(lang.toggleannounce_channeldeleted);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Announcements",
+	shortDescription: 'Announcements',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
@@ -30,5 +29,5 @@ exports.help = {
 	usage: 'toggleannounce',
 	example: ['toggleannounce'],
 	category: 'administration',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

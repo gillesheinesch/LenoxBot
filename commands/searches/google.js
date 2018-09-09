@@ -4,14 +4,14 @@ exports.run = async (client, msg, args, lang) => {
 	if (args.length < 1) {
 		return msg.reply(lang.google_noinput);
 	}
-	
+
 	const filter = ['porno', 'xnxx', 'pornhub', 'porn', 'livesex', 'nsfw'];
 
-	for (var i = 0; i < filter.length; i++) {
+	for (let i = 0; i < filter.length; i++) {
 		if (args.includes(filter[i])) return msg.channel.send(lang.google_nsfw);
 	}
 
-	const input = args.slice().join(" ").toLowerCase();
+	const input = args.slice().join(' ').toLowerCase();
 
 	const config = require('../../settings.json').googleKey;
 	const config2 = require('../../settings.json').googlekey;
@@ -52,7 +52,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['g'],
 	userpermissions: [],
 	dashboardsettings: true
@@ -63,5 +63,5 @@ exports.help = {
 	usage: 'google {query}',
 	example: ['google Discord'],
 	category: 'searches',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

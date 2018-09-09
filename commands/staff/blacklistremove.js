@@ -4,15 +4,15 @@ exports.run = async (client, msg, args, lang) => {
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 	const botconfs = await client.botconfs.get('blackbanlist');
-	const userId = args.slice(0, 1).join(" ");
+	const userId = args.slice(0, 1).join(' ');
 
 	if (!userId || isNaN(userId)) return msg.reply(lang.blacklistremove_noguildid);
 	if (args.slice(1).length === 0) return msg.reply(lang.blacklistremove_noreason);
 
-	for (var i = 0; i < botconfs.blacklist.length; i++) {
+	for (let i = 0; i < botconfs.blacklist.length; i++) {
 		if (botconfs.blacklist[i].userID === userId) {
-			const embedtitle = lang.blacklistremove_embedtitle.replace('%userid', userId)
-			const embeddescription = lang.blacklistremove_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(" "));
+			const embedtitle = lang.blacklistremove_embedtitle.replace('%userid', userId);
+			const embeddescription = lang.blacklistremove_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
 			const embed = new Discord.RichEmbed()
 				.setColor('#66ff33')
 				.setTimestamp()
@@ -35,7 +35,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Blacklist",
+	shortDescription: 'Blacklist',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
@@ -46,5 +46,5 @@ exports.help = {
 	usage: 'blacklistremove {userId} {reason}',
 	example: ['blacklistremove 238590234135101440 Mistake'],
 	category: 'staff',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

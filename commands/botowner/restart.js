@@ -9,7 +9,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: ['reboot'],
 	userpermissions: [],
 	dashboardsettings: true
@@ -20,5 +20,5 @@ exports.help = {
 	usage: 'restart',
 	example: ['restart'],
 	category: 'botowner',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

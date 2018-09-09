@@ -5,7 +5,7 @@ exports.run = (client, msg, args, lang) => {
 	const uptimeserver = moment.duration(client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
 	const version = require('../../package.json').version;
 
-	var online = lang.botinfo_online.replace('%guilds', client.guilds.size).replace('%users', client.users.size);
+	const online = lang.botinfo_online.replace('%guilds', client.guilds.size).replace('%users', client.users.size);
 	const embed = new Discord.RichEmbed()
 		.setAuthor('LenoxBot', client.user.avatarURL)
 		.setColor('#0066CC')
@@ -26,7 +26,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Information",
+	shortDescription: 'Information',
 	aliases: ['binfo', 'bi'],
 	userpermissions: [],
 	dashboardsettings: false

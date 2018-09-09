@@ -1,11 +1,11 @@
 const Discord = require('discord.js');
 
-exports.run = async(client, msg, args, lang) => {
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (args.length < 1) return msg.reply(lang.muterole_noinput);
 
-	const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(" ").toLowerCase());
+	const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
 	if (!role) return msg.reply(lang.muterole_rolenotexist);
 
 	if (!tableload.muterole) {
@@ -21,7 +21,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Mute",
+	shortDescription: 'Mute',
 	aliases: ['m'],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true

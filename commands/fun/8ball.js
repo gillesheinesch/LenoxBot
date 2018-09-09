@@ -4,10 +4,10 @@ exports.run = (client, msg, args, lang) => {
 	if (args.length < 1) return msg.channel.send(lang.eightball_noinput);
 
 	const embed = new Discord.RichEmbed()
-	.addField(lang.eightball_question, args.join(" "))
-	.addField(lang.eightball_answer, eightball)
-	.setColor('#ff6666')
-	.setAuthor(msg.author.tag, msg.author.displayAvatarURL);
+		.addField(lang.eightball_question, args.join(' '))
+		.addField(lang.eightball_answer, eightball)
+		.setColor('#ff6666')
+		.setAuthor(msg.author.tag, msg.author.displayAvatarURL);
 
 	return msg.channel.send({ embed });
 };
@@ -15,7 +15,7 @@ exports.run = (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: false,
-	shortDescription: "Games",
+	shortDescription: 'Games',
 	aliases: ['eightball'],
 	userpermissions: [],
 	dashboardsettings: true

@@ -3,7 +3,7 @@ exports.run = async (client, msg, args, lang) => {
 	const guild = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
-	const tableload = await client.guildconfs.get(msg.guild.id)
+	const tableload = await client.guildconfs.get(msg.guild.id);
 	const botconfs = await client.botconfs.get('blackbanlist');
 	const banlist = [];
 
@@ -14,7 +14,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setTitle(lang.banlist_embedtitle)
 		.setFooter(embedfooter);
 
-	for (var i = 0; i < botconfs.banlist.length; i++) {
+	for (let i = 0; i < botconfs.banlist.length; i++) {
 		banlist.push(botconfs.banlist[i]);
 	}
 	banlist.forEach(r => embed.addField(`${r.discordServerID}`, lang.banlist_embedfield.replace('%moderatortag', client.users.get(r.moderator) ? client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));
@@ -27,7 +27,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Ban",
+	shortDescription: 'Ban',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true

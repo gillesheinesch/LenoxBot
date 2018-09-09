@@ -1,5 +1,5 @@
-exports.run = async(client, msg, args, lang) => {
-	let guildID = args.slice().join(' ');
+exports.run = async (client, msg, args, lang) => {
+	const guildID = args.slice().join(' ');
 
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
@@ -8,17 +8,17 @@ exports.run = async(client, msg, args, lang) => {
 	try {
 		await client.guilds.get(args).leave();
 	} catch (error) {
-		return msg.reply(lang.leaveserver_nofetch)
+		return msg.reply(lang.leaveserver_nofetch);
 	}
 
-	var done = lang.leaveserver_done.replace('%guildid', guildID);
+	const done = lang.leaveserver_done.replace('%guildid', guildID);
 	return msg.channel.send(done);
 };
 
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "General",
+	shortDescription: 'General',
 	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
@@ -29,5 +29,5 @@ exports.help = {
 	usage: 'leaveserver {guildid}',
 	example: ['leaveserver 8738704872894987'],
 	category: 'botowner',
-    botpermissions: ['SEND_MESSAGES']
+	botpermissions: ['SEND_MESSAGES']
 };

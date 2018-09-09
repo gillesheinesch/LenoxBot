@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
-exports.run = async(client, msg, args, lang) => {
-	let reason = args.slice(2).join(' ');
-	let days = args.slice(1).join(' ');
-	let user = msg.mentions.users.first();
+exports.run = async (client, msg, args, lang) => {
+	const reason = args.slice(2).join(' ');
+	const days = args.slice(1).join(' ');
+	const user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) return msg.reply(lang.softban_nomention);
@@ -16,20 +16,21 @@ exports.run = async(client, msg, args, lang) => {
 	await msg.guild.ban(user, { days: days[0] });
 	await msg.guild.unban(user);
 
-	var softbanned = lang.softban_softbanned.replace('%usertag', user.tag).replace('%days', days[0]);
+	const softbanned = lang.softban_softbanned.replace('%usertag', user.tag).replace('%days', days[0]);
 	const softbanembed = new Discord.RichEmbed()
-	.setColor('#99ff66')
-	.setDescription(`✅ ${softbanned}`);
+		.setColor('#99ff66')
+		.setDescription(`✅ ${softbanned}`);
 	msg.channel.send({ embed: softbanembed });
 
-	var softbanby = lang.softban_softbanby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
-	var softbandescription = lang.softban_softbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason).replace('%days', days[0]);
+	const softbanby = lang.softban_softbanby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	const softbandescription = lang.softban_softbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
+		.replace('%days', days[0]);
 	const embed = new Discord.RichEmbed()
-	.setAuthor(softbanby, msg.author.displayAvatarURL)
-	.setThumbnail(user.displayAvatarURL)
-	.setColor('#FF0000')
-	.setTimestamp()
-	.setDescription(softbandescription);
+		.setAuthor(softbanby, msg.author.displayAvatarURL)
+		.setThumbnail(user.displayAvatarURL)
+		.setColor('#FF0000')
+		.setTimestamp()
+		.setDescription(softbandescription);
 
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);
@@ -40,7 +41,7 @@ exports.run = async(client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Ban",
+	shortDescription: 'Ban',
 	aliases: [],
 	userpermissions: ['BAN_MEMBERS'],
 	dashboardsettings: true

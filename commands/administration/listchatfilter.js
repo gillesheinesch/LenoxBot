@@ -16,54 +16,54 @@ exports.run = async (client, msg, args, lang) => {
 	const embed = new Discord.RichEmbed()
 		.setColor('#ABCDEF');
 
-	for (var i = 0; i < tableload.chatfilter.array.length; i++) {
+	for (let i = 0; i < tableload.chatfilter.array.length; i++) {
 		array.push(tableload.chatfilter.array[i]);
 	}
 
-	embed.addField(lang.listchatfilter_embed, array.slice(0, 15).join("\n"), true);
+	embed.addField(lang.listchatfilter_embed, array.slice(0, 15).join('\n'), true);
 
 	const message = await msg.channel.send({
 		embed: embed
 	});
 
 	if (array.length > 15) {
-		var reaction1 = await message.react('◀');
-		var reaction2 = await message.react('▶');
+		const reaction1 = await message.react('◀');
+		const reaction2 = await message.react('▶');
 
-		var first = 0;
-		var second = 15;
+		let first = 0;
+		let second = 15;
 
-		var collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+		const collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 			time: 120000
 		});
 		collector.on('collect', r => {
-			var reactionadd = array.slice(first + 15, second + 15).length;
-			var reactionremove = array.slice(first - 15, second - 15).length;
+			const reactionadd = array.slice(first + 15, second + 15).length;
+			const reactionremove = array.slice(first - 15, second - 15).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
 				r.remove(msg.author.id);
 
-				first = first + 15;
-				second = second + 15;
+				first += 15;
+				second += 15;
 
 				const newembed = new Discord.RichEmbed()
 					.setColor('#ABCDEF');
 
-				newembed.addField(lang.listchatfilter_embed, array.slice(first, second).join("\n"), true);
+				newembed.addField(lang.listchatfilter_embed, array.slice(first, second).join('\n'), true);
 
 				message.edit({
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id)
+				r.remove(msg.author.id);
 
-				first = first - 15;
-				second = second - 15;
+				first -= 15;
+				second -= 15;
 
 				const newembed = new Discord.RichEmbed()
 					.setColor('#ABCDEF');
 
-				newembed.addField(lang.listchatfilter_embed, array.slice(first, second).join("\n"), true);
+				newembed.addField(lang.listchatfilter_embed, array.slice(first, second).join('\n'), true);
 
 				message.edit({
 					embed: newembed
@@ -82,7 +82,7 @@ exports.run = async (client, msg, args, lang) => {
 exports.conf = {
 	enabled: true,
 	guildOnly: true,
-	shortDescription: "Chatfilter",
+	shortDescription: 'Chatfilter',
 	aliases: [],
 	userpermissions: ['ADMINISTRATOR'],
 	dashboardsettings: true
