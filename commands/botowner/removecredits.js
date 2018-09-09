@@ -2,10 +2,13 @@ const sql = require("sqlite");
 sql.open("../lenoxbotscore.sqlite");
 exports.run = (client, msg, args, lang) => {
     if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+
 	const user = msg.mentions.users.first();
-	const amountofcoins = parseInt(args.slice(1).join(' '));
-	if (!user) return msg.reply('You have to mention a user to give him credits');
-	if (!amountofcoins) return msg.reply('You have to enter a value');
+    const amountofcoins = parseInt(args.slice(1).join(' '));
+
+	if (!user) return msg.reply(lang.removecredits_nomention);
+    if (!amountofcoins) return msg.reply(lang.removecredits_novalue);
+
 	sql.get(`SELECT * FROM medals WHERE userId ="${user.id}"`).then(row => {
         if (!row) {
             sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [user.id, 0]);
@@ -17,21 +20,23 @@ exports.run = (client, msg, args, lang) => {
             sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [user.id, 0]);
         });
     });
+
+    return msg.reply(lang.removecredits_done);
 };
 
 exports.conf = {
 	enabled: true,
     guildOnly: true,
     shortDescription: "General",
-    aliases: ['gm'],
+    aliases: [],
     userpermissions: [],
     dashboardsettings: true
 };
 exports.help = {
 	name: 'removecredits',
-	description: 'Gives a user a certain amount of credits',
-	usage: 'givecredits {@USER} {count}',
-	example: 'givecredits @Monkeyyy11 2000',
+	description: 'Removes an user a certain amount of credits',
+	usage: 'removecredits {@USER} {amount}',
+	example: 'removecredits @Monkeyyy11#0001 2000',
     category: 'botowner',
     botpermissions: ['SEND_MESSAGES']
 };

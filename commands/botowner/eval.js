@@ -32,7 +32,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'eval',
-	description: 'Executes an Eval command',
+	description: 'Executes an eval code',
 	usage: 'eval {command}',
 	example: ['eval msg.channel.send(1);'],
 	category: 'botowner',

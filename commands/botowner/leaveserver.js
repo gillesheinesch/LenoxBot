@@ -1,10 +1,18 @@
-exports.run = (client, msg, args, lang) => {
-	let content = args.slice().join(' ');
+exports.run = async(client, msg, args, lang) => {
+	let guildID = args.slice().join(' ');
+
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
-	if (isNaN(args)) return msg.channel.send('You must enter a guildid. For example: `352896116812939264`').then(m => m.delete(10000));
-	if (!content) return msg.channel.send('You must enter a guildid').then(m => m.delete(10000));
-	client.guilds.get(args).leave();
-	return msg.channel.send(`Successfully guild (${content}) left!`).then(m => m.delete(10000));
+
+	if (!guildID || isNaN(guildID)) return msg.channel.send('You must enter a guildid. For example: `352896116812939264`');
+
+	try {
+		await client.guilds.get(args).leave();
+	} catch (error) {
+		return msg.reply(lang.leaveserver_nofetch)
+	}
+
+	var done = lang.leaveserver_done.replace('%guildid', guildID);
+	return msg.channel.send(done);
 };
 
 exports.conf = {
@@ -17,7 +25,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'leaveserver',
-	description: 'Leaves a discord server by the guildid',
+	description: 'Leaves a discord server on which the bot has joined',
 	usage: 'leaveserver {guildid}',
 	example: ['leaveserver 8738704872894987'],
 	category: 'botowner',

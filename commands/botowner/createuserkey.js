@@ -6,15 +6,16 @@ exports.run = async (client, msg, args, lang) => {
 	botconfspremiumload.keys.numberofuserkeys = botconfspremiumload.keys.numberofuserkeys + 1;
 	await client.botconfs.set('premium', botconfspremiumload);
 
+	const embeddescription = lang.createuserkey_embeddescription.replace('%premiumcode', botconfspremiumload.keys.numberofuserkeys);
 	const embed = new Discord.RichEmbed()
-	.setDescription(`This user has created a new serverkey (Code: ${botconfspremiumload.keys.numberofuserkeys})!`)
+	.setDescription(embeddescription)
 	.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 	.setTimestamp()
 	.setColor('#cc99ff')
-	.setTitle('New Userkey created');
+	.setTitle(lang.createuserkey_embedtitle);
 	await client.channels.get('419877966265319424').send({ embed });
 
-	msg.reply(`Userkey created: \`${botconfspremiumload.keys.numberofuserkeys}\``);
+	msg.reply(lang.createuserkey_message);
 };
 
 exports.conf = {
@@ -27,9 +28,9 @@ exports.conf = {
 };
 exports.help = {
 	name: 'createuserkey',
-	description: 'Leave a self-assignable role',
-	usage: 'leave {rolename}',
-	example: ['leave Member'],
+	description: 'Creates a premium userkey',
+	usage: 'createuserkey',
+	example: ['createuserkey'],
 	category: 'botowner',
-	botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
+	botpermissions: ['SEND_MESSAGES']
 };

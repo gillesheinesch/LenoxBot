@@ -32,5 +32,5 @@ exports.help = {
 	usage: 'createserverkey',
 	example: ['createserverkey'],
 	category: 'botowner',
-	botpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES']
+	botpermissions: ['SEND_MESSAGES']
 };

@@ -2,10 +2,13 @@ const sql = require("sqlite");
 sql.open("../lenoxbotscore.sqlite");
 exports.run = (client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+
 	const user = msg.mentions.users.first();
 	const amountofcoins = parseInt(args.slice(1).join(' '));
-	if (!user) return msg.reply('You have to mention a user to give him credits');
-	if (!amountofcoins) return msg.reply('You have to enter a value');
+
+	if (!user) return msg.reply(lang.givecredits_nomention);
+	if (!amountofcoins) return msg.reply(lang.givecredits_novalue);
+
 	sql.get(`SELECT * FROM medals WHERE userId ="${user.id}"`).then(row => {
 		if (!row) {
 			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [user.id, 0]);
@@ -17,7 +20,8 @@ exports.run = (client, msg, args, lang) => {
 			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [user.id, 0]);
 		});
 	});
-	return msg.reply('Credits successfully given!');
+
+	return msg.reply(lang.givecredits_done);
 };
 
 exports.conf = {
@@ -32,7 +36,7 @@ exports.help = {
 	name: 'givecredits',
 	description: 'Gives a user a certain amount of credits',
 	usage: 'givecredits {@USER} {count}',
-	example: ['givecredits @Monkeyyy11 2000'],
+	example: ['givecredits @Monkeyyy11#0001 2000'],
 	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES']
 };
