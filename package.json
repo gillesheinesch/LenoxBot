@@ -67,7 +67,7 @@
   "devDependencies": {},
   "scripts": {
     "test": "npm run lint",
-    "lint": "eslint sharding.js"
+    "lint": "eslint *.js"
   },
   "author": "Gilles Heinesch",
   "license": "MIT"
