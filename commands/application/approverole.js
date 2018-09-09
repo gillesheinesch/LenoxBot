@@ -18,7 +18,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (args.length < 1) return msg.reply(lang.approverole_noinput);
 
 	const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(" ").toLowerCase());
-	if (!role) return msg.reply(lang.approverole_rolenotexist).then(m => m.delete(10000));
+	if (!role) return msg.reply(lang.approverole_rolenotexist);
 
 	tableload.application.role = role.id;
 	await client.guildconfs.set(msg.guild.id, tableload);

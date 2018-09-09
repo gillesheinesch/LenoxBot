@@ -5,8 +5,8 @@ exports.run = async (client, msg, args, lang) => {
 	const author = msg.guild.members.get(msg.author.id);
 	const channelID = msg.channel.id;
 
-	if (addedrole.length < 1) return msg.reply(lang.leave_noinput).then(m => m.delete(10000));
-	if (!foundRole) return msg.reply(lang.leave_rolenotexist).then(m => m.delete(10000));
+	if (addedrole.length < 1) return msg.reply(lang.leave_noinput);
+	if (!foundRole) return msg.reply(lang.leave_rolenotexist);
 	if (!msg.member.roles.has(foundRole.id)) return msg.reply(lang.leave_error);
 
 	for (var i = 0; i < tableload.selfassignableroles.length; i++) {

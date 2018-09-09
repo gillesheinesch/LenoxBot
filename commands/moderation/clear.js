@@ -3,12 +3,12 @@ exports.run = async(client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	
 	if (args.slice().length === 0) return msg.reply(lang.clear_error);
-	if (isNaN(args.slice().join(" "))) return msg.reply(lang.clear_number).then(m => m.delete(10000));
+	if (isNaN(args.slice().join(" "))) return msg.reply(lang.clear_number);
 
 	let messagecount = parseInt(args.join(' '));
 
-	if (messagecount > 100) return msg.reply(lang.clear_max100).then(m => m.delete(10000));
-	if (messagecount < 2) return msg.reply(lang.clear_min2).then(m => m.delete(10000));
+	if (messagecount > 100) return msg.reply(lang.clear_max100);
+	if (messagecount < 2) return msg.reply(lang.clear_min2);
 
 	if (tableload.commanddel === 'false') {
 		await msg.delete();
@@ -20,7 +20,7 @@ exports.run = async(client, msg, args, lang) => {
 	const messageclearembed = new Discord.RichEmbed()
 	.setColor('#99ff66')
 	.setDescription(`✅ ${messagesdeleted}`);
-	return msg.channel.send({ embed: messageclearembed }).then(m => m.delete(10000));
+	return msg.channel.send({ embed: messageclearembed });
 };
 
 exports.conf = {

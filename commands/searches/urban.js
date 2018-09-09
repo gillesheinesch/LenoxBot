@@ -20,7 +20,7 @@ exports.run = async(client, msg, args, lang) => {
 		msg.channel.send({ embed });
 	})
 	.catch(err => {
-		msg.channel.send(lang.urban_error).then(m => m.delete(10000));
+		msg.channel.send(lang.urban_error);
 	});
 };
 

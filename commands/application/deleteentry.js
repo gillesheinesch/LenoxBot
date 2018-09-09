@@ -17,7 +17,7 @@ exports.run = async(client, msg, args, lang) => {
     
     let input = args.slice().join(' ');
 
-	if (input.length < 1) return msg.reply(lang.deleteentry_noinput).then(m => m.delete(10000));
+	if (input.length < 1) return msg.reply(lang.deleteentry_noinput);
 
 	for (var i = 0; i < tableload.application.template.length; i++) {
 		if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {

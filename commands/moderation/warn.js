@@ -15,7 +15,7 @@ exports.run = async(client, msg, args, lang) => {
 	}
 
 	if (user === msg.author) return msg.channel.send(lang.warn_yourself);
-	if (!reason) return msg.reply(lang.warn_noinput).then(m => m.delete(10000));
+	if (!reason) return msg.reply(lang.warn_noinput);
 
 	var warned = lang.warn_warned.replace('%usertag', user.tag);
 	const warnembed = new Discord.RichEmbed()

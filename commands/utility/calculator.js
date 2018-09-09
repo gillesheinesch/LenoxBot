@@ -2,7 +2,7 @@ const math = require('math-expression-evaluator');
 const Discord = require('discord.js');
 exports.run = (client, msg, args, lang) => {
 	if (args.length < 1) {
-		return msg.channel.send(lang.calculator_noinput).then(m => m.delete(10000));
+		return msg.channel.send(lang.calculator_noinput);
 	}
 
 	const question = args.join(' ');

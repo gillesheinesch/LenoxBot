@@ -3,7 +3,7 @@ exports.run = (client, msg, args, lang) => {
 	let input = parseInt(args.slice().join(' '));
 	let randomnumberfinished = Math.floor((Math.random() * input) + 1);
 
-	if (!input) return msg.reply(lang.randomnumber_number).then(m => m.delete(10000));
+	if (!input) return msg.reply(lang.randomnumber_number);
 
 	var randomnumber = lang.randomnumber_randomnumber.replace('%randomnumber', randomnumberfinished);
 	const embed = new Discord.RichEmbed()

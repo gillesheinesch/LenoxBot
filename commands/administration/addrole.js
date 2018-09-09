@@ -3,13 +3,13 @@ exports.run = function(client, msg, args, lang) {
 	let user = msg.mentions.members.first();
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
 
-	if (msg.mentions.members.size < 1) return msg.reply(lang.addrole_nomention).then(m => m.delete(10000));
-	if (addedrole.length < 1) return msg.reply(lang.addrole_norolename).then(m => m.delete(10000));
-	if (!foundRole) return msg.reply(lang.addrole_rolenotexist).then(m => m.delete(10000));
-	if (user.roles.has(foundRole.id)) return msg.reply(lang.addrole_memberalreadyhasrole).then(m => m.delete(10000));
+	if (msg.mentions.members.size < 1) return msg.reply(lang.addrole_nomention);
+	if (addedrole.length < 1) return msg.reply(lang.addrole_norolename);
+	if (!foundRole) return msg.reply(lang.addrole_rolenotexist);
+	if (user.roles.has(foundRole.id)) return msg.reply(lang.addrole_memberalreadyhasrole);
 
-	user.addRole(foundRole).then(() => msg.reply(lang.addrole_roleassigned).then(m => m.delete(10000))).catch(err =>
-		msg.reply(lang.addrole_norights).then(m => m.delete(10000)));
+	user.addRole(foundRole).then(() => msg.reply(lang.addrole_roleassigned)).catch(err =>
+		msg.reply(lang.addrole_norights));
 };
 
 exports.conf = {

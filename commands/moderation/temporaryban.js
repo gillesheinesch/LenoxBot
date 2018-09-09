@@ -23,7 +23,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (!reason) return msg.reply(lang.ban_noinput);
 
 
-	if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission).then(m => m.delete(10000));
+	if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission);
 	msg.guild.ban(user);
 
 	const bantime = ms(args.slice(1, 2).join(" "));

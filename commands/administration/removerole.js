@@ -3,13 +3,13 @@ exports.run = function(client, msg, args, lang) {
 	let user = msg.mentions.members.first();
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
 
-	if (msg.mentions.members.size < 1) return msg.reply(lang.removerole_nomention).then(m => m.delete(10000));
-	if (addedrole.length < 1) return msg.reply(lang.removerole_norolename).then(m => m.delete(10000));
-	if (!foundRole) return msg.reply(lang.removerole_rolenotexist).then(m => m.delete(10000));
-	if (!user.roles.has(foundRole.id)) return msg.reply(lang.removerole_error).then(m => m.delete(10000));
+	if (msg.mentions.members.size < 1) return msg.reply(lang.removerole_nomention);
+	if (addedrole.length < 1) return msg.reply(lang.removerole_norolename);
+	if (!foundRole) return msg.reply(lang.removerole_rolenotexist);
+	if (!user.roles.has(foundRole.id)) return msg.reply(lang.removerole_error);
 
-	user.removeRole(foundRole).then(() => msg.reply(lang.removerole_roleremoved).then(m => m.delete(10000))).catch(err =>
-		msg.reply(lang.removerole_missingpermission).then(m => m.delete(10000)));
+	user.removeRole(foundRole).then(() => msg.reply(lang.removerole_roleremoved)).catch(err =>
+		msg.reply(lang.removerole_missingpermission));
 };
 
 exports.conf = {

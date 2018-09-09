@@ -8,11 +8,11 @@ exports.run = async(client, msg, args, lang) => {
 
 	let addedrole = args.slice().join(' ');
 
-	if (addedrole.length < 1) return msg.reply(lang.removeautomaticrole_noinput).then(m => m.delete(10000));
+	if (addedrole.length < 1) return msg.reply(lang.removeautomaticrole_noinput);
 
 	let roleinput = args.slice().join(" ");
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === roleinput.toLowerCase());
-	if (!foundRole) return msg.reply(lang.removeautomaticrole_rolenotexist).then(m => m.delete(10000));
+	if (!foundRole) return msg.reply(lang.removeautomaticrole_rolenotexist);
 
 	for (var i = 0; i < tableload.ara.length; i += 2) {
 		if (foundRole.id === tableload.ara[i]) {

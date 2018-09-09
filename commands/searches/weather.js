@@ -6,14 +6,14 @@ const celsius = (fahrenheit) => Math.round(((fahrenheit - 32) * 5) / 9);
 
 exports.run = async (client, msg, args, lang) => {
 	if (args.length < 1) {
-		msg.channel.send(lang.weather_noinput).then(m => m.delete(10000));
+		msg.channel.send(lang.weather_noinput);
 	}
 
 	const city = args.join(' ');
 	const res = await got(makeURL(city), { json: true });
 
 	if (!res || !res.body || !res.body.query || !res.body.query.results || !res.body.query.results.channel) {
-		msg.channel.send(lang.weather_error).then(m => m.delete(10000));
+		msg.channel.send(lang.weather_error);
 	}
 
 	const weatherInfo = res.body.query.results.channel;

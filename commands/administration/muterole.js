@@ -6,7 +6,7 @@ exports.run = async(client, msg, args, lang) => {
 	if (args.length < 1) return msg.reply(lang.muterole_noinput);
 
 	const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(" ").toLowerCase());
-	if (!role) return msg.reply(lang.muterole_rolenotexist).then(m => m.delete(10000));
+	if (!role) return msg.reply(lang.muterole_rolenotexist);
 
 	if (!tableload.muterole) {
 		tableload.muterole = '';

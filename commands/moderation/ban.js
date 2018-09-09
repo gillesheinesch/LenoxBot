@@ -15,9 +15,9 @@ exports.run = (client, msg, args, lang) => {
 	}
 
 	if (user === msg.author) return msg.channel.send(lang.ban_yourself);
-	if (!reason) return msg.reply(lang.ban_noinput).then(m => m.delete(10000));
+	if (!reason) return msg.reply(lang.ban_noinput);
 
-	if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission).then(m => m.delete(10000));
+	if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission);
 	msg.guild.ban(user);
 
 	var banned = lang.ban_banned.replace('%usertag', user.tag);

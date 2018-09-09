@@ -7,8 +7,8 @@ exports.run = async (client, msg, args, lang) => {
 	let user = args[0];
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply(lang.unban_nouserid).then(m => m.delete(10000));
-	if (!reason) return msg.reply(lang.unban_noinput).then(m => m.delete(10000));
+	if (!user) return msg.reply(lang.unban_nouserid);
+	if (!reason) return msg.reply(lang.unban_noinput);
 
 	const bans = await msg.guild.fetchBans();
 	if (!bans.get(user)) return msg.reply(lang.unban_notbanned);

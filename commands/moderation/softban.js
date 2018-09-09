@@ -5,14 +5,14 @@ exports.run = async(client, msg, args, lang) => {
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply(lang.softban_nomention).then(m => m.delete(10000));
+	if (!user) return msg.reply(lang.softban_nomention);
 	if (user === msg.author) return msg.channel.send(lang.softban_yourself);
 	if (!days[0]) return msg.reply(lang.softban_daysundefined);
 	if (isNaN(days[0]) === true) return msg.reply(lang.softban_nonumber);
 	if (parseInt(days[0]) > 8) return msg.reply(lang.softban_max7);
-	if (!reason) return msg.reply(lang.softban_noinput).then(m => m.delete(10000));
+	if (!reason) return msg.reply(lang.softban_noinput);
 
-	if (!msg.guild.member(user).bannable) return msg.reply(lang.softban_nopermission).then(m => m.delete(10000));
+	if (!msg.guild.member(user).bannable) return msg.reply(lang.softban_nopermission);
 	await msg.guild.ban(user, { days: days[0] });
 	await msg.guild.unban(user);
 

@@ -5,11 +5,11 @@ exports.run = async(client, msg, args, lang) => {
 	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply(lang.kick_nomention).then(m => m.delete(10000));
+	if (!user) return msg.reply(lang.kick_nomention);
 	if (user === msg.author) return msg.channel.send(lang.kick_yourself);
-	if (!reason) return msg.reply(lang.kick_noinput).then(m => m.delete(10000));
+	if (!reason) return msg.reply(lang.kick_noinput);
 
-	if (!msg.guild.member(user).kickable) return msg.reply(lang.kick_nopermission).then(m => m.delete(10000));
+	if (!msg.guild.member(user).kickable) return msg.reply(lang.kick_nopermission);
 	msg.guild.member(user).kick();
 
 	var kicked = lang.kick_kicked.replace('%usertag', user.tag);

@@ -8,13 +8,13 @@ exports.run = async (client, msg, args, lang) => {
 
 	const input = args.slice();
 
-	if (!input[0]) return msg.reply(lang.addautomaticrole_noinput).then(m => m.delete(10000));
+	if (!input[0]) return msg.reply(lang.addautomaticrole_noinput);
 	if (parseInt(input[0], 10) < 0) return msg.reply(lang.addautomaticrole_inputcannotbe0);
-	if (!args.slice(1).join(' ')) return msg.reply(lang.addautomaticrole_norolename).then(m => m.delete(10000));
+	if (!args.slice(1).join(' ')) return msg.reply(lang.addautomaticrole_norolename);
 
 	const roleinput = args.slice(1).join(' ');
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === roleinput.toLowerCase());
-	if (!foundRole) return msg.reply(lang.addautomaticrole_rolenotexist).then(m => m.delete(10000));
+	if (!foundRole) return msg.reply(lang.addautomaticrole_rolenotexist);
 
 	for (let i = 0; i < tableload.ara.length; i += 2) {
 		if (foundRole.id === tableload.ara[i]) return msg.channel.send(lang.addautomaticrole_alreadyadded);

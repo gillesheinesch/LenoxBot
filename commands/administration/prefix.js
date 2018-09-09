@@ -5,7 +5,7 @@ exports.run = async(client, msg, args, lang) => {
 	var currentprefix = lang.prefix_currentprefix.replace('%prefix', tableload.prefix);
 
 	if (newprefix.length === 0) return msg.channel.send(currentprefix);
-	if (newprefix.length > 1) return msg.channel.send(lang.prefix_error).then(m => m.delete(10000));
+	if (newprefix.length > 1) return msg.channel.send(lang.prefix_error);
 
 	tableload.prefix = newprefix.join(" ");
 	await client.guildconfs.set(msg.guild.id, tableload);

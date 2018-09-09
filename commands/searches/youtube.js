@@ -10,7 +10,7 @@ exports.run = (client, msg, args, lang) => {
 	request(url, function(err, response, body) {
 		if (err) {
 			console.log("[ERROR]" + err);
-			return msg.channel.send(lang.youtube_error).then(m => m.delete(10000));
+			return msg.channel.send(lang.youtube_error);
 		}
 		var search = JSON.parse(body);
 		try {
@@ -27,7 +27,7 @@ exports.run = (client, msg, args, lang) => {
 			.setFooter(url);
 			return msg.channel.send({ embed: embed });
 		} catch (err) {
-			return msg.channel.send(lang.youtube_noresult).then(m => m.delete(10000));
+			return msg.channel.send(lang.youtube_noresult);
 		}
 	});
 };

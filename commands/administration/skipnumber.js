@@ -10,9 +10,9 @@ exports.run = async(client, msg, args, lang) => {
 	var currentvotenumber = lang.skipnumber_currentvotenumber.replace('%skipnumber', `\`${tableconfig.skipnumber}\``);
 
 	if (number.length === 0) return msg.channel.send(currentvotenumber);
-	if (number.length > 1) return msg.channel.send(lang.skipnumber_error).then(m => m.delete(10000));
-	if (isNaN(number)) return msg.channel.send(lang.skipnumber_noinput).then(m => m.delete(10000));
-	if (number < 1) return msg.channel.send(lang.skipnumber_cannotbe0).then(m => m.delete(10000));
+	if (number.length > 1) return msg.channel.send(lang.skipnumber_error);
+	if (isNaN(number)) return msg.channel.send(lang.skipnumber_noinput);
+	if (number < 1) return msg.channel.send(lang.skipnumber_cannotbe0);
 
 	tableconfig.skipnumber = number;
 	await client.guildconfs.set(msg.guild.id, tableconfig);

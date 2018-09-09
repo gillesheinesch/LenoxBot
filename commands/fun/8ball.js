@@ -1,7 +1,7 @@
 const Discord = require(`discord.js`);
 exports.run = (client, msg, args, lang) => {
 	const eightball = require('8ball')();
-	if (args.length < 1) return msg.channel.send(lang.eightball_noinput).then(m => m.delete(10000));
+	if (args.length < 1) return msg.channel.send(lang.eightball_noinput);
 
 	const embed = new Discord.RichEmbed()
 	.addField(lang.eightball_question, args.join(" "))

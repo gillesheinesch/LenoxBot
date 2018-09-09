@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 
 exports.run = async(client, msg, args, lang) => {
     if (args.length < 1) {
-        return msg.channel.send(lang.gif_noinput).then(m => m.delete(10000));
+        return msg.channel.send(lang.gif_noinput);
     }
 
     const res = await got(`http://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=${encodeURIComponent(args.join(' '))}`, {
@@ -12,7 +12,7 @@ exports.run = async(client, msg, args, lang) => {
     });
 
     if (!res || !res.body || !res.body.data) {
-        return msg.channel.send(lang.gif_error).then(m => m.delete(10000));
+        return msg.channel.send(lang.gif_error);
     }
 
     const embed = new Discord.RichEmbed()
