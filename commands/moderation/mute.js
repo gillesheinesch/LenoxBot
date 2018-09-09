@@ -18,15 +18,15 @@ exports.run = async (client, msg, args, lang) => {
 	const role = msg.guild.roles.get(tableload.muterole);
 
 	const mutetime = ms(args.slice(1, 2).join(' '));
-	if (mutetime === undefined) return msg.channel.send(lang.mute_invalidtimeformat);
+	if (mutetime === 'undefined') return msg.channel.send(lang.mute_invalidtimeformat);
 
 	const alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
 	if (membermention.roles.get(tableload.muterole)) return msg.channel.send(alreadymuted);
 
 	membermention.addRole(role);
 
-	var mutedby = lang.mute_mutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
-	var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(' '))
+	const mutedby = lang.mute_mutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
+	const mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(' '))
 		.replace('%mutetime', ms(mutetime));
 	const embed = new Discord.RichEmbed()
 		.setAuthor(mutedby, msg.author.displayAvatarURL)
@@ -36,9 +36,6 @@ exports.run = async (client, msg, args, lang) => {
 		.setDescription(mutedescription);
 
 	if (tableload.muteanonymous === 'true') {
-		var mutedby = lang.mute_mutedby.replace('%authortag', `${client.user.username}#${client.user.discriminator}`);
-		var mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(' '))
-			.replace('%mutetime', ms(mutetime));
 		const anonymousembed = new Discord.RichEmbed()
 			.setAuthor(mutedby, client.user.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)

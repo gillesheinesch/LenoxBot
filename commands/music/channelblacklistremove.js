@@ -4,8 +4,9 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!input || input.length === 0) return msg.reply(lang.channelblacklistremove_error);
 
+	let channel;
 	try {
-		var channel = msg.guild.channels.find(r => r.name.toLowerCase() === input.join(' ').toLowerCase());
+		channel = msg.guild.channels.find(r => r.name.toLowerCase() === input.join(' ').toLowerCase());
 	} catch (error) {
 		return msg.channel.send(lang.channelblacklistadd_channelnotfind);
 	}

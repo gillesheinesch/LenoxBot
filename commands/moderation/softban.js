@@ -9,7 +9,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (user === msg.author) return msg.channel.send(lang.softban_yourself);
 	if (!days[0]) return msg.reply(lang.softban_daysundefined);
 	if (isNaN(days[0]) === true) return msg.reply(lang.softban_nonumber);
-	if (parseInt(days[0]) > 8) return msg.reply(lang.softban_max7);
+	if (parseInt(days[0], 10) > 8) return msg.reply(lang.softban_max7);
 	if (!reason) return msg.reply(lang.softban_noinput);
 
 	if (!msg.guild.member(user).bannable) return msg.reply(lang.softban_nopermission);

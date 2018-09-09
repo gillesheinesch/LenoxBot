@@ -4,6 +4,7 @@ exports.run = async (client, msg, args, lang) => {
 	const botconfs = client.botconfs.get('botconfs');
 	const bansOfThisServer = [];
 	const fetchedBans = await msg.guild.fetchBans();
+	let fetchedUser;
 
 	for (const i in botconfs.bans) {
 		if (botconfs.bans[i].discordserverid === msg.guild.id) {
@@ -14,11 +15,11 @@ exports.run = async (client, msg, args, lang) => {
 	if (bansOfThisServer.length === 0) return msg.reply(lang.currentlybanned_error);
 
 	if (args.slice().length !== 0) {
-		var user = msg.mentions.users.first();
-		if (!user) {
+		fetchedUser = msg.mentions.users.first();
+		if (!fetchedUser) {
 			try {
-				if (!fetchedBans.get(args.slice().join(' '))) throw 'Usernotfound';
-				user = fetchedBans.get(args.slice().join(' '));
+				if (!fetchedBans.get(args.slice().join(' '))) throw new Error('User not found!');
+				fetchedUser = fetchedBans.get(args.slice().join(' '));
 			} catch (error) {
 				return msg.reply(lang.ban_idcheck);
 			}
@@ -26,7 +27,7 @@ exports.run = async (client, msg, args, lang) => {
 		let checkIfBanned = false;
 		let banSettings;
 		await bansOfThisServer.forEach(r => {
-			if (r.memberid === user.id) {
+			if (r.memberid === fetchedUser.id) {
 				checkIfBanned = true;
 				banSettings = r;
 			}
@@ -41,7 +42,7 @@ exports.run = async (client, msg, args, lang) => {
 
 		const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(banSettings.moderatorid).tag).replace('%banneddate', new Date(banSettings.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(banSettings.banEndDate - Date.now()))
 			.replace('%reason', banSettings.reason);
-		userembed.addField(`${user.username}#${user.discriminator}`, embeddescription);
+		userembed.addField(`${fetchedUser.username}#${fetchedUser.discriminator}`, embeddescription);
 
 		return msg.channel.send({
 			embed: userembed
@@ -60,14 +61,14 @@ exports.run = async (client, msg, args, lang) => {
 			}
 
 			if (!r.reason) {
-				r.reason = undefined;
+				r.reason = 'undefined';
 			}
 
-			user = fetchedBans.get(r.memberid);
+			fetchedUser = fetchedBans.get(r.memberid);
 
 			const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now()))
 				.replace('%reason', r.reason);
-			embed.addField(`${user.username}#${user.discriminator}`, embeddescription);
+			embed.addField(`${fetchedUser.username}#${fetchedUser.discriminator}`, embeddescription);
 		}
 	});
 
@@ -95,7 +96,7 @@ exports.run = async (client, msg, args, lang) => {
 				first += 4;
 				second += 4;
 
-				var newembed = new Discord.RichEmbed()
+				const newembed = new Discord.RichEmbed()
 					.setAuthor(lang.currentlybanned_embedauthor)
 					.setColor('#ff3300')
 					.setTimestamp();
@@ -106,7 +107,7 @@ exports.run = async (client, msg, args, lang) => {
 					}
 
 					if (!r.reason) {
-						r.reason = undefined;
+						r.reason = 'undefined';
 					}
 
 					const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now()))
@@ -123,7 +124,7 @@ exports.run = async (client, msg, args, lang) => {
 				first -= 4;
 				second -= 4;
 
-				var newembed = new Discord.RichEmbed()
+				const newembed = new Discord.RichEmbed()
 					.setAuthor(lang.currentlybanned_embedauthor)
 					.setColor('#ff3300')
 					.setTimestamp();
@@ -134,7 +135,7 @@ exports.run = async (client, msg, args, lang) => {
 					}
 
 					if (!r.reason) {
-						r.reason = undefined;
+						r.reason = 'undefined';
 					}
 
 					const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%banneddate', new Date(r.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(r.banEndDate - Date.now()))
@@ -147,12 +148,10 @@ exports.run = async (client, msg, args, lang) => {
 				});
 			}
 		});
-		collector.on('end', (collected, reason) => {
+		collector.on('end', () => {
 			reaction1.remove();
 			reaction2.remove();
 		});
-	} else {
-		return undefined;
 	}
 };
 

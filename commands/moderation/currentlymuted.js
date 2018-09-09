@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 		let user = msg.mentions.users.first();
 		if (!user) {
 			try {
-				if (!msg.guild.members.get(args.slice().join(' '))) throw 'Usernotfound';
+				if (!msg.guild.members.get(args.slice().join(' '))) throw new Error('User not found!');
 				user = msg.guild.members.get(args.slice().join(' ')).user;
 			} catch (error) {
 				return msg.reply(lang.ban_idcheck);
@@ -59,7 +59,7 @@ exports.run = async (client, msg, args, lang) => {
 		}
 
 		if (!r.reason) {
-			r.reason = undefined;
+			r.reason = 'undefined';
 		}
 
 		const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
@@ -91,7 +91,7 @@ exports.run = async (client, msg, args, lang) => {
 				first += 4;
 				second += 4;
 
-				var newembed = new Discord.RichEmbed()
+				const newembed = new Discord.RichEmbed()
 					.setAuthor(lang.currentlymuted_embedauthor)
 					.setColor('#ff9900')
 					.setTimestamp();
@@ -102,7 +102,7 @@ exports.run = async (client, msg, args, lang) => {
 					}
 
 					if (!r.reason) {
-						r.reason = undefined;
+						r.reason = 'undefined';
 					}
 
 					const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
@@ -119,7 +119,7 @@ exports.run = async (client, msg, args, lang) => {
 				first -= 4;
 				second -= 4;
 
-				var newembed = new Discord.RichEmbed()
+				const newembed = new Discord.RichEmbed()
 					.setAuthor(lang.currentlymuted_embedauthor)
 					.setColor('#ff9900')
 					.setTimestamp();
@@ -130,7 +130,7 @@ exports.run = async (client, msg, args, lang) => {
 					}
 
 					if (!r.reason) {
-						r.reason = undefined;
+						r.reason = 'undefined';
 					}
 
 					const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
@@ -143,12 +143,10 @@ exports.run = async (client, msg, args, lang) => {
 				});
 			}
 		});
-		collector.on('end', (collected, reason) => {
+		collector.on('end', () => {
 			reaction1.remove();
 			reaction2.remove();
 		});
-	} else {
-		return undefined;
 	}
 };
 

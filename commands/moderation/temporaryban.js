@@ -10,7 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!user) {
 		try {
-			if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw 'Usernotfound';
+			if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
 			user = msg.guild.members.get(args.slice(0, 1).join(' '));
 			user = user.user;
 		} catch (error) {
@@ -27,7 +27,7 @@ exports.run = async (client, msg, args, lang) => {
 	msg.guild.ban(user);
 
 	const bantime = ms(args.slice(1, 2).join(' '));
-	if (bantime === undefined) return msg.channel.send(lang.temporaryban_invalidtimeformat);
+	if (bantime === 'undefined') return msg.channel.send(lang.temporaryban_invalidtimeformat);
 
 	const banned = lang.temporaryban_banned.replace('%usertag', user.tag).replace('%bantime', ms(bantime));
 	const banembed = new Discord.RichEmbed()
@@ -37,7 +37,7 @@ exports.run = async (client, msg, args, lang) => {
 		embed: banembed
 	});
 
-	var bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
+	const bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
 		.replace('%bantime', ms(bantime));
 	const embed = new Discord.RichEmbed()
 		.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
@@ -47,8 +47,6 @@ exports.run = async (client, msg, args, lang) => {
 		.setDescription(bandescription);
 
 	if (tableload.tempbananonymous === 'true') {
-		var bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
-			.replace('%bantime', ms(bantime));
 		const ananonymousembed = new Discord.RichEmbed()
 			.setAuthor(`${lang.temporaryban_bannedby} ${client.user.username}${client.user.discriminator}`, client.user.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)

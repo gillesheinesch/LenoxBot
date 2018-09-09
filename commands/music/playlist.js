@@ -3,7 +3,6 @@ exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const userdb = client.userdb.get(msg.author.id);
 	const config = require('../../settings.json');
-	const ytdl = require('ytdl-core');
 	const {
 		Util
 	} = require('discord.js');
@@ -18,7 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (tableload.premium.status === false) return msg.reply(lang.playlist_noguildpremium);
 
-	for (var i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'new') {
 				if (Object.keys(tableload.playlist).length >= 8) return msg.reply(lang.playlist_maxplaylist);
@@ -30,7 +29,7 @@ exports.run = async (client, msg, args, lang) => {
 
 				const addnewsong = lang.playlist_addnewsong.replace('%playlistname', newplaylisttitle);
 				await msg.reply(addnewsong);
-				for (var i = 0; i < 100; i++) {
+				for (let index2 = 0; index2 < 100; index2++) {
 					try {
 						const responsesongs = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
 							maxMatches: 1,
@@ -60,11 +59,11 @@ exports.run = async (client, msg, args, lang) => {
 							msg.channel.send(newsongaddedtoplaylist);
 						} else {
 							try {
-								var video = await youtube.getVideo(url);
-							} catch (error) {
+								await youtube.getVideo(url);
+							} catch (err) {
 								try {
 									const searchString = responsesongs.first().content;
-									var videos = await youtube.searchVideos(searchString, 10);
+									const videos = await youtube.searchVideos(searchString, 10);
 
 									if (videos.length === 0) return msg.channel.send(lang.play_noresult);
 
@@ -83,17 +82,18 @@ exports.run = async (client, msg, args, lang) => {
 									const secondmessage = await msg.channel.send({
 										embed: embed2
 									});
+									let response;
 									try {
-										var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
+										response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
 											maxMatches: 1,
 											time: 60000,
 											errors: ['time']
 										});
-									} catch (err) {
+									} catch (err2) {
 										return msg.channel.send(lang.playlist_timeerror);
 									}
-									const videoIndex = parseInt(response.first().content);
-									var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+									const videoIndex = parseInt(response.first().content, 10);
+									const video = await youtube.getVideoByID(videos[videoIndex - 1].id);
 									await firstmessage.delete();
 									await secondmessage.delete();
 
@@ -110,7 +110,7 @@ exports.run = async (client, msg, args, lang) => {
 									}
 									const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', Util.escapeMarkdown(video.title));
 									msg.reply(newsongaddedtoplaylist);
-								} catch (err) {
+								} catch (err3) {
 									return msg.channel.send(lang.play_noresult);
 								}
 							}
@@ -133,7 +133,8 @@ exports.run = async (client, msg, args, lang) => {
 						.setColor('#66ff33');
 
 					const songtitlearray = [];
-					for (var x in tableload.playlist[input.join(' ').toLowerCase()]) {
+					/* eslint guard-for-in: 0 */
+					for (const x in tableload.playlist[input.join(' ').toLowerCase()]) {
 						songtitlearray.push(tableload.playlist[input.join(' ').toLowerCase()][x].title);
 					}
 
@@ -148,7 +149,7 @@ exports.run = async (client, msg, args, lang) => {
 					.setAuthor(lang.playlist_playlistserverembed)
 					.setColor('#66ff33');
 
-				for (var x in tableload.playlist) {
+				for (const x in tableload.playlist) {
 					listplaylistobject.push(x);
 				}
 
@@ -194,11 +195,11 @@ exports.run = async (client, msg, args, lang) => {
 						return msg.channel.send(newsongadded);
 					}
 					try {
-						var video = await youtube.getVideo(url);
-					} catch (error) {
+						await youtube.getVideo(url);
+					} catch (err4) {
 						try {
 							const searchString = newsongaddtoplaylist.first().content;
-							var videos = await youtube.searchVideos(searchString, 10);
+							const videos = await youtube.searchVideos(searchString, 10);
 
 							if (videos.length === 0) return msg.channel.send(lang.play_noresult);
 
@@ -218,8 +219,10 @@ exports.run = async (client, msg, args, lang) => {
 							await msg.channel.send({
 								embed: embed2
 							});
+
+							let response;
 							try {
-								var response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
+								response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
 									maxMatches: 1,
 									time: 60000,
 									errors: ['time']
@@ -227,8 +230,8 @@ exports.run = async (client, msg, args, lang) => {
 							} catch (err) {
 								return msg.channel.send(lang.playlist_timeerror);
 							}
-							const videoIndex = parseInt(response.first().content);
-							var video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+							const videoIndex = parseInt(response.first().content, 10);
+							const video = await youtube.getVideoByID(videos[videoIndex - 1].id);
 
 							if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) {
 								return msg.reply(lang.play_songlengthlimit);
@@ -251,8 +254,9 @@ exports.run = async (client, msg, args, lang) => {
 				if (!tableload.playlist[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 				await msg.reply(lang.playlist_questionremovesong);
+				let removesong;
 				try {
-					var removesong = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
+					removesong = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 60000,
 						errors: ['time']
@@ -261,7 +265,7 @@ exports.run = async (client, msg, args, lang) => {
 					return msg.channel.send(lang.playlist_timeerror);
 				}
 
-				for (var x in tableload.playlist[args.slice(1).join(' ').toLowerCase()]) {
+				for (const x in tableload.playlist[args.slice(1).join(' ').toLowerCase()]) {
 					if (tableload.playlist[args.slice(1).join(' ').toLowerCase()][x].title.toLowerCase() === removesong.first().content.toLowerCase()) {
 						delete tableload.playlist[args.slice(1).join(' ').toLowerCase()][x];
 						await client.guildconfs.set(msg.guild.id, tableload);

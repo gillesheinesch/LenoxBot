@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-
 exports.run = async (client, msg, args, lang) => {
 	const reason = args.slice(1).join(' ');
 	const user = msg.mentions.users.first();
@@ -10,7 +9,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (!reason) return msg.reply(lang.kick_noinput);
 
 	if (!msg.guild.member(user).kickable) return msg.reply(lang.kick_nopermission);
-	msg.guild.member(user).kick();
+	await msg.guild.member(user).kick();
 
 	const kicked = lang.kick_kicked.replace('%usertag', user.tag);
 	const kickembed = new Discord.RichEmbed()

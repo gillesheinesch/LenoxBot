@@ -38,9 +38,11 @@ exports.run = async (client, msg, args, lang) => {
 			embed: embed
 		});
 	}
+
+	let banOfThisUser;
 	for (const i in botconfs.bans) {
 		if (botconfs.bans[i].discordserverid === msg.guild.id && botconfs.mutes[i].memberid === user) {
-			var banOfThisUser = botconfs.bans[i];
+			banOfThisUser = botconfs.bans[i];
 		}
 	}
 	if (banOfThisUser) {

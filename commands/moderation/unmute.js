@@ -46,9 +46,10 @@ exports.run = async (client, msg, args, lang) => {
 			embed: unmuteembed
 		});
 
+		let muteOfThisUser;
 		for (const i in botconfs.mutes) {
 			if (botconfs.mutes[i].discordserverid === membermention.guild.id && botconfs.mutes[i].memberid === membermention.id) {
-				var muteOfThisUser = botconfs.mutes[i];
+				muteOfThisUser = botconfs.mutes[i];
 			}
 		}
 
