@@ -66,9 +66,10 @@
   },
   "devDependencies": {},
   "scripts": {
-    "test": "npm run lint && npm run commandslint",
+    "test": "npm run lint && npm run commandslint && npm run eventslint",
     "lint": "eslint *.js",
-    "commandslint": "eslint commands"
+    "commandslint": "eslint commands",
+    "eventslint": "eslint events"
   },
   "author": "Gilles Heinesch",
   "license": "MIT"
