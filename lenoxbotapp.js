@@ -1511,8 +1511,9 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async (req, res
 app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
+		let index;
 		if (req.user) {
-			var index = -1;
+			index = -1;
 			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
@@ -1546,9 +1547,9 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res)
 			const newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
 
 			for (let i = 0; i < newchatfilterarray.length; i++) {
-				for (var index = 0; index < newchatfilterarray.length; index++) {
-					if (newchatfilterarray[i].toLowerCase() === newchatfilterarray[index].toLowerCase() && i !== index) {
-						newchatfilterarray.splice(index, 1);
+				for (let index3 = 0; index3 < newchatfilterarray.length; index3++) {
+					if (newchatfilterarray[i].toLowerCase() === newchatfilterarray[index3].toLowerCase() && i !== index3) {
+						newchatfilterarray.splice(index3, 1);
 					}
 				}
 			}
@@ -1889,7 +1890,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async (re
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -1927,7 +1928,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async (re
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -1941,7 +1942,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async (re
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -1955,7 +1956,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async (re
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -2133,7 +2134,7 @@ app.post('/dashboard/:id/administration/submitpermissionsdashboard', async (req,
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -2172,7 +2173,7 @@ app.post('/dashboard/:id/administration/submitpermissionsdashboard', async (req,
 				const array = [];
 
 				if (Array.isArray(newpermissiondashboard)) {
-					for (var i = 0; i < newpermissiondashboard.length; i++) {
+					for (let i = 0; i < newpermissiondashboard.length; i++) {
 						array.push(newpermissiondashboard[i]);
 					}
 					tableload.dashboardpermissionroles = array;
@@ -2217,7 +2218,7 @@ app.get('/dashboard/:id/administration', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -2266,7 +2267,7 @@ app.get('/dashboard/:id/administration', (req, res) => {
 
 			const tableload = client.guildconfs.get(req.user.guilds[index].id);
 			if (tableload.togglexp) {
-				for (var i = 0; i < channels.length; i++) {
+				for (let i = 0; i < channels.length; i++) {
 					if (tableload.togglexp.channelids.includes(channels[i].id)) {
 						channels[i].togglexpset = true;
 					}
@@ -2297,7 +2298,7 @@ app.get('/dashboard/:id/administration', (req, res) => {
 			}
 
 			const commands = client.commands.filter(r => r.help.category === 'administration' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -2334,7 +2335,7 @@ app.get('/dashboard/:id/administration', (req, res) => {
 
 			const confs = {};
 			if (tableload) {
-				for (var i = 0; i < channels.length; i++) {
+				for (let i = 0; i < channels.length; i++) {
 					if (channels[i].id === tableload.modlogchannel) {
 						if (tableload.modlog === 'true') {
 							channels[i].modlogset = true;
@@ -2750,7 +2751,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async (req, r
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -2788,7 +2789,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async (req, r
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -2802,7 +2803,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async (req, r
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -2816,7 +2817,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async (req, r
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -2864,7 +2865,7 @@ app.get('/dashboard/:id/moderation', async (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -2912,7 +2913,7 @@ app.get('/dashboard/:id/moderation', async (req, res) => {
 			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'moderation' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -3033,7 +3034,7 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async (req, res) =>
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -3071,7 +3072,7 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async (req, res) =>
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -3085,7 +3086,7 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async (req, res) =>
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -3099,7 +3100,7 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async (req, res) =>
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -3147,7 +3148,7 @@ app.get('/dashboard/:id/help', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -3195,7 +3196,7 @@ app.get('/dashboard/:id/help', (req, res) => {
 			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'help' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -3239,7 +3240,7 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -3272,7 +3273,7 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async (req, res) => {
 			const tableload = client.guildconfs.get(dashboardid);
 
 			if (Array.isArray(newchannelblacklist)) {
-				for (var i = 0; i < newchannelblacklist.length; i++) {
+				for (let i = 0; i < newchannelblacklist.length; i++) {
 					array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newchannelblacklist[i]).id);
 				}
 				tableload.musicchannelblacklist = array;
@@ -3453,7 +3454,7 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async (req, res) =
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -3491,7 +3492,7 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async (req, res) =
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -3505,7 +3506,7 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async (req, res) =
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -3519,7 +3520,7 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async (req, res) =
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -3567,7 +3568,7 @@ app.get('/dashboard/:id/music', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -3615,7 +3616,7 @@ app.get('/dashboard/:id/music', (req, res) => {
 
 			const tableload = client.guildconfs.get(req.user.guilds[index].id);
 			if (tableload.musicchannelblacklist) {
-				for (var i = 0; i < channels.length; i++) {
+				for (let i = 0; i < channels.length; i++) {
 					if (tableload.musicchannelblacklist.includes(channels[i].id)) {
 						channels[i].channelblacklistset = true;
 					}
@@ -3623,7 +3624,7 @@ app.get('/dashboard/:id/music', (req, res) => {
 			}
 
 			const commands = client.commands.filter(r => r.help.category === 'music' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -3735,7 +3736,7 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async (req, res) => 
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -3773,7 +3774,7 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async (req, res) => 
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -3787,7 +3788,7 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async (req, res) => 
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -3801,7 +3802,7 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async (req, res) => 
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -3849,7 +3850,7 @@ app.get('/dashboard/:id/fun', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -3897,7 +3898,7 @@ app.get('/dashboard/:id/fun', (req, res) => {
 			const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
 			const commands = client.commands.filter(r => r.help.category === 'fun' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -4006,7 +4007,7 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async (req, res
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -4044,7 +4045,7 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async (req, res
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -4058,7 +4059,7 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async (req, res
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -4072,7 +4073,7 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async (req, res
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -4120,7 +4121,7 @@ app.get('/dashboard/:id/searches', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -4168,7 +4169,7 @@ app.get('/dashboard/:id/searches', (req, res) => {
 			const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
 			const commands = client.commands.filter(r => r.help.category === 'searches' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -4277,7 +4278,7 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async (req, res) =>
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -4315,7 +4316,7 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async (req, res) =>
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -4329,7 +4330,7 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async (req, res) =>
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -4343,7 +4344,7 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async (req, res) =>
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -4391,7 +4392,7 @@ app.get('/dashboard/:id/nsfw', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -4439,7 +4440,7 @@ app.get('/dashboard/:id/nsfw', (req, res) => {
 			const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
 			const commands = client.commands.filter(r => r.help.category === 'nsfw' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -4647,7 +4648,7 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async (req, res)
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -4685,7 +4686,7 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async (req, res)
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -4699,7 +4700,7 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async (req, res)
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -4713,7 +4714,7 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async (req, res)
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -4761,7 +4762,7 @@ app.get('/dashboard/:id/utility', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -4809,7 +4810,7 @@ app.get('/dashboard/:id/utility', (req, res) => {
 			const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
 			const commands = client.commands.filter(r => r.help.category === 'utility' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -5623,7 +5624,7 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async (req, 
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -5661,7 +5662,7 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async (req, 
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -5675,7 +5676,7 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async (req, 
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -5689,7 +5690,7 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async (req, 
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -5737,7 +5738,7 @@ app.get('/dashboard/:id/application', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -5789,7 +5790,7 @@ app.get('/dashboard/:id/application', (req, res) => {
 
 			const tableload = client.guildconfs.get(dashboardid);
 			if (tableload.application) {
-				for (var i = 0; i < channels.length; i++) {
+				for (let i = 0; i < channels.length; i++) {
 					if (tableload.application.votechannel === channels[i].id) {
 						channels[i].votechannelset = true;
 					}
@@ -5812,7 +5813,7 @@ app.get('/dashboard/:id/application', (req, res) => {
 			}
 
 			const commands = client.commands.filter(r => r.help.category === 'application' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -5919,7 +5920,7 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async (req, res
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -5957,7 +5958,7 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async (req, res
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -5971,7 +5972,7 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async (req, res
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -5985,7 +5986,7 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async (req, res
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -6033,7 +6034,7 @@ app.get('/dashboard/:id/currency', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -6081,7 +6082,7 @@ app.get('/dashboard/:id/currency', (req, res) => {
 			const tableload = client.guildconfs.get(req.user.guilds[index].id);
 
 			const commands = client.commands.filter(r => r.help.category === 'currency' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -6386,7 +6387,7 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async (req, res)
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -6424,7 +6425,7 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async (req, res)
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -6438,7 +6439,7 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async (req, res)
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -6452,7 +6453,7 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async (req, res)
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -6500,7 +6501,7 @@ app.get('/dashboard/:id/tickets', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			var index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -6538,7 +6539,7 @@ app.get('/dashboard/:id/tickets', (req, res) => {
 
 			const tableload = client.guildconfs.get(dashboardid);
 			const commands = client.commands.filter(r => r.help.category === 'tickets' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -6586,7 +6587,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecomma
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -6616,7 +6617,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecomma
 
 			const tableload = await client.guildconfs.get(dashboardid);
 
-			for (var i = 0; i < tableload.customcommands.length; i++) {
+			for (let i = 0; i < tableload.customcommands.length; i++) {
 				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
 					tableload.customcommands.splice(i, 1);
 				}
@@ -6655,7 +6656,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstat
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -6685,7 +6686,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstat
 
 			const tableload = await client.guildconfs.get(dashboardid);
 
-			for (var i = 0; i < tableload.customcommands.length; i++) {
+			for (let i = 0; i < tableload.customcommands.length; i++) {
 				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
 					tableload.customcommands[i].enabled = req.body.statuschange;
 				}
@@ -6724,7 +6725,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchan
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -6760,7 +6761,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchan
 				newDescription = req.body.newdescription;
 			}
 
-			for (var i = 0; i < tableload.customcommands.length; i++) {
+			for (let i = 0; i < tableload.customcommands.length; i++) {
 				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
 					tableload.customcommands[i].description = newDescription;
 					tableload.customcommands[i].commandanswer = newResponse;
@@ -6865,7 +6866,7 @@ app.post('/dashboard/:id/customcommands/:command/submitcommandchange', async (re
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -6903,7 +6904,7 @@ app.post('/dashboard/:id/customcommands/:command/submitcommandchange', async (re
 			let newcooldown = '';
 			if (req.body.newblacklistedchannels) {
 				if (Array.isArray(req.body.newblacklistedchannels)) {
-					for (var i = 0; i < req.body.newblacklistedchannels.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
 						channelsarray.push(req.body.newblacklistedchannels[i]);
 					}
 					tableload.commands[req.params.command].bannedchannels = channelsarray;
@@ -6917,7 +6918,7 @@ app.post('/dashboard/:id/customcommands/:command/submitcommandchange', async (re
 
 			if (req.body.newblacklistedroles) {
 				if (Array.isArray(req.body.newblacklistedroles)) {
-					for (var i = 0; i < req.body.newblacklistedroles.length; i++) {
+					for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
 						rolesarray.push(req.body.newblacklistedroles[i]);
 					}
 					tableload.commands[req.params.command].bannedroles = rolesarray;
@@ -6931,7 +6932,7 @@ app.post('/dashboard/:id/customcommands/:command/submitcommandchange', async (re
 
 			if (req.body.newwhitelistedroles) {
 				if (Array.isArray(req.body.newwhitelistedroles)) {
-					for (var i = 0; i < req.body.newwhitelistedroles.length; i++) {
+					for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
 						whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 					}
 					tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
@@ -6979,7 +6980,7 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			var index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -7000,7 +7001,7 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 
 			const tableload = client.guildconfs.get(dashboardid);
 			const commands = client.commands.filter(r => r.help.category === 'customcommands' && r.conf.dashboardsettings === true).array();
-			for (var i = 0; i < commands.length; i++) {
+			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
@@ -7132,7 +7133,7 @@ app.get('/dashboard/:id/modules', (req, res) => {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
 			let index = -1;
-			for (var i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (req.user.guilds[i].id === dashboardid) {
 					index = i;
 				}
@@ -7169,7 +7170,7 @@ app.get('/dashboard/:id/modules', (req, res) => {
 
 			const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets', 'Customcommands'];
 
-			for (var i = 0; i < moduleslist.length; i++) {
+			for (let i = 0; i < moduleslist.length; i++) {
 				const config = {
 					name: '',
 					description: '',
@@ -7245,10 +7246,11 @@ app.get('/dashboard/:id/lastlogs', (req, res) => {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
 			const check = req.user.guilds[index];
+			var logs;
 
 			if (client.guildconfs.get(dashboardid).globallogs) {
 				const thelogs = client.guildconfs.get(dashboardid).globallogs;
-				var logs = thelogs.sort((a, b) => {
+				logs = thelogs.sort((a, b) => {
 					if (a.date < b.date) {
 						return 1;
 					}
