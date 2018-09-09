@@ -3,7 +3,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 	if (newMsg.author.bot) return;
 	if (newMsg.channel.type !== 'text') return undefined;
 
-	var tableload = await client.guildconfs.get(newMsg.guild.id);
+	const tableload = await client.guildconfs.get(newMsg.guild.id);
 	if (!tableload) return;
 
 	if (tableload.language === '') {
@@ -11,7 +11,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 		await client.guildconfs.set(newMsg.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableload.language}.json`);
+	const lang = require(`../languages/${tableload.language}.json`);
 
 	if (tableload.messageupdatelog === 'true') {
 		const messagechannel = client.channels.get(tableload.messageupdatelogchannel);
@@ -23,8 +23,8 @@ exports.run = async (client, oldMsg, newMsg) => {
 				.addField(`🗣 ${lang.messagedeleteevent_author}:`, newMsg.author.tag)
 				.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${newMsg.channel.name} (${newMsg.channel.id})`)
 				.addField(`📎 ${lang.messagedeleteevent_mid}:`, newMsg.id)
-				.addField(`📤 ${lang.messageupdateevent_old}:`, oldMsg.cleanContent.length < 960 ? oldMsg.cleanContent : oldMsg.cleanContent.substring(0, 960) + ' ...')
-				.addField(`📥 ${lang.messageupdateevent_new}:`, newMsg.cleanContent.length < 960 ? newMsg.cleanContent : newMsg.cleanContent.substring(0, 960) + ' ...');
+				.addField(`📤 ${lang.messageupdateevent_old}:`, oldMsg.cleanContent.length < 960 ? oldMsg.cleanContent : `${oldMsg.cleanContent.substring(0, 960)} ...`)
+				.addField(`📥 ${lang.messageupdateevent_new}:`, newMsg.cleanContent.length < 960 ? newMsg.cleanContent : `${newMsg.cleanContent.substring(0, 960)} ...`);
 			messagechannel.send({
 				embed: embed
 			});
@@ -32,7 +32,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 	}
 	const input = newMsg.content.split(' ').slice();
 	if (tableload.chatfilter.chatfilter === 'true' && tableload.chatfilter.array.length !== 0) {
-		for (var i = 0; i < tableload.chatfilter.array.length; i++) {
+		for (let i = 0; i < tableload.chatfilter.array.length; i++) {
 			for (let index = 0; index < input.length; index++) {
 				if (input[index].toLowerCase() === tableload.chatfilter.array[i].toLowerCase()) {
 					if (tableload.chatfilterlog === 'true') {

@@ -12,15 +12,15 @@ exports.run = (client, channel) => {
 		client.guildconfs.set(channel.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableload.language}.json`);
+	const lang = require(`../languages/${tableload.language}.json`);
 
 	const messagechannel = client.channels.get(tableload.channeldeletelogchannel);
 
 	const embed = new Discord.RichEmbed()
-	.setColor('#FE2E2E')
-	.setTimestamp()
-	.setAuthor(lang.channeldeleteevent_channeldeleted)
-	.addField(`📎 ${lang.channelcreateevent_channelid}:`, channel.id)
-	.addField(`📝 ${lang.channelcreateevent_name}:`, channel.name);
+		.setColor('#FE2E2E')
+		.setTimestamp()
+		.setAuthor(lang.channeldeleteevent_channeldeleted)
+		.addField(`📎 ${lang.channelcreateevent_channelid}:`, channel.id)
+		.addField(`📝 ${lang.channelcreateevent_name}:`, channel.name);
 	messagechannel.send({ embed: embed });
 };

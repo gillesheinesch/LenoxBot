@@ -6,19 +6,19 @@ exports.run = (client, member) => {
 	if (!tableload) return;
 
 	if (tableload.language === '') {
-        tableload.language = 'en';
-        client.guildconfs.set(member.guild.id, tableload);
+		tableload.language = 'en';
+		client.guildconfs.set(member.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableload.language}.json`);
+	const lang = require(`../languages/${tableload.language}.json`);
 
 	if (tableload.byelog === 'true') {
 		const messagechannel = client.channels.get(tableload.byelogchannel);
 		const embed = new Discord.RichEmbed()
-		.setFooter(lang.guildmemberremoveevent_userleft)
-		.setTimestamp()
-		.setColor('#FF0000')
-		.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
+			.setFooter(lang.guildmemberremoveevent_userleft)
+			.setTimestamp()
+			.setColor('#FF0000')
+			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
 		messagechannel.send({ embed: embed });
 	}
 
@@ -27,10 +27,10 @@ exports.run = (client, member) => {
 		const message = tableload.byemsg;
 		const msgchannel = client.channels.get(tableload.byechannel);
 		const newMessage = message.replace('$username$', member.user.username)
-		.replace('$usertag$', member.user.tag)
-		.replace('$userid$', member.user.id)
-		.replace('$guildname$', member.guild.name)
-		.replace('$guildid$', member.guild.id);
+			.replace('$usertag$', member.user.tag)
+			.replace('$userid$', member.user.id)
+			.replace('$guildname$', member.guild.name)
+			.replace('$guildid$', member.guild.id);
 		msgchannel.send(newMessage);
 	}
 };

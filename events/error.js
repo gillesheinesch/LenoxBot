@@ -1,3 +1,3 @@
 exports.run = (client, error) => {
-    console.log(error);
+	console.log(error);
 };

@@ -8,7 +8,7 @@ exports.run = async (client, oldMember, newMember) => {
 		client.guildconfs.set(newMember.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableload.language}.json`);
+	const lang = require(`../languages/${tableload.language}.json`);
 	if (oldMember.nickname !== newMember.nickname) {
 		if (!tableload.nicknamelog) {
 			tableload.nicknamelog = [];

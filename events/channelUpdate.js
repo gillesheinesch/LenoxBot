@@ -12,7 +12,7 @@ exports.run = (client, oldChannel, newChannel) => {
 		client.guildconfs.set(newChannel.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableload.language}.json`);
+	const lang = require(`../languages/${tableload.language}.json`);
 
 	if (!client.channels.get(tableload.channelupdatelogchannel)) return undefined;
 

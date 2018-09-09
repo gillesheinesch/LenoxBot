@@ -1,11 +1,11 @@
 const sql = require('sqlite');
-sql.open("../lenoxbotscore.sqlite");
+sql.open('../lenoxbotscore.sqlite');
 const moment = require('moment');
 require('moment-duration-format');
 const Discord = require('discord.js');
 exports.run = async (client, msg) => {
 	if (msg.author.bot) return;
-	var englishlang = require(`../languages/en.json`);
+	const englishlang = require(`../languages/en.json`);
 	if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 
 	if (client.user.id === '353115097318555649') {
@@ -198,12 +198,12 @@ exports.run = async (client, msg) => {
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
-			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 		}
-	}).catch((error) => {
+	}).catch(error => {
 		console.error(error);
-		sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
-			sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [msg.author.id, 0]);
+		sql.run('CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)').then(() => {
+			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 		});
 	});
 
@@ -268,19 +268,19 @@ exports.run = async (client, msg) => {
 		if (!tableload.commands[client.commands.array()[i].help.name]) {
 			tableload.commands[client.commands.array()[i].help.name] = {
 				name: client.commands.array()[i].help.name,
-				status: "true",
+				status: 'true',
 				bannedroles: [],
 				bannedchannels: [],
 				cooldown: '3000',
-				ifBlacklistForRoles: "true",
-				ifBlacklistForChannels: "true",
+				ifBlacklistForRoles: 'true',
+				ifBlacklistForChannels: 'true',
 				whitelistedroles: [],
 				whitelistedchannels: []
 			};
 		}
 		if (!tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
-			tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = "true";
-			tableload.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = "true";
+			tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = 'true';
+			tableload.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = 'true';
 			tableload.commands[client.commands.array()[i].help.name].whitelistedroles = [];
 			tableload.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
 		}
@@ -369,12 +369,12 @@ exports.run = async (client, msg) => {
 	}
 
 	if (!tableload.muteanonymous) {
-		tableload.muteanonymous = "false";
+		tableload.muteanonymous = 'false';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (!tableload.tempbananonymous) {
-		tableload.tempbananonymous = "false";
+		tableload.tempbananonymous = 'false';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
@@ -412,7 +412,7 @@ exports.run = async (client, msg) => {
 	}
 
 	if (!tableload.modules.tickets) {
-		tableload.modules.tickets = "true";
+		tableload.modules.tickets = 'true';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
@@ -450,7 +450,7 @@ exports.run = async (client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	var lang = require(`../languages/${tableload.language}.json`);
+	const lang = require(`../languages/${tableload.language}.json`);
 
 	if (msg.channel.type !== 'text') return msg.reply(lang.messageevent_error);
 
@@ -618,15 +618,15 @@ exports.run = async (client, msg) => {
 		if (!tableload.togglexp.channelids.includes(msg.channel.id)) {
 			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 				if (!row) {
-					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
+					sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, 1, 0]);
 				} else {
-					let curLevel = Math.floor(0.2 * Math.sqrt(row.points + 1));
+					const curLevel = Math.floor(0.2 * Math.sqrt(row.points + 1));
 					if (curLevel > row.level) {
 						row.level = curLevel;
 						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 
 						if (tableload.xpmessages === 'true') {
-							var levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
+							const levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
 							msg.channel.send(levelup);
 						}
 					}
@@ -636,28 +636,28 @@ exports.run = async (client, msg) => {
 								const role = msg.guild.roles.get(tableload.ara[i - 1]);
 								msg.member.addRole(role);
 
-								var automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
+								const automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
 								msg.channel.send(automaticrolegotten);
 							}
 						}
 					});
 					sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 				}
-			}).catch((error) => {
+			}).catch(error => {
 				console.error(error);
-				sql.run("CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)").then(() => {
-					sql.run("INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)", [msg.guild.id, msg.author.id, 1, 0]);
+				sql.run('CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)').then(() => {
+					sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, 1, 0]);
 				});
 			});
 		}
 	}
 
 	if (msg.content.startsWith(tableload.prefix)) {
-		var args = msg.content.split(' ').slice(1);
-		var command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
-		var cmd;
+		const args = msg.content.split(' ').slice(1);
+		const command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
+		let cmd;
 
-		var customcommandstatus = false;
+		let customcommandstatus = false;
 		for (var index = 0; index < tableload.customcommands.length; index++) {
 			if (tableload.customcommands[index].name === command) {
 				customcommandstatus = true;
@@ -665,7 +665,7 @@ exports.run = async (client, msg) => {
 			}
 		}
 
-		var botCommandExists = false;
+		let botCommandExists = false;
 		if (client.commands.has(command)) {
 			botCommandExists = true;
 			cmd = client.commands.get(command);
@@ -693,20 +693,24 @@ exports.run = async (client, msg) => {
 
 			const botconfsload = client.botconfs.get('blackbanlist');
 			for (var i = 0; i < botconfsload.banlist.length; i++) {
-				if (msg.guild.id === botconfsload.banlist[i].discordServerID) return msg.channel.send({
-					embed: banlistembed
-				});
+				if (msg.guild.id === botconfsload.banlist[i].discordServerID) {
+					return msg.channel.send({
+						embed: banlistembed
+					});
+				}
 			}
 			for (var i = 0; i < botconfsload.blacklist.length; i++) {
-				if (msg.author.id === botconfsload.blacklist[i].userID) return msg.channel.send({
-					embed: blacklistembed
-				});
+				if (msg.author.id === botconfsload.blacklist[i].userID) {
+					return msg.channel.send({
+						embed: blacklistembed
+					});
+				}
 			}
 
 			const botconfig = client.botconfs.get('botconfs');
 			const activityembed = new Discord.RichEmbed()
 				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
-				.addField('Command', `${tableload.prefix}${command} ${args.join(" ")}`)
+				.addField('Command', `${tableload.prefix}${command} ${args.join(' ')}`)
 				.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 				.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
 				.setColor('#ff99ff')
@@ -719,8 +723,8 @@ exports.run = async (client, msg) => {
 			}
 
 			if (botCommandExists) {
-				var botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.help.botpermissions.join(', '));
-				var usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.conf.userpermissions.join(', '));
+				const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.help.botpermissions.join(', '));
+				const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.conf.userpermissions.join(', '));
 				if (cmd.help.botpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
 					if (tableload.commanddel === 'true') {
 						msg.delete();
@@ -746,15 +750,15 @@ exports.run = async (client, msg) => {
 				tableload.modules.searches = 'true';
 				tableload.modules.utility = 'true';
 				tableload.modules.application = 'true';
-				tableload.modules.tickets = "true";
+				tableload.modules.tickets = 'true';
 				await client.guildconfs.set(msg.guild.id, tableload);
 			}
 
 			if (botCommandExists) {
-				for (var prop in tableload.modules) {
+				for (const prop in tableload.modules) {
 					if (prop === cmd.help.category) {
 						if (tableload.modules[prop] === 'false') {
-							var moduledeactivated = lang.messageevent_moduledeactivated.replace('%modulename', prop).replace('%prefix', tableload.prefix);
+							const moduledeactivated = lang.messageevent_moduledeactivated.replace('%modulename', prop).replace('%prefix', tableload.prefix);
 							if (tableload.commanddel === 'true') {
 								msg.delete();
 							}
@@ -765,10 +769,8 @@ exports.run = async (client, msg) => {
 			}
 
 			if (botCommandExists) {
-				if (tableload.commands[cmd.help.name].status === "false") return msg.reply(lang.messageevent_commanddeactivated);
-			} else {
-				if (customcommand.enabled === "false") return msg.reply(lang.messageevent_commanddeactivated);
-			}
+				if (tableload.commands[cmd.help.name].status === 'false') return msg.reply(lang.messageevent_commanddeactivated);
+			} else if (customcommand.enabled === 'false') { return msg.reply(lang.messageevent_commanddeactivated); }
 
 			if (botCommandExists) {
 				if (tableload.commands[cmd.help.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
@@ -777,10 +779,10 @@ exports.run = async (client, msg) => {
 						if (msg.member.roles.has(tableload.commands[cmd.help.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole);
 					}
 				} else {
-					var allwhitelistedrolesoftheuser = 0;
-					for (var index2 = 0; index2 < tableload.commands[cmd.help.name].whitelistedroles.length; index2++) {
+					let allwhitelistedrolesoftheuser = 0;
+					for (let index2 = 0; index2 < tableload.commands[cmd.help.name].whitelistedroles.length; index2++) {
 						if (!msg.member.roles.has(tableload.commands[cmd.help.name].whitelistedroles[index2])) {
-							allwhitelistedrolesoftheuser = allwhitelistedrolesoftheuser + 1;
+							allwhitelistedrolesoftheuser += 1;
 						}
 					}
 					if (allwhitelistedrolesoftheuser === tableload.commands[cmd.help.name].whitelistedroles.length) {
@@ -809,8 +811,8 @@ exports.run = async (client, msg) => {
 					if (now < expirationTime) {
 						const timeLeft = (expirationTime - now) / 1000;
 
-						const time = moment.duration(parseInt(timeLeft.toFixed(2)), "seconds").format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
-						var anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
+						const time = moment.duration(parseInt(timeLeft.toFixed(2)), 'seconds').format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
+						const anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
 						if (tableload.commanddel === 'true') {
 							msg.delete();
 						}
@@ -832,21 +834,19 @@ exports.run = async (client, msg) => {
 
 			if (botCommandExists) {
 				cmd.run(client, msg, args, lang);
+			} else if (customcommand.embed === 'false') {
+				msg.channel.send(customcommand.commandanswer);
 			} else {
-				if (customcommand.embed === 'false') {
-					msg.channel.send(customcommand.commandanswer);
-				} else {
-					const customCommandEmbed = new Discord.RichEmbed()
-						.setColor('#33cc33')
-						.setDescription(customcommand.commandanswer);
+				const customCommandEmbed = new Discord.RichEmbed()
+					.setColor('#33cc33')
+					.setDescription(customcommand.commandanswer);
 
-					msg.channel.send({
-						embed: customCommandEmbed
-					});
-				}
+				msg.channel.send({
+					embed: customCommandEmbed
+				});
 			}
 
-			botconfs.commandsexecuted = botconfs.commandsexecuted + 1;
+			botconfs.commandsexecuted += 1;
 			client.botconfs.set('botconfs', botconfs);
 
 			if (tableload.commanddel === 'true') {

@@ -3,13 +3,13 @@ exports.run = async client => {
 	const chalk = require('chalk');
 
 	client.guildconfs.defer.then(() => {
-		console.log(chalk.green(client.guildconfs.size + "keys loaded for all discord servers"));
+		console.log(chalk.green(`${client.guildconfs.size}keys loaded for all discord servers`));
 	});
 	client.botconfs.defer.then(() => {
-		console.log(chalk.green(client.botconfs.size + "keys loaded for all bot configs"));
+		console.log(chalk.green(`${client.botconfs.size}keys loaded for all bot configs`));
 	});
 	client.userdb.defer.then(() => {
-		console.log(chalk.green(client.userdb.size + "keys loaded for all user keys"));
+		console.log(chalk.green(`${client.userdb.size}keys loaded for all user keys`));
 	});
 
 	const botconfsdefault = {
@@ -70,7 +70,7 @@ exports.run = async client => {
 		}
 	});
 
-	await client.users.filter(u => client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : undefined).forEach(u => {
+	await client.users.filter(u => (client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : undefined)).forEach(u => {
 		client.users.get(u.id).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
 		const userdb = client.userdb.get(u.id);
 		userdb.jobstatus = false;
@@ -121,7 +121,7 @@ exports.run = async client => {
 	}
 
 	if (Object.keys(client.botconfs.get('botconfs').bans).length !== 0) {
-		for (var index in client.botconfs.get('botconfs').bans) {
+		for (const index in client.botconfs.get('botconfs').bans) {
 			const bansconf = await client.botconfs.get('botconfs');
 			const newBanTime = bansconf.bans[index].banEndDate - Date.now();
 			const fetchedbans = await client.guilds.get(bansconf.bans[index].discordserverid).fetchBans();
@@ -130,7 +130,7 @@ exports.run = async client => {
 	}
 
 	if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
-		for (var index2 in client.botconfs.get('botconfs').mutes) {
+		for (const index2 in client.botconfs.get('botconfs').mutes) {
 			const muteconf = await client.botconfs.get('botconfs');
 			const newMuteTime = muteconf.mutes[index2].muteEndDate - Date.now();
 			timeoutForMute(muteconf.mutes[index2], newMuteTime);
@@ -138,7 +138,7 @@ exports.run = async client => {
 	}
 
 	function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
-		setTimeout(function () {
+		setTimeout(() => {
 			const fetchedbans = fetchedbansfromfunction;
 			const tableload = client.guildconfs.get(bansconf.discordserverid);
 
@@ -147,9 +147,9 @@ exports.run = async client => {
 
 				client.guilds.get(bansconf.discordserverid).unban(user);
 
-				var lang = require(`../languages/${tableload.language}.json`);
-				var unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
-				var automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+				const lang = require(`../languages/${tableload.language}.json`);
+				const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
+				const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 				const unmutedembed = new Discord.RichEmbed()
 					.setAuthor(unbannedby, client.user.displayAvatarURL)
 					.setThumbnail(user.displayAvatarURL)
@@ -164,14 +164,14 @@ exports.run = async client => {
 					});
 				}
 			}
-			var newbansconf = client.botconfs.get('botconfs');
+			const newbansconf = client.botconfs.get('botconfs');
 			delete newbansconf.bans[botconfs.banscount];
 			client.botconfs.set('botconfs', newbansconf);
 		}, newBanTime);
 	}
 
 	function timeoutForMute(muteconf, newMuteTime) {
-		setTimeout(function() {
+		setTimeout(() => {
 			const membermention = client.guilds.get(muteconf.discordserverid).members.get(muteconf.memberid);
 			const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
 			const user = client.users.get(muteconf.memberid);
@@ -180,9 +180,9 @@ exports.run = async client => {
 			if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
 				membermention.removeRole(role);
 
-				var lang = require(`../languages/${tableload.language}.json`);
-				var unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
-				var automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+				const lang = require(`../languages/${tableload.language}.json`);
+				const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
+				const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 				const unmutedembed = new Discord.RichEmbed()
 					.setAuthor(unmutedby, client.user.displayAvatarURL)
 					.setThumbnail(user.displayAvatarURL)
@@ -201,7 +201,7 @@ exports.run = async client => {
 					});
 				}
 			}
-			var newmuteconf = client.botconfs.get('botconfs');
+			const newmuteconf = client.botconfs.get('botconfs');
 			delete newmuteconf.mutes[muteconf.mutescount];
 			client.botconfs.set('botconfs', newmuteconf);
 		}, newMuteTime);
