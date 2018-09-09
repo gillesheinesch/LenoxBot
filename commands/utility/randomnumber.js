@@ -1,6 +1,6 @@
 const Discord = require(`discord.js`);
 exports.run = (client, msg, args, lang) => {
-	const input = parseInt(args.slice().join(' '));
+	const input = parseInt(args.slice().join(' '), 10);
 	const randomnumberfinished = Math.floor((Math.random() * input) + 1);
 
 	if (!input) return msg.reply(lang.randomnumber_number);

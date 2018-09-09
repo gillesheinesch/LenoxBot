@@ -10,8 +10,9 @@ exports.run = async (client, msg, args, lang) => {
 		if (input[1].toLowerCase() !== 'pc' && input[1].toLowerCase() !== 'psn' && input[1].toLowerCase() !== 'xbl') return msg.channel.send(lang.fortnite_invalidconsole);
 	}
 
+	let stats;
 	try {
-		var stats = await fortniteclient.getInfo(input[0], !input[1] ? 'PC' : input[1]);
+		stats = await fortniteclient.getInfo(input[0], input[1] ? input[1] : 'PC');
 	} catch (error) {
 		return msg.channel.send(lang.fortnite_playernotfound);
 	}

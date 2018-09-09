@@ -19,12 +19,12 @@ exports.run = async (client, msg, args, lang) => {
 
 		const collector = textchannels.createReactionCollector((reaction, user) => user.id === msg.author.id, { time: 30000 });
 		collector.on('collect', r => {
-			const reactionadd = msg.guild.roles.filter(r => r.name !== '@everyone').array().slice(firsttext + 15, secondtext + 15).length;
-			const reactionremove = msg.guild.roles.filter(r => r.name !== '@everyone').array().slice(firsttext - 15, secondtext - 15).length;
+			const reactionadd = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext + 15, secondtext + 15).length;
+			const reactionremove = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext - 15, secondtext - 15).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
 				r.remove(msg.author.id);
-				const guildchannels = msg.guild.roles.filter(r => r.name !== '@everyone').array().slice(firsttext + 15, secondtext + 15)
+				const guildchannels = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext + 15, secondtext + 15)
 					.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
 				firsttext += 15;
@@ -35,9 +35,9 @@ exports.run = async (client, msg, args, lang) => {
 					.setDescription(`**📋 ${lang.roles_list}**\n${guildchannels.join('\n')}`);
 
 				textchannels.edit({ embed: newembed });
-	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
 				r.remove(msg.author.id);
-				const guildchannels = msg.guild.roles.filter(r => r.name !== '@everyone').array().slice(firsttext - 15, secondtext - 15)
+				const guildchannels = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext - 15, secondtext - 15)
 					.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
 				firsttext -= 15;
@@ -50,7 +50,7 @@ exports.run = async (client, msg, args, lang) => {
 				textchannels.edit({ embed: newembed });
 			}
 		});
-		collector.on('end', (collected, reason) => {
+		collector.on('end', () => {
 			reaction1.remove();
 			reaction2.remove();
 		});

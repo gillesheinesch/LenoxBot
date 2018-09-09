@@ -2,8 +2,6 @@ const Discord = require('discord.js');
 const sql = require('sqlite');
 sql.open('../lenoxbotscore.sqlite');
 exports.run = async (client, msg, args, lang) => {
-	const content = args.slice();
-	const input = parseInt(args.slice().join(' '));
 	const rows = await sql.all(`SELECT * FROM scores WHERE guildId = "${msg.guild.id}" GROUP BY userId ORDER BY points DESC`);
 
 	const userArray = [];
@@ -17,7 +15,7 @@ exports.run = async (client, msg, args, lang) => {
 		moneyArray.push(row.points);
 		levelArray.push(row.level);
 	});
-	for (i = 0; i < userArray.length; i++) {
+	for (let i = 0; i < userArray.length; i++) {
 		tempArray.push(`${i + 1}. ${userArray[i]}`);
 	}
 
@@ -29,7 +27,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const message = await msg.channel.send({ embed });
 
-	if (levelArray.length < 21) return undefined; // Check if reactions are needed
+	if (levelArray.length < 21) return; // Check if reactions are needed
 
 	await message.react('◀');
 	await message.react('▶');
@@ -59,7 +57,7 @@ exports.run = async (client, msg, args, lang) => {
 				.addField(lang.ranks_level, thesecond.join('\n'), true);
 
 			message.edit({ embed: newembed });
-	  	} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+		} else if (r.emoji.name === '◀' && reactionremove !== 0) {
 			r.remove(msg.author.id);
 			const thefirst = moneyArray.slice(first - 20, second - 20);
 			const thesecond = levelArray.slice(first - 20, second - 20);
@@ -78,7 +76,7 @@ exports.run = async (client, msg, args, lang) => {
 			message.edit({ embed: newembed });
 		}
 	});
-	collector.on('end', (collected, reason) => {
+	collector.on('end', () => {
 		message.react('❌');
 	});
 };

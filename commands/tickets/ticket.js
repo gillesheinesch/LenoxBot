@@ -38,10 +38,10 @@ exports.run = async (client, msg, args, lang) => {
 			.setTitle(lang.mainfile_ticketembedtitle)
 			.setDescription(ticketembed);
 
-		try {
-			client.channels.get(tableload.tickets.notificationchannel).send({ embed });
-		} catch (error) {
-			undefined;
+		if (client.channels.get(tableload.tickets.notificationchannel)) {
+			client.channels.get(tableload.tickets.notificationchannel).send({
+				embed
+			});
 		}
 	}
 

@@ -17,11 +17,9 @@ exports.run = async (client, msg, args, lang) => {
 				.addField(`👍 ${lang.urban_thumbsup}`, def.thumbs_up, true)
 				.addField(`👎 ${lang.urban_thumbsdown}`, def.thumbs_down, true);
 
-			msg.channel.send({ embed });
+			return msg.channel.send({ embed });
 		})
-		.catch(err => {
-			msg.channel.send(lang.urban_error);
-		});
+		.catch(() => msg.channel.send(lang.urban_error));
 };
 
 exports.conf = {

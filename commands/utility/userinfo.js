@@ -13,8 +13,7 @@ exports.run = async (client, msg, args, lang) => {
 		if (user.bot) return msg.reply(lang.userinfo_botinfo);
 	} else {
 		try {
-			if (!msg.guild.members.get(args.slice().join(' '))) throw 'Usernotfound';
-
+			if (!msg.guild.members.get(args.slice().join(' '))) new Error('User not found!');
 			user = await msg.guild.members.get(args.slice().join(' '));
 			user = user.user;
 

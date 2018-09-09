@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args) => {
+exports.run = (client, msg, args, lang) => {
 	const guild = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 

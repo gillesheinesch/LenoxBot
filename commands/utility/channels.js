@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	if (msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().length !== 0) {
+	if (msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().length > 0) {
 		const textchannelsembed = new Discord.RichEmbed()
 			.setDescription(`**📋 ${lang.channels_textchannels}**\n${msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().slice(0, 15)
 				.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`)
@@ -12,14 +12,14 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 		if (msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().length > 15) {
-			var reaction1 = await textchannels.react('◀');
-			var reaction2 = await textchannels.react('▶');
+			const reaction1 = await textchannels.react('◀');
+			const reaction2 = await textchannels.react('▶');
 
 			let firsttext = 0;
 			let secondtext = 15;
 
-			var collector = textchannels.createReactionCollector((reaction, user) => user.id === msg.author.id, {
-				time: 30000
+			const collector = textchannels.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+				time: 60000
 			});
 			collector.on('collect', r => {
 				const reactionadd = msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().slice(firsttext + 15, secondtext + 15).length;
@@ -57,7 +57,7 @@ exports.run = async (client, msg, args, lang) => {
 					});
 				}
 			});
-			collector.on('end', (collected, reason) => {
+			collector.on('end', () => {
 				reaction1.remove();
 				reaction2.remove();
 			});
@@ -66,7 +66,7 @@ exports.run = async (client, msg, args, lang) => {
 		return msg.channel.send(lang.channels_notextchannels);
 	}
 
-	if (msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().length !== 0) {
+	if (msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().length > 0) {
 		const voicechannelsembed = new Discord.RichEmbed()
 			.setDescription(`**📡 ${lang.channels_voicechannels}**\n${msg.guild.channels.filter(voiceChannel => voiceChannel.type === `voice`).array().slice(0, 15)
 				.map(voicechannel => `**${voicechannel.name}** (*${voicechannel.id}*)`)
@@ -78,13 +78,13 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 		if (msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().length > 15) {
-			var reaction1 = await voicechannels.react('◀');
-			var reaction2 = await voicechannels.react('▶');
+			const reaction1 = await voicechannels.react('◀');
+			const reaction2 = await voicechannels.react('▶');
 
 			let firstvoice = 0;
 			let secondvoice = 15;
 
-			var collector = voicechannels.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+			const collector = voicechannels.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 				time: 30000
 			});
 			collector.on('collect', r => {
@@ -123,7 +123,7 @@ exports.run = async (client, msg, args, lang) => {
 					});
 				}
 			});
-			collector.on('end', (collected, reason) => {
+			collector.on('end', () => {
 				reaction1.remove();
 				reaction2.remove();
 			});

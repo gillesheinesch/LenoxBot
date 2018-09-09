@@ -1,7 +1,5 @@
-const Discord = require('discord.js');
 exports.run = (client, msg, args, lang) => {
 	const SteamRepAPI = require('steamrep');
-	const ms = require('ms');
 
 	if (args.slice().length < 1) return msg.channel.send(lang.steamscammercheck_validsteamid);
 	if (isNaN(args.slice().join(''))) return msg.channel.send(lang.steamscammercheck_nosteamid);

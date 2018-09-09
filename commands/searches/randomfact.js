@@ -1,6 +1,4 @@
-const Discord = require('discord.js');
-
-exports.run = (client, msg, args, lang) => {
+exports.run = (client, msg) => {
 	const rf = require('random-facts');
 	msg.channel.send(rf.randomFact());
 };

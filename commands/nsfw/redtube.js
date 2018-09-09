@@ -8,6 +8,7 @@ exports.run = async (client, msg, args, lang) => {
 	const Pornsearch = require('pornsearch');
 
 	try {
+		/* eslint no-undef: 0 */
 		const Searcher = new Pornsearch(args.slice().join(' '), driver = 'redtube');
 		const videos = await Searcher.videos();
 

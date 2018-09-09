@@ -13,7 +13,7 @@ exports.run = (client, msg, args, lang) => {
 	if (!arg.includes('#')) return msg.reply(lang.overwatchstats_accounterror).then(m => m.delete(15000));
 	if (arg.split('#').length > 6) return msg.reply(lang.overwatchstats_incorrecttag).then(m => m.delete(15000));
 
-	for (i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'profile') {
 				OWStats.load(arg)
@@ -33,9 +33,7 @@ exports.run = (client, msg, args, lang) => {
 						msg.channel.send({
 							embed
 						}).catch(console.error);
-					}).catch(err => {
-						msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`);
-					});
+					}).catch(() => msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`));
 			} else
 			if (margs[1].toLowerCase() === 'quickplay') {
 				OWStats.load(arg)
@@ -56,9 +54,7 @@ exports.run = (client, msg, args, lang) => {
 						msg.channel.send({
 							embed
 						}).catch(console.error);
-					}).catch(err => {
-						msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`);
-					});
+					}).catch(() => msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`));
 			} else
 			if (margs[1].toLowerCase() === 'competitive') {
 				OWStats.load(arg)
@@ -79,9 +75,7 @@ exports.run = (client, msg, args, lang) => {
 						msg.channel.send({
 							embed
 						}).catch(console.error);
-					}).catch(err => {
-						msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`);
-					});
+					}).catch(() => msg.channel.send(`${lang.overwatchstats_errorrequest} ${arg}`));
 			}
 		}
 	}

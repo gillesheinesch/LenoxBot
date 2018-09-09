@@ -6,12 +6,12 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!args[0] && !args[1]) return msg.channel.send(lang.clashroyale_noinput);
 
-	for (i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			if (margs[1].toLowerCase() == 'profile') {
+			if (margs[1].toLowerCase() === 'profile') {
 				try {
 					const profileResult = await api.getProfile(args[1]);
-					var array = [];
+					const array = [];
 					profileResult.currentDeck.forEach(x => {
 						array.push(x.name);
 					});
@@ -34,10 +34,10 @@ exports.run = async (client, msg, args, lang) => {
 				} catch (error) {
 					return msg.channel.send(lang.clashroyale_errorprofile);
 				}
-			} else if (margs[1].toLowerCase() == 'clan') {
+			} else if (margs[1].toLowerCase() === 'clan') {
 				try {
 					const clanResult = await api.getClan(args[1]);
-					var clanArray = [];
+					const clanArray = [];
 					clanResult.members.forEach(x => {
 						clanArray.push(x.name);
 					});

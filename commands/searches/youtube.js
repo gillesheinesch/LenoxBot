@@ -17,16 +17,16 @@ exports.run = (client, msg, args, lang) => {
 			const title = search.items[0].snippet.title;
 			const thumbnail = search.items[0].snippet.thumbnails.medium.url;
 			const description = search.items[0].snippet.description;
-			const url = `https://www.youtube.com/watch?v=${search.items[0].id.videoId}`;
+			const newUrl = `https://www.youtube.com/watch?v=${search.items[0].id.videoId}`;
 			const embed = new Discord.RichEmbed()
 				.setImage(thumbnail)
 				.setAuthor(title)
 				.setDescription(description)
-				.setURL(url)
+				.setURL(newUrl)
 				.setColor(0x00AE86)
-				.setFooter(url);
+				.setFooter(newUrl);
 			return msg.channel.send({ embed: embed });
-		} catch (err) {
+		} catch (error) {
 			return msg.channel.send(lang.youtube_noresult);
 		}
 	});

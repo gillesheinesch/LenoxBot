@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const onlinecount = msg.guild.members.array().filter(m => m.presence.status === 'online').length;
 	const offlinecount = msg.guild.members.array().filter(m => m.presence.status === 'offline').length;
 	const dndcount = msg.guild.members.array().filter(m => m.presence.status === 'dnd').length;

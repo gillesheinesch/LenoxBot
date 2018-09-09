@@ -11,8 +11,6 @@ exports.run = async (client, msg, args, lang) => {
 		if (args.includes(filter[i])) return msg.channel.send(lang.google_nsfw);
 	}
 
-	const input = args.slice().join(' ').toLowerCase();
-
 	const config = require('../../settings.json').googleKey;
 	const config2 = require('../../settings.json').googlekey;
 	const response = await request({

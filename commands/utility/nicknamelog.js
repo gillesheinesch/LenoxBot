@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
 	const mention = msg.mentions.users.first() || msg.author;
 	const tableload = client.guildconfs.get(msg.guild.id);
@@ -28,7 +27,9 @@ exports.run = async (client, msg, args, lang) => {
 		.addField(lang.nicknamelog_new, newnickname.slice(0, 20).join('\n'), true)
 		.addField(lang.nicknamelog_changedat, dateArray.slice(0, 20).join('\n'), true);
 
-	const message = await msg.channel.send({ embed });
+	const message = await msg.channel.send({
+		embed
+	});
 
 	await message.react('◀');
 	await message.react('▶');
@@ -40,12 +41,13 @@ exports.run = async (client, msg, args, lang) => {
 		time: 30000
 	});
 	collector.on('collect', r => {
-		const reactionadd = nickname.slice(first + 20, second + 20).length;
-		const reactionremove = nickname.slice(first - 20, second - 20).length;
+		const reactionadd = oldnickname.slice(first + 20, second + 20).length;
+		const reactionremove = oldnickname.slice(first - 20, second - 20).length;
 
 		if (r.emoji.name === '▶' && reactionadd !== 0) {
-			const thefirst = dateArray.slice(first + 20, second + 20);
-			const thesecond = nickname.slice(first + 20, second + 20);
+			const newDateArray = dateArray.slice(first + 20, second + 20);
+			const newOldNickname = oldnickname.slice(first + 20, second + 20);
+			const newNewNickname = newnickname.slice(first + 20, second + 20);
 
 			first += 20;
 			second += 20;
@@ -53,15 +55,17 @@ exports.run = async (client, msg, args, lang) => {
 			const newembed = new Discord.RichEmbed()
 				.setAuthor(`${mention.username}#${mention.discriminator}`)
 				.setColor('#ccff33')
-				.addField('Nickname', nickname.join('\n'), true)
-				.addField('Changed at', dateArray.join('\n'), true);
+				.addField(lang.nicknamelog_old, newOldNickname.join('\n'), true)
+				.addField(lang.nicknamelog_new, newNewNickname.join('\n'), true)
+				.addField(lang.nicknamelog_changedat, newDateArray.join('\n'), true);
 
 			message.edit({
 				embed: newembed
 			});
 		} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-			const thefirst = tempArray.slice(first - 20, second - 20);
-			const thesecond = dateArray.slice(first - 20, second - 20);
+			const newDateArray = dateArray.slice(first - 20, second - 20);
+			const newOldNickname = oldnickname.slice(first - 20, second - 20);
+			const newNewNickname = newnickname.slice(first - 20, second - 20);
 
 			first -= 20;
 			second -= 20;
@@ -69,15 +73,16 @@ exports.run = async (client, msg, args, lang) => {
 			const newembed = new Discord.RichEmbed()
 				.setAuthor(`${mention.username}#${mention.discriminator}`)
 				.setColor('#ccff33')
-				.addField('Nickname', nickname.join('\n'), true)
-				.addField('Changed at', dateArray.join('\n'), true);
+				.addField(lang.nicknamelog_old, newOldNickname.join('\n'), true)
+				.addField(lang.nicknamelog_new, newNewNickname.join('\n'), true)
+				.addField(lang.nicknamelog_changedat, newDateArray.join('\n'), true);
 
 			message.edit({
 				embed: newembed
 			});
 		}
 	});
-	collector.on('end', (collected, reason) => {
+	collector.on('end', () => {
 		message.react('❌');
 	});
 };

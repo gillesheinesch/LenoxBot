@@ -3,9 +3,6 @@ exports.run = async (client, msg, args, lang) => {
 	const botconfspremiumload = client.botconfs.get('premium');
 	const userdb = client.userdb.get(msg.author.id);
 	const Discord = require('discord.js');
-	const moment = require('moment');
-	require('moment-duration-format');
-	const ms = require('ms');
 
 	if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
 	if (isNaN(input.join(' '))) return msg.reply(lang.useuserkey_error);

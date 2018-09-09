@@ -19,26 +19,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -53,26 +53,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -87,26 +87,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -121,26 +121,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -155,26 +155,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -189,26 +189,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -223,26 +223,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -257,26 +257,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -291,26 +291,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -325,26 +325,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -359,26 +359,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -393,26 +393,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -427,26 +427,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -461,26 +461,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -495,26 +495,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -529,26 +529,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -563,26 +563,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'latest'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -597,26 +597,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'latest'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
@@ -631,26 +631,26 @@ exports.run = async (client, msg, args, lang) => {
 					source: margs[1],
 					sortBy: 'top'
 				});
-				var embed = new Discord.RichEmbed()
+				const embed = new Discord.RichEmbed()
 					.setColor('#76c65d')
 					.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 				msg.channel.send({
 					embed
 				});
 				try {
-					var response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
+					const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
 						maxMatches: 1,
 						time: 20000,
 						errors: ['time']
 					});
 					try {
-						var embed2 = new Discord.RichEmbed()
-							.setAuthor(r.articles[response1.first().content - 1].author !== null ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
+						const embed2 = new Discord.RichEmbed()
+							.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 							.setURL(r.articles[response1.first().content - 1].url)
 							.setColor('#76c65d')
-							.setDescription(r.articles[response1.first().content - 1].description !== null ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
+							.setDescription(r.articles[response1.first().content - 1].description ? r.articles[response1.first().content - 1].description : lang.news_nodescription)
 							.setImage(r.articles[response1.first().content - 1].urlToImage)
-							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt !== null ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
+							.setFooter(`${r.source.toUpperCase()} || ${r.articles[response1.first().content - 1].publishedAt ? r.articles[response1.first().content - 1].publishedAt : lang.news_nopubdate}`);
 						return msg.channel.send({
 							embed: embed2
 						});
