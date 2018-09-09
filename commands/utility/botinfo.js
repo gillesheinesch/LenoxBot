@@ -12,7 +12,7 @@ exports.run = (client, msg, args, lang) => {
 		.setThumbnail(client.user.avatarURL)
 		.addField(`⏳ ${lang.botinfo_runtime}`, `${uptimeserver}`)
 		.addField(`📡 ${lang.botinfo_stats}`, online)
-		.addField(`💻 ${lang.botinfo_doc}`, `http://www.lenoxbot.com/`)
+		.addField(`💻 ${lang.botinfo_website}`, `http://www.lenoxbot.com/`)
 		.addField(`💎 ${lang.botinfo_support}`, `https://lenoxbot.com/donate`)
 		.addField(`📤 ${lang.botinfo_invite}`, `https://lenoxbot.com/invite/`)
 		.addField(`📢 ${lang.botinfo_supportserver}`, 'https://lenoxbot.com/discord/')
