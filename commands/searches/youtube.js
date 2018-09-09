@@ -4,7 +4,7 @@ const Discord = require('discord.js');
 exports.run = (client, msg, args, lang) => {
 		const tableload = client.guildconfs.get(msg.guild.id);
 	if (!args[0]) {
-		return msg.channel.send(lang.youtube_noinput + tableload.prefix + "help " + msg.content.slice(config.prefix.length) + "`").then(m => m.delete(20000));
+		return msg.channel.send(lang.youtube_noinput + tableload.prefix + "help " + msg.content.slice(config.prefix.length) + "`");
 	}
 	var url = "https://www.googleapis.com/youtube/v3/search?part=id,snippet&q=" + args + "&maxResults=1&type=video&key=" + config.googlekey;
 	request(url, function(err, response, body) {
