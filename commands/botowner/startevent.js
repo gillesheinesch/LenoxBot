@@ -3,32 +3,32 @@ const moment = require('moment');
 const sql = require('sqlite');
 sql.open("../lenoxbotscore.sqlite");
 require('moment-duration-format');
-
 exports.run = async(client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
 	const now = new Date().getTime();
 	const margs = msg.content.split(" ");
-
-	const validation = ['creditsevent', 'lenoxbot', 'extracreditevent', 'birthdaybadge'];
-
+	const validation = ['creditsevent', 'extracreditsevent', 'birthdaybadge'];
+	const tableload = await client.guildconfs.get(msg.guild.id);
 
 	for (i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() == "creditsevent") {
 				var normalevent = [];
 
+				const creditseventembeddescription = lang.startevent_creditseventembeddescription.replace('%prefix', tableload.prefix);
+				const endsdate = lang.startevent_endsdate.replace('%date', new Date(now + 86400000));
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to react with "✅". \n\nWhen you have done that, you will be credited with 100 credits. \nTo see how many credits you have, use the following command: ?credits`)
+					.setDescription(creditseventembeddescription)
 					.setColor('#ff5050')
-					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('The credits collection event has begun!');
+					.setFooter(endsdate)
+					.setAuthor(lang.startevent_creditseventembedauthor);
 
 				const message = await msg.channel.send({
 					embed
 				});
 
-				await message.react('🏅');
+				await message.react('✅');
 
 				var normaleventcollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '✅' && !user.bot, {
 					time: 86400000
@@ -53,59 +53,22 @@ exports.run = async(client, msg, args, lang) => {
 				normaleventcollector.on('end', (collected, reason) => {
 					message.delete();
 				});
-			} else if (margs[1].toLowerCase() == "lenoxbot") {
-				var lenoxbot = [];
-
-				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to write "LenoxBot" in the #spam channel. \n\nWhen you have done that, you will get 100 credits. \nTo see how many credits you have, use the following command: ?credits`)
-					.setColor('#ff5050')
-					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('The "LenoxBot" SPAM event has begun!');
-
-				const message = await msg.channel.send({
-					embed
-				});
-
-				var spamchannel = msg.guild.channels.find(r => r.name.toLowerCase() === 'spam');
-				var lenoxbotcollector = spamchannel.createMessageCollector(m => m.content.toLowerCase() === 'lenoxbot' && !m.author.bot, {
-					time: 86400000
-				});
-
-				lenoxbotcollector.on('collect', r => {
-					if (!lenoxbot.includes(r.author.id)) {
-						lenoxbot.push(r.author.id);
-
-						sql.get(`SELECT * FROM medals WHERE userId ="${r.author.id}"`).then(row => {
-							if (!row) {
-								sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [r.author.id, 0]);
-							}
-							sql.run(`UPDATE medals SET medals = ${row.medals + 100} WHERE userId = ${r.author.id}`);
-						}).catch((error) => {
-							console.error(error);
-							sql.run("CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)").then(() => {
-								sql.run("INSERT INTO medals (userId, medals) VALUES (?, ?)", [r.author.id, 0]);
-							});
-						});
-						spamchannel.send(`${r.author}, You have successfully received 100 medals!`);
-					}
-				});
-				lenoxbotcollector.on('end', (collected, reason) => {
-					message.delete();
-				});
-			} else if (margs[1].toLowerCase() == "extracreditevent") {
+			} else if (margs[1].toLowerCase() == "extracreditsevent") {
 				var extramedalevent = [];
 
+				const extracreditseventembeddescription = lang.startevent_extracreditseventembeddescription.replace('%prefix', tableload.prefix);
+				const endsdate = lang.startevent_endsdate.replace('%date', new Date(now + 86400000));
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To participate, you only have to react with "✅". \n\nWhen you have done that, you will get 500 credits. \nTo see how many credits you have, use the following command: ?credits`)
+					.setDescription(extracreditseventembeddescription)
 					.setColor('#ff5050')
-					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('The credits collection event has begun!');
+					.setFooter(endsdate)
+					.setAuthor(lang.startevent_extracreditseventembedauthor);
 
 				const message = await msg.channel.send({
 					embed
 				});
 
-				await message.react('🏅');
+				await message.react('✅');
 
 				var extramedaleventcollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '✅' && !user.bot, {
 					time: 86400000
@@ -133,11 +96,12 @@ exports.run = async(client, msg, args, lang) => {
 			} else if (margs[1].toLowerCase() == "birthdaybadge") {
 				var eventArray = [];
 
+				const endsdate = lang.startevent_endsdate.replace('%date', new Date(now + 86400000));
 				const embed = new Discord.RichEmbed()
-					.setDescription(`To get the Birthday Badge 2018, you just have to react "🎈". As a result, you will normally receive a confirmation message from the bot! \nWe thank you very much for participating!`)
+					.setDescription(lang.startevent_birthdaybadgeembeddescription)
 					.setColor('#ff5050')
-					.setFooter(`Event ends on ${new Date(now + 86400000)}`)
-					.setAuthor('The Birthday Badge 2018 Collection event has begun!');
+					.setFooter(lang.endsdate)
+					.setAuthor(lang.startevent_birthdaybadgeembedauthor);
 
 				const message = await msg.channel.send({
 					embed
@@ -170,7 +134,7 @@ exports.run = async(client, msg, args, lang) => {
 							if (userdb.badges[index].name.toLowerCase() === 'birthday2018') return undefined;
 						}
 
-						client.users.get(r.users.last().id).send('Congratulations, you got the Birthday Badge 2018. \nAt the moment you do not have the possibility to see your badges, but this will follow in the near future! Thanks for participating! 🎈🎈🎈');
+						client.users.get(r.users.last().id).send(lang.startevent_birthdaybadgemessage);
 
 						userdb.badges.push(badgeSettings);
 						await client.userdb.set(r.users.last().id, userdb);
@@ -189,13 +153,14 @@ exports.conf = {
 	guildOnly: false,
 	shortDescription: "General",
 	aliases: [],
-	userpermissions: [], dashboardsettings: true
+	userpermissions: [],
+	dashboardsettings: true
 };
 exports.help = {
 	name: 'startevent',
-	description: 'Starts an event on the LenoxBot server',
-	usage: 'startevent',
-	example: ['startevent lenoxbot', 'startevent medalevent', 'startevent extracreditevent'],
+	description: 'Starts a special bot event',
+	usage: 'startevent {birthdaybadge, creditsevent, extracreditsevent}',
+	example: ['startevent birthdaybadge', 'startevent creditsevent', 'startevent extracreditsevent'],
 	category: 'botowner',
 	botpermissions: ['SEND_MESSAGES']
 };

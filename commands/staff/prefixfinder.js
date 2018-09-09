@@ -4,22 +4,22 @@ exports.run = (client, msg, args) => {
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 	const content = args.slice().join(" ");
-	if (!content) return msg.reply('You have to enter a guildid!');
+	if (!content || isNaN(content)) return msg.reply(lang.prefixfinder_noguildid);
 
-	if (isNaN(content)) return msg.channel.send('It must be a GuildID');
 	const tableload = client.guildconfs.get(content);
-
-	if (!tableload) return msg.channel.send('Could not find this guild in the database!');
+	if (!tableload) return msg.channel.send(lang.prefixfinder_nofetch);
 
 	const guildload = client.guilds.get(content);
+	const requestedby = lang.prefixfinder_requestedby.replace('%authortag', msg.author.tag)
 	const embed = new Discord.RichEmbed()
 	.setColor('#FF7F24')
 	.setThumbnail(guildload.iconURL)
-	.addField('Serverowner:', `${guildload.owner.user.tag} (${guildload.owner.id})`)
-	.addField('Prefix:', tableload.prefix)
-	.setFooter(`Requested by ${msg.author.tag}`)
+	.addField(lang.prefixfinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
+	.addField(lang.prefixfinder_embedfield2, tableload.prefix)
+	.setFooter(requestedby)
 	.setAuthor(`${guildload.name} (${guildload.id})`);
-	client.channels.get('425752252180070401').send({ embed });
+
+	return client.channels.get('425752252180070401').send({ embed: embed });
 };
 
 
@@ -33,7 +33,7 @@ exports.conf = {
 };
 exports.help = {
 	name: 'prefixfinder',
-	description: 'Command for the LenoxBot Staff to find out a prefix of a guild',
+	description: 'Allows the staff of the bot to find out the prefix of a Discord server',
 	usage: 'prefixfinder {guildid}',
 	example: ['prefixfinder 352896116812939264'],
 	category: 'staff',

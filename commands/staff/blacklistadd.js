@@ -3,14 +3,14 @@ exports.run = async(client, msg, args, lang) => {
 	const guild = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
-	const botconfs = client.botconfs.get('blackbanlist');
+	const botconfs = await client.botconfs.get('blackbanlist');
 	const userId = args.slice(0, 1).join(" ");
 
-	if (!userId || isNaN(userId)) return msg.reply('You didn\'t enter a discord userID!');
-	if (args.slice(1).length === 0) return msg.reply('You have to enter a reason!');
+	if (!userId || isNaN(userId)) return msg.reply(lang.blacklistadd_noguildid);
+	if (args.slice(1).length === 0) return msg.reply(lang.blacklistadd_noreason);
 
 	for (var i = 0; i < botconfs.blacklist.length; i++) {
-		if (botconfs.blacklist[i].userID === userId) return msg.reply('This discord user has already been banned!');
+		if (botconfs.blacklist[i].userID === userId) return msg.reply(lang.blacklistadd_already);
 	}
 
 	const discordUserBanSettings = {
@@ -20,11 +20,13 @@ exports.run = async(client, msg, args, lang) => {
 		createdAt: Date.now()
 	};
 
+	const embedtitle = lang.blacklistadd_embedtitle.replace('%userid', userId);
+	const embeddescription = lang.blacklistadd_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(" "));
 	const embed = new Discord.RichEmbed()
 		.setColor('#ff0000')
 		.setTimestamp()
-		.setTitle(`The following discord user has been banned: ${userId}`)
-		.setDescription(`Moderator: ${msg.author.tag} (ID: ${msg.author.id}) \nReason: ${args.slice(1).join(" ")}`);
+		.setTitle(embedtitle)
+		.setDescription(embeddescription);
 
 	await client.channels.get('425752252180070401').send({
 		embed: embed
@@ -33,7 +35,7 @@ exports.run = async(client, msg, args, lang) => {
 	botconfs.blacklist.push(discordUserBanSettings);
 	await client.botconfs.set('blackbanlist', botconfs);
 
-	msg.reply('The Discord user has been successfully banned!');
+	return msg.reply(lang.blacklistadd_banned);
 };
 
 exports.conf = {
