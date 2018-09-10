@@ -134,7 +134,7 @@ exports.run = async client => {
 
 				const lang = require(`../languages/${tableload.language}.json`);
 				// CHANGE TO THE NEW CROWDIN SYSTEM
-				if (tableload.language === 'en-US') {
+				if (tableload.language === 'en') {
 					tableload.language = 'en-US';
 					client.guildconfs.set(bansconf.discordserverid, tableload);
 				}
@@ -184,7 +184,7 @@ exports.run = async client => {
 
 				const lang = require(`../languages/${tableload.language}.json`);
 				// CHANGE TO THE NEW CROWDIN SYSTEM
-				if (tableload.language === 'en-US') {
+				if (tableload.language === 'en') {
 					tableload.language = 'en-US';
 					client.guildconfs.set(muteconf.discordserverid, tableload);
 				}

@@ -12,7 +12,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 	}
 
 	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en-US') {
+	if (tableload.language === 'en') {
 		tableload.language = 'en-US';
 		client.guildconfs.set(newMsg.guild.id, tableload);
 	}

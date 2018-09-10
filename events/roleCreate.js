@@ -10,7 +10,7 @@ exports.run = (client, role) => {
 	}
 
 	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en-US') {
+	if (tableload.language === 'en') {
 		tableload.language = 'en-US';
 		client.guildconfs.set(role.guild.id, tableload);
 	}

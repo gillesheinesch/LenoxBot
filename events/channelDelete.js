@@ -13,7 +13,7 @@ exports.run = (client, channel) => {
 	}
 
 	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en-US') {
+	if (tableload.language === 'en') {
 		tableload.language = 'en-US';
 		client.guildconfs.set(channel.guild.id, tableload);
 	}
