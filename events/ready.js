@@ -63,23 +63,23 @@ exports.run = async client => {
 
 	const botconfspremium = {};
 
-	await client.user.setPresence({
+	client.user.setPresence({
 		game: {
 			name: `?help | www.lenoxbot.com`,
 			type: 0
 		}
 	});
 
-	await client.users.filter(u => (client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : 'undefined')).forEach(u => {
-		client.users.get(u.id).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
-		const userdb = client.userdb.get(u.id);
+	client.userdb.filter(u => u.jobstatus === true).forEach(u => {
+		client.users.get(u.userID).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
+		const userdb = client.userdb.get(u.userID);
 		userdb.jobstatus = false;
-		client.userdb.set(u.id, userdb);
+		client.userdb.set(u.userID, userdb);
 	});
 
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
-	await client.botconfs.set('market', marketconfs);
+	client.botconfs.set('market', marketconfs);
 	if (!client.botconfs.has('premium')) client.botconfs.set('premium', botconfspremium);
 
 	client.botconfs.set('botstats', {
@@ -109,7 +109,7 @@ exports.run = async client => {
 		.setAuthor(client.user.tag, client.user.displayAvatarURL);
 
 	if (client.user.id === '354712333853130752') {
-		await client.channels.get('413750421341863936').send({
+		client.channels.get('413750421341863936').send({
 			embed
 		});
 	}
