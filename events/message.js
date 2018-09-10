@@ -121,7 +121,7 @@ exports.run = async (client, msg) => {
 		},
 		nicknamelog: [],
 		warnlog: [],
-		language: 'en'
+		language: 'en-US'
 	};
 
 	if (!client.userdb.has(msg.author.id)) {

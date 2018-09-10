@@ -63,7 +63,7 @@ exports.run = async (client, guild) => {
 		},
 		nicknamelog: [],
 		warnlog: [],
-		language: 'en'
+		language: 'en-US'
 	};
 	await client.guildconfs.set(guild.id, defaultSettings);
 
