@@ -14,12 +14,12 @@ exports.run = async (client, msg, args, lang) => {
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === roleinput.toLowerCase());
 	if (!foundRole) return msg.reply(lang.removeautomaticrole_rolenotexist);
 
-	for (var i = 0; i < tableload.ara.length; i += 2) {
+	for (let i = 0; i < tableload.ara.length; i += 2) {
 		if (foundRole.id === tableload.ara[i]) {
 			const roleId = foundRole.id;
-			for (var i = 0; i < tableload.ara.length; i += 2) {
-				if (roleId === tableload.ara[i]) {
-					tableload.ara.splice(i, 2);
+			for (let index = 0; index < tableload.ara.length; index += 2) {
+				if (roleId === tableload.ara[index]) {
+					tableload.ara.splice(index, 2);
 					await client.guildconfs.set(msg.guild.id, tableload);
 				}
 			}

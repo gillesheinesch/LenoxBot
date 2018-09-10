@@ -27,7 +27,7 @@ exports.run = async (client, msg, args, lang) => {
 	msg.guild.ban(user);
 
 	const bantime = ms(args.slice(1, 2).join(' '));
-	if (bantime === 'undefined') return msg.channel.send(lang.temporaryban_invalidtimeformat);
+	if (typeof bantime === 'undefined') return msg.channel.send(lang.temporaryban_invalidtimeformat);
 
 	const banned = lang.temporaryban_banned.replace('%usertag', user.tag).replace('%bantime', ms(bantime));
 	const banembed = new Discord.RichEmbed()

@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 const sql = require('sqlite');
 sql.open('../lenoxbotscore.sqlite');
 exports.run = async (client, msg, args, lang) => {
@@ -8,18 +7,18 @@ exports.run = async (client, msg, args, lang) => {
 	if (mention.id === msg.author.id) return msg.channel.send(lang.paycredits_yourself);
 	if (args.slice(1).length === 0) return msg.channel.send(lang.paycredits_noinput);
 	if (isNaN(args.slice(1))) return msg.channel.send(lang.paycredits_number);
-	if (parseInt(args.slice(1).join(' ')) === 0) return msg.channel.send(lang.paycredits_not0);
-	if (parseInt(args.slice(1).join(' ')) < 2) return msg.channel.send(lang.paycredits_one);
+	if (parseInt(args.slice(1).join(' '), 10) === 0) return msg.channel.send(lang.paycredits_not0);
+	if (parseInt(args.slice(1).join(' '), 10) < 2) return msg.channel.send(lang.paycredits_one);
 
 	const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 
-	if (msgauthortable.medals < parseInt(args.slice(1).join(' '))) return msg.channel.send(lang.paycredits_notenough);
+	if (msgauthortable.medals < parseInt(args.slice(1).join(' '), 10)) return msg.channel.send(lang.paycredits_notenough);
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
 			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 		}
-		sql.run(`UPDATE medals SET medals = ${row.medals - parseInt(args.slice(1).join(' '))} WHERE userId = ${msg.author.id}`);
+		sql.run(`UPDATE medals SET medals = ${row.medals - parseInt(args.slice(1).join(' '), 10)} WHERE userId = ${msg.author.id}`);
 	  }).catch(error => {
 		console.error(error);
 		sql.run('CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)').then(() => {
@@ -31,7 +30,7 @@ exports.run = async (client, msg, args, lang) => {
 		if (!row) {
 			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 		}
-		sql.run(`UPDATE medals SET medals = ${row.medals + parseInt(args.slice(1).join(' '))} WHERE userId = ${mention.id}`);
+		sql.run(`UPDATE medals SET medals = ${row.medals + parseInt(args.slice(1).join(' '), 10)} WHERE userId = ${mention.id}`);
 	  }).catch(error => {
 		console.error(error);
 		sql.run('CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)').then(() => {

@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const margs = msg.content.split(' ');
 	const validation = ['scissors', 'rock', 'paper'];
 	const randomofvalidation = validation[Math.floor(Math.random() * validation.length)];

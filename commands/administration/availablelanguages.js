@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const embed = new Discord.RichEmbed()
 		.setColor('')
 		.setDescription(lang.availablelanguages_descriptionembed)

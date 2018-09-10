@@ -70,12 +70,12 @@ exports.run = async (client, msg, args, lang) => {
 				});
 			}
 		});
-		collector.on('end', (collected, reason) => {
+		collector.on('end', () => {
 			reaction1.remove();
 			reaction2.remove();
 		});
 	} else {
-		return undefined;
+		return 'undefined';
 	}
 };
 

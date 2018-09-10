@@ -6,12 +6,12 @@ exports.run = async (client, msg, args, lang) => {
 	if (addedrole.length < 1) return msg.reply(lang.removeselfassignablerole_noinput);
 	if (!foundRole) return msg.reply(lang.removeselfassignablerole_rolenotexist);
 
-	for (var i = 0; i < tableload.selfassignableroles.length; i++) {
+	for (let i = 0; i < tableload.selfassignableroles.length; i++) {
 		if (foundRole.id === tableload.selfassignableroles[i]) {
 			const roleId = foundRole.id;
-			for (var i = 0; i < tableload.selfassignableroles.length; i++) {
-				if (roleId === tableload.selfassignableroles[i]) {
-					tableload.selfassignableroles.splice(i, 1);
+			for (let index = 0; index < tableload.selfassignableroles.length; index++) {
+				if (roleId === tableload.selfassignableroles[index]) {
+					tableload.selfassignableroles.splice(index, 1);
 					await client.guildconfs.set(msg.guild.id, tableload);
 				}
 			}

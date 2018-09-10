@@ -1,4 +1,3 @@
-const Discord = require(`discord.js`);
 exports.run = (client, msg, args, lang) => {
 	const randomsize = [lang.penissizecalculator_1,
 		lang.penissizecalculator_2,

@@ -5,7 +5,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (args.slice().length === 0) return msg.reply(lang.clear_error);
 	if (isNaN(args.slice().join(' '))) return msg.reply(lang.clear_number);
 
-	const messagecount = parseInt(args.join(' '));
+	const messagecount = parseInt(args.join(' '), 10);
 
 	if (messagecount > 100) return msg.reply(lang.clear_max100);
 	if (messagecount < 2) return msg.reply(lang.clear_min2);

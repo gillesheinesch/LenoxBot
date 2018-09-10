@@ -53,18 +53,18 @@ exports.run = async (client, msg, args, lang) => {
 		.setColor('#ff9900')
 		.setTimestamp();
 
-	mutesOfThisServer.slice(0, 4).forEach(r => {
-		if (!r.moderatorid) {
-			r.moderatorid = client.user.id;
+	mutesOfThisServer.slice(0, 4).forEach(rr => {
+		if (!rr.moderatorid) {
+			rr.moderatorid = client.user.id;
 		}
 
-		if (!r.reason) {
-			r.reason = 'undefined';
+		if (!rr.reason) {
+			rr.reason = 'undefined';
 		}
 
-		const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
-			.replace('%reason', r.reason);
-		embed.addField(client.users.get(r.memberid).tag, embeddescription);
+		const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(rr.moderatorid).tag).replace('%muteddate', new Date(rr.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(rr.muteEndDate - Date.now()))
+			.replace('%reason', rr.reason);
+		embed.addField(client.users.get(rr.memberid).tag, embeddescription);
 	});
 
 	const message = await msg.channel.send({
@@ -96,18 +96,18 @@ exports.run = async (client, msg, args, lang) => {
 					.setColor('#ff9900')
 					.setTimestamp();
 
-				mutesOfThisServer.slice(first, second).forEach(r => {
-					if (!r.moderatorid) {
-						r.moderatorid = client.user.id;
+				mutesOfThisServer.slice(first, second).forEach(rrr => {
+					if (!rrr.moderatorid) {
+						rrr.moderatorid = client.user.id;
 					}
 
 					if (!r.reason) {
-						r.reason = 'undefined';
+						rrr.reason = 'undefined';
 					}
 
-					const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
-						.replace('%reason', r.reason);
-					newembed.addField(client.users.get(r.memberid).tag, embeddescription);
+					const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(rrr.moderatorid).tag).replace('%muteddate', new Date(rrr.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(rrr.muteEndDate - Date.now()))
+						.replace('%reason', rrr.reason);
+					newembed.addField(client.users.get(rrr.memberid).tag, embeddescription);
 				});
 
 				message.edit({
@@ -124,18 +124,18 @@ exports.run = async (client, msg, args, lang) => {
 					.setColor('#ff9900')
 					.setTimestamp();
 
-				mutesOfThisServer.slice(first, second).forEach(r => {
-					if (!r.moderatorid) {
-						r.moderatorid = client.user.id;
+				mutesOfThisServer.slice(first, second).forEach(rrr => {
+					if (!rrr.moderatorid) {
+						rrr.moderatorid = client.user.id;
 					}
 
 					if (!r.reason) {
-						r.reason = 'undefined';
+						rrr.reason = 'undefined';
 					}
 
-					const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(r.moderatorid).tag).replace('%muteddate', new Date(r.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(r.muteEndDate - Date.now()))
-						.replace('%reason', r.reason);
-					newembed.addField(client.users.get(r.memberid).tag, embeddescription);
+					const embeddescription = lang.currentlymuted_embeddescription.replace('%moderatortag', client.users.get(rrr.moderatorid).tag).replace('%muteddate', new Date(rrr.muteCreatedAt).toUTCString()).replace('%remainingmutetime', ms(rrr.muteEndDate - Date.now()))
+						.replace('%reason', rrr.reason);
+					newembed.addField(client.users.get(rrr.memberid).tag, embeddescription);
 				});
 
 				message.edit({

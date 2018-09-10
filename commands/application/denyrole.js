@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
@@ -18,7 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (args.length < 1) return msg.reply(lang.role_noinput);
 
-	const role = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
+	const role = msg.guild.roles.find(guildRole => guildRole.name.toLowerCase() === args.slice().join(' ').toLowerCase());
 	if (!role) return msg.reply(lang.role_rolenotexist);
 
 	tableload.application.denyrole = role.id;

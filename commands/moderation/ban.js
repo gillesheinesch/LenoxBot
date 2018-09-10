@@ -6,7 +6,7 @@ exports.run = (client, msg, args, lang) => {
 
 	if (!user) {
 		try {
-			if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw 'Usernotfound';
+			if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
 			user = msg.guild.members.get(args.slice(0, 1).join(' '));
 			user = user.user;
 		} catch (error) {

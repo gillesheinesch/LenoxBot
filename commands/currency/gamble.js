@@ -7,8 +7,8 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!input || input.length === 0) return msg.reply(lang.gamble_noinput);
 	if (isNaN(input)) return msg.reply(lang.gamble_notnumber);
-	if (parseInt(input.join(' ')) < 10) return msg.reply(lang.gamble_atleast10);
-	if (parseInt(input.join(' ')) >= 1000000) return msg.reply(lang.gamble_gamble_max1million);
+	if (parseInt(input.join(' '), 10) < 10) return msg.reply(lang.gamble_atleast10);
+	if (parseInt(input.join(' '), 10) >= 1000000) return msg.reply(lang.gamble_gamble_max1million);
 
 	const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 	if (msgauthortable.medals < input.join(' ')) return msg.channel.send(lang.gamble_error);
@@ -17,7 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 		const possiblewinrates = ['2', '0.2', '0.3', '0.1', '0.2', '0.3', '0.1', '0.2', '0.3', '0.1', '0.2', '0.3', '0.5', '0.7', '0.9', '1', '1.3', '1.6', '1.9'];
 		const result = Math.floor(Math.random() * possiblewinrates.length);
 
-		const finalresult = parseInt(input.join(' ') * possiblewinrates[result]);
+		const finalresult = parseInt(input.join(' ') * possiblewinrates[result], 10);
 
 		await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {
@@ -34,7 +34,7 @@ exports.run = async (client, msg, args, lang) => {
 			.setDescription(`🎉 ${won}`);
 		return msg.channel.send({ embed });
 	}
-	const result = parseInt(input.join(' '));
+	const result = parseInt(input.join(' '), 10);
 
 	await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 		if (!row) {

@@ -18,7 +18,7 @@ exports.run = async (client, msg, args, lang) => {
 	const role = msg.guild.roles.get(tableload.muterole);
 
 	const mutetime = ms(args.slice(1, 2).join(' '));
-	if (mutetime === 'undefined') return msg.channel.send(lang.mute_invalidtimeformat);
+	if (typeof mutetime === 'undefined') return msg.channel.send(lang.mute_invalidtimeformat);
 
 	const alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
 	if (membermention.roles.get(tableload.muterole)) return msg.channel.send(alreadymuted);

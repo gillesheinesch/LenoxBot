@@ -18,7 +18,7 @@ exports.run = async (client, msg, args, lang) => {
 		embed: embed
 	});
 
-	if (arrayOfCustomCommands.length <= 15) return undefined;
+	if (arrayOfCustomCommands.length <= 15) return;
 
 	const reaction1 = await message.react('◀');
 	const reaction2 = await message.react('▶');
@@ -63,7 +63,7 @@ exports.run = async (client, msg, args, lang) => {
 			});
 		}
 	});
-	collector.on('end', (collected, reason) => {
+	collector.on('end', () => {
 		reaction1.remove();
 		reaction2.remove();
 	});

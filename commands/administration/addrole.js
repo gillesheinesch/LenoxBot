@@ -1,4 +1,4 @@
-exports.run = function(client, msg, args, lang) {
+exports.run = (client, msg, args, lang) => {
 	const addedrole = args.slice(1).join(' ');
 	const user = msg.mentions.members.first();
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
@@ -8,7 +8,7 @@ exports.run = function(client, msg, args, lang) {
 	if (!foundRole) return msg.reply(lang.addrole_rolenotexist);
 	if (user.roles.has(foundRole.id)) return msg.reply(lang.addrole_memberalreadyhasrole);
 
-	user.addRole(foundRole).then(() => msg.reply(lang.addrole_roleassigned)).catch(err =>
+	user.addRole(foundRole).then(() => msg.reply(lang.addrole_roleassigned)).catch(() =>
 		msg.reply(lang.addrole_norights));
 };
 

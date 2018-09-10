@@ -3,19 +3,19 @@ exports.run = async (client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
 	const botconfspremiumload = await client.botconfs.get('premium');
-	botconfspremiumload.keys.numberofguildkeys = botconfspremiumload.keys.numberofguildkeys + 1;
+	botconfspremiumload.keys.numberofguildkeys += 1;
 	await client.botconfs.set('premium', botconfspremiumload);
 
 	const embeddescription = lang.createserverkey_embeddescription.replace('%premiumcode', botconfspremiumload.keys.numberofguildkeys);
 	const embed = new Discord.RichEmbed()
-		.setDescription(lang.embeddescription)
+		.setDescription(embeddescription)
 		.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 		.setTimestamp()
 		.setColor('#cc99ff')
 		.setTitle(lang.createserverkey_embedtitle);
 	await client.channels.get('419877966265319424').send({ embed });
 
-	msg.reply(lang.createserverkey_message);
+	return msg.reply(lang.createserverkey_message);
 };
 
 exports.conf = {

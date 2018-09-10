@@ -25,8 +25,9 @@ exports.run = async (client, msg, args, lang) => {
 	const result = Math.floor(Math.random() * validation.length);
 
 	let inventoryslotcheck = 0;
+	/* eslint guard-for-in: 0 */
 	for (const index in userdb.inventory) {
-		inventoryslotcheck += parseInt(userdb.inventory[index]);
+		inventoryslotcheck += parseInt(userdb.inventory[index], 10);
 	}
 	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
 	if (inventoryslotcheck >= userdb.inventoryslots) {
@@ -54,12 +55,12 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	for (let i = 0; i < validation[result].length; i++) {
-		userdb.inventory[validation[result][i]] = userdb.inventory[validation[result][i]] + 1;
+		userdb.inventory[validation[result][i]] += 1;
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	userdb.inventory.cratekey = userdb.inventory.cratekey - 1;
-	userdb.inventory.crate = userdb.inventory.crate - 1;
+	userdb.inventory.cratekey -= 1;
+	userdb.inventory.crate -= 1;
 	await client.userdb.set(msg.author.id, userdb);
 
 	const won = lang.opencrate_won.replace('%item1', `${marketconfs[validation[result][0]][0]} ${lang[`loot_${validation[result][0]}`]}`).replace('%amount1', marketconfs[validation[result][0]][1]).replace('%item2', `${marketconfs[validation[result][1]][0]} ${lang[`loot_${validation[result][1]}`]}`)

@@ -8,8 +8,9 @@ exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 
 	let inventoryslotcheck = 0;
+	/* eslint guard-for-in: 0 */
 	for (const index in userdb.inventory) {
-		inventoryslotcheck += parseInt(userdb.inventory[index]);
+		inventoryslotcheck += parseInt(userdb.inventory[index], 10);
 	}
 	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
 	if (inventoryslotcheck >= userdb.inventoryslots && userdb.premium.status === false) {

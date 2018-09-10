@@ -4,10 +4,10 @@ exports.run = async (client, msg, args, lang) => {
 	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 	const margs = msg.content.split(' ');
 
-	for (i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			for (var index = 0; index < validation.length; index++) {
-				if (margs[1].toLowerCase() == validation[index]) {
+			for (let index = 0; index < validation.length; index++) {
+				if (margs[1].toLowerCase() === validation[index]) {
 					if (validation[index] === 'botowner' && msg.author.id !== '238590234135101440') {
 						return msg.channel.send(lang.botownercommands_error);
 					}
@@ -17,35 +17,35 @@ exports.run = async (client, msg, args, lang) => {
 						return msg.channel.send(lang.botownercommands_error);
 					}
 
-					var commandShortDescriptions = [];
+					const commandShortDescriptions = [];
 					const embed = new Discord.RichEmbed()
 						.setDescription(lang[`modules_${validation[index].toLowerCase()}`] ? lang[`modules_${validation[index].toLowerCase()}`] : 'No description')
 						.setColor('#009900');
 
-					var commands = client.commands.filter(c => c.help.category === validation[index]).array();
+					const commands = client.commands.filter(c => c.help.category === validation[index]).array();
 
-					for (var i = 0; i < commands.length; i++) {
-						if (!commandShortDescriptions.includes(commands[i].conf.shortDescription)) {
-							commandShortDescriptions.push(commands[i].conf.shortDescription);
+					for (let index2 = 0; index2 < commands.length; index2++) {
+						if (!commandShortDescriptions.includes(commands[index2].conf.shortDescription)) {
+							commandShortDescriptions.push(commands[index2].conf.shortDescription);
 						}
 					}
 
-					for (var index2 = 0; index2 < commandShortDescriptions.slice(0, 7).length; index2++) {
-						const newCommands = commands.filter(c => c.conf.shortDescription.toLowerCase() === commandShortDescriptions[index2].toLowerCase());
-						const shortDescriptionCheck = await lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`];
-						embed.addField(shortDescriptionCheck !== undefined ? lang[`commands_${commandShortDescriptions[index2].toLowerCase()}`] : commandShortDescriptions[index2], `\`\`\`asciidoc\n${newCommands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join('\n')}\`\`\``);
+					for (let index3 = 0; index3 < commandShortDescriptions.slice(0, 7).length; index3++) {
+						const newCommands = commands.filter(c => c.conf.shortDescription.toLowerCase() === commandShortDescriptions[index3].toLowerCase());
+						const shortDescriptionCheck = await lang[`commands_${commandShortDescriptions[index3].toLowerCase()}`];
+						embed.addField(typeof shortDescriptionCheck === 'undefined' ? commandShortDescriptions[index3] : lang[`commands_${commandShortDescriptions[index3].toLowerCase()}`], `\`\`\`asciidoc\n${newCommands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join('\n')}\`\`\``);
 					}
 
 					const message = await msg.channel.send({
 						embed: embed
 					});
 
-					if (commandShortDescriptions.length <= 7) return undefined;
-					var reaction1 = await message.react('◀');
-					var reaction2 = await message.react('▶');
+					if (commandShortDescriptions.length <= 7) return;
+					const reaction1 = await message.react('◀');
+					const reaction2 = await message.react('▶');
 
-					var first = 0;
-					var second = 7;
+					let first = 0;
+					let second = 7;
 
 					const collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
 						time: 60000
@@ -56,12 +56,12 @@ exports.run = async (client, msg, args, lang) => {
 
 						if (r.emoji.name === '▶' && reactionadd !== 0) {
 							r.remove(msg.author.id);
-							var newCommandShortDescriptions = commandShortDescriptions.slice(first + 7, second + 7);
-							var newEmbed = new Discord.RichEmbed()
+							const newCommandShortDescriptions = commandShortDescriptions.slice(first + 7, second + 7);
+							const newEmbed = new Discord.RichEmbed()
 								.setColor('#009900');
 
-							for (var index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
-								var new2Commands = commands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
+							for (let index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
+								const new2Commands = commands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
 								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join('\n')}\`\`\``);
 							}
 
@@ -73,12 +73,12 @@ exports.run = async (client, msg, args, lang) => {
 							});
 						} else if (r.emoji.name === '◀' && reactionremove !== 0) {
 							r.remove(msg.author.id);
-							var newCommandShortDescriptions = commandShortDescriptions.slice(first - 7, second - 7);
-							var newEmbed = new Discord.RichEmbed()
+							const newCommandShortDescriptions = commandShortDescriptions.slice(first - 7, second - 7);
+							const newEmbed = new Discord.RichEmbed()
 								.setColor('#009900');
 
-							for (var index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
-								var new2Commands = commands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
+							for (let index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
+								const new2Commands = commands.filter(c => c.conf.shortDescription.toLowerCase() === newCommandShortDescriptions[index2].toLowerCase());
 								newEmbed.addField(lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] ? lang[`commands_${newCommandShortDescriptions[index2].toLowerCase()}`] : newCommandShortDescriptions[index2], `\`\`\`asciidoc\n${new2Commands.map(cmd => `${tableload.prefix}${cmd.help.name} :: ${lang[`${cmd.help.name}_description`] ? lang[`${cmd.help.name}_description`] : cmd.help.description}`).join('\n')}\`\`\``);
 							}
 
@@ -90,17 +90,17 @@ exports.run = async (client, msg, args, lang) => {
 							});
 						}
 					});
-					collector.on('end', (collected, reason) => {
+					collector.on('end', () => {
 						reaction1.remove();
 						reaction2.remove();
 					});
-					return undefined;
+					return;
 				}
 			}
 		}
 	}
 	const error = lang.commands_error.replace('%prefixmodules', `\`${tableload.prefix}modules\``);
-	msg.channel.send(error);
+	return msg.channel.send(error);
 };
 
 exports.conf = {

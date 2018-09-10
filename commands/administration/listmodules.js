@@ -32,8 +32,8 @@ exports.run = async (client, msg, args, lang) => {
 		}
 	}
 
-	embed.addField(lang.listmodules_activemodules, activatedmodules.length !== 0 ? activatedmodules.join('\n') : lang.listmodules_noactivemodules);
-	embed.addField(lang.listmodules_disabledmodules, disabledmodules.length !== 0 ? disabledmodules.join('\n') : lang.listmodules_nodisabledmodules);
+	embed.addField(lang.listmodules_activemodules, activatedmodules.length === 0 ? lang.listmodules_noactivemodules : activatedmodules.join('\n'));
+	embed.addField(lang.listmodules_disabledmodules, disabledmodules.length === 0 ? lang.listmodules_nodisabledmodules : disabledmodules.join('\n'));
 
 	msg.channel.send({ embed });
 };

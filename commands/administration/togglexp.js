@@ -4,15 +4,16 @@ exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const margs = msg.content.split(' ');
 	const input = args.slice();
+	let channel;
 
 	if (!input || input.length === 0) return msg.reply(lang.togglexp_noinput);
 
-	for (i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			if (margs[1].toLowerCase() == 'add') {
+			if (margs[1].toLowerCase() === 'add') {
 				try {
-					var channel = msg.guild.channels.find(r => r.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
-					if (channel === null) throw undefined;
+					channel = msg.guild.channels.find(r => r.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
+					if (channel === null) throw new Error('undefined');
 				} catch (error) {
 					return msg.channel.send(lang.togglexp_notexist);
 				}
@@ -28,28 +29,29 @@ exports.run = async (client, msg, args, lang) => {
 
 				const add = lang.togglexp_add.replace('%channelname', channel.name);
 				return msg.reply(add);
-			} else if (margs[1].toLowerCase() == 'remove') {
+			} else if (margs[1].toLowerCase() === 'remove') {
 				if (tableload.togglexp.channelids.length === 0) return msg.reply(lang.togglexp_nochannel);
 
+				let channel2;
 				try {
-					var channel = msg.guild.channels.find(r => r.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
-					if (channel === null) throw undefined;
+					channel2 = msg.guild.channels.find(r => r.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
+					if (channel2 === null) throw new Error('undefined');
 				} catch (error) {
 					return msg.channel.send(lang.togglexp_notexist);
 				}
-				if (channel.type !== 'text') return msg.reply(lang.togglexp_notextchannel);
+				if (channel2.type !== 'text') return msg.reply(lang.togglexp_notextchannel);
 
 				for (let index2 = 0; index2 < tableload.togglexp.channelids.length; index2++) {
-					if (channel.id === tableload.togglexp.channelids[index2]) {
+					if (channel2.id === tableload.togglexp.channelids[index2]) {
 						tableload.togglexp.channelids.splice(index2, 1);
 						await client.guildconfs.set(msg.guild.id, tableload);
 
-						const remove = lang.togglexp_remove.replace('%channelname', channel.name);
+						const remove = lang.togglexp_remove.replace('%channelname', channel2.name);
 						return msg.reply(remove);
 					}
 				}
 				return msg.reply(lang.togglexp_notinthelist);
-			} else if (margs[1].toLowerCase() == 'list') {
+			} else if (margs[1].toLowerCase() === 'list') {
 				if (tableload.togglexp.channelids.length === 0) return msg.reply(lang.togglexp_nochannel);
 
 				const array = [];

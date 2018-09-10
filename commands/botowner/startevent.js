@@ -1,5 +1,4 @@
 const Discord = require('discord.js');
-const moment = require('moment');
 const sql = require('sqlite');
 sql.open('../lenoxbotscore.sqlite');
 require('moment-duration-format');
@@ -11,10 +10,10 @@ exports.run = async (client, msg, args, lang) => {
 	const validation = ['creditsevent', 'extracreditsevent', 'birthdaybadge'];
 	const tableload = await client.guildconfs.get(msg.guild.id);
 
-	for (i = 0; i < margs.length; i++) {
+	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			if (margs[1].toLowerCase() == 'creditsevent') {
-				var normalevent = [];
+			if (margs[1].toLowerCase() === 'creditsevent') {
+				const normalevent = [];
 
 				const creditseventembeddescription = lang.startevent_creditseventembeddescription.replace('%prefix', tableload.prefix);
 				const endsdate = lang.startevent_endsdate.replace('%date', new Date(now + 86400000));
@@ -50,11 +49,11 @@ exports.run = async (client, msg, args, lang) => {
 						});
 					}
 				});
-				normaleventcollector.on('end', (collected, reason) => {
+				normaleventcollector.on('end', () => {
 					message.delete();
 				});
-			} else if (margs[1].toLowerCase() == 'extracreditsevent') {
-				var extramedalevent = [];
+			} else if (margs[1].toLowerCase() === 'extracreditsevent') {
+				const extramedalevent = [];
 
 				const extracreditseventembeddescription = lang.startevent_extracreditseventembeddescription.replace('%prefix', tableload.prefix);
 				const endsdate = lang.startevent_endsdate.replace('%date', new Date(now + 86400000));
@@ -90,17 +89,17 @@ exports.run = async (client, msg, args, lang) => {
 						});
 					}
 				});
-				extramedaleventcollector.on('end', (collected, reason) => {
+				extramedaleventcollector.on('end', () => {
 					message.delete();
 				});
-			} else if (margs[1].toLowerCase() == 'birthdaybadge') {
-				var eventArray = [];
+			} else if (margs[1].toLowerCase() === 'birthdaybadge') {
+				const eventArray = [];
 
 				const endsdate = lang.startevent_endsdate.replace('%date', new Date(now + 86400000));
 				const embed = new Discord.RichEmbed()
 					.setDescription(lang.startevent_birthdaybadgeembeddescription)
 					.setColor('#ff5050')
-					.setFooter(lang.endsdate)
+					.setFooter(endsdate)
 					.setAuthor(lang.startevent_birthdaybadgeembedauthor);
 
 				const message = await msg.channel.send({
@@ -131,7 +130,7 @@ exports.run = async (client, msg, args, lang) => {
 						};
 
 						for (let index = 0; index < userdb.badges.length; index++) {
-							if (userdb.badges[index].name.toLowerCase() === 'birthday2018') return undefined;
+							if (userdb.badges[index].name.toLowerCase() === 'birthday2018') return;
 						}
 
 						client.users.get(r.users.last().id).send(lang.startevent_birthdaybadgemessage);
@@ -140,7 +139,7 @@ exports.run = async (client, msg, args, lang) => {
 						await client.userdb.set(r.users.last().id, userdb);
 					}
 				});
-				birthdaybadgecollector.on('end', (collected, reason) => {
+				birthdaybadgecollector.on('end', () => {
 					message.delete();
 				});
 			}

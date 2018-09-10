@@ -26,6 +26,7 @@ exports.run = async (client, msg, args, lang) => {
 			.setThumbnail('https://imgur.com/7qLINgn.png')
 			.setAuthor(shop);
 
+		/* eslint guard-for-in: 0 */
 		for (const i in marketconfs) {
 			array1.push(`${marketconfs[i][0]} ${lang[`loot_${i}`]}`);
 			array2.push(`📥 $${marketconfs[i][1]} 📤 $${marketconfs[i][2]}`);
@@ -34,7 +35,7 @@ exports.run = async (client, msg, args, lang) => {
 		const firstembed = array1.slice(0, 14);
 		const secondembed = array2.slice(0, 14);
 
-		for (var i = 0; i < firstembed.length; i++) {
+		for (let i = 0; i < firstembed.length; i++) {
 			embed.addField(firstembed[i], secondembed[i], true);
 		}
 
@@ -63,14 +64,13 @@ exports.run = async (client, msg, args, lang) => {
 				firsttext += 14;
 				secondtext += 14;
 
-				const shop = lang.shop_shop.replace('%lenoxbot', client.user.username);
 				const newembed = new Discord.RichEmbed()
 					.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 					.setColor('#009933')
 					.setThumbnail('https://imgur.com/7qLINgn.png')
 					.setAuthor(shop);
 
-				for (var i = 0; i < embedaddfield1.length; i++) {
+				for (let i = 0; i < embedaddfield1.length; i++) {
 					newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
 				}
 
@@ -85,14 +85,13 @@ exports.run = async (client, msg, args, lang) => {
 				firsttext -= 14;
 				secondtext -= 14;
 
-				const shop = lang.shop_shop.replace('%lenoxbot', client.user.username);
 				const newembed = new Discord.RichEmbed()
 					.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 					.setColor('#009933')
 					.setThumbnail('https://imgur.com/7qLINgn.png')
 					.setAuthor(shop);
 
-				for (var i = 0; i < embedaddfield1.length; i++) {
+				for (let i = 0; i < embedaddfield1.length; i++) {
 					newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
 				}
 
@@ -101,20 +100,20 @@ exports.run = async (client, msg, args, lang) => {
 				});
 			}
 		});
-		await collector.on('end', (collected, reason) => {
+		await collector.on('end', () => {
 			message.react('❌');
 		});
-		return undefined;
+		return;
 	}
 
-	for (i = 0; i < sellorbuycheck.length; i++) {
+	for (let i = 0; i < sellorbuycheck.length; i++) {
 		if (validationforbuysell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
-			if (sellorbuycheck[0].toLowerCase() == 'sell') {
+			if (sellorbuycheck[0].toLowerCase() === 'sell') {
 				// Check if the item exists in the user's inventory
-				if (args.slice(1).join(' ').toLowerCase() == 'all') {
-					var inventoryslotcheck = 0;
-					for (var x = 0; x < itemsnames.length; x++) {
-						inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]]);
+				if (args.slice(1).join(' ').toLowerCase() === 'all') {
+					let inventoryslotcheck = 0;
+					for (let x = 0; x < itemsnames.length; x++) {
+						inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]], 10);
 					}
 					const error = lang.inventory_error.replace('%prefix', tableload.prefix);
 					if (inventoryslotcheck === 0) return msg.reply(error);
@@ -126,12 +125,12 @@ exports.run = async (client, msg, args, lang) => {
 						}
 					}
 
-					var amounttoreceive = 0;
+					let amounttoreceive = 0;
 					for (let xxxxx = 0; xxxxx < allitemsininventory.length; xxxxx++) {
-						amounttoreceive += parseInt(allitemsininventory[xxxxx][3] * allitemsininventory[xxxxx][1]);
+						amounttoreceive += parseInt(allitemsininventory[xxxxx][3] * allitemsininventory[xxxxx][1], 10);
 					}
 
-					amounttoreceive = parseInt(amounttoreceive);
+					amounttoreceive = parseInt(amounttoreceive, 10);
 
 					for (let xxx = 0; xxx < allitemsininventory.length; xxx++) {
 						userdb.inventory[allitemsininventory[xxx][4]] = 0;
@@ -165,12 +164,12 @@ exports.run = async (client, msg, args, lang) => {
 				for (i = 0; i < itemcheck.length; i++) {
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
 						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
-						if (itemcheck[0] == validationforitemsbuysell[i]) {
+						if (itemcheck[0] === validationforitemsbuysell[i]) {
 							const notown = lang.shop_notown.replace('%prefix', tableload.prefix);
 							if (userdb.inventory[itemsnames[i]] < howmanycheck) return msg.reply(notown);
 
-							const amount = parseInt(marketconfs[itemsnames[i]][2]) * parseInt(howmanycheck[0]);
-							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] - parseInt(howmanycheck[0]);
+							const amount = parseInt(marketconfs[itemsnames[i]][2], 10) * parseInt(howmanycheck[0], 10);
+							userdb.inventory[itemsnames[i]] -= parseInt(howmanycheck[0], 10);
 
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
@@ -187,25 +186,25 @@ exports.run = async (client, msg, args, lang) => {
 						}
 					}
 				}
-			} else if (sellorbuycheck[0].toLowerCase() == 'buy') {
+			} else if (sellorbuycheck[0].toLowerCase() === 'buy') {
 				// Check if the use can buy this item
 				for (i = 0; i < itemcheck.length; i++) {
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
 						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
-						if (itemcheck[0] == validationforitemsbuysell[i]) {
-							var inventoryslotcheck = 0;
-							for (var x = 0; x < itemsnames.length; x++) {
-								inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]]);
+						if (itemcheck[0] === validationforitemsbuysell[i]) {
+							let inventoryslotcheck = 0;
+							for (let x = 0; x < itemsnames.length; x++) {
+								inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]], 10);
 							}
 
 							const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
-							if ((inventoryslotcheck + parseInt(howmanycheck[0])) > userdb.inventoryslots) return msg.reply(inventoryfull);
+							if ((inventoryslotcheck + parseInt(howmanycheck[0], 10)) > userdb.inventoryslots) return msg.reply(inventoryfull);
 
 							const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
-							if (msgauthortable.medals <= (marketconfs[itemsnames[i]][1] * parseInt(howmanycheck[0]))) return msg.channel.send(lang.shop_notenoughcredits);
+							if (msgauthortable.medals <= (marketconfs[itemsnames[i]][1] * parseInt(howmanycheck[0], 10))) return msg.channel.send(lang.shop_notenoughcredits);
 
-							const amount = parseInt(marketconfs[itemsnames[i]][1]) * parseInt(howmanycheck[0]);
-							userdb.inventory[itemsnames[i]] = userdb.inventory[itemsnames[i]] + parseInt(howmanycheck[0]);
+							const amount = parseInt(marketconfs[itemsnames[i]][1], 10) * parseInt(howmanycheck[0], 10);
+							userdb.inventory[itemsnames[i]] += parseInt(howmanycheck[0], 10);
 
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {

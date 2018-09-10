@@ -1,9 +1,8 @@
-const Discord = require('discord.js');
 const sql = require('sqlite');
 sql.open('../lenoxbotscore.sqlite');
 exports.run = async (client, msg, args, lang) => {
 	const mentioncheck = msg.mentions.users.first();
-	const userdb = client.userdb.get(msg.author.id);
+	const userdb = await client.userdb.get(msg.author.id);
 
 	if (userdb.dailyremind === true) {
 		setTimeout(() => {

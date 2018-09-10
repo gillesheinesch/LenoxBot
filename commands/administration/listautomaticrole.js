@@ -13,12 +13,12 @@ exports.run = async (client, msg, args, lang) => {
 		.setColor('#ABCDEF');
 
 	try {
-		for (var i = 0; i < tableload.ara.length; i += 2) {
+		for (let i = 0; i < tableload.ara.length; i += 2) {
 			roles.push(msg.guild.roles.get(tableload.ara[i]).name);
 		}
 		embed.addField(lang.listautomaticrole_embed, roles.join('\n'), true);
 
-		for (var i = 1; i < tableload.ara.length; i += 2) {
+		for (let i = 1; i < tableload.ara.length; i += 2) {
 			points.push(tableload.ara[i]);
 		}
 		embed.addField(lang.listautomaticrole_points, points.join('\n'), true);

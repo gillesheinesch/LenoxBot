@@ -31,7 +31,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const array = [];
 
-	for (var i = 0; i < tableload.application.template.length; i++) {
+	for (let i = 0; i < tableload.application.template.length; i++) {
 		try {
 			await msg.channel.send(`${msg.author}, ${tableload.application.template[i]}`);
 			const response = await msg.channel.awaitMessages(msg2 => msg2.attachments.size === 0 && msg.author.id === msg2.author.id && !msg2.author.bot, {
@@ -48,7 +48,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	const temparray = [];
-	for (var i = 0; i < tableload.application.template.length; i++) {
+	for (let i = 0; i < tableload.application.template.length; i++) {
 		temparray.push(`${tableload.application.template[i]} \n${array[i]}`);
 	}
 
@@ -66,7 +66,7 @@ exports.run = async (client, msg, args, lang) => {
 		no: []
 	};
 
-	tableload.application.applicationid = tableload.application.applicationid + 1;
+	tableload.application.applicationid += 1;
 	tableload.application.applications[tableload.application.applicationid] = confs;
 
 	await client.guildconfs.set(msg.guild.id, tableload);
@@ -87,7 +87,7 @@ exports.run = async (client, msg, args, lang) => {
 				embed
 			});
 		} catch (error) {
-			undefined;
+			'undefined';
 		}
 	}
 };

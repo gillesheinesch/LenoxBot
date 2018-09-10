@@ -7,11 +7,11 @@ exports.run = async (client, msg, args, lang) => {
 	const inventory = lang.inventory_inventory.replace('%authortag', msg.author.tag);
 	const validation = ['upgrade'];
 
-	for (i = 0; i < args.slice().length; i++) {
+	for (let i = 0; i < args.slice().length; i++) {
 		if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
-			if (args.slice()[0].toLowerCase() == 'upgrade') {
+			if (args.slice()[0].toLowerCase() === 'upgrade') {
 				if (userdb.inventory.inventoryslotticket === 0) return msg.reply(lang.inventory_notickets);
-				userdb.inventory.inventoryslotticket = userdb.inventory.inventoryslotticket - 1;
+				userdb.inventory.inventoryslotticket -= 1;
 				userdb.inventoryslots += 1;
 				await client.userdb.set(msg.author.id, userdb);
 
@@ -24,7 +24,7 @@ exports.run = async (client, msg, args, lang) => {
 	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana', 'tractor', 'syringe', 'gun', 'knife'];
 	let inventoryslotcheck = 0;
 	for (let x = 0; x < itemsnames.length; x++) {
-		inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]]);
+		inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]], 10);
 	}
 
 	const slots = lang.inventory_inventoryslots.replace('%slots', `**${inventoryslotcheck}/${userdb.inventoryslots}**`);
@@ -37,6 +37,7 @@ exports.run = async (client, msg, args, lang) => {
 	const array2 = [];
 
 	let check = 0;
+	/* eslint guard-for-in: 0 */
 	for (const i in userdb.inventory) {
 		if (userdb.inventory[i] === 0) {
 			check++;
@@ -51,7 +52,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	if (array1.length <= 7) {
-		for (var i = 0; i < array1.length; i++) {
+		for (let i = 0; i < array1.length; i++) {
 			embed.addField(array1[i], array2[i]);
 		}
 		return msg.channel.send({
@@ -62,7 +63,7 @@ exports.run = async (client, msg, args, lang) => {
 	const firstembed = array1.slice(0, 7);
 	const secondembed = array2.slice(0, 7);
 
-	for (var i = 0; i < firstembed.length; i++) {
+	for (let i = 0; i < firstembed.length; i++) {
 		embed.addField(firstembed[i], secondembed[i]);
 	}
 
@@ -91,13 +92,12 @@ exports.run = async (client, msg, args, lang) => {
 			firsttext += 7;
 			secondtext += 7;
 
-			const slots = lang.inventory_inventoryslots.replace('%slots', `**${inventoryslotcheck}/${userdb.inventoryslots}**`);
 			const newembed = new Discord.RichEmbed()
 				.setDescription(slots)
 				.setAuthor(inventory, msg.author.displayAvatarURL)
 				.setColor('#009933');
 
-			for (var i = 0; i < embedaddfield1.length; i++) {
+			for (let i = 0; i < embedaddfield1.length; i++) {
 				newembed.addField(embedaddfield1[i], embedaddfield2[i]);
 			}
 
@@ -112,13 +112,12 @@ exports.run = async (client, msg, args, lang) => {
 			firsttext -= 7;
 			secondtext -= 7;
 
-			const slots = lang.inventory_inventoryslots.replace('%slots', `**${inventoryslotcheck}/${userdb.inventoryslots}**`);
 			const newembed = new Discord.RichEmbed()
 				.setDescription(slots)
 				.setAuthor(inventory, msg.author.displayAvatarURL)
 				.setColor('#009933');
 
-			for (var i = 0; i < embedaddfield1.length; i++) {
+			for (let i = 0; i < embedaddfield1.length; i++) {
 				newembed.addField(embedaddfield1[i], embedaddfield2[i]);
 			}
 
@@ -127,7 +126,7 @@ exports.run = async (client, msg, args, lang) => {
 			});
 		}
 	});
-	collector.on('end', (collected, reason) => {
+	collector.on('end', () => {
 		message.react('❌');
 	});
 };

@@ -13,7 +13,7 @@ exports.run = async (client, msg, args, lang) => {
 		userArray.push(member ? member.tag : row.userId);
 		moneyArray.push(row.medals);
 	});
-	for (i = 0; i < userArray.length; i++) {
+	for (let i = 0; i < userArray.length; i++) {
 		tempArray.push(`${i + 1}. ${userArray[i]}`);
 	}
 

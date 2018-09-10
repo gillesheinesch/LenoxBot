@@ -1,4 +1,3 @@
-const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
@@ -19,11 +18,11 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (input.length < 1) return msg.reply(lang.deleteentry_noinput);
 
-	for (var i = 0; i < tableload.application.template.length; i++) {
+	for (let i = 0; i < tableload.application.template.length; i++) {
 		if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {
-			for (var i = 0; i < tableload.application.template.length; i++) {
-				if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {
-					tableload.application.template.splice(i, 1);
+			for (let index = 0; index < tableload.application.template.length; index++) {
+				if (input.toLowerCase() === tableload.application.template[index].toLowerCase()) {
+					tableload.application.template.splice(index, 1);
 					await client.guildconfs.set(msg.guild.id, tableload);
 				}
 			}

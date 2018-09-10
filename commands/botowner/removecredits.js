@@ -4,7 +4,7 @@ exports.run = (client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 
 	const user = msg.mentions.users.first();
-	const amountofcoins = parseInt(args.slice(1).join(' '));
+	const amountofcoins = parseInt(args.slice(1).join(' '), 10);
 
 	if (!user) return msg.reply(lang.removecredits_nomention);
 	if (!amountofcoins) return msg.reply(lang.removecredits_novalue);

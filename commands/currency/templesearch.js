@@ -20,7 +20,7 @@ exports.run = async (client, msg, args, lang) => {
 			sql.run(`UPDATE medals SET medals = ${row.medals + result} WHERE userId = ${msg.author.id}`);
 		});
 
-		userdb.inventory.flashlight = userdb.inventory.flashlight - 1;
+		userdb.inventory.flashlight -= 1;
 		await client.userdb.set(msg.author.id, userdb);
 
 		const received = lang.templesearch_received.replace('%amount', `\`$${result}\``);
