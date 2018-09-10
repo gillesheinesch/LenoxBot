@@ -452,8 +452,6 @@ exports.run = async (client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	const lang = require(`../languages/${tableload.language}.json`);
-
 	if (!tableload.language) {
 		tableload.language = `en-US`;
 		await client.guildconfs.set(msg.guild.id, tableload);
@@ -479,8 +477,9 @@ exports.run = async (client, msg) => {
 		tableload.language = 'fr-FR';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
-
 	// CHANGE TO THE NEW CROWDIN SYSTEM
+
+	const lang = require(`../languages/${tableload.language}.json`);
 
 	if (!tableload.nicknamelog) {
 		tableload.nicknamelog = [];
