@@ -133,6 +133,23 @@ exports.run = async client => {
 				client.guilds.get(bansconf.discordserverid).unban(user);
 
 				const lang = require(`../languages/${tableload.language}.json`);
+				// CHANGE TO THE NEW CROWDIN SYSTEM
+				if (tableload.language === 'en-US') {
+					tableload.language = 'en-US';
+					client.guildconfs.set(bansconf.discordserverid, tableload);
+				}
+
+				if (tableload.language === 'ge') {
+					tableload.language = 'de-DE';
+					client.guildconfs.set(bansconf.discordserverid, tableload);
+				}
+
+				if (tableload.language === 'fr') {
+					tableload.language = 'fr-FR';
+					client.guildconfs.set(bansconf.discordserverid, tableload);
+				}
+				// CHANGE TO THE NEW CROWDIN SYSTEM
+
 				const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
 				const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 				const unmutedembed = new Discord.RichEmbed()
@@ -166,6 +183,23 @@ exports.run = async client => {
 				membermention.removeRole(role);
 
 				const lang = require(`../languages/${tableload.language}.json`);
+				// CHANGE TO THE NEW CROWDIN SYSTEM
+				if (tableload.language === 'en-US') {
+					tableload.language = 'en-US';
+					client.guildconfs.set(muteconf.discordserverid, tableload);
+				}
+
+				if (tableload.language === 'ge') {
+					tableload.language = 'de-DE';
+					client.guildconfs.set(muteconf.discordserverid, tableload);
+				}
+
+				if (tableload.language === 'fr') {
+					tableload.language = 'fr-FR';
+					client.guildconfs.set(muteconf.discordserverid, tableload);
+				}
+				// CHANGE TO THE NEW CROWDIN SYSTEM
+
 				const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
 				const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 				const unmutedembed = new Discord.RichEmbed()
