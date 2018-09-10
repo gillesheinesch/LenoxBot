@@ -179,7 +179,7 @@ exports.run = async (client, msg, args, lang) => {
 			return msg.channel.send(lang.play_noresult);
 		}
 	}
-	return handleVideo(video, msg, voiceChannel);
+	handleVideo(video, msg, voiceChannel);
 };
 
 exports.conf = {
