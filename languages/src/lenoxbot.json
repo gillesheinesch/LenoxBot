@@ -117,7 +117,7 @@
     "bash_description": "Executes a code for you",
 
     "toggleactivity_set": "All executed commands are now logged in %channelname!",
-    "toggleactivity_unset": "All executed commands are now no longer logged in %channelname!",
+    "toggleactivity_unset": "All executed commands will no longer be logged!",
     "toggleactivity_description": "Logs all executed commands of the bot in a specific textchannel",
 
     "deletecustomcommand_noinput": "You forgot to enter the name of the command you want to delete!",
