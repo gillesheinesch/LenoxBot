@@ -11,6 +11,23 @@ exports.run = async (client, oldMsg, newMsg) => {
 		await client.guildconfs.set(newMsg.guild.id, tableload);
 	}
 
+						// CHANGE TO THE NEW CROWDIN SYSTEM
+						if (tableload.language === 'en-US') {
+							tableload.language = 'en-US';
+							client.guildconfs.set(newMsg.guild.id, tableload);
+						}
+					
+						if (tableload.language === 'ge') {
+							tableload.language = 'de-DE';
+							client.guildconfs.set(newMsg.guild.id, tableload);
+						}
+					
+						if (tableload.language === 'fr') {
+							tableload.language = 'fr-FR';
+							client.guildconfs.set(newMsg.guild.id, tableload);
+						}
+						// CHANGE TO THE NEW CROWDIN SYSTEM
+
 	const lang = require(`../languages/${tableload.language}.json`);
 
 	if (tableload.messageupdatelog === 'true') {
