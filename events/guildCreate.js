@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 exports.run = async (client, guild) => {
+	const settings = require('../settings.json');
 	const defaultSettings = {
-		prefix: '?',
+		prefix: settings.prefix,
 		modlog: 'false',
 		modlogchannel: '',
 		messagedellog: 'false',

@@ -12,6 +12,8 @@ exports.run = async (client, msg) => {
 		if (msg.guild.id !== '332612123492483094') return;
 	}
 
+	const settings = require('../settings.json');
+
 	const userconfs = {
 		inventory: {
 			crate: 0,
@@ -58,7 +60,7 @@ exports.run = async (client, msg) => {
 	};
 
 	const guildsettings = {
-		prefix: '?',
+		prefix: settings.prefix,
 		modlog: 'false',
 		modlogchannel: '',
 		messagedellog: 'false',
