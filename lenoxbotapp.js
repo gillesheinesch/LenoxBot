@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const client = new Discord.Client();
-const settingsJSON = require('./settings.json');
+const settings = require('./settings.json');
 const token = require('./settings.json').token;
 const fs = require('fs');
 const Enmap = require('enmap');
@@ -43,8 +43,14 @@ client.cooldowns = new Discord.Collection();
 client.commandstoday = 0;
 
 const DBL = require('dblapi.js');
-client.dbl = new DBL('eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjM1NDcxMjMzMzg1MzEzMDc1MiIsImJvdCI6dHJ1ZSwiaWF0IjoxNTA5NjU3MTkzfQ.dDleV67s0ESxSVUxKxeQ8W_z6n9YwrDrF9ObU2MKgVE');
+client.dbl = new DBL(settings.dbl_apikey);
 client.dbl.getVotes(true);
+
+// Check if settings.json is correctly configuered
+if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '') {
+	console.error('settings.json file is not correctly configuered!');
+	return process.exit(42);
+}
 
 
 fs.readdir('./events/', (err, files) => {
@@ -108,9 +114,9 @@ passport.deserializeUser((obj, done) => {
 const scopes = ['identify', 'guilds'];
 
 passport.use(new Strategy({
-	clientID: settingsJSON.clientID_Auth,
-	clientSecret: settingsJSON.clientSecret_Auth,
-	callbackURL: settingsJSON.callbackURL_Auth,
+	clientID: settings.clientID_Auth,
+	clientSecret: settings.clientSecret_Auth,
+	callbackURL: settings.callbackURL_Auth,
 	scope: scopes
 }, ((accessToken, refreshToken, profile, done) => {
 	process.nextTick(() => done(null, profile));
