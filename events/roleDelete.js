@@ -17,22 +17,22 @@ exports.run = async (client, role) => {
 		client.guildconfs.set(role.guild.id, tableload);
 	}
 
-									// CHANGE TO THE NEW CROWDIN SYSTEM
-									if (tableload.language === 'en-US') {
-										tableload.language = 'en-US';
-										client.guildconfs.set(role.guild.id, tableload);
-									}
-								
-									if (tableload.language === 'ge') {
-										tableload.language = 'de-DE';
-										client.guildconfs.set(role.guild.id, tableload);
-									}
-								
-									if (tableload.language === 'fr') {
-										tableload.language = 'fr-FR';
-										client.guildconfs.set(role.guild.id, tableload);
-									}
-									// CHANGE TO THE NEW CROWDIN SYSTEM
+	// CHANGE TO THE NEW CROWDIN SYSTEM
+	if (tableload.language === 'en-US') {
+		tableload.language = 'en-US';
+		client.guildconfs.set(role.guild.id, tableload);
+	}
+
+	if (tableload.language === 'ge') {
+		tableload.language = 'de-DE';
+		client.guildconfs.set(role.guild.id, tableload);
+	}
+
+	if (tableload.language === 'fr') {
+		tableload.language = 'fr-FR';
+		client.guildconfs.set(role.guild.id, tableload);
+	}
+	// CHANGE TO THE NEW CROWDIN SYSTEM
 
 	const lang = require(`../languages/${tableload.language}.json`);
 
