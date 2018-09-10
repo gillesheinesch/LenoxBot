@@ -51,6 +51,7 @@ if (!settings.token || settings.token === '' || !settings.prefix || settings.pre
 	console.error('settings.json file is not correctly configuered!');
 	return process.exit(42);
 }
+// Check if settings.json is correctly configuered
 
 
 fs.readdir('./events/', (err, files) => {
