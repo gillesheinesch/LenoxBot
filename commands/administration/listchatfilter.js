@@ -75,7 +75,7 @@ exports.run = async (client, msg, args, lang) => {
 			reaction2.remove();
 		});
 	} else {
-		return 'undefined';
+		return;
 	}
 };
 
