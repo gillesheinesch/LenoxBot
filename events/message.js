@@ -5,7 +5,7 @@ require('moment-duration-format');
 const Discord = require('discord.js');
 exports.run = async (client, msg) => {
 	if (msg.author.bot) return;
-	const englishlang = require(`../languages/en.json`);
+	const englishlang = require(`../languages/en-US.json`);
 	if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 
 	if (client.user.id === '353115097318555649') {
@@ -211,6 +211,11 @@ exports.run = async (client, msg) => {
 
 	if (!userdb.badges) {
 		userdb.badges = [];
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
+	if (!userdb.userID) {
+		userdb.userID = msg.author.id;
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
@@ -447,19 +452,35 @@ exports.run = async (client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	if (tableload.language === '') {
-		tableload.language = 'en';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
 	const lang = require(`../languages/${tableload.language}.json`);
 
-	if (msg.channel.type !== 'text') return msg.reply(lang.messageevent_error);
-
 	if (!tableload.language) {
-		tableload.language = `en`;
+		tableload.language = `en-US`;
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
+
+	if (tableload.language === '') {
+		tableload.language = 'en-US';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	// CHANGE TO THE NEW CROWDIN SYSTEM
+	if (tableload.language === 'en') {
+		tableload.language = 'en-US';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.language === 'ge') {
+		tableload.language = 'de-DE';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	if (tableload.language === 'fr') {
+		tableload.language = 'fr-FR';
+		await client.guildconfs.set(msg.guild.id, tableload);
+	}
+
+	// CHANGE TO THE NEW CROWDIN SYSTEM
 
 	if (!tableload.nicknamelog) {
 		tableload.nicknamelog = [];

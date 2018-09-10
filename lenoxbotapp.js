@@ -241,7 +241,7 @@ app.get('/commands', (req, res) => {
 		const commandlist = client.commands.filter(c => validation.includes(c.help.category) && c.conf.enabled === true).array();
 		const newcommandlist = [];
 		commandlist.map(cmd => {
-			const lang = require('./languages/en.json');
+			const lang = require('./languages/en-US.json');
 			cmd.help.description = lang[`${cmd.help.name}_description`];
 			cmd.conf.newuserpermissions = cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(', ') : '';
 			cmd.conf.newaliases = cmd.conf.aliases.length > 0 ? cmd.conf.aliases.join(', ') : '';
@@ -2333,7 +2333,7 @@ app.get('/dashboard/:id/administration', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'administration' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -2958,7 +2958,7 @@ app.get('/dashboard/:id/moderation', async (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'moderation' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -3247,7 +3247,7 @@ app.get('/dashboard/:id/help', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'help' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -3685,7 +3685,7 @@ app.get('/dashboard/:id/music', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'music' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -3965,7 +3965,7 @@ app.get('/dashboard/:id/fun', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'fun' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -4242,7 +4242,7 @@ app.get('/dashboard/:id/searches', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'searches' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -4519,7 +4519,7 @@ app.get('/dashboard/:id/nsfw', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'nsfw' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -4897,7 +4897,7 @@ app.get('/dashboard/:id/utility', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'utility' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -5916,7 +5916,7 @@ app.get('/dashboard/:id/application', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'application' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -6191,7 +6191,7 @@ app.get('/dashboard/:id/currency', (req, res) => {
 
 			const commands = client.commands.filter(r => r.help.category === 'currency' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -6657,7 +6657,7 @@ app.get('/dashboard/:id/tickets', (req, res) => {
 			const tableload = client.guildconfs.get(dashboardid);
 			const commands = client.commands.filter(r => r.help.category === 'tickets' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -7131,7 +7131,7 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 			const tableload = client.guildconfs.get(dashboardid);
 			const commands = client.commands.filter(r => r.help.category === 'customcommands' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
-				const englishstrings = require('./languages/en.json');
+				const englishstrings = require('./languages/en-US.json');
 				commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
 				if (tableload.commands[commands[i].help.name].status === 'true') {
 					commands[i].conf.enabled = true;
@@ -7312,7 +7312,7 @@ app.get('/dashboard/:id/modules', (req, res) => {
 
 				config.name = moduleslist[i];
 
-				const lang = require('./languages/en.json');
+				const lang = require('./languages/en-US.json');
 				config.description = lang[`modules_${moduleslist[i].toLowerCase()}`];
 
 				if (tableload.modules[moduleslist[i].toLowerCase()] === 'true') {

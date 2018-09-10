@@ -13,23 +13,23 @@ exports.run = async (client, msg, args, lang) => {
 	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 			if (margs[1].toLowerCase() === 'english') {
-				if (tableload.language === 'en') return msg.channel.send(already);
+				if (tableload.language === 'en-US') return msg.channel.send(already);
 
-				tableload.language = 'en';
+				tableload.language = 'en-US';
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
 			} else if (margs[1].toLowerCase() === 'german') {
-				if (tableload.language === 'ge') return msg.channel.send(already);
+				if (tableload.language === 'de-DE') return msg.channel.send(already);
 
-				tableload.language = 'ge';
+				tableload.language = 'de-DE';
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
 			} else if (margs[1].toLowerCase() === 'french') {
-				if (tableload.language === 'fr') return msg.channel.send(already);
+				if (tableload.language === 'fr-FR') return msg.channel.send(already);
 
-				tableload.language = 'fr';
+				tableload.language = 'fr-FR';
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
