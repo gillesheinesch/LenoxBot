@@ -71,10 +71,12 @@ exports.run = async client => {
 	});
 
 	client.userdb.filter(u => u.jobstatus === true).forEach(u => {
-		client.users.get(u.userID).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
-		const userdb = client.userdb.get(u.userID);
-		userdb.jobstatus = false;
-		client.userdb.set(u.userID, userdb);
+		if (u.userID) {
+			client.users.get(u.userID).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
+			const userdb = client.userdb.get(u.userID);
+			userdb.jobstatus = false;
+			client.userdb.set(u.userID, userdb);
+		}
 	});
 
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);

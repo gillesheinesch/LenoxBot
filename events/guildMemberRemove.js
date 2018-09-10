@@ -6,7 +6,7 @@ exports.run = (client, member) => {
 	if (!tableload) return;
 
 	if (tableload.language === '') {
-		tableload.language = 'en';
+		tableload.language = 'en-US';
 		client.guildconfs.set(member.guild.id, tableload);
 	}
 

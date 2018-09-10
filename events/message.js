@@ -465,7 +465,7 @@ exports.run = async (client, msg) => {
 	}
 
 	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en') {
+	if (tableload.language === 'en-US') {
 		tableload.language = 'en-US';
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}

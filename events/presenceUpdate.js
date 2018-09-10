@@ -6,7 +6,7 @@ exports.run = async (client, oldMember, newMember) => {
 	if (tableload.presenceupdatelog === 'false') return;
 
 	if (tableload.language === '') {
-		tableload.language = 'en';
+		tableload.language = 'en-US';
 		client.guildconfs.set(newMember.guild.id, tableload);
 	}
 

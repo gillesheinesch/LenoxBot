@@ -8,7 +8,7 @@ exports.run = (client, channel) => {
 	if (tableload.channeldeletelog === 'false') return;
 
 	if (tableload.language === '') {
-		tableload.language = 'en';
+		tableload.language = 'en-US';
 		client.guildconfs.set(channel.guild.id, tableload);
 	}
 

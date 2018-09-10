@@ -2349,15 +2349,15 @@ app.get('/dashboard/:id/administration', (req, res) => {
 
 			const languages = [{
 				name: 'english',
-				alias: 'en'
+				alias: 'en-US'
 			},
 			{
 				name: 'german',
-				alias: 'ge'
+				alias: 'de-DE'
 			},
 			{
 				name: 'french',
-				alias: 'fr'
+				alias: 'fr-FR'
 			}];
 
 			if (tableload.language) {

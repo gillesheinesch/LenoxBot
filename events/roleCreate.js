@@ -5,7 +5,7 @@ exports.run = (client, role) => {
 	if (tableload.rolecreatelog === 'false') return;
 
 	if (tableload.language === '') {
-		tableload.language = 'en';
+		tableload.language = 'en-US';
 		client.guildconfs.set(role.guild.id, tableload);
 	}
 

@@ -13,7 +13,7 @@ exports.run = async (client, role) => {
 	if (tableload.roledeletelog === 'false') return;
 
 	if (tableload.language === '') {
-		tableload.language = 'en';
+		tableload.language = 'en-US';
 		client.guildconfs.set(role.guild.id, tableload);
 	}
 

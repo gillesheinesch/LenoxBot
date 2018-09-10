@@ -74,8 +74,6 @@ exports.run = async (client, msg, args, lang) => {
 			reaction1.remove();
 			reaction2.remove();
 		});
-	} else {
-		return;
 	}
 };
 

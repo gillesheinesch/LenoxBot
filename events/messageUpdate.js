@@ -7,7 +7,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 	if (!tableload) return;
 
 	if (tableload.language === '') {
-		tableload.language = 'en';
+		tableload.language = 'en-US';
 		await client.guildconfs.set(newMsg.guild.id, tableload);
 	}
 

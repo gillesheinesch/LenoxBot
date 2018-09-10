@@ -70,7 +70,7 @@ exports.run = async (client, guild) => {
 	const tableload = client.guildconfs.get(guild.id);
 
 	if (tableload.language === '') {
-		tableload.language = 'en';
+		tableload.language = 'en-US';
 		await client.guildconfs.set(guild.id, tableload);
 	}
 
