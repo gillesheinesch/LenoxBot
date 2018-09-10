@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async (client, oldMsg, newMsg) => {
 	if (newMsg.author.bot) return;
-	if (newMsg.channel.type !== 'text') return undefined;
+	if (newMsg.channel.type !== 'text') return;
 
 	const tableload = await client.guildconfs.get(newMsg.guild.id);
 	if (!tableload) return;
@@ -50,7 +50,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 								embed
 							});
 						} catch (error) {
-							return undefined;
+							return;
 						}
 					}
 					await newMsg.delete();

@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-exports.run = async (client, msg) => {
+exports.run = (client, msg) => {
 	if (msg.author.bot) return;
-	if (msg.channel.type !== 'text') return undefined;
+	if (msg.channel.type !== 'text') return;
 
 	const tableload = client.guildconfs.get(msg.guild.id);
 	if (!tableload) return;

@@ -9,7 +9,7 @@ exports.run = async (client, msg) => {
 	if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 
 	if (client.user.id === '353115097318555649') {
-		if (msg.guild.id !== '332612123492483094') return undefined;
+		if (msg.guild.id !== '332612123492483094') return;
 	}
 
 	const userconfs = {
@@ -263,7 +263,7 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	for (var i = 0; i < client.commands.array().length; i++) {
+	for (let i = 0; i < client.commands.array().length; i++) {
 		if (!tableload.commands) tableload.commands = {};
 		if (!tableload.commands[client.commands.array()[i].help.name]) {
 			tableload.commands[client.commands.array()[i].help.name] = {
@@ -605,7 +605,7 @@ exports.run = async (client, msg) => {
 	}
 
 	if (tableload.musicchannelblacklist.length !== 0) {
-		for (var i = 0; i < tableload.musicchannelblacklist.length; i++) {
+		for (let i = 0; i < tableload.musicchannelblacklist.length; i++) {
 			if (!msg.guild.channels.get(tableload.musicchannelblacklist[i])) {
 				tableload.musicchannelblacklist.splice(i, 1);
 			}
@@ -617,9 +617,7 @@ exports.run = async (client, msg) => {
 	if (tableload.modules.utility === 'true') {
 		if (!tableload.togglexp.channelids.includes(msg.channel.id)) {
 			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
-				if (!row) {
-					sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, 1, 0]);
-				} else {
+				if (row) {
 					const curLevel = Math.floor(0.2 * Math.sqrt(row.points + 1));
 					if (curLevel > row.level) {
 						row.level = curLevel;
@@ -630,9 +628,9 @@ exports.run = async (client, msg) => {
 							msg.channel.send(levelup);
 						}
 					}
-					sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row => {
+					sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row2 => {
 						for (let i = 1; i < tableload.ara.length; i += 2) {
-							if (tableload.ara[i] < row.points && !msg.member.roles.get(tableload.ara[i - 1])) {
+							if (tableload.ara[i] < row2.points && !msg.member.roles.get(tableload.ara[i - 1])) {
 								const role = msg.guild.roles.get(tableload.ara[i - 1]);
 								msg.member.addRole(role);
 
@@ -642,6 +640,8 @@ exports.run = async (client, msg) => {
 						}
 					});
 					sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+				} else {
+					sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, 1, 0]);
 				}
 			}).catch(error => {
 				console.error(error);
@@ -656,12 +656,13 @@ exports.run = async (client, msg) => {
 		const args = msg.content.split(' ').slice(1);
 		const command = msg.content.split(' ')[0].slice(tableload.prefix.length).toLowerCase();
 		let cmd;
+		let customcommand;
 
 		let customcommandstatus = false;
-		for (var index = 0; index < tableload.customcommands.length; index++) {
+		for (let index = 0; index < tableload.customcommands.length; index++) {
 			if (tableload.customcommands[index].name === command) {
 				customcommandstatus = true;
-				var customcommand = tableload.customcommands[index];
+				customcommand = tableload.customcommands[index];
 			}
 		}
 
@@ -692,14 +693,14 @@ exports.run = async (client, msg) => {
 				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
 			const botconfsload = client.botconfs.get('blackbanlist');
-			for (var i = 0; i < botconfsload.banlist.length; i++) {
+			for (let i = 0; i < botconfsload.banlist.length; i++) {
 				if (msg.guild.id === botconfsload.banlist[i].discordServerID) {
 					return msg.channel.send({
 						embed: banlistembed
 					});
 				}
 			}
-			for (var i = 0; i < botconfsload.blacklist.length; i++) {
+			for (let i = 0; i < botconfsload.blacklist.length; i++) {
 				if (msg.author.id === botconfsload.blacklist[i].userID) {
 					return msg.channel.send({
 						embed: blacklistembed
@@ -770,12 +771,14 @@ exports.run = async (client, msg) => {
 
 			if (botCommandExists) {
 				if (tableload.commands[cmd.help.name].status === 'false') return msg.reply(lang.messageevent_commanddeactivated);
-			} else if (customcommand.enabled === 'false') { return msg.reply(lang.messageevent_commanddeactivated); }
+			} else if (customcommand.enabled === 'false') {
+				return msg.reply(lang.messageevent_commanddeactivated);
+			}
 
 			if (botCommandExists) {
 				if (tableload.commands[cmd.help.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
 				if (tableload.commands[cmd.help.name].whitelistedroles.length === 0) {
-					for (var index = 0; index < tableload.commands[cmd.help.name].bannedroles.length; index++) {
+					for (let index = 0; index < tableload.commands[cmd.help.name].bannedroles.length; index++) {
 						if (msg.member.roles.has(tableload.commands[cmd.help.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole);
 					}
 				} else {
@@ -796,22 +799,20 @@ exports.run = async (client, msg) => {
 
 				const now = Date.now();
 				const timestamps = client.cooldowns.get(cmd.help.name);
+				let cooldownAmount;
 				if (tableload.commands[cmd.help.name]) {
-					var cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
+					cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
 				} else {
-					var cooldownAmount = cmd.conf.cooldown || 3 * 1000;
+					cooldownAmount = cmd.conf.cooldown || 3 * 1000;
 				}
 
-				if (!timestamps.has(msg.author.id)) {
-					timestamps.set(msg.author.id, now);
-					setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
-				} else {
+				if (timestamps.has(msg.author.id)) {
 					const expirationTime = timestamps.get(msg.author.id) + cooldownAmount;
 
 					if (now < expirationTime) {
 						const timeLeft = (expirationTime - now) / 1000;
 
-						const time = moment.duration(parseInt(timeLeft.toFixed(2)), 'seconds').format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
+						const time = moment.duration(parseInt(timeLeft.toFixed(2), 10), 'seconds').format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
 						const anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${tableload.prefix}${cmd.help.name}\``);
 						if (tableload.commanddel === 'true') {
 							msg.delete();
@@ -819,6 +820,9 @@ exports.run = async (client, msg) => {
 						return msg.reply(anticommandspam);
 					}
 
+					timestamps.set(msg.author.id, now);
+					setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
+				} else {
 					timestamps.set(msg.author.id, now);
 					setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
 				}
@@ -855,7 +859,7 @@ exports.run = async (client, msg) => {
 		} else {
 			const input = msg.content.split(' ').slice();
 			if (tableload.chatfilter.chatfilter === 'true' && tableload.chatfilter.array.length !== 0) {
-				for (var i = 0; i < tableload.chatfilter.array.length; i++) {
+				for (let i = 0; i < tableload.chatfilter.array.length; i++) {
 					for (let index = 0; index < input.length; index++) {
 						if (input[index].toLowerCase() === tableload.chatfilter.array[i].toLowerCase()) {
 							if (tableload.chatfilterlog === 'true') {
@@ -873,7 +877,7 @@ exports.run = async (client, msg) => {
 										embed
 									});
 								} catch (error) {
-									return undefined;
+									return;
 								}
 							}
 							await msg.delete();
@@ -888,7 +892,7 @@ exports.run = async (client, msg) => {
 	} else {
 		const input = msg.content.split(' ').slice();
 		if (tableload.chatfilter.chatfilter === 'true' && tableload.chatfilter.array.length !== 0) {
-			for (var i = 0; i < tableload.chatfilter.array.length; i++) {
+			for (let i = 0; i < tableload.chatfilter.array.length; i++) {
 				for (let index = 0; index < input.length; index++) {
 					if (input[index].toLowerCase() === tableload.chatfilter.array[i].toLowerCase()) {
 						if (tableload.chatfilterlog === 'true') {
@@ -906,7 +910,7 @@ exports.run = async (client, msg) => {
 									embed
 								});
 							} catch (error) {
-								return undefined;
+								return;
 							}
 						}
 						await msg.delete();

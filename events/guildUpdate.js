@@ -34,8 +34,8 @@ exports.run = async (client, oldGuild, newGuild) => {
 			.setColor('#FE2E2E')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_afkchanged)
-			.addField(`📤 ${lang.guildupdateevent_oldafk}`, oldGuild.afkChannel == null ? lang.guildupdateevent_noafk : oldGuild.afkChannel.name)
-			.addField(`📥 ${lang.guildupdateevent_newafk}`, newGuild.afkChannel == null ? lang.guildupdateevent_noafknow : newGuild.afkChannel.name);
+			.addField(`📤 ${lang.guildupdateevent_oldafk}`, oldGuild.afkChannel === null ? lang.guildupdateevent_noafk : oldGuild.afkChannel.name)
+			.addField(`📥 ${lang.guildupdateevent_newafk}`, newGuild.afkChannel === null ? lang.guildupdateevent_noafknow : newGuild.afkChannel.name);
 		messagechannel.send({ embed: embed });
 	}
 
@@ -54,8 +54,8 @@ exports.run = async (client, oldGuild, newGuild) => {
 			.setColor('#FE2E2E')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_servericonchanged)
-			.addField(`📤 ${lang.guildupdateevent_oldservericon}`, oldGuild.iconURL == null ? lang.guildupdateevent_noservericon : oldGuild.iconURL)
-			.addField(`📥 ${lang.guildupdateevent_newservericon}`, newGuild.iconURL == null ? lang.guildupdateevent_noservericonnow : newGuild.iconURL);
+			.addField(`📤 ${lang.guildupdateevent_oldservericon}`, oldGuild.iconURL === null ? lang.guildupdateevent_noservericon : oldGuild.iconURL)
+			.addField(`📥 ${lang.guildupdateevent_newservericon}`, newGuild.iconURL === null ? lang.guildupdateevent_noservericonnow : newGuild.iconURL);
 		messagechannel.send({ embed: embed });
 	}
 

@@ -14,7 +14,7 @@ exports.run = (client, oldChannel, newChannel) => {
 
 	const lang = require(`../languages/${tableload.language}.json`);
 
-	if (!client.channels.get(tableload.channelupdatelogchannel)) return undefined;
+	if (!client.channels.get(tableload.channelupdatelogchannel)) return;
 
 	const messagechannel = client.channels.get(tableload.channelcreatelogchannel);
 

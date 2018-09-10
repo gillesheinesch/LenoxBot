@@ -70,7 +70,7 @@ exports.run = async client => {
 		}
 	});
 
-	await client.users.filter(u => (client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : undefined)).forEach(u => {
+	await client.users.filter(u => (client.userdb.get(u.id) ? client.userdb.get(u.id).jobstatus === true : 'undefined')).forEach(u => {
 		client.users.get(u.id).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
 		const userdb = client.userdb.get(u.id);
 		userdb.jobstatus = false;
@@ -118,23 +118,6 @@ exports.run = async client => {
 		setInterval(() => {
 			client.dbl.postStats(client.guilds.size);
 		}, 1800000);
-	}
-
-	if (Object.keys(client.botconfs.get('botconfs').bans).length !== 0) {
-		for (const index in client.botconfs.get('botconfs').bans) {
-			const bansconf = await client.botconfs.get('botconfs');
-			const newBanTime = bansconf.bans[index].banEndDate - Date.now();
-			const fetchedbans = await client.guilds.get(bansconf.bans[index].discordserverid).fetchBans();
-			timeoutForBan(bansconf.bans[index], newBanTime, fetchedbans);
-		}
-	}
-
-	if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
-		for (const index2 in client.botconfs.get('botconfs').mutes) {
-			const muteconf = await client.botconfs.get('botconfs');
-			const newMuteTime = muteconf.mutes[index2].muteEndDate - Date.now();
-			timeoutForMute(muteconf.mutes[index2], newMuteTime);
-		}
 	}
 
 	function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
@@ -205,6 +188,24 @@ exports.run = async client => {
 			delete newmuteconf.mutes[muteconf.mutescount];
 			client.botconfs.set('botconfs', newmuteconf);
 		}, newMuteTime);
+	}
+
+	if (Object.keys(client.botconfs.get('botconfs').bans).length !== 0) {
+		/* eslint guard-for-in: 0 */
+		for (const index in client.botconfs.get('botconfs').bans) {
+			const bansconf = await client.botconfs.get('botconfs');
+			const newBanTime = bansconf.bans[index].banEndDate - Date.now();
+			const fetchedbans = await client.guilds.get(bansconf.bans[index].discordserverid).fetchBans();
+			timeoutForBan(bansconf.bans[index], newBanTime, fetchedbans);
+		}
+	}
+
+	if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
+		for (const index2 in client.botconfs.get('botconfs').mutes) {
+			const muteconf = await client.botconfs.get('botconfs');
+			const newMuteTime = muteconf.mutes[index2].muteEndDate - Date.now();
+			timeoutForMute(muteconf.mutes[index2], newMuteTime);
+		}
 	}
 
 	setInterval(() => {

@@ -11,9 +11,10 @@ exports.run = async (client, member) => {
 
 	const lang = require(`../languages/${tableload.language}.json`);
 
+	let muteOfThisUser;
 	for (const i in botconfs.mutes) {
 		if (botconfs.mutes[i].discordserverid === member.guild.id && botconfs.mutes[i].memberid === member.id) {
-			var muteOfThisUser = botconfs.mutes[i];
+			muteOfThisUser = botconfs.mutes[i];
 		}
 	}
 

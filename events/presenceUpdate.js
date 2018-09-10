@@ -3,8 +3,6 @@ exports.run = async (client, oldMember, newMember) => {
 	const tableload = await client.guildconfs.get(newMember.guild.id);
 	if (!tableload) return;
 
-	if (!tableload) return undefined;
-
 	if (tableload.presenceupdatelog === 'false') return;
 
 	if (tableload.language === '') {
