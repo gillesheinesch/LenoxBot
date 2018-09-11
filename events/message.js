@@ -1,5 +1,7 @@
 const sql = require('sqlite');
-sql.open('../lenoxbotscore.sqlite');
+const settings = require('../settings.json');
+console.log(settings.sqlitefilename)
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 const moment = require('moment');
 require('moment-duration-format');
 const Discord = require('discord.js');
@@ -11,8 +13,6 @@ exports.run = async (client, msg) => {
 	if (client.user.id === '353115097318555649') {
 		if (msg.guild.id !== '332612123492483094') return;
 	}
-
-	const settings = require('../settings.json');
 
 	const userconfs = {
 		inventory: {

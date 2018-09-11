@@ -1,6 +1,7 @@
 const sql = require('sqlite');
 const Discord = require('discord.js');
-sql.open('../lenoxbotscore.sqlite');
+const settings = require('../../settings.json');
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const user1 = msg.mentions.users.first() || msg.author;
 	const embed = new Discord.RichEmbed()

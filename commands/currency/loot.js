@@ -1,5 +1,6 @@
 const sql = require('sqlite');
-sql.open('../lenoxbotscore.sqlite');
+const settings = require('../../settings.json');
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const d = Math.random();
 	const userdb = client.userdb.get(msg.author.id);

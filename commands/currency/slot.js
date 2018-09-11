@@ -1,7 +1,8 @@
 const slotThing = [':grapes:', ':tangerine:', ':pear:', ':cherries:'];
 const Discord = require('discord.js');
 const sql = require('sqlite');
-sql.open('../lenoxbotscore.sqlite');
+const settings = require('../../settings.json');
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
 	if (msgauthortable.medals < 50) return msg.channel.send(lang.slot_error);

@@ -42,16 +42,18 @@ client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 client.cooldowns = new Discord.Collection();
 client.commandstoday = 0;
 
-const DBL = require('dblapi.js');
-client.dbl = new DBL(settings.dbl_apikey);
-client.dbl.getVotes(true);
+// Check if the Discord Bot List key was set
+if (settings.dbl_apikey && settings.dbl_apikey !== '') {
+	const DBL = require('dblapi.js');
+	client.dbl = new DBL(settings.dbl_apikey);
+	client.dbl.getVotes(true);
+}
 
 // Check if settings.json is correctly configuered
-if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '') {
-	console.error('settings.json file is not correctly configuered!');
+if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '') {
+	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
 	return process.exit(42);
 }
-// Check if settings.json is correctly configuered
 
 
 fs.readdir('./events/', (err, files) => {
@@ -2348,17 +2350,18 @@ app.get('/dashboard/:id/administration', (req, res) => {
 			}
 
 			const languages = [{
-				name: 'english',
-				alias: 'en-US'
-			},
-			{
-				name: 'german',
-				alias: 'de-DE'
-			},
-			{
-				name: 'french',
-				alias: 'fr-FR'
-			}];
+					name: 'english',
+					alias: 'en-US'
+				},
+				{
+					name: 'german',
+					alias: 'de-DE'
+				},
+				{
+					name: 'french',
+					alias: 'fr-FR'
+				}
+			];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {

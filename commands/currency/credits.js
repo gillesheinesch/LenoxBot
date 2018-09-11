@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const sql = require('sqlite');
-sql.open('../lenoxbotscore.sqlite');
+const settings = require('../../settings.json');
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const user1 = msg.mentions.users.first() || msg.author;
 	const userdb = client.userdb.get(msg.author.id);

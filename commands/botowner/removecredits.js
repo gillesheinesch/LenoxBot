@@ -1,5 +1,6 @@
 const sql = require('sqlite');
-sql.open('../lenoxbotscore.sqlite');
+const settings = require('../../settings.json');
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = (client, msg, args, lang) => {
 	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
 

@@ -1,7 +1,8 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 const sql = require('sqlite');
-sql.open('../lenoxbotscore.sqlite');
+const settings = require('../../settings.json');
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 require('moment-duration-format');
 exports.run = async (client, msg, args, lang) => {
 	let user = msg.mentions.users.first();

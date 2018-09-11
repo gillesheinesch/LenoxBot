@@ -1,5 +1,6 @@
 const sql = require('sqlite');
-sql.open('../lenoxbotscore.sqlite');
+const settings = require('../../settings.json');
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const d = Math.random();
