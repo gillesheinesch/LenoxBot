@@ -2350,18 +2350,17 @@ app.get('/dashboard/:id/administration', (req, res) => {
 			}
 
 			const languages = [{
-					name: 'english',
-					alias: 'en-US'
-				},
-				{
-					name: 'german',
-					alias: 'de-DE'
-				},
-				{
-					name: 'french',
-					alias: 'fr-FR'
-				}
-			];
+				name: 'english',
+				alias: 'en-US'
+			},
+			{
+				name: 'german',
+				alias: 'de-DE'
+			},
+			{
+				name: 'french',
+				alias: 'fr-FR'
+			}];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {
