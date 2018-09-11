@@ -1,6 +1,7 @@
 {
 	"token": "Your token",
     "prefix": "Standard Prefix",
+    "sqlitefilename": "",
     "googleKey": "Google Custom Search API Key",
     "googlekey": "Youtube API key",
     "clientID_Auth": "Client ID Auth",
