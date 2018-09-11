@@ -1,6 +1,5 @@
 const sql = require('sqlite');
 const settings = require('../settings.json');
-console.log(settings.sqlitefilename)
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const moment = require('moment');
 require('moment-duration-format');
@@ -202,8 +201,7 @@ exports.run = async (client, msg) => {
 		if (!row) {
 			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 		}
-	}).catch(error => {
-		console.error(error);
+	}).catch(() => {
 		sql.run('CREATE TABLE IF NOT EXISTS medals (userId TEXT, medals INTEGER)').then(() => {
 			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 		});
@@ -665,8 +663,7 @@ exports.run = async (client, msg) => {
 				} else {
 					sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, 1, 0]);
 				}
-			}).catch(error => {
-				console.error(error);
+			}).catch(() => {
 				sql.run('CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)').then(() => {
 					sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, 1, 0]);
 				});
