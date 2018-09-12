@@ -29,11 +29,10 @@ exports.run = async (client, msg, args, lang) => {
 			.setURL(url)
 			.setAuthor(title);
 
-		msg.channel.send({
-			embed
+		return msg.channel.send({
+			embed: embed
 		});
 	} catch (error) {
-		console.log(error);
 		return msg.reply(lang.pornhubgif_couldfindnothing);
 	}
 };
