@@ -375,7 +375,7 @@ app.get('/servers', async (req, res) => {
 						await client.guildconfs.set(dashboardid, tableload);
 					}
 
-					if (tableload.dashboardpermissionroles.length !== 0) {
+					if (tableload.dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 						let allwhitelistedrolesoftheuser = 0;
 
 						for (let index2 = 0; index2 < tableload.dashboardpermissionroles.length; index2++) {
