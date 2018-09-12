@@ -605,7 +605,7 @@ app.get('/dashboard/:id/overview', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -706,7 +706,7 @@ app.post('/dashboard/:id/administration/submitlogs', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -782,7 +782,7 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async (req, 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -869,7 +869,7 @@ app.post('/dashboard/:id/administration/submittogglexp', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -951,7 +951,7 @@ app.post('/dashboard/:id/administration/submitbyemsg', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1025,7 +1025,7 @@ app.post('/dashboard/:id/administration/submitwelcomemsg', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1099,7 +1099,7 @@ app.post('/dashboard/:id/administration/submitprefix', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1172,7 +1172,7 @@ app.post('/dashboard/:id/administration/submitlanguage', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1246,7 +1246,7 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res)
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1320,7 +1320,7 @@ app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1394,7 +1394,7 @@ app.post('/dashboard/:id/administration/submittogglechatfilter', async (req, res
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1468,7 +1468,7 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async (req, res
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1543,7 +1543,7 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res)
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1625,7 +1625,7 @@ app.post('/dashboard/:id/administration/submittogglewelcome', async (req, res) =
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1704,7 +1704,7 @@ app.post('/dashboard/:id/administration/submittogglebye', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1783,7 +1783,7 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async (req, res) 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1863,7 +1863,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandstatuschange', asy
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -1930,7 +1930,7 @@ app.post('/dashboard/:id/administration/:command/submitcommandchange', async (re
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2046,7 +2046,7 @@ app.post('/dashboard/:id/administration/submitpermissionsticket', async (req, re
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2113,7 +2113,7 @@ app.post('/dashboard/:id/administration/submitpermissionsapplication', async (re
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2180,7 +2180,7 @@ app.post('/dashboard/:id/administration/submitpermissionsdashboard', async (req,
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2266,7 +2266,7 @@ app.get('/dashboard/:id/administration', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2586,7 +2586,7 @@ app.post('/dashboard/:id/moderation/submittempbananonymous', async (req, res) =>
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2663,7 +2663,7 @@ app.post('/dashboard/:id/moderation/submitmuteanonymous', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2740,7 +2740,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandstatuschange', async (
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2807,7 +2807,7 @@ app.post('/dashboard/:id/moderation/:command/submitcommandchange', async (req, r
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -2923,7 +2923,7 @@ app.get('/dashboard/:id/moderation', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3029,7 +3029,7 @@ app.post('/dashboard/:id/help/:command/submitcommandstatuschange', async (req, r
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3096,7 +3096,7 @@ app.post('/dashboard/:id/help/:command/submitcommandchange', async (req, res) =>
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3212,7 +3212,7 @@ app.get('/dashboard/:id/help', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3306,7 +3306,7 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3388,7 +3388,7 @@ app.post('/dashboard/:id/music/submitnewmusicaction', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3459,7 +3459,7 @@ app.post('/dashboard/:id/music/:command/submitcommandstatuschange', async (req, 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3526,7 +3526,7 @@ app.post('/dashboard/:id/music/:command/submitcommandchange', async (req, res) =
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3642,7 +3642,7 @@ app.get('/dashboard/:id/music', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3747,7 +3747,7 @@ app.post('/dashboard/:id/fun/:command/submitcommandstatuschange', async (req, re
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3814,7 +3814,7 @@ app.post('/dashboard/:id/fun/:command/submitcommandchange', async (req, res) => 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -3930,7 +3930,7 @@ app.get('/dashboard/:id/fun', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4024,7 +4024,7 @@ app.post('/dashboard/:id/searches/:command/submitcommandstatuschange', async (re
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4091,7 +4091,7 @@ app.post('/dashboard/:id/searches/:command/submitcommandchange', async (req, res
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4207,7 +4207,7 @@ app.get('/dashboard/:id/searches', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4301,7 +4301,7 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandstatuschange', async (req, r
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4368,7 +4368,7 @@ app.post('/dashboard/:id/nsfw/:command/submitcommandchange', async (req, res) =>
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4484,7 +4484,7 @@ app.get('/dashboard/:id/nsfw', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4578,7 +4578,7 @@ app.post('/dashboard/:id/utility/submitsendembed', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4679,7 +4679,7 @@ app.post('/dashboard/:id/utility/:command/submitcommandstatuschange', async (req
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4746,7 +4746,7 @@ app.post('/dashboard/:id/utility/:command/submitcommandchange', async (req, res)
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -4862,7 +4862,7 @@ app.get('/dashboard/:id/utility', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5221,7 +5221,7 @@ app.post('/dashboard/:id/application/submitnewacceptedmsg', async (req, res) => 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5295,7 +5295,7 @@ app.post('/dashboard/:id/application/submitnewrejectedmsg', async (req, res) => 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5369,7 +5369,7 @@ app.post('/dashboard/:id/application/submitdenyrole', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5446,7 +5446,7 @@ app.post('/dashboard/:id/application/submitrole', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5523,7 +5523,7 @@ app.post('/dashboard/:id/application/submitreactionnumber', async (req, res) => 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5597,7 +5597,7 @@ app.post('/dashboard/:id/application/submitapplication', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5671,7 +5671,7 @@ app.post('/dashboard/:id/application/:command/submitcommandstatuschange', async 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5738,7 +5738,7 @@ app.post('/dashboard/:id/application/:command/submitcommandchange', async (req, 
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5854,7 +5854,7 @@ app.get('/dashboard/:id/application', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -5973,7 +5973,7 @@ app.post('/dashboard/:id/currency/:command/submitcommandstatuschange', async (re
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -6040,7 +6040,7 @@ app.post('/dashboard/:id/currency/:command/submitcommandchange', async (req, res
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -6156,7 +6156,7 @@ app.get('/dashboard/:id/currency', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -6449,7 +6449,7 @@ app.post('/dashboard/:id/tickets/:command/submitcommandstatuschange', async (req
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -6516,7 +6516,7 @@ app.post('/dashboard/:id/tickets/:command/submitcommandchange', async (req, res)
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -6720,7 +6720,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecomma
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -6791,7 +6791,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstat
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -6862,7 +6862,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchan
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -6940,7 +6940,7 @@ app.post('/dashboard/:id/customcommands/:command/submitcommandstatuschange', asy
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -7007,7 +7007,7 @@ app.post('/dashboard/:id/customcommands/:command/submitcommandchange', async (re
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -7207,7 +7207,7 @@ app.post('/dashboard/:id/modules/submitmodules', async (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -7280,7 +7280,7 @@ app.get('/dashboard/:id/modules', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
@@ -7366,7 +7366,7 @@ app.get('/dashboard/:id/lastlogs', (req, res) => {
 				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
 			}
 
-			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0) {
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
 
 				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
