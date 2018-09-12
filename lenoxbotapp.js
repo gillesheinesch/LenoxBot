@@ -1807,6 +1807,7 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async (req, res) 
 
 			if (newannounce === 'false') {
 				tableload.announce = 'false';
+				tableload.announcechannel = '';
 			} else {
 				tableload.announce = 'true';
 				tableload.announcechannel = newannounce;
@@ -2544,7 +2545,7 @@ app.get('/dashboard/:id/administration', (req, res) => {
 				channels: channels,
 				roles: roles,
 				confs: confs,
-				announcedeactivated: client.guildconfs.get(dashboardid).announce === 'true' ? true : false,
+				announcedeactivated: client.guildconfs.get(dashboardid).announce === 'true' ? false : true,
 				muteroledeactivated: client.guildconfs.get(dashboardid).muterole === '' ? true : false,
 				commanddeletionset: client.guildconfs.get(dashboardid).commanddel === 'true' ? true : false,
 				chatfilterset: client.guildconfs.get(dashboardid).chatfilter.chatfilter === 'true' ? true : false,
