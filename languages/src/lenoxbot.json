@@ -1,4 +1,8 @@
 {
+    "createmuterole_waitmessage": "The mute role will now be created. This may take a little while, depending on the number of discord channels!",
+    "createmuterole_done": "The 'muted' role was created!",
+    "createmuterole_description": "Creates the muted role and forbids all writing and speaking permissions",
+
     "prefixfinder_noguildid": "You didn't enter a discord server ID!",
     "prefixfinder_nofetch": "Couldn't find this guild in the database!",
     "prefixfinder_embedfield1": "Serverowner:",
