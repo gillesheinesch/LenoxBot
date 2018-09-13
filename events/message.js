@@ -232,6 +232,14 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!userdb.math) {
+		userdb.math = {
+			points: 0,
+			level: 0
+		};
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	if (!botconfs.dailyreminder) {
 		botconfs.dailyreminder = {};
 		await client.botconfs.set('botconfs', botconfs);
@@ -657,7 +665,7 @@ exports.run = async (client, msg) => {
 		if (!tableload.togglexp.channelids.includes(msg.channel.id)) {
 			sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 				if (row) {
-					const curLevel = Math.floor(0.2 * Math.sqrt(row.points + 1));
+					const curLevel = Math.floor(0.3 * Math.sqrt(row.points + 1));
 					if (curLevel > row.level) {
 						row.level = curLevel;
 						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
