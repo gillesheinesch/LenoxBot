@@ -4,6 +4,7 @@ node_js:
   - "9"
 before_install:
   - "npm install -g npm@latest"
+install:
   - "npm install -g eslint"
   - "npm install -g eslint-config-aqua"
 cache:
