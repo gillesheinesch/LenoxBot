@@ -818,7 +818,6 @@ exports.run = async (client, msg) => {
 
 				const now = Date.now();
 				const timestamps = await client.cooldowns.get(cmd.help.name);
-				console.log(timestamps);
 				let cooldownAmount;
 				if (tableload.commands[cmd.help.name]) {
 					cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
