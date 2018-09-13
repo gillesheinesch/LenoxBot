@@ -1,3 +1,6 @@
+const sql = require('sqlite');
+const settings = require('../settings.json');
+sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async client => {
 	const Discord = require('discord.js');
 	const chalk = require('chalk');
@@ -70,15 +73,6 @@ exports.run = async client => {
 		}
 	});
 
-	client.userdb.filter(u => u.jobstatus === true).forEach(u => {
-		if (u.userID) {
-			client.users.get(u.userID).send('We are very sorry, but we have to tell you that your job has just been canceled due to a bot restart!');
-			const userdb = client.userdb.get(u.userID);
-			userdb.jobstatus = false;
-			client.userdb.set(u.userID, userdb);
-		}
-	});
-
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
 	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfig);
 	client.botconfs.set('market', marketconfs);
@@ -137,6 +131,35 @@ exports.run = async client => {
 		for (const index in client.botconfs.get('botconfs').dailyreminder) {
 			const timeoutTime = botconfs.dailyreminder[index].remind - Date.now();
 			timeoutForDaily(botconfs.dailyreminder[index], timeoutTime);
+		}
+	}
+
+	function timeoutForJob(jobreminder, timeoutTime) {
+		setTimeout(() => {
+			const userdb = client.userdb.get(jobreminder.userID);
+			userdb.jobstatus = false;
+			client.userdb.set(jobreminder.userID, userdb);
+
+			delete botconfs.jobreminder[jobreminder.userID];
+			client.botconfs.set('botconfs', botconfs);
+
+			sql.get(`SELECT * FROM medals WHERE userId ="${jobreminder.userID}"`).then(row => {
+				if (!row) {
+					sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [jobreminder.userID, 0]);
+				}
+				sql.run(`UPDATE medals SET medals = ${row.medals + jobreminder.amount} WHERE userId = ${jobreminder.userID}`);
+			});
+	
+			const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${jobreminder.amount} credits`;
+			client.users.get(jobreminder.userID).send(jobfinish);
+		}, timeoutTime);
+	}
+
+	if (Object.keys(client.botconfs.get('botconfs').jobreminder).length !== 0) {
+		/* eslint guard-for-in: 0 */
+		for (const index in client.botconfs.get('botconfs').jobreminder) {
+			const timeoutTime = botconfs.jobreminder[index].remind - Date.now();
+			timeoutForJob(botconfs.jobreminder[index], timeoutTime);
 		}
 	}
 

@@ -237,6 +237,11 @@ exports.run = async (client, msg) => {
 		await client.botconfs.set('botconfs', botconfs);
 	}
 
+	if (!botconfs.jobreminder) {
+		botconfs.jobreminder = {};
+		await client.botconfs.set('botconfs', botconfs);
+	}
+
 	if (!userdb.dailystreak) {
 		userdb.dailystreak = {
 			streak: 0,

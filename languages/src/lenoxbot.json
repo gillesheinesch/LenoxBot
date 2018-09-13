@@ -262,7 +262,6 @@
     "job_timeerror": "Your time is over! You have not chosen a job.",
     "job_sentmessage": "We will contact you by direct message once you have finished your job and tell you how much you have earned through your job!",
     "job_duration": "**Duration:** %duration minutes",
-    "job_jobfinish": "Congratulations! You have successfully completed your job. You earned a total of %amount credits",
     "job_minutes": "minutes",
     "job_notenough": "For this job you need the following item you don't own: %item",
     "job_description": "A full list of available jobs you can accept to earn credits",

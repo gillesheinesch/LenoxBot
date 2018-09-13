@@ -3,10 +3,11 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const moment = require('moment');
 require('moment-duration-format');
+const Discord = require('discord.js');
+const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
-	const ms = require('ms');
 	const userdb = await client.userdb.get(msg.author.id);
-	const Discord = require('discord.js');
+	const botconfs = await client.botconfs.get('botconfs');
 
 	if (userdb.jobstatus === true) {
 		const timestamps = client.cooldowns.get('job');
@@ -19,7 +20,7 @@ exports.run = async (client, msg, args, lang) => {
 		['farmer', 120, Math.floor(Math.random() * 200) + 100, 'tractor', 'https://imgur.com/1PVI8hM.png'],
 		['technician', 90, Math.floor(Math.random() * 150) + 75, 'hammer', 'https://imgur.com/yQmaFIe.png'],
 		['trainer', 90, Math.floor(Math.random() * 150) + 75, 'football', 'https://imgur.com/bRqzmKw.png'],
-		['applespicker', 5, Math.floor(Math.random() * 10) + 3, 'undefined', 'https://imgur.com/qv4iev8.png'],
+		['applespicker', 1, Math.floor(Math.random() * 10) + 3, 'undefined', 'https://imgur.com/qv4iev8.png'],
 		['professor', 60, Math.floor(Math.random() * 50) + 25, 'book', 'https://imgur.com/YUc7Ppb.png'],
 		['baker', 30, Math.floor(Math.random() * 25) + 15, 'undefined', 'https://imgur.com/HRdvO6r.png'],
 		['taxidriver', 240, Math.floor(Math.random() * 400) + 200, 'car', 'https://imgur.com/uOMpS17.png'],
@@ -83,9 +84,20 @@ exports.run = async (client, msg, args, lang) => {
 		embed: embed2
 	});
 
+	botconfs.jobreminder[msg.author.id] = {
+		userID: msg.author.id,
+		remind: Date.now() + ms(`${jobtime}m`),
+		amount: amount
+	};
+	await client.botconfs.set('botconfs', botconfs);
+
 	setTimeout(() => {
 		userdb.jobstatus = false;
 		client.userdb.set(msg.author.id, userdb);
+
+		delete botconfs.jobreminder[msg.author.id];
+		client.botconfs.set('botconfs', botconfs);
+
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {
 				sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
@@ -93,7 +105,7 @@ exports.run = async (client, msg, args, lang) => {
 			sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
 		});
 
-		const jobfinish = lang.job_jobfinish.replace('%amount', amount);
+		const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${amount} credits`;
 		msg.member.send(jobfinish);
 	}, ms(`${jobtime}m`));
 };
