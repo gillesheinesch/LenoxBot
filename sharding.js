@@ -1,8 +1,12 @@
 // Not used yet!!
+const {
+	ShardingManager
+} = require('discord.js');
+const settings = require('./settings.json');
+const manager = new ShardingManager('./lenoxbotapp.js', {
+	token: settings.token
+});
 
-const Discord = require('discord.js');
-const Manager = new Discord.ShardingManager('./lenoxbot.js');
-Manager.spawn(0);
-
-
+manager.spawn();
+manager.on('launch', shard => console.log(`Launched shard ${shard.id}`));
 // Not used yet!!
