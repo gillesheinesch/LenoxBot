@@ -6,3 +6,4 @@ data
 lenoxbotscore.sqlite
 enmap.sqlite
 crowdin.yml
+test.js
