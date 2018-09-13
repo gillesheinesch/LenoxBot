@@ -4,10 +4,19 @@ sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const mentioncheck = msg.mentions.users.first();
 	const userdb = await client.userdb.get(msg.author.id);
+	const botconfs = await client.botconfs.get('botconfs');
 
 	if (userdb.dailyremind === true) {
+		botconfs.dailyreminder[msg.author.id] = {
+			userID: msg.author.id,
+			remind: Date.now() + 86400000
+		};
+		await client.botconfs.set('botconfs', botconfs);
+
 		setTimeout(() => {
-			msg.reply(lang.daily_remind);
+			delete botconfs.dailyreminder[msg.author.id];
+			client.botconfs.set('botconfs', botconfs);
+			msg.author.send('Don\'t forget to pick up your daily reward');
 		}, 86400000);
 	}
 

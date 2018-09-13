@@ -17,7 +17,7 @@ exports.run = async client => {
 		banlist: []
 	};
 
-	const botconfs = {
+	const botconfig = {
 		activity: false,
 		activitychannel: '',
 		tickets: {},
@@ -80,7 +80,7 @@ exports.run = async client => {
 	});
 
 	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
-	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfs);
+	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfig);
 	client.botconfs.set('market', marketconfs);
 	if (!client.botconfs.has('premium')) client.botconfs.set('premium', botconfspremium);
 
@@ -120,6 +120,23 @@ exports.run = async client => {
 		setInterval(() => {
 			client.dbl.postStats(client.guilds.size);
 		}, 1800000);
+	}
+
+	function timeoutForDaily(botconfs, dailyreminder, timeoutTime) {
+		setTimeout(() => {
+			client.users.get(dailyreminder.userID).send('Don\'t forget to pick up your daily reward');
+			delete botconfs.dailyreminder[dailyreminder.userID];
+			client.botconfs.set('botconfs', botconfs);
+		}, timeoutTime);
+	}
+
+	if (Object.keys(client.botconfs.get('botconfs').dailyreminder).length !== 0) {
+		/* eslint guard-for-in: 0 */
+		for (const index in client.botconfs.get('botconfs').dailyreminder) {
+			const botconfs = await client.botconfs.get('botconfs');
+			const timeoutTime = botconfs.dailyreminder[index].remind - Date.now();
+			timeoutForDaily(botconfs, botconfs.dailyreminder[index], timeoutTime);
+		}
 	}
 
 	function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {

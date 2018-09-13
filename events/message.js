@@ -232,6 +232,11 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!botconfs.dailyreminder) {
+		botconfs.dailyreminder = {};
+		await client.botconfs.set('botconfs', botconfs);
+	}
+
 	if (!userdb.dailystreak) {
 		userdb.dailystreak = {
 			streak: 0,
