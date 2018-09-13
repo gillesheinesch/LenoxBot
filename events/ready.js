@@ -149,7 +149,7 @@ exports.run = async client => {
 				}
 				sql.run(`UPDATE medals SET medals = ${row.medals + jobreminder.amount} WHERE userId = ${jobreminder.userID}`);
 			});
-	
+
 			const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${jobreminder.amount} credits`;
 			client.users.get(jobreminder.userID).send(jobfinish);
 		}, timeoutTime);
