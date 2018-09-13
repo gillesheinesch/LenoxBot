@@ -36,10 +36,15 @@ client.userdb = new Enmap({
 		name: 'userdb'
 	})
 });
+client.cooldowns = new Enmap({
+	provider: new EnmapLevel({
+		name: 'cooldowns'
+	})
+});
+
 client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
-client.cooldowns = new Discord.Collection();
 client.commandstoday = 0;
 
 // Check if the Discord Bot List key was set

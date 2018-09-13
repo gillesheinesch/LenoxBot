@@ -813,11 +813,12 @@ exports.run = async (client, msg) => {
 				}
 
 				if (!client.cooldowns.has(cmd.help.name)) {
-					client.cooldowns.set(cmd.help.name, new Discord.Collection());
+					client.cooldowns.set(cmd.help.name, {});
 				}
 
 				const now = Date.now();
-				const timestamps = client.cooldowns.get(cmd.help.name);
+				const timestamps = await client.cooldowns.get(cmd.help.name);
+				console.log(timestamps);
 				let cooldownAmount;
 				if (tableload.commands[cmd.help.name]) {
 					cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
@@ -825,8 +826,8 @@ exports.run = async (client, msg) => {
 					cooldownAmount = cmd.conf.cooldown || 3 * 1000;
 				}
 
-				if (timestamps.has(msg.author.id)) {
-					const expirationTime = timestamps.get(msg.author.id) + cooldownAmount;
+				if (timestamps[msg.author.id]) {
+					const expirationTime = timestamps[msg.author.id] + cooldownAmount;
 
 					if (now < expirationTime) {
 						const timeLeft = (expirationTime - now) / 1000;
@@ -839,11 +840,19 @@ exports.run = async (client, msg) => {
 						return msg.reply(anticommandspam);
 					}
 
-					timestamps.set(msg.author.id, now);
-					setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
+					timestamps[msg.author.id] = now;
+					client.cooldowns.set(cmd.help.name, timestamps);
+					setTimeout(() => {
+						delete timestamps[msg.author.id];
+						client.cooldowns.set(cmd.help.name, timestamps);
+					}, cooldownAmount);
 				} else {
-					timestamps.set(msg.author.id, now);
-					setTimeout(() => timestamps.delete(msg.author.id), cooldownAmount);
+					timestamps[msg.author.id] = now;
+					client.cooldowns.set(cmd.help.name, timestamps);
+					setTimeout(() => {
+						delete timestamps[msg.author.id];
+						client.cooldowns.set(cmd.help.name, timestamps);
+					}, cooldownAmount);
 				}
 			}
 
