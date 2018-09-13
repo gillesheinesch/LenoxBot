@@ -16,11 +16,13 @@ exports.run = async (client, msg, args, lang) => {
 	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
 	if (inventoryslotcheck >= userdb.inventoryslots && userdb.premium.status === false) {
 		const timestamps = client.cooldowns.get('loot');
-		timestamps.delete(msg.author.id);
+		timestamps[msg.author.id];
+		await client.cooldowns.set('loot', timestamps);
 		return msg.reply(inventoryfull);
 	} else if (inventoryslotcheck + 1 >= userdb.inventoryslots && userdb.premium.status === true) {
 		const timestamps = client.cooldowns.get('loot');
-		timestamps.delete(msg.author.id);
+		timestamps[msg.author.id];
+		await client.cooldowns.set('loot', timestamps);
 		return msg.reply(inventoryfull);
 	}
 

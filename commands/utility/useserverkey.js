@@ -23,7 +23,8 @@ exports.run = async (client, msg, args, lang) => {
 		await client.botconfs.set('premium', botconfspremiumload);
 
 		const timestamps = client.cooldowns.get('useserverkey');
-		timestamps.delete(msg.author.id);
+		timestamps[msg.author.id];
+		await client.cooldowns.set('useserverkey', timestamps);
 
 		const embed = new Discord.RichEmbed()
 			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${tableload.premium.end.toUTCString()}`)
@@ -48,7 +49,8 @@ exports.run = async (client, msg, args, lang) => {
 	await client.botconfs.set('premium', botconfspremiumload);
 
 	const timestamps = client.cooldowns.get('useserverkey');
-	timestamps.delete(msg.author.id);
+	timestamps[msg.author.id];
+	await client.cooldowns.set('useserverkey', timestamps);
 
 	const embed = new Discord.RichEmbed()
 		.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(tableload.premium.end) + 7776000000).toUTCString()}`)

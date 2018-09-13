@@ -33,25 +33,29 @@ exports.run = async (client, msg, args, lang) => {
 	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
 	if (inventoryslotcheck >= userdb.inventoryslots) {
 		const timestamps = client.cooldowns.get('opencrate');
-		timestamps.delete(msg.author.id);
+		timestamps[msg.author.id];
+		await client.cooldowns.set('opencrate', timestamps);
 		return msg.reply(inventoryfull);
 	}
 
 	if (userdb.inventory.cratekey === 0 && userdb.inventory.crate === 0) {
 		const timestamps = client.cooldowns.get('opencrate');
-		timestamps.delete(msg.author.id);
+		timestamps[msg.author.id];
+		await client.cooldowns.set('opencrate', timestamps);
 		return msg.reply(lang.opencrate_nocrateandkey);
 	}
 
 	if (userdb.inventory.cratekey === 0) {
 		const timestamps = client.cooldowns.get('opencrate');
-		timestamps.delete(msg.author.id);
+		timestamps[msg.author.id];
+		await client.cooldowns.set('opencrate', timestamps);
 		return msg.reply(lang.opencrate_nocrate);
 	}
 
 	if (userdb.inventory.crate === 0) {
 		const timestamps = client.cooldowns.get('opencrate');
-		timestamps.delete(msg.author.id);
+		timestamps[msg.author.id];
+		await client.cooldowns.set('opencrate', timestamps);
 		return msg.reply(lang.opencrate_nocratekey);
 	}
 

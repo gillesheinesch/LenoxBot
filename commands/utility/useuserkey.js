@@ -23,7 +23,8 @@ exports.run = async (client, msg, args, lang) => {
 		await client.botconfs.set('premium', botconfspremiumload);
 
 		const timestamps = client.cooldowns.get('useuserkey');
-		timestamps.delete(msg.author.id);
+		timestamps[msg.author.id];
+		await client.cooldowns.set('useuserkey', timestamps);
 
 		const embed = new Discord.RichEmbed()
 			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${userdb.premium.end.toUTCString()}`)
@@ -48,7 +49,8 @@ exports.run = async (client, msg, args, lang) => {
 	await client.botconfs.set('premium', botconfspremiumload);
 
 	const timestamps = client.cooldowns.get('useuserkey');
-	timestamps.delete(msg.author.id);
+	timestamps[msg.author.id];
+	await client.cooldowns.set('useuserkey', timestamps);
 
 	const embed = new Discord.RichEmbed()
 		.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}`)
