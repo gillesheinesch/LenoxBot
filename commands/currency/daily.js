@@ -11,29 +11,43 @@ exports.run = async (client, msg, args, lang) => {
 		}, 86400000);
 	}
 
+	if (userdb.dailystreak.lastpick !== '') {
+		if (Date.now() > userdb.dailystreak.deadline) {
+			userdb.dailystreak.streak = 0;
+			userdb.dailystreak.lastpick = '';
+			userdb.dailystreak.deadline = '';
+			await client.userdb.set(msg.author.id, userdb);
+		}
+	}
+
+	userdb.dailystreak.streak += 1;
+	userdb.dailystreak.lastpick = Date.now();
+	userdb.dailystreak.deadline = Date.now() + 172800000;
+	await client.userdb.set(msg.author.id, userdb);
+
 	if (!mentioncheck) {
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {
 				sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
 			}
-			sql.run(`UPDATE medals SET medals = ${row.medals + (userdb.premium.status === false ? 200 : 400)} WHERE userId = ${msg.author.id}`);
+			sql.run(`UPDATE medals SET medals = ${row.medals + (userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2))} WHERE userId = ${msg.author.id}`);
 		});
 
-		const author = lang.daily_author.replace('%amount', userdb.premium.status === false ? `$200` : `$400`);
-
+		const author = lang.daily_author.replace('%amount', userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2)).replace('%streak', userdb.dailystreak.streak);
 		if (userdb.dailyremind === true) {
 			return msg.channel.send(`🎁 ${author} ${lang.daily_remindmsg}`);
 		}
 		return msg.channel.send(`🎁 ${author}`);
 	}
+
 	sql.get(`SELECT * FROM medals WHERE userId ="${mentioncheck.id}"`).then(row => {
 		if (!row) {
 			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [mentioncheck.id, 0]);
 		}
-		sql.run(`UPDATE medals SET medals = ${row.medals + (userdb.premium.status === false ? 200 : 400)} WHERE userId = ${mentioncheck.id}`);
+		sql.run(`UPDATE medals SET medals = ${row.medals + (userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2))} WHERE userId = ${mentioncheck.id}`);
 	});
 
-	const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', userdb.premium.status === false ? `$200` : `$400`);
+	const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2)).replace('%streak', userdb.dailystreak.streak);
 	if (userdb.dailyremind === true) {
 		return msg.channel.send(`🎁 ${mention} ${lang.daily_remindmsg}`);
 	}

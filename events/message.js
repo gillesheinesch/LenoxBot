@@ -232,6 +232,15 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
+	if (!userdb.dailystreak) {
+		userdb.dailystreak = {
+			streak: 0,
+			lastpick: '',
+			deadline: ''
+		};
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	if (!userdb.creditsmessage) {
 		userdb.creditsmessage = false;
 		await client.userdb.set(msg.author.id, userdb);
