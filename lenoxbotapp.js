@@ -45,7 +45,6 @@ client.cooldowns = new Enmap({
 client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
-client.commandstoday = 0;
 
 // Check if the Discord Bot List key was set
 if (settings.dbl_apikey && settings.dbl_apikey !== '') {
