@@ -104,6 +104,8 @@ exports.run = async client => {
 		});
 	}, 1800000);
 
+	const botconfs = await client.botconfs.get('botconfs');
+
 	const embed = new Discord.RichEmbed()
 		.setTitle('Botrestart')
 		.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
@@ -122,7 +124,7 @@ exports.run = async client => {
 		}, 1800000);
 	}
 
-	function timeoutForDaily(botconfs, dailyreminder, timeoutTime) {
+	function timeoutForDaily(dailyreminder, timeoutTime) {
 		setTimeout(() => {
 			client.users.get(dailyreminder.userID).send('Don\'t forget to pick up your daily reward');
 			delete botconfs.dailyreminder[dailyreminder.userID];
@@ -133,9 +135,8 @@ exports.run = async client => {
 	if (Object.keys(client.botconfs.get('botconfs').dailyreminder).length !== 0) {
 		/* eslint guard-for-in: 0 */
 		for (const index in client.botconfs.get('botconfs').dailyreminder) {
-			const botconfs = await client.botconfs.get('botconfs');
 			const timeoutTime = botconfs.dailyreminder[index].remind - Date.now();
-			timeoutForDaily(botconfs, botconfs.dailyreminder[index], timeoutTime);
+			timeoutForDaily(botconfs.dailyreminder[index], timeoutTime);
 		}
 	}
 
