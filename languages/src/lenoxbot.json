@@ -1,4 +1,8 @@
 {
+    "vote_embedauthor": "Voting:",
+    "vote_embeddescription": "You will receive between 100-1000 credits for the upvote on the weekdays. \nFrom Friday to Sunday you will receive between 200-2000 credits. \n\nLink: %link",
+    "vote_description": "All details about voting for LenoxBot",
+
     "createmuterole_waitmessage": "The mute role will now be created. This may take a little while, depending on the number of discord channels!",
     "createmuterole_done": "The 'muted' role was created!",
     "createmuterole_description": "Creates the muted role and forbids all writing and speaking permissions",
