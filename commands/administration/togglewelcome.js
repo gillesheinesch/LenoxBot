@@ -25,10 +25,10 @@ exports.conf = {
 };
 
 exports.help = {
-	name: 'welcome',
+	name: 'togglewelcome',
 	description: 'Toggles the welcome message in this channel',
-	usage: 'welcome',
-	example: ['welcome'],
+	usage: 'togglewelcome',
+	example: ['togglewelcome'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']
 };
