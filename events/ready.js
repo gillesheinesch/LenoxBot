@@ -288,7 +288,7 @@ exports.run = async client => {
 	setInterval(() => {
 		client.guilds.filter(g => client.guilds.has(g.id)).forEach(g => {
 			const tableload = client.guildconfs.get(g.id);
-			if (tableload.premium) {
+			if (tableload && tableload.premium) {
 				if (client.guildconfs.get(g.id).premium.status === true) {
 					if (new Date().getTime() >= Date.parse(tableload.premium.end)) {
 						tableload.premium.status = false;
