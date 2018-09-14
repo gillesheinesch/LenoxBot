@@ -40,19 +40,45 @@ exports.run = async (client, msg, args, lang) => {
 		description = lang.userinfo_descriptioninfo;
 	}
 
+	let badges;
+
+	if (userdb.badges.length === 0) {
+		badges = [];
+	} else {
+		const userBadges = userdb.badges;
+		badges = userBadges.sort((a, b) => {
+			if (a.rarity < b.rarity) {
+				return 1;
+			}
+			if (a.rarity > b.rarity) {
+				return -1;
+			}
+			return 0;
+		});
+	}
+
+	const topBadges = [];
+
+	for (let i = 0; i < badges.length; i++) {
+		topBadges.push(badges[i].emoji);
+	}
+
 	const embed = new Discord.RichEmbed()
 		.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL)
 		.setColor('#0066CC')
 		.setThumbnail(user.displayAvatarURL)
 		.setDescription(description)
 		.addField(`${lenoxbotcoin} ${lang.credits_credits}`, `$${credits.medals}`)
+		.addField(`💗 Badges:`, topBadges.length > 0 ? topBadges.slice(0, 5).join(' ') : 'No badges')
 		.addField(`📥 ${lang.userinfo_created}`, userondiscord)
 		.addField(`📌 ${lang.userinfo_joined}`, useronserver)
 		.addField(`🏷 ${lang.userinfo_roles}`, member.roles.filter(r => r.name !== '@everyone').map(role => role.name).join(', ') || lang.userinfo_noroles)
 		.addField(`⌚ ${lang.userinfo_status}`, user.presence.status)
 		.addField(`🎮 ${lang.userinfo_playing}`, user.presence.game ? user.presence.game.name : lang.userinfo_nothing);
 
-	msg.channel.send({ embed: embed });
+	msg.channel.send({
+		embed: embed
+	});
 };
 
 exports.conf = {
