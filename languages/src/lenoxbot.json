@@ -527,9 +527,9 @@
     "announce_annoucementsent": "Announcement successfully sent!",
     "announce_description": "Write a new server announcement",
 
-    "bye_channelset": "Your users are now said goodbye in **#%channelname**",
-    "bye_channeldeleted": "The goodbye message is now disabled!",
-    "bye_description": "Disables the goodbye message",
+    "togglebye_channelset": "Your users are now said goodbye in **#%channelname**",
+    "togglebye_channeldeleted": "The goodbye message is now disabled!",
+    "togglebye_description": "Disables the goodbye message",
 
     "byemsg_noinput": "You must enter your goodbye message!",
     "byemsg_goodbyemsgset": "Goodbye message saved successfully!",
@@ -671,9 +671,9 @@
     "toggleannounce_channeldeleted": "Announcements are now no longer posted!",
     "toggleannounce_description": "Sets a channel for announcements, where you can use the announce-command",
 
-    "welcome_channelset": "Your new users are now welcomed in %channelname",
-    "welcome_channeldeleted": "The welcome message is now disabled!",
-    "welcome_description": "Toggles the welcome message in this channel",
+    "togglewelcome_channelset": "Your new users are now welcomed in %channelname",
+    "togglewelcome_channeldeleted": "The welcome message is now disabled!",
+    "togglewelcome_description": "Toggles the welcome message in this channel",
 
     "welcomemsg_error": "You must enter your welcome message!",
     "welcomemsg_set": "Welcome message saved successfully!",
