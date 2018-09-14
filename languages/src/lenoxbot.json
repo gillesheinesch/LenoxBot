@@ -926,8 +926,8 @@
 
     "queue_nothing": "There is nothing playing.",
     "queue_nowplaying": "Now playing: %songtitle",
-    "queue_songqueue": "Song queue: %songtitle",
-    "queue_description": "Shows you the current music-queue",
+    "queue_songqueue": "Music queue: %songtitle",
+    "queue_description": "Shows you the current music queue",
 
     "queueclear_queueempty": "The queue of the bot is empty!",
     "queueclear_description": "Clears the whole music queue",
