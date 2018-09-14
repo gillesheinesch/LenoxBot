@@ -11,7 +11,7 @@ exports.run = async (client, msg, args, lang) => {
 		json: true
 	});
 
-	if (!res || !res.body || !res.body.data) {
+	if (!res.body.data.image_url) {
 		return msg.channel.send(lang.gif_error);
 	}
 
