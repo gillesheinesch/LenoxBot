@@ -50,10 +50,10 @@ exports.run = async (client, msg, args, lang) => {
 		for (const i in botconfs.mutes) {
 			if (botconfs.mutes[i].discordserverid === membermention.guild.id && botconfs.mutes[i].memberid === membermention.id) {
 				muteOfThisUser = botconfs.mutes[i];
+				delete botconfs.mutes[muteOfThisUser.mutescount];
 			}
 		}
 
-		delete botconfs.mutes[muteOfThisUser.mutescount];
 		await client.botconfs.set('botconfs', botconfs);
 	} else {
 		const notownrole = lang.unmute_notownrole.replace('%username', user.username);
