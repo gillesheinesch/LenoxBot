@@ -1,4 +1,10 @@
 {
+    "editentry_noid": "You have to specify an application entry ID!",
+    "editentry_noentrytext": "You have to specify a new application entry text!",
+    "editentry_undefined": "This application entry ID doesn't exist!",
+    "editentry_set": "The new application entry text has been set for ID %id!",
+    "editentry_description": "Edits an application entry text",
+
     "entrychangeorder_error": "You forgot to specify which application entries you want to change in order!",
     "entrychangeorder_notcorrectused": "You used the command incorrectly. You forgot to specify which application entries you want to change in order!",
     "entrychangeorder_same": "You can not change the order of the same application entry!",
