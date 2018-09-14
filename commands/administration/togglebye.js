@@ -5,11 +5,11 @@ exports.run = async (client, msg, args, lang) => {
 		const channelid = msg.channel.id;
 		tableload.byechannel = channelid;
 
-		const channelset = lang.bye_channelset.replace('%channelname', msg.channel.name);
+		const channelset = lang.togglebye_channelset.replace('%channelname', msg.channel.name);
 		msg.channel.send(channelset);
 	} else if (tableload.bye === 'true') {
 		tableload.bye = 'false';
-		msg.channel.send(lang.bye_channeldeleted);
+		msg.channel.send(lang.togglebye_channeldeleted);
 	}
 	await client.guildconfs.set(msg.guild.id, tableload);
 };
@@ -24,10 +24,10 @@ exports.conf = {
 };
 
 exports.help = {
-	name: 'bye',
+	name: 'togglebye',
 	description: 'Disable the goodbye message',
-	usage: 'bye',
-	example: ['bye'],
+	usage: 'togglebye',
+	example: ['togglebye'],
 	category: 'administration',
 	botpermissions: ['SEND_MESSAGES']
 };
