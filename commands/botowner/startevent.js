@@ -127,7 +127,8 @@ exports.run = async (client, msg, args, lang) => {
 							name: 'Birthday2018',
 							rarity: 1,
 							staff: false,
-							date: Date.now()
+							date: Date.now(),
+							emoji: '🎁'
 						};
 
 						for (let index = 0; index < userdb.badges.length; index++) {
