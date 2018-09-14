@@ -6,11 +6,11 @@ exports.run = async (client, msg, args, lang) => {
 		const channelid = msg.channel.id;
 		tableload.welcomechannel = channelid;
 
-		const channelset = lang.welcome_channelset.replace('%channelname', `#**${msg.channel.name}**`);
+		const channelset = lang.togglewelcome_channelset.replace('%channelname', `#**${msg.channel.name}**`);
 		msg.channel.send(channelset);
 	} else if (tableload.welcome === 'true') {
 		tableload.welcome = 'false';
-		msg.channel.send(lang.welcome_channeldeleted);
+		msg.channel.send(lang.togglewelcome_channeldeleted);
 	}
 	await client.guildconfs.set(msg.guild.id, tableload);
 };
