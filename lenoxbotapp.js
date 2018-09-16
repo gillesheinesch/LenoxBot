@@ -151,7 +151,6 @@ app.get('/callback',
 
 app.listen(80, err => {
 	if (err) return console.log(err);
-	console.log(chalk.green('Listening at https://lenoxbot.com/'));
 });
 
 app.get('/', (req, res) => {
