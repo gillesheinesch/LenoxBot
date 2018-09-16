@@ -69,7 +69,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setThumbnail(user.displayAvatarURL)
 		.setDescription(description)
 		.addField(`${lenoxbotcoin} ${lang.credits_credits}`, `$${credits.medals}`)
-		.addField(`💗 ${lang.userinfo_badges}`, topBadges.length > 0 ? topBadges.slice(0, 5).join(' ') : lang.userinfo_nobadges)
+		.addField(`💗 ${lang.userinfo_badges}`, topBadges.length < 0 ? topBadges.slice(0, 5).join(' ') : lang.userinfo_nobadges)
 		.addField(`📥 ${lang.userinfo_created}`, userondiscord)
 		.addField(`📌 ${lang.userinfo_joined}`, useronserver)
 		.addField(`🏷 ${lang.userinfo_roles}`, member.roles.filter(r => r.name !== '@everyone').map(role => role.name).join(', ') || lang.userinfo_noroles)
