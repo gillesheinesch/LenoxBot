@@ -212,11 +212,9 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	const userBadges = [];
-	if (userdb.badges.length < 0) {
+	if (userdb.badges.length !== 0) {
 		for (let i = 0; i < userdb.badges.length; i++) {
-			userBadges.push(userdb.badges[i].name.toLowerCase());
-			if (userdb.badges[i].name.toLowerCase() === 'birthday2018') {
+			if (userdb.badges[i].name === 'Birthday2018') {
 				userdb.badges[i].emoji = '🎁';
 			}
 		}
