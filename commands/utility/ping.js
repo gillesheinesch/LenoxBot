@@ -1,6 +1,7 @@
-exports.run = (client, msg, args, lang) => {
-	const newmsg = lang.ping_ping.replace('%timestamp', Date.now() - msg.createdTimestamp);
-	msg.channel.send(newmsg);
+exports.run = async (client, msg, args, lang) => {
+	const message = await msg.channel.send('Ping?');
+	const newmsg = lang.ping_ping.replace('%timestamp', message.createdTimestamp - msg.createdTimestamp);
+	message.edit(newmsg);
 };
 
 exports.conf = {
