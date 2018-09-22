@@ -1,6 +1,6 @@
 ---
 name: Feature request
-about: Request a feature for the core discord.js library
+about: Request a feature for LenoxBot
 
 ---
 
