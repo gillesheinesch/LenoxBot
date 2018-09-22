@@ -248,9 +248,9 @@
                                     <select required class="selectpicker" name="newxpchannels" data-live-search="true"
                                         multiple title="Choose channel(s)" data-actions-box="true" data-size="7">
                                         {{#each channels}} {{#if togglexpset}}
-                                        <option value="{{name}}" selected>{{name}}</option>
+                                        <option value="{{name}}" selected>#{{name}}</option>
                                         {{else}}
-                                        <option value="{{name}}">{{name}}</option>
+                                        <option value="{{name}}">#{{name}}</option>
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
