@@ -876,28 +876,20 @@ exports.run = async (client, msg) => {
 					}
 
 					timestamps[msg.author.id] = now;
-					client.cooldowns.set(cmd.help.name, timestamps);
-					setTimeout(() => {
+					await client.cooldowns.set(cmd.help.name, timestamps);
+					setTimeout(async () => {
 						delete timestamps[msg.author.id];
-						client.cooldowns.set(cmd.help.name, timestamps);
+						await client.cooldowns.set(cmd.help.name, timestamps);
 					}, cooldownAmount);
 				} else {
 					timestamps[msg.author.id] = now;
-					client.cooldowns.set(cmd.help.name, timestamps);
-					setTimeout(() => {
+					await client.cooldowns.set(cmd.help.name, timestamps);
+					setTimeout(async () => {
 						delete timestamps[msg.author.id];
-						client.cooldowns.set(cmd.help.name, timestamps);
+						await client.cooldowns.set(cmd.help.name, timestamps);
 					}, cooldownAmount);
 				}
 			}
-
-			/* if (cmd.conf.enabled === false) {
-				if (tableload.commanddel === 'true') {
-					msg.delete();
-				}
-				return msg.reply(lang.messageevent_commanddisabled);
-			}
-			*/
 
 			if (botCommandExists) {
 				cmd.run(client, msg, args, lang);
