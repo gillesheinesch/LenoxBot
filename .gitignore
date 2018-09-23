@@ -1,5 +1,3 @@
-.gitignore
-lenoxbotapp.js
 node_modules
 settings.json
 score.sqlite
