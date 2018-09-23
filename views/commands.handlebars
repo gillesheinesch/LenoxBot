@@ -1,63 +1,65 @@
 <title>Command list - LenoxBot</title>
-<main>
-    <div class="container">
-        <div class="row">
-            <div class="col-3 pr-0">
-                <h3 class="text-white font-weight-light">Modules</h3>
-                <div id="list-modules" class="list-group">
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="command">All</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="administration">Administration</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="moderation">Moderation</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="help">Help</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="music">Music</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="fun">Fun</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="searches">Searches</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="nsfw">NSFW</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="application">Application</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="currency">Currency</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="utility">Utility</button>
-                    <button class="list-group-item list-group-item-action lb-btn-list" id="tickets">Tickets</button>
-                </div>
-            </div>
-            <div class="col-9">
-                <div class="row">
-                    <div class="col-12 pr-0">
-                        <h3 class="text-white font-weight-light">Commands</h3>
-                        <div class="form-group">
-                            <input class="form-control" id="search-imput" type="text" placeholder="Search...">
-                        </div>
-                        <table class="table mb-0">
-                            <thead class="lb-commands-thead">
-                                <tr>
-                                    <th class="lb-commands-th">Command name</th>
-                                    <th class="lb-commands-th">Description</th>
-                                    <th class="lb-commands-th">Permissions</th>
-                                    <th class="lb-commands-th">Aliases</th>
-                                </tr>
-                            </thead>
-                        </table>
+<main id="commands">
+    <section class="lb-bg-white">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-3 pr-0 mt-4">
+                    <h3 class="font-weight-light">Modules</h3>
+                    <div id="list-modules" class="list-group">
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="command">All</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="administration">Administration</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="moderation">Moderation</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="help">Help</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="music">Music</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="fun">Fun</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="searches">Searches</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="nsfw">NSFW</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="application">Application</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="currency">Currency</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="utility">Utility</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="tickets">Tickets</button>
                     </div>
-                    <div class="col-12 lb-commands pr-0">
-                        <div data-spy="scroll" data-target="#list-modules" data-offset="0" class="scrollspy">
-                            <table id="commands-table" class="table bg-light table-hover mb-0">
-                                <tbody>
-                                    {{#each commands}}
-                                    <tr class="command {{help.category}}" id="{{help.category}}">
-                                        <td>{{help.name}}</td>
-                                        <td>{{help.description}}</td>
-                                        <td>{{conf.newuserpermissions}}</td>
-                                        <td>{{conf.newaliases}}</td>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-12 pr-0 mt-4">
+                            <h3 class="font-weight-light">Commands</h3>
+                            <div class="form-group">
+                                <input class="form-control lb-input" id="search-input" type="text" placeholder="Search...">
+                            </div>
+                            <table class="table mb-0">
+                                <thead class="lb-commands-thead">
+                                    <tr>
+                                        <th class="lb-commands-th">Command name</th>
+                                        <th class="lb-commands-th">Description</th>
+                                        <th class="lb-commands-th">Permissions</th>
+                                        <th class="lb-commands-th">Aliases</th>
                                     </tr>
-                                    {{/each}}
-                                </tbody>
+                                </thead>
                             </table>
                         </div>
-
+                        <div class="col-12 lb-commands pr-0">
+                            <div data-spy="scroll" data-target="#list-modules" data-offset="0" class="scrollspy">
+                                <table id="commands-table" class="table lb-tablebg-green table-hover mb-0">
+                                    <tbody>
+                                        {{#each commands}}
+                                        <tr class="command {{help.category}}">
+                                            <td>{{help.name}}</td>
+                                            <td>{{help.description}}</td>
+                                            <td>{{conf.newuserpermissions}}</td>
+                                            <td>{{conf.newaliases}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </main>
 <!-- lenoxbot commands JS -->
 <script src="js/commands.js"></script>

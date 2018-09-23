@@ -1,7 +1,7 @@
 //COMMANDS
 
 //Filter by buttons
-$("button").click(function() {
+$("button").click(function () {
     var value = this.id;
     $("#commands-table tr").filter(function () {
         $(this).toggle($(this).attr('class').indexOf(value) > - 1);
@@ -9,7 +9,7 @@ $("button").click(function() {
 });
 
 //Filter by text
-$("#search-imput").on("keyup", function () {
+$("#search-input").on("keyup", function () {
     var value = $(this).val().toLowerCase();
     $("#commands-table tr").filter(function () {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);

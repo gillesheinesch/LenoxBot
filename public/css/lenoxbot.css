@@ -45,8 +45,12 @@
     height: calc(100vh - 3.51rem);
 }
 
-.lb-feature {
+.lb-bg-white {
     background-color: #f8f9fa;
+}
+
+.lb-tablebg-green {
+    background-color: #e8f5e9;
 }
 
 .lb-feature-card {
@@ -102,14 +106,41 @@
     background-color: #7289da;
     border-color: #7289da;
     color: white;
+    border-radius: 100px;
+}
+
+.lb-text-red {
+    color: #ef5350 !important;
 }
 
 .lb-btn-invite:hover {
     background-color: #7289da;
     color: white;
-    -webkit-box-shadow: 0px 0px 20px 0px #4caf50;
+    transform: scale(1.03);
+    transition: .1s;
+    /* -webkit-box-shadow: 0px 0px 20px 0px #4caf50;
     -moz-box-shadow: 0px 0px 20px 0px #4caf50;
-    box-shadow: 0px 0px 20px 0px #4caf50;
+    box-shadow: 0px 0px 20px 0px #4caf50; */
+}
+
+.lb-btn-green {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: #e8f5e9;
+    border-radius: 100px;
+}
+
+.lb-btn-green:hover {
+    background-color: #4caf50;
+    border-color: #4caf50;
+    color: #e8f5e9;
+    border-radius: 100px;
+    transform: scale(1.03);
+    transition: .1s;
+}
+
+.lb-input {
+    border-radius: 100px;
 }
 
 .lb-commands-thead {
@@ -124,7 +155,7 @@
 }
 
 .lb-commands {
-    height: calc(100vh - 199px);
+    height: calc(100vh - 223px);
     overflow-y: auto;
 }
 

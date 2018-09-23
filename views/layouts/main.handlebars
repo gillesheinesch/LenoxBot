@@ -16,7 +16,7 @@
     <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
         crossorigin="anonymous">
-        {{!-- Bootstrap css --}}
+    {{!-- Bootstrap css --}}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
         crossorigin="anonymous">
     <!-- Google Tag Manager -->
@@ -37,7 +37,7 @@
     <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
     <!-- Google Font: Oswald -->
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
-     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
@@ -80,59 +80,59 @@
     <!-- End Google Tag Manager (noscript) -->
 
     <!-- Header -->
-<header class="navbar navbar-expand-lg navbar-dark lb-navbar">
-    <a class="navbar-brand lb-navbar-text text-uppercase" href="https://lenoxbot.com">LenoxBot</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <header class="navbar navbar-expand-lg navbar-dark lb-navbar">
+        <a class="navbar-brand lb-navbar-text text-uppercase" href="https://lenoxbot.com">LenoxBot</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a href="home" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item">
-                <a href="/commands" class="nav-link">Commands</a>
-            </li>
-            <li class="nav-item">
-                <a href="/documentation" class="nav-link">Documentation</a>
-            </li>
-            <li class="nav-item">
-                <a href="/blog" class="nav-link">Blog</a>
-            </li>
-            <li class="nav-item">
-                <a href="https://lenoxbot.com/discord" target="blanc" class="nav-link">Support</a>
-            </li>
-            <li class="nav-item">
-                <a href="/donate" class="btn lb-btn-donate ml-lg-2 mb-2 mb-lg-auto"><i class="mdi mdi-heart"></i>
-                    Donate</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                {{#if user}}
-                <div class="btn-group">
-                    <a class="btn lb-btn-profile dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
-                        {{user.username}}
-                    </a>
-                    <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item lb-dropdown-item" href="servers">My servers</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item lb-dropdown-item" href="logout">Log out</a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a href="home" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/commands" class="nav-link">Commands</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/documentation" class="nav-link">Documentation</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/blog" class="nav-link">Blog</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="https://lenoxbot.com/discord" target="blanc" class="nav-link">Support</a>
+                </li>
+                <li class="nav-item active">
+                    <a href="/donate" class="btn lb-btn-donate ml-lg-2 mb-2 mb-lg-auto"><i class="mdi mdi-heart"></i>
+                        Donate</a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    {{#if user}}
+                    <div class="btn-group">
+                        <a class="btn lb-btn-profile dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                            aria-expanded="false">
+                            <img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                            {{user.username}}
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item lb-dropdown-item" href="servers">My servers</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item lb-dropdown-item" href="logout">Log out</a>
+                        </div>
                     </div>
-                </div>
-                {{ else }}
-                <a href="loginpressedbutton" class="btn lb-btn-login">Log in</a>
-                {{/if}}
-            </li>
-        </ul>
-    </div>
-    </nav>
-</header>
-<!-- /Header -->
+                    {{ else }}
+                    <a href="loginpressedbutton" class="btn lb-btn-login">Log in</a>
+                    {{/if}}
+                </li>
+            </ul>
+        </div>
+        </nav>
+    </header>
+    <!-- /Header -->
 
     {{{ body }}}
 
@@ -142,7 +142,7 @@
     <div id="crowdjet-expand-container" style="bottom: 10px; right: 20px;">
     </div>
     <!-- /Crowdin Webkit div -->
-    
+
     <!-- Footer -->
     <footer class="lb-footer">
         <div class="container">
