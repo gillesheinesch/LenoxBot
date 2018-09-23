@@ -1,0 +1,192 @@
+.lb-debug {
+    border: 1px solid red;
+}
+
+.lb-body-bg {
+    background-color: #263238;
+    background-image: url('../img/bg.svg');
+    background-repeat: repeat;
+    background-size: 90px 90px;
+    background-attachment: fixed;
+    animation: bg 5s linear infinite;
+}
+
+.lb-navbar {
+    background-color: transparent;
+    z-index: 1030;
+}
+
+.lb-navbar-text {
+    font-family: 'Oswald', sans-serif;
+}
+
+.lb-hero-mainrow {
+    height: 100%;
+}
+
+.lb-hero-img {
+    width: 65vh;
+    height: 70vh;
+    /* padding: 50px; */
+}
+
+.lb-img-profile {
+    width: 1.6em;
+    height: 1.6em;
+}
+
+.lb-hero {
+    background-color: transparent;
+    height: calc(100vh - 3.51rem);
+}
+
+.lb-feature {
+    background-color: #f8f9fa;
+}
+
+.lb-feature-card {
+    height: 100%;
+}
+
+.lb-feature-card:hover {
+    transform: scale(1.02);
+    transition: .2s;
+}
+
+.lb-feature-icon {
+    font-size: 90px;
+    color: #263238;
+}
+
+.lb-btn-donate {
+    background-color: transparent;
+    border-color: #ff80ab;
+    color: #ff80ab;
+    border-radius: 100px;
+}
+
+.lb-btn-donate:hover {
+    background-color: transparent;
+    border-color: #ff80ab;
+    color: #ff80ab;
+    border-radius: 100px;
+}
+
+.lb-btn-login {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    border-radius: 100px;
+}
+
+.lb-btn-login:hover {
+    background-color: transparent;
+    border-color: white;
+    color: white;
+    border-radius: 100px;
+}
+
+.lb-btn-profile {
+    background-color: transparent;
+    border-color: white;
+    color: white !important;
+    border-radius: 100px;
+}
+
+.lb-btn-invite {
+    background-color: #7289da;
+    border-color: #7289da;
+    color: white;
+}
+
+.lb-btn-invite:hover {
+    background-color: #7289da;
+    color: white;
+    -webkit-box-shadow: 0px 0px 20px 0px #4caf50;
+    -moz-box-shadow: 0px 0px 20px 0px #4caf50;
+    box-shadow: 0px 0px 20px 0px #4caf50;
+}
+
+.lb-commands-thead {
+    background: #4caf50;
+    color: #e8f5e9;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.lb-commands-th {
+    border: 0 !important;
+}
+
+.lb-commands {
+    height: calc(100vh - 199px);
+    overflow-y: auto;
+}
+
+.lb-btn-list:focus {
+    outline: 0;
+    background-color: #4caf50;
+    color: #e8f5e9;
+}
+
+.lb-footer {
+    background-color: transparent;
+    color: white;
+}
+
+.lb-footer-link {
+    color: white !important;
+}
+
+.lb-bot-head {
+    animation: updown 3s 3s ease-in-out alternate infinite, astart 3s;
+    animation-timing-function: steps(180);
+}
+
+.lb-bot-eye, .lb-bot-mouth {
+    animation: updown 3s 3.2s ease-in-out alternate infinite, astart 3s;
+    animation-timing-function: steps(180);
+}
+
+.lb-bot-arm {
+    animation: updown 3s 4.8s ease-in-out alternate infinite, astart 3s;
+    animation-timing-function: steps(180);
+}
+
+.lb-bot-chest, .lb-bot-iconchest {
+    animation: updown 3s 3.9s ease-in-out alternate infinite, astart 3s;
+    animation-timing-function: steps(180);
+}
+
+.test:hover {
+    fill: red;
+}
+
+@keyframes updown {
+    0% {
+        transform: translatey(0px);
+    }
+    100% {
+        transform: translatey(-30px);
+    }
+}
+
+@keyframes astart {
+    0% {
+        opacity: 0;
+        transform: translatex(60px);
+    }
+    100% {
+        opacity: 1;
+        transform: translatex(0px);
+    }
+}
+
+@keyframes bg {
+    0% {
+        background-position: 0px 0px;
+    }
+    100% {
+        background-position: 90px 90px;
+    }
+}

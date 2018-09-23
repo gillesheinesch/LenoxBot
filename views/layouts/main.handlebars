@@ -13,32 +13,42 @@
     <meta name="theme-color" content="#33cc33">
     <meta name="author" content="Gilles Heinesch">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" type="text/css" href="styles/style.css" />
     <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
         crossorigin="anonymous">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        {{!-- Bootstrap css --}}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
+        crossorigin="anonymous">
+    <!-- Google Tag Manager -->
+    <script>(function (w, d, s, l, i) {
+            w[l] = w[l] || []; w[l].push({
+                'gtm.start':
+                    new Date().getTime(), event: 'gtm.js'
+            }); var f = d.getElementsByTagName(s)[0],
+                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+        })(window, document, 'script', 'dataLayer', 'GTM-MGWQZKZ');</script>
+    <!-- End Google Tag Manager -->
+    <!-- Cookies Alert CSS-->
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <!-- Custom LenoxBot CSS -->
+    <link rel="stylesheet" href="css/lenoxbot.css">
+    <!-- Material Desing Icons CSS -->
+    <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- Google Font: Oswald -->
+    <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
+     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
-        crossorigin="anonymous">
+    <!-- superagent JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.min.js"></script>
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-})(window,document,'script','dataLayer','GTM-MGWQZKZ');</script>
-    <!-- End Google Tag Manager -->
-    <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
-    <!-- Latest compiled and minified JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-    <!-- Cookies Alert-->
-    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
+    <!-- Cookie alert JS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <!-- Crowdin Webkit JS -->
+    <script type="text/javascript" src="https://crowdin.com/js/crowdjet/crowdjet.js"></script>
     <script>
         window.addEventListener("load", function () {
             window.cookieconsent.initialise({
@@ -64,119 +74,129 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Cookies Alert-->
 </head>
 
-<body>
+<body class="lb-body-bg">
     <!-- Google Tag Manager (noscript) -->
     <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGWQZKZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <!-- End Google Tag Manager (noscript) -->
 
+    <!-- Header -->
+<header class="navbar navbar-expand-lg navbar-dark lb-navbar">
+    <a class="navbar-brand lb-navbar-text text-uppercase" href="https://lenoxbot.com">LenoxBot</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a href="home" class="nav-link">Home</a>
+            </li>
+            <li class="nav-item">
+                <a href="/commands" class="nav-link">Commands</a>
+            </li>
+            <li class="nav-item">
+                <a href="/documentation" class="nav-link">Documentation</a>
+            </li>
+            <li class="nav-item">
+                <a href="/blog" class="nav-link">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a href="https://lenoxbot.com/discord" target="blanc" class="nav-link">Support</a>
+            </li>
+            <li class="nav-item">
+                <a href="/donate" class="btn lb-btn-donate ml-lg-2 mb-2 mb-lg-auto"><i class="mdi mdi-heart"></i>
+                    Donate</a>
+            </li>
+        </ul>
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                {{#if user}}
+                <div class="btn-group">
+                    <a class="btn lb-btn-profile dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                        aria-expanded="false">
+                        <img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/219645175167844352/24f524c45112010b2b5dd1b4ae0aac40.jpg">
+                        Username
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" href="servers">My servers</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="logout">Log out</a>
+                    </div>
+                </div>
+                {{ else }}
+                <a href="loginpressedbutton" class="btn lb-btn-login">Log in</a>
+                {{/if}}
+            </li>
+        </ul>
+    </div>
+    </nav>
+</header>
+<!-- /Header -->
+
     {{{ body }}}
 
-    <!-- Crowdin Webkit -->
-    <script type="text/javascript" src="https://crowdin.com/js/crowdjet/crowdjet.js">
-    </script>
+    <!-- Crowdin Webkit div -->
     <div id="crowdjet-container" data-project-id="303975" style="bottom: 90px; right: 20px;">
     </div>
     <div id="crowdjet-expand-container" style="bottom: 10px; right: 20px;">
     </div>
-    <!-- Crowdin Webkit -->
-</body>
-<footer>
-    <section id="footer" style="margin-top: 50px;">
+    <!-- /Crowdin Webkit div -->
+    
+    <!-- Footer -->
+    <footer class="lb-footer">
         <div class="container">
-            <div class="row text-center text-xs-center text-sm-left text-md-left">
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <h5>Quick links</h5>
-                    <ul class="list-unstyled quick-links">
-                        <li>
-                            <a href="/home">
-                                <i class="fa fa-angle-double-right"></i>Home</a>
-                        </li>
-                        <li>
-                            <a href="https://docs.lenoxbot.com">
-                                <i class="fa fa-angle-double-right"></i>Documentation</a>
-                        </li>
-                        <li>
-                            <a href="/loginpressedbutton">
-                                <i class="fa fa-angle-double-right"></i>Login</a>
-                        </li>
-                        <li>
-                            <a href="/donate">
-                                <i class="fa fa-angle-double-right"></i>Donate now</a>
-                        </li>
-                        <li>
-                            <a href="/policy">
-                                <i class="fa fa-angle-double-right"></i>Policy</a>
-                        </li>
+            <div class="row d-flex justify-content-center">
+                <div class="col mt-4">
+                    <h5>Product</h5>
+                    <ul>
+                        <li><a href="#" id="features" class="lb-footer-link">Features</a></li>
+                        <li><a href="/loginpressedbutton" class="lb-footer-link">Login</a></li>
+                        <li><a href="/invite" class="lb-footer-link" target="_blanc">Invite me to your server</a></li>
+                        <li><a href="/donate" class="lb-footer-link" target="_blanc">Donate</a></li>
                     </ul>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <h5>Shortlinks</h5>
-                    <ul class="list-unstyled quick-links">
-                        <li>
-                            <a href="https://lenoxbot.com/invite" target="_blanc">
-                                <i class="fa fa-angle-double-right"></i>Invite LenoxBot</a>
-                        </li>
-                        <li>
-                            <a href="https://lenoxbot.com/discord" target="_blanc">
-                                <i class="fa fa-angle-double-right"></i>Support Discord Server</a>
-                        </li>
-                        <li>
-                            <a href="https://lenoxbot.com/blog" target="_blanc">
-                                <i class="fa fa-angle-double-right"></i>Visit our blog</a>
-                        </li>
-                        <li>
-                            <a href="https://lenoxbot.com/ban" target="_blanc">
-                                <i class="fa fa-angle-double-right"></i>Write a Ban appeal</a>
-                        </li>
-                        <li>
-                            <a href="http://go.ludus-hosting.de/lenoxbot" target="_blanc">
-                                <i class="fa fa-angle-double-right"></i>LudusHosting (Partner)</a>
-                        </li>
+                <div class="col mt-4">
+                    <h5>Resources</h5>
+                    <ul>
+                        <li><a href="/discord" class="lb-footer-link" target="_blanc">Help and Support</a></li>
+                        <li><a href="/discord" class="lb-footer-link" target="_blanc">Feedback</a></li>
+                        <li><a href="/ban" class="lb-footer-link" target="_blanc">Write a ban appeal</a></li>
+                        <li><a href="/policy" class="lb-footer-link" target="_blanc">Policy</a></li>
                     </ul>
                 </div>
-                <div class="col-xs-12 col-sm-4 col-md-4">
-                    <h5>Social Media</h5>
-                    <ul class="list-unstyled quick-links">
-                        <li>
-                            <a href="https://twitter.com/lenoxbot" target="_blanc">
-                                <i class="fa fa-angle-double-right"></i>Twitter</a>
-                        </li>
-                        <li>
-                            <a href="https://www.facebook.com/lenoxbotdiscord" target="_blanc">
-                                <i class="fa fa-angle-double-right"></i>Facebook</a>
-                        </li>
+                <div class="col mt-4">
+                    <h5>Developers</h5>
+                    <ul>
+                        <li><a href="https://github.com/Monkeyyy11/LenoxBot/tree/master" class="lb-footer-link" target="_blanc">Source
+                                Code</a></li>
+                        <li><a href="/documentation" class="lb-footer-link" target="_blanc">Documentation</a></li>
+                        <li><a href="http://go.ludus-hosting.de/lenoxbot" class="lb-footer-link" target="_blanc">LudusHosting
+                                (Partner)</a></li>
+                        <li><a href="/discord" class="lb-footer-link" target="_blanc">LenoxBot Dev Team</a></li>
+                    </ul>
+                </div>
+                <div class="col mt-4">
+                    <h5>Social</h5>
+                    <ul>
+                        <li><a href="https://www.facebook.com/lenoxbotdiscord" class="lb-footer-link" target="_blanc"><i
+                                    class="mdi mdi-facebook"></i> Facebook</a></li>
+                        <li><a href="https://twitter.com/lenoxbot" class="lb-footer-link" target="_blanc"><i class="mdi mdi-twitter"></i>
+                                Twitter</a></li>
                     </ul>
                 </div>
             </div>
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-5">
-                    <ul class="list-unstyled list-inline social text-center">
-                        <li class="list-inline-item">
-                            <a href="https://twitter.com/lenoxbot" target="_blanc">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                        </li>
-                        <li class="list-inline-item">
-                            <a href="https://www.facebook.com/lenoxbotdiscord" target="_blanc">
-                                <i class="fab fa-facebook"></i>
-                            </a>
-                        </li>
-                    </ul>
+                <div class="col d-flex justify-content-between mb-2 mt-5">
+                    <small>© 2018 <a class="lb-footer-link" href="https://www.lenoxbot.com">LenoxBot</a>, all rights
+                        reserved</small>
+                    {{!-- remember me add github links --}}
+                    <small>Made with <i class="mdi mdi-heart" style="color: red;"></i> by Monkeyyy11 and Jecsham</small>
                 </div>
-                </hr>
-            </div>
-            <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-12 mt-2 mt-sm-2 text-center text-white">
-                    <p>LenoxBot is
-                        <bold>unrelated</bold> to Discord</p>
-                    <p class="h6">&copy All rights reversed
-                        <a class="text-green ml-2" href="https://www.lenoxbot.com">LenoxBot</a>
-                    </p>
-                </div>
-                </hr>
             </div>
         </div>
-    </section>
-</footer>
+    </footer>
+    <!-- /Footer -->
+</body>
 
 </html>
