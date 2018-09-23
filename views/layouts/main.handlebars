@@ -115,13 +115,13 @@
                 <div class="btn-group">
                     <a class="btn lb-btn-profile dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
                         aria-expanded="false">
-                        <img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/219645175167844352/24f524c45112010b2b5dd1b4ae0aac40.jpg">
-                        Username
+                        <img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                        {{user.username}}
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a class="dropdown-item" href="servers">My servers</a>
+                        <a class="dropdown-item lb-dropdown-item" href="servers">My servers</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="logout">Log out</a>
+                        <a class="dropdown-item lb-dropdown-item" href="logout">Log out</a>
                     </div>
                 </div>
                 {{ else }}

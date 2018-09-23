@@ -20,6 +20,11 @@
     font-family: 'Oswald', sans-serif;
 }
 
+.lb-dropdown-item:active{
+    background-color: #4caf50;
+    color: #e8f5e9;
+}
+
 .lb-hero-mainrow {
     height: 100%;
 }
@@ -140,22 +145,18 @@
 
 .lb-bot-head {
     animation: updown 3s 3s ease-in-out alternate infinite, astart 3s;
-    animation-timing-function: steps(180);
 }
 
 .lb-bot-eye, .lb-bot-mouth {
     animation: updown 3s 3.2s ease-in-out alternate infinite, astart 3s;
-    animation-timing-function: steps(180);
 }
 
 .lb-bot-arm {
     animation: updown 3s 4.8s ease-in-out alternate infinite, astart 3s;
-    animation-timing-function: steps(180);
 }
 
 .lb-bot-chest, .lb-bot-iconchest {
     animation: updown 3s 3.9s ease-in-out alternate infinite, astart 3s;
-    animation-timing-function: steps(180);
 }
 
 .test:hover {
