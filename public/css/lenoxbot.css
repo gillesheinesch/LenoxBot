@@ -20,7 +20,7 @@
     font-family: 'Oswald', sans-serif;
 }
 
-.lb-dropdown-item:active{
+.lb-dropdown-item:active {
     background-color: #4caf50;
     color: #e8f5e9;
 }
