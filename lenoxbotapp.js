@@ -54,7 +54,7 @@ if (settings.dbl_apikey && settings.dbl_apikey !== '') {
 	client.dbl.getVotes(true);
 }
 
-//Check if settings.json is correctly configuered
+// Check if settings.json is correctly configuered
 
 if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '') {
 	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
