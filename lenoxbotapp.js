@@ -218,7 +218,22 @@ app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/c7
 
 app.get('/status', (req, res) => res.redirect('https://lenoxbot.statuskit.com/'));
 
-app.get('/policy', (req, res) => res.render('policy'));
+app.get('/policy', (req, res) => {
+	try {
+		return res.render('policy', {
+			user: req.user,
+			client: client
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
 
 app.get('/blog', (req, res) => res.redirect('https://medium.com/lenoxbot'));
 
