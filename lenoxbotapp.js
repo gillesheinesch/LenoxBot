@@ -47,17 +47,19 @@ client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 
 // Check if the Discord Bot List key was set
-if (settings.dbl_apikey && settings.dbl_apikey !== '') {
- 	const DBL = require('dblapi.js');
- 	client.dbl = new DBL(settings.dbl_apikey);
- 	client.dbl.getVotes(true);
- }
 
- //Check if settings.json is correctly configuered
- if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '') {
- 	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
- 	return process.exit(42);
- }
+if (settings.dbl_apikey && settings.dbl_apikey !== '') {
+	const DBL = require('dblapi.js');
+	client.dbl = new DBL(settings.dbl_apikey);
+	client.dbl.getVotes(true);
+}
+
+//Check if settings.json is correctly configuered
+
+if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '') {
+	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
+	return process.exit(42);
+}
 
 
 fs.readdir('./events/', (err, files) => {
@@ -89,6 +91,7 @@ categories.forEach(c => {
 
 
 // Client login to Discord API
+
 client.login(token);
 
 // All website stuff
@@ -120,14 +123,14 @@ passport.deserializeUser((obj, done) => {
 
 const scopes = ['identify', 'guilds'];
 
- passport.use(new Strategy({
- 	clientID: settings.clientID_Auth,
- 	clientSecret: settings.clientSecret_Auth,
- 	callbackURL: settings.callbackURL_Auth,
- 	scope: scopes
- }, ((accessToken, refreshToken, profile, done) => {
- 	process.nextTick(() => done(null, profile));
- })));
+passport.use(new Strategy({
+	clientID: settings.clientID_Auth,
+	clientSecret: settings.clientSecret_Auth,
+	callbackURL: settings.callbackURL_Auth,
+	scope: scopes
+}, ((accessToken, refreshToken, profile, done) => {
+	process.nextTick(() => done(null, profile));
+})));
 
 app.use(session({
 	secret: 'keyboard cat',
