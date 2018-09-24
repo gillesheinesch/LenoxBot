@@ -31,6 +31,10 @@
     border-radius: 0 !important;
 }
 
+.lb-dashboard-icon {
+    font-size: 1.2rem;
+}
+
 .lb-dropdown-item:active {
     background-color: #4caf50;
     color: #e8f5e9;
