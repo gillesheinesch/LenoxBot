@@ -1,0 +1,8 @@
+{
+    "token": "Discord Test Bot Token",
+    "prefix": "!",
+    "sqlitefilename": "db",
+    "clientID_Auth": "Discord Test Bot Client ID",
+    "clientSecret_Auth": "Discord Test Bot Client ID Secret",
+    "callbackURL_Auth": "http://localhost/callback"
+}
