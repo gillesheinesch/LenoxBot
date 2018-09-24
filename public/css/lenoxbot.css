@@ -26,13 +26,19 @@
 }
 
 .lb-nav-dashboard-active {
-    color: white !important;
-    border-left: 2px solid #4caf50 !important;
-    border-radius: 0 !important;
+    color: #e8f5e9 !important;
+    background-color: #4caf50 !important;
+    /* border-left: 2px solid #4caf50 !important; */
+    border-radius: 50px !important;
 }
 
 .lb-dashboard-icon {
     font-size: 1.2rem;
+}
+
+.lb-hr-dashboard {
+    border-top: 1px solid #e8f5e9;
+    width: 100%;
 }
 
 .lb-dropdown-item:active {
@@ -145,14 +151,13 @@
 .lb-btn-nav {
     background: transparent;
     border: none;
-    color: white;
+    color: rgba(255, 255, 255, .5);
 }
 
 .lb-btn-nav:hover {
     background: transparent;
-    border-left: 2px solid #4caf50;
-    border-radius: 0;
-    color: white;
+    color: rgba(255, 255, 255, .7);
+    ;
 }
 
 .lb-btn-invite:hover {
@@ -172,6 +177,21 @@
     border-radius: 100px;
 }
 
+.lb-wrapper {
+    display: flex;
+    width: 100%;
+    align-items: stretch;
+}
+
+#sidebar {
+    min-width: 250px;
+    max-width: 250px;
+}
+
+#sidebar.active {
+    margin-left: -250px;
+}
+
 .lb-btn-green:hover {
     background-color: #4caf50;
     border-color: #4caf50;
@@ -184,6 +204,15 @@
 .lb-input {
     border-radius: 100px;
 }
+
+.lb-input-prefix {
+    width: 218px !important;
+    min-width: 40px !important;
+}
+
+/* .lb-card-dashboard{
+    max-width: 500px;
+} */
 
 .lb-commands-thead {
     background: #4caf50;

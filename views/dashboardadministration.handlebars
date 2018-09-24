@@ -19,7 +19,7 @@
             {{> nav-dashboard}}
             <div class="col-sm-10 lb-dashboard lb-mcsp">
                 <div class="lb-bg-white rounded p-3">
-                    <div class="card mt-3 shadow-sm">
+                    <div class="card shadow-sm lb-card-dashboard">
                         <div class="card-header">
                             <p class="h5">General Settings</p>
                         </div>
@@ -29,8 +29,8 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="newprefix">Prefix:</label>
                                 </div>
-                                <div class="form-group mx-3 mb-2 col-sm-4">
-                                    <input type="text" class="form-control" id="newprefix" name="newprefix" pattern=".{1,}"
+                                <div class="form-group mx-3 mb-2 col-sm-2">
+                                    <input type="text" class="form-control lb-input-prefix" id="newprefix" name="newprefix" pattern=".{1,}"
                                         required value="{{guilds.prefix}}">
                                 </div>
                                 <button type="submit" class="btn lb-btn-green mb-2">Save</button>
@@ -40,7 +40,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="newlanguage">Language:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newlanguage">
                                         {{#each languages}} {{#if set}}
                                         <option value="{{alias}}" selected>{{name}}</option>
@@ -56,7 +56,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="newcommanddeletion">Commanddeletion:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newcommanddeletion">
                                         {{#if commanddeletionset}}
                                         <option value="true" selected>Activated</option>
@@ -74,7 +74,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="newmuterole">Muterole:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select class="selectpicker" name="newmuterole" data-live-search="true" title="Choose muterole"
                                         data-actions-box="true" data-size="7">
                                         {{#if muteroledeactivated}}
@@ -96,7 +96,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="newxpmessages">Toggle XP Messages:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newxpmessages">
                                         {{#if xpmesssagesset}}
                                         <option value="true" selected>Activated</option>
@@ -114,7 +114,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <labelfor="newxpchannels">Channels where XP doesn't count:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newxpchannels" data-live-search="true"
                                         multiple title="Choose channel(s)" data-actions-box="true" data-size="7">
                                         {{#each channels}} {{#if togglexpset}}
@@ -131,7 +131,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <labelfor="newselfassignableroles">Self assignable roles:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select class="selectpicker" name="newselfassignableroles" data-live-search="true"
                                         multiple title="Choose role(s)" data-actions-box="true" data-size="7">
                                         {{#each roles}} {{#if selfassignablerolesset}}
@@ -148,7 +148,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <labelfor="newannounce">Toggle announce:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newannounce" data-live-search="true"
                                         title="Choose channel" data-actions-box="true" data-size="7">
                                         {{#if announcedeactivated}}
@@ -169,7 +169,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <labelfor="newpermissiondashboard">Permissions Dashboard:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select multiple class="selectpicker" name="newpermissiondashboard"
                                         data-live-search="true" title="Choose role(s)" data-actions-box="true"
                                         data-size="7">
@@ -187,7 +187,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <labelfor="newpermissionticket">Permissions Tickets Panel:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newpermissionticket" data-live-search="true"
                                         title="Choose permission" data-actions-box="true" data-size="7">
                                         {{#each permissions}} {{#if ticketpermissionset}}
@@ -204,7 +204,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <labelfor="newpermissionapplication">Permission Applications Panel:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newpermissionapplication"
                                         data-live-search="true" title="Choose permission" data-actions-box="true"
                                         data-size="7">
@@ -219,7 +219,7 @@
                             </form>
                         </div>
                     </div>
-                    <div class="card mt-3 shadow-sm">
+                    <div class="card mt-3 lb-card-dashboard shadow-sm">
                         <div class="card-header">
                             <p class="h5">Logs</p>
                         </div>
@@ -229,7 +229,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="modlog">Modlog:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="modlog">
                                         {{#if confs.modlogdeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -249,7 +249,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="chatfilterlog">Chatfilter:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="chatfilterlog">
                                         {{#if confs.chatfilterdeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -269,7 +269,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="messagedeletelog">Messagdelete:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="messagedeletelog">
                                         {{#if confs.messagedeletedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -289,7 +289,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="messageupdatelog">Messageupdate:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="messageupdatelog">
                                         {{#if confs.messageupdatedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -310,7 +310,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="channelupdatelog">Channelupdate:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="channelupdatelog">
                                         {{#if confs.channelupdatedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -331,7 +331,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="channelcreatelog">Channelcreate:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="channelcreatelog">
                                         {{#if confs.channelcreatedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -351,7 +351,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="channeldeletelog">Channeldelete:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="channeldeletelog">
                                         {{#if confs.channeldeletedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -372,7 +372,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="memberupdatelog">Memberupdate:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="memberupdatelog">
                                         {{#if confs.memberupdatdeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -393,7 +393,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="presenceupdatelog">Presenceupdate:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="presenceupdatelog">
                                         {{#if confs.presenceupdatedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -413,7 +413,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="welcomelog">Userjoin:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="welcomelog">
                                         {{#if confs.welcomedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -433,7 +433,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="byelog">Userleft:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="byelog">
                                         {{#if confs.byelogdeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -453,7 +453,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="rolecreatelog">Rolecreate:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="rolecreatelog">
                                         {{#if confs.rolecreatedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -473,7 +473,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="roledeletelog">Roledelete:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="roledeletelog">
                                         {{#if confs.roledeletedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -493,7 +493,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="roleupdatelog">Roleupdate:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" data-live-search="true" data-size="7" name="roleupdatelog">
                                         {{#if confs.roleupdatedeactivated}}
                                         <option selected value="false">Deactivated</option>
@@ -520,7 +520,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="newwelcome">Welcome:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newwelcome" data-live-search="true"
                                         data-size="7">
                                         {{#each channels}} {{#if welcomeset}}
@@ -561,7 +561,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="newbye">Bye:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newbye" data-live-search="true"
                                         data-size="7">
                                         {{#each channels}} {{#if byeset}}
@@ -602,7 +602,7 @@
                                 <div class="form-group mb-2 col-sm-2">
                                     <label for="newchatfilter">Chatfilter:</label>
                                 </div>
-                                <div class="form-group mx-sm-3 mb-2 col-sm-4">
+                                <div class="form-group mx-sm-3 mb-2 col-sm-2">
                                     <select required class="selectpicker" name="newchatfilter">
                                         {{#if chatfilterset}}
                                         <option value="true" selected>Activated</option>
@@ -645,10 +645,8 @@
                                         <tr>
                                             <td>
                                                 <div class="col-sm-8">
-                                                    <h5 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-                                                        <strong>{{help.name}}</strong>
-                                                    </h5>
-                                                    <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; margin: 0; padding: 0;">{{help.description}}</p>
+                                                    <h6>{{help.name}}</h6>
+                                                    <p class="text-muted">{{help.description}}</p>
                                                 </div>
                                             </td>
                                             <td>

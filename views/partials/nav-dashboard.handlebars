@@ -5,10 +5,13 @@
 				<img class="rounded-circle lb-img-profile-dashboard" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
 			</div>
 			<div class="col-9 text-white">
-				<h3 class="font-weight-light">Welcome,</h3>
+				<h3 class="font-weight-light mb-0">Welcome,</h3>
 				<h4 class="font-weight-light">{{user.username}}</h4>
+				<h6 class="font-weight-light mb-0">{{guilds.name}}</h6>
 			</div>
+
 		</div>
+		<hr class="lb-hr-dashboard">
 		<a href="/dashboard/{{guilds.id}}/overview" class="nav-link lb-btn-nav" id="overview" role="button">
 			<i class="mdi lb-dashboard-icon mdi-eye"></i> Overview</a>
 		<a href="/dashboard/{{guilds.id}}/modules" class="nav-link lb-btn-nav" id="modules" role="button">

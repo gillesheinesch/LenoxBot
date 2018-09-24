@@ -2,6 +2,9 @@
 <link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
 <script src='../../script/alerts.js'></script>
 <title>Dashboard - LenoxBot</title>
+<script>
+	var currentNavDashId = '#application';
+</script>
 <main>
     {{#if submitapplication}}
     <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="float:right;">
@@ -47,15 +50,15 @@
                     </div>
                     <div class="card mt-3 shadow-sm">
                         <div class="card-header">
-                            <h5>Reactionnumbeh5 (Needed reactions to accept or reject an
-                                application)</p>
+                            <h5>Reactionnumber (Needed reactions to accept or reject an
+                                application)</h5>
                         </div>
                         <div class="card-body">
                             <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitreactionnumber"
                                 method="POST">
                                 <div class="form-group">
                                     <label class="control-label col-sm" for="newreactionnumber">New reactionnumber:</label>
-                                    <div class="col-sm-4">
+                                    <div class="col-sm-12 col-lg-4">
                                         <input type="number" class="form-control" min="1" name="newreactionnumber"
                                             pattern=".{1,}" required value="{{guilds.reactionnumber}}">
                                     </div>
@@ -70,7 +73,7 @@
                     </div>
                     <div class="card mt-3 shadow-sm">
                         <div class="card-header">
-                            <h5>Role for acceh5eted canidates</p>
+                            <h5>Role for accepted canidates</h5>
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitrole"
@@ -100,7 +103,7 @@
                     </div>
                     <div class="card mt-3 shadow-sm">
                         <div class="card-header">
-                            <h5>Role for rejeh5ted canidates</p>
+                            <h5>Role for rejected canidates</h5>
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitdenyrole"
@@ -130,7 +133,7 @@
                     </div>
                     <div class="card mt-3 shadow-sm">
                         <div class="card-header">
-                            <h5>Message for ah5cepted applicants</p>
+                            <h5>Message for accepted applicants</h5>
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewacceptedmsg"
@@ -151,7 +154,7 @@
                     </div>
                     <div class="card mt-3 shadow-sm">
                         <div class="card-header">
-                            <h5>Message for rh5jected applicants</p>
+                            <h5>Message for rejected applicants</h5>
                         </div>
                         <div class="card-body">
                             <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewrejectedmsg"
@@ -172,8 +175,7 @@
                     </div>
                     <div class="card mt-3 shadow-sm">
                         <div class="card-header">
-                            <h5>Commands</p>
-                                h5
+                            <h5>Commands</h5>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -183,10 +185,8 @@
                                         <tr>
                                             <td>
                                                 <div class="col-sm-8">
-                                                    <h5 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-                                                        <strong>{{help.name}}</strong>
-                                                    </h5>
-                                                    <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; margin: 0; padding: 0;">{{help.description}}</p>
+                                                    <h6> {{help.name}}</h6>
+                                                    <p class="text-muted">{{help.description}}</p>
                                                 </div>
                                             </td>
                                             <td>
@@ -275,7 +275,7 @@
                                                                     <div class="modal-footer">
                                                                         <button type="button" class="btn btn-secondary"
                                                                             data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-primary">Save
+                                                                        <button type="submit" class="btn lb-btn-green">Save
                                                                             changes</button>
                                                                     </div>
                                                                 </form>

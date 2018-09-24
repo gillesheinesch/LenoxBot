@@ -16,6 +16,7 @@ if (typeof currentNavDashId !== 'undefined') {
     $(window).on("load", function () {
         $(".lb-mcsp").mCustomScrollbar({
             theme: "lb-theme",
+            scrollInertia: 300
         });
     });
 })(jQuery);
