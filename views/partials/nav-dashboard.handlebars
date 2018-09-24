@@ -1,0 +1,41 @@
+<div class="col-2 mt-3 lb-body-bg">
+	<div class="nav flex-column nav-pills navbar-dark lb-bg-trans" id="mainnavbar">
+		<div class="row">
+			<div class="col-3 text-center">
+				<img class="rounded-circle lb-img-profile-dashboard" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+			</div>
+			<div class="col-9 text-white">
+				<h3 class="font-weight-light">Welcome,</h3>
+				<h4 class="font-weight-light">{{user.username}}</h4>
+			</div>
+		</div>
+		<a href="/dashboard/{{guilds.id}}/overview" class="nav-link lb-btn-nav" id="overview" role="button">
+			<i class="mdi mdi-eye"></i> Overview</a>
+		<a href="/dashboard/{{guilds.id}}/modules" class="nav-link lb-btn-nav" id="modules" role="button">
+			<i class="fas fa-folder-open"></i> Modules</a>
+		<a href="/dashboard/{{guilds.id}}/administration" class="nav-link lb-btn-nav" id="administration" role="button">
+			<i class="fas fa-wrench"></i> Administration</a>
+		<a href="/dashboard/{{guilds.id}}/moderation" class="nav-link lb-btn-nav" id="moderation" role="button">
+			<i class="fas fa-user-shield"></i> Moderation</a>
+		<a href="/dashboard/{{guilds.id}}/help" class="nav-link lb-btn-nav" id="help" role="button">
+			<i class="fas fa-question-circle"></i> Help</a>
+		<a href="/dashboard/{{guilds.id}}/music" class="nav-link lb-btn-nav" id="music" role="button">
+			<i class="fas fa-music"></i> Music</a>
+		<a href="/dashboard/{{guilds.id}}/fun" class="nav-link lb-btn-nav" id="fun" role="button">
+			<i class="fas fa-paper-plane"></i> Fun</a>
+		<a href="/dashboard/{{guilds.id}}/searches" class="nav-link lb-btn-nav" id="searches" role="button">
+			<i class="fas fa-search"></i> Searches</a>
+		<a href="/dashboard/{{guilds.id}}/nsfw" class="nav-link lb-btn-nav" id="nsfw" role="button">
+			<i class="fas fa-exclamation-triangle"></i> NSFW</a>
+		<a href="/dashboard/{{guilds.id}}/utility" class="nav-link lb-btn-nav" id="utility" role="button">
+			<i class="fas fa-warehouse"></i> Utility</a>
+		<a href="/dashboard/{{guilds.id}}/application" class="nav-link lb-btn-nav" id="application" role="button">
+			<i class="fab fa-wpforms"></i> Application</a>
+		<a href="/dashboard/{{guilds.id}}/currency" class="nav-link lb-btn-nav" id="currency" role="button">
+			<i class="fas fa-money-bill-alt"></i> Currency</a>
+		<a href="/dashboard/{{guilds.id}}/tickets" class="nav-link lb-btn-nav" id="tickets" role="button">
+			<i class="fas fa-envelope-square"></i> Tickets</a>
+		<a href="/dashboard/{{guilds.id}}/customcommands" class="nav-link lb-btn-nav" id="ccommands" role="button">
+			<i class="fas fa-list-ul"></i> Custom commands</a>
+	</div>
+</div>

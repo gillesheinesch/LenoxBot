@@ -1,4 +1,7 @@
 <title>Command list - LenoxBot</title>
+<script>
+    var currentPageId = "#commands";
+</script>
 <main id="commands">
     <section class="lb-bg-white">
 
@@ -28,20 +31,18 @@
                             <div class="form-group">
                                 <input class="form-control lb-input" id="search-input" type="text" placeholder="Search...">
                             </div>
-                            <table class="table mb-0">
-                                <thead class="lb-commands-thead">
-                                    <tr>
-                                        <th class="lb-commands-th">Command name</th>
-                                        <th class="lb-commands-th">Description</th>
-                                        <th class="lb-commands-th">Permissions</th>
-                                        <th class="lb-commands-th">Aliases</th>
-                                    </tr>
-                                </thead>
-                            </table>
                         </div>
-                        <div class="col-12 lb-commands pr-0">
-                            <div data-spy="scroll" data-target="#list-modules" data-offset="0" class="scrollspy">
-                                <table id="commands-table" class="table lb-tablebg-green table-hover mb-0">
+                        <div class="col-12 lb-commands pr-0 lb-mcsp">
+                            <div class="lb-mcsp">
+                                <table id="commands-table" class="table table-responsive-sm table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Command name</th>
+                                            <th>Description</th>
+                                            <th>Permissions</th>
+                                            <th>Aliases</th>
+                                        </tr>
+                                    </thead>
                                     <tbody>
                                         {{#each commands}}
                                         <tr class="command {{help.category}}">

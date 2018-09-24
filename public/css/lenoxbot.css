@@ -20,6 +20,17 @@
     font-family: 'Oswald', sans-serif;
 }
 
+.lb-navbar-active {
+    color: white !important;
+    border-radius: 0;
+}
+
+.lb-nav-dashboard-active {
+    color: white !important;
+    border-left: 2px solid #4caf50 !important;
+    border-radius: 0 !important;
+}
+
 .lb-dropdown-item:active {
     background-color: #4caf50;
     color: #e8f5e9;
@@ -40,6 +51,11 @@
     height: 1.6em;
 }
 
+.lb-img-profile-dashboard {
+    width: 70px;
+    height: 70px;
+}
+
 .lb-hero {
     background-color: transparent;
     height: calc(100vh - 3.51rem);
@@ -51,6 +67,10 @@
 
 .lb-tablebg-green {
     background-color: #e8f5e9;
+}
+
+.lb-bg-green {
+    background: #4caf50;
 }
 
 .lb-feature-card {
@@ -113,6 +133,24 @@
     color: #ef5350 !important;
 }
 
+.lb-nav-dashboard {
+    overflow-y: auto;
+    height: auto !important;
+}
+
+.lb-btn-nav {
+    background: transparent;
+    border: none;
+    color: white;
+}
+
+.lb-btn-nav:hover {
+    background: transparent;
+    border-left: 2px solid #4caf50;
+    border-radius: 0;
+    color: white;
+}
+
 .lb-btn-invite:hover {
     background-color: #7289da;
     color: white;
@@ -155,7 +193,12 @@
 }
 
 .lb-commands {
-    height: calc(100vh - 223px);
+    height: calc(100vh - 152px);
+    overflow-y: auto;
+}
+
+.lb-dashboard {
+    height: calc(100vh - 56px);
     overflow-y: auto;
 }
 
@@ -192,6 +235,14 @@
 
 .test:hover {
     fill: red;
+}
+
+.mCS-lb-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
+    background-color: #4caf50;
+}
+
+.mCS-lb-theme.mCSB_scrollTools .mCSB_draggerRail {
+    background-color: white;
 }
 
 @keyframes updown {

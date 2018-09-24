@@ -13,10 +13,13 @@
     <meta name="theme-color" content="#33cc33">
     <meta name="author" content="Gilles Heinesch">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Material Desing Icons CSS -->
+    <link href="https://cdn.materialdesignicons.com/2.7.94/css/materialdesignicons.css" media="all" rel="stylesheet"
+        type="text/css" />
     <link rel="stylesheet" type="text/css" href="assets/fonts/font-awesome/css/font-awesome.min.css" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
         crossorigin="anonymous">
-    {{!-- Bootstrap css --}}
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
         crossorigin="anonymous">
     <!-- Google Tag Manager -->
@@ -33,8 +36,8 @@
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
     <!-- Custom LenoxBot CSS -->
     <link rel="stylesheet" href="/css/lenoxbot.css">
-    <!-- Material Desing Icons CSS -->
-    <link href="css/materialdesignicons.min.css" media="all" rel="stylesheet" type="text/css" />
+    <!-- mCustomScrollbar CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css">
     <!-- Google Font: Oswald -->
     <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -43,10 +46,16 @@
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/js/bootstrap.min.js" integrity="sha384-o+RDsa0aLu++PJvFqy8fFScvbHFLtbvScb8AjopnFD+iEQ7wo/CG0xlczd+2O/em"
         crossorigin="anonymous"></script>
+    <!-- mCustomScrollbar -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
     <!-- superagent JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.3/superagent.min.js"></script>
     <!-- Cookie alert JS -->
     <script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
     <!-- Crowdin Webkit JS -->
     <script type="text/javascript" src="https://crowdin.com/js/crowdjet/crowdjet.js"></script>
     <script>
@@ -89,22 +98,22 @@
 
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a href="/home" class="nav-link">Home</a>
+                <li class="nav-item">
+                    <a id="home" href="/home" class="nav-link">Home</a>
                 </li>
-                <li class="nav-item active">
-                    <a href="/commands" class="nav-link">Commands</a>
+                <li class="nav-item">
+                    <a id="commands" href="/commands" class="nav-link">Commands</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="/documentation" target="blanc" class="nav-link">Documentation</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="/blog" target="blanc" class="nav-link">Blog</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="https://lenoxbot.com/discord" target="blanc" class="nav-link">Support</a>
                 </li>
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a href="http://localhost/donate" class="btn lb-btn-donate ml-lg-2 mb-2 mb-lg-auto"><i class="mdi mdi-heart"></i>
                         Donate</a>
                 </li>
@@ -119,13 +128,22 @@
                             {{user.username}}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item lb-dropdown-item" href="/servers">My servers</a>
+                            <a class="dropdown-item lb-dropdown-item" href="/servers"> <i class="mdi mdi-account-group"></i>
+                                My servers</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item lb-dropdown-item" href="logout">Log out</a>
+                            <small class=" text-muted pl-4">Servers dashboards:</small>
+                            {{#each guilds}}
+                            {{#if lenoxbot}}
+                            <a class="dropdown-item lb-dropdown-item" href="/dashboard/{{id}}/overview">{{name}}</a>
+                            {{/if}}
+                            {{/each}}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item lb-dropdown-item" href="/logout"><i class="mdi mdi-logout"></i> Log
+                                out</a>
                         </div>
                     </div>
                     {{ else }}
-                    <a href="loginpressedbutton" class="btn lb-btn-login">Log in</a>
+                    <a href="/loginpressedbutton" class="btn lb-btn-login">Dashboard</a>
                     {{/if}}
                 </li>
             </ul>
@@ -191,12 +209,13 @@
                     <small>© 2018 <a class="lb-footer-link" href="https://www.lenoxbot.com">LenoxBot</a>, all rights
                         reserved</small>
                     {{!-- remember me add github links --}}
-                    <small>Made with <i class="mdi mdi-heart" style="color: red;"></i> by Monkeyyy11 and Jecsham</small>
+                    <small>Made with <i class="mdi mdi-heart" style="color: red;"></i> by LenoxBot Dev Team</small>
                 </div>
             </div>
         </div>
     </footer>
     <!-- /Footer -->
 </body>
+<script src="/js/global.js"></script>
 
 </html>
