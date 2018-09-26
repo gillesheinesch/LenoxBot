@@ -1,84 +1,33 @@
-<link rel="stylesheet" type="text/css" href="../../../../styles/style.css" />
-<link rel="stylesheet" type="text/css" href="../../../../assets/fonts/font-awesome/css/font-awesome.min.css" />
-<script src='../../../../script/alerts.js'></script>
-<title>Tickets - LenoxBot</title>
-
+<script src='script/commands.js'></script>
+<title>Thank you! - LenoxBot</title>
+<script>
+    var DonateId = '#donate';
+</script>
 <main>
-    {{#if submitticketanswer}}
-    <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="float:right;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
-        <span class="text"></span>
-        <strong>New tickets settings saved!</strong>
-        <hr class="message-inner-separator">
-        <p>
-            We saved your new tickets settings for {{guilds.name}}</p>
-    </div>
-    {{/if}}
     <div class="container">
         <div class="row">
-            <div class="col-sm-12 lb-dashboard lb-mcsp">
-                <div class="lb-bg-white rounded p-3">
-                    <div class="card shadow-sm">
-                        <div class="card-header">
-                            <p class="h5">Ticket #{{ticket.ticketid}} | Status: {{ticket.status}}</p>
-                            <div class="btn-group" role="group" aria-label="Status">
-                                <form action="/tickets/{{ticket.ticketid}}/submitnewticketstatus" method="POST">
-                                    <button type="submit" class="btn lb-btn-red" value="closed" name="newstatus">Close</button>
-                                </form>
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            {{#if status}}
-                            <form class="form-horizontal" action="/tickets/{{ticket.ticketid}}/submitticketanswer"
-                                method="POST">
-                                <div class="form-group">
-                                    <label class="control-label col-sm-3" for="newticketanswer">New answer:</label>
-                                    <div class="col-sm-10">
-                                        <textarea class="form-control" name="newticketanswer" rows="5"></textarea>
-                                    </div>
-                                </div>
-                                <div class="form-group">
-                                    <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green">Submit</button>
-                                    </div>
-                                </div>
-                            </form>
-                            <ul class="lb-timeline mt-5"></ul>
-                            {{else}}
-                            <ul class="lb-timeline">
-                                {{/if}}
-                                <li>
-                                    <div class="timeline-heading">
-                                        <h4 class="mb-0">{{ticket.author}}</h4>
-                                        <small class="text-muted">
-                                            <i class="mdi mdi-clock-outline"></i> {{ticket.newdate}}</small>
-                                    </div>
-                                    <div class="timeline-body">
-                                        <p class="py-4">{{ticket.content}}</p>
-                                    </div>
-                                </li>
-                                {{#if answers}} {{#each answers}}
-                                {{#if timelineconf}}
-                                <li>
-                                    <h4 class="mb-0">{{author}} (Support-Team)</h4>
-                                    <small class="text-muted">
-                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
-                                    <div class="timeline-body">
-                                        <p class="py-4">{{content}}</p>
-                                    </div>
-                                </li>
-                                {{else}}
-                                <li>
-                                    <h4 class="mb-0">{{author}}</h4>
-                                    <small class="text-muted">
-                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
-                                    <p class="py-4">{{content}}</p>
-                                </li>
-                                {{/if}}
-                                {{/each}} {{/if}}
-                            </ul>
-                        </div>
+            <div class="col-sm-12">
+                <div class="text-center py-5 lb-bg-100vh">
+                    <div style="width: 65vh; margin-left: auto; margin-right: auto;">
+                        <svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                            x="0px" y="0px" viewBox="0 0 800 500" style="enable-background:new 0 0 800 836.5;"
+                            xml:space="preserve">
+                            <!-- head -->
+                            <path class="lb-bot-svg lb-bot-head" d="M250,55.5h300c75.1,0,136,60.9,136,136l0,0c0,75.1-60.9,136-136,136H250c-75.1,0-136-60.9-136-136l0,0
+              C114,116.4,174.9,55.5,250,55.5z" />
+                            <!-- eyes -->
+                            <circle class="lb-bot-svg lb-bot-eye" cx="576.5" cy="191" r="29.5" />
+                            <circle class="lb-bot-svg lb-bot-eye" cx="224.5" cy="191" r="29.5" />
+                            <!-- mouth -->
+                            <path class="lb-bot-svg lb-bot-mouth" d="M443,220.5c0,26.2-15.8,47.5-42,47.5s-43-21.3-43-47.5" />
+                        </svg>
                     </div>
+                    <div class="lb-donate-heart mb-3"><i class="mdi mdi-heart lb-text-red display-1"></i>
+                    </div>
+                    <p class="font-weight-light display-4 lb-text-green">Thank you so much for your donation!</p>
+                    <p class="font-weight-light text-white h4">We really appreciate your support! We hope you will have
+                        fun with
+                        your premium features!</p>
                 </div>
             </div>
         </div>

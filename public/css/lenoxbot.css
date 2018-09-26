@@ -83,6 +83,10 @@
     background: #4caf50;
 }
 
+.lb-bg-100vh {
+    height: 100vh;
+}
+
 .lb-feature-card {
     height: 100%;
 }
@@ -295,6 +299,32 @@
 }
 
 .lb-bot-head {
+    fill: #4CAF50;
+    stroke: #000000;
+    stroke-width: 20;
+    stroke-linejoin: round;
+    stroke-miterlimit: 10;
+}
+
+.lb-bot-body {
+    fill: #4CAF50;
+    stroke: #000000;
+    stroke-width: 20;
+    stroke-miterlimit: 10;
+}
+
+.lb-bot-mouth {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 20;
+    stroke-miterlimit: 10;
+}
+
+.lb-bot-iconchest {
+    fill: #010101;
+}
+
+.lb-bot-head {
     animation: updown 3s 3s ease-in-out alternate infinite, astart 3s;
 }
 
@@ -310,7 +340,7 @@
     animation: updown 3s 3.9s ease-in-out alternate infinite, astart 3s;
 }
 
-.lb-donate-heart{
+.lb-donate-heart {
     animation: donateheart 0.5s ease-in-out alternate infinite;
 }
 
