@@ -1,15 +1,10 @@
 <title>Error - LenoxBot</title>
 <main>
     <div class="container lb-bg-100vh">
-        <div class="alert alert-danger mt-3" role="alert">
-            <p class="h3">Error {{statuscode}}</p>
-            <p class="h5">{{message}}</p>
+        <div class="mt-5">
+            <p class="h5 lb-text-red mb-3">There was a problem logging you through Discord! Please try it again!</p>
+            <a href="https://dashboardtest.lenoxbot.com/callback" class="btn lb-btn-invite" id="oauth2button"> <i class="mdi mdi-discord"></i>
+                Login through Discord!</a>
         </div>
-        {{#if fix}}
-        <div class="howtofix">
-            <p class="h3 text-white">How to fix?</p>
-            <p class="h5 text-white">{{howtofix}}</p>
-        </div>
-        {{/if}}
     </div>
 </main>
