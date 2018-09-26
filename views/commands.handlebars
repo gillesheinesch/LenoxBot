@@ -7,9 +7,9 @@
 
         <div class="container">
             <div class="row">
-                <div class="col-3 pr-0 mt-4">
-                    <h3 class="font-weight-light">Categories</h3>
-                    <div id="list-modules" class="list-group">
+                <div class="col-12 col-md-3 mt-4">
+                    <h3 class="font-weight-light">Categories <button class="btn lb-btn-grey d-md-none float-right" id="toggle-categories"><i class="mdi mdi-menu"></i></button></h3>
+                    <div id="list-modules" class="list-group categories">
                         <button class="list-group-item list-group-item-action lb-btn-list" id="command">All</button>
                         <button class="list-group-item list-group-item-action lb-btn-list" id="administration">Administration</button>
                         <button class="list-group-item list-group-item-action lb-btn-list" id="moderation">Moderation</button>
@@ -24,7 +24,7 @@
                         <button class="list-group-item list-group-item-action lb-btn-list" id="tickets">Tickets</button>
                     </div>
                 </div>
-                <div class="col-9">
+                <div class="col-12 col-md-9">
                     <div class="row">
                         <div class="col-12 pr-0 mt-4">
                             <h3 class="font-weight-light">Commands</h3>
@@ -34,7 +34,7 @@
                         </div>
                         <div class="col-12 lb-commands pr-0 lb-mcsp">
                             <div class="lb-mcsp">
-                                <table id="table" class="table table-responsive-sm table-hover mb-0">
+                                <table id="table" class="table table-responsive table-hover mb-0">
                                     <thead>
                                         <tr>
                                             <th>Command name</th>
