@@ -316,11 +316,6 @@
     overflow-y: auto;
 }
 
-.lb-dashboard {
-    height: calc(100vh - 56px);
-    overflow-y: auto;
-}
-
 .lb-btn-list:focus {
     outline: 0;
     background-color: #4caf50;
@@ -439,3 +434,28 @@
         transform: scale(1.5);
     }
 }
+
+/* sm */
+
+@media (min-width: 576px) {}
+
+/* md */
+
+@media (min-width: 768px) {
+    .lb-dashboard {
+        height: auto;
+    }
+}
+
+/* lg */
+
+@media (min-width: 992px) {
+    .lb-dashboard {
+        height: calc(100vh - 56px);
+        overflow-y: auto;
+    }
+}
+
+/* xl */
+
+@media (min-width: 1200px) {}

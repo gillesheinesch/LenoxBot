@@ -48,3 +48,8 @@ $('.lb-count').each(function () {
             }
         });
 });
+
+// toggle menus
+$('#toggle-menu').click(function(){
+    $('.menu').slideToggle();
+});

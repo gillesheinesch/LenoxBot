@@ -16,8 +16,3 @@ $("#search-input").on("keyup", function () {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1);
     });
 });
-
-// toggle categories
-$('#toggle-categories').click(function(){
-    $('.categories').slideToggle();
-});
