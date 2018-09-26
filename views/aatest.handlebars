@@ -1,49 +1,34 @@
-<link rel="stylesheet" type="text/css" href="../../../../styles/style.css" />
-<link rel="stylesheet" type="text/css" href="../../../../assets/fonts/font-awesome/css/font-awesome.min.css" />
-<script src='../../../../script/alerts.js'></script>
-<title>Dashboard - LenoxBot</title>
-
 <main>
-    <div class="container-fluid">
-        <div class="row">
-            {{> nav-dashboard}}
-                <div class="col-sm-10 lb-dashboard lb-mcsp">
-                    <div class="lb-bg-white rounded p-3">
-                        <div class="card shadow-sm">
-                            <div class="card-header">
-                                    <p class="h5">Application Overview</p>
-                                    <div class="btn-group" role="group" aria-label="Status">
-                                    <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitdeleteapplication" method="POST">
-                                        <button type="submit" class="btn lb-btn-red" value="closed" name="newstatus"><i class="mdi mdi-delete"></i></button>
-                                    </form>
-                                </div>
-                                </div>
-                                <div class="card-body">
-                                    <div>
-                                        <p class="h5">Application by {{application.author}} on {{application.newdate}}</p>
-                                    </div>
-                                    <span style="white-space: pre-line">
-                                        <p>{{application.content}} qiweudsifsdifu sdjfhskjdfhskjhfs</p>
-                                    </span>
-                                    {{#if vote}}
-                                    <div class="btn-group" role="group" aria-label="Status">
-                                        <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitnewvote" method="POST">
-                                            <button type="submit" class="btn lb-btn-green" value="true" name="newvote"><i class="mdi mdi-thumb-up"> {{yeslength}}</i></button>
-                                            <button type="submit" class="btn lb-btn-red" value="false" name="newvote"><i class="mdi mdi-thumb-down"></i> {{nolength}}</button>
-                                        </form>
-                                    </div>
-                                    {{else}}
-                                    <div class="btn-group" role="group" aria-label="Status">
-                                        <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitnewvote" method="POST">
-                                            <button type="submit" disabled class="btn lb-btn-green" value="true" name="newvote"><i class="mdi mdi-thumb-up"> {{yeslength}}</i></button>
-                                            <button type="submit" disabled class="btn lb-btn-red" value="false" name="newvote"><i class="mdi mdi-thumb-down"></i> {{nolength}}</button>
-                                        </form>
-                                    </div>
-                                    {{/if}}
-                                </div>
-                            </div>
+    <div class="lb-bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table">
+                        <table class="table mt-3" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th class="h3"><span class="pull-left">Place</span></th>
+                                    <th class="h3"><span class="pull-left">User</span></th>
+                                    <th class="h3"><span class="pull-right">Points</span></th>
+                                    <th class="h3"><span class="pull-right">Level</span></th>
+                                </tr>
+                            </thead>
+
+                            <!-- Rankinglist-->
+                            <tbody>
+                                {{#each ranks}}
+                                <tr>
+                                    <td>{{place}}1</td>
+                                    <td><img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"><span class="h5">{{user}}</span></td> 
+                                    <td><span class="pull-right lb-count">{{points}}</span></td>
+                                    <td><span class="pull-right lb-count">{{level}}</span></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </main>

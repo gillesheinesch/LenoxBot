@@ -1,6 +1,4 @@
-<link rel="stylesheet" type="text/css" href="../../styles/style.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
-<script src='../../script/alerts.js'></script>
+
 <title>Dashboard - LenoxBot</title>
 <script>
 	var currentNavDashId = '#application';
@@ -20,8 +18,7 @@
                                     {{#if applicationscheck}}
                                         {{#each applications}}
                                         <div class="text h5" style="margin-bottom: 5px; margin-top: 5px;">
-                                            <a href="applications/{{@key}}/overview">
-                                                <button type="button" class="btn btn-success">{{author}} - {{newdate}}</button>
+                                            <a href="applications/{{@key}}/overview">{{author}} - {{newdate}}
                                             </a>
                                         </div>
                                         {{/each}}
@@ -39,7 +36,7 @@
                                         {{#each oldapplications}}
                                         <div class="text h5" style="margin-bottom: 5px; margin-top: 5px;">
                                             <a href="applications/{{@key}}/overview">
-                                                <button type="button" class="btn btn-danger">{{author}} - {{newdate}}</button>
+                                                {{author}} - {{newdate}}
                                             </a>
                                         </div>
                                         {{/each}}

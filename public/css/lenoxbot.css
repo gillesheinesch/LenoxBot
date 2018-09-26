@@ -151,11 +151,13 @@
     transform: scale(1.03);
     transition: .1s;
 }
-.lb-badge{
+
+.lb-badge {
     background-color: #4caf50 !important;
     color: #e8f5e9;
     border-radius: 50px;
 }
+
 .lb-text-red {
     color: #ef5350 !important;
 }
@@ -206,7 +208,24 @@
     transform: scale(1.03);
     transition: .1s;
 }
-.lb-btn-grey{
+
+.lb-btn-blue {
+    background-color: #1e88e5;
+    border-color: #1e88e5;
+    color: #e8f5e9;
+    border-radius: 100px;
+}
+
+.lb-btn-blue:hover {
+    background-color: #1e88e5;
+    border-color: #1e88e5;
+    color: #e3f2fd;
+    border-radius: 100px;
+    transform: scale(1.03);
+    transition: .1s;
+}
+
+.lb-btn-grey {
     background-color: #546e7a;
     border-color: #546e7a;
     color: #e8f5e9;
@@ -323,6 +342,10 @@
     stroke-width: 20;
     stroke-linejoin: round;
     stroke-miterlimit: 10;
+}
+
+.lb-alert {
+    position: fixed !important;
 }
 
 .lb-bot-body {

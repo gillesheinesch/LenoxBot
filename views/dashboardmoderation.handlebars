@@ -1,21 +1,11 @@
-<link rel="stylesheet" type="text/css" href="../../styles/style.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
-<script src='../../script/alerts.js'></script>
 <title>Dashboard - LenoxBot</title>
 <script>
-	var currentNavDashId = '#moderation';
+    var currentNavDashId = '#moderation';
 </script>
 
 <main>
     {{#if submitmoderation}}
-    <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="float:right;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
-        <span class="text"></span>
-        <strong>New Logging settings saved!</strong>
-        <hr class="message-inner-separator">
-        <p>
-            We saved your new Moderation settings for {{guilds.name}}</p>
-    </div>
+    {{> notification}}
     {{/if}}
     <div class="container-fluid">
         <div class="row">
@@ -101,114 +91,117 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="btn-group" role="group">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                        data-target="#{{help.name}}" style="margin-right: 8px;">
-                                                        Edit
-                                                    </button>
-                                                    <div class="modal fade" id="{{help.name}}" tabindex="-1" role="dialog"
-                                                        aria-labelledby="{{help.name}}Title" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Settings
-                                                                        of {{help.name}} command</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-
-                                                                <form class="form-inline" action="/dashboard/{{../guilds.id}}/moderation/{{help.name}}/submitcommandchange"
-                                                                    method="POST">
-                                                                    <div class="modal-body">
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newblacklistedchannels">Blacklisted
-                                                                                channels:</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                            <select class="selectpicker" name="newblacklistedchannels"
-                                                                                data-live-search="true" multiple title="Choose channel(s)"
-                                                                                data-actions-box="true" data-size="7">
-                                                                                {{#each ../channels}} {{#inArray
-                                                                                ../bannedchannels id}}
-                                                                                <option value="{{id}}" selected>#{{name}}</option>
-                                                                                {{else}}
-                                                                                <option value="{{id}}">#{{name}}</option>
-                                                                                {{/inArray}} {{/each}}
-                                                                            </select>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newwhitelistedroles">Whitelisted
-                                                                                roles:</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                            <select class="selectpicker" name="newwhitelistedroles"
-                                                                                data-live-search="true" multiple title="Choose roles(s)"
-                                                                                data-actions-box="true" data-size="7">
-                                                                                {{#each ../roles}} {{#inArray
-                                                                                ../whitelistedroles id}}
-                                                                                <option value="{{id}}" selected>@{{name}}</option>
-                                                                                {{else}}
-                                                                                <option value="{{id}}">@{{name}}</option>
-                                                                                {{/inArray}} {{/each}}
-                                                                            </select>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newblacklistedroles">Blacklisted
-                                                                                roles:</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                            <select class="selectpicker" name="newblacklistedroles"
-                                                                                data-live-search="true" multiple title="Choose roles(s)"
-                                                                                data-actions-box="true" data-size="7">
-                                                                                {{#each ../roles}} {{#inArray
-                                                                                ../bannedroles id}}
-                                                                                <option value="{{id}}" selected>@{{name}}</option>
-                                                                                {{else}}
-                                                                                <option value="{{id}}">@{{name}}</option>
-                                                                                {{/inArray}} {{/each}}
-                                                                            </select>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newcooldown">Cooldown (in
-                                                                                seconds):</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                            <input type="number" min="3" max="600"
-                                                                                class="form-control" name="newcooldown"
-                                                                                required value="{{cooldown}}">
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-primary">Save
-                                                                            changes</button>
-                                                                    </div>
-                                                                </form>
+                                                <div class="modal fade" id="{{help.name}}" tabindex="-1" role="dialog"
+                                                    aria-labelledby="{{help.name}}Title" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Settings
+                                                                    of {{help.name}} command</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
                                                             </div>
+
+                                                            <form class="form-inline" action="/dashboard/{{../guilds.id}}/moderation/{{help.name}}/submitcommandchange"
+                                                                method="POST">
+                                                                <div class="modal-body">
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newblacklistedchannels">Blacklisted
+                                                                            channels:</label>
+                                                                    </div>
+                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                                        <select class="selectpicker" name="newblacklistedchannels"
+                                                                            data-live-search="true" multiple title="Choose channel(s)"
+                                                                            data-actions-box="true" data-size="7">
+                                                                            {{#each ../channels}} {{#inArray
+                                                                            ../bannedchannels id}}
+                                                                            <option value="{{id}}" selected>#{{name}}</option>
+                                                                            {{else}}
+                                                                            <option value="{{id}}">#{{name}}</option>
+                                                                            {{/inArray}} {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newwhitelistedroles">Whitelisted
+                                                                            roles:</label>
+                                                                    </div>
+                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                                        <select class="selectpicker" name="newwhitelistedroles"
+                                                                            data-live-search="true" multiple title="Choose roles(s)"
+                                                                            data-actions-box="true" data-size="7">
+                                                                            {{#each ../roles}} {{#inArray
+                                                                            ../whitelistedroles id}}
+                                                                            <option value="{{id}}" selected>@{{name}}</option>
+                                                                            {{else}}
+                                                                            <option value="{{id}}">@{{name}}</option>
+                                                                            {{/inArray}} {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newblacklistedroles">Blacklisted
+                                                                            roles:</label>
+                                                                    </div>
+                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                                        <select class="selectpicker" name="newblacklistedroles"
+                                                                            data-live-search="true" multiple title="Choose roles(s)"
+                                                                            data-actions-box="true" data-size="7">
+                                                                            {{#each ../roles}} {{#inArray
+                                                                            ../bannedroles id}}
+                                                                            <option value="{{id}}" selected>@{{name}}</option>
+                                                                            {{else}}
+                                                                            <option value="{{id}}">@{{name}}</option>
+                                                                            {{/inArray}} {{/each}}
+                                                                        </select>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newcooldown">Cooldown (in
+                                                                            seconds):</label>
+                                                                    </div>
+                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                                        <input type="number" min="3" max="600" class="form-control"
+                                                                            name="newcooldown" required value="{{cooldown}}">
+                                                                    </div>
+                                                                    <hr>
+                                                                    <button type="submit" class="btn lb-btn-green">Save
+                                                                        changes</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
+                                                </div>
+                                                <div class="btn-group float-right" role="group">
+                                                    <button type="button" class="btn lb-btn-blue" data-toggle="modal"
+                                                        data-target="#{{help.name}}">
+                                                        Edit
+                                                    </button>
                                                     {{#if conf.enabled}}
                                                     <form action="/dashboard/{{../guilds.id}}/moderation/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST">
-                                                        <button type="submit" class="btn btn-danger" value="false" name="statuschange">
-                                                            Disable
-                                                        </button>
+                                                        method="POST" id="{{help.name}}form">
+                                                        <input type="hidden" value="false" name="statuschange">
                                                     </form>
+                                                    <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
+                                                        Disable
+                                                    </button>
                                                     {{else}}
                                                     <form action="/dashboard/{{../guilds.id}}/moderation/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST">
-                                                        <button type="submit" class="btn btn-success" value="true" name="statuschange">
-                                                            Enable
-                                                        </button>
+                                                        method="POST" id="{{help.name}}form">
+                                                        <input type="hidden" value="true" name="statuschange">
                                                     </form>
+                                                    <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
+                                                        Enable
+                                                    </button>
                                                     {{/if}}
                                                 </div>
+                                                <script>
+                                                    $("#{{help.name}}b").click(function () {
+                                                        $("#{{help.name}}form").submit();
+                                                    });
+                                                </script>
                                             </td>
                                         </tr>
                                         {{/each}}
