@@ -139,11 +139,11 @@
     border-radius: 100px;
 }
 
-.lb-btn-player{
+.lb-btn-player {
     border-radius: 50px;
 }
 
-.lb-btn-player:hover{
+.lb-btn-player:hover {
     transform: scale(1.03);
     transition: .1s;
 }
@@ -152,7 +152,7 @@
     color: #ef5350 !important;
 }
 
-.lb-text-green{
+.lb-text-green {
     color: #4caf50 !important;
 }
 
@@ -198,6 +198,7 @@
     transform: scale(1.03);
     transition: .1s;
 }
+
 .lb-btn-red {
     background-color: #ef5350;
     border-color: #ef5350;
@@ -227,6 +228,7 @@
     list-style-type: none;
     position: relative;
 }
+
 .lb-timeline:before {
     content: ' ';
     background: #d4d9df;
@@ -237,11 +239,13 @@
     height: 100%;
     z-index: 400;
 }
-.lb-timeline > li {
+
+.lb-timeline>li {
     margin: 20px 0;
     padding-left: 20px;
 }
-.lb-timeline > li:before {
+
+.lb-timeline>li:before {
     content: ' ';
     background: #4caf50;
     display: inline-block;
@@ -312,6 +316,10 @@
 
 .mCS-lb-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
     background-color: #4caf50;
+}
+
+.mCS-lb-theme.mCSB_scrollTools .mCSB_dragger:hover .mCSB_dragger_bar:hover {
+    background-color: #4caf50 !important;
 }
 
 .mCS-lb-theme.mCSB_scrollTools .mCSB_draggerRail {
