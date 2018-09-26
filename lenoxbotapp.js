@@ -212,6 +212,35 @@ app.get('/home', (req, res) => {
 	}
 });
 
+// Temp get for test dynamic pages in static mode
+app.get('/test', (req, res) => {
+	try {
+		const check = [];
+		if (req.user) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
+				if (((req.user.guilds[i].permissions) & 8) === 8) {
+					check.push(req.user.guilds[i]);
+				}
+			}
+		}
+
+		return res.render('aatest', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			botstats: client.botconfs.get('botstats')
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
 app.get('/invite', (req, res) => res.redirect('https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8'));
 
 app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/c7DUz35'));
