@@ -202,6 +202,21 @@
     transform: scale(1.03);
     transition: .1s;
 }
+.lb-btn-grey{
+    background-color: #546e7a;
+    border-color: #546e7a;
+    color: #e8f5e9;
+    border-radius: 100px;
+}
+
+.lb-btn-grey:hover {
+    background-color: #546e7a;
+    border-color: #546e7a;
+    color: #eceff1;
+    border-radius: 100px;
+    transform: scale(1.03);
+    transition: .1s;
+}
 
 .lb-btn-red {
     background-color: #ef5350;

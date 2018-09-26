@@ -301,8 +301,18 @@ app.get('/commands', (req, res) => {
 			newcommandlist.push(cmd);
 		});
 
+		const check = [];
+		if (req.user) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
+				if (((req.user.guilds[i].permissions) & 8) === 8) {
+					check.push(req.user.guilds[i]);
+				}
+			}
+		}
+
 		return res.render('commands', {
 			user: req.user,
+			guilds: check,
 			client: client,
 			commands: newcommandlist
 		});
@@ -319,8 +329,17 @@ app.get('/commands', (req, res) => {
 
 app.get('/donate', (req, res) => {
 	try {
+		const check = [];
+		if (req.user) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
+				if (((req.user.guilds[i].permissions) & 8) === 8) {
+					check.push(req.user.guilds[i]);
+				}
+			}
+		}
 		return res.render('donate', {
 			user: req.user,
+			guilds: check,
 			client: client
 		});
 	} catch (error) {

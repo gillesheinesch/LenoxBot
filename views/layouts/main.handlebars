@@ -114,7 +114,9 @@
                     <a href="https://lenoxbot.com/discord" target="blanc" class="nav-link">Support</a>
                 </li>
                 <li class="nav-item">
-                    <a href="http://localhost/donate" class="btn lb-btn-donate ml-lg-2 mb-2 mb-lg-auto"><div id="donate"><i class="mdi mdi-heart"></i> Donate</div></a>
+                    <a href="http://localhost/donate" class="btn lb-btn-donate ml-lg-2 mb-2 mb-lg-auto">
+                        <div id="donate"><i class="mdi mdi-heart"></i> Donate</div>
+                    </a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
@@ -130,7 +132,7 @@
                             <a class="dropdown-item lb-dropdown-item" href="/servers"> <i class="mdi mdi-account-group"></i>
                                 My servers</a>
                             <div class="dropdown-divider"></div>
-                            <small class=" text-muted pl-4">Servers dashboards:</small>
+                            <small class=" text-muted pl-4">Dashboards:</small>
                             {{#each guilds}}
                             {{#if lenoxbot}}
                             <a class="dropdown-item lb-dropdown-item" href="/dashboard/{{id}}/overview">{{name}}</a>
@@ -207,7 +209,6 @@
                 <div class="col d-flex justify-content-between mb-2 mt-5">
                     <small>© 2018 <a class="lb-footer-link" href="https://www.lenoxbot.com">LenoxBot</a>, all rights
                         reserved</small>
-                    {{!-- remember me add github links --}}
                     <small>Made with <i class="mdi mdi-heart" style="color: red;"></i> by LenoxBot Dev Team</small>
                 </div>
             </div>
