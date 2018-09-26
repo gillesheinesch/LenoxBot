@@ -139,6 +139,15 @@
     border-radius: 100px;
 }
 
+.lb-btn-player{
+    border-radius: 50px;
+}
+
+.lb-btn-player:hover{
+    transform: scale(1.03);
+    transition: .1s;
+}
+
 .lb-text-red {
     color: #ef5350 !important;
 }
@@ -175,21 +184,6 @@
     border-color: #4caf50;
     color: #e8f5e9;
     border-radius: 100px;
-}
-
-.lb-wrapper {
-    display: flex;
-    width: 100%;
-    align-items: stretch;
-}
-
-#sidebar {
-    min-width: 250px;
-    max-width: 250px;
-}
-
-#sidebar.active {
-    margin-left: -250px;
 }
 
 .lb-btn-green:hover {

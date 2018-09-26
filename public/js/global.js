@@ -20,3 +20,8 @@ if (typeof currentNavDashId !== 'undefined') {
         });
     });
 })(jQuery);
+
+// Tooltips enabled
+$(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
