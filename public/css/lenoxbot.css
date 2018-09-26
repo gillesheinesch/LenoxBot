@@ -310,6 +310,10 @@
     animation: updown 3s 3.9s ease-in-out alternate infinite, astart 3s;
 }
 
+.lb-donate-heart{
+    animation: donateheart 0.5s ease-in-out alternate infinite;
+}
+
 .test:hover {
     fill: red;
 }
@@ -352,5 +356,14 @@
     }
     100% {
         background-position: 90px 90px;
+    }
+}
+
+@keyframes donateheart {
+    0% {
+        transform: scale(1);
+    }
+    100% {
+        transform: scale(1.5);
     }
 }

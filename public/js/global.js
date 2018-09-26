@@ -6,10 +6,17 @@ if (typeof currentPageId !== 'undefined') {
     $(currentPageId).addClass('lb-navbar-active');
 }
 
+// Activate donate button
+if (typeof DonateId !== 'undefined') {
+    $(DonateId).addClass('lb-donate-heart');
+    $(DonateId).html('<i class="mdi mdi-heart"></i>');
+}
+
 // Activate current nav dashboard button
 if (typeof currentNavDashId !== 'undefined') {
     $(currentNavDashId).addClass('lb-nav-dashboard-active');
 }
+
 
 // Cool scrollbar style
 (function ($) {
