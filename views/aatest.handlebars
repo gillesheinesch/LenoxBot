@@ -1,10 +1,36 @@
-<title>Error - LenoxBot</title>
+<link rel="stylesheet" type="text/css" href="../styles/style.css" />
+<link rel="stylesheet" type="text/css" href="../assets/fonts/font-awesome/css/font-awesome.min.css" />
 <main>
-    <div class="container lb-bg-100vh">
-        <div class="mt-5">
-            <p class="h5 lb-text-red mb-3">There was a problem logging you through Discord! Please try it again!</p>
-            <a href="https://dashboardtest.lenoxbot.com/callback" class="btn lb-btn-invite" id="oauth2button"> <i class="mdi mdi-discord"></i>
-                Login through Discord!</a>
+    <div class="lb-bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table">
+                        <table class="table" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th class="h3"><span class="pull-left">Place</span></th>
+                                    <th class="h3"><span class="pull-left">User</span></th>
+                                    <th class="h3"><span class="pull-right">Points</span></th>
+                                    <th class="h3"><span class="pull-right">Level</span></th>
+                                </tr>
+                            </thead>
+
+                            <!-- Rankinglist-->
+                            <tbody>
+                                {{#each ranks}}
+                                <tr>
+                                    <td>{{place}}</td>
+                                    <td><img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"><span class="h5"> Pepitoa</span></td> <!-- {{user}} -->
+                                    <td><span class="pull-right lb-count">{{points}}</span></td>
+                                    <td><span class="pull-right lb-count">{{level}}</span></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </main>

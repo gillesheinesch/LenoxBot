@@ -24,7 +24,7 @@ if (typeof currentNavDashId !== 'undefined') {
         $(".lb-mcsp").mCustomScrollbar({
             theme: "lb-theme",
             scrollInertia: 300, //in ms
-            mouseWheel:{
+            mouseWheel: {
                 scrollAmount: 250 //in pixels
             }
         });
@@ -34,4 +34,17 @@ if (typeof currentNavDashId !== 'undefined') {
 // Tooltips enabled
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
-  })
+})
+
+// Animation stats
+$('.lb-count').each(function () {
+    $(this).prop('Counter', 0).animate({
+        Counter: $(this).text()
+    }, {
+            duration: 2500,
+            easing: 'swing',
+            step: function (now) {
+                $(this).text(Math.ceil(now));
+            }
+        });
+});

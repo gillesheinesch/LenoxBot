@@ -151,7 +151,11 @@
     transform: scale(1.03);
     transition: .1s;
 }
-
+.lb-badge{
+    background-color: #4caf50 !important;
+    color: #e8f5e9;
+    border-radius: 50px;
+}
 .lb-text-red {
     color: #ef5350 !important;
 }
