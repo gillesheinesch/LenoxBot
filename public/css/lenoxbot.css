@@ -300,6 +300,19 @@
     z-index: 400;
 }
 
+.lb-timeline .li-2:before {
+    content: ' ';
+    background: #1e88e5;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid #1e88e5;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 400;
+}
+
 .lb-commands-thead {
     background: #4caf50;
     color: #e8f5e9;
