@@ -1,7 +1,7 @@
 // COMMANDS JS
 
 // Filter by buttons
-$("button").click(function () {
+$(".lb-btn-list").click(function () {
     var value = this.id;
     $("#table tbody tr").filter(function () {
         $(this).toggle($(this).attr('class').indexOf(value) > - 1);
