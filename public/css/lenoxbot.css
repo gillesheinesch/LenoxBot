@@ -380,6 +380,10 @@
 .test:hover {
     fill: red;
 }
+.lb-input-prefix {
+    max-width: 220px !important;
+    min-width: 40px !important;
+}
 
 .mCS-lb-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
     background-color: #4caf50;
@@ -454,10 +458,7 @@
         height: calc(100vh - 56px);
         overflow-y: auto;
     }
-    .lb-input-prefix {
-        width: 218px !important;
-        min-width: 40px !important;
-    }
+    
 }
 
 /* xl */
