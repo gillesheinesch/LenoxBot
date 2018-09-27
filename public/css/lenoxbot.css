@@ -261,10 +261,6 @@
     border-radius: 100px;
 }
 
-.lb-input-prefix {
-    width: 218px !important;
-    min-width: 40px !important;
-}
 
 .lb-timeline {
     list-style-type: none;
@@ -437,7 +433,11 @@
 
 /* sm */
 
-@media (min-width: 576px) {}
+@media (min-width: 576px) {
+    .lb-input-prefix{
+        width: 100% !important;
+    }
+}
 
 /* md */
 
@@ -453,6 +453,10 @@
     .lb-dashboard {
         height: calc(100vh - 56px);
         overflow-y: auto;
+    }
+    .lb-input-prefix {
+        width: 218px !important;
+        min-width: 40px !important;
     }
 }
 
