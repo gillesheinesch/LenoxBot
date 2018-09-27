@@ -1,46 +1,22 @@
-
-<title>Dashboard - LenoxBot</title>
-
+<title>Error - LenoxBot</title>
 <main>
-    <div class="container-fluid">
-        <div class="row">
-            {{> nav-dashboard}}
-                <div class="col-lg-10 lb-dashboard lb-mcsp">
-                    <div class="lb-bg-white rounded p-3">
-                        <div class="card shadow-sm">
-                            <div class="card-header">
-                                    <p class="h5">Application Overview</p>
-                                    <div class="btn-group" role="group" aria-label="Status">
-                                    <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitdeleteapplication" method="POST">
-                                        <button type="submit" class="btn lb-btn-red" value="closed" name="newstatus"><i class="mdi mdi-delete"></i></button>
-                                    </form>
-                                </div>
-                                </div>
-                                <div class="card-body">
-                                    <div>
-                                        <p class="h5">Application by {{application.author}} on {{application.newdate}}</p>
-                                    </div>
-                                    <span style="white-space: pre-line">
-                                        <p>{{application.content}}</p>
-                                    </span>
-                                    {{#if vote}}
-                                    <div class="btn-group" role="group" aria-label="Status">
-                                        <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitnewvote" method="POST">
-                                            <button type="submit" class="btn lb-btn-green" value="true" name="newvote"><i class="mdi mdi-thumb-up"> {{yeslength}}</i></button>
-                                            <button type="submit" class="btn lb-btn-red" value="false" name="newvote"><i class="mdi mdi-thumb-down"></i> {{nolength}}</button>
-                                        </form>
-                                    </div>
-                                    {{else}}
-                                    <div class="btn-group" role="group" aria-label="Status">
-                                        <form action="/dashboard/{{guilds.id}}/applications/{{application.applicationid}}/submitnewvote" method="POST">
-                                            <button type="submit" disabled class="btn lb-btn-green" value="true" name="newvote"><i class="mdi mdi-thumb-up"> {{yeslength}}</i></button>
-                                            <button type="submit" disabled class="btn lb-btn-red" value="false" name="newvote"><i class="mdi mdi-thumb-down"></i> {{nolength}}</button>
-                                        </form>
-                                    </div>
-                                    {{/if}}
-                                </div>
-                            </div>
-                    </div>
-                </div>
-            </div>
+    <div class="container lb-bg-100vh">
+        <div class="alert alert-danger mt-3" role="alert">
+            <p class="h3">Error {{statuscode}}</p>
+            <p class="h5">{{message}}</p>
         </div>
+        {{#if fix}}
+        <div class="howtofix">
+            <p class="h3 text-white">How to fix?</p>
+            <p class="h5 text-white">{{howtofix}}</p>
+        </div>
+        {{/if}}
+        <button id="back" class="btn lb-btn-grey"><i class="mdi mdi-chevron-left"></i> Back</button>
+        <script>
+            $('button#back').on('click', function (e) {
+                e.preventDefault();
+                window.history.back();
+            });
+        </script>
+    </div>
+</main>

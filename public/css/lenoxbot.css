@@ -16,6 +16,11 @@
     z-index: 1030;
 }
 
+.lb-card-footer {
+    background-color: white;
+    border-top: none;
+}
+
 .lb-navbar-text {
     font-family: 'Oswald', sans-serif;
 }
@@ -261,7 +266,6 @@
     border-radius: 100px;
 }
 
-
 .lb-timeline {
     list-style-type: none;
     position: relative;
@@ -290,6 +294,19 @@
     position: absolute;
     border-radius: 50%;
     border: 3px solid #4caf50;
+    left: 20px;
+    width: 20px;
+    height: 20px;
+    z-index: 400;
+}
+
+.lb-timeline .li-2:before {
+    content: ' ';
+    background: #1e88e5;
+    display: inline-block;
+    position: absolute;
+    border-radius: 50%;
+    border: 3px solid #1e88e5;
     left: 20px;
     width: 20px;
     height: 20px;
@@ -381,6 +398,11 @@
     fill: red;
 }
 
+.lb-input-prefix {
+    max-width: 220px !important;
+    min-width: 40px !important;
+}
+
 .mCS-lb-theme.mCSB_scrollTools .mCSB_dragger .mCSB_dragger_bar {
     background-color: #4caf50;
 }
@@ -434,7 +456,7 @@
 /* sm */
 
 @media (min-width: 576px) {
-    .lb-input-prefix{
+    .lb-input-prefix {
         width: 100% !important;
     }
 }
@@ -453,10 +475,6 @@
     .lb-dashboard {
         height: calc(100vh - 56px);
         overflow-y: auto;
-    }
-    .lb-input-prefix {
-        width: 218px !important;
-        min-width: 40px !important;
     }
 }
 

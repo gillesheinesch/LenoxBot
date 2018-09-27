@@ -4,17 +4,17 @@
     {{#if submitticketanswer}}
     {{> notification}}
     {{/if}}
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="panel-group-dashboard">
-                    <div class="card-group">
-                        <div class="card panel-ticket">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h5">Ticket {{ticket.ticketid}} | Status: {{ticket.status}}</p>
+    <section class="lb-bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="p-3">
+                        <div class="card shadow-sm">
+                            <div class="card-header">
+                                <p class=" h5">Ticket {{ticket.ticketid}} | Status: {{ticket.status}}</p>
                                 <div class="btn-group" role="group" aria-label="Status">
                                     <form action="/tickets/{{ticket.ticketid}}/submitnewticketstatus" method="POST">
-                                        <button type="submit" class="btn btn-danger" value="closed" name="newstatus">Close</button>
+                                        <button type="submit" class="btn lb-btn-red" value="closed" name="newstatus">Close</button>
                                     </form>
                                 </div>
                             </div>
@@ -23,78 +23,47 @@
                                 <form class="form-horizontal" action="/tickets/{{ticket.ticketid}}/submitticketanswer"
                                     method="POST">
                                     <div class="form-group">
-                                        <label class="control-label col-sm" for="newticketanswer">Answer</label>
+                                        <label class="control-label" for="newticketanswer">Answer</label>
                                         <div class="col-sm-9">
                                             <textarea class="form-control" name="newticketanswer" rows="5"></textarea>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn btn-primary">Submit</button>
+                                            <button type="submit" class="btn lb-btn-green">Submit</button>
                                         </div>
                                     </div>
                                 </form>
                                 {{/if}}
-                                <ul class="timeline">
+                                <ul class="lb-timeline">
                                     <li>
-                                        <div class="timeline-badge">
-                                            <i class="fas fa-user"></i>
+                                        <div class="timeline-heading">
+                                            <h4 class="mb-0">{{ticket.author}}</h4>
+                                            <small class="text-muted">
+                                                <i class="mdi mdi-clock-outline"></i> {{ticket.newdate}}</small>
                                         </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <h4 class="timeline-title">{{ticket.author}}</h4>
-                                                <p>
-                                                    <small class="text-muted">
-                                                        <i class="far fa-clock"></i> {{ticket.newdate}}</small>
-                                                </p>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <span style="white-space: pre-line">
-                                                    <p>{{ticket.content}}</p>
-                                                </span>
-                                            </div>
+                                        <div class="timeline-body col-lg-10">
+                                            <p class="py-4">{{ticket.content}}</p>
                                         </div>
                                     </li>
                                     {{#if answers}} {{#each answers}}
-                                    <li class="{{timelineconf}}">
-                                        {{#if timelineconf}}
-                                        <div class="timeline-badge warning">
-                                            <i class="fas fa-user-friends"></i>
+                                    {{#if timelineconf}}
+                                    <li class="li-2">
+                                        <h4 class="mb-0">{{author}} (Support-Team)</h4>
+                                        <small class="text-muted">
+                                            <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
+                                        <div class="timeline-body">
+                                            <p class="py-4">{{content}}</p>
                                         </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <h4 class="timeline-title">{{author}} (Support-Team)</h4>
-                                                <p>
-                                                    <small class="text-muted">
-                                                        <i class="far fa-clock"></i> {{newdate}}</small>
-                                                </p>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <span style="white-space: pre-line">
-                                                    <p>{{content}}</p>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        {{else}}
-                                        <div class="timeline-badge">
-                                            <i class="fas fa-user"></i>
-                                        </div>
-                                        <div class="timeline-panel">
-                                            <div class="timeline-heading">
-                                                <h4 class="timeline-title">{{author}}</h4>
-                                                <p>
-                                                    <small class="text-muted">
-                                                        <i class="far fa-clock"></i> {{newdate}}</small>
-                                                </p>
-                                            </div>
-                                            <div class="timeline-body">
-                                                <span style="white-space: pre-line">
-                                                    <p>{{content}}</p>
-                                                </span>
-                                            </div>
-                                        </div>
-                                        {{/if}}
                                     </li>
+                                    {{else}}
+                                    <li>
+                                        <h4 class="mb-0">{{author}}</h4>
+                                        <small class="text-muted">
+                                            <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
+                                        <p class="py-4">{{content}}</p>
+                                    </li>
+                                    {{/if}}
                                     {{/each}} {{/if}}
                                 </ul>
                             </div>
@@ -103,5 +72,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </main>

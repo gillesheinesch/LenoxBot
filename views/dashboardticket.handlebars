@@ -10,7 +10,7 @@
     <div class="container-fluid">
         <div class="row">
             {{> nav-dashboard}}
-            <div class="col-sm-10 lb-dashboard lb-mcsp">
+            <div class="col-lg-10 lb-dashboard lb-mcsp">
                 <div class="lb-bg-white rounded p-3">
                     <div class="card shadow-sm">
                         <div class="card-header">
@@ -32,33 +32,31 @@
                                 method="POST">
                                 <div class="form-group">
                                     <label class="control-label col-sm-3" for="newticketanswer">New answer:</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-lg-10">
                                         <textarea class="form-control" name="newticketanswer" rows="5"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-sm-offset-3 col-sm-10">
+                                    <div class="col-lg-10">
                                         <button type="submit" class="btn lb-btn-green">Submit</button>
                                     </div>
                                 </div>
                             </form>
-                            <ul class="lb-timeline mt-5"></ul>
-                            {{else}}
+                            {{/if}}
                             <ul class="lb-timeline">
-                                {{/if}}
                                 <li>
                                     <div class="timeline-heading">
                                         <h4 class="mb-0">{{ticket.author}}</h4>
                                         <small class="text-muted">
                                             <i class="mdi mdi-clock-outline"></i> {{ticket.newdate}}</small>
                                     </div>
-                                    <div class="timeline-body">
+                                    <div class="timeline-body col-lg-10">
                                         <p class="py-4">{{ticket.content}}</p>
                                     </div>
                                 </li>
                                 {{#if answers}} {{#each answers}}
                                 {{#if timelineconf}}
-                                <li>
+                                <li class="li-2">
                                     <h4 class="mb-0">{{author}} (Support-Team)</h4>
                                     <small class="text-muted">
                                         <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
