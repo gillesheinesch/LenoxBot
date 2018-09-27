@@ -1,76 +1,20 @@
-<title>Tickets - LenoxBot</title>
-
+<title>Thank you! - LenoxBot</title>
+<script>
+    var DonateId = '#donate';
+</script>
 <main>
-    {{#if submitticketanswer}}
-    {{> notification}}
-    {{/if}}
-    <section class="lb-bg-white">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="p-3">
-                        <div class="card shadow-sm">
-                            <div class="card-header">
-                                <p class=" h5">Ticket {{ticket.ticketid}} | Status: {{ticket.status}}</p>
-                                <div class="btn-group" role="group" aria-label="Status">
-                                    <form action="/tickets/{{ticket.ticketid}}/submitnewticketstatus" method="POST">
-                                        <button type="submit" class="btn lb-btn-red" value="closed" name="newstatus">Close</button>
-                                    </form>
-                                </div>
-                            </div>
-                            <div class="card-body">
-                                {{!-- {{#if status}} --}}
-                                <form class="form-horizontal" action="/tickets/{{ticket.ticketid}}/submitticketanswer"
-                                    method="POST">
-                                    <div class="form-group">
-                                        <label class="control-label" for="newticketanswer">Answer</label>
-                                        <div class="col-sm-9">
-                                            <textarea class="form-control" name="newticketanswer" rows="5"></textarea>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn lb-btn-green">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                                {{!-- {{/if}} --}}
-                                <ul class="lb-timeline">
-                                    <li>
-                                        <div class="timeline-heading">
-                                            <h4 class="mb-0">{{ticket.author}}</h4>
-                                            <small class="text-muted">
-                                                <i class="mdi mdi-clock-outline"></i> {{ticket.newdate}}</small>
-                                        </div>
-                                        <div class="timeline-body col-lg-10">
-                                            <p class="py-4">{{ticket.content}}</p>
-                                        </div>
-                                    </li>
-                                    {{#if answers}} {{#each answers}}
-                                    {{#if timelineconf}}
-                                    <li class="li-2">
-                                        <h4 class="mb-0">{{author}} (Support-Team)</h4>
-                                        <small class="text-muted">
-                                            <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
-                                        <div class="timeline-body">
-                                            <p class="py-4">{{content}}</p>
-                                        </div>
-                                    </li>
-                                    {{else}}
-                                    <li>
-                                        <h4 class="mb-0">{{author}}</h4>
-                                        <small class="text-muted">
-                                            <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
-                                        <p class="py-4">{{content}}</p>
-                                    </li>
-                                    {{/if}}
-                                    {{/each}} {{/if}}
-                                </ul>
-                            </div>
-                        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="text-center py-5 lb-bg-100vh">
+                    <div class="lb-donate-heart mb-3"><i class="mdi mdi-heart lb-text-red display-1"></i>
                     </div>
+                    <p class="font-weight-light display-4 lb-text-green">Thank you so much for your donation!</p>
+                    <p class="font-weight-light text-white h4">We really appreciate your support! We hope you will have
+                        fun with
+                        your premium features!</p>
                 </div>
             </div>
         </div>
-    </section>
+    </div>
 </main>
