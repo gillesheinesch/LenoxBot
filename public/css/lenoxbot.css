@@ -16,6 +16,11 @@
     z-index: 1030;
 }
 
+.lb-card-footer {
+    background-color: white;
+    border-top: none;
+}
+
 .lb-navbar-text {
     font-family: 'Oswald', sans-serif;
 }
@@ -261,7 +266,6 @@
     border-radius: 100px;
 }
 
-
 .lb-timeline {
     list-style-type: none;
     position: relative;
@@ -380,6 +384,7 @@
 .test:hover {
     fill: red;
 }
+
 .lb-input-prefix {
     max-width: 220px !important;
     min-width: 40px !important;
@@ -438,7 +443,7 @@
 /* sm */
 
 @media (min-width: 576px) {
-    .lb-input-prefix{
+    .lb-input-prefix {
         width: 100% !important;
     }
 }
@@ -458,7 +463,6 @@
         height: calc(100vh - 56px);
         overflow-y: auto;
     }
-    
 }
 
 /* xl */

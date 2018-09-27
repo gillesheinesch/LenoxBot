@@ -10,58 +10,68 @@
     <div class="container-fluid">
         <div class="row">
             {{> nav-dashboard}}
-            <div class="col-sm-10 lb-dashboard lb-mcsp">
+            <div class="col-lg-10 lb-dashboard lb-mcsp">
                 <div class="lb-bg-white rounded p-3">
                     <div class="card shadow-sm">
                         <div class="card-header">
                             <p class="h5">All modules</p>
                         </div>
-                        <div class="row card-deck pt-3">
-                            <div class="col-sm-6 col-lg-4 d-flex align-items-stretch" style="margin-bottom: 10px;">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="/dashboard/{{guilds.id}}/administration">
-                                            <h5 class="card-title">Administration</h5>
-                                        </a>
-                                        <p class="card-text">Commands to set up the entire Discord server and customize
-                                            special bot features</p>
-                                        <div class="btn-group" role="group" aria-label="Status">
-                                            <button type="submit" class="btn lb-btn-green disabled" value="false" name="newmodulestatus">
-                                                Always enabled
-                                            </button>
+                        <div class="card-body px-3 py-0">
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-4 my-3">
+                                    <div class="card" style="height: 100%;">
+                                        <div class="card-body">
+                                            <a href="/dashboard/{{guilds.id}}/administration">
+                                                <h5 class="card-title">Administration</h5>
+                                            </a>
+                                            <p class="card-text">Commands to set up the entire Discord server and
+                                                customize
+                                                special bot features</p>
+                                        </div>
+                                        <div class="card-footer lb-card-footer pb-3">
+                                            <div class="btn-group" role="group" aria-label="Status">
+                                                <button type="submit" class="btn lb-btn-green disabled" value="false"
+                                                    name="newmodulestatus">
+                                                    Always enabled
+                                                </button>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            {{#each modules}}
-                            <div class="col-sm-6 col-lg-4 d-flex align-items-stretch" style="margin-bottom: 10px;">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="/dashboard/{{../guilds.id}}/{{name}}">
-                                            <h5 class="card-title">{{name}}</h5>
-                                        </a>
-                                        <p class="card-text">{{description}}</p>
-                                        {{#if status}}
-                                        <div class="btn-group" role="group" aria-label="Status">
-                                            <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
-                                                <button type="submit" class="btn lb-btn-red" value="false" name="{{name}}">
-                                                    Disable
-                                                </button>
-                                            </form>
+                                {{#each modules}}
+                                <div class="col-sm-6 col-lg-4 my-3">
+                                    <div class="card" style="height: 100%;">
+                                        <div class="card-body">
+                                            <a href="/dashboard/{{../guilds.id}}/{{name}}">
+                                                <h5 class="card-title">{{name}}</h5>
+                                            </a>
+                                            <p class="card-text">{{description}}</p>
                                         </div>
-                                        {{else}}
-                                        <div class="btn-group" role="group" aria-label="Status">
-                                            <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
-                                                <button type="submit" class="btn lb-btn-green" value="true" name="{{name}}">
-                                                    Enable
-                                                </button>
-                                            </form>
+                                        <div class="card-footer lb-card-footer pb-3">
+                                            {{#if status}}
+                                            <div class="btn-group" role="group" aria-label="Status">
+                                                <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
+                                                    <button type="submit" class="btn lb-btn-red align-text-bottom"
+                                                        value="false" name="{{name}}">
+                                                        Disable
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            {{else}}
+                                            <div class="btn-group" role="group" aria-label="Status">
+                                                <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
+                                                    <button type="submit" class="btn lb-btn-green" value="true" name="{{name}}">
+                                                        Enable
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            {{/if}}
                                         </div>
-                                        {{/if}}
                                     </div>
                                 </div>
+                                {{/each}}
                             </div>
-                            {{/each}}
                         </div>
                     </div>
                 </div>
