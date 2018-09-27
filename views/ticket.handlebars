@@ -19,7 +19,7 @@
                                 </div>
                             </div>
                             <div class="card-body">
-                                {{!-- {{#if status}} --}}
+                                {{#if status}}
                                 <form class="form-horizontal" action="/tickets/{{ticket.ticketid}}/submitticketanswer"
                                     method="POST">
                                     <div class="form-group">
@@ -34,7 +34,7 @@
                                         </div>
                                     </div>
                                 </form>
-                                {{!-- {{/if}} --}}
+                                {{/if}}
                                 <ul class="lb-timeline">
                                     <li>
                                         <div class="timeline-heading">
