@@ -24,91 +24,97 @@
                                         <tr>
                                             <td>
                                                 <div class="col-sm-8">
-                                                    <h5 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">
-                                                        <strong>{{name}}</strong>
-                                                    </h5>
-                                                    <p style="font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 14px; margin: 0; padding: 0;">{{description}}</p>
+                                                    <h6>{{name}}</h6>
+                                                    <p class="text-muted">{{description}}</p>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="btn-group" role="group" style="float:right;">
-                                                    <button type="button" class="btn btn-primary" data-toggle="modal"
-                                                        data-target="#{{name}}" style="margin-right: 8px;">
-                                                        Edit
-                                                    </button>
-                                                    <div class="modal fade" id="{{name}}" tabindex="-1" role="dialog"
-                                                        aria-labelledby="{{name}}Title" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Settings
-                                                                        of {{name}} command</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-
-                                                                <form class="form-inline" action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandchange"
-                                                                    method="POST">
-                                                                    <div class="modal-body">
-                                                                        <p>Created by
-                                                                            <strong>{{newcreator}}</strong> on
-                                                                            <strong>{{newcommandCreatedAt}}</strong>
-                                                                        </p>
-                                                                        <hr>
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newdescription">Description of
-                                                                                the custom command:</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-12">
-                                                                            <textarea class="form-control" name="newdescription"
-                                                                                rows="2" maxlength="60">{{description}}</textarea>
-                                                                        </div>
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newcommandanswer">Response of
-                                                                                the custom command:</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-12">
-                                                                            <textarea required class="form-control"
-                                                                                name="newcommandanswer" rows="2"
-                                                                                maxlength="2000">{{commandanswer}}</textarea>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="modal-footer">
-                                                                        <button type="button" class="btn btn-secondary"
-                                                                            data-dismiss="modal">Close</button>
-                                                                        <button type="submit" class="btn btn-primary">Save
-                                                                            changes</button>
-                                                                    </div>
-                                                                </form>
+                                                <div class="modal fade" id="{{name}}" tabindex="-1" role="dialog"
+                                                    aria-labelledby="{{name}}Title" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Settings
+                                                                    of {{name}} command</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
                                                             </div>
+
+                                                            <form class="form-inline" action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandchange"
+                                                                method="POST">
+                                                                <div class="modal-body">
+                                                                    <p>Created by
+                                                                        <strong>{{newcreator}}</strong> on
+                                                                        <strong>{{newcommandCreatedAt}}</strong>
+                                                                    </p>
+                                                                    <hr>
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newdescription">Description of
+                                                                            the custom command:</label>
+                                                                    </div>
+                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-12">
+                                                                        <textarea class="form-control" name="newdescription"
+                                                                            rows="2" maxlength="60">{{description}}</textarea>
+                                                                    </div>
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newcommandanswer">Response of
+                                                                            the custom command:</label>
+                                                                    </div>
+                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-12">
+                                                                        <textarea required class="form-control" name="newcommandanswer"
+                                                                            rows="2" maxlength="2000">{{commandanswer}}</textarea>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <button type="submit" class="btn lb-btn-green">Save
+                                                                        changes</button>
+                                                                </div>
+                                                            </form>
                                                         </div>
                                                     </div>
-                                                    {{#if newstatus}}
-                                                    <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange"
-                                                        method="POST" style="margin-right: 8px;">
-                                                        <button type="submit" class="btn btn-danger" value="false" name="statuschange">
+                                                </div>
+                                                <div class="float-right d-inline">
+                                                    <div class="btn-group" role="group">
+                                                        <button type="button" class="btn lb-btn-blue" data-toggle="modal"
+                                                            data-target="#{{name}}">
+                                                            Edit
+                                                        </button>
+                                                        {{#if newstatus}}
+                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange"
+                                                            method="POST" id="{{name}}form">
+                                                            <input type="hidden" value="false" name="statuschange">
+                                                        </form>
+                                                        <button type="submit" class="btn lb-btn-red" id="{{name}}b">
                                                             Disable
                                                         </button>
-                                                    </form>
-                                                    {{else}}
-                                                    <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange"
-                                                        method="POST" style="margin-right: 8px;">
-                                                        <button type="submit" class="btn btn-success" value="true" name="statuschange">
+                                                        {{else}}
+                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange"
+                                                            method="POST" id="{{name}}form">
+                                                            <input type="hidden" value="true" name="statuschange">
+                                                        </form>
+                                                        <button type="submit" class="btn lb-btn-green" id="{{name}}b">
                                                             Enable
                                                         </button>
-                                                    </form>
-                                                    {{/if}}
-                                                    <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitdeletecommand"
-                                                        method="POST">
-                                                        <button type="submit" class="btn btn-danger">
+                                                        {{/if}}
+                                                        <button type="submit" class="btn lb-btn-red" id="{{name}}delb">
                                                             Delete
                                                         </button>
+                                                    </div>
+                                                    <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitdeletecommand"
+                                                        method="POST" id="{{name}}delform">
                                                     </form>
                                                 </div>
                                             </td>
                                         </tr>
+                                        <script>
+                                            $("#{{name}}b").click(function () {
+                                                $("#{{name}}form").submit();
+                                            });
+                                            $("#{{name}}delb").click(function () {
+                                                $("#{{name}}delform").submit();
+                                            });
+                                        </script>
                                         {{/each}}
                                         {{else}}
                                         <p>No custom commands have been created!</p>
