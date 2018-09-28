@@ -1,119 +1,66 @@
-<script src='script/commands.js'></script>
 <title>Command list - LenoxBot</title>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" id="mainnavbar">
-                <li class="nav-item">
-                    <a href="home" class="h5 nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/documentation" class=" h5 nav-link">Documentation</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/donate" class=" h5 nav-link">Donate
-                        
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
-                </li>
-                <li class="nav-item">
-                    {{#if user}}
-                    <a href="servers" class=" h5 nav-link">Dashboard
+<script>
+    var currentPageId = "#commands";
+</script>
+<main id="commands">
+    <section class="lb-bg-white">
 
-                    </a>
-                    {{/if}}
-                </li>
-            </ul>
-            <ul class="navbar-nav navbar-right" id="mainnavbar">
-                <li class="nav-item">
-                    {{#if user}}
-                    <a href="logout" class=" h5 nav-link ">Log out</a>
-                    {{ else }}
-                    <a href="loginpressedbutton" class=" h5 nav-link ">Log in</a>
-                    {{/if}}
-                </li>
-                <li class="avatarnavigation">
-                    {{#if user}}
-                    <a href="https://lenoxbot.com/servers">
-                        <img class="img-fluid rounded profilepic-navbar nav-link img-thumbnail" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"
-                            height="30" width="50">
-                    </a>
-                    {{/if}}
-                </li>
-            </ul>
-        </div>
-    </nav>
-    </div>
-</header>
-<main>
-    <div class="container">
-        <div class="row">
-            <nav class="documentation-navbar">
-                <ul>
-                    <li class="text  text-white btn btn-primary btn-lg active documentation-button" id="allcommands-button">
-                        <strong>All commands</strong>
-                    </li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="administration-button">Administration</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="moderation-button">Moderation</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="help-button">Help</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="music-button">Music</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="fun-button">Fun</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="searches-button">Searches</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="nsfw-button">NSFW</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="application-button">Application</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="currency-button">Currency</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="utility-button">Utility</li>
-                    <li class="text text-white btn btn-primary btn-lg documentation-button" id="tickets-button">Tickets</li>
-                </ul>
-            </nav>
-            <div class="col-sm-12">
-                <div class="input-group" style="margin-bottom: 10px;">
-                    <div class="input-group-prepend">
-                        <div class="input-group-text">
-                            <i class="fas fa-search"></i>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 my-4">
+                    <h3 class="font-weight-light">Categories <button class="btn lb-btn-trans-black d-lg-none float-right" id="toggle-menu"><i class="mdi mdi-menu"></i></button></h3>
+                    <div id="list-modules" class="list-group menu">
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="command">All</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="administration">Administration</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="moderation">Moderation</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="help">Help</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="music">Music</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="fun">Fun</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="searches">Searches</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="nsfw">NSFW</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="application">Application</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="currency">Currency</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="utility">Utility</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="tickets">Tickets</button>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-12 pr-0 mt-4">
+                            <h3 class="font-weight-light">Commands</h3>
+                            <div class="form-group">
+                                <input class="form-control lb-input" id="search-input" type="text" placeholder="Search...">
+                            </div>
+                        </div>
+                        <div class="col-12 lb-commands pr-0 lb-mcsp">
+                            <div class="lb-mcsp">
+                                <table id="table" class="table table-responsive table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>Command name</th>
+                                            <th>Description</th>
+                                            <th>Permissions</th>
+                                            <th>Aliases</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each commands}}
+                                        <tr class="command {{help.category}}">
+                                            <td>{{help.name}}</td>
+                                            <td>{{help.description}}</td>
+                                            <td>{{conf.newuserpermissions}}</td>
+                                            <td>{{conf.newaliases}}</td>
+                                        </tr>
+                                        {{/each}}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
-                    <input class="form-control" id="myInput" type="text" placeholder="Search..">
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-bordered table-hover" style="background-color: white; width: 100%;">
-                        <thead class="thead-light">
-                            <tr>
-                                <th class="h3 text-black" scope="col">Commandname</th>
-                                <th class="h3 text-black" scope="col">Description</th>
-                                <th class="h3 text-black" scope="col">Permissions</th>
-                                <th class="h3 text-black" scope="col">Aliases</th>
-                            </tr>
-                        </thead>
-
-                        <!-- Documentation commands-->
-                        <tbody id="myTable">
-                            {{#each commands}}
-                            <tr class="command {{help.category}}">
-                                <td class="text h5 text-black">{{help.name}}</td>
-                                <td class="text h5 text-black">{{help.description}}</td>
-                                <td class="text h5 text-black">{{conf.newuserpermissions}}</td>
-                                <td class="text h5 text-black">{{conf.newaliases}}</td>
-                            </tr>
-                            {{/each}}
-                        </tbody>
-                    </table>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 </main>
+<!-- lenoxbot commands JS -->
+<script src="js/commands.js"></script>

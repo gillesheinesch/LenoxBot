@@ -1,0 +1,50 @@
+<div class="col-lg-2 mt-3">
+	<div class="nav flex-column nav-pills navbar-dark mb-3" id="mainnavbar">
+		<div class="row">
+			<div class="col-12 text-center">
+				<figure class="mb-0">
+					<img class="rounded-circle lb-img-profile-dashboard" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+				</figure>
+			</div>
+			<div class="col-12 text-white text-center">
+				<h3 class="font-weight-light mb-0">Welcome,</h3>
+				<h4 class="font-weight-light">{{user.username}}</h4>
+				<h6 class="font-weight-light mb-0">{{guilds.name}}</h6>
+				<button class="btn lb-btn-trans-whitereal d-lg-none float-right"
+					 id="toggle-menu"><i class="mdi mdi-menu"></i></button>
+			</div>
+
+		</div>
+		<hr class="lb-hr-dashboard">
+		<div class="menu">
+			<a href="/dashboard/{{guilds.id}}/overview" class="nav-link lb-btn-nav" id="overview" role="button">
+				<i class="mdi lb-dashboard-icon mdi-eye"></i> Overview</a>
+			<a href="/dashboard/{{guilds.id}}/modules" class="nav-link lb-btn-nav" id="modules" role="button">
+				<i class="mdi lb-dashboard-icon mdi-folder-multiple"></i> Modules</a>
+			<a href="/dashboard/{{guilds.id}}/administration" class="nav-link lb-btn-nav" id="administration" role="button">
+				<i class="mdi lb-dashboard-icon mdi-settings"></i> Administration</a>
+			<a href="/dashboard/{{guilds.id}}/moderation" class="nav-link lb-btn-nav" id="moderation" role="button">
+				<i class="mdi lb-dashboard-icon mdi-security-account"></i> Moderation</a>
+			<a href="/dashboard/{{guilds.id}}/help" class="nav-link lb-btn-nav" id="help" role="button">
+				<i class="mdi lb-dashboard-icon mdi-help"></i> Help</a>
+			<a href="/dashboard/{{guilds.id}}/music" class="nav-link lb-btn-nav" id="music" role="button">
+				<i class="mdi lb-dashboard-icon mdi-music"></i> Music</a>
+			<a href="/dashboard/{{guilds.id}}/fun" class="nav-link lb-btn-nav" id="fun" role="button">
+				<i class="mdi lb-dashboard-icon mdi-gamepad"></i> Fun</a>
+			<a href="/dashboard/{{guilds.id}}/searches" class="nav-link lb-btn-nav" id="searches" role="button">
+				<i class="mdi lb-dashboard-icon mdi-magnify"></i> Searches</a>
+			<a href="/dashboard/{{guilds.id}}/nsfw" class="nav-link lb-btn-nav" id="nsfw" role="button">
+				<i class="mdi lb-dashboard-icon mdi-alert"></i> NSFW</a>
+			<a href="/dashboard/{{guilds.id}}/utility" class="nav-link lb-btn-nav" id="utility" role="button">
+				<i class="mdi lb-dashboard-icon mdi-lightbulb-on"></i> Utility</a>
+			<a href="/dashboard/{{guilds.id}}/application" class="nav-link lb-btn-nav" id="application" role="button">
+				<i class="mdi lb-dashboard-icon mdi-file-document-box-outline"></i> Application</a>
+			<a href="/dashboard/{{guilds.id}}/currency" class="nav-link lb-btn-nav" id="currency" role="button">
+				<i class="mdi lb-dashboard-icon mdi-currency-usd"></i> Currency</a>
+			<a href="/dashboard/{{guilds.id}}/tickets" class="nav-link lb-btn-nav" id="tickets" role="button">
+				<i class="mdi lb-dashboard-icon mdi-ticket-account"></i> Tickets</a>
+			<a href="/dashboard/{{guilds.id}}/customcommands" class="nav-link lb-btn-nav" id="ccommands" role="button">
+				<i class="mdi lb-dashboard-icon mdi-console"></i> Custom commands</a>
+		</div>
+	</div>
+</div>

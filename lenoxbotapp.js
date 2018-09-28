@@ -47,6 +47,7 @@ client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 
 // Check if the Discord Bot List key was set
+
 if (settings.dbl_apikey && settings.dbl_apikey !== '') {
 	const DBL = require('dblapi.js');
 	client.dbl = new DBL(settings.dbl_apikey);
@@ -54,6 +55,7 @@ if (settings.dbl_apikey && settings.dbl_apikey !== '') {
 }
 
 // Check if settings.json is correctly configuered
+
 if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '') {
 	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
 	return process.exit(42);
@@ -89,6 +91,7 @@ categories.forEach(c => {
 
 
 // Client login to Discord API
+
 client.login(token);
 
 // All website stuff
@@ -153,6 +156,20 @@ app.listen(80, err => {
 	if (err) return console.log(err);
 });
 
+// Temp function - Is lenoxBot on the server?
+
+function islenoxboton(req) {
+	const islenoxbot = [];
+	if (req.user) {
+		for (let i = 0; i < req.user.guilds.length; i++) {
+			if (((req.user.guilds[i].permissions) & 8) === 8 && req.user.guilds[i].lenoxbot === true) {
+				islenoxbot.push(req.user.guilds[i]);
+			}
+		}
+	}
+	return islenoxbot;
+}
+
 app.get('/', (req, res) => {
 	try {
 		const check = [];
@@ -192,9 +209,34 @@ app.get('/home', (req, res) => {
 			}
 		}
 
+		const islenoxbot = islenoxboton(req);
+
 		return res.render('index', {
 			user: req.user,
 			guilds: check,
+			islenoxbot: islenoxbot,
+			client: client,
+			botstats: client.botconfs.get('botstats')
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
+// Temp get for test dynamic pages in static mode
+
+app.get('/test', (req, res) => {
+	try {
+		const islenoxbot = islenoxboton(req);
+		return res.render('aatest', {
+			user: req.user,
+			islenoxbot: islenoxbot,
 			client: client,
 			botstats: client.botconfs.get('botstats')
 		});
@@ -215,7 +257,22 @@ app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/c7
 
 app.get('/status', (req, res) => res.redirect('https://lenoxbot.statuskit.com/'));
 
-app.get('/policy', (req, res) => res.render('policy'));
+app.get('/policy', (req, res) => {
+	try {
+		return res.render('policy', {
+			user: req.user,
+			client: client
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
 
 app.get('/blog', (req, res) => res.redirect('https://medium.com/lenoxbot'));
 
@@ -254,8 +311,11 @@ app.get('/commands', (req, res) => {
 			newcommandlist.push(cmd);
 		});
 
+		const islenoxbot = islenoxboton(req);
+
 		return res.render('commands', {
 			user: req.user,
+			islenoxbot: islenoxbot,
 			client: client,
 			commands: newcommandlist
 		});
@@ -272,8 +332,19 @@ app.get('/commands', (req, res) => {
 
 app.get('/donate', (req, res) => {
 	try {
+		const check = [];
+		if (req.user) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
+				if (((req.user.guilds[i].permissions) & 8) === 8) {
+					check.push(req.user.guilds[i]);
+				}
+			}
+		}
+		const islenoxbot = islenoxboton(req);
 		return res.render('donate', {
 			user: req.user,
+			guilds: check,
+			islenoxbot: islenoxbot,
 			client: client
 		});
 	} catch (error) {
@@ -289,8 +360,10 @@ app.get('/donate', (req, res) => {
 
 app.get('/donationsuccess', (req, res) => {
 	try {
+		const islenoxbot = islenoxboton(req);
 		return res.render('donationsuccess', {
 			user: req.user,
+			islenoxbot: islenoxbot,
 			client: client
 		});
 	} catch (error) {
@@ -414,9 +487,11 @@ app.get('/servers', async (req, res) => {
 					check.push(req.user.guilds[i]);
 				}
 			}
+			const islenoxbot = islenoxboton(req);
 			return res.render('servers', {
 				user: req.user,
 				guilds: check,
+				islenoxbot: islenoxbot,
 				client: client
 			});
 		}
@@ -568,10 +643,11 @@ app.get('/tickets/:ticketid/overview', async (req, res) => {
 				ticket.answers[index].author = client.users.get(ticket.answers[index].authorid) ? client.users.get(ticket.answers[index].authorid).tag : ticket.answers[index].authorid;
 				ticket.answers[index].newdate = moment(ticket.answers[index].date).format('MMMM Do YYYY, h:mm:ss a');
 			}
-
+			const islenoxbot = islenoxboton(req);
 			return res.render('ticket', {
 				user: req.user,
 				client: client,
+				islenoxbot: islenoxbot,
 				ticket: ticket,
 				answers: Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0 ? false : botconfs.tickets[req.params.ticketid].answers,
 				status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
@@ -672,11 +748,12 @@ app.get('/dashboard/:id/overview', (req, res) => {
 			} else {
 				logs = null;
 			}
-
+			const islenoxbot = islenoxboton(req);
 			return res.render('dashboard', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				logs: logs
 			});
 		}
@@ -2540,12 +2617,13 @@ app.get('/dashboard/:id/administration', (req, res) => {
 					permissions[x].applicationpermissionset = true;
 				}
 			}
-
+			const islenoxbot = islenoxboton(req);
 			return res.render('dashboardadministration', {
 				user: req.user,
 				guilds: check,
 				client: client,
 				channels: channels,
+				islenoxbot: islenoxbot,
 				roles: roles,
 				confs: confs,
 				announcedeactivated: client.guildconfs.get(dashboardid).announce === 'true' ? false : true,
@@ -2991,12 +3069,15 @@ app.get('/dashboard/:id/moderation', async (req, res) => {
 				await client.guildconfs.set(dashboardid, tableload);
 			}
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardmoderation', {
 				user: req.user,
 				muteanonymous: tableload.muteanonymous === 'true' ? true : false,
 				tempbananonymous: tableload.tempbananonymous === 'true' ? true : false,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -3270,10 +3351,13 @@ app.get('/dashboard/:id/help', (req, res) => {
 
 			const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardhelp', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -3708,10 +3792,13 @@ app.get('/dashboard/:id/music', (req, res) => {
 
 			const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardmusic', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				voicechannels: voicechannels,
 				roles: roles,
@@ -3988,10 +4075,13 @@ app.get('/dashboard/:id/fun', (req, res) => {
 
 			const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardfun', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -4265,10 +4355,13 @@ app.get('/dashboard/:id/searches', (req, res) => {
 
 			const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardsearches', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -4542,10 +4635,13 @@ app.get('/dashboard/:id/nsfw', (req, res) => {
 
 			const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardnsfw', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -4920,10 +5016,13 @@ app.get('/dashboard/:id/utility', (req, res) => {
 
 			const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardutility', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -5108,10 +5207,13 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async (req, res) 
 				votecheck = false;
 			}
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('application', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				application: tableload.application.applications[req.params.applicationid],
 				yeslength: tableload.application.applications[req.params.applicationid].yes.length,
 				nolength: tableload.application.applications[req.params.applicationid].no.length,
@@ -5185,10 +5287,13 @@ app.get('/dashboard/:id/applications', (req, res) => {
 				}
 			}
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardapplications', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				applicationscheck: Object.keys(newobject).length === 0 ? false : true,
 				applications: newobject,
 				oldapplicationscheck: Object.keys(oldobject).length === 0 ? false : true,
@@ -5937,10 +6042,13 @@ app.get('/dashboard/:id/application', (req, res) => {
 				commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000;
 			}
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardapplication', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -6214,10 +6322,13 @@ app.get('/dashboard/:id/currency', (req, res) => {
 
 			const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardcurrency', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -6414,10 +6525,13 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async (req, res) => {
 				ticket.answers[index2].newdate = moment(ticket.answers[index2].date).format('MMMM Do YYYY, h:mm:ss a');
 			}
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardticket', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				ticket: ticket,
 				answers: Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0 ? false : botconfs.tickets[req.params.ticketid].answers,
 				status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
@@ -6680,10 +6794,13 @@ app.get('/dashboard/:id/tickets', (req, res) => {
 
 			const roles = client.guilds.get(dashboardid).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardtickets', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				ticketszero: Object.keys(newobject).length === 0 ? false : true,
@@ -7169,10 +7286,13 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 
 			const roles = client.guilds.get(dashboardid).roles.filter(r => r.name !== '@everyone').array();
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardcustomcommands', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				roles: roles,
 				commands: commands,
@@ -7331,10 +7451,13 @@ app.get('/dashboard/:id/modules', (req, res) => {
 				modules[moduleslist[i].toLowerCase()] = config;
 			}
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardmodules', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				channels: channels,
 				modules: modules,
 				submitmodules: req.query.submitmodules ? true : false
@@ -7405,10 +7528,13 @@ app.get('/dashboard/:id/lastlogs', (req, res) => {
 				logs = null;
 			}
 
+			const islenoxbot = islenoxboton(req);
+
 			return res.render('dashboardlastlogs', {
 				user: req.user,
 				guilds: check,
 				client: client,
+				islenoxbot: islenoxbot,
 				logs: logs
 			});
 		}
@@ -7446,10 +7572,13 @@ app.get('/error', (req, res) => {
 		howtofix = 'Write a textmessage in a textchannel on your discord server';
 	}
 
+	const islenoxbot = islenoxboton(req);
+
 	res.render('error', {
 		user: req.user,
 		guilds: check,
 		client: client,
+		islenoxbot: islenoxbot,
 		statuscode: req.query.statuscode,
 		message: req.query.message,
 		fix: fix,

@@ -1,6 +1,6 @@
 $("document").ready(function () {
-    document.getElementById('learnmore-button').addEventListener('click', () => {
-        scrollTo('features-list');
+    document.getElementById('features').addEventListener('click', () => {
+        scrollTo('features');
     });
 });
 

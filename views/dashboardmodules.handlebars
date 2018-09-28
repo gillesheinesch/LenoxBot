@@ -1,201 +1,77 @@
-<link rel="stylesheet" type="text/css" href="../../styles/style.css" />
-<link rel="stylesheet" type="text/css" href="../../assets/fonts/font-awesome/css/font-awesome.min.css" />
-<script src='../../script/alerts.js'></script>
 <title>Dashboard - LenoxBot</title>
-<header>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-        <a href="https://lenoxbot.com" class="navbar-brand text">LenoxBot</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-            aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto" id="mainnavbar">
-                <li class="nav-item">
-                    <a href="/home" class="h5 nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                   <a href="/documentation" class=" h5 nav-link">Documentation</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/donate" class=" h5 nav-link">Donate</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://medium.com/lenoxbot" target="blanc" class=" h5 nav-link">Blog
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://lenoxbot.com/invite" target="blanc" class=" h5 nav-link">Invite LenoxBot</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://lenoxbot.com/discord" target="blanc" class=" h5 nav-link">Discord Server</a>
-                </li>
-                <li class="nav-item active">
-                    {{#if user}}
-                    <a href="/servers" class=" h5 nav-link">Dashboard
-                        
-                    </a>
-                    {{/if}}
-                </li>
-            </ul>
-            <ul class="navbar-nav navbar-right" id="mainnavbar">
-                <li class="nav-item">
-                    {{#if user}}
-                    <a href="/logout" class=" h5 nav-link ">Log out</a>
-                    {{ else }}
-                    <a href="/loginpressedbutton" class=" h5 nav-link ">Log in</a>
-                    {{/if}}
-                </li>
-                <li class="avatarnavigation">
-                    {{#if user}}
-                    <a href="https://lenoxbot.com/servers">
-                        <img class="img-fluid rounded profilepic-navbar nav-link img-thumbnail" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"
-                            height="30" width="50">
-                    </a>
-                    {{/if}}
-                </li>
-            </ul>
-        </div>
-    </nav>
-    </div>
-</header>
+<script>
+    var currentNavDashId = '#modules';
+</script>
 
 <main>
     {{#if submitmodules}}
-    <div class="alert alert-success alert-dismissible alert-savedsettings" id="success-alert" style="float:right;">
-        <button type="button" class="close" data-dismiss="alert" aria-label="close" aria-hidden="true">&times;</button>
-        <span class="text"></span>
-        <strong>New modules settings saved!</strong>
-        <hr class="message-inner-separator">
-        <p>
-            We saved your new modules settings for {{guilds.name}}</p>
-    </div>
+    {{> notification}}
     {{/if}}
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-3">
-                <p class="text text-white h3" style="text-align: center;" id="guildsname-dashboard">{{guilds.name}}</p>
-                <nav class="navbar navbar-dark bg-dark navbar-expand-lg" id="dashboardnav">
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#dashboardnavigationbar" aria-controls="dashboardnavigationbar"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                    <div class="collapse navbar-collapse" id="dashboardnavigationbar">
-                        <ul class="navbar-nav mr-auto flex-md-column" id="mainnavbar">
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/overview" class=" h5 nav-link" role="button">
-                                    <i class="far fa-eye"></i> Overview</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/modules" class=" h5 nav-link active" role="button">
-                                    <i class="fas fa-folder-open"></i> Modules</a>
-                            </li>
-                            <li>
-                                <hr id="hr-dashboard-navbar" style="border: white; padding: 0; margin: 0;">
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/administration" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-wrench"></i> Administration</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/moderation" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-user-shield"></i> Moderation</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/help" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-question-circle"></i> Help</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/music" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-music"></i> Music</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/fun" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-paper-plane"></i> Fun</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/searches" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-search"></i> Searches</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/nsfw" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-exclamation-triangle"></i> NSFW</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/utility" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-warehouse"></i> Utility</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/application" class=" h5 nav-link" role="button">
-                                    <i class="fab fa-wpforms"></i> Application</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/currency" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-money-bill-alt"></i> Currency</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/tickets" class=" h5 nav-link" role="button">
-                                    <i class="fas fa-envelope-square"></i> Tickets</a>
-                            </li>
-                            <li class="nav-item nav-link">
-                                <a href="/dashboard/{{guilds.id}}/customcommands" class="h5 nav-link" role="button">
-                                    <i class="fas fa-list-ul"></i> Custom commands</a>
-                            </li>
-                        </ul>
-                </nav>
-                </div>
-                <div class="col-sm-9">
-                    <div class="panel-group-dashboard">
-                        <div class="card border-dark panel-dashboard">
-                            <div class="card-header bg-primary">
-                                <p class="text text-white h3">All modules</p>
-                            </div>
+            {{> nav-dashboard}}
+            <div class="col-lg-10 lb-dashboard lb-mcsp">
+                <div class="lb-bg-white rounded p-3">
+                    <div class="card shadow-sm">
+                        <div class="card-header">
+                            <p class="h5">All modules</p>
                         </div>
-                        <div class="row card-deck">
-                            <div class="col-sm-6 col-lg-6 d-flex align-items-stretch" style="margin-bottom: 10px;">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="/dashboard/{{guilds.id}}/administration">
-                                            <h5 class="card-title">Administration</h5>
-                                        </a>
-                                        <p class="card-text">Commands to set up the entire Discord server and customize special bot features</p>
-                                        <div class="btn-group" role="group" aria-label="Status">
-                                    <button type="submit" class="btn btn-success disabled" value="false" name="newmodulestatus">
-                                        Always enabled
-                                    </button>
-                                    </div>
+                        <div class="card-body px-3 py-0">
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-4 my-3">
+                                    <div class="card" style="height: 100%;">
+                                        <div class="card-body">
+                                            <a href="/dashboard/{{guilds.id}}/administration">
+                                                <h5 class="card-title">Administration</h5>
+                                            </a>
+                                            <p class="card-text">Commands to set up the entire Discord server and
+                                                customize
+                                                special bot features</p>
+                                        </div>
+                                        <div class="card-footer lb-card-footer pb-3">
+                                            <div class="btn-group" role="group" aria-label="Status">
+                                                <button type="submit" class="btn lb-btn-green disabled" value="false"
+                                                    name="newmodulestatus">
+                                                    Always enabled
+                                                </button>
+                                            </div>
+
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            {{#each modules}}
-                            <div class="col-sm-6 col-lg-6 d-flex align-items-stretch" style="margin-bottom: 10px;">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <a href="/dashboard/{{../guilds.id}}/{{name}}">
-                                            <h5 class="card-title">{{name}}</h5>
-                                        </a>
-                                        <p class="card-text">{{description}}</p>
-                                        {{#if status}}
-                                        <div class="btn-group" role="group" aria-label="Status">
-                                            <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
-                                                <button type="submit" class="btn btn-danger" value="false" name="{{name}}">
-                                                    Disable
-                                                </button>
-                                            </form>
+                                {{#each modules}}
+                                <div class="col-sm-6 col-lg-4 my-3">
+                                    <div class="card" style="height: 100%;">
+                                        <div class="card-body">
+                                            <a href="/dashboard/{{../guilds.id}}/{{name}}">
+                                                <h5 class="card-title">{{name}}</h5>
+                                            </a>
+                                            <p class="card-text">{{description}}</p>
                                         </div>
-                                        {{else}}
-                                        <div class="btn-group" role="group" aria-label="Status">
-                                            <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
-                                                <button type="submit" class="btn btn-success" value="true" name="{{name}}">
-                                                    Enable
-                                                </button>
-                                            </form>
+                                        <div class="card-footer lb-card-footer pb-3">
+                                            {{#if status}}
+                                            <div class="btn-group" role="group" aria-label="Status">
+                                                <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
+                                                    <button type="submit" class="btn lb-btn-red align-text-bottom"
+                                                        value="false" name="{{name}}">
+                                                        Disable
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            {{else}}
+                                            <div class="btn-group" role="group" aria-label="Status">
+                                                <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
+                                                    <button type="submit" class="btn lb-btn-green" value="true" name="{{name}}">
+                                                        Enable
+                                                    </button>
+                                                </form>
+                                            </div>
+                                            {{/if}}
                                         </div>
-                                        {{/if}}
                                     </div>
                                 </div>
+                                {{/each}}
                             </div>
-                            {{/each}}
                         </div>
                     </div>
                 </div>
