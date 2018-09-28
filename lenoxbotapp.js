@@ -157,8 +157,9 @@ app.listen(80, err => {
 });
 
 // Temp function - Is lenoxBot on the server?
+
 function islenoxboton(req) {
-	let islenoxbot = [];
+	const islenoxbot = [];
 	if (req.user) {
 		for (let i = 0; i < req.user.guilds.length; i++) {
 			if (((req.user.guilds[i].permissions) & 8) === 8 && req.user.guilds[i].lenoxbot === true) {
@@ -229,11 +230,10 @@ app.get('/home', (req, res) => {
 });
 
 // Temp get for test dynamic pages in static mode
+
 app.get('/test', (req, res) => {
 	try {
-
 		const islenoxbot = islenoxboton(req);
-
 		return res.render('aatest', {
 			user: req.user,
 			islenoxbot: islenoxbot,
