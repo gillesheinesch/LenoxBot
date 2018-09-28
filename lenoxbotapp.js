@@ -156,6 +156,19 @@ app.listen(80, err => {
 	if (err) return console.log(err);
 });
 
+// Temp function - Is lenoxBot on the server?
+function islenoxboton(req) {
+	let islenoxbot = [];
+	if (req.user) {
+		for (let i = 0; i < req.user.guilds.length; i++) {
+			if (((req.user.guilds[i].permissions) & 8) === 8 && req.user.guilds[i].lenoxbot === true) {
+				islenoxbot.push(req.user.guilds[i]);
+			}
+		}
+	}
+	return islenoxbot;
+}
+
 app.get('/', (req, res) => {
 	try {
 		const check = [];
@@ -7587,16 +7600,3 @@ app.use((req, res) => {
 		}
 	}));
 });
-
-// Temp function - Is lenoxBot on the server?
-function islenoxboton(req) {
-	let islenoxbot = [];
-	if (req.user) {
-		for (let i = 0; i < req.user.guilds.length; i++) {
-			if (((req.user.guilds[i].permissions) & 8) === 8 && req.user.guilds[i].lenoxbot === true) {
-				islenoxbot.push(req.user.guilds[i]);
-			}
-		}
-	}
-	return islenoxbot;
-}
