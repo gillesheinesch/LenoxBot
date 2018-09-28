@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const botconfs = client.botconfs.get('botconfs');
+	const tableload = await client.guildconfs.get(msg.guild.id);
+	const botconfs = await client.botconfs.get('botconfs');
 
 	if (!args || args.length === 0) {
 		const timestamps = client.cooldowns.get('ticket');
