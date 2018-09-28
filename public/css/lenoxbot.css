@@ -384,6 +384,11 @@
     overflow-y: auto;
 }
 
+.lb-btn-list-focus {
+    outline: 0;
+    background-color: #4caf50;
+    color: #e8f5e9;
+}
 .lb-btn-list:focus {
     outline: 0;
     background-color: #4caf50;
