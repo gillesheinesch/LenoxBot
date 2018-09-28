@@ -31,7 +31,7 @@ if (typeof currentNavDashId !== 'undefined') {
     });
 })(jQuery);
 
-// Tooltips enabled
+// Enable tooltips
 $(function () {
     $('[data-toggle="tooltip"]').tooltip()
 })
@@ -49,7 +49,16 @@ $('.lb-count').each(function () {
         });
 });
 
-// toggle menus
+// Toggle menus (sidebars)
 $('#toggle-menu').click(function(){
     $('.menu').slideToggle();
 });
+
+// Show menus if window is >= 992px
+$( window ).resize(function() {
+    if (parseInt($(window).width()) >= 992) {
+        if (!$('.menu').is(':visible')) {
+            $('.menu').slideDown();
+        }
+    }
+  });

@@ -120,6 +120,12 @@
     border-radius: 100px;
 }
 
+.lb-btn-donate:focus {
+    border-color: rgba(255, 128, 171);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 128, 171, 0.5);
+    outline: 0 none;
+}
+
 .lb-btn-login {
     background-color: transparent;
     border-color: white;
@@ -193,9 +199,6 @@
     color: white;
     transform: scale(1.03);
     transition: .1s;
-    /* -webkit-box-shadow: 0px 0px 20px 0px #4caf50;
-    -moz-box-shadow: 0px 0px 20px 0px #4caf50;
-    box-shadow: 0px 0px 20px 0px #4caf50; */
 }
 
 .lb-btn-green {
@@ -214,6 +217,12 @@
     transition: .1s;
 }
 
+.lb-btn-green:focus {
+    border-color: rgba(76, 175, 80);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(76, 175, 80, 0.5);
+    outline: 0 none;
+}
+
 .lb-btn-blue {
     background-color: #1e88e5;
     border-color: #1e88e5;
@@ -228,6 +237,12 @@
     border-radius: 100px;
     transform: scale(1.03);
     transition: .1s;
+}
+
+.lb-btn-blue:focus {
+    border-color: rgba(30, 136, 229);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(30, 136, 229, 0.5);
+    outline: 0 none;
 }
 
 .lb-btn-grey {
@@ -246,6 +261,12 @@
     transition: .1s;
 }
 
+.lb-btn-grey:focus {
+    border-color: rgba(84, 110, 122);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(84, 110, 122, 0.5);
+    outline: 0 none;
+}
+
 .lb-btn-red {
     background-color: #ef5350;
     border-color: #ef5350;
@@ -257,6 +278,40 @@
     background-color: #ef5350;
     border-color: #ef5350;
     color: #ffebee;
+    border-radius: 100px;
+    transform: scale(1.03);
+    transition: .1s;
+}
+
+.lb-btn-red:focus {
+    border-color: rgba(239, 83, 80);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(239, 83, 80, 0.5);
+    outline: 0 none;
+}
+
+.lb-btn-trans-black {
+    font-size: 1.1rem;
+    background-color: transparent;
+    border-color: transparent;
+    color: #212529;
+}
+
+.lb-btn-trans-black:hover {
+    color: #212529;
+    border-radius: 100px;
+    transform: scale(1.03);
+    transition: .1s;
+}
+
+.lb-btn-trans-whitereal {
+    font-size: 1.1rem;
+    background-color: transparent;
+    border-color: transparent;
+    color: white;
+}
+
+.lb-btn-trans-whitereal:hover {
+    color: white;
     border-radius: 100px;
     transform: scale(1.03);
     transition: .1s;
