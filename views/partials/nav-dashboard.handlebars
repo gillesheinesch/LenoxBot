@@ -1,14 +1,17 @@
-<div class="col-12 col-lg-2 mt-3">
+<div class="col-lg-2 mt-3">
 	<div class="nav flex-column nav-pills navbar-dark mb-3" id="mainnavbar">
 		<div class="row">
-			<div class="col-12 col-md-3 text-center">
-				<img class="rounded-circle lb-img-profile-dashboard" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+			<div class="col-12 text-center">
+				<figure class="mb-0">
+					<img class="rounded-circle lb-img-profile-dashboard" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+				</figure>
 			</div>
-			<div class="col-12 col-md-9 text-white">
+			<div class="col-12 text-white text-center">
 				<h3 class="font-weight-light mb-0">Welcome,</h3>
 				<h4 class="font-weight-light">{{user.username}}</h4>
-				<h6 class="font-weight-light mb-0">{{guilds.name}}<button class="btn lb-btn-trans-whitereal d-lg-none float-right" id="toggle-menu"><i class="mdi mdi-menu"></i></button></h6>
-				
+				<h6 class="font-weight-light mb-0">{{guilds.name}}</h6>
+				<button class="btn lb-btn-trans-whitereal d-lg-none float-right"
+					 id="toggle-menu"><i class="mdi mdi-menu"></i></button>
 			</div>
 
 		</div>
