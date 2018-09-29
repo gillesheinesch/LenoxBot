@@ -40,7 +40,7 @@ exports.run = (client, msg) => {
 		.addField(`🗣 ${lang.messagedeleteevent_author}`, msg.author.tag)
 		.addField(`📲 ${lang.messagedeleteevent_channel}`, `${msg.channel.name} (${msg.channel.id})`)
 		.addField(`📎 ${lang.messagedeleteevent_mid}`, msg.id)
-		.addField(`📜 ${lang.messagedeleteevent_message}`, msg.cleanContent.length >= 1 ? msg.cleanContent : '-');
+		.addField(`📜 ${lang.messagedeleteevent_message}`, msg.cleanContent.length >= 1 ? msg.cleanContent.substring(0, 960) : '-');
 
 	messagechannel.send({ embed: embed });
 };
