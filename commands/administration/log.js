@@ -119,7 +119,7 @@ exports.run = async (client, msg, args, lang) => {
 					tableload.modlog = 'true';
 					await client.guildconfs.set(msg.guild.id, tableload);
 
-					const modlogset = lang.log_modlogset.replace('%chnanelname', `**#${msg.channel.name}**`);
+					const modlogset = lang.log_modlogset.replace('%channelname', `**#${msg.channel.name}**`);
 					return msg.channel.send(modlogset);
 				}
 				tableload.modlog = 'false';
