@@ -810,7 +810,7 @@ app.post('/dashboard/:id/administration/submitlogs', async (req, res) => {
 				tableload[Object.keys(req.body)[0]] = 'false';
 			} else {
 				tableload[Object.keys(req.body)[0]] = 'true';
-				tableload[`${[Object.keys(req.body)[0]]}channel`] = client.guilds.get(dashboardid).channels.find('name', `${req.body[Object.keys(req.body)[0]]}`).id;
+				tableload[`${[Object.keys(req.body)[0]]}channel`] = client.guilds.get(dashboardid).channels.find(c => c.name === `${req.body[Object.keys(req.body)[0]]}`).id;
 			}
 
 			if (!tableload.globallogs) {
@@ -973,11 +973,11 @@ app.post('/dashboard/:id/administration/submittogglexp', async (req, res) => {
 
 			if (Array.isArray(newxpchannels)) {
 				for (let i = 0; i < newxpchannels.length; i++) {
-					array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newxpchannels[i]).id);
+					array.push(client.guilds.get(req.user.guilds[index].id).channels.find(c => c.name === newxpchannels[i]).id);
 				}
 				tableload.togglexp.channelids = array;
 			} else {
-				array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newxpchannels).id);
+				array.push(client.guilds.get(req.user.guilds[index].id).channels.find(c => c.name === newxpchannels).id);
 				tableload.togglexp.channelids = array;
 			}
 
@@ -3417,11 +3417,11 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async (req, res) => {
 
 			if (Array.isArray(newchannelblacklist)) {
 				for (let i = 0; i < newchannelblacklist.length; i++) {
-					array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newchannelblacklist[i]).id);
+					array.push(client.guilds.get(req.user.guilds[index].id).channels.find(c => c.name === newchannelblacklist[i]).id);
 				}
 				tableload.musicchannelblacklist = array;
 			} else {
-				array.push(client.guilds.get(req.user.guilds[index].id).channels.find('name', newchannelblacklist).id);
+				array.push(client.guilds.get(req.user.guilds[index].id).channels.find(c => c.name === newchannelblacklist).id);
 				tableload.musicchannelblacklist = array;
 			}
 
