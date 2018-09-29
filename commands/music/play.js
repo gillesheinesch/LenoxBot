@@ -33,7 +33,11 @@ exports.run = async (client, msg, args, lang) => {
 			await queue.delete(guild.id);
 			return;
 		}
-		const dispatcher = await serverQueue.connection.playStream(ytdl(song.url))
+
+		const stream = await ytdl(song.url, {
+			filter: 'audioonly'
+		});
+		const dispatcher = await serverQueue.connection.playStream(stream)
 			.on('end', async reason => {
 				if (reason === 'Stream is not generating quickly enough.');
 				serverQueue.songs.shift('Stream is not generating quickly enough');
@@ -63,7 +67,7 @@ exports.run = async (client, msg, args, lang) => {
 		});
 	}
 
-	async function handleVideo(video, playlist = false) {
+	async function handleVideo(video, playlist) {
 		const serverQueue = queue.get(msg.guild.id);
 		const song = {
 			duration: moment.duration(video.duration).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`),
@@ -133,14 +137,14 @@ exports.run = async (client, msg, args, lang) => {
 		const videos = await playlist.getVideos();
 		for (const video of Object.values(videos)) {
 			const video2 = await youtube.getVideoByID(video.id);
-			await handleVideo(video2, msg, voiceChannel, true);
+			await handleVideo(video2, true);
 		}
 		const playlistadded = lang.play_playlistadded.replace('%playlisttitle', `**${playlist.title}**`);
 		return msg.channel.send(playlistadded);
 	}
 	let video;
 	try {
-		await youtube.getVideo(url);
+		video = await youtube.getVideo(url);
 	} catch (error) {
 		try {
 			const videos = await youtube.searchVideos(searchString, 10);
@@ -167,7 +171,7 @@ exports.run = async (client, msg, args, lang) => {
 			try {
 				response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
 					maxMatches: 1,
-					time: 10000,
+					time: 20000,
 					errors: ['time']
 				});
 			} catch (err) {
@@ -179,7 +183,7 @@ exports.run = async (client, msg, args, lang) => {
 			return msg.channel.send(lang.play_noresult);
 		}
 	}
-	handleVideo(video, msg, voiceChannel);
+	handleVideo(video, false);
 };
 
 exports.conf = {
