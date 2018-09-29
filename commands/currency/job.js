@@ -112,7 +112,7 @@ exports.run = async (client, msg, args, lang) => {
 
 exports.conf = {
 	enabled: true,
-	guildOnly: true,
+	guildOnly: false,
 	shortDescription: 'Games',
 	aliases: [],
 	userpermissions: [],
