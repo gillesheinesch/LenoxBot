@@ -6,7 +6,6 @@ exports.run = (client, msg, args, lang) => {
 
 	const newArray = serverQueue.songs.slice(1, serverQueue.songs.length);
 	serverQueue.songs = newArray;
-
 	return msg.reply(lang.queueclear_done);
 };
 
