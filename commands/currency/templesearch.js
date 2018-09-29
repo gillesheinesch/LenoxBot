@@ -7,7 +7,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (userdb.inventory.flashlight === 0) {
 		const timestamps = client.cooldowns.get('templesearch');
-		timestamps[msg.author.id];
+		delete timestamps[msg.author.id];
 		await client.cooldowns.set('templesearch', timestamps);
 		return msg.reply(lang.templesearch_error);
 	}

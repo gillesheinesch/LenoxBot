@@ -23,7 +23,7 @@ exports.run = async (client, msg, args, lang) => {
 		await client.botconfs.set('premium', botconfspremiumload);
 
 		const timestamps = client.cooldowns.get('useserverkey');
-		timestamps[msg.author.id];
+		delete timestamps[msg.author.id];
 		await client.cooldowns.set('useserverkey', timestamps);
 
 		const embed = new Discord.RichEmbed()
@@ -49,7 +49,7 @@ exports.run = async (client, msg, args, lang) => {
 	await client.botconfs.set('premium', botconfspremiumload);
 
 	const timestamps = client.cooldowns.get('useserverkey');
-	timestamps[msg.author.id];
+	delete timestamps[msg.author.id];
 	await client.cooldowns.set('useserverkey', timestamps);
 
 	const embed = new Discord.RichEmbed()

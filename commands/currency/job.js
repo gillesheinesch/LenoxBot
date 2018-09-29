@@ -11,7 +11,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (userdb.jobstatus === true) {
 		const timestamps = client.cooldowns.get('job');
-		timestamps[msg.author.id];
+		delete timestamps[msg.author.id];
 		await client.cooldowns.set('job', timestamps);
 		return msg.reply(lang.job_error);
 	}
@@ -59,7 +59,7 @@ exports.run = async (client, msg, args, lang) => {
 		const notenough = lang.job_notenough.replace('%item', `\`${jobslist[response.first().content - 1][3]}\``);
 		if (!userdb.inventory[jobslist[response.first().content - 1][3]] >= 1) {
 			const timestamps = client.cooldowns.get('job');
-			timestamps[msg.author.id];
+			delete timestamps[msg.author.id];
 			await client.cooldowns.set('job', timestamps);
 			return msg.reply(notenough);
 		}

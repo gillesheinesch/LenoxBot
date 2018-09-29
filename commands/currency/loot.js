@@ -3,9 +3,9 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const d = Math.random();
-	const userdb = client.userdb.get(msg.author.id);
-	const marketconfs = client.botconfs.get('market');
-	const tableload = client.guildconfs.get(msg.guild.id);
+	const userdb = await client.userdb.get(msg.author.id);
+	const marketconfs = await client.botconfs.get('market');
+	const tableload = await client.guildconfs.get(msg.guild.id);
 	const Discord = require('discord.js');
 
 	let inventoryslotcheck = 0;
@@ -15,13 +15,13 @@ exports.run = async (client, msg, args, lang) => {
 	}
 	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
 	if (inventoryslotcheck >= userdb.inventoryslots && userdb.premium.status === false) {
-		const timestamps = client.cooldowns.get('loot');
-		timestamps[msg.author.id];
+		const timestamps = await client.cooldowns.get('loot');
+		delete timestamps[msg.author.id];
 		await client.cooldowns.set('loot', timestamps);
 		return msg.reply(inventoryfull);
 	} else if (inventoryslotcheck + 1 >= userdb.inventoryslots && userdb.premium.status === true) {
-		const timestamps = client.cooldowns.get('loot');
-		timestamps[msg.author.id];
+		const timestamps = await client.cooldowns.get('loot');
+		delete timestamps[msg.author.id];
 		await client.cooldowns.set('loot', timestamps);
 		return msg.reply(inventoryfull);
 	}

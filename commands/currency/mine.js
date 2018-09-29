@@ -8,7 +8,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (userdb.inventory.pickaxe === 0) {
 		const timestamps = client.cooldowns.get('mine');
-		timestamps[msg.author.id];
+		delete timestamps[msg.author.id];
 		await client.cooldowns.set('mine', timestamps);
 		return msg.reply(lang.mine_nopicks);
 	}

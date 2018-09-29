@@ -5,7 +5,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!args || args.length === 0) {
 		const timestamps = client.cooldowns.get('ticket');
-		timestamps[msg.author.id];
+		delete timestamps[msg.author.id];
 		await client.cooldowns.set('ticket', timestamps);
 		return msg.reply(lang.ticket_noinput);
 	}
