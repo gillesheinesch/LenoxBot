@@ -1,8 +1,13 @@
 exports.run = (client, msg, args, lang) => {
 	const queue = client.queue;
 	const serverQueue = queue.get(msg.guild.id);
-	if (!serverQueue) return msg.channel.send(lang.queueclear_queueempty);
-	return serverQueue.songs = [];
+
+	if (!serverQueue || serverQueue.songs.length === 1) return msg.channel.send(lang.queueclear_queueempty);
+
+	const newArray = serverQueue.songs.slice(1, serverQueue.songs.length);
+	serverQueue.songs = newArray;
+
+	return msg.reply(lang.queueclear_done);
 };
 
 exports.conf = {

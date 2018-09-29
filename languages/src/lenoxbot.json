@@ -930,6 +930,7 @@
     "queue_description": "Shows you the current music queue",
 
     "queueclear_queueempty": "The music queue of the bot is empty!",
+    "queueclear_done": "The music queue has been cleared!",
     "queueclear_description": "Clears the whole music queue",
 
     "resume_resumed": "Resumed the music for you!",
