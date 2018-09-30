@@ -667,7 +667,7 @@ app.get('/tickets/:ticketid/overview', async (req, res) => {
 
 // ADMIN PANEL
 
-app.get('/dashboard/:id/overview', (req, res) => {
+app.get('/dashboard/:id/overview', async (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -680,8 +680,64 @@ app.get('/dashboard/:id/overview', (req, res) => {
 
 			if (index === -1) return res.redirect('/servers');
 
-			if (!client.guildconfs.get(dashboardid).dashboardpermissionroles) {
-				client.guildconfs.get(dashboardid).dashboardpermissionroles = [];
+			const guildsettingskeys = require('./guildsettings-keys.json');
+			guildsettingskeys.prefix = settings.prefix;
+			if (client.guildconfs.get(dashboardid)) {
+				const tableload = await client.guildconfs.get(dashboardid);
+
+				for (const key in guildsettingskeys) {
+					if (!tableload[key]) {
+						tableload[key] = guildsettingskeys[key];
+					}
+				}
+
+				for (let i = 0; i < client.commands.array().length; i++) {
+					if (!tableload.commands[client.commands.array()[i].help.name]) {
+						tableload.commands[client.commands.array()[i].help.name] = {
+							name: client.commands.array()[i].help.name,
+							status: 'true',
+							bannedroles: [],
+							bannedchannels: [],
+							cooldown: '3000',
+							ifBlacklistForRoles: 'true',
+							ifBlacklistForChannels: 'true',
+							whitelistedroles: [],
+							whitelistedchannels: []
+						};
+					}
+					if (!tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
+						tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = 'true';
+						tableload.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = 'true';
+						tableload.commands[client.commands.array()[i].help.name].whitelistedroles = [];
+						tableload.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
+					}
+				}
+	
+				await client.guildconfs.set(dashboardid, tableload);
+			} else {
+				for (let i = 0; i < client.commands.array().length; i++) {
+					if (!guildsettingskeys.commands[client.commands.array()[i].help.name]) {
+						guildsettingskeys.commands[client.commands.array()[i].help.name] = {
+							name: client.commands.array()[i].help.name,
+							status: 'true',
+							bannedroles: [],
+							bannedchannels: [],
+							cooldown: '3000',
+							ifBlacklistForRoles: 'true',
+							ifBlacklistForChannels: 'true',
+							whitelistedroles: [],
+							whitelistedchannels: []
+						};
+					}
+					if (!guildsettingskeys.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
+						guildsettingskeys.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = 'true';
+						guildsettingskeys.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = 'true';
+						guildsettingskeys.commands[client.commands.array()[i].help.name].whitelistedroles = [];
+						guildsettingskeys.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
+					}
+				}
+
+				await client.guildconfs.set(dashboardid, guildsettingskeys);
 			}
 
 			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
