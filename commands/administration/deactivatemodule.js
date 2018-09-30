@@ -2,20 +2,6 @@ exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const moduledeactivated = lang.deactivatemodule_moduledisabled.replace('%modulename', args.slice());
 
-	if (!tableload.modules) {
-		tableload.modules = {};
-		tableload.modules.fun = 'true';
-		tableload.modules.help = 'true';
-		tableload.modules.moderation = 'true';
-		tableload.modules.music = 'true';
-		tableload.modules.nsfw = 'true';
-		tableload.modules.searches = 'true';
-		tableload.modules.utility = 'true';
-		tableload.modules.application = 'true';
-		tableload.modules.currency = 'true';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
 	if (args.slice().length === 0) return msg.channel.send(lang.deactivatemodule_noinput);
 
 	const margs = msg.content.split(' ');

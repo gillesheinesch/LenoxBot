@@ -1,6 +1,7 @@
 const sql = require('sqlite');
 const settings = require('../settings.json');
-const guildsettings = require('../guildsettings-keys.json');
+const guildsettingskeys = require('../guildsettings-keys.json');
+guildsettingskeys.prefix = settings.prefix;
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const moment = require('moment');
 require('moment-duration-format');
@@ -63,9 +64,63 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userconfs);
 	}
 
-	if (!client.guildconfs.has(msg.guild.id)) {
-		await client.guildconfs.set(msg.guild.id, guildsettings);
+	if (client.guildconfs.get(msg.guild.id)) {
+		const tableload = await client.guildconfs.get(msg.guild.id);
+		for (const key in guildsettingskeys) {
+			if (!tableload[key]) {
+				tableload[key] = guildsettingskeys[key];
+			}
+		}
+
+		for (let i = 0; i < client.commands.array().length; i++) {
+			if (!tableload.commands[client.commands.array()[i].help.name]) {
+				tableload.commands[client.commands.array()[i].help.name] = {
+					name: client.commands.array()[i].help.name,
+					status: 'true',
+					bannedroles: [],
+					bannedchannels: [],
+					cooldown: '3000',
+					ifBlacklistForRoles: 'true',
+					ifBlacklistForChannels: 'true',
+					whitelistedroles: [],
+					whitelistedchannels: []
+				};
+			}
+			if (!tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
+				tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = 'true';
+				tableload.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = 'true';
+				tableload.commands[client.commands.array()[i].help.name].whitelistedroles = [];
+				tableload.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
+			}
+		}
+
+		await client.guildconfs.set(msg.guild.id, tableload);
+	} else {
+		for (let i = 0; i < client.commands.array().length; i++) {
+			if (!guildsettingskeys.commands[client.commands.array()[i].help.name]) {
+				guildsettingskeys.commands[client.commands.array()[i].help.name] = {
+					name: client.commands.array()[i].help.name,
+					status: 'true',
+					bannedroles: [],
+					bannedchannels: [],
+					cooldown: '3000',
+					ifBlacklistForRoles: 'true',
+					ifBlacklistForChannels: 'true',
+					whitelistedroles: [],
+					whitelistedchannels: []
+				};
+			}
+			if (!guildsettingskeys.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
+				guildsettingskeys.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = 'true';
+				guildsettingskeys.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = 'true';
+				guildsettingskeys.commands[client.commands.array()[i].help.name].whitelistedroles = [];
+				guildsettingskeys.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
+			}
+		}
+
+		await client.guildconfs.set(msg.guild.id, guildsettingskeys);
 	}
+
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
 	const userdb = await client.userdb.get(msg.author.id);
@@ -124,15 +179,6 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	if (!tableload.premium) {
-		tableload.premium = {
-			status: false,
-			bought: [],
-			end: ''
-		};
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
 			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
@@ -160,16 +206,6 @@ exports.run = async (client, msg) => {
 	if (!userdb.userID) {
 		userdb.userID = msg.author.id;
 		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (!tableload.modules.customcommands) {
-		tableload.modules.customcommands = 'true';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.modules.tickets) {
-		tableload.modules.tickets = 'true';
-		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (!userdb.dailyremind) {
@@ -240,70 +276,6 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	for (let i = 0; i < client.commands.array().length; i++) {
-		if (!tableload.commands) tableload.commands = {};
-		if (!tableload.commands[client.commands.array()[i].help.name]) {
-			tableload.commands[client.commands.array()[i].help.name] = {
-				name: client.commands.array()[i].help.name,
-				status: 'true',
-				bannedroles: [],
-				bannedchannels: [],
-				cooldown: '3000',
-				ifBlacklistForRoles: 'true',
-				ifBlacklistForChannels: 'true',
-				whitelistedroles: [],
-				whitelistedchannels: []
-			};
-		}
-		if (!tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
-			tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = 'true';
-			tableload.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = 'true';
-			tableload.commands[client.commands.array()[i].help.name].whitelistedroles = [];
-			tableload.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
-		}
-	}
-	await client.guildconfs.set(msg.guild.id, tableload);
-
-	if (!tableload.customcommands) {
-		tableload.customcommands = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.playlist) {
-		tableload.playlist = {};
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.application.applications || !tableload.application.applicationid) {
-		tableload.application.applicationid = 0;
-		tableload.application.applications = {};
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.application.acceptedmessage) {
-		tableload.application.acceptedmessage = '';
-		tableload.application.rejectedmessage = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.tickets) {
-		tableload.tickets = {
-			notificationstatus: false,
-			notficationchannel: ''
-		};
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.globallogs) {
-		tableload.globallogs = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.modules.currency) {
-		tableload.modules.currency = 'true';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
 	if (!userdb.jobstatus) {
 		userdb.jobstatus = false;
 		await client.userdb.set(msg.author.id, userdb);
@@ -345,93 +317,6 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	if (!tableload.muteanonymous) {
-		tableload.muteanonymous = 'false';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.tempbananonymous) {
-		tableload.tempbananonymous = 'false';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.dashboardpermissionroles) {
-		tableload.dashboardpermissionroles = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.dashboardticketpermissions) {
-		tableload.dashboardticketpermissions = 6;
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.dashboardapplicationpermissions) {
-		tableload.dashboardapplicationpermissions = 6;
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.application.notificationstatus) {
-		tableload.application.notificationstatus = false;
-		tableload.application.notificationchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.togglexp) {
-		tableload.togglexp = {
-			channelids: []
-		};
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.application.denyrole) {
-		tableload.application.denyrole = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.modules.tickets) {
-		tableload.modules.tickets = 'true';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.xpmessages) {
-		tableload.xpmessages = 'false';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.musicchannelblacklist) {
-		tableload.musicchannelblacklist = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.chatfilterlog) {
-		tableload.chatfilterlog = 'false';
-		tableload.chatfilterlogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.chatfilter) {
-		tableload.chatfilter = {
-			chatfilter: 'false',
-			array: []
-		};
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.application.status) {
-		tableload.application.status = 'false';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.language) {
-		tableload.language = `en-US`;
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (tableload.language === '') {
-		tableload.language = 'en-US';
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
 	// CHANGE TO THE NEW CROWDIN SYSTEM
 	if (tableload.language === 'en') {
 		tableload.language = 'en-US';
@@ -450,33 +335,6 @@ exports.run = async (client, msg) => {
 	// CHANGE TO THE NEW CROWDIN SYSTEM
 
 	const lang = require(`../languages/${tableload.language}.json`);
-
-	if (!tableload.nicknamelog) {
-		tableload.nicknamelog = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.warnlog) {
-		tableload.warnlog = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.ara) {
-		tableload.ara = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
-
-	if (!tableload.application) {
-		tableload.application = {
-			reactionnumber: '',
-			template: [],
-			role: '',
-			votechannel: '',
-			archivechannel: false,
-			archivechannellog: ''
-		};
-		await client.guildconfs.set(msg.guild.id, tableload);
-	}
 
 	if (tableload.language === 'de') {
 		tableload.language = 'ge';
@@ -730,20 +588,6 @@ exports.run = async (client, msg) => {
 					}
 					return msg.channel.send(usernopermission);
 				}
-			}
-
-			if (!tableload.modules) {
-				tableload.modules = {};
-				tableload.modules.fun = 'true';
-				tableload.modules.help = 'true';
-				tableload.modules.moderation = 'true';
-				tableload.modules.music = 'true';
-				tableload.modules.nsfw = 'true';
-				tableload.modules.searches = 'true';
-				tableload.modules.utility = 'true';
-				tableload.modules.application = 'true';
-				tableload.modules.tickets = 'true';
-				await client.guildconfs.set(msg.guild.id, tableload);
 			}
 
 			if (botCommandExists) {
