@@ -128,9 +128,13 @@
                 <li class="nav-item">
                     {{#if user}}
                     <div class="btn-group">
-                        <a class="btn lb-btn-profile dropdown-toggle" style="max-height: 40px;" data-toggle="dropdown" aria-haspopup="true"
-                            aria-expanded="false">
+                        <a class="btn lb-btn-profile dropdown-toggle" style="max-height: 40px;" data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                            {{#if user.avatar}}
                             <img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                            {{else}}
+                            <img class="rounded-circle lb-img-profile" src="discordicon.png">
+                            {{/if}}
                             {{user.username}}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right">
