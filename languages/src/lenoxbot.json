@@ -23,7 +23,7 @@
     "vote_embeddescription": "You will receive between 100-1000 credits for the upvote on the weekdays. \nFrom Friday to Sunday you will receive between 200-2000 credits. \n\nLink: %link",
     "vote_description": "All details about voting for LenoxBot",
 
-    "createmuterole_waitmessage": "The mute role will now be created. This may take a little while, depending on the number of Discord channels!",
+    "createmuterole_waitmessage": "The mute role will now be created. This may takes a little while, depending on the number of Discord channels!",
     "createmuterole_done": "The 'muted' role was created!",
     "createmuterole_description": "Creates the muted role and forbids all writing and speaking permissions",
 
@@ -32,7 +32,7 @@
     "prefixfinder_embedfield1": "Serverowner:",
     "prefixfinder_embedfield2": "Prefix:",
     "prefixfinder_requestedby": "Requested by %authortag",
-    "prefixfinder_description": "Allows the staff of the bot to find out the prefix of a Discord server",
+    "prefixfinder_description": "Allows the staffs of the bot to find out the prefix of a Discord server",
 
     "blacklistremove_noguildid": "You didn't enter a Discord server ID!",
     "blacklistremove_noreason": "You have to enter a reason!",
@@ -381,7 +381,7 @@
     "loot_camera": "camera",
     "loot_clock": "clock",
     "loot_lootmessage": "You got %amount and %howmanyx %item! In 10 minutes you can pick up your loot again",
-    "loot_description": "Collect your loot every 10 minutes",
+    "loot_description": "Collects your loot every 10 minutes",
 
     "daily_author": "You have successfully received $%amount. \nYour streak is: %streak",
     "daily_remind": "Don't forget to pick up your daily reward",
@@ -391,7 +391,7 @@
 
     "embed_error": "You forgot to enter what you would like to include in your embed",
     "embed_toobig": "Your embed can not have more than 1000 characters!",
-    "embed_description": "Create an embed for you with any text. Use // to go to a new line",
+    "embed_description": "Creates an embed for you with any text. Use // to go to a new line",
 
     "setprofiledescription_noinput": "You forgot to enter a profile description!",
     "setprofiledescription_error": "Your description is too long. If you want to have a longer description, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
@@ -412,7 +412,7 @@
 
     "togglexpmessages_set": "The xp messages were successfully activated",
     "togglexpmessages_deleted": "The xp messages were successfully disabled",
-    "togglexpmessages_description": "Set the xp messages on or off",
+    "togglexpmessages_description": "Sets the xp messages on or off",
 
     "tictactoe_nomention": "You must mention an user to play TicTacToe!",
     "tictactoe_notoline": "The mentioned user has to be online to play TicTacToe with you!",
@@ -473,7 +473,7 @@
 
     "togglechatfilter_activated": "The chatfilter was successfully activated",
     "togglechatfilter_disabled": "The chatfilter was successfully disabled",
-    "togglechatfilter_description": "Set the chatfilter on or off",
+    "togglechatfilter_description": "Sets the chatfilter on or off",
 
     "toggleapplication_error": "The application system is currently disabled for this server",
     "toggleapplication_activated": "The application system was successfully activated!",
@@ -538,7 +538,7 @@
     "announce_noinput": "You forgot to enter a text!",
     "announce_announcement": "New announcement by %authortag:",
     "announce_annoucementsent": "Announcement successfully sent!",
-    "announce_description": "Write a new server announcement",
+    "announce_description": "Writes a new server announcement",
 
     "togglebye_channelset": "Your users are now said goodbye in **#%channelname**",
     "togglebye_channeldeleted": "The goodbye message is now disabled!",
