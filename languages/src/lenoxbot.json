@@ -1,4 +1,10 @@
 {
+    "creditstoxp_nan": "Your amount of credits is not a number!",
+    "creditstoxp_under1": "Your amount of credits has to be at least 1!",
+    "creditstoxp_nocredits": "You haven't enough credits!",
+    "creditstoxp_done": "You have successfully converted $%credits to %xp experience on this discord server!",
+    "creditstoxp_description": "Converts credits to experience on a discord server. 1 credit = 0.5 xp",
+
     "editentry_noid": "You have to specify an application entry ID!",
     "editentry_noentrytext": "You have to specify a new application entry text!",
     "editentry_undefined": "This application entry ID doesn't exist!",
