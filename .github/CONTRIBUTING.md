@@ -8,7 +8,7 @@ If you wish to contribute to the LenoxBot codebase, feel free to fork this repos
 To get ready to work on the codebase, please do the following:
 
 1. Fork & Clone this repository (Branch: testing)
-    - Execute `$ git clone https://github.com/Monkeyyy11/LenoxBot.git --branch testing`
+    - Execute `$ git clone https://github.com/LenoxBot/LenoxBot.git --branch testing`
 2. Now you have to execute a few commands in the folder in which you cloned LenoxBot: 
     - `$ npm -g --add-python-to-path install windows-build-tools node-gyp`
     - `$ npm i --global --production windows-build-tools`
@@ -16,4 +16,4 @@ To get ready to work on the codebase, please do the following:
     - `$ npm i -g ffmpeg-binaries`
     - `$ npm install`
 3. Code and have fun!
-4. [Submit a pull request on GitHub](https://github.com/Monkeyyy11/LenoxBot/compare)
+4. [Submit a pull request on GitHub](https://github.com/LenoxBot/LenoxBot/compare)
