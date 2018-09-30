@@ -44,7 +44,7 @@ exports.run = async (client, msg, args, lang) => {
 
 		const author = lang.daily_author.replace('%amount', userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2)).replace('%streak', userdb.dailystreak.streak);
 		if (userdb.dailyremind === true) {
-			return msg.channel.send(`🎁 ${author} ${lang.daily_remindmsg}`);
+			return msg.channel.send(`🎁 ${author} \n${lang.daily_remindmsg}`);
 		}
 		return msg.channel.send(`🎁 ${author}`);
 	}
@@ -58,7 +58,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2)).replace('%streak', userdb.dailystreak.streak);
 	if (userdb.dailyremind === true) {
-		return msg.channel.send(`🎁 ${mention} ${lang.daily_remindmsg}`);
+		return msg.channel.send(`🎁 ${mention} \n${lang.daily_remindmsg}`);
 	}
 	return msg.channel.send(`🎁 ${mention}`);
 };
