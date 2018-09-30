@@ -1,12 +1,13 @@
 const sql = require('sqlite');
 const settings = require('../settings.json');
+const guildsettings = require('../guildsettings-keys.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const moment = require('moment');
 require('moment-duration-format');
 const Discord = require('discord.js');
+const englishlang = require(`../languages/en-US.json`);
 exports.run = async (client, msg) => {
 	if (msg.author.bot) return;
-	const englishlang = require(`../languages/en-US.json`);
 	if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 
 	if (client.user.id === '353115097318555649') {
@@ -56,71 +57,6 @@ exports.run = async (client, msg) => {
 			bought: [],
 			end: ''
 		}
-	};
-
-	const guildsettings = {
-		prefix: settings.prefix,
-		modlog: 'false',
-		modlogchannel: '',
-		messagedellog: 'false',
-		messagedellogchannel: '',
-		messageupdatelog: 'false',
-		messageupdatelogchannel: '',
-		channelupdatelog: 'false',
-		channelupdatelogchannel: '',
-		channelcreatelog: 'false',
-		channelcreatelogchannel: '',
-		channeldeletelog: 'false',
-		channeldeletelogchannel: '',
-		guildmemberupdatelog: 'false',
-		guildmemberupdatelogchannel: '',
-		presenceupdatelog: 'false',
-		presenceupdatelogchannel: '',
-		welcomelog: 'false',
-		welcomelogchannel: '',
-		guildupdatelog: '',
-		guildupdatelogchannel: '',
-		byelog: 'false',
-		byelogchannel: '',
-		rolecreatelog: 'false',
-		rolecreatelogchannel: '',
-		roledeletelog: 'false',
-		roledeletelogchannel: '',
-		roleupdatelog: 'false',
-		roleupdatelogchannel: '',
-		welcome: 'false',
-		welcomechannel: '',
-		welcomemsg: '',
-		bye: 'false',
-		byechannel: '',
-		byemsg: '',
-		commanddel: 'false',
-		announce: 'false',
-		announcechannel: '',
-		selfassignableroles: [],
-		minigames: 'false',
-		modules: {
-			fun: 'true',
-			help: 'true',
-			moderation: 'true',
-			music: 'true',
-			nsfw: 'true',
-			searches: 'true',
-			utility: 'true',
-			application: 'true'
-		},
-		application: {
-			reactionnumber: '',
-			template: [],
-			role: '',
-			votechannel: '',
-			archivechannel: false,
-			archivechannellog: '',
-			status: 'false'
-		},
-		nicknamelog: [],
-		warnlog: [],
-		language: 'en-US'
 	};
 
 	if (!client.userdb.has(msg.author.id)) {
