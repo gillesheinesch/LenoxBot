@@ -712,7 +712,7 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 						tableload.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
 					}
 				}
-	
+
 				await client.guildconfs.set(dashboardid, tableload);
 			} else {
 				for (let i = 0; i < client.commands.array().length; i++) {
