@@ -115,8 +115,8 @@
     "removecredits_done": "Credits have been removed successfully!",
     "removecredits_description": "Removes an user a certain amount of credits",
 
-    "leaveserver_error": "You must enter a guildID. For example: `352896116812939264`",
-    "leaveserver_nofetch": "Couldn't fetch this guild. Please check if the guildID is correct and the bot is currently on this Discord server!",
+    "leaveserver_error": "You must enter a guild ID. For example: `352896116812939264`",
+    "leaveserver_nofetch": "Couldn't fetch this guild. Please check if the guild ID is correct and the bot is currently on this Discord server!",
     "leaveserver_done": "The bot has successfully left the guild (ID: %guildid)!",
     "leaveserver_description": "Leaves a Discord server on which the bot has joined",
 
