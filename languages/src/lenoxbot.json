@@ -16,7 +16,7 @@
     "math_timepassed": "Your 7 seconds have passed, you lost 10 credits!",
     "math_winauthor": "Your answer is correct. You got %amount credits!",
     "math_embeddescription": "Your points: %points \nYour mathematical level: %level",
-    "math_loseauthor": "Your answer is wrong. You lost 10 credits!",
+    "math_loseauthor": "Your answer is wrong! You lost 10 credits! Correct answer: %correct",
     "math_description": "Solve mathematical calculations to get credits",
 
     "vote_embedauthor": "Voting:",

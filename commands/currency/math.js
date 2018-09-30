@@ -5,8 +5,8 @@ const math = require('math-expression-evaluator');
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const userdb = await client.userdb.get(msg.author.id);
-	const firstNumber = Math.floor(Math.random() * 10) + Math.floor(userdb.math.level / 7);
-	const secondNumber = Math.floor(Math.random() * 10) + Math.floor(userdb.math.level / 7);
+	const firstNumber = Math.floor(Math.random() * 10) + Math.floor(userdb.math.level / 5);
+	const secondNumber = Math.floor(Math.random() * 10) + Math.floor(userdb.math.level / 5);
 
 	const signs = ['+', '-', '*'];
 	const sign = Math.floor(Math.random() * 3);
@@ -74,9 +74,10 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 		const embeddescription = lang.math_embeddescription.replace('%points', userdb.math.points).replace('%level', userdb.math.level);
+		const loseauthor = lang.math_loseauthor.replace('%correct', mathCalculation);
 		const loserEmbed = new Discord.RichEmbed()
 			.setColor('#ff0000')
-			.setAuthor(lang.math_loseauthor)
+			.setAuthor(loseauthor)
 			.setDescription(embeddescription);
 
 		msg.channel.send({
