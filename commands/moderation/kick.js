@@ -1,10 +1,19 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const reason = args.slice(1).join(' ');
-	const user = msg.mentions.users.first();
+	let user = msg.mentions.users.first();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
-	if (!user) return msg.reply(lang.kick_nomention);
+	if (!user) {
+		try {
+			if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
+			user = msg.guild.members.get(args.slice(0, 1).join(' '));
+			user = user.user;
+		} catch (error) {
+			return msg.reply(lang.kick_idcheck);
+		}
+	}
+
 	if (user === msg.author) return msg.channel.send(lang.kick_yourself);
 	if (!reason) return msg.reply(lang.kick_noinput);
 

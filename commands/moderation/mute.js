@@ -3,12 +3,23 @@ const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const botconfs = await client.botconfs.get('botconfs');
-	const membermention = msg.mentions.members.first();
-	const user = msg.mentions.users.first();
+	let membermention = msg.mentions.members.first();
+	let user = msg.mentions.users.first();
 
 	const muteroleundefined = lang.mute_muteroleundefined.replace('%prefix', tableload.prefix);
 	if (tableload.muterole === '') return msg.channel.send(muteroleundefined);
-	if (!membermention) return msg.channel.send(lang.mute_nomention);
+
+	if (!user) {
+		try {
+			if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
+			user = msg.guild.members.get(args.slice(0, 1).join(' '));
+			membermention = msg.guild.members.get(args.slice(0, 1).join(' '));
+			user = user.user;
+		} catch (error) {
+			return msg.reply(lang.mute_idcheck);
+		}
+	}
+
 	if (!args.slice(1).join(' ')) return msg.channel.send(lang.mute_notime);
 	if (!args.slice(2).join(' ')) return msg.channel.send(lang.mute_noinput);
 
