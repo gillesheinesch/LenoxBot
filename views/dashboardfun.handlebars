@@ -4,9 +4,7 @@
 </script>
 
 <main>
-    {{#if submitfun}}
     {{> notification}}
-    {{/if}}
     <div class="container-fluid">
         <div class="row">
             {{> nav-dashboard}}
@@ -120,7 +118,7 @@
                                                     {{#if conf.enabled}}
                                                     <form action="/dashboard/{{../guilds.id}}/fun/{{help.name}}/submitcommandstatuschange"
                                                         method="POST" id="{{help.name}}form">
-                                                        <input type="hidden" value="false" name="statuschange">
+                                                        <input type="hidden" value="false" name="statuschange" id="{{help.name}}status">
                                                     </form>
                                                     <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
                                                         Disable
@@ -128,7 +126,7 @@
                                                     {{else}}
                                                     <form action="/dashboard/{{../guilds.id}}/fun/{{help.name}}/submitcommandstatuschange"
                                                         method="POST" id="{{help.name}}form">
-                                                        <input type="hidden" value="true" name="statuschange">
+                                                        <input type="hidden" value="true" name="statuschange" id="{{help.name}}status">
                                                     </form>
                                                     <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
                                                         Enable
@@ -136,10 +134,9 @@
                                                     {{/if}}
                                                 </div>
                                                 <script>
-                                                    $("#{{help.name}}b").click(function () {
-                                                        $("#{{help.name}}form").submit();
-                                                    });
+                                                    var guildid = '{{../guilds.id}}';
                                                 </script>
+                                                {{> ajaxscript}}
                                             </td>
                                         </tr>
                                         {{/each}}
