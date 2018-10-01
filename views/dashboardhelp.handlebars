@@ -4,9 +4,7 @@
 </script>
 
 <main>
-    {{#if submithelp}}
     {{> notification}}
-    {{/if}}
     <div class="container-fluid">
         <div class="row">
             {{> nav-dashboard}}
@@ -118,17 +116,15 @@
                                                         Edit
                                                     </button>
                                                     {{#if conf.enabled}}
-                                                    <form action="/dashboard/{{../guilds.id}}/help/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST" id="{{help.name}}form">
-                                                        <input type="hidden" value="false" name="statuschange">
+                                                    <form id="{{help.name}}form">
+                                                        <input type="hidden" value="false" name="statuschange" id="{{help.name}}status">
                                                     </form>
-                                                    <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
+                                                    <button type="submit" class="btn lb-btn-red" id="{{help.name}}b" id="{{help.name}}status">
                                                         Disable
                                                     </button>
                                                     {{else}}
-                                                    <form action="/dashboard/{{../guilds.id}}/help/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST" id="{{help.name}}form">
-                                                        <input type="hidden" value="true" name="statuschange">
+                                                    <form id="{{help.name}}form">
+                                                        <input type="hidden" value="true" name="statuschange" id="{{help.name}}status">
                                                     </form>
                                                     <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
                                                         Enable
@@ -136,10 +132,9 @@
                                                     {{/if}}
                                                 </div>
                                                 <script>
-                                                    $("#{{help.name}}b").click(function () {
-                                                        $("#{{help.name}}form").submit();
-                                                    });
+                                                    var guildid = '{{../guilds.id}}';
                                                 </script>
+                                                {{> ajaxscript}}
                                             </td>
                                         </tr>
                                         {{/each}}

@@ -116,16 +116,14 @@
                                                         Edit
                                                     </button>
                                                     {{#if conf.enabled}}
-                                                    <form action="/dashboard/{{../guilds.id}}/fun/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST" id="{{help.name}}form">
+                                                    <form id="{{help.name}}form">
                                                         <input type="hidden" value="false" name="statuschange" id="{{help.name}}status">
                                                     </form>
                                                     <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
                                                         Disable
                                                     </button>
                                                     {{else}}
-                                                    <form action="/dashboard/{{../guilds.id}}/fun/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST" id="{{help.name}}form">
+                                                    <form id="{{help.name}}form">
                                                         <input type="hidden" value="true" name="statuschange" id="{{help.name}}status">
                                                     </form>
                                                     <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
