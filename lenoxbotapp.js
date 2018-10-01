@@ -7645,7 +7645,6 @@ app.get('/error', (req, res) => {
 // Global post for commands status change
 
 app.post('/dashboard/:id/global/:command/submitcommandstatuschange', async (req, res) => {
-	// console.log('Work');
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
