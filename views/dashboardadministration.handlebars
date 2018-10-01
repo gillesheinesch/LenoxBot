@@ -728,57 +728,25 @@
                                                         Edit
                                                     </button>
                                                     {{#if conf.enabled}}
-                                                    <form action="/dashboard/{{../guilds.id}}/administration/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST" id="{{help.name}}form">
+                                                    <form id="{{help.name}}form">
                                                         <input type="hidden" value="false" name="statuschange" id="{{help.name}}status">
                                                     </form>
                                                     <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
                                                         Disable
                                                     </button>
                                                     {{else}}
-                                                    <form action="/dashboard/{{../guilds.id}}/administration/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST" id="{{help.name}}form">
-                                                        <input type="hidden" value="true" name="statuschange">
+                                                    <form id="{{help.name}}form">
+                                                        <input type="hidden" value="true" name="statuschange" id="{{help.name}}status">
                                                     </form>
-                                                    <button type="submit" class="btn lb-btn-green" id="{{help.name}}b" id="{{help.name}}status">
+                                                    <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
                                                         Enable
                                                     </button>
                                                     {{/if}}
                                                 </div>
                                                 <script>
-                                                    (function ($) {
-                                                        function processForm(e) {
-                                                            $('#{{help.name}}b').attr('disabled', 'disabled');
-                                                            $.ajax({
-                                                                url: '/dashboard/{{../guilds.id}}/administration/{{help.name}}/submitcommandstatuschange',
-                                                                dataType: 'text',
-                                                                type: 'post',
-                                                                contentType: 'application/x-www-form-urlencoded',
-                                                                data: $(this).serialize(),
-                                                                success: function (data, textStatus, jQxhr) {
-                                                                    notifySuccess();
-                                                                    if ($('#{{help.name}}b').hasClass('lb-btn-green')) {
-                                                                        $('{{help.name}}status').val('false');
-                                                                        $('#{{help.name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text('Disable');
-                                                                    } else {
-                                                                        $('{{help.name}}status').val('true');
-                                                                        $('#{{help.name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text('Enable');
-                                                                    }
-                                                                    $('#{{help.name}}b').removeAttr("disabled");
-                                                                },
-                                                                error: function (jqXhr, textStatus, errorThrown) {
-                                                                    console.log(errorThrown);
-                                                                    notifyError();
-                                                                }
-                                                            });
-                                                            e.preventDefault();
-                                                        }
-                                                        $('#{{help.name}}form').submit(processForm);
-                                                    })(jQuery);
-                                                    $("#{{help.name}}b").click(function () {
-                                                        $("#{{help.name}}form").submit();
-                                                    });
+                                                    var guildid = '{{../guilds.id}}';
                                                 </script>
+                                                {{> ajaxscript}}
                                             </td>
                                         </tr>
                                         {{/each}}
