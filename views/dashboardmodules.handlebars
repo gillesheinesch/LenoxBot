@@ -4,9 +4,7 @@
 </script>
 
 <main>
-    {{#if submitmodules}}
     {{> notification}}
-    {{/if}}
     <div class="container-fluid">
         <div class="row">
             {{> nav-dashboard}}
@@ -50,23 +48,58 @@
                                         </div>
                                         <div class="card-footer lb-card-footer pb-3">
                                             {{#if status}}
-                                            <div class="btn-group" role="group" aria-label="Status">
-                                                <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
-                                                    <button type="submit" class="btn lb-btn-red align-text-bottom"
-                                                        value="false" name="{{name}}">
-                                                        Disable
-                                                    </button>
+                                            <div aria-label="Status">
+                                                <form id="{{name}}form">
+                                                    <input type="hidden" value="false" id="{{name}}status" name="{{name}}">
                                                 </form>
+                                                <button type="submit" class="btn lb-btn-red align-text-bottom" id="{{name}}b">
+                                                    Disable
+                                                </button>
                                             </div>
                                             {{else}}
-                                            <div class="btn-group" role="group" aria-label="Status">
-                                                <form action="/dashboard/{{../guilds.id}}/modules/submitmodules" method="POST">
-                                                    <button type="submit" class="btn lb-btn-green" value="true" name="{{name}}">
-                                                        Enable
-                                                    </button>
+                                            <div aria-label="Status">
+                                                <form id="{{name}}form">
+                                                    <input type="hidden" value="true" id="{{name}}status" name="{{name}}">
                                                 </form>
+                                                <button type="submit" class="btn lb-btn-green" id="{{name}}b">
+                                                    Enable
+                                                </button>
                                             </div>
                                             {{/if}}
+                                            <script>
+                                                (function ($) {
+                                                    function processForm(e) {
+                                                        $('#{{name}}b').attr('disabled', 'disabled');
+                                                        $.ajax({
+                                                            url: '/dashboard/{{../guilds.id}}/modules/submitmodules',
+                                                            dataType: 'text',
+                                                            type: 'post',
+                                                            contentType: 'application/x-www-form-urlencoded',
+                                                            data: $(this).serialize(),
+                                                            success: function (data, textStatus, jQxhr) {
+                                                                notifySuccess();
+                                                                if ($('#{{name}}b').hasClass('lb-btn-green')) {
+                                                                    $('{{name}}status').val('false');
+                                                                    $('#{{name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text('Disable');
+                                                                } else {
+                                                                    $('{{name}}status').val('true');
+                                                                    $('#{{name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text('Enable');
+                                                                }
+                                                                $('#{{name}}b').removeAttr("disabled");
+                                                            },
+                                                            error: function (jqXhr, textStatus, errorThrown) {
+                                                                console.log(errorThrown);
+                                                                notifyError();
+                                                            }
+                                                        });
+                                                        e.preventDefault();
+                                                    }
+                                                    $('#{{name}}form').submit(processForm);
+                                                })(jQuery);
+                                                $("#{{name}}b").click(function () {
+                                                    $("#{{name}}form").submit();
+                                                });
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
