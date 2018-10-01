@@ -52,6 +52,7 @@ exports.run = (client, oldChannel, newChannel) => {
 			.setColor('#FE2E2E')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_topicupdated)
+			.addField(`⚙ ${lang.channelcreateevent_channelname}`, oldChannel.name)
 			.addField(`📎 ${lang.channelcreateevent_channelid}`, oldChannel.id)
 			.addField(`📤 ${lang.channelupdateevent_oldtopic}`, oldChannel.topic ? oldChannel.topic : lang.channelupdateevent_nochanneltopic)
 			.addField(`📥 ${lang.channelupdateevent_newtopic}`, newChannel.topic ? newChannel.topic : lang.channelupdateevent_nochanneltopic);
@@ -64,6 +65,7 @@ exports.run = (client, oldChannel, newChannel) => {
 			.setColor('#FE2E2E')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_positionupdated)
+			.addField(`⚙ ${lang.channelcreateevent_channelname}:`, oldChannel.name)
 			.addField(`📎 ${lang.channelcreateevent_channelid}`, oldChannel.id)
 			.addField(`📤 ${lang.channelupdateevent_oldposition}`, oldChannel.position)
 			.addField(`📥 ${lang.channelupdateevent_newposition}`, newChannel.position);

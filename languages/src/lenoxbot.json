@@ -1206,6 +1206,7 @@
 
     "channelcreateevent_channelcreated": "Channel created!",
     "channelcreateevent_channelid": "ChannelID:",
+    "channelcreateevent_channelname": "Channelname:",
     "channelcreateevent_name": "Name:",
 
     "channeldeleteevent_channeldeleted": "Channel deleted!",
@@ -1300,6 +1301,7 @@
 
     "rolecreateevent_created": "Role created!",
     "rolecreateevent_id": "RoleID",
+    "rolecreateevent_rolename": "Rolename",
     "rolecreateevent_color": "Hexcolor",
     "rolecreateevent_name": "Name",
 
