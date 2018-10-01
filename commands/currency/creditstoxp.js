@@ -25,10 +25,10 @@ exports.run = async (client, msg, args, lang) => {
 
 	await sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
 		if (row) {
-			const curLevel = Math.floor(0.3 * Math.sqrt(row.points + (parseInt(creditsAmount, 10) / 2)));
+			const curLevel = Math.floor(0.3 * Math.sqrt(row.points + Math.round(parseInt(creditsAmount, 10) / 2)));
 			if (curLevel > row.level) {
 				row.level = curLevel;
-				sql.run(`UPDATE scores SET points = ${row.points + (parseInt(creditsAmount, 10) / 2)}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+				sql.run(`UPDATE scores SET points = ${row.points + Math.round(parseInt(creditsAmount, 10) / 2)}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 
 				if (tableload.xpmessages === 'true') {
 					const levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
@@ -46,17 +46,17 @@ exports.run = async (client, msg, args, lang) => {
 					}
 				}
 			});
-			sql.run(`UPDATE scores SET points = ${row.points + (parseInt(creditsAmount, 10) / 2)} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+			sql.run(`UPDATE scores SET points = ${row.points + Math.round(parseInt(creditsAmount, 10) / 2)} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
 		} else {
-			sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, (parseInt(creditsAmount, 10) / 2), 0]);
+			sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, Math.round(parseInt(creditsAmount, 10) / 2), 0]);
 		}
 	}).catch(() => {
 		sql.run('CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)').then(() => {
-			sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, (parseInt(creditsAmount, 10) / 2), 0]);
+			sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, Math.round(parseInt(creditsAmount, 10) / 2), 0]);
 		});
 	});
 
-	const done = lang.creditstoxp_done.replace('%credits', `**${creditsAmount}**`).replace('%xp', `**${parseInt(creditsAmount, 10) / 2}**`);
+	const done = lang.creditstoxp_done.replace('%credits', `**${creditsAmount}**`).replace('%xp', `**${Math.round(parseInt(creditsAmount, 10) / 2)}**`);
 	return msg.reply(done);
 };
 
