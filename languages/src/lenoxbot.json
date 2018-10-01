@@ -1216,6 +1216,7 @@
     "channelupdateevent_topicupdated": "Channeltopic updated!",
     "channelupdateevent_oldtopic": "Old topic:",
     "channelupdateevent_newtopic": "New topic:",
+    "channelupdateevent_nochanneltopic": "No channeltopic",
     "channelupdateevent_positionupdated": "Channelposition updated!",
     "channelupdateevent_oldposition": "Old position:",
     "channelupdateevent_newposition": "New position:",

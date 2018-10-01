@@ -53,8 +53,8 @@ exports.run = (client, oldChannel, newChannel) => {
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_topicupdated)
 			.addField(`📎 ${lang.channelcreateevent_channelid}`, oldChannel.id)
-			.addField(`📤 ${lang.channelupdateevent_oldtopic}`, oldChannel.topic)
-			.addField(`📥 ${lang.channelupdateevent_newtopic}`, newChannel.topic);
+			.addField(`📤 ${lang.channelupdateevent_oldtopic}`, oldChannel.topic ? oldChannel.topic : lang.channelupdateevent_nochanneltopic)
+			.addField(`📥 ${lang.channelupdateevent_newtopic}`, newChannel.topic ? newChannel.topic : lang.channelupdateevent_nochanneltopic);
 		return messagechannel.send({
 			embed: embed
 		});
