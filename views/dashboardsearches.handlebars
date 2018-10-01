@@ -118,9 +118,9 @@
                                                     </button>
                                                     {{#if conf.enabled}}
                                                     <form id="{{help.name}}form">
-                                                        <input type="hidden" value="false" name="statuschange">
+                                                        <input type="hidden" value="false" name="statuschange" id="{{help.name}}status">
                                                     </form>
-                                                    <button type="submit" class="btn lb-btn-red" id="{{help.name}}b" id="{{help.name}}status">
+                                                    <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
                                                         Disable
                                                     </button>
                                                     {{else}}
