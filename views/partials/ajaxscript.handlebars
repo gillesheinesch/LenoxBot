@@ -11,10 +11,10 @@
                 success: function (data, textStatus, jQxhr) {
                     notifySuccess();
                     if ($('#{{help.name}}b').hasClass('lb-btn-green')) {
-                        $('{{help.name}}status').val('false');
+                        $('#{{help.name}}status').val('false');
                         $('#{{help.name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text('Disable');
                     } else {
-                        $('{{help.name}}status').val('true');
+                        $('#{{help.name}}status').val('true');
                         $('#{{help.name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text('Enable');
                     }
                     $('#{{help.name}}b').removeAttr("disabled");

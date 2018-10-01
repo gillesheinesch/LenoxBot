@@ -79,10 +79,10 @@
                                                             success: function (data, textStatus, jQxhr) {
                                                                 notifySuccess();
                                                                 if ($('#{{name}}b').hasClass('lb-btn-green')) {
-                                                                    $('{{name}}status').val('false');
+                                                                    $('#{{name}}status').val('false');
                                                                     $('#{{name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text('Disable');
                                                                 } else {
-                                                                    $('{{name}}status').val('true');
+                                                                    $('#{{name}}status').val('true');
                                                                     $('#{{name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text('Enable');
                                                                 }
                                                                 $('#{{name}}b').removeAttr("disabled");
