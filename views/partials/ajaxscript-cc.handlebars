@@ -1,0 +1,97 @@
+<script>
+
+    // submitcommandstatuschange custom commands
+
+    (function ($) {
+        function processForm(e) {
+            $('#{{name}}b').attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/customcommands/customcommand/{{name}}/submitcommandstatuschange`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    if ($('#{{name}}b').hasClass('lb-btn-green')) {
+                        $('#{{name}}status').val('false');
+                        $('#{{name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text('Disable');
+                    } else {
+                        $('#{{name}}status').val('true');
+                        $('#{{name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text('Enable');
+                    }
+                    $('#{{name}}b').removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                }
+            });
+            e.preventDefault();
+        }
+        $('#{{name}}ccform').submit(processForm);
+    })(jQuery);
+
+    // submitcommandchange custom commands
+
+    (function ($) {
+        function processForm(e) {
+            $('#{{name}}bmodal').attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/customcommands/customcommand/{{name}}/submitcommandchange`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $('#{{name}}desc').text($('#{{name}}inputdesc').val());
+                    $('#{{name}}modal').modal('hide');
+                    $('#{{name}}bmodal').removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                }
+            });
+            e.preventDefault();
+        }
+        $('#{{name}}formmodal').submit(processForm);
+    })(jQuery);
+
+    // submitdeletecommand custom commands
+
+    (function ($) {
+        function processForm(e) {
+            $('#{{name}}delb').attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/customcommands/customcommand/{{name}}/submitdeletecommand`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $('#{{name}}delmodal').modal('hide');
+                    $('#{{name}}delb').removeAttr("disabled");
+                    $('#{{name}}row').fadeOut();
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                }
+            });
+            e.preventDefault();
+        }
+        $('#{{name}}formdelmodal').submit(processForm);
+    })(jQuery);
+
+    // Click listener for submit forms
+
+    $("#{{name}}b").click(function () {
+        $("#{{name}}ccform").submit();
+    });
+    $("#{{name}}delb").click(function () {
+        $("#{{name}}formdelmodal").submit();
+    });
+</script>
