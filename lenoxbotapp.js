@@ -188,7 +188,6 @@ app.get('/', (req, res) => {
 			guilds: check,
 			islenoxbot: islenoxbot,
 			client: client,
-			islenoxbot: islenoxbot,
 			botstats: client.botconfs.get('botstats')
 		});
 	} catch (error) {
