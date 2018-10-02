@@ -186,6 +186,7 @@ app.get('/', (req, res) => {
 		return res.render('index', {
 			user: req.user,
 			guilds: check,
+			islenoxbot: islenoxbot,
 			client: client,
 			islenoxbot: islenoxbot,
 			botstats: client.botconfs.get('botstats')
