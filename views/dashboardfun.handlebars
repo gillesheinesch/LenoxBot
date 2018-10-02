@@ -27,7 +27,7 @@
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="modal fade" id="{{help.name}}" tabindex="-1" role="dialog"
+                                                <div class="modal fade" id="{{help.name}}modal" tabindex="-1" role="dialog"
                                                     aria-labelledby="{{help.name}}Title" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -40,8 +40,7 @@
                                                                 </button>
                                                             </div>
 
-                                                            <form class="form-inline" action="/dashboard/{{../guilds.id}}/fun/{{help.name}}/submitcommandchange"
-                                                                method="POST">
+                                                            <form class="form-inline" id="{{help.name}}formmodal">
                                                                 <div class="modal-body">
                                                                     <div class="form-group mb-2">
                                                                         <label for="newblacklistedchannels">Blacklisted
@@ -103,7 +102,7 @@
                                                                             name="newcooldown" required value="{{cooldown}}">
                                                                     </div>
                                                                     <hr>
-                                                                    <button type="submit" class="btn lb-btn-green">Save
+                                                                    <button type="submit" id="{{help.name}}bmodal" class="btn lb-btn-green">Save
                                                                         changes</button>
                                                                 </div>
                                                             </form>
@@ -112,7 +111,7 @@
                                                 </div>
                                                 <div class="btn-group float-right" role="group">
                                                     <button type="button" class="btn lb-btn-blue" data-toggle="modal"
-                                                        data-target="#{{help.name}}">
+                                                        data-target="#{{help.name}}modal">
                                                         Edit
                                                     </button>
                                                     {{#if conf.enabled}}
