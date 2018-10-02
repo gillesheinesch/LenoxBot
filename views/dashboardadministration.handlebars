@@ -652,8 +652,7 @@
                                                                     <span aria-hidden="true">&times;</span>
                                                                 </button>
                                                             </div>
-                                                            <form class="form-inline" action="/dashboard/{{../guilds.id}}/administration/{{help.name}}/submitcommandchange"
-                                                                method="POST">
+                                                            <form class="form-inline" id="{{help.name}}formmodal">
                                                                 <div class="modal-body">
                                                                     <div class="form-group mb-2">
                                                                         <label for="newblacklistedchannels">Blacklisted
@@ -715,7 +714,7 @@
                                                                             name="newcooldown" required value="{{cooldown}}">
                                                                     </div>
                                                                     <hr>
-                                                                    <button type="submit" class="btn lb-btn-green mt-1">Save
+                                                                    <button type="submit" id="{{help.name}}bmodal" class="btn lb-btn-green mt-1">Save
                                                                         changes</button>
                                                                 </div>
                                                             </form>

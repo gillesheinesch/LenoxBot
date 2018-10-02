@@ -1,4 +1,7 @@
 <script>
+
+// submitcommandstatuschange
+
     (function ($) {
         function processForm(e) {
             $('#{{help.name}}b').attr('disabled', 'disabled');
@@ -28,6 +31,35 @@
         }
         $('#{{help.name}}form').submit(processForm);
     })(jQuery);
+
+    // submitcommandchange
+
+    (function ($) {
+        function processForm(e) {
+            $('#{{help.name}}bmodal').attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/global/{{help.name}}/submitcommandchange`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $('#{{help.name}}').modal('hide')
+                    $('#{{help.name}}bmodal').removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                }
+            });
+            e.preventDefault();
+        }
+        $('#{{help.name}}formmodal').submit(processForm);
+    })(jQuery);
+
+    // Click listener for submit forms
+
     $("#{{help.name}}b").click(function () {
         $("#{{help.name}}form").submit();
     });
