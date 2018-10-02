@@ -45,7 +45,7 @@
                 data: $(this).serialize(),
                 success: function (data, textStatus, jQxhr) {
                     notifySuccess();
-                    $('#{{help.name}}').modal('hide')
+                    $('#{{help.name}}modal').modal('hide')
                     $('#{{help.name}}bmodal').removeAttr("disabled");
                 },
                 error: function (jqXhr, textStatus, errorThrown) {

@@ -5465,9 +5465,9 @@ app.post('/dashboard/:id/global/:command/submitcommandchange', async (req, res) 
 			await client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
-				pathname: `/dashboard/${dashboardid}/administration`,
+				pathname: `/dashboard/${dashboardid}/global`,
 				query: {
-					submitadministration: true
+					submit: true
 				}
 			}));
 		}
