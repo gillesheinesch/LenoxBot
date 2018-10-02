@@ -653,21 +653,17 @@ exports.run = async (client, msg) => {
 							msg.delete();
 						}
 						return msg.reply(anticommandspam);
-					}
-
-					timestamps[msg.author.id] = now;
-					await client.cooldowns.set(cmd.help.name, timestamps);
-					setTimeout(async () => {
-						delete timestamps[msg.author.id];
+						/* eslint no-else-return:0 */
+					} else if (now > expirationTime) {
+						timestamps[msg.author.id] = now;
 						await client.cooldowns.set(cmd.help.name, timestamps);
-					}, cooldownAmount);
+					} else {
+						timestamps[msg.author.id] = now;
+						await client.cooldowns.set(cmd.help.name, timestamps);
+					}
 				} else {
 					timestamps[msg.author.id] = now;
 					await client.cooldowns.set(cmd.help.name, timestamps);
-					setTimeout(async () => {
-						delete timestamps[msg.author.id];
-						await client.cooldowns.set(cmd.help.name, timestamps);
-					}, cooldownAmount);
 				}
 			}
 
