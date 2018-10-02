@@ -1,0 +1,127 @@
+<div class="card-header">
+    <p class="h5">Commands</p>
+</div>
+<div class="card-body">
+    <div class="table-responsive">
+        <table class="table">
+            <tbody>
+                {{#each commands}}
+                <tr>
+                    <td>
+                        <div class="col-sm-8">
+                            <h6>{{help.name}}</h6>
+                            <p class="text-muted">{{help.description}}</p>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="modal fade" id="{{help.name}}modal" tabindex="-1" role="dialog" aria-labelledby="{{help.name}}Title"
+                            aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLongTitle">Settings
+                                            of {{help.name}} command</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <form class="form-inline" id="{{help.name}}formmodal">
+                                        <div class="modal-body">
+                                            <div class="form-group mb-2">
+                                                <label for="newblacklistedchannels">Blacklisted
+                                                    channels:</label>
+                                            </div>
+                                            <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                <select class="selectpicker" name="newblacklistedchannels"
+                                                    data-live-search="true" multiple title="Choose channel(s)"
+                                                    data-actions-box="true" data-size="7">
+                                                    {{#each ../channels}} {{#inArray
+                                                    ../bannedchannels id}}
+                                                    <option value="{{id}}" selected>#{{name}}</option>
+                                                    {{else}}
+                                                    <option value="{{id}}">#{{name}}</option>
+                                                    {{/inArray}} {{/each}}
+                                                </select>
+                                            </div>
+                                            <hr>
+                                            <div class="form-group mb-2">
+                                                <label for="newwhitelistedroles">Whitelisted
+                                                    roles:</label>
+                                            </div>
+                                            <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                <select class="selectpicker" name="newwhitelistedroles"
+                                                    data-live-search="true" multiple title="Choose roles(s)"
+                                                    data-actions-box="true" data-size="7">
+                                                    {{#each ../roles}} {{#inArray
+                                                    ../whitelistedroles id}}
+                                                    <option value="{{id}}" selected>@{{name}}</option>
+                                                    {{else}}
+                                                    <option value="{{id}}">@{{name}}</option>
+                                                    {{/inArray}} {{/each}}
+                                                </select>
+                                            </div>
+                                            <hr>
+                                            <div class="form-group mb-2">
+                                                <label for="newblacklistedroles">Blacklisted
+                                                    roles:</label>
+                                            </div>
+                                            <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                <select class="selectpicker" name="newblacklistedroles"
+                                                    data-live-search="true" multiple title="Choose roles(s)"
+                                                    data-actions-box="true" data-size="7">
+                                                    {{#each ../roles}} {{#inArray
+                                                    ../bannedroles id}}
+                                                    <option value="{{id}}" selected>@{{name}}</option>
+                                                    {{else}}
+                                                    <option value="{{id}}">@{{name}}</option>
+                                                    {{/inArray}} {{/each}}
+                                                </select>
+                                            </div>
+                                            <hr>
+                                            <div class="form-group mb-2">
+                                                <label for="newcooldown">Cooldown (in
+                                                    seconds):</label>
+                                            </div>
+                                            <div class="form-group mx-sm-3 mb-2 col-sm-6">
+                                                <input type="number" min="3" max="600" class="form-control" name="newcooldown"
+                                                    required value="{{cooldown}}">
+                                            </div>
+                                            <hr>
+                                            <button type="submit" id="{{help.name}}bmodal" class="btn lb-btn-green mt-1">Save
+                                                changes</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="btn-group float-right" role="group">
+                            <button type="button" class="btn lb-btn-blue" data-toggle="modal" data-target="#{{help.name}}modal">
+                                Edit
+                            </button>
+                            {{#if conf.enabled}}
+                            <form id="{{help.name}}form">
+                                <input type="hidden" value="false" name="statuschange" id="{{help.name}}status">
+                            </form>
+                            <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
+                                Disable
+                            </button>
+                            {{else}}
+                            <form id="{{help.name}}form">
+                                <input type="hidden" value="true" name="statuschange" id="{{help.name}}status">
+                            </form>
+                            <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
+                                Enable
+                            </button>
+                            {{/if}}
+                        </div>
+                        <script>
+                            var guildid = '{{../guilds.id}}';
+                        </script>
+                        {{> ajaxscript}}
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
