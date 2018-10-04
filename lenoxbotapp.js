@@ -181,9 +181,12 @@ app.get('/', (req, res) => {
 			}
 		}
 
+		const islenoxbot = islenoxboton(req);
+
 		return res.render('index', {
 			user: req.user,
 			guilds: check,
+			islenoxbot: islenoxbot,
 			client: client,
 			botstats: client.botconfs.get('botstats')
 		});
