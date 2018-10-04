@@ -16,8 +16,7 @@
                             <h5>Application</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitapplication"
-                                method="POST">
+                            <form class="form-vertical" name="submitapplication">
                                 <div class="form-group">
                                     <label class="control-label col-lg-6" for="newapplication">Toggle Application</label>
                                     <div class="col-lg-6">
@@ -30,7 +29,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green">Save</button>
+                                        <button type="submit" class="btn lb-btn-green" id="submitapplication">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -42,8 +41,7 @@
                                 application)</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/application/submitreactionnumber"
-                                method="POST">
+                            <form class="form-vertical" name="submitreactionnumber">
                                 <div class="form-group">
                                     <label class="control-label col-lg-6" for="newreactionnumber">New reactionnumber:</label>
                                     <div class="col-lg-6">
@@ -53,7 +51,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-2 col-sm-10" style="margin-top: 20px;">
-                                        <button type="submit" class="btn lb-btn-green">Save</button>
+                                        <button type="submit" class="btn lb-btn-green" id="submitreactionnumber">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -64,8 +62,7 @@
                             <h5>Role for accepted canidates</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitrole"
-                                method="POST">
+                            <form class="form-horizontal" name="submitrole">
                                 <div class="form-group">
                                     <label class="control-label col-lg-6" for="newrole">Select a role:</label>
                                     <div class="col-lg-6">
@@ -83,7 +80,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green">Save</button>
+                                        <button type="submit" class="btn lb-btn-green" id="submitrole">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -94,8 +91,7 @@
                             <h5>Role for rejected canidates</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitdenyrole"
-                                method="POST">
+                            <form class="form-horizontal" name="submitdenyrole">
                                 <div class="form-group">
                                     <label class="control-label col-lg-6" for="newdenyrole">Select a role:</label>
                                     <div class="col-lg-6">
@@ -113,7 +109,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green">Save</button>
+                                        <button type="submit" class="btn lb-btn-green" id="submitdenyrole">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -124,8 +120,7 @@
                             <h5>Message for accepted applicants</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewacceptedmsg"
-                                method="POST">
+                            <form class="form-horizontal" name="submitnewacceptedmsg">
                                 <div class="form-group">
                                     <label class="control-label col-lg-6" for="newacceptedmsg">New message:</label>
                                     <div class="col-lg-6">
@@ -134,7 +129,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green">Save</button>
+                                        <button type="submit" class="btn lb-btn-green" id="submitnewacceptedmsg">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -145,8 +140,7 @@
                             <h5>Message for rejected applicants</h5>
                         </div>
                         <div class="card-body">
-                            <form class="form-horizontal" action="/dashboard/{{guilds.id}}/application/submitnewrejectedmsg"
-                                method="POST">
+                            <form class="form-horizontal" name="submitnewrejectedmsg">
                                 <div class="form-group">
                                     <label class="control-label col-lg-6" for="newrejectedmsg">New message:</label>
                                     <div class="col-lg-6">
@@ -155,7 +149,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green">Save</button>
+                                        <button type="submit" class="btn lb-btn-green" id="submitnewrejectedmsg">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -163,6 +157,7 @@
                     </div>
                     <div class="card mt-3 shadow-sm">
                         {{> commandsection}}
+                        {{> customforms/application}}
                     </div>
                 </div>
             </div>
