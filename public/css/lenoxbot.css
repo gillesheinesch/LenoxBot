@@ -6,7 +6,7 @@
     background-color: #263238;
     background-image: url('../img/bg.svg');
     background-repeat: repeat;
-    background-size: 90px 90px;
+    background-size: 120px 80px;
     background-attachment: fixed;
     animation: bg 5s linear infinite;
 }
@@ -33,7 +33,6 @@
 .lb-nav-dashboard-active {
     color: #e8f5e9 !important;
     background-color: #4caf50 !important;
-    /* border-left: 2px solid #4caf50 !important; */
     border-radius: 50px !important;
 }
 
@@ -138,6 +137,12 @@
     border-color: white;
     color: white;
     border-radius: 100px;
+}
+
+.lb-btn-login:focus {
+    border-color: rgba(255, 255, 255);
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(255, 255, 255, 0.5);
+    outline: 0 none;
 }
 
 .lb-btn-profile {
@@ -506,7 +511,7 @@
         background-position: 0px 0px;
     }
     100% {
-        background-position: 90px 90px;
+        background-position: 120px 80px;
     }
 }
 
