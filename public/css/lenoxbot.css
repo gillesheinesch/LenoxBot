@@ -50,6 +50,11 @@
     color: #e8f5e9;
 }
 
+.lb-dropdown-item-logout:active {
+    background-color: #ef5350;
+    color: #e8f5e9;
+}
+
 .lb-hero-mainrow {
     height: 100%;
 }
