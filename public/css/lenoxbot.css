@@ -427,6 +427,13 @@
     position: fixed !important;
 }
 
+.lb-textcap{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: inherit;
+}
+
 .lb-bot-body {
     fill: #4CAF50;
     stroke: #000000;
