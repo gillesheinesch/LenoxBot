@@ -45,6 +45,10 @@
     width: 100%;
 }
 
+.lb-dashboard {
+    animation: lb-fadein .5s;
+}
+
 .lb-dropdown-item:active {
     background-color: #4caf50;
     color: #e8f5e9;
@@ -534,6 +538,15 @@
     }
     100% {
         transform: scale(1.5);
+    }
+}
+
+@keyframes lb-fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 
