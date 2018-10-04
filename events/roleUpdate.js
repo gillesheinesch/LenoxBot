@@ -30,6 +30,7 @@ exports.run = (client, oldRole, newRole) => {
 	const lang = require(`../languages/${tableload.language}.json`);
 
 	const messagechannel = client.channels.get(tableload.rolecreatelogchannel);
+	if (!messagechannel) return;
 
 	if (oldRole.name !== newRole.name) {
 		const embed = new Discord.RichEmbed()

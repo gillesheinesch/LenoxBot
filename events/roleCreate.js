@@ -29,6 +29,7 @@ exports.run = (client, role) => {
 	const lang = require(`../languages/${tableload.language}.json`);
 
 	const messagechannel = client.channels.get(tableload.rolecreatelogchannel);
+	if (!messagechannel) return;
 
 	const embed = new Discord.RichEmbed()
 		.setColor('#FE2E2E')
