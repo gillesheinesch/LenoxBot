@@ -567,10 +567,9 @@ exports.run = async (client, msg) => {
 				.setTimestamp();
 			if (botconfig.activity === true) {
 				const messagechannel = client.channels.get(botconfig.activitychannel);
-				/* messagechannel.send({
+				messagechannel.send({
 					embed: activityembed
 				});
-				*/ 
 			}
 
 			if (botCommandExists) {
