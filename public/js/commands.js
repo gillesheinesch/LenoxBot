@@ -17,7 +17,7 @@ $("#search-input").on("keyup", function () {
     });
     if ($('#table tbody tr:visible').length === 0) {
         $('#notfound').show();
-    }else{
+    } else {
         $('#notfound').hide();
     }
 });
