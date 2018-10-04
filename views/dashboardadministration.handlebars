@@ -14,8 +14,7 @@
                             <p class="h5">General Settings</p>
                         </div>
                         <div class="card-body">
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitprefix"
-                                method="POST">
+                            <form class="form-inline" name="submitprefix">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="newprefix">Prefix:</label>
                                 </div>
@@ -23,10 +22,9 @@
                                     <input type="text" class="form-control lb-input-prefix" id="newprefix" name="newprefix"
                                         pattern=".{1,}" required value="{{guilds.prefix}}">
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3 lb-btn-cform" id="submitprefix">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlanguage"
-                                method="POST">
+                            <form class="form-inline" name="submitlanguage">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="newlanguage">Language:</label>
                                 </div>
@@ -39,10 +37,9 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit"  class="btn lb-btn-green mb-2 ml-3 lb-btn-cform" id="submitlanguage">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitcommanddeletion"
-                                method="POST">
+                            <form class="form-inline" name="submitcommanddeletion">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="newcommanddeletion">Commanddeletion:</label>
                                 </div>
@@ -57,10 +54,9 @@
                                         {{/if}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3 lb-btn-cform" id="submitcommanddeletion">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitmuterole"
-                                method="POST">
+                            <form class="form-inline" name="submitmuterole">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="newmuterole">Muterole:</label>
                                 </div>
@@ -79,10 +75,9 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitmuterole">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglexpmessages"
-                                method="POST">
+                            <form class="form-inline" name="submittogglexpmessages">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="newxpmessages">Toggle XP Messages:</label>
                                 </div>
@@ -97,10 +92,9 @@
                                         {{/if}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submittogglexpmessages">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglexp"
-                                method="POST">
+                            <form class="form-inline" name="submittogglexp">
                                 <div class="form-group mb-2 col-sm-3">
                                     <labelfor="newxpchannels">Channels where XP doesn't count:</label>
                                 </div>
@@ -114,10 +108,9 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submittogglexp">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitselfassignableroles"
-                                method="POST">
+                            <form class="form-inline" name="submitselfassignableroles">
                                 <div class="form-group mb-2 col-sm-3">
                                     <labelfor="newselfassignableroles">Self assignable roles:</label>
                                 </div>
@@ -131,10 +124,9 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitselfassignableroles">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittoggleannounce"
-                                method="POST">
+                            <form class="form-inline" name="submittoggleannounce">
                                 <div class="form-group mb-2 col-sm-3">
                                     <labelfor="newannounce">Toggle announce:</label>
                                 </div>
@@ -152,10 +144,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submittoggleannounce">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitpermissionsdashboard"
-                                method="POST">
+                            <form class="form-inline" name="submitpermissionsdashboard">
                                 <div class="form-group mb-2 col-sm-3">
                                     <labelfor="newpermissiondashboard">Permissions Dashboard:</label>
                                 </div>
@@ -170,10 +161,9 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitpermissionsdashboard">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitpermissionsticket"
-                                method="POST">
+                            <form class="form-inline" name="submitpermissionsticket">
                                 <div class="form-group mb-2 col-sm-3">
                                     <labelfor="newpermissionticket">Permissions Tickets Panel:</label>
                                 </div>
@@ -187,10 +177,9 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitpermissionsticket">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitpermissionsapplication"
-                                method="POST">
+                            <form class="form-inline" name="submitpermissionsapplication">
                                 <div class="form-group mb-2 col-sm-3">
                                     <labelfor="newpermissionapplication">Permission Applications Panel:</label>
                                 </div>
@@ -205,7 +194,7 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitpermissionsapplication">Save</button>
                             </form>
                         </div>
                     </div>
@@ -214,8 +203,7 @@
                             <p class="h5">Logs</p>
                         </div>
                         <div class="card-body">
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="modlog">Modlog:</label>
                                 </div>
@@ -232,10 +220,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs2">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="chatfilterlog">Chatfilter:</label>
                                 </div>
@@ -252,10 +239,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs2">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs3">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="messagedeletelog">Messagdelete:</label>
                                 </div>
@@ -272,10 +258,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs3">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs4">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="messageupdatelog">Messageupdate:</label>
                                 </div>
@@ -293,10 +278,9 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs4">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs5">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="channelupdatelog">Channelupdate:</label>
                                 </div>
@@ -314,10 +298,9 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs5">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs6">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="channelcreatelog">Channelcreate:</label>
                                 </div>
@@ -334,10 +317,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs6">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs7">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="channeldeletelog">Channeldelete:</label>
                                 </div>
@@ -355,10 +337,9 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs7">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs8">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="memberupdatelog">Memberupdate:</label>
                                 </div>
@@ -376,10 +357,9 @@
                                     </select>
                                 </div>
 
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs8">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs9">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="presenceupdatelog">Presenceupdate:</label>
                                 </div>
@@ -396,10 +376,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs9">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs10">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="welcomelog">Userjoin:</label>
                                 </div>
@@ -416,10 +395,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs10">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs11">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="byelog">Userleft:</label>
                                 </div>
@@ -436,10 +414,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs11">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs12">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="rolecreatelog">Rolecreate:</label>
                                 </div>
@@ -456,10 +433,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs12">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs13">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="roledeletelog">Roledelete:</label>
                                 </div>
@@ -476,10 +452,9 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs13">Save</button>
                             </form>
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submitlogs"
-                                method="POST">
+                            <form class="form-inline" name="submitlogs14">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="roleupdatelog">Roleupdate:</label>
                                 </div>
@@ -496,7 +471,7 @@
                                         {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs14">Save</button>
                             </form>
                         </div>
                     </div>
@@ -505,8 +480,7 @@
                             <p class="h5">Welcome Settings</p>
                         </div>
                         <div class="card-body">
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglewelcome"
-                                method="POST">
+                            <form class="form-inline" name="submittogglewelcome">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="newwelcome">Welcome:</label>
                                 </div>
@@ -520,10 +494,9 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submittogglewelcome">Save</button>
                             </form>
-                            <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitwelcomemsg"
-                                method="POST">
+                            <form class="form-horizontal" name="submitwelcomemsg">
                                 <div class="form-group">
                                     <label class="control-label col-sm" for="newwelcomemsg">Set a new welcome message:</label>
                                     <div class="col-sm-9">
@@ -532,7 +505,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green mb-1">Save</button>
+                                        <button type="submit" class="btn lb-btn-green mb-1" id="submitwelcomemsg">Save</button>
                                         <button id="popover-for-msgoptions1" type="button" class="btn lb-btn-grey mb-1"
                                             data-toggle="popover" title="All message options:" data-content="$usertag$<br>$usermention$<br>$username$<br>$userid$<br>$guildname$<br>$guildid$">Show
                                             all message options</button>
@@ -546,8 +519,7 @@
                             <p class="h5">Bye Settings</p>
                         </div>
                         <div class="card-body">
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglebye"
-                                method="POST">
+                            <form class="form-inline" name="submittogglebye">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="newbye">Bye:</label>
                                 </div>
@@ -561,10 +533,9 @@
                                         {{/if}} {{/each}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submittogglebye">Save</button>
                             </form>
-                            <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitbyemsg"
-                                method="POST">
+                            <form class="form-horizontal" name="submitbyemsg">
                                 <div class="form-group">
                                     <label class="control-label col-sm" for="newbyemsg">Set a new bye message:</label>
                                     <div class="col-sm-9">
@@ -573,7 +544,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green mb-1">Save</button>
+                                        <button type="submit" class="btn lb-btn-green mb-1" id="submitbyemsg">Save</button>
                                         <button id="popover-for-msgoptions2" type="button" class="btn lb-btn-grey mb-1"
                                             data-toggle="popover" title="All message options:" data-content="$usertag$<br>$username$<br>$userid$<br>$guildname$<br>$guildid$">Show
                                             all message options</button>
@@ -587,8 +558,7 @@
                             <p class="h5">Chatfilter</p>
                         </div>
                         <div class="card-body">
-                            <form class="form-inline" action="/dashboard/{{guilds.id}}/administration/submittogglechatfilter"
-                                method="POST">
+                            <form class="form-inline" name="submittogglechatfilter">
                                 <div class="form-group mb-2 col-sm-3">
                                     <label for="newchatfilter">Chatfilter:</label>
                                 </div>
@@ -603,21 +573,20 @@
                                         {{/if}}
                                     </select>
                                 </div>
-                                <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submittogglechatfilter">Save</button>
                             </form>
-                            <form class="form-horizontal" action="/dashboard/{{guilds.id}}/administration/submitchatfilterarray"
-                                method="POST">
+                            <form class="form-horizontal" name="submitchatfilterarray">
                                 <div class="form-group">
                                     <label class="control-label col-sm" for="newbyemsg">Update chatfilter entries (Each
                                         entry must be separated by a comma):</label>
                                     <div class="col-sm-9">
-                                        <textarea class="form-control" name="newchatfilterarray" rows="20" placeholder="word1,word2,word3"
+                                        <textarea class="form-control" name="newchatfilterarray" rows="3" placeholder="word1,word2,word3"
                                             pattern="^\S+$">{{chatfilterarray}}</textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green mb-2 ml-3">Save</button>
+                                        <button type="submit" class="btn lb-btn-green mb-2" id="submitchatfilterarray">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -625,6 +594,7 @@
                     </div>
                     <div class="card mt-3 shadow-sm">
                         {{> commandsection}}
+                        {{> customforms/administration}}
                     </div>
                 </div>
             </div>

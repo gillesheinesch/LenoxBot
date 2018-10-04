@@ -1,0 +1,100 @@
+<script>
+
+    // Administration ajax script
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $(`#${name}`).attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/administration/${name}`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $(`#${name}`).removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $(`#${name}`).removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+
+        // General settings
+
+        $('[name="submitprefix"]').submit(processForm);
+        $('[name="submitlanguage"]').submit(processForm);
+        $('[name="submitcommanddeletion"]').submit(processForm);
+        $('[name="submitmuterole"]').submit(processForm);
+        $('[name="submittogglexpmessages"]').submit(processForm);
+        $('[name="submittogglexp"]').submit(processForm);
+        $('[name="submitselfassignableroles"]').submit(processForm);
+        $('[name="submittoggleannounce"]').submit(processForm);
+        $('[name="submitpermissionsdashboard"]').submit(processForm);
+        $('[name="submitpermissionsticket"]').submit(processForm);
+        $('[name="submitpermissionsapplication"]').submit(processForm);
+
+        // Welcome Settings
+
+        $('[name="submittogglewelcome"]').submit(processForm);
+        $('[name="submitwelcomemsg"]').submit(processForm);
+
+        // Bye Settings
+
+        $('[name="submittogglebye"]').submit(processForm);
+        $('[name="submitbyemsg"]').submit(processForm);
+
+        // Chat Filter
+
+        $('[name="submittogglechatfilter"]').submit(processForm);
+        $('[name="submitchatfilterarray"]').submit(processForm);
+
+    })(jQuery);
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $(`#${name}`).attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/administration/submitlogs`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $(`#${name}`).removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $(`#${name}`).removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+        // Logs
+
+        $('[name="submitlogs"]').submit(processForm);
+        $('[name="submitlogs2"]').submit(processForm);
+        $('[name="submitlogs3"]').submit(processForm);
+        $('[name="submitlogs4"]').submit(processForm);
+        $('[name="submitlogs5"]').submit(processForm);
+        $('[name="submitlogs6"]').submit(processForm);
+        $('[name="submitlogs7"]').submit(processForm);
+        $('[name="submitlogs8"]').submit(processForm);
+        $('[name="submitlogs9"]').submit(processForm);
+        $('[name="submitlogs10"]').submit(processForm);
+        $('[name="submitlogs11"]').submit(processForm);
+        $('[name="submitlogs12"]').submit(processForm);
+        $('[name="submitlogs13"]').submit(processForm);
+        $('[name="submitlogs14"]').submit(processForm);
+
+    })(jQuery);
+
+</script>

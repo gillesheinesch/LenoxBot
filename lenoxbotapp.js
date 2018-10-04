@@ -1350,7 +1350,7 @@ app.post('/dashboard/:id/administration/submitlanguage', async (req, res) => {
 			await client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
-				pathname: `/dashboard/${dashboardid}/administration`,
+				pathname: `/dashboard/${dashboardid}/modules`,
 				query: {
 					submitadministration: true
 				}
@@ -5437,16 +5437,17 @@ app.get('/error', (req, res) => {
 
 	const islenoxbot = islenoxboton(req);
 
-	res.render('error', {
-		user: req.user,
-		guilds: check,
-		client: client,
-		islenoxbot: islenoxbot,
-		statuscode: req.query.statuscode,
-		message: req.query.message,
-		fix: fix,
-		howtofix: howtofix
-	});
+	res.status(404)
+		.render('error', {
+			user: req.user,
+			guilds: check,
+			client: client,
+			islenoxbot: islenoxbot,
+			statuscode: req.query.statuscode,
+			message: req.query.message,
+			fix: fix,
+			howtofix: howtofix
+		});
 });
 
 // Global post for commandstatuschange
@@ -5499,7 +5500,7 @@ app.post('/dashboard/:id/global/:command/submitcommandstatuschange', async (req,
 
 			await client.guildconfs.set(dashboardid, tableload);
 			return res.redirect(url.format({
-				pathname: `/dashboard/${dashboardid}/global`,
+				pathname: `/dashboard/${dashboardid}/modules`,
 				query: {
 					submit: true
 				}
@@ -5617,7 +5618,7 @@ app.post('/dashboard/:id/global/:command/submitcommandchange', async (req, res) 
 			await client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
-				pathname: `/dashboard/${dashboardid}/global`,
+				pathname: `/dashboard/${dashboardid}/modules`,
 				query: {
 					submit: true
 				}
