@@ -3,9 +3,7 @@
     var currentNavDashId = '#music';
 </script>
 <main>
-    {{#if submitmusic}}
     {{> notification}}
-    {{/if}}
     <div class="container-fluid">
         <div class="row">
             {{> nav-dashboard}}
@@ -14,28 +12,31 @@
                     {{#if musiccurrentlyplaying}}
                     <div class="card shadow-sm">
                         <div class="card-header">
-                            <p class="h5">Music Menu</p>
+                            <p class="h5">Music Player</p>
                         </div>
                         <div class="card-body">
                             <p>Currently playing:
                                 <strong>{{song}}</strong>
                             </p>
                             <div class="btn-group" role="group" aria-label="musicinteraction">
-                                <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST">
+                                <form name="submitnewmusicaction">
+                                    <input type="hidden" value="play" name="newmusicaction">
                                     <button type="submit" class="btn lb-btn-player mr-1" data-toggle="tooltip"
-                                        data-placement="bottom" title="Play / Pause" value="play" name="newmusicaction">
+                                        data-placement="bottom" title="Play / Pause">
                                         <i class="mdi mdi-play-pause"></i>
                                     </button>
                                 </form>
-                                <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST">
+                                <form name="submitnewmusicaction2">
+                                    <input type="hidden" value="stop" name="newmusicaction">
                                     <button type="submit" class="btn lb-btn-player mr-1" data-toggle="tooltip"
-                                        data-placement="bottom" title="Stop" value="stop" name="newmusicaction">
+                                        data-placement="bottom" title="Stop" id="submitnewmusicaction2">
                                         <i class="mdi mdi-stop"></i>
                                     </button>
                                 </form>
-                                <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST">
+                                <form name="submitnewmusicaction3">
+                                    <input type="hidden" value="skip" name="newmusicaction">
                                     <button type="submit" class="btn lb-btn-player mr-1" data-toggle="tooltip"
-                                        data-placement="bottom" title="Skip" value="skip" name="newmusicaction">
+                                        data-placement="bottom" title="Skip" id="submitnewmusicaction3">
                                         <i class="mdi mdi-skip-next"></i>
                                     </button>
                                 </form>
@@ -50,8 +51,7 @@
                                 <p class="h5">Music Channelblacklist</p>
                             </div>
                             <div class="card-body">
-                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/music/submitchannelblacklist"
-                                    method="POST">
+                                <form class="form-vertical" name="submitchannelblacklist">
                                     <div class="form-group">
                                         <label class="control-label col-sm" for="newchannelblacklist">Set channels
                                             where LenoxBot doesn't play music:</label>
@@ -69,148 +69,15 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn lb-btn-green">Save</button>
+                                            <button type="submit" class="btn lb-btn-green" id="submitchannelblacklist">Save</button>
                                         </div>
                                     </div>
                                 </form>
                             </div>
                         </div>
                         <div class="card shadow-sm mt-3">
-                            <div class="card-header">
-                                <p class="h5">Commands</p>
-                            </div>
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table">
-                                        <tbody>
-                                            {{#each commands}}
-                                            <tr>
-                                                <td>
-                                                    <div class="col-sm-8">
-                                                        <h6>{{help.name}}</h6>
-                                                        <p class="text-muted">{{help.description}}</p>
-                                                    </div>
-                                                </td>
-                                                <td>
-                                                    <div class="modal fade" id="{{help.name}}" tabindex="-1" role="dialog"
-                                                        aria-labelledby="{{help.name}}Title" aria-hidden="true">
-                                                        <div class="modal-dialog modal-dialog-centered" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title" id="exampleModalLongTitle">Settings
-                                                                        of {{help.name}} command</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal"
-                                                                        aria-label="Close">
-                                                                        <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-
-                                                                <form class="form-inline" action="/dashboard/{{../guilds.id}}/music/{{help.name}}/submitcommandchange"
-                                                                    method="POST">
-                                                                    <div class="modal-body">
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newblacklistedchannels">Blacklisted
-                                                                                channels:</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                            <select class="selectpicker" name="newblacklistedchannels"
-                                                                                data-live-search="true" multiple title="Choose channel(s)"
-                                                                                data-actions-box="true" data-size="7">
-                                                                                {{#each ../channels}} {{#inArray
-                                                                                ../bannedchannels id}}
-                                                                                <option value="{{id}}" selected>#{{name}}</option>
-                                                                                {{else}}
-                                                                                <option value="{{id}}">#{{name}}</option>
-                                                                                {{/inArray}} {{/each}}
-                                                                            </select>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newwhitelistedroles">Whitelisted
-                                                                                roles:</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                            <select class="selectpicker" name="newwhitelistedroles"
-                                                                                data-live-search="true" multiple title="Choose roles(s)"
-                                                                                data-actions-box="true" data-size="7">
-                                                                                {{#each ../roles}} {{#inArray
-                                                                                ../whitelistedroles id}}
-                                                                                <option value="{{id}}" selected>@{{name}}</option>
-                                                                                {{else}}
-                                                                                <option value="{{id}}">@{{name}}</option>
-                                                                                {{/inArray}} {{/each}}
-                                                                            </select>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newblacklistedroles">Blacklisted
-                                                                                roles:</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                            <select class="selectpicker" name="newblacklistedroles"
-                                                                                data-live-search="true" multiple title="Choose roles(s)"
-                                                                                data-actions-box="true" data-size="7">
-                                                                                {{#each ../roles}} {{#inArray
-                                                                                ../bannedroles id}}
-                                                                                <option value="{{id}}" selected>@{{name}}</option>
-                                                                                {{else}}
-                                                                                <option value="{{id}}">@{{name}}</option>
-                                                                                {{/inArray}} {{/each}}
-                                                                            </select>
-                                                                        </div>
-                                                                        <hr>
-                                                                        <div class="form-group mb-2">
-                                                                            <label for="newcooldown">Cooldown (in
-                                                                                seconds):</label>
-                                                                        </div>
-                                                                        <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                            <input type="number" min="3" max="600"
-                                                                                class="form-control" name="newcooldown"
-                                                                                required value="{{cooldown}}">
-                                                                        </div>
-                                                                        <hr>
-                                                                        <button type="submit" class="btn lb-btn-green">Save
-                                                                            changes</button>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="btn-group float-right" role="group">
-                                                        <button type="button" class="btn lb-btn-blue" data-toggle="modal"
-                                                            data-target="#{{help.name}}">
-                                                            Edit
-                                                        </button>
-                                                        {{#if conf.enabled}}
-                                                        <form action="/dashboard/{{../guilds.id}}/music/{{help.name}}/submitcommandstatuschange"
-                                                            method="POST" id="{{help.name}}form">
-                                                            <input type="hidden" value="false" name="statuschange">
-                                                        </form>
-                                                        <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
-                                                            Disable
-                                                        </button>
-                                                        {{else}}
-                                                        <form action="/dashboard/{{../guilds.id}}/music/{{help.name}}/submitcommandstatuschange"
-                                                            method="POST" id="{{help.name}}form">
-                                                            <input type="hidden" value="true" name="statuschange">
-                                                        </form>
-                                                        <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
-                                                            Enable
-                                                        </button>
-                                                        {{/if}}
-                                                    </div>
-                                                    <script>
-                                                        $("#{{help.name}}b").click(function () {
-                                                            $("#{{help.name}}form").submit();
-                                                        });
-                                                    </script>
-                                                </td>
-                                            </tr>
-                                            {{/each}}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+                            {{> commandsection}}
+                            {{> customforms/music}}
                         </div>
                     </div>
                 </div>

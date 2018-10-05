@@ -1,0 +1,55 @@
+<script>
+    // Application ajax script
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $(`#${name}`).attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/application/${name}`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $(`#${name}`).removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $(`#${name}`).removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+
+        // Aplication
+
+        $('[name="submitapplication"]').submit(processForm);
+
+        // Reactionnumber
+
+        $('[name="submitreactionnumber"]').submit(processForm);
+
+        // Role for accepted canidates
+
+        $('[name="submitrole"]').submit(processForm);
+
+        // Role for rejected canidates
+
+        $('[name="submitdenyrole"]').submit(processForm);
+
+        // Message for accepted applicants
+
+        $('[name="submitnewacceptedmsg"]').submit(processForm);
+
+        // Message for rejected applicants
+
+        $('[name="submitnewrejectedmsg"]').submit(processForm);
+
+
+
+    })(jQuery);
+
+</script>

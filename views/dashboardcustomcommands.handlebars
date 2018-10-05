@@ -4,9 +4,7 @@
 </script>
 
 <main>
-    {{#if submitcustomcommands}}
     {{> notification}}
-    {{/if}}
     <div class="container-fluid">
         <div class="row">
             {{> nav-dashboard}}
@@ -21,15 +19,15 @@
                                 <table class="table">
                                     <tbody>
                                         {{#if isCustomCommands}} {{#each customcommands}}
-                                        <tr>
+                                        <tr id="{{name}}row">
                                             <td>
                                                 <div class="col-sm-8">
                                                     <h6>{{name}}</h6>
-                                                    <p class="text-muted">{{description}}</p>
+                                                    <p class="text-muted" id="{{name}}desc">{{description}}</p>
                                                 </div>
                                             </td>
                                             <td>
-                                                <div class="modal fade" id="{{name}}" tabindex="-1" role="dialog"
+                                                <div class="modal fade" id="{{name}}modal" tabindex="-1" role="dialog"
                                                     aria-labelledby="{{name}}Title" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
@@ -42,8 +40,7 @@
                                                                 </button>
                                                             </div>
 
-                                                            <form class="form-inline" action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandchange"
-                                                                method="POST">
+                                                            <form class="form-inline" id="{{name}}formmodal">
                                                                 <div class="modal-body">
                                                                     <p>Created by
                                                                         <strong>{{newcreator}}</strong> on
@@ -56,7 +53,7 @@
                                                                     </div>
                                                                     <div class="form-group mx-sm-3 mb-2 col-sm-12">
                                                                         <textarea class="form-control" name="newdescription"
-                                                                            rows="2" maxlength="60">{{description}}</textarea>
+                                                                            rows="2" maxlength="60" id="{{name}}inputdesc">{{description}}</textarea>
                                                                     </div>
                                                                     <div class="form-group mb-2">
                                                                         <label for="newcommandanswer">Response of
@@ -67,8 +64,32 @@
                                                                             rows="2" maxlength="2000">{{commandanswer}}</textarea>
                                                                     </div>
                                                                     <hr>
-                                                                    <button type="submit" class="btn lb-btn-green">Save
+                                                                    <button type="submit" id="{{name}}bmodal" class="btn lb-btn-green">Save
                                                                         changes</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="modal fade" id="{{name}}delmodal" tabindex="-1" role="dialog"
+                                                    aria-labelledby="{{name}}Title" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+
+                                                            <form class="form-inline" id="{{name}}formdelmodal">
+                                                                <div class="modal-body">
+                                                                    <p>Are you sure you want to delete the command <strong>{{name}}</strong>?
+                                                                    </p>
+                                                                    <hr>
+                                                                    <button type="submit" id="{{name}}delb" class="btn lb-btn-green">Yes</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -77,44 +98,33 @@
                                                 <div class="float-right d-inline">
                                                     <div class="btn-group" role="group">
                                                         <button type="button" class="btn lb-btn-blue" data-toggle="modal"
-                                                            data-target="#{{name}}">
+                                                            data-target="#{{name}}modal">
                                                             Edit
                                                         </button>
                                                         {{#if newstatus}}
-                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange"
-                                                            method="POST" id="{{name}}form">
-                                                            <input type="hidden" value="false" name="statuschange">
+                                                        <form id="{{name}}ccform">
+                                                            <input type="hidden" value="false" name="statuschange" id="{{name}}status">
                                                         </form>
                                                         <button type="submit" class="btn lb-btn-red" id="{{name}}b">
                                                             Disable
                                                         </button>
                                                         {{else}}
-                                                        <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitcommandstatuschange"
-                                                            method="POST" id="{{name}}form">
-                                                            <input type="hidden" value="true" name="statuschange">
+                                                        <form id="{{name}}ccform">
+                                                            <input type="hidden" value="true" name="statuschange" id="{{name}}status">
                                                         </form>
                                                         <button type="submit" class="btn lb-btn-green" id="{{name}}b">
                                                             Enable
                                                         </button>
                                                         {{/if}}
-                                                        <button type="submit" class="btn lb-btn-red" id="{{name}}delb">
+                                                        <button type="button" class="btn lb-btn-red" data-toggle="modal"
+                                                            data-target="#{{name}}delmodal">
                                                             Delete
                                                         </button>
                                                     </div>
-                                                    <form action="/dashboard/{{../guilds.id}}/customcommands/customcommand/{{name}}/submitdeletecommand"
-                                                        method="POST" id="{{name}}delform">
-                                                    </form>
                                                 </div>
                                             </td>
                                         </tr>
-                                        <script>
-                                            $("#{{name}}b").click(function () {
-                                                $("#{{name}}form").submit();
-                                            });
-                                            $("#{{name}}delb").click(function () {
-                                                $("#{{name}}delform").submit();
-                                            });
-                                        </script>
+                                        {{> customforms/customcommand}}
                                         {{/each}}
                                         {{else}}
                                         <p>No custom commands have been created!</p>
@@ -125,139 +135,7 @@
                         </div>
                     </div>
                     <div class="card shadow-sm mt-3">
-                        <div class="card-header">
-                            <p class="h5">Commands</p>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table" style="width: 100%;">
-                                    <tbody>
-                                        {{#each commands}}
-                                        <tr>
-                                            <td>
-                                                <div class="col-sm-8">
-                                                    <h6>{{help.name}}</h6>
-                                                    <p class="text-muted">{{help.description}}</p>
-                                                </div>
-                                            </td>
-                                            <td>
-                                                <div class="modal fade" id="{{help.name}}" tabindex="-1" role="dialog"
-                                                    aria-labelledby="{{help.name}}Title" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Settings
-                                                                    of {{help.name}} command</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-
-                                                            <form class="form-inline" action="/dashboard/{{../guilds.id}}/customcommands/{{help.name}}/submitcommandchange"
-                                                                method="POST">
-                                                                <div class="modal-body">
-                                                                    <div class="form-group mb-2">
-                                                                        <label for="newblacklistedchannels">Blacklisted
-                                                                            channels:</label>
-                                                                    </div>
-                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                        <select class="selectpicker" name="newblacklistedchannels"
-                                                                            data-live-search="true" multiple title="Choose channel(s)"
-                                                                            data-actions-box="true" data-size="7">
-                                                                            {{#each ../channels}} {{#inArray
-                                                                            ../bannedchannels id}}
-                                                                            <option value="{{id}}" selected>#{{name}}</option>
-                                                                            {{else}}
-                                                                            <option value="{{id}}">#{{name}}</option>
-                                                                            {{/inArray}} {{/each}}
-                                                                        </select>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="form-group mb-2">
-                                                                        <label for="newwhitelistedroles">Whitelisted
-                                                                            roles:</label>
-                                                                    </div>
-                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                        <select class="selectpicker" name="newwhitelistedroles"
-                                                                            data-live-search="true" multiple title="Choose roles(s)"
-                                                                            data-actions-box="true" data-size="7">
-                                                                            {{#each ../roles}} {{#inArray
-                                                                            ../whitelistedroles id}}
-                                                                            <option value="{{id}}" selected>@{{name}}</option>
-                                                                            {{else}}
-                                                                            <option value="{{id}}">@{{name}}</option>
-                                                                            {{/inArray}} {{/each}}
-                                                                        </select>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="form-group mb-2">
-                                                                        <label for="newblacklistedroles">Blacklisted
-                                                                            roles:</label>
-                                                                    </div>
-                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                        <select class="selectpicker" name="newblacklistedroles"
-                                                                            data-live-search="true" multiple title="Choose roles(s)"
-                                                                            data-actions-box="true" data-size="7">
-                                                                            {{#each ../roles}} {{#inArray
-                                                                            ../bannedroles id}}
-                                                                            <option value="{{id}}" selected>@{{name}}</option>
-                                                                            {{else}}
-                                                                            <option value="{{id}}">@{{name}}</option>
-                                                                            {{/inArray}} {{/each}}
-                                                                        </select>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <div class="form-group mb-2">
-                                                                        <label for="newcooldown">Cooldown (in seconds):</label>
-                                                                    </div>
-                                                                    <div class="form-group mx-sm-3 mb-2 col-sm-6">
-                                                                        <input type="number" min="3" max="600" class="form-control"
-                                                                            name="newcooldown" required value="{{cooldown}}">
-                                                                    </div>
-                                                                    <hr>
-                                                                    <button type="submit" class="btn lb-btn-green">Save
-                                                                        changes</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="btn-group float-right" role="group">
-                                                    <button type="button" class="btn lb-btn-blue" data-toggle="modal"
-                                                        data-target="#{{help.name}}">
-                                                        Edit
-                                                    </button>
-                                                    {{#if conf.enabled}}
-                                                    <form action="/dashboard/{{../guilds.id}}/customcommands/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST" id="{{help.name}}form">
-                                                        <input type="hidden" value="false" name="statuschange">
-                                                    </form>
-                                                    <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
-                                                        Disable
-                                                    </button>
-                                                    {{else}}
-                                                    <form action="/dashboard/{{../guilds.id}}/customcommands/{{help.name}}/submitcommandstatuschange"
-                                                        method="POST" id="{{help.name}}form">
-                                                        <input type="hidden" value="true" name="statuschange">
-                                                    </form>
-                                                    <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
-                                                        Enable
-                                                    </button>
-                                                    {{/if}}
-                                                </div>
-                                                <script>
-                                                    $("#{{help.name}}b").click(function () {
-                                                        $("#{{help.name}}form").submit();
-                                                    });
-                                                </script>
-                                            </td>
-                                        </tr>
-                                        {{/each}}
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                        {{> commandsection}}
                     </div>
                 </div>
             </div>

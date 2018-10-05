@@ -1,0 +1,66 @@
+<script>
+
+// submitcommandstatuschange global
+
+    (function ($) {
+        function processForm(e) {
+            $('#{{help.name}}b').attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/global/{{help.name}}/submitcommandstatuschange`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    if ($('#{{help.name}}b').hasClass('lb-btn-green')) {
+                        $('#{{help.name}}status').val('false');
+                        $('#{{help.name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text('Disable');
+                    } else {
+                        $('#{{help.name}}status').val('true');
+                        $('#{{help.name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text('Enable');
+                    }
+                    $('#{{help.name}}b').removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                }
+            });
+            e.preventDefault();
+        }
+        $('#{{help.name}}form').submit(processForm);
+    })(jQuery);
+
+    // submitcommandchange global
+
+    (function ($) {
+        function processForm(e) {
+            $('#{{help.name}}bmodal').attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/global/{{help.name}}/submitcommandchange`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $('#{{help.name}}modal').modal('hide')
+                    $('#{{help.name}}bmodal').removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                }
+            });
+            e.preventDefault();
+        }
+        $('#{{help.name}}formmodal').submit(processForm);
+    })(jQuery);
+
+    // Click listener for submit forms
+
+    $("#{{help.name}}b").click(function () {
+        $("#{{help.name}}form").submit();
+    });
+</script>
