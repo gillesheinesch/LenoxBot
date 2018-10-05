@@ -1,0 +1,37 @@
+<script>
+    // Moderation ajax script
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $(`#${name}`).attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/moderation/${name}`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $(`#${name}`).removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $(`#${name}`).removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+
+        // Anonymous mute
+
+        $('[name="submitmuteanonymous"]').submit(processForm);
+
+        // Anonymous temporary ban
+
+        $('[name="submittempbananonymous"]').submit(processForm);
+
+    })(jQuery);
+
+</script>

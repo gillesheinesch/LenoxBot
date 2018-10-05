@@ -15,8 +15,7 @@
                             <p class="h5">Anonymous mute (The user doesn't know who banned/muted him)</p>
                         </div>
                         <div class="card-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/moderation/submitmuteanonymous"
-                                method="POST">
+                            <form class="form-vertical" name="submitmuteanonymous">
                                 <div class="form-group">
                                     <label class="control-label col-sm" for="newmuteanonymous">Anonymous mute</label>
                                     <div class="col-sm-4">
@@ -34,7 +33,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green">Save</button>
+                                        <button type="submit" class="btn lb-btn-green" id="submitmuteanonymous">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -46,8 +45,7 @@
                                 temporarily banned him)</p>
                         </div>
                         <div class="card-body">
-                            <form class="form-vertical" action="/dashboard/{{guilds.id}}/moderation/submittempbananonymous"
-                                method="POST">
+                            <form class="form-vertical" name="submittempbananonymous">
                                 <div class="form-group">
                                     <label class="control-label col-sm" for="newtempbananonymous">Anonymous temporary
                                         ban</label>
@@ -66,7 +64,7 @@
                                 </div>
                                 <div class="form-group">
                                     <div class="col-sm-offset-3 col-sm-10">
-                                        <button type="submit" class="btn lb-btn-green">Save</button>
+                                        <button type="submit" class="btn lb-btn-green" id="submittempbananonymous">Save</button>
                                     </div>
                                 </div>
                             </form>
@@ -74,6 +72,7 @@
                     </div>
                     <div class="card shadow-sm mt-3">
                         {{> commandsection}}
+                        {{> customforms/moderation}}
                     </div>
                 </div>
             </div>
