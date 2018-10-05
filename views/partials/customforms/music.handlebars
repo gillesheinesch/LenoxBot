@@ -1,0 +1,65 @@
+<script>
+    // Music ajax script
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $(`#${name}`).attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/music/submitnewmusicaction`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    // Succes notify not necessary
+                    $(`#${name}`).removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $(`#${name}`).removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+
+        // Music Player
+
+        $('[name="submitnewmusicaction"]').submit(processForm);
+        $('[name="submitnewmusicaction2"]').submit(processForm);
+        $('[name="submitnewmusicaction3"]').submit(processForm);
+
+
+    })(jQuery);
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $(`#${name}`).attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/music/${name}`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $(`#${name}`).removeAttr("disabled");
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $(`#${name}`).removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+
+        // Music Channelblacklist
+
+        $('[name="submitchannelblacklist"]').submit(processForm);
+
+
+    })(jQuery);
+</script>

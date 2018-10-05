@@ -12,28 +12,31 @@
                     {{#if musiccurrentlyplaying}}
                     <div class="card shadow-sm">
                         <div class="card-header">
-                            <p class="h5">Music Menu</p>
+                            <p class="h5">Music Player</p>
                         </div>
                         <div class="card-body">
                             <p>Currently playing:
                                 <strong>{{song}}</strong>
                             </p>
                             <div class="btn-group" role="group" aria-label="musicinteraction">
-                                <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST">
+                                <form name="submitnewmusicaction">
+                                    <input type="hidden" value="play" name="newmusicaction">
                                     <button type="submit" class="btn lb-btn-player mr-1" data-toggle="tooltip"
-                                        data-placement="bottom" title="Play / Pause" value="play" name="newmusicaction">
+                                        data-placement="bottom" title="Play / Pause">
                                         <i class="mdi mdi-play-pause"></i>
                                     </button>
                                 </form>
-                                <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST">
+                                <form name="submitnewmusicaction2">
+                                    <input type="hidden" value="stop" name="newmusicaction">
                                     <button type="submit" class="btn lb-btn-player mr-1" data-toggle="tooltip"
-                                        data-placement="bottom" title="Stop" value="stop" name="newmusicaction">
+                                        data-placement="bottom" title="Stop" id="submitnewmusicaction2">
                                         <i class="mdi mdi-stop"></i>
                                     </button>
                                 </form>
-                                <form action="/dashboard/{{guilds.id}}/music/submitnewmusicaction" method="POST">
+                                <form name="submitnewmusicaction3">
+                                    <input type="hidden" value="skip" name="newmusicaction">
                                     <button type="submit" class="btn lb-btn-player mr-1" data-toggle="tooltip"
-                                        data-placement="bottom" title="Skip" value="skip" name="newmusicaction">
+                                        data-placement="bottom" title="Skip" id="submitnewmusicaction3">
                                         <i class="mdi mdi-skip-next"></i>
                                     </button>
                                 </form>
@@ -48,8 +51,7 @@
                                 <p class="h5">Music Channelblacklist</p>
                             </div>
                             <div class="card-body">
-                                <form class="form-vertical" action="/dashboard/{{guilds.id}}/music/submitchannelblacklist"
-                                    method="POST">
+                                <form class="form-vertical" name="submitchannelblacklist">
                                     <div class="form-group">
                                         <label class="control-label col-sm" for="newchannelblacklist">Set channels
                                             where LenoxBot doesn't play music:</label>
@@ -67,7 +69,7 @@
                                     </div>
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-10">
-                                            <button type="submit" class="btn lb-btn-green">Save</button>
+                                            <button type="submit" class="btn lb-btn-green" id="submitchannelblacklist">Save</button>
                                         </div>
                                     </div>
                                 </form>
@@ -75,6 +77,7 @@
                         </div>
                         <div class="card shadow-sm mt-3">
                             {{> commandsection}}
+                            {{> customforms/music}}
                         </div>
                     </div>
                 </div>
