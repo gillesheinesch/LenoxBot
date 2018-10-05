@@ -37,6 +37,7 @@ exports.run = async (client, role) => {
 	const lang = require(`../languages/${tableload.language}.json`);
 
 	const messagechannel = client.channels.get(tableload.roledeletelogchannel);
+	if (!messagechannel) return;
 
 	const embed = new Discord.RichEmbed()
 		.setColor('#FE2E2E')

@@ -107,7 +107,7 @@ exports.run = async client => {
 		.setAuthor(client.user.tag, client.user.displayAvatarURL);
 
 	if (client.user.id === '354712333853130752') {
-		client.channels.get('413750421341863936').send({
+		client.channels.get('497400107109580801').send({
 			embed
 		});
 	}

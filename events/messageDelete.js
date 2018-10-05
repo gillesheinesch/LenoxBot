@@ -9,6 +9,8 @@ exports.run = (client, msg) => {
 	if (tableload.messagedellog === 'false') return;
 	const messagechannel = client.channels.get(tableload.messagedellogchannel);
 
+	if (!messagechannel) return;
+
 	if (tableload.language === '') {
 		tableload.language = 'en-US';
 		client.guildconfs.set(msg.guild.id, tableload);

@@ -34,6 +34,7 @@ exports.run = (client, oldChannel, newChannel) => {
 	if (!client.channels.get(tableload.channelupdatelogchannel)) return;
 
 	const messagechannel = client.channels.get(tableload.channelupdatelogchannel);
+	if (!messagechannel) return;
 
 	if (oldChannel.name !== newChannel.name) {
 		const embed = new Discord.RichEmbed()

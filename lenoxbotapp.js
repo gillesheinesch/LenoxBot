@@ -256,7 +256,7 @@ app.get('/test', (req, res) => {
 
 app.get('/invite', (req, res) => res.redirect('https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8'));
 
-app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/c7DUz35'));
+app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/jmZZQja'));
 
 app.get('/status', (req, res) => res.redirect('https://lenoxbot.statuskit.com/'));
 

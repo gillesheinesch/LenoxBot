@@ -32,6 +32,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 
 	if (tableload.messageupdatelog === 'true') {
 		const messagechannel = client.channels.get(tableload.messageupdatelogchannel);
+		if (!messagechannel) return;
 		if (oldMsg.cleanContent !== newMsg.cleanContent) {
 			const embed = new Discord.RichEmbed()
 				.setColor('#FE2E2E')

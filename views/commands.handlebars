@@ -34,7 +34,8 @@
                         </div>
                         <div class="col-12 lb-commands pr-0 lb-mcsp">
                             <div class="lb-mcsp">
-                                <table id="table" class="table table-responsive table-hover mb-0">
+                                <div class="table-responsive">
+                                <table id="table" class="table table-hover mb-0">
                                     <thead>
                                         <tr>
                                             <th>Command name</th>
@@ -52,8 +53,12 @@
                                             <td>{{conf.newaliases}}</td>
                                         </tr>
                                         {{/each}}
+                                        <tr id="notfound"  style="display: none;">
+                                            <td align="center" colspan="4">Command not found</td>
+                                        </tr>
                                     </tbody>
                                 </table>
+                                </div>
                             </div>
                         </div>
                     </div>

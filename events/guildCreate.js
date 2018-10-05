@@ -91,7 +91,7 @@ exports.run = async (client, guild) => {
 		.addField(`Members`, `${guild.memberCount}`)
 		.setColor('#00ff00')
 		.setFooter('JOINED DISCORD SERVER');
-	client.channels.get('353989483517181962').send({
+	client.channels.get('497400159894896651').send({
 		embed: embed
 	});
 };

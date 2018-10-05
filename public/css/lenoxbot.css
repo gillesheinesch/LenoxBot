@@ -45,8 +45,17 @@
     width: 100%;
 }
 
+.lb-dashboard {
+    animation: lb-fadein .5s;
+}
+
 .lb-dropdown-item:active {
     background-color: #4caf50;
+    color: #e8f5e9;
+}
+
+.lb-dropdown-item-logout:active {
+    background-color: #ef5350;
     color: #e8f5e9;
 }
 
@@ -434,6 +443,13 @@
     position: fixed !important;
 }
 
+.lb-textcap {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    max-width: inherit;
+}
+
 .lb-bot-body {
     fill: #4CAF50;
     stroke: #000000;
@@ -528,6 +544,15 @@
     }
     100% {
         transform: scale(1.5);
+    }
+}
+
+@keyframes lb-fadein {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
     }
 }
 

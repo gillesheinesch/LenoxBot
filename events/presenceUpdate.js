@@ -30,6 +30,8 @@ exports.run = async (client, oldMember, newMember) => {
 	const lang = require(`../languages/${tableload.language}.json`);
 
 	const messagechannel = client.channels.get(tableload.presenceupdatelogchannel);
+	if (!messagechannel) return;
+
 	if (oldMember.presence.status !== newMember.presence.status) {
 		const embed = new Discord.RichEmbed()
 			.setColor('#FE2E2E')
