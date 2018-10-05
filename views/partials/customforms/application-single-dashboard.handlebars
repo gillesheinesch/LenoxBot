@@ -1,0 +1,91 @@
+<script>
+    // Application single dashboard ajax script
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $(`#${name}`).attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/applications/{{application.applicationid}}/${name}`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    window.location = `/dashboard/${guildid}/applications`;
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $(`#${name}`).removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+        // Aplication overview
+
+        $('[name="submitdeleteapplication"]').submit(processForm);
+
+    })(jQuery);
+
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $('#submitnewvote').attr('disabled', 'disabled');
+            $('#submitnewvote2').attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/applications/{{application.applicationid}}/submitnewvote`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $('#yeslength').text(parseInt($('#yeslength').text()) + 1);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $('#submitnewvote').removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+
+        // Vote true
+
+        $('[name="submitnewvote"]').submit(processForm);
+
+    })(jQuery);
+
+    (function ($) {
+        function processForm(e) {
+            var name = this.name;
+            $('#submitnewvote').attr('disabled', 'disabled');
+            $('#submitnewvote2').attr('disabled', 'disabled');
+            $.ajax({
+                url: `/dashboard/${guildid}/applications/{{application.applicationid}}/submitnewvote`,
+                dataType: 'text',
+                type: 'post',
+                contentType: 'application/x-www-form-urlencoded',
+                data: $(this).serialize(),
+                success: function (data, textStatus, jQxhr) {
+                    notifySuccess();
+                    $('#nolength').text(parseInt($('#nolength').text()) + 1);
+                },
+                error: function (jqXhr, textStatus, errorThrown) {
+                    console.log(errorThrown);
+                    notifyError();
+                    $('#submitnewvote2').removeAttr("disabled");
+                }
+            });
+            e.preventDefault();
+        }
+
+        // Vote false
+
+        $('[name="submitnewvote2"]').submit(processForm);
+
+    })(jQuery);
+</script>
