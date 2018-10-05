@@ -509,6 +509,23 @@
     background-color: white;
 }
 
+.page-item.active .page-link {
+    background-color: #1e88e5 !important;
+    color: #e8f5e9 !important;
+}
+
+div.dataTables_wrapper div.dataTables_filter input {
+    border-radius: 100px;
+}
+
+div.dataTables_wrapper div.dataTables_length select {
+    border-radius: 100px;
+}
+
+.page-link {
+    color: #1e88e5 !important;
+}
+
 @keyframes updown {
     0% {
         transform: translatey(0px);
