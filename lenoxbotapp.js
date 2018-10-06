@@ -852,7 +852,7 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 			let logs;
 
 			if (client.guildconfs.get(dashboardid).globallogs) {
-				const thelogs = client.guildconfs.get(dashboardid).globallogs;
+				const thelogs = await client.guildconfs.get(dashboardid).globallogs;
 				logs = thelogs.sort((a, b) => {
 					if (a.date < b.date) {
 						return 1;
@@ -930,10 +930,6 @@ app.post('/dashboard/:id/administration/submitlogs', async (req, res) => {
 				tableload[`${[Object.keys(req.body)[0]]}channel`] = client.guilds.get(dashboardid).channels.find(c => c.name === `${req.body[Object.keys(req.body)[0]]}`).id;
 			}
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 			tableload.globallogs.push({
 				action: `Changed the ${Object.keys(req.body)[0]} settings!`,
 				username: req.user.username,
@@ -1016,11 +1012,6 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async (req, 
 				tableload.selfassignableroles = [];
 			}
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Updated self-assignable roles!`,
 				username: req.user.username,
@@ -1098,11 +1089,6 @@ app.post('/dashboard/:id/administration/submittogglexp', async (req, res) => {
 				tableload.togglexp.channelids = array;
 			}
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Updated togglexp-channels!`,
 				username: req.user.username,
@@ -1171,11 +1157,6 @@ app.post('/dashboard/:id/administration/submitbyemsg', async (req, res) => {
 			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.byemsg = newbyemsg;
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 
 			tableload.globallogs.push({
 				action: `Changed the bye message!`,
@@ -1246,11 +1227,6 @@ app.post('/dashboard/:id/administration/submitwelcomemsg', async (req, res) => {
 
 			tableload.welcomemsg = newwelcomemsg;
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Changed the welcome message!`,
 				username: req.user.username,
@@ -1320,10 +1296,6 @@ app.post('/dashboard/:id/administration/submitprefix', async (req, res) => {
 
 			tableload.prefix = newprefix;
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 			tableload.globallogs.push({
 				action: `Changed the prefix of the bot!`,
 				username: req.user.username,
@@ -1392,11 +1364,6 @@ app.post('/dashboard/:id/administration/submitlanguage', async (req, res) => {
 			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.language = newlanguage;
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 
 			tableload.globallogs.push({
 				action: `Changed the language of the bot!`,
@@ -1467,11 +1434,6 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res)
 
 			tableload.commanddel = newcommanddeletion;
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Changed the commanddeletion settings!`,
 				username: req.user.username,
@@ -1540,11 +1502,6 @@ app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.muterole = newmuterole;
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 
 			tableload.globallogs.push({
 				action: `Changed the muterole!`,
@@ -1615,11 +1572,6 @@ app.post('/dashboard/:id/administration/submittogglechatfilter', async (req, res
 
 			tableload.chatfilter.chatfilter = newchatfilter;
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Toggled the chatfilter!`,
 				username: req.user.username,
@@ -1688,11 +1640,6 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async (req, res
 			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.xpmessages = newxpmessages;
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 
 			tableload.globallogs.push({
 				action: `Toggled the XP messages!`,
@@ -1772,11 +1719,6 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res)
 
 			tableload.chatfilter.array = newchatfilterarray;
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Updated the chatfilter entries!`,
 				username: req.user.username,
@@ -1849,11 +1791,6 @@ app.post('/dashboard/:id/administration/submittogglewelcome', async (req, res) =
 			} else {
 				tableload.welcome = 'true';
 				tableload.welcomechannel = newwelcome;
-			}
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			tableload.globallogs.push({
@@ -1930,11 +1867,6 @@ app.post('/dashboard/:id/administration/submittogglebye', async (req, res) => {
 				tableload.byechannel = newbye;
 			}
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Toggled the bye message!`,
 				username: req.user.username,
@@ -2008,11 +1940,6 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async (req, res) 
 			} else {
 				tableload.announce = 'true';
 				tableload.announcechannel = newannounce;
-			}
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			tableload.globallogs.push({
@@ -2991,11 +2918,6 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async (req, res) => {
 			} else {
 				array.push(client.guilds.get(req.user.guilds[index].id).channels.find(c => c.name === newchannelblacklist).id);
 				tableload.musicchannelblacklist = array;
-			}
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			tableload.globallogs.push({
@@ -4006,11 +3928,6 @@ app.post('/dashboard/:id/application/submitnewacceptedmsg', async (req, res) => 
 
 			tableload.application.acceptedmessage = newacceptedmsg;
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Changed the application accepted message!`,
 				username: req.user.username,
@@ -4079,11 +3996,6 @@ app.post('/dashboard/:id/application/submitnewrejectedmsg', async (req, res) => 
 			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.application.rejectedmessage = newrejectedmsg;
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 
 			tableload.globallogs.push({
 				action: `Changed the application rejected message!`,
@@ -4155,11 +4067,6 @@ app.post('/dashboard/:id/application/submitdenyrole', async (req, res) => {
 			} else {
 				const newdenyrole = req.body.newdenyrole;
 				tableload.application.denyrole = newdenyrole;
-			}
-
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			tableload.globallogs.push({
@@ -4234,11 +4141,6 @@ app.post('/dashboard/:id/application/submitrole', async (req, res) => {
 				tableload.application.role = newrole;
 			}
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
-
 			tableload.globallogs.push({
 				action: `Updated the application role for accepted canidates!`,
 				username: req.user.username,
@@ -4308,10 +4210,6 @@ app.post('/dashboard/:id/application/submitreactionnumber', async (req, res) => 
 
 			tableload.application.reactionnumber = newreactionnumber;
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 
 			tableload.globallogs.push({
 				action: `Updated application reactionnumber!`,
@@ -4382,10 +4280,6 @@ app.post('/dashboard/:id/application/submitapplication', async (req, res) => {
 
 			tableload.application.status = newapplication;
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 
 			tableload.globallogs.push({
 				action: `Activated/Deactivated the application system!`,
@@ -5274,10 +5168,6 @@ app.post('/dashboard/:id/modules/submitmodules', async (req, res) => {
 			const name = Object.keys(req.body)[0];
 			tableload.modules[name.toLowerCase()] = req.body[name];
 
-			if (!tableload.globallogs) {
-				tableload.globallogs = [];
-				client.guildconfs.set(dashboardid, tableload);
-			}
 
 			tableload.globallogs.push({
 				action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
@@ -5396,7 +5286,7 @@ app.get('/dashboard/:id/modules', (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/lastlogs', (req, res) => {
+app.get('/dashboard/:id/lastlogs', async (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5435,7 +5325,7 @@ app.get('/dashboard/:id/lastlogs', (req, res) => {
 			let logs;
 
 			if (client.guildconfs.get(dashboardid).globallogs) {
-				const thelogs = client.guildconfs.get(dashboardid).globallogs;
+				const thelogs = await client.guildconfs.get(dashboardid).globallogs;
 				logs = thelogs.sort((a, b) => {
 					if (a.date < b.date) {
 						return 1;
