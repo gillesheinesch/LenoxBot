@@ -19,6 +19,7 @@ const app = express();
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const sql = require('sqlite');
 
 client.wait = require('util').promisify(setTimeout);
 client.guildconfs = new Enmap({
@@ -289,6 +290,34 @@ app.get('/logout', (req, res) => {
 	try {
 		req.logOut();
 		return res.redirect('home');
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
+app.get('/leaderboard', async (req, res) => {
+	try {
+		const islenoxbot = islenoxboton(req);
+		sql.open(`../${settings.sqlitefilename}.sqlite`);
+		const credits = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
+		await credits.forEach(creditrow => {
+			if (client.users.get(creditrow.userId)) {
+				creditrow.user = client.users.get(creditrow.userId);
+			}
+		});
+
+		return res.render('leaderboard', {
+			user: req.user,
+			credits: credits,
+			client: client,
+			islenoxbot: islenoxbot
+		});
 	} catch (error) {
 		return res.redirect(url.format({
 			pathname: `/error`,
@@ -2317,7 +2346,8 @@ app.get('/dashboard/:id/administration', (req, res) => {
 			{
 				name: 'french',
 				alias: 'fr-FR'
-			}];
+			}
+			];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {
