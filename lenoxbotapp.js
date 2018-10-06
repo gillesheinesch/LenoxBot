@@ -2375,8 +2375,7 @@ app.get('/dashboard/:id/administration', (req, res) => {
 			{
 				name: 'french',
 				alias: 'fr-FR'
-			}
-			];
+			}];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {
