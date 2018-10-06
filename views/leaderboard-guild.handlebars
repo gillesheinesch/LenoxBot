@@ -1,0 +1,40 @@
+<main>
+    <div class="lb-bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="table">
+                        <table class="table" style="width: 100%;">
+                            <thead>
+                                <tr>
+                                    <th class="h3"><span class="pull-left">Place</span></th>
+                                    <th class="h3"><span class="pull-left">User</span></th>
+                                    <th class="h3"><span class="pull-right">Points</span></th>
+                                    <th class="h3"><span class="pull-right">Level</span></th>
+                                </tr>
+                            </thead>
+
+                            <!-- Rankinglist-->
+                            <tbody>
+                                {{#each scores}}
+                                <tr>
+                                    <td>{{place}}</td>
+                                    {{#if user}}
+                                    <td><img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"><span
+                                            class="h5"> {{user.username}}</span></td>
+                                    {{else}}
+                                    <td><img class="rounded-circle lb-img-profile" src="../../discordicon.png"><span
+                                            class="h5"> {{userId}}</span></td>
+                                    {{/if}}
+                                    <td><span class="pull-right lb-count">{{points}}</span></td>
+                                    <td><span class="pull-right lb-count">{{level}}</span></td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>

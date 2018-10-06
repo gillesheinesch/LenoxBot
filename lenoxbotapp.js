@@ -329,6 +329,35 @@ app.get('/leaderboard', async (req, res) => {
 	}
 });
 
+app.get('/leaderboard/guild/:id', async (req, res) => {
+	try {
+		const dashboardid = res.req.originalUrl.substr(19, 18);
+		const islenoxbot = islenoxboton(req);
+		sql.open(`../${settings.sqlitefilename}.sqlite`);
+		const scores = await sql.all(`SELECT * FROM scores WHERE guildId = "${dashboardid}" GROUP BY userId ORDER BY points DESC`);
+		await scores.forEach(creditrow => {
+			if (client.users.get(creditrow.userId)) {
+				creditrow.user = client.users.get(creditrow.userId);
+			}
+		});
+
+		return res.render('leaderboard-guild', {
+			user: req.user,
+			scores: scores,
+			client: client,
+			islenoxbot: islenoxbot
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
 app.get('/commands', (req, res) => {
 	try {
 		const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
