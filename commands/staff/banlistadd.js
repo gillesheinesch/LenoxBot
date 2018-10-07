@@ -28,7 +28,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setTitle(embedtitle)
 		.setDescription(embeddescription);
 
-	await client.channels.get('425752252180070401').send({
+	await client.channels.get('497395598182318100').send({
 		embed: embed
 	});
 

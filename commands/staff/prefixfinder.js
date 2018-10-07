@@ -19,7 +19,7 @@ exports.run = (client, msg, args, lang) => {
 		.setFooter(requestedby)
 		.setAuthor(`${guildload.name} (${guildload.id})`);
 
-	return client.channels.get('425752252180070401').send({ embed: embed });
+	return client.channels.get('497395598182318100').send({ embed: embed });
 };
 
 
