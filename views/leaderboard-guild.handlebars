@@ -34,18 +34,16 @@
                     <div class="mt-3">
                         <p class="h3 font-weight-light mt-3 d-inline">Server Leaderboards</p>
                         {{#if user}}
-                        <div class="dropdown d-inline">
-                            <button class="btn lb-btn-green float-right dropdown-toggle" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Server leaderboards
-                            </button>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                                {{#each islenoxbot}}
-                                <a class="dropdown-item lb-dropdown-item" href="/leaderboards/server/{{id}}">{{name}}</a>
-                                {{/each}}
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item lb-dropdown-item" href="/leaderboards">Global Leaderboards</a>
-                            </div>
+                        <button class="btn lb-btn-green float-right dropdown-toggle" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Server leaderboards
+                        </button>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                            {{#each islenoxbot}}
+                            <a class="dropdown-item lb-dropdown-item" href="/leaderboards/server/{{id}}">{{name}}</a>
+                            {{/each}}
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item lb-dropdown-item" href="/leaderboards">Global Leaderboards</a>
                         </div>
                         {{else}}
                         <a href="/loginpressedbutton" class="btn lb-btn-green float-right d-inline"> Server
