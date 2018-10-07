@@ -32,7 +32,7 @@ exports.run = async (client, msg, args, lang) => {
 			.setTimestamp()
 			.setColor('#ff0000')
 			.setTitle('New Serverkey used!');
-		await client.channels.get('419877966265319424').send({
+		await client.channels.get('497400179201277992').send({
 			embed
 		});
 

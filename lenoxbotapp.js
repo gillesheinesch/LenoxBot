@@ -1454,7 +1454,6 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res)
 app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
-		console.log(dashboardid);
 		if (req.user) {
 			let index = -1;
 			for (let i = 0; i < req.user.guilds.length; i++) {
@@ -1496,11 +1495,7 @@ app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			console.log(tableload.globallogs);
-
 			await client.guildconfs.set(dashboardid, tableload);
-
-			console.log(client.guildconfs.get(dashboardid).globallogs);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
