@@ -32,7 +32,11 @@
             <div class="row">
                 <div class="col-12">
                     <div class="mt-3">
-                        <p class="h3 font-weight-light mt-3 d-inline">Server Leaderboards</p>
+                        {{#if scores}}
+                        <p class="h3 font-weight-light mt-3 d-inline">{{guild.name}}'s Leaderboard</p>
+                        {{else}}
+                        <p class="h3 font-weight-light mt-3 d-inline">No Leaderboard for this server!</p>
+                        {{/if}}
                         {{#if user}}
                         <button class="btn lb-btn-green float-right dropdown-toggle" type="button" id="dropdownMenuButton"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
