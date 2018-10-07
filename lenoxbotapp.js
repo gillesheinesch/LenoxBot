@@ -839,8 +839,6 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 
 				await client.guildconfs.set(dashboardid, guildsettingskeys);
 			}
-			const x = require('./guildsettings-keys.json');
-			console.log(x);
 
 			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
 				let allwhitelistedrolesoftheuser = 0;
