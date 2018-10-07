@@ -1,78 +1,40 @@
 const Discord = require('discord.js');
+const settings = require('../settings.json');
+const guildsettingskeys = require('../guildsettings-keys.json');
 exports.run = async (client, guild) => {
-	const settings = require('../settings.json');
-	const defaultSettings = {
-		prefix: settings.prefix,
-		modlog: 'false',
-		modlogchannel: '',
-		messagedellog: 'false',
-		messagedellogchannel: '',
-		messageupdatelog: 'false',
-		messageupdatelogchannel: '',
-		channelupdatelog: 'false',
-		channelupdatelogchannel: '',
-		channelcreatelog: 'false',
-		channelcreatelogchannel: '',
-		channeldeletelog: 'false',
-		channeldeletelogchannel: '',
-		guildmemberupdatelog: 'false',
-		guildmemberupdatelogchannel: '',
-		presenceupdatelog: 'false',
-		presenceupdatelogchannel: '',
-		welcomelog: 'false',
-		welcomelogchannel: '',
-		guildupdatelog: '',
-		guildupdatelogchannel: '',
-		byelog: 'false',
-		byelogchannel: '',
-		rolecreatelog: 'false',
-		rolecreatelogchannel: '',
-		roledeletelog: 'false',
-		roledeletelogchannel: '',
-		roleupdatelog: 'false',
-		roleupdatelogchannel: '',
-		welcome: 'false',
-		welcomechannel: '',
-		welcomemsg: '',
-		bye: 'false',
-		byechannel: '',
-		byemsg: '',
-		commanddel: 'false',
-		announce: 'false',
-		announcechannel: '',
-		selfassignableroles: [],
-		minigames: 'false',
-		modules: {
-			fun: 'true',
-			help: 'true',
-			moderation: 'true',
-			music: 'true',
-			nsfw: 'true',
-			searches: 'true',
-			utility: 'true',
-			application: 'true'
-		},
-		application: {
-			reactionnumber: '',
-			template: [],
-			role: '',
-			votechannel: '',
-			archivechannel: false,
-			archivechannellog: '',
-			status: 'false'
-		},
-		nicknamelog: [],
-		warnlog: [],
-		language: 'en-US'
-	};
-	await client.guildconfs.set(guild.id, defaultSettings);
+	guildsettingskeys.prefix = settings.prefix;
+	if (client.guildconfs.get(guild.id)) {
+		const tableload = await client.guildconfs.get(guild.id);
 
-	const tableload = client.guildconfs.get(guild.id);
+		for (const key in guildsettingskeys) {
+			if (!tableload[key]) {
+				tableload[key] = guildsettingskeys[key];
+			}
+		}
 
-	if (tableload.language === '') {
-		tableload.language = 'en-US';
-		await client.guildconfs.set(guild.id, tableload);
+		for (let i = 0; i < client.commands.array().length; i++) {
+			if (!tableload.commands[client.commands.array()[i].help.name]) {
+				tableload.commands[client.commands.array()[i].help.name] = {
+					name: client.commands.array()[i].help.name,
+					status: 'true',
+					bannedroles: [],
+					bannedchannels: [],
+					cooldown: '3000',
+					ifBlacklistForRoles: 'true',
+					ifBlacklistForChannels: 'true',
+					whitelistedroles: [],
+					whitelistedchannels: []
+				};
+			}
+			if (!tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
+				tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = 'true';
+				tableload.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = 'true';
+				tableload.commands[client.commands.array()[i].help.name].whitelistedroles = [];
+				tableload.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
+			}
+		}
 	}
+	await client.guildconfs.set(guild.id, guildsettingskeys);
 
 	const embed1 = new Discord.RichEmbed()
 		.setColor('#ccff33')
