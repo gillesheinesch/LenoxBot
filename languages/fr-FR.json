@@ -985,7 +985,7 @@
     "rank_level": "Niveau",
     "rank_rank": "Rang",
     "rank_description": "Affiche tes points ou ceux d'un autre utilisateur",
-    "ranks_message": "Check out %guildname's leaderboard out: https://lenoxbot.com/leaderboard/guild/%id",
+    "ranks_message": "Check out %guildname's leaderboard out: https://lenoxbot.com/leaderboards/guild/%id",
     "ranks_description": "Gives you the link for the leaderboard",
     "serverinfo_members": "Membres",
     "serverinfo_region": "Région",
