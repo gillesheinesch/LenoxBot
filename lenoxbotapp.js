@@ -885,6 +885,7 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 			} else {
 				logs = null;
 			}
+
 			const islenoxbot = islenoxboton(req);
 			return res.render('dashboard', {
 				user: req.user,
@@ -1453,6 +1454,7 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res)
 app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
+		console.log(dashboardid);
 		if (req.user) {
 			let index = -1;
 			for (let i = 0; i < req.user.guilds.length; i++) {
@@ -1494,7 +1496,11 @@ app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
+			console.log(tableload.globallogs[tableload.globallogs.length])
+
 			await client.guildconfs.set(dashboardid, tableload);
+
+			console.log(client.guildconfs.get(dashboardid).globallogs[tableload.globallogs.length]);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
