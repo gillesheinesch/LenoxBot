@@ -357,6 +357,47 @@ app.get('/leaderboards/server/:id', async (req, res) => {
 	}
 });
 
+/*
+app.get('/team', async (req, res) => {
+	try {
+		const islenoxbot = islenoxboton(req);
+		const team = [];
+		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'documentation-moderator', 'designer', 'translation leader', 'translation proofreader'];
+		const guild = await client.guilds.get('352896116812939264');
+
+		for (let i = 0; i < teamroles.length; i++) {
+			const teamSettings = {};
+			const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
+
+			teamSettings.roleName = role.name;
+			teamSettings.roleMembersSize = role.members.array().length;
+			teamSettings.roleMembers = [];
+
+			role.members.forEach(member => {
+				teamSettings.roleMembers.push(member);
+			});
+
+			team.push(teamSettings);
+		}
+
+		return res.render('team', {
+			user: req.user,
+			team: team,
+			client: client,
+			islenoxbot: islenoxbot
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+*/
+
 app.get('/commands', (req, res) => {
 	try {
 		const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
