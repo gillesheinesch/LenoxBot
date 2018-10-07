@@ -1,31 +1,86 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script>
+    // load a locale
+    numeral.register('locale', 'lb', {
+        delimiters: {
+            thousands: ' ',
+            decimal: '.'
+        },
+        abbreviations: {
+            thousand: 'K',
+            million: 'M',
+            billion: 'B',
+            trillion: 'T'
+        },
+        currency: {
+            symbol: '$'
+        }
+    });
+
+    // switch between locales
+    numeral.locale('lb');
+
+</script>
+
+<script>
+    var currentPageId = '#leaderboard';
+</script>
+<title>Leaderboards 🏆 - LenoxBot</title>
 <main>
     <div class="lb-bg-white">
         <div class="container">
             <div class="row">
                 <div class="col-12">
-                    <div class="table">
-                        <table class="table" style="width: 100%;">
-                            <thead>
-                                <tr>
-                                    <th class="h3"><span class="pull-left">Place</span></th>
-                                    <th class="h3"><span class="pull-left">User</span></th>
-                                    <th class="h3"><span class="pull-right">Credits</span></th>
-                                </tr>
-                            </thead>
-
+                    <div class="mt-3">
+                        <p class="h3 font-weight-light mt-3 d-inline">Global Leaderboards</p>
+                        {{#if user}}
+                        <div class="dropdown d-inline">
+                            <button class="btn lb-btn-green float-right dropdown-toggle" type="button" id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Server leaderboards
+                            </button>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                {{#each islenoxbot}}
+                                <a class="dropdown-item lb-dropdown-item" href="/leaderboards/server/{{id}}">{{name}}</a>
+                                {{/each}}
+                            </div>
+                        </div>
+                        {{else}}
+                        <a href="/loginpressedbutton" class="btn lb-btn-green float-right"> Server leaderboards</a>
+                        {{/if}}
+                    </div>
+                    <div class="table-responsive mt-3">
+                        <table class="table lb-bg-realwhite">
                             <!-- Rankinglist-->
                             <tbody>
                                 {{#each credits}}
-                                <tr>
-                                    <td>{{place}}</td>
+                                <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
+                                    <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-center">
+                                        <script>document.write({{@index}}+1)</script>
+                                    </td>
                                     {{#if user}}
-                                    <td><img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg"><span
-                                            class="h5"> {{user.username}}</span></td>
+                                    <td data-rel="{{@index}}txt" class="lb-text-leaderboard">
+                                        <figure class="lb-profile-leaderboard">
+                                            <img data-rel="{{@index}}img" class="rounded-circle shadow-sm lb-img-profile-leaderboard"
+                                                src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                                            <div data-rel="{{@index}}badge" type="image/svg+xml" class="lb-badge-leaderboard"></div>
+                                        </figure>
+                                        {{user.username}}
+                                    </td>
                                     {{else}}
-                                    <td><img class="rounded-circle lb-img-profile" src="discordicon.png"><span
-                                            class="h5"> {{userId}}</span></td>
+                                    <td data-rel="{{@index}}txt" class="lb-text-leaderboard">
+                                        <figure class="lb-profile-leaderboard">
+                                            <img data-rel="{{@index}}img" class="rounded-circle shadow-sm lb-img-profile-leaderboard"
+                                                src="discordicon.png">
+                                            <div data-rel="{{@index}}badge" type="image/svg+xml" class="lb-badge-leaderboard"></div>
+                                        </figure>
+                                        {{userId}}
+                                    </td>
                                     {{/if}}
-                                    <td><span class="pull-right lb-count">{{medals}}</span></td>
+                                    <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-right"><span class="lb-bumer"
+                                            data-toggle="tooltip" data-placement="left" title="{{addCommas medals}}">
+                                            <script>document.write(numeral({{ medals }}).format('0.0a'))</script></span>
+                                        <small class="text-muted">credits</small></td>
                                 </tr>
                                 {{/each}}
                             </tbody>

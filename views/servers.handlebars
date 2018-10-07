@@ -42,7 +42,10 @@
 							<hr>
 							{{#if lenoxbot}}
 							<p class="card-text">{{memberscount}} members</p>
-							<a href="/dashboard/{{id}}/overview" class="btn lb-btn-green"><i class="mdi mdi-chart-line"></i> Dashboard</a>
+							<div class="btn-group" role="group">
+								<a href="/dashboard/{{id}}/overview" class="btn lb-btn-green"><i class="mdi mdi-chart-line"></i> Dashboard</a>
+								<a href="/leaderboards/server/{{id}}" class="btn lb-btn-blue"><i class="mdi mdi-trophy-award"></i> Leaderboards</a>
+							</div>
 							{{else}}
 							<p class="card-text lb-text-red">Not using LenoxBot :(</p>
 							<a href="https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8&guild_id={{id}}"
