@@ -301,17 +301,16 @@ app.get('/logout', (req, res) => {
 	}
 });
 
-app.get('/leaderboard', async (req, res) => {
+app.get('/leaderboards', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
-		const credits = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
+		const credits = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC LIMIT 100`);
 		await credits.forEach(creditrow => {
 			if (client.users.get(creditrow.userId)) {
 				creditrow.user = client.users.get(creditrow.userId);
 			}
 		});
-
 		return res.render('leaderboard', {
 			user: req.user,
 			credits: credits,
@@ -329,9 +328,9 @@ app.get('/leaderboard', async (req, res) => {
 	}
 });
 
-app.get('/leaderboard/guild/:id', async (req, res) => {
+app.get('/leaderboards/server/:id', async (req, res) => {
 	try {
-		const dashboardid = res.req.originalUrl.substr(19, 18);
+		const dashboardid = res.req.originalUrl.substr(21, 18);
 		const islenoxbot = islenoxboton(req);
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
 		const scores = await sql.all(`SELECT * FROM scores WHERE guildId = "${dashboardid}" GROUP BY userId ORDER BY points DESC`);
