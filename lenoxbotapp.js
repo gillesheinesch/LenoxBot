@@ -1496,11 +1496,11 @@ app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			console.log(tableload.globallogs[tableload.globallogs.length])
+			console.log(tableload.globallogs);
 
 			await client.guildconfs.set(dashboardid, tableload);
 
-			console.log(client.guildconfs.get(dashboardid).globallogs[tableload.globallogs.length]);
+			console.log(client.guildconfs.get(dashboardid).globallogs);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,

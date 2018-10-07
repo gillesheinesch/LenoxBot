@@ -13,7 +13,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setTimestamp()
 		.setColor('#cc99ff')
 		.setTitle(lang.createserverkey_embedtitle);
-	await client.channels.get('419877966265319424').send({ embed });
+	await client.channels.get('497400179201277992').send({ embed });
 
 	return msg.reply(lang.createserverkey_message);
 };
