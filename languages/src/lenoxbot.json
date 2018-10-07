@@ -1148,7 +1148,7 @@
     "rank_rank": "Rank",
     "rank_description": "Displays the points of you or another user",
 
-    "ranks_message": "Check out %guildname's leaderboard out: https://lenoxbot.com/leaderboard/guild/%id",
+    "ranks_message": "Check out %guildname's leaderboard out: https://lenoxbot.com/leaderboards/guild/%id",
     "ranks_description": "Gives you the link for the leaderboard",
 
     "serverinfo_members": "Members",

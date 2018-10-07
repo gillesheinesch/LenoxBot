@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const message = lang.ranks_message.replace('%id', msg.guild.id).replace('%guildname', msg.guild.name);
 	msg.reply(message);
 };
