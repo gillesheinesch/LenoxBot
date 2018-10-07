@@ -304,17 +304,27 @@ app.get('/logout', (req, res) => {
 app.get('/leaderboards', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
+		let userPlace = 0;
+
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
 		const credits = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC LIMIT 100`);
-		await credits.forEach(creditrow => {
-			if (client.users.get(creditrow.userId)) {
-				creditrow.user = client.users.get(creditrow.userId);
+
+		for (let i = 0; i < credits.length; i++) {
+			if (client.users.get(credits[i].userId)) {
+				credits[i].user = client.users.get(credits[i].userId);
 			}
-		});
+			if (req.user) {
+				if (credits[i].userId === req.user.id) {
+					userPlace = i + 1;
+				}
+			}
+		}
+
 		return res.render('leaderboard', {
 			user: req.user,
 			credits: credits,
 			client: client,
+			userPlace: userPlace,
 			islenoxbot: islenoxbot
 		});
 	} catch (error) {
@@ -331,19 +341,30 @@ app.get('/leaderboards', async (req, res) => {
 app.get('/leaderboards/server/:id', async (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(21, 18);
+		let userPlace = 0;
+
 		const islenoxbot = islenoxboton(req);
+
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
 		const scores = await sql.all(`SELECT * FROM scores WHERE guildId = "${dashboardid}" GROUP BY userId ORDER BY points DESC`);
-		await scores.forEach(creditrow => {
-			if (client.users.get(creditrow.userId)) {
-				creditrow.user = client.users.get(creditrow.userId);
+
+		for (let i = 0; i < scores.length; i++) {
+			if (client.users.get(scores[i].userId)) {
+				scores[i].user = client.users.get(scores[i].userId);
 			}
-		});
+			if (req.user) {
+				if (scores[i].userId === req.user.id) {
+					userPlace = i + 1;
+				}
+			}
+		}
 
 		return res.render('leaderboard-guild', {
 			user: req.user,
-			scores: scores,
+			scores: scores.length === 0 ? null : scores,
 			client: client,
+			guild: client.guilds.get(dashboardid) ? client.guilds.get(dashboardid) : null,
+			userPlace: userPlace,
 			islenoxbot: islenoxbot
 		});
 	} catch (error) {
