@@ -278,6 +278,23 @@ app.get('/policy', (req, res) => {
 	}
 });
 
+app.get('/dataprotection', (req, res) => {
+	try {
+		return res.render('dataprotection', {
+			user: req.user,
+			client: client
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
 app.get('/blog', (req, res) => res.redirect('https://medium.com/lenoxbot'));
 
 app.get('/ban', (req, res) => res.redirect('https://goo.gl/forms/NKoVsl8y5wOePCYT2'));

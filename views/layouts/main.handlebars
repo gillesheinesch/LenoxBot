@@ -20,14 +20,25 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.2/css/bootstrap.min.css" integrity="sha384-Smlep5jCw/wG7hdkwQ/Z5nLIefveQRIY9nfy6xoR1uRYBtpZgI6339F5dgvm/e9B"
         crossorigin="anonymous">
     <!-- Google Tag Manager -->
-    <script>(function (w, d, s, l, i) {
-            w[l] = w[l] || []; w[l].push({
-                'gtm.start':
-                    new Date().getTime(), event: 'gtm.js'
-            }); var f = d.getElementsByTagName(s)[0],
-                j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-        })(window, document, 'script', 'dataLayer', 'GTM-MGWQZKZ');</script>
+    <script>
+        var gaProperty = 'UA-117570240-1';
+var disableStr = 'ga-disable-' + gaProperty;
+if (document.cookie.indexOf(disableStr + '=true') > -1) {
+	window[disableStr] = true;
+}
+function gaOptout() {
+	document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+	window[disableStr] = true;
+	alert('Das Tracking durch Google Analytics wurde in Ihrem Browser für diese Website deaktiviert.');
+}
+</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117570240-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+						function gtag(){dataLayer.push(arguments);}
+						gtag('js', new Date());
+						gtag('config', 'UA-117570240-1', { 'anonymize_ip': true });
+</script>
     <!-- End Google Tag Manager -->
     <!-- Cookies Alert CSS-->
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
@@ -187,6 +198,7 @@
                         <li><a href="/discord" class="lb-footer-link" target="_blanc">Feedback</a></li>
                         <li><a href="/ban" class="lb-footer-link" target="_blanc">Write a ban appeal</a></li>
                         <li><a href="/policy" class="lb-footer-link" target="_blanc">Policy</a></li>
+                        <li><a href="/dataprotection" class="lb-footer-link" target="_blanc">Data protection</a></li>
                     </ul>
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 mt-4">
