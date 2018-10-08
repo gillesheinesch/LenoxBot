@@ -78,6 +78,7 @@
     width: 36px;
     height: 36px;
 }
+
 .lb-img-profile-leaderboard-user {
     width: 36px;
     height: 36px;
@@ -107,6 +108,7 @@
     font-size: 1em;
     vertical-align: middle !important;
 }
+
 .lb-text-leaderboard-user {
     border-top: none !important;
     font-size: 1em;
@@ -152,6 +154,7 @@
     border-top: none;
     border-bottom: 6px solid #f8f9fa;
 }
+
 .lb-row-leaderboard-user {
     vertical-align: initial;
     border-top: none;
@@ -167,7 +170,7 @@
     background-color: #f8f9fa;
 }
 
-.lb-bg-badgold{
+.lb-bg-badgold {
     background-color: #fff3e0;
 }
 
