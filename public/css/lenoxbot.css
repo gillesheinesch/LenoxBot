@@ -78,6 +78,10 @@
     width: 36px;
     height: 36px;
 }
+.lb-img-profile-leaderboard-user {
+    width: 36px;
+    height: 36px;
+}
 
 .lb-img-profile-dashboard {
     width: 70px;
@@ -100,6 +104,11 @@
 }
 
 .lb-text-leaderboard {
+    font-size: 1em;
+    vertical-align: middle !important;
+}
+.lb-text-leaderboard-user {
+    border-top: none !important;
     font-size: 1em;
     vertical-align: middle !important;
 }
@@ -143,6 +152,11 @@
     border-top: none;
     border-bottom: 6px solid #f8f9fa;
 }
+.lb-row-leaderboard-user {
+    vertical-align: initial;
+    border-top: none;
+    border-bottom: 6px solid #f8f9fa;
+}
 
 .lb-hero {
     background-color: transparent;
@@ -151,6 +165,10 @@
 
 .lb-bg-white {
     background-color: #f8f9fa;
+}
+
+.lb-bg-badgold{
+    background-color: #fff3e0;
 }
 
 .lb-bg-realwhite {
