@@ -96,8 +96,13 @@
                                     {{#if user}}
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard">
                                         <figure class="lb-profile-leaderboard">
+                                            {{#if user.avatar}}
                                             <img data-rel="{{@index}}img" class="rounded-circle shadow-sm lb-img-profile-leaderboard"
                                                 src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                                            {{else}}
+                                            <img data-rel="{{@index}}img" class="rounded-circle shadow-sm lb-img-profile-leaderboard"
+                                                src="discordicon.png">
+                                            {{/if}}
                                             <div data-rel="{{@index}}badge" type="image/svg+xml" class="lb-badge-leaderboard"></div>
                                         </figure>
                                         {{user.username}}
