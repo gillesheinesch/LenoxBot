@@ -321,10 +321,11 @@ app.get('/logout', (req, res) => {
 app.get('/leaderboards', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
-		let userPlace = 0;
+		const userData = {};
+		userData.loaded = false;
 
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
-		const credits = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC LIMIT 100`);
+		const credits = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
 
 		for (let i = 0; i < credits.length; i++) {
 			if (client.users.get(credits[i].userId)) {
@@ -332,16 +333,18 @@ app.get('/leaderboards', async (req, res) => {
 			}
 			if (req.user) {
 				if (credits[i].userId === req.user.id) {
-					userPlace = i + 1;
+					userData.place = i + 1;
+					userData.credits = credits[i].medals;
+					userData.loaded = true;
 				}
 			}
 		}
 
 		return res.render('leaderboard', {
 			user: req.user,
-			credits: credits,
+			credits: credits.slice(0, 100),
 			client: client,
-			userPlace: userPlace,
+			userData: userData,
 			islenoxbot: islenoxbot
 		});
 	} catch (error) {
@@ -358,7 +361,8 @@ app.get('/leaderboards', async (req, res) => {
 app.get('/leaderboards/server/:id', async (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(21, 18);
-		let userPlace = 0;
+		const userData = {};
+		userData.loaded = false;
 
 		const islenoxbot = islenoxboton(req);
 
@@ -371,17 +375,20 @@ app.get('/leaderboards/server/:id', async (req, res) => {
 			}
 			if (req.user) {
 				if (scores[i].userId === req.user.id) {
-					userPlace = i + 1;
+					userData.place = i + 1;
+					userData.points = scores[i].points;
+					userData.level = scores[i].level;
+					userData.loaded = true;
 				}
 			}
 		}
 
 		return res.render('leaderboard-guild', {
 			user: req.user,
-			scores: scores.length === 0 ? null : scores,
+			scores: scores.length === 0 ? null : scores.slice(0, 100),
 			client: client,
 			guild: client.guilds.get(dashboardid) ? client.guilds.get(dashboardid) : null,
-			userPlace: userPlace,
+			userData: userData,
 			islenoxbot: islenoxbot
 		});
 	} catch (error) {

@@ -51,8 +51,32 @@
                         <table class="table lb-bg-realwhite">
                             <!-- Rankinglist-->
                             <tbody>
+                                {{#if user}} {{#if userData.loaded}}
+                                <tr class="lb-row-leaderboard-user lb-bg-badgold">
+                                    <td class="lb-text-leaderboard-user text-center">
+                                        {{userData.place}}
+                                    </td>
+                                    <td class="lb-text-leaderboard-user">
+                                        <figure class="lb-profile-leaderboard">
+                                            <img class="rounded-circle shadow-sm lb-img-profile-leaderboard-user" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                                        </figure>
+                                        {{user.username}}
+                                    </td>
+                                    <td class="lb-text-leaderboard-user text-right">
+                                        <span class="lb-bumer" data-toggle="tooltip" data-placement="left" title="{{addCommas userData.credits}}">
+                                            <script>document.write(numeral({{ userData.credits }}).format('0.0a'))</script></span>
+                                        <small class="text-muted">credits</small>
+                                    </td>
+                                </tr>
+                                {{/if}} {{/if}}
                                 {{#each credits}}
+                                {{#if ../user}} {{#eq ../user.id userId}}
+                                <tr data-rel="{{@index}}row" class="lb-row-leaderboard lb-bg-badgold">
+                                    {{else}}
                                 <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
+                                    {{/eq}} {{else}}
+                                <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
+                                    {{/if}}
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-center">
                                         <script>document.write({{@index}}+1)</script>
                                     </td>

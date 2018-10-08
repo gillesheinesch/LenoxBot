@@ -59,8 +59,37 @@
 
                             <!-- Rankinglist-->
                             <tbody>
+                                {{#if user}} {{#if userData.loaded }}
+                                <tr class="lb-row-leaderboard-user lb-bg-badgold">
+                                    <td class="lb-text-leaderboard-user text-center">
+                                        {{userData.place}}
+                                    </td>
+                                    <td class="lb-text-leaderboard-user">
+                                        <figure class="lb-profile-leaderboard">
+                                            <img class="rounded-circle shadow-sm lb-img-profile-leaderboard-user" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                                        </figure>
+                                        {{user.username}}
+                                    </td>
+                                    <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-right"><span class="lb-bumer"
+                                            data-toggle="tooltip" data-placement="left" title="{{addCommas userData.points}}">
+                                            <script>document.write(numeral({{ userData.points }}).format('0a'))</script></span>
+                                        <small class="text-muted">points</small>
+                                    </td>
+                                    <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-right"><span class="lb-bumer"
+                                            data-toggle="tooltip" data-placement="left" title="{{addCommas userData.level}}">
+                                            <script>document.write(numeral({{ userData.level }}).format('0a'))</script></span>
+                                        <small class="text-muted">level</small>
+                                    </td>
+                                </tr>
+                                {{/if}} {{/if}}
                                 {{#each scores}}
+                                {{#if ../user}} {{#eq ../user.id userId}}
+                                <tr data-rel="{{@index}}row" class="lb-row-leaderboard lb-bg-badgold">
+                                    {{else}}
                                 <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
+                                    {{/eq}} {{else}}
+                                <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
+                                    {{/if}}
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-center">
                                         <script>document.write({{@index}}+1)</script>
                                     </td>
