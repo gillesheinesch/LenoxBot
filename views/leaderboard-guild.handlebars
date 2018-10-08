@@ -59,7 +59,7 @@
 
                             <!-- Rankinglist-->
                             <tbody>
-                                {{#if user}} {{#if userData.loaded  }}
+                                {{#if user}} {{#if userData.loaded }}
                                 <tr class="lb-row-leaderboard-user lb-bg-badgold">
                                     <td class="lb-text-leaderboard-user text-center">
                                         {{userData.place}}
@@ -85,11 +85,11 @@
                                 {{#each scores}}
                                 {{#if ../user}} {{#eq ../user.id userId}}
                                 <tr data-rel="{{@index}}row" class="lb-row-leaderboard lb-bg-badgold">
-                                        {{else}}
+                                    {{else}}
                                 <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
                                     {{/eq}} {{else}}
                                 <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
-                                {{/if}} 
+                                    {{/if}}
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-center">
                                         <script>document.write({{@index}}+1)</script>
                                     </td>

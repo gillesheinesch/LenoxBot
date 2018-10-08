@@ -70,13 +70,13 @@
                                 </tr>
                                 {{/if}} {{/if}}
                                 {{#each credits}}
-                                    {{#if ../user}} {{#eq ../user.id userId}}
+                                {{#if ../user}} {{#eq ../user.id userId}}
                                 <tr data-rel="{{@index}}row" class="lb-row-leaderboard lb-bg-badgold">
-                                        {{else}}
+                                    {{else}}
                                 <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
                                     {{/eq}} {{else}}
                                 <tr data-rel="{{@index}}row" class="lb-row-leaderboard">
-                                {{/if}}
+                                    {{/if}}
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-center">
                                         <script>document.write({{@index}}+1)</script>
                                     </td>
