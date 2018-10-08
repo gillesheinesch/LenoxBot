@@ -321,7 +321,7 @@ app.get('/logout', (req, res) => {
 app.get('/leaderboards', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
-		let userData = {};
+		const userData = {};
 		userData.loaded = false;
 
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
@@ -361,7 +361,7 @@ app.get('/leaderboards', async (req, res) => {
 app.get('/leaderboards/server/:id', async (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(21, 18);
-		let userData = {};
+		const userData = {};
 		userData.loaded = false;
 
 		const islenoxbot = islenoxboton(req);
