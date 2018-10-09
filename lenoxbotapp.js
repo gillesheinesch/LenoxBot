@@ -439,7 +439,6 @@ app.get('/team', async (req, res) => {
 				teamSettings.roleMembers.push(member.user);
 			});
 			team.push(teamSettings);
-			console.log(team);
 		}
 
 		return res.render('team', {
