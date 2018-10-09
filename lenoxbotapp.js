@@ -171,7 +171,7 @@ function islenoxboton(req) {
 	return islenoxbot;
 }
 
-// Check all user guilds where lenoxbot is 
+// Check all user guilds where lenoxbot is
 
 function islenoxbotonNonPermission(req) {
 	const islenoxbotNonPerm = [];
