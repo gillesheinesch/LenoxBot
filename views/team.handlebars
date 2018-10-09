@@ -1,0 +1,29 @@
+<main>
+    <section id="policy" class="lb-bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 my-3">
+                    <p class="h3 font-weight-light">LenoxBot Dev Team</p>
+                </div>
+                {{#each team}}
+                <div class="col-12">
+                <p class="h4 font-weight-light text-center">{{#if roleMembers}}{{roleName}}{{/if}}</p>
+                </div>
+                {{#each roleMembers}}
+                <div class="col-md-6 col-lg-4 mb-4 text-center">
+                    <div class="card lb-feature-card shadow">
+                        <div class="card-body">
+                            <figure>
+                            <img id="icon-selectserver" class="rounded-circle" src="https://cdn.discordapp.com/avatars/{{id}}/{{avatar}}.jpg"
+									 height="120" width="120">
+                            </figure>
+                            <h5 class="card-title">{{username}}<small class="text-muted">#{{discriminator}}</small> </h5>
+                        </div>
+                    </div>
+                </div>
+                {{/each}}
+                {{/each}}
+            </div>
+        </div>
+    </section>
+</main>

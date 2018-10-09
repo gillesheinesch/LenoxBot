@@ -402,7 +402,6 @@ app.get('/leaderboards/server/:id', async (req, res) => {
 	}
 });
 
-/*
 app.get('/team', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
@@ -419,7 +418,7 @@ app.get('/team', async (req, res) => {
 			teamSettings.roleMembers = [];
 
 			role.members.forEach(member => {
-				teamSettings.roleMembers.push(member);
+				teamSettings.roleMembers.push(member.user);
 			});
 
 			team.push(teamSettings);
@@ -441,7 +440,6 @@ app.get('/team', async (req, res) => {
 		}));
 	}
 });
-*/
 
 app.get('/commands', (req, res) => {
 	try {
