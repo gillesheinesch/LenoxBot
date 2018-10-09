@@ -436,7 +436,7 @@ app.get('/team', async (req, res) => {
 			teamSettings.roleMembers = [];
 
 			role.members.forEach(member => {
-				teamSettings.roleMembers.push(member);
+				teamSettings.roleMembers.push(member.user);
 			});
 			team.push(teamSettings);
 			console.log(team);
