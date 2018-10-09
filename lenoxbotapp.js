@@ -157,7 +157,7 @@ app.listen(80, err => {
 	if (err) return console.log(err);
 });
 
-// Temp function - Is lenoxBot on the server?
+// Check all user guild where user are owner and lenoxbot is
 
 function islenoxboton(req) {
 	const islenoxbot = [];
@@ -169,6 +169,21 @@ function islenoxboton(req) {
 		}
 	}
 	return islenoxbot;
+}
+
+// Check all user guilds where lenoxbot is
+
+function islenoxbotonNonPermission(req) {
+	const islenoxbotNonPerm = [];
+	if (req.user) {
+		for (let i = 0; i < req.user.guilds.length; i++) {
+			req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
+			if (req.user.guilds[i].lenoxbot === true) {
+				islenoxbotNonPerm.push(req.user.guilds[i]);
+			}
+		}
+	}
+	return islenoxbotNonPerm;
 }
 
 app.get('/', (req, res) => {
@@ -321,6 +336,7 @@ app.get('/logout', (req, res) => {
 app.get('/leaderboards', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
+		const islenoxbotnp = islenoxbotonNonPermission(req);
 		const userData = {};
 		userData.loaded = false;
 
@@ -345,7 +361,8 @@ app.get('/leaderboards', async (req, res) => {
 			credits: credits.slice(0, 100),
 			client: client,
 			userData: userData,
-			islenoxbot: islenoxbot
+			islenoxbot: islenoxbot,
+			islenoxbotnp: islenoxbotnp
 		});
 	} catch (error) {
 		return res.redirect(url.format({
@@ -365,6 +382,7 @@ app.get('/leaderboards/server/:id', async (req, res) => {
 		userData.loaded = false;
 
 		const islenoxbot = islenoxboton(req);
+		const islenoxbotnp = islenoxbotonNonPermission(req);
 
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
 		const scores = await sql.all(`SELECT * FROM scores WHERE guildId = "${dashboardid}" GROUP BY userId ORDER BY points DESC`);
@@ -389,7 +407,8 @@ app.get('/leaderboards/server/:id', async (req, res) => {
 			client: client,
 			guild: client.guilds.get(dashboardid) ? client.guilds.get(dashboardid) : null,
 			userData: userData,
-			islenoxbot: islenoxbot
+			islenoxbot: islenoxbot,
+			islenoxbotnp: islenoxbotnp
 		});
 	} catch (error) {
 		return res.redirect(url.format({
@@ -402,14 +421,12 @@ app.get('/leaderboards/server/:id', async (req, res) => {
 	}
 });
 
-/*
 app.get('/team', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
 		const team = [];
 		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'documentation-moderator', 'designer', 'translation leader', 'translation proofreader'];
 		const guild = await client.guilds.get('352896116812939264');
-
 		for (let i = 0; i < teamroles.length; i++) {
 			const teamSettings = {};
 			const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
@@ -421,8 +438,8 @@ app.get('/team', async (req, res) => {
 			role.members.forEach(member => {
 				teamSettings.roleMembers.push(member);
 			});
-
 			team.push(teamSettings);
+			console.log(team);
 		}
 
 		return res.render('team', {
@@ -441,7 +458,6 @@ app.get('/team', async (req, res) => {
 		}));
 	}
 });
-*/
 
 app.get('/commands', (req, res) => {
 	try {
