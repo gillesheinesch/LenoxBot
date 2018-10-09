@@ -20,7 +20,7 @@ $('.lb-btn-list').click(function () {
         $(this).removeClass('lb-btn-list-focus');
     });
     $(this).addClass('lb-btn-list-focus');
-    
+
     var id = $(this).attr('id');
     console.log(id);
     $("#table tbody tr").filter(function () {
