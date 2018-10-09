@@ -31,7 +31,7 @@
 
     "createmuterole_waitmessage": "The mute role will now be created. This may takes a little while, depending on the number of Discord channels!",
     "createmuterole_done": "The 'muted' role was created!",
-    "createmuterole_description": "Creates the muted role and forbids all writing and speaking permissions",
+    "createmuterole_description": "Creates a mute role and forbids all writing and speaking permissions",
 
     "prefixfinder_noguildid": "You didn't enter a Discord server ID!",
     "prefixfinder_nofetch": "Couldn't find this guild in the database!",
@@ -651,8 +651,8 @@
 
     "muterole_noinput": "You forgot to insert the name of the role.",
     "muterole_rolenotexist": "This role does not exist at all!",
-    "muterole_mutedroleset": "The muted role was set.",
-    "muterole_description": "Defines a muted role which muted users will get",
+    "muterole_mutedroleset": "The mute role was set.",
+    "muterole_description": "Defines a mute role which muted users will get",
 
     "prefix_currentprefix": "The prefix of this server is %prefix",
     "prefix_error": "Your new prefix cannot have spaces!",
