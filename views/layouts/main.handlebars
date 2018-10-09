@@ -145,13 +145,13 @@ function gaOptout() {
                             {{/if}}
                             {{user.username}}
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right" style="max-width: 320px;">
                             <a class="dropdown-item lb-dropdown-item" href="/servers"> <i class="mdi mdi-account-group"></i>
                                 My servers</a>
                             <div class="dropdown-divider"></div>
                             <small class=" text-muted pl-4">Dashboards:</small>
                             {{#each islenoxbot}}
-                            <a class="dropdown-item lb-dropdown-item" href="/dashboard/{{id}}/overview">{{name}}</a>
+                            <a class="dropdown-item lb-dropdown-item lb-textcap" href="/dashboard/{{id}}/overview">{{name}}</a>
                             {{/each}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item lb-dropdown-item-logout" href="/logout"><i class="mdi mdi-logout"></i>
@@ -186,7 +186,11 @@ function gaOptout() {
                     <h5>Product</h5>
                     <ul>
                         <li><a href="#" id="features" class="lb-footer-link">Features</a></li>
+                        {{#if user}}
+                        <li><a href="/servers" class="lb-footer-link">My servers</a></li>
+                        {{ else }}
                         <li><a href="/loginpressedbutton" class="lb-footer-link">Login</a></li>
+                        {{/if}}
                         <li><a href="/invite" class="lb-footer-link" target="_blanc">Invite me to your server</a></li>
                         <li><a href="/donate" class="lb-footer-link" target="_blanc">Donate</a></li>
                     </ul>
