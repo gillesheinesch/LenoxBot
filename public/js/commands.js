@@ -1,14 +1,5 @@
 // COMMANDS JS
 
-// Filter by buttons
-$(".lb-btn-list").click(function () {
-    var value = this.id;
-    $("#table tbody tr").filter(function () {
-        $(this).toggle($(this).attr('class').indexOf(value) > - 1);
-
-    });
-});
-
 // Filter by text
 $("#search-input").on("keyup", function () {
     var value = $(this).val().toLowerCase();
@@ -22,11 +13,17 @@ $("#search-input").on("keyup", function () {
     }
 });
 
+// Filter by buttons
 // Activate current nav commands button
 $('.lb-btn-list').click(function () {
     $('.lb-btn-list').each(function () {
         $(this).removeClass('lb-btn-list-focus');
-        console.log(this);
     });
     $(this).addClass('lb-btn-list-focus');
+
+    var id = $(this).attr('id');
+    console.log(id);
+    $("#table tbody tr").filter(function () {
+        $(this).toggle($(this).attr('class').indexOf(id) > -1);
+    });
 });
