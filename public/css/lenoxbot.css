@@ -1,3 +1,7 @@
+body {
+    font-family: 'Hind Madurai', sans-serif !important;
+}
+
 .lb-debug {
     border: 1px solid red;
 }
@@ -19,10 +23,6 @@
 .lb-card-footer {
     background-color: white;
     border-top: none;
-}
-
-.lb-navbar-text {
-    font-family: 'Oswald', sans-serif;
 }
 
 .lb-navbar-active {
@@ -602,6 +602,56 @@
     height: 1.6em;
 }
 
+.lb-profile-user-card {
+    height: auto;
+    width: auto;
+}
+
+.lb-profile-user {
+    position: relative;
+}
+
+.lb-profile-user-img {
+    position: absolute;
+    top: -3.8em;
+    right: 0;
+    left: 0;
+}
+
+.lb-profile-social {
+    font-size: 4.5em;
+    color: #263238;
+    transition: .2s;
+}
+
+.lb-profile-social:hover {
+    transform: scale(1.03);
+}
+
+.lb-profile-social-twitch:hover {
+    color: #6441A4;
+}
+
+.lb-profile-social-youtube:hover {
+    color: #ff0000;
+}
+
+.lb-profile-social-instagram:hover {
+    color: #263238;
+}
+
+.lb-profile-social-twitter:hover {
+    color: #00aced;
+}
+
+.lb-profile-badge {
+    font-size: 3em;
+}
+
+.lb-profile-progress {
+    background-color: #4CAF50;
+}
+
 .lb-white-glow {
     animation: white-glow 1s ease-in-out infinite alternate;
 }
@@ -719,6 +769,9 @@ div.dataTables_wrapper div.dataTables_length select {
     .lb-input-prefix {
         width: 100% !important;
     }
+    .card-columns {
+        column-count: 1;
+    }
 }
 
 /* md */
@@ -726,6 +779,9 @@ div.dataTables_wrapper div.dataTables_length select {
 @media (min-width: 768px) {
     .lb-dashboard {
         height: auto;
+    }
+    .card-columns {
+        column-count: 2;
     }
 }
 
