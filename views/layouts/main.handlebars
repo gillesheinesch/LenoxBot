@@ -186,7 +186,11 @@ function gaOptout() {
                     <h5>Product</h5>
                     <ul>
                         <li><a href="#" id="features" class="lb-footer-link">Features</a></li>
+                        {{#if user}}
+                        <li><a href="/servers" class="lb-footer-link">My servers</a></li>
+                        {{ else }}
                         <li><a href="/loginpressedbutton" class="lb-footer-link">Login</a></li>
+                        {{/if}}
                         <li><a href="/invite" class="lb-footer-link" target="_blanc">Invite me to your server</a></li>
                         <li><a href="/donate" class="lb-footer-link" target="_blanc">Donate</a></li>
                     </ul>
