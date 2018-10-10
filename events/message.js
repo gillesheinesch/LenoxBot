@@ -170,6 +170,16 @@ exports.run = async (client, msg) => {
 		await client.botconfs.set('premium', botconfspremiumload);
 	}
 
+	if (!userdb.socialmedia) {
+		userdb.socialmedia = {
+			instagram: '',
+			twitter: '',
+			youtube: '',
+			twitch: ''
+		};
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	if (!userdb.premium) {
 		userdb.premium = {
 			status: false,
