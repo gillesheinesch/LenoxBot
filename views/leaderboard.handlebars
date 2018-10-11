@@ -38,9 +38,9 @@
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                             Server leaderboards
                         </button>
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="max-width: 320px;">
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
                             {{#each islenoxbotnp}}
-                            <a class="dropdown-item lb-dropdown-item lb-textcap" href="/leaderboards/server/{{id}}">{{name}}</a>
+                            <a class="dropdown-item lb-dropdown-item" href="/leaderboards/server/{{id}}">{{name}}</a>
                             {{/each}}
                         </div>
                         {{else}}
