@@ -50,7 +50,7 @@
     "vote_description": "All details about voting for LenoxBot",
 
     "createmuterole_waitmessage": "The mute role will now be created. This may takes a little while, depending on the number of Discord channels!",
-    "createmuterole_done": "The 'muted' role was created!",
+    "createmuterole_done": "The 'muted' role has been created!",
     "createmuterole_description": "Creates a mute role and forbids all writing and speaking permissions",
 
     "prefixfinder_noguildid": "You didn't enter a Discord server ID!",
