@@ -107,6 +107,11 @@ exports.run = async (client, msg, args, lang) => {
 		return;
 	}
 
+	if (isNaN(howmanycheck[0])) {
+		const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
+		return msg.reply(commanderror);
+	}
+
 	for (let i = 0; i < sellorbuycheck.length; i++) {
 		if (validationforbuysell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
 			if (sellorbuycheck[0].toLowerCase() === 'sell') {
@@ -154,12 +159,6 @@ exports.run = async (client, msg, args, lang) => {
 
 					const sellall = lang.shop_sellall.replace('%items', messageedit.join(', ')).replace('%amount', `**${amounttoreceive}**`);
 					return msg.reply(sellall);
-				}
-
-
-				if (isNaN(howmanycheck[0])) {
-					const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
-					return msg.reply(commanderror);
 				}
 
 				for (i = 0; i < itemcheck.length; i++) {
