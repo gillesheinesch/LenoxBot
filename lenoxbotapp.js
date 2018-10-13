@@ -425,6 +425,9 @@ app.get('/profile/:id', async (req, res) => {
 	try {
 		const profileId = req.params.id;
 		const userdb = await client.userdb.get(profileId);
+		const profileUser = client.users.get(req.params.id);
+
+		if (!profileUser) throw Error('User was not found!');
 
 		if (!userdb.description) {
 			userdb.description = '';
@@ -505,6 +508,7 @@ app.get('/profile/:id', async (req, res) => {
 		const islenoxbot = islenoxboton(req);
 		return res.render('profile', {
 			user: req.user,
+			profileUser: profileUser,
 			userDescription: userdb.description.length === 0 ? null : userdb.description,
 			userBadgesEmoji: topBadgesEmoji,
 			userTitles: topBadges,
