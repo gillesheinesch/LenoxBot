@@ -765,7 +765,7 @@ div.dataTables_wrapper div.dataTables_length select {
 
 /* sm */
 
-@media (min-width: 576px) {
+@media screen and (min-width: 576px) {
     .lb-input-prefix {
         width: 100% !important;
     }
