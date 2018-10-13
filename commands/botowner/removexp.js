@@ -11,10 +11,13 @@ exports.run = async (client, msg, args, lang) => {
 	if (xpAmount <= 0) return msg.reply('At least 1 xp');
 
 	await sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${userId}"`).then(row => {
-		console.log(row, row.points - xpAmount);
 		if (row) {
 			const curLevel = Math.floor(0.3 * Math.sqrt(row.points - xpAmount));
 			if (curLevel > row.level) {
+				row.level = curLevel;
+				sql.run(`UPDATE scores SET points = ${row.points - xpAmount}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${userId}`);
+			}
+			if (curLevel < row.level) {
 				row.level = curLevel;
 				sql.run(`UPDATE scores SET points = ${row.points - xpAmount}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${userId}`);
 			}
@@ -23,7 +26,6 @@ exports.run = async (client, msg, args, lang) => {
 			sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, userId, 0, 0]);
 		}
 	}).catch(() => {
-		console.log(1);
 		sql.run('CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)').then(() => {
 			sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, userId, 0, 0]);
 		});
@@ -36,7 +38,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	shortDescription: 'Credits',
-	aliases: ['ctxp'],
+	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
 };
