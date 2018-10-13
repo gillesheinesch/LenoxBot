@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const userdb = client.userdb.get(msg.author.id);
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const marketconfs = client.botconfs.get('market');
+	const userdb = await client.userdb.get(msg.author.id);
+	const tableload = await client.guildconfs.get(msg.guild.id);
+	const marketconfs = await client.botconfs.get('market');
 
 	const inventory = lang.inventory_inventory.replace('%authortag', msg.author.tag);
 	const validation = ['upgrade'];
