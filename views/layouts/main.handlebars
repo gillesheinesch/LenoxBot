@@ -124,10 +124,13 @@ function gaOptout() {
                     <a href="/discord" target="blanc" class="nav-link">Support</a>
                 </li>
                 <li class="nav-item">
+                    <a href="https://discordbots.org/bot/lenoxbot/vote" target="blanc" class="nav-link">Vote</a>
+                </li>
+                <li class="nav-item">
                     <a id="leaderboard" href="/leaderboards" class="nav-link lb-white-glow">Leaderboards <span class="badge lb-badge">new!</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="/donate" class="btn lb-btn-donate ml-lg-2 mb-2 mb-lg-auto">
+                    <a href="/donate" class="btn lb-btn-donate ml-lg-4 mb-2 mb-lg-auto">
                         <div id="donate"><i class="mdi mdi-heart"></i> Donate</div>
                     </a>
                 </li>
@@ -145,13 +148,13 @@ function gaOptout() {
                             {{/if}}
                             {{user.username}}
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right">
+                        <div class="dropdown-menu dropdown-menu-right" style="max-width: 320px;">
                             <a class="dropdown-item lb-dropdown-item" href="/servers"> <i class="mdi mdi-account-group"></i>
                                 My servers</a>
                             <div class="dropdown-divider"></div>
                             <small class=" text-muted pl-4">Dashboards:</small>
                             {{#each islenoxbot}}
-                            <a class="dropdown-item lb-dropdown-item" href="/dashboard/{{id}}/overview">{{name}}</a>
+                            <a class="dropdown-item lb-dropdown-item lb-textcap" href="/dashboard/{{id}}/overview">{{name}}</a>
                             {{/each}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item lb-dropdown-item-logout" href="/logout"><i class="mdi mdi-logout"></i>
@@ -186,7 +189,11 @@ function gaOptout() {
                     <h5>Product</h5>
                     <ul>
                         <li><a href="#" id="features" class="lb-footer-link">Features</a></li>
+                        {{#if user}}
+                        <li><a href="/servers" class="lb-footer-link">My servers</a></li>
+                        {{ else }}
                         <li><a href="/loginpressedbutton" class="lb-footer-link">Login</a></li>
+                        {{/if}}
                         <li><a href="/invite" class="lb-footer-link" target="_blanc">Invite me to your server</a></li>
                         <li><a href="/donate" class="lb-footer-link" target="_blanc">Donate</a></li>
                     </ul>
@@ -226,7 +233,7 @@ function gaOptout() {
                 <div class="col d-flex justify-content-between mb-2 mt-5">
                     <small>© 2018 <a class="lb-footer-link" href="https://www.lenoxbot.com">LenoxBot</a>, all rights
                         reserved</small>
-                    <small>Made with <i class="mdi mdi-heart lb-text-red"></i> by <a href=href="/team" class="lb-footer-link">LenoxBot Team</a></small>
+                    <small>Made with <i class="mdi mdi-heart lb-text-red"></i> by <a href="/team" class="lb-footer-link">LenoxBot Team</a></small>
                 </div>
             </div>
         </div>

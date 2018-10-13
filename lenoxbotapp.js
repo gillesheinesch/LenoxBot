@@ -421,6 +421,111 @@ app.get('/leaderboards/server/:id', async (req, res) => {
 	}
 });
 
+app.get('/profile/:id', async (req, res) => {
+	try {
+		const profileId = req.params.id;
+		const userdb = await client.userdb.get(profileId);
+
+		if (!userdb.description) {
+			userdb.description = '';
+		}
+		if (!userdb.badges) {
+			userdb.badges = [];
+		}
+
+		let badges;
+		if (userdb.badges.length === 0) {
+			badges = [];
+		} else {
+			const userBadges = userdb.badges;
+			badges = userBadges.sort((a, b) => {
+				if (a.rarity < b.rarity) {
+					return 1;
+				}
+				if (a.rarity > b.rarity) {
+					return -1;
+				}
+				return 0;
+			});
+		}
+
+		const topBadgesEmoji = [];
+		const topBadges = [];
+		for (let i = 0; i < badges.length; i++) {
+			topBadgesEmoji.push(badges[i].emoji);
+			topBadges.push(badges[i].name);
+		}
+
+		sql.open(`../${settings.sqlitefilename}.sqlite`);
+		const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
+		const useridsArray = [];
+		const userArray = [];
+		const moneyArray = [];
+		const tempArray = [];
+		const globalrank = [];
+		rows.forEach(row => {
+			useridsArray.push(row.userId);
+			const member = client.users.get(row.userId);
+			userArray.push(member ? member.tag : row.userId);
+			moneyArray.push(row.medals);
+		});
+		for (let i = 0; i < userArray.length; i++) {
+			tempArray.push((i + 1));
+		}
+
+		for (let index = 0; index < userArray.length; index++) {
+			if (useridsArray[index] === req.user.id) {
+				globalrank.push(tempArray[index]);
+			}
+		}
+
+		let userCredits;
+		sql.get(`SELECT * FROM medals WHERE userId = "${req.user.id}"`).then(row => {
+			userCredits = row.medals;
+		});
+
+		const marketconfs = await client.botconfs.get('market');
+		const lang = require('./languages/en-US.json');
+		let check = 0;
+		const array1 = [];
+		for (const i in userdb.inventory) {
+			if (userdb.inventory[i] === 0) {
+				check++;
+			}
+			if (userdb.inventory[i] !== 0) {
+				const itemSettings = {
+					emoji: marketconfs[i][0],
+					amount: userdb.inventory[i],
+					name: lang[`loot_${i}`]
+				};
+				array1.push(itemSettings);
+			}
+		}
+
+		const islenoxbot = islenoxboton(req);
+		return res.render('profile', {
+			user: req.user,
+			userDescription: userdb.description.length === 0 ? null : userdb.description,
+			userBadgesEmoji: topBadgesEmoji,
+			userTitles: topBadges,
+			userCredits: userCredits,
+			userCreditsGlobalRank: globalrank,
+			inventoryItems: check === Object.keys(userdb.inventory).length ? null : array1,
+			client: client,
+			islenoxbot: islenoxbot
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
+
 app.get('/team', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
