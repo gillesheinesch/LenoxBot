@@ -472,13 +472,13 @@ app.get('/profile/:id', async (req, res) => {
 		for (let i = 0; i < userArray.length; i++) {
 			tempArray.push((i + 1));
 		}
-	
+
 		for (let index = 0; index < userArray.length; index++) {
 			if (useridsArray[index] === req.user.id) {
 				globalrank.push(tempArray[index]);
 			}
 		}
-	
+
 		let userCredits;
 		sql.get(`SELECT * FROM medals WHERE userId = "${req.user.id}"`).then(row => {
 			userCredits = row.medals;
@@ -2402,18 +2402,17 @@ app.get('/dashboard/:id/administration', async (req, res) => {
 			}
 
 			const languages = [{
-					name: 'english',
-					alias: 'en-US'
-				},
-				{
-					name: 'german',
-					alias: 'de-DE'
-				},
-				{
-					name: 'french',
-					alias: 'fr-FR'
-				}
-			];
+				name: 'english',
+				alias: 'en-US'
+			},
+			{
+				name: 'german',
+				alias: 'de-DE'
+			},
+			{
+				name: 'french',
+				alias: 'fr-FR'
+			}];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {
