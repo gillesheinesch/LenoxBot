@@ -5,11 +5,11 @@ exports.run = async (client, msg, args, lang) => {
 	const creditsAmount = args.slice(0, 1);
 	const tableload = await client.guildconfs.get(msg.guild.id);
 
-	if (isNaN(creditsAmount)) return msg.reply('Not a number!');
-	if (Number(creditsAmount) <= 0) return msg.reply('At least 1 credit');
+	if (isNaN(creditsAmount)) return msg.reply(lang.creditstoxp_nan);
+	if (Number(creditsAmount) <= 0) return msg.reply(lang.creditstoxp_under1);
 
 	const creditsTableOfTheUser = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
-	if (creditsTableOfTheUser.medals < parseInt(creditsAmount, 10)) return msg.channel.send('Not enough credits');
+	if (creditsTableOfTheUser.medals < parseInt(creditsAmount, 10)) return msg.channel.send(lang.creditstoxp_nocredits);
 
 	await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
