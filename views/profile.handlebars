@@ -59,7 +59,7 @@
                                 {{#if userBadgesEmoji}}
                                 <div class="row">
                                     {{#each userBadgesEmoji}}
-                                    <div class="col-3 p-0 lb-profile-badge ">{{emoji}}</div>
+                                    <div class="col-3 p-0 lb-profile-badge ">{{this}}</div>
                                     {{/each}}
                                 </div>
                                 {{else}}
@@ -73,7 +73,7 @@
                                 {{#if userTitles}}
                                 <ul class="text-left">
                                     {{#each userTitles}}
-                                    <li>{{title}}</li>
+                                    <li>{{this}}</li>
                                     {{/each}}
                                 </ul>
                                 {{else}}
@@ -101,19 +101,19 @@
                                 <div class="d-flex flex-wrap justify-content-center align-items-center">
                                     {{#if userSocialmediaCheck}}
                                     {{#if userSocialmediaTwitch}}
-                                    <a href="#" class="lb-profile-social lb-profile-social-twitch"><i class="mdi mdi-twitch"></i></a>
+                                    <a href="https://www.twitch.tv/{{userSocialmediaTwitch}}" class="lb-profile-social lb-profile-social-twitch"><i class="mdi mdi-twitch"></i></a>
                                     {{/if}}
                                     {{#if userSocialmediaYoutube}}
-                                    <a href="#" class="lb-profile-social lb-profile-social-youtube"><i class="mdi mdi-youtube"></i></a>
+                                    <a href="https://www.youtube.com/channel/{{userSocialmediaYoutube}}" class="lb-profile-social lb-profile-social-youtube"><i class="mdi mdi-youtube"></i></a>
                                     {{/if}}
                                     {{#if userSocialmediaTwitter}}
                                     <a href="https://twitter.com/{{userSocialmediaTwitter}}" class="lb-profile-social lb-profile-social-twitter"><i class="mdi mdi-twitter"></i></a>
                                     {{/if}}
                                     {{#if userSocialmediaInstagram}}
-                                    <a href="#" class="lb-profile-social lb-profile-social-instagram"><i class="mdi mdi-instagram"></i></a>
+                                    <a href="https://www.instagram.com/{{userSocialmediaInstagram}}" class="lb-profile-social lb-profile-social-instagram"><i class="mdi mdi-instagram"></i></a>
                                     {{/if}}
                                     {{else}}
-                                    <p>No social media accounts linked to this account!</p>
+                                    <p>No social media accounts linked to this account 😢</p>
                                     {{/if}}
                                 </div>
                             </div>
