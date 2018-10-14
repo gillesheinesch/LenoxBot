@@ -430,7 +430,7 @@ app.get('/profile/:id', async (req, res) => {
 		if (!profileUser) throw Error('User was not found!');
 
 		if (!userdb.description) {
-			userdb.description = 'Without description 😢';
+			userdb.description = 'No description 😢';
 		}
 		if (!userdb.badges) {
 			userdb.badges = [];
@@ -502,6 +502,11 @@ app.get('/profile/:id', async (req, res) => {
 			}
 		}
 
+		let socialmediaCheck = 0;
+		for (const x in userdb.socialmedia) {
+			if (userdb.socialmedia[x] === '') socialmediaCheck++;
+		}
+
 		const islenoxbot = islenoxboton(req);
 		return res.render('profile', {
 			user: req.user,
@@ -512,6 +517,11 @@ app.get('/profile/:id', async (req, res) => {
 			userCredits: rowCredits.medals,
 			userCreditsGlobalRank: globalrank,
 			inventoryItems: check === Object.keys(userdb.inventory).length ? null : array1,
+			userSocialmediaCheck: socialmediaCheck === Object.keys(userdb.socialmedia).length ? null : true,
+			userSocialmediaTwitch: userdb.socialmedia.twitch === '' ? null : userdb.socialmedia.twitch,
+			userSocialmediaYoutube: userdb.socialmedia.youtube === '' ? null : userdb.socialmedia.youtube,
+			userSocialmediaTwitter: userdb.socialmedia.twitter === '' ? null : userdb.socialmedia.twitter,
+			userSocialmediaInstagram: userdb.socialmedia.instagram === '' ? null : userdb.socialmedia.instagram,
 			client: client,
 			islenoxbot: islenoxbot
 		});
