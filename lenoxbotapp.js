@@ -427,7 +427,7 @@ app.get('/profile/:id', async (req, res) => {
 		const userdb = await client.userdb.get(profileId);
 		const profileUser = client.users.get(req.params.id);
 
-		if (!profileUser) throw Error('User was not found!');
+		if (!profileUser || !userdb) throw Error('User was not found!');
 
 		if (!userdb.description) {
 			userdb.description = 'No description 😢';
@@ -455,8 +455,8 @@ app.get('/profile/:id', async (req, res) => {
 		const topBadgesEmoji = [];
 		const topBadges = [];
 		for (let i = 0; i < badges.length; i++) {
-			topBadgesEmoji.emoji.push(badges[i].emoji);
-			topBadges.title.push(badges[i].name);
+			topBadgesEmoji.push(badges[i].emoji);
+			topBadges.push(badges[i].name);
 		}
 
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
