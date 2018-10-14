@@ -107,11 +107,6 @@ exports.run = async (client, msg, args, lang) => {
 		return;
 	}
 
-	if (isNaN(howmanycheck[0])) {
-		const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
-		return msg.reply(commanderror);
-	}
-
 	for (let i = 0; i < sellorbuycheck.length; i++) {
 		if (validationforbuysell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
 			if (sellorbuycheck[0].toLowerCase() === 'sell') {
@@ -161,6 +156,11 @@ exports.run = async (client, msg, args, lang) => {
 					return msg.reply(sellall);
 				}
 
+				if (isNaN(howmanycheck[0])) {
+					const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
+					return msg.reply(commanderror);
+				}
+
 				for (i = 0; i < itemcheck.length; i++) {
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
 						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
@@ -187,6 +187,10 @@ exports.run = async (client, msg, args, lang) => {
 					}
 				}
 			} else if (sellorbuycheck[0].toLowerCase() === 'buy') {
+				if (isNaN(howmanycheck[0])) {
+					const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
+					return msg.reply(commanderror);
+				}
 				// Check if the use can buy this item
 				for (i = 0; i < itemcheck.length; i++) {
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
