@@ -430,7 +430,7 @@ app.get('/profile/:id', async (req, res) => {
 		if (!profileUser) throw Error('User was not found!');
 
 		if (!userdb.description) {
-			userdb.description = '';
+			userdb.description = 'Without description 😢';
 		}
 		if (!userdb.badges) {
 			userdb.badges = [];
@@ -455,8 +455,8 @@ app.get('/profile/:id', async (req, res) => {
 		const topBadgesEmoji = [];
 		const topBadges = [];
 		for (let i = 0; i < badges.length; i++) {
-			topBadgesEmoji.push(badges[i].emoji);
-			topBadges.push(badges[i].name);
+			topBadgesEmoji.emoji.push(badges[i].emoji);
+			topBadges.title.push(badges[i].name);
 		}
 
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
@@ -477,15 +477,12 @@ app.get('/profile/:id', async (req, res) => {
 		}
 
 		for (let index = 0; index < userArray.length; index++) {
-			if (useridsArray[index] === req.user.id) {
+			if (useridsArray[index] === req.params.id) {
 				globalrank.push(tempArray[index]);
 			}
 		}
 
-		let userCredits;
-		sql.get(`SELECT * FROM medals WHERE userId = "${req.user.id}"`).then(row => {
-			userCredits = row.medals;
-		});
+		const rowCredits = await sql.get(`SELECT * FROM medals WHERE userId = "${req.params.id}"`);
 
 		const marketconfs = await client.botconfs.get('market');
 		const lang = require('./languages/en-US.json');
@@ -512,7 +509,7 @@ app.get('/profile/:id', async (req, res) => {
 			userDescription: userdb.description.length === 0 ? null : userdb.description,
 			userBadgesEmoji: topBadgesEmoji,
 			userTitles: topBadges,
-			userCredits: userCredits,
+			userCredits: rowCredits.medals,
 			userCreditsGlobalRank: globalrank,
 			inventoryItems: check === Object.keys(userdb.inventory).length ? null : array1,
 			client: client,

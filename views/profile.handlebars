@@ -1,0 +1,114 @@
+<script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+<script>
+    // load a locale
+    numeral.register('locale', 'lb', {
+        delimiters: {
+            thousands: ' ',
+            decimal: '.'
+        },
+        abbreviations: {
+            thousand: 'K',
+            million: 'M',
+            billion: 'B',
+            trillion: 'T'
+        },
+        currency: {
+            symbol: '$'
+        }
+    });
+
+    // switch between locales
+    numeral.locale('lb');
+
+</script>
+<title>{{profileUser.username}}'s Profile - LenoxBot</title>
+<main>
+    <section>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 mb-4 mt-5 text-center">
+                    <div class="card lb-profile-user-card shadow mb-3 mt-5">
+                        <div class="card-body">
+                            <figure class="lb-profile-user-img">
+                                <img id="icon-selectserver" class="rounded-circle" src="https://cdn.discordapp.com/avatars/{{profileUser.id}}/{{profileUser.avatar}}.jpg"
+                                    height="120" width="120">
+                            </figure>
+                            <h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small></h1>
+                            <p class="h4 font-weight-light text-center">{{userDescription}}</p>
+                        </div>
+                    </div>
+                    <div class="card-columns">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title">Stats</h3>
+                                <div class="row">
+                                    <div class="col-6 p-0"><small>CREDITS</small>
+                                        <p class="h1">
+                                            <span data-toggle="tooltip" data-placement="left" title="{{addCommas userCredits}}"><script>document.write(numeral({{ userCredits }}).format('0.0a'))</script></span>
+                                        </p>
+                                    </div>
+                                    <div class="col-6 p-0"><small>GLOBAL RANK</small>
+                                        <p class="h1">{{userCreditsGlobalRank}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title">Badges</h3>
+                                {{#if userBadgesEmoji}}
+                                <div class="row">
+                                    {{#each userBadgesEmoji}}
+                                    <div class="col-3 p-0 lb-profile-badge ">{{emoji}}</div>
+                                    {{/each}}
+                                </div>
+                                {{else}}
+                                <p>No badges 😢</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title">Titles</h3>
+                                {{#if userTitles}}
+                                <ul class="text-left">
+                                    {{#each userTitles}}
+                                    <li>{{title}}</li>
+                                    {{/each}}
+                                </ul>
+                                {{else}}
+                                <p>No titles 😢</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title">Inventory</h3>
+                                {{#if inventoryItems}}
+                                <div class="row">
+                                    {{#each inventoryItems}}
+                                    <div class="col-3 p-0"><span data-toggle="tooltip" data-placement="left" title="{{capitalize name}}">{{emoji}}</span>x{{amount}}</div>
+                                    {{/each}}
+                                </div>
+                                {{else}}
+                                <p>No items 😢</p>
+                                {{/if}}
+                            </div>
+                        </div>
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h3 class="card-title">Social</h3>
+                                <div class="d-flex flex-wrap justify-content-center align-items-center">
+                                    <a href="#" class="lb-profile-social lb-profile-social-twitch"><i class="mdi mdi-twitch"></i></a>
+                                    <a href="#" class="lb-profile-social lb-profile-social-youtube"><i class="mdi mdi-youtube"></i></a>
+                                    <a href="#" class="lb-profile-social lb-profile-social-twitter"><i class="mdi mdi-twitter"></i></a>
+                                    <a href="#" class="lb-profile-social lb-profile-social-instagram"><i class="mdi mdi-instagram"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
