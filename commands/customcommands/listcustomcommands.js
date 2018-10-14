@@ -3,7 +3,7 @@ exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	const arrayOfCustomCommands = [];
 
-	if (tableload.customcommands.length === 0) return msg.reply(lang.listcustomcommand_nocustommcommands);
+	if (tableload.customcommands.length === 0) return msg.reply(lang.listcustomcommands_nocustommcommands);
 
 	const embed = new Discord.RichEmbed()
 		.setColor('#ff9900');
@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 		arrayOfCustomCommands.push(`${tableload.prefix}${tableload.customcommands[i].name}`);
 	}
 
-	embed.addField(lang.listcustomcommand_embedtitle, arrayOfCustomCommands.slice(0, 15).join('\n'));
+	embed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(0, 15).join('\n'));
 
 	const message = await msg.channel.send({
 		embed: embed
@@ -42,7 +42,7 @@ exports.run = async (client, msg, args, lang) => {
 			const newembed = new Discord.RichEmbed()
 				.setColor('#ff9900');
 
-			newembed.addField(lang.listcustomcommand_embedtitle, arrayOfCustomCommands.slice(first, second).join('\n'), true);
+			newembed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(first, second).join('\n'), true);
 
 			message.edit({
 				embed: newembed
@@ -56,7 +56,7 @@ exports.run = async (client, msg, args, lang) => {
 			const newembed = new Discord.RichEmbed()
 				.setColor('#ff9900');
 
-			newembed.addField(lang.listcustomcommand_embedtitle, arrayOfCustomCommands.slice(first, second).join('\n'), true);
+			newembed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(first, second).join('\n'), true);
 
 			message.edit({
 				embed: newembed
