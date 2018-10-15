@@ -43,9 +43,13 @@
                             Server leaderboards
                         </button>
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton" style="max-width: 320px;">
+                            {{#if islenoxbotnp}}
                             {{#each islenoxbotnp}}
                             <a class="dropdown-item lb-dropdown-item lb-textcap" href="/leaderboards/server/{{id}}">{{name}}</a>
                             {{/each}}
+                            {{else}}
+                            <span class="text-muted pl-4">No servers 😢</span>
+                            {{/if}}
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item lb-dropdown-item" href="/leaderboards">Global Leaderboards</a>
                         </div>
