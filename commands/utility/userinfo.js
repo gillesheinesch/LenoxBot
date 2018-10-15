@@ -5,6 +5,9 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 require('moment-duration-format');
 exports.run = async (client, msg, args, lang) => {
+	const tableload = await client.guildconfs.get(msg.guild.id);
+	moment.locale(tableload.momentLanguage);
+
 	let user = msg.mentions.users.first();
 
 	if (!user && args.slice().length === 0) {

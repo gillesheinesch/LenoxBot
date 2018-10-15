@@ -16,6 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 	const ytdl = require('ytdl-core');
 	const searchString = input.slice(1).join(' ');
 	const url = input[1] ? input[1].replace(/<(.+)>/g, '$1') : '';
+	moment.locale(tableload.momentLanguage);
 
 
 	const voiceChannel = msg.member.voiceChannel;

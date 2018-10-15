@@ -14,6 +14,7 @@ exports.run = async (client, msg, args, lang) => {
 	const margs = msg.content.split(' ');
 	let newplaylisttitle = '';
 	const newplaylistsongs = [];
+	moment.locale(tableload.momentLanguage);
 
 	if (tableload.premium.status === false) return msg.reply(lang.playlist_noguildpremium);
 

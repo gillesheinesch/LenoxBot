@@ -12,6 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 	const {
 		Util
 	} = require('discord.js');
+	moment.locale(tableload.momentLanguage);
 
 	if (tableload.premium.status === false) return msg.reply(lang.playlist_noguildpremium);
 	if (args.slice().length === 0 || !args) return msg.reply(lang.playplaylist_error);

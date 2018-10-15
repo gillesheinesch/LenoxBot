@@ -16,6 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 				if (tableload.language === 'en-US') return msg.channel.send(already);
 
 				tableload.language = 'en-US';
+				tableload.momentLanguage = 'en';
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
@@ -23,6 +24,7 @@ exports.run = async (client, msg, args, lang) => {
 				if (tableload.language === 'de-DE') return msg.channel.send(already);
 
 				tableload.language = 'de-DE';
+				tableload.momentLanguage = 'de';
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
@@ -30,6 +32,7 @@ exports.run = async (client, msg, args, lang) => {
 				if (tableload.language === 'fr-FR') return msg.channel.send(already);
 
 				tableload.language = 'fr-FR';
+				tableload.momentLanguage = 'fr';
 				await client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
