@@ -22,23 +22,23 @@
     <!-- Google Tag Manager -->
     <script>
         var gaProperty = 'UA-117570240-1';
-var disableStr = 'ga-disable-' + gaProperty;
-if (document.cookie.indexOf(disableStr + '=true') > -1) {
-	window[disableStr] = true;
-}
-function gaOptout() {
-	document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
-	window[disableStr] = true;
-	alert('Das Tracking durch Google Analytics wurde in Ihrem Browser für diese Website deaktiviert.');
-}
-</script>
+        var disableStr = 'ga-disable-' + gaProperty;
+        if (document.cookie.indexOf(disableStr + '=true') > -1) {
+            window[disableStr] = true;
+        }
+        function gaOptout() {
+            document.cookie = disableStr + '=true; expires=Thu, 31 Dec 2099 23:59:59 UTC; path=/';
+            window[disableStr] = true;
+            alert('Das Tracking durch Google Analytics wurde in Ihrem Browser für diese Website deaktiviert.');
+        }
+    </script>
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-117570240-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-						function gtag(){dataLayer.push(arguments);}
-						gtag('js', new Date());
-						gtag('config', 'UA-117570240-1', { 'anonymize_ip': true });
-</script>
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'UA-117570240-1', { 'anonymize_ip': true });
+    </script>
     <!-- End Google Tag Manager -->
     <!-- Cookies Alert CSS-->
     <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.1.0/cookieconsent.min.css" />
@@ -130,9 +130,6 @@ function gaOptout() {
                     <a id="leaderboard" href="/leaderboards" class="nav-link lb-white-glow">Leaderboards <span class="badge lb-badge">new!</span></a>
                 </li>
                 <li class="nav-item">
-                    <a id="leaderboard" href="/profile/219645175167844352" class="nav-link">Profile Test</a>
-                </li>
-                <li class="nav-item">
                     <a href="/donate" class="btn lb-btn-donate ml-lg-4 mb-2 mb-lg-auto">
                         <div id="donate"><i class="mdi mdi-heart"></i> Donate</div>
                     </a>
@@ -152,14 +149,18 @@ function gaOptout() {
                             {{user.username}}
                         </a>
                         <div class="dropdown-menu dropdown-menu-right" style="max-width: 320px;">
+                            <a class="dropdown-item lb-dropdown-item" href="/profile/{{user.id}}"> <i class="mdi mdi-account"></i>
+                                Profile</a>
                             <a class="dropdown-item lb-dropdown-item" href="/servers"> <i class="mdi mdi-account-group"></i>
                                 My servers</a>
                             <div class="dropdown-divider"></div>
+                            {{#if islenoxbot}}
                             <small class=" text-muted pl-4">Dashboards:</small>
                             {{#each islenoxbot}}
                             <a class="dropdown-item lb-dropdown-item lb-textcap" href="/dashboard/{{id}}/overview">{{name}}</a>
                             {{/each}}
                             <div class="dropdown-divider"></div>
+                            {{/if}}
                             <a class="dropdown-item lb-dropdown-item-logout" href="/logout"><i class="mdi mdi-logout"></i>
                                 Log
                                 out</a>
@@ -236,7 +237,8 @@ function gaOptout() {
                 <div class="col d-flex justify-content-between mb-2 mt-5">
                     <small>© 2018 <a class="lb-footer-link" href="https://www.lenoxbot.com">LenoxBot</a>, all rights
                         reserved</small>
-                    <small>Made with <i class="mdi mdi-heart lb-text-red"></i> by <a href="/team" class="lb-footer-link">LenoxBot Team</a></small>
+                    <small>Made with <i class="mdi mdi-heart lb-text-red"></i> by <a href="/team" class="lb-footer-link">LenoxBot
+                            Team</a></small>
                 </div>
             </div>
         </div>
