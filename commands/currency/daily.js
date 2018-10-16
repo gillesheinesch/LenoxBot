@@ -1,6 +1,7 @@
 const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
+const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const mentioncheck = msg.mentions.users.first();
 	const userdb = await client.userdb.get(msg.author.id);
@@ -42,11 +43,26 @@ exports.run = async (client, msg, args, lang) => {
 			sql.run(`UPDATE medals SET medals = ${row.medals + (userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2))} WHERE userId = ${msg.author.id}`);
 		});
 
-		const author = lang.daily_author.replace('%amount', userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2)).replace('%streak', userdb.dailystreak.streak);
+		const author = lang.daily_author.replace('%amount', userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2));
+		const streak = lang.daily_streak.replace('%streak', userdb.dailystreak.streak);
+
+		const remindEmbed = new Discord.RichEmbed()
+			.setColor('RED')
+			.setAuthor(`🎁 ${author} 🎁`)
+			.setDescription(`${streak} \n\n${lang.daily_remindmsg}`);
+		const noRemindEmbed = new Discord.RichEmbed()
+			.setColor('RED')
+			.setAuthor(`🎁 ${author} 🎁`)
+			.setDescription(`${streak}`);
+
 		if (userdb.dailyremind === true) {
-			return msg.channel.send(`🎁 ${author} \n${lang.daily_remindmsg}`);
+			return msg.channel.send({
+				embed: remindEmbed
+			});
 		}
-		return msg.channel.send(`🎁 ${author}`);
+		return msg.channel.send({
+			embed: noRemindEmbed
+		});
 	}
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${mentioncheck.id}"`).then(row => {
@@ -56,11 +72,26 @@ exports.run = async (client, msg, args, lang) => {
 		sql.run(`UPDATE medals SET medals = ${row.medals + (userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2))} WHERE userId = ${mentioncheck.id}`);
 	});
 
-	const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2)).replace('%streak', userdb.dailystreak.streak);
+	const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', userdb.premium.status === false ? 200 + (userdb.dailystreak.streak * 2) : 400 + (userdb.dailystreak.streak * 2));
+	const streak = lang.daily_streak.replace('%streak', userdb.dailystreak.streak);
+
+	const remindEmbed = new Discord.RichEmbed()
+		.setColor('RED')
+		.setAuthor(`🎁 ${mention} 🎁`)
+		.setDescription(`${streak} \n\n${lang.daily_remindmsg}`);
+	const noRemindEmbed = new Discord.RichEmbed()
+		.setColor('RED')
+		.setAuthor(`🎁 ${mention} 🎁`)
+		.setDescription(`${streak}`);
+
 	if (userdb.dailyremind === true) {
-		return msg.channel.send(`🎁 ${mention} \n${lang.daily_remindmsg}`);
+		return msg.channel.send({
+			embed: remindEmbed
+		});
 	}
-	return msg.channel.send(`🎁 ${mention}`);
+	return msg.channel.send({
+		embed: noRemindEmbed
+	});
 };
 
 exports.conf = {

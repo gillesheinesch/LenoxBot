@@ -409,10 +409,11 @@
     "loot_lootmessage": "You got %amount and %howmanyx %item! In 10 minutes you can pick up your loot again",
     "loot_description": "Collects your loot every 10 minutes",
 
-    "daily_author": "You have successfully received $%amount. \nYour streak is: %streak",
+    "daily_author": "You have successfully received %amount credits!",
+    "daily_streak": "Your streak is: %streak",
     "daily_remind": "Don't forget to pick up your daily reward",
     "daily_remindmsg": "I'll remind you to pick up your daily reward in 24 hours!",
-    "daily_mention": "%mentiontag has successfully received $%amount.",
+    "daily_mention": "%mentiontag has successfully received %amount credits!",
     "daily_description": "Get your daily reward or give it away to another user",
 
     "embed_error": "You forgot to enter what you would like to include in your embed",
