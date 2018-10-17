@@ -3,16 +3,16 @@ name: Feature request
 about: Request a feature for LenoxBot
 
 ---
+**What is the title of your proposal?**
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex. I'm always frustrated when [...]
 
-**Describe the ideal solution**
-A clear and concise description of what you want to happen.
+**Is it a suggestion for the website or for the bot?**
+- [ ] Bot
+- [ ] Website
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+**Explain your proposal more accurately (It's best to give as much information as possible, so that we can implement the proposal better)**
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+
+**Why should we add this feature?**
+
  
