@@ -4,7 +4,7 @@ about: Create a report to help us improve
 
 ---
 **What is the title of your bugreport?**
-Your answer here!
+
 
 **Is it a bugreport for the website or for the bot?**
 - [ ] Bot
@@ -18,10 +18,10 @@ Steps to reproduce the behavior:
 4. See error
 
 **Which result would normally have to be?**
-Your answer here!
+
 
 **What happens if you do the action now?**
-Your answer here!
+
 
 **Additional context**
-Your answer here!
+
