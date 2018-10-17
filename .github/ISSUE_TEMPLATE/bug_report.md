@@ -3,22 +3,25 @@ name: Bug report
 about: Create a report to help us improve
 
 ---
+**What is the title of your bugreport?**
+Your answer here!
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+**Is it a bugreport for the website or for the bot?**
+- [ ] Bot
+- [ ] Website
 
-**To Reproduce**
+**How can you reproduce the bug? (Explain in steps)**
 Steps to reproduce the behavior:
 1. Go to '...'
 2. Click on '....'
 3. Scroll down to '....'
 4. See error
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**Which result would normally have to be?**
+Your answer here!
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**What happens if you do the action now?**
+Your answer here!
 
 **Additional context**
-Add any other context about the problem here.
+Your answer here!
