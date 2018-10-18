@@ -215,7 +215,10 @@ exports.run = async client => {
 
 	function timeoutForMute(muteconf, newMuteTime) {
 		setTimeout(() => {
-			const membermention = client.guilds.get(muteconf.discordserverid).members.get(muteconf.memberid);
+			const guild = client.guilds.get(muteconf.discordserverid);
+			if (!guild) return;
+
+			const membermention = guild.members.get(muteconf.memberid);
 			const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
 			const user = client.users.get(muteconf.memberid);
 			const tableload = client.guildconfs.get(muteconf.discordserverid);
