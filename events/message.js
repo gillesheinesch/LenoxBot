@@ -127,6 +127,29 @@ exports.run = async (client, msg) => {
 	const botconfspremiumload = await client.botconfs.get('premium');
 	const botconfs = await client.botconfs.get('botconfs');
 
+	if (!botconfs.badgeEmojis) {
+		botconfs.badgeEmojis = {};
+		await client.botconfs.set('botconfs', botconfs);
+	}
+
+	botconfs.badgeEmojis = {
+		administrator: ['🅰', 10],
+		developer: ['⚒', 8],
+		moderator: ['👮', 8],
+		'test-moderator': ['👮', 8],
+		'documentation-proofreader': ['👁', 7],
+		'documentation-moderator': ['📝', 7],
+		designer: ['📸', 7],
+		'translation-leader': ['🗣', 7],
+		'translation-proofreader': ['👁', 6],
+		translator: ['🈚', 5],
+		donator: ['❤', 6],
+		bugreporter: ['🅱', 1],
+		proposalwriter: ['🅿', 1],
+		partner: ['☑', 7]
+	};
+	await client.botconfs.set('botconfs', botconfs);
+
 	if (!botconfs.bans) {
 		botconfs.bans = {};
 		botconfs.banscount = 0;
@@ -208,6 +231,64 @@ exports.run = async (client, msg) => {
 		for (let i = 0; i < userdb.badges.length; i++) {
 			if (userdb.badges[i].name === 'Birthday2018') {
 				userdb.badges[i].emoji = '🎁';
+			}
+		}
+		await client.userdb.set(msg.author.id, userdb);
+	}
+	/* eslint quote-props: ["error", "as-needed"]*/
+	if (!userdb.lenoxbotranks) {
+		userdb.lenoxbotranks = {
+			administrator: false,
+			developer: false,
+			moderator: false,
+			'test-moderator': false,
+			'documentation-proofreader': false,
+			'documentation-moderator': false,
+			designer: false,
+			'translation-leader': false,
+			'translation-proofreader': false,
+			translator: false,
+			donator: false,
+			bugreporter: false,
+			proposalwriter: false,
+			partner: false
+		};
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
+	if (msg.guild.id === '332612123492483094') {
+		/* eslint guard-for-in: 0 */
+		for (const x in userdb.lenoxbotranks) {
+			const role = msg.guild.roles.find(r => r.name.toLowerCase() === x.toLowerCase());
+			if (!role) return;
+
+			if (msg.member.roles.get(role.id)) {
+				userdb.lenoxbotranks[x] = true;
+
+				const badgeSettings = {
+					name: x.toLowerCase(),
+					rarity: botconfs.badgeEmojis[x][1],
+					staff: false,
+					date: Date.now(),
+					emoji: botconfs.badgeEmojis[x][0]
+				};
+
+				let check = false;
+				for (let i = 0; i < userdb.badges.length; i++) {
+					if (userdb.badges[i].name.toLowerCase() === x.toLowerCase()) {
+						check = true;
+					}
+				}
+				if (!check) {
+					userdb.badges.push(badgeSettings);
+				}
+			} else {
+				userdb.lenoxbotranks[x] = false;
+				for (let i = 0; i < userdb.badges.length; i++) {
+					if (userdb.badges[i].name.toLowerCase() === x.toLowerCase()) {
+						userdb.badges.splice(i, 1);
+					}
+				}
 			}
 		}
 		await client.userdb.set(msg.author.id, userdb);
