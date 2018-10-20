@@ -38,14 +38,17 @@ client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 
-// Check if the Discord Bot List key was set
+process.on('unhandledRejection', reason => {
+	if (reason.name === 'DiscordAPIError') return;
+	console.error(reason);
+});
 
+// Check if the Discord Bot List key was set
 if (settings.dbl_apikey && settings.dbl_apikey !== '') {
 	const DBL = require('dblapi.js');
 	client.dbl = new DBL(settings.dbl_apikey);
 	client.dbl.getVotes(true);
 }
-
 // Check if settings.json is correctly configuered
 
 if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '') {

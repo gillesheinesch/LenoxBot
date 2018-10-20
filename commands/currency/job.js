@@ -46,7 +46,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	let response;
 	try {
-		response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < jobslist.length + 1, {
+		response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
 			maxMatches: 1,
 			time: 60000,
 			errors: ['time']
@@ -54,6 +54,10 @@ exports.run = async (client, msg, args, lang) => {
 	} catch (error) {
 		return msg.reply(lang.job_timeerror);
 	}
+
+	if (isNaN(response.first().content)) return msg.reply('No valid answer!');
+	if (response.first().content > (jobslist.length + 1)) return msg.reply('No valid answer!2');
+	if (response.first().content < 0) return msg.reply('No valid answer!3');
 
 	if (jobslist[response.first().content - 1][3] !== 'undefined') {
 		const notenough = lang.job_notenough.replace('%item', `\`${jobslist[response.first().content - 1][3]}\``);
