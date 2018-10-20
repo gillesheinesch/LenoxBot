@@ -1,5 +1,6 @@
 {
-	"token": "Your token",
+    "owners": ["UserID", "UserID", "UserID"],
+	"token": "Your Super Secret Token",
     "prefix": "Standard Prefix",
     "sqlitefilename": "",
     "googleKey": "Google Custom Search API Key",
