@@ -73,6 +73,12 @@ exports.run = async (client, msg, args, lang) => {
 				tableload.modules.customcommands = 'false';
 			    await client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduledeactivated);
+			} else if (margs[1].toLowerCase() === 'tickets') {
+				if (tableload.modules.tickets === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+
+				tableload.modules.tickets = 'false';
+			    await client.guildconfs.set(msg.guild.id, tableload);
+				return msg.channel.send(moduledeactivated);
 			}
 		}
 	}
