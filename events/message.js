@@ -257,7 +257,7 @@ exports.run = async (client, msg) => {
 	}
 
 	/* eslint guard-for-in: 0 */
-	if (msg.guild.id === '332612123492483094') {
+	if (msg.guild.id === '352896116812939264') {
 		for (const x in userdb.lenoxbotranks) {
 			const role = msg.guild.roles.find(r => r.name.toLowerCase() === x.toLowerCase());
 			if (role) {
