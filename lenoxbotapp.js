@@ -6,7 +6,6 @@ const fs = require('fs');
 const Enmap = require('enmap');
 const chalk = require('chalk');
 const NewsAPI = require('newsapi');
-const EnmapLevel = require('enmap-level');
 const express = require('express');
 const session = require('express-session');
 const url = require('url');
@@ -23,24 +22,16 @@ const sql = require('sqlite');
 
 client.wait = require('util').promisify(setTimeout);
 client.guildconfs = new Enmap({
-	provider: new EnmapLevel({
-		name: 'guildsettings'
-	})
+	name: 'guildsettings'
 });
 client.botconfs = new Enmap({
-	provider: new EnmapLevel({
-		name: 'botconfs'
-	})
+	name: 'botconfs'
 });
 client.userdb = new Enmap({
-	provider: new EnmapLevel({
-		name: 'userdb'
-	})
+	name: 'userdb'
 });
 client.cooldowns = new Enmap({
-	provider: new EnmapLevel({
-		name: 'cooldowns'
-	})
+	name: 'cooldowns'
 });
 
 client.queue = new Map();
@@ -2413,17 +2404,18 @@ app.get('/dashboard/:id/administration', async (req, res) => {
 			}
 
 			const languages = [{
-				name: 'english',
-				alias: 'en-US'
-			},
-			{
-				name: 'german',
-				alias: 'de-DE'
-			},
-			{
-				name: 'french',
-				alias: 'fr-FR'
-			}];
+					name: 'english',
+					alias: 'en-US'
+				},
+				{
+					name: 'german',
+					alias: 'de-DE'
+				},
+				{
+					name: 'french',
+					alias: 'fr-FR'
+				}
+			];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {

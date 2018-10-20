@@ -9,6 +9,7 @@
   "dependencies": {
     "8ball": "^1.0.6",
     "async-foreach": "^0.1.3",
+    "better-sqlite-pool": "^0.1.2",
     "body-parser": "^1.18.2",
     "btc-value": "^1.4.3",
     "canvas": "^2.0.0-alpha.13",
@@ -22,7 +23,7 @@
     "dblapi.js": "^1.1.0",
     "destiny2": "^1.1.1",
     "discord.js": "^11.4.2",
-    "enmap": "^3.1.4",
+    "enmap": "^4.3.2",
     "enmap-level": "^2.1.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",

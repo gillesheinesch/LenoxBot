@@ -5,13 +5,13 @@ exports.run = async client => {
 	const Discord = require('discord.js');
 	const chalk = require('chalk');
 
-	client.guildconfs.defer.then(() => {
+	await client.guildconfs.defer.then(() => {
 		console.log(chalk.green(`${client.guildconfs.size}keys loaded for all discord servers`));
 	});
-	client.botconfs.defer.then(() => {
+	await client.botconfs.defer.then(() => {
 		console.log(chalk.green(`${client.botconfs.size}keys loaded for all bot configs`));
 	});
-	client.userdb.defer.then(() => {
+	await client.userdb.defer.then(() => {
 		console.log(chalk.green(`${client.userdb.size}keys loaded for all user keys`));
 	});
 
