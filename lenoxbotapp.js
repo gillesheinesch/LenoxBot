@@ -4730,6 +4730,7 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async (req, res) => {
 			const check = req.user.guilds[index];
 
 			const ticket = botconfs.tickets[req.params.ticketid];
+			if (ticket.guildid !== req.params.id) return res.redirect('/servers');
 
 			botconfs.tickets[req.params.ticketid].newdate = moment(botconfs.tickets[req.params.ticketid].date).format('MMMM Do YYYY, h:mm:ss a');
 
