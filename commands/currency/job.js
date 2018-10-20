@@ -55,9 +55,9 @@ exports.run = async (client, msg, args, lang) => {
 		return msg.reply(lang.job_timeerror);
 	}
 
-	if (isNaN(response.first().content)) return msg.reply('No valid answer!');
-	if (response.first().content > (jobslist.length + 1)) return msg.reply('No valid answer!2');
-	if (response.first().content < 0) return msg.reply('No valid answer!3');
+	if (isNaN(response.first().content)) return msg.reply(lang.job_nonumberror);
+	if (response.first().content >= (jobslist.length + 1)) return msg.reply(lang.job_wrongnumber);
+	if (response.first().content <= 0) return msg.reply(lang.job_wrongnumber);
 
 	if (jobslist[response.first().content - 1][3] !== 'undefined') {
 		const notenough = lang.job_notenough.replace('%item', `\`${jobslist[response.first().content - 1][3]}\``);

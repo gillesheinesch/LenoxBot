@@ -306,6 +306,8 @@
     "job_available": "Available jobs:",
     "job_embed": "Enter the number that is written before the job you want to do",
     "job_timeerror": "Your time is over! You have not chosen a job.",
+    "job_nonumberror": "You didn't enter the number of the job you want to do.",
+    "job_wrongnumber": "You didn't enter a number of a job that is on the list.",
     "job_sentmessage": "We will contact you by direct message once you have finished your job and tell you how much you have earned through your job!",
     "job_duration": "**Duration:** %duration minutes",
     "job_minutes": "minutes",
