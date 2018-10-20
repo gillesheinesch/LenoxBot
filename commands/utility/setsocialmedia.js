@@ -100,8 +100,8 @@ exports.conf = {
 exports.help = {
 	name: 'setsocialmedia',
 	description: 'Allows you to connect a social media account to your discord account',
-	usage: 'setsocialmedia {new/delete/list} [youtube, twitch, instagram, twitter]',
-	example: ['setsocialmedia new youtube Monkeyyy11', 'setsocialmedia delete twitch', 'setsocialmedia list'],
+	usage: 'setsocialmedia {edit/delete/list} [youtube, twitch, instagram, twitter]',
+	example: ['setsocialmedia edit youtube Monkeyyy11', 'setsocialmedia delete twitch', 'setsocialmedia list'],
 	category: 'utility',
 	botpermissions: ['SEND_MESSAGES']
 };
