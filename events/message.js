@@ -260,7 +260,7 @@ exports.run = async (client, msg) => {
 		/* eslint guard-for-in: 0 */
 		for (const x in userdb.lenoxbotranks) {
 			const role = msg.guild.roles.find(r => r.name.toLowerCase() === x.toLowerCase());
-			if (!role) return;
+			if (!role) return console.error(`Couldn't fetch the following role ${x}`);
 
 			if (msg.member.roles.get(role.id)) {
 				userdb.lenoxbotranks[x] = true;
