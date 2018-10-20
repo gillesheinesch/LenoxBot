@@ -256,8 +256,8 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	if (msg.guild.id === '352896116812939264') {
-		/* eslint guard-for-in: 0 */
+	/* eslint guard-for-in: 0 */
+	/* if (msg.guild.id === '352896116812939264') {
 		for (const x in userdb.lenoxbotranks) {
 			const role = msg.guild.roles.find(r => r.name.toLowerCase() === x.toLowerCase());
 			if (!role) break;
@@ -292,7 +292,7 @@ exports.run = async (client, msg) => {
 			}
 		}
 		await client.userdb.set(msg.author.id, userdb);
-	}
+	} */
 
 	if (!userdb.userID) {
 		userdb.userID = msg.author.id;
