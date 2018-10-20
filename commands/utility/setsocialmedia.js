@@ -16,22 +16,22 @@ exports.run = async (client, msg, args, lang) => {
 					if (validation2.indexOf(margs[index].toLowerCase()) >= 0) {
 						if (margs[2].toLowerCase() === 'youtube') {
 							userdb.socialmedia.youtube = args.slice(2).join(' ');
-							await client.userdb.get(msg.author.id, userdb);
+							await client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_newyoutube);
 						} else if (margs[2].toLowerCase() === 'twitch') {
 							userdb.socialmedia.twitch = args.slice(2).join(' ');
-							await client.userdb.get(msg.author.id, userdb);
+							await client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_newtwitch);
 						} else if (margs[2].toLowerCase() === 'instagram') {
 							userdb.socialmedia.instagram = args.slice(2).join(' ');
-							await client.userdb.get(msg.author.id, userdb);
+							await client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_newinstagram);
 						} else if (margs[2].toLowerCase() === 'twitter') {
 							userdb.socialmedia.twitter = args.slice(2).join(' ');
-							await client.userdb.get(msg.author.id, userdb);
+							await client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_newtwitter);
 						}
@@ -45,25 +45,25 @@ exports.run = async (client, msg, args, lang) => {
 						if (margs[2].toLowerCase() === 'youtube') {
 							if (userdb.socialmedia.youtube === '') return msg.reply(lang.setsocialmedia_notsetup);
 							userdb.socialmedia.youtube = '';
-							await client.userdb.get(msg.author.id, userdb);
+							await client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_deleteyoutube);
 						} else if (margs[2].toLowerCase() === 'twitch') {
 							if (userdb.socialmedia.twitch === '') return msg.reply(lang.setsocialmedia_notsetup);
 							userdb.socialmedia.twitch = '';
-							await client.userdb.get(msg.author.id, userdb);
+							await client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_deletetwitch);
 						} else if (margs[2].toLowerCase() === 'instagram') {
 							if (userdb.socialmedia.instagram === '') return msg.reply(lang.setsocialmedia_notsetup);
 							userdb.socialmedia.instagram = '';
-							await client.userdb.get(msg.author.id, userdb);
+							await client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_deleteinstagram);
 						} else if (margs[2].toLowerCase() === 'twitter') {
 							if (userdb.socialmedia.twitter === '') return msg.reply(lang.setsocialmedia_notsetup);
 							userdb.socialmedia.twitter = '';
-							await client.userdb.get(msg.author.id, userdb);
+							await client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_deletetwitter);
 						}
