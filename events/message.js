@@ -257,42 +257,42 @@ exports.run = async (client, msg) => {
 	}
 
 	/* eslint guard-for-in: 0 */
-	/* if (msg.guild.id === '352896116812939264') {
+	if (msg.guild.id === '332612123492483094') {
 		for (const x in userdb.lenoxbotranks) {
 			const role = msg.guild.roles.find(r => r.name.toLowerCase() === x.toLowerCase());
-			if (!role) break;
+			if (role) {
+				if (msg.member.roles.get(role.id)) {
+					userdb.lenoxbotranks[x] = true;
 
-			if (msg.member.roles.get(role.id)) {
-				userdb.lenoxbotranks[x] = true;
+					const badgeSettings = {
+						name: x.toLowerCase(),
+						rarity: botconfs.badgeEmojis[x][1],
+						staff: false,
+						date: Date.now(),
+						emoji: botconfs.badgeEmojis[x][0]
+					};
 
-				const badgeSettings = {
-					name: x.toLowerCase(),
-					rarity: botconfs.badgeEmojis[x][1],
-					staff: false,
-					date: Date.now(),
-					emoji: botconfs.badgeEmojis[x][0]
-				};
-
-				let check = false;
-				for (let i = 0; i < userdb.badges.length; i++) {
-					if (userdb.badges[i].name.toLowerCase() === x.toLowerCase()) {
-						check = true;
+					let check = false;
+					for (let i = 0; i < userdb.badges.length; i++) {
+						if (userdb.badges[i].name.toLowerCase() === x.toLowerCase()) {
+							check = true;
+						}
 					}
-				}
-				if (!check) {
-					userdb.badges.push(badgeSettings);
-				}
-			} else {
-				userdb.lenoxbotranks[x] = false;
-				for (let i = 0; i < userdb.badges.length; i++) {
-					if (userdb.badges[i].name.toLowerCase() === x.toLowerCase()) {
-						userdb.badges.splice(i, 1);
+					if (!check) {
+						userdb.badges.push(badgeSettings);
+					}
+				} else {
+					userdb.lenoxbotranks[x] = false;
+					for (let i = 0; i < userdb.badges.length; i++) {
+						if (userdb.badges[i].name.toLowerCase() === x.toLowerCase()) {
+							userdb.badges.splice(i, 1);
+						}
 					}
 				}
 			}
 		}
 		await client.userdb.set(msg.author.id, userdb);
-	} */
+	}
 
 	if (!userdb.userID) {
 		userdb.userID = msg.author.id;
