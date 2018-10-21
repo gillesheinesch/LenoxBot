@@ -19,7 +19,7 @@ exports.run = async (client, msg, args, lang) => {
 		date: msg.createdTimestamp,
 		users: [],
 		status: 'open',
-		content: input.join(' '),
+		content: input.join(' ').replace(/(?:\r\n|\r|\n)/g, '<br>'),
 		answers: {}
 	};
 

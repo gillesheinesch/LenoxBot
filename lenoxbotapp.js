@@ -790,7 +790,7 @@ app.post('/tickets/:ticketid/submitticketanswer', async (req, res) => {
 
 			const length = Object.keys(ticket.answers).length + 1;
 
-			req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, '\n');
+			req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
 			ticket.answers[length] = {
 				authorid: req.user.id,
@@ -4589,7 +4589,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async (req, res)
 
 			const length = Object.keys(ticket.answers).length + 1;
 
-			req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, '\n');
+			req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, '<br>');
 
 			ticket.answers[length] = {
 				authorid: req.user.id,

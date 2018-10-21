@@ -51,7 +51,7 @@
                                             <i class="mdi mdi-clock-outline"></i> {{ticket.newdate}}</small>
                                     </div>
                                     <div class="timeline-body col-lg-10">
-                                        <p class="py-4">{{ticket.content}}</p>
+                                        <p class="py-4">{{{ticket.content}}}</p>
                                     </div>
                                 </li>
                                 {{#if answers}} {{#each answers}}
@@ -61,7 +61,7 @@
                                     <small class="text-muted">
                                         <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
                                     <div class="timeline-body">
-                                        <p class="py-4">{{content}}</p>
+                                        <p class="py-4">{{{content}}}</p>
                                     </div>
                                 </li>
                                 {{else}}
@@ -69,7 +69,7 @@
                                     <h4 class="mb-0">{{author}}</h4>
                                     <small class="text-muted">
                                         <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
-                                    <p class="py-4">{{content}}</p>
+                                    <p class="py-4">{{{content}}}</p>
                                 </li>
                                 {{/if}}
                                 {{/each}} {{/if}}
