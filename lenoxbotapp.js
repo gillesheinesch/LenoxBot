@@ -535,7 +535,7 @@ app.get('/team', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
 		const team = [];
-		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'documentation-moderator', 'designer', 'translation leader', 'translation proofreader'];
+		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'documentation-moderator', 'designer', 'translation-leader', 'translation-proofreader'];
 		const guild = await client.guilds.get('352896116812939264');
 		for (let i = 0; i < teamroles.length; i++) {
 			const teamSettings = {};
