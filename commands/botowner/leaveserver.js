@@ -1,8 +1,7 @@
+const settings = require('../../settings.json');
 exports.run = async (client, msg, args, lang) => {
 	const guildID = args.slice().join(' ');
-
-	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
-
+	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 	if (!guildID || isNaN(guildID)) return msg.channel.send('You must enter a guildid. For example: `352896116812939264`');
 
 	try {

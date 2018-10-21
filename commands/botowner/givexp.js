@@ -2,7 +2,7 @@ const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
-	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 	const userId = msg.mentions.users.first() ? msg.mentions.users.first().id : msg.mentions.users.first() || args.slice(0, 1).join(' ');
 	const xpAmount = parseInt(args.slice(1, 2).join(' '), 10);
 

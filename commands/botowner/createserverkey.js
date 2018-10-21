@@ -1,6 +1,7 @@
+const settings = require('../../settings.json');
 exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
-	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
 	const botconfspremiumload = await client.botconfs.get('premium');
 	botconfspremiumload.keys.numberofguildkeys += 1;

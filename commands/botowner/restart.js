@@ -1,5 +1,6 @@
+const settings = require('../../settings.json');
 exports.run = async (client, msg, args, lang) => {
-	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
 	await msg.channel.send(lang.restart_message);
 

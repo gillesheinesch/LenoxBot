@@ -1,7 +1,9 @@
+const settings = require('../../settings.json');
 exports.run = (client, msg, args, lang) => {
-	if (msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
+	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 	const code = args.join(' ');
-	if (!code) return args.channel.send(lang.bash_error);
+
+	if (!code) return msg.channel.send(lang.bash_error);
 
 	const {
 		exec
