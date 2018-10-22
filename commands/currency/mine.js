@@ -4,7 +4,7 @@ sql.open(`../${settings.sqlitefilename}.sqlite`);
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const d = Math.random();
-	const userdb = client.userdb.get(msg.author.id);
+	const userdb = await client.userdb.get(msg.author.id);
 
 	if (userdb.inventory.pickaxe === 0) {
 		const timestamps = client.cooldowns.get('mine');
