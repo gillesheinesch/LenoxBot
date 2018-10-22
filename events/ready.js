@@ -119,10 +119,10 @@ exports.run = async client => {
 	}
 
 	function timeoutForDaily(dailyreminder, timeoutTime) {
-		setTimeout(() => {
+		setTimeout(async () => {
 			client.users.get(dailyreminder.userID).send('Don\'t forget to pick up your daily reward');
 			delete botconfs.dailyreminder[dailyreminder.userID];
-			client.botconfs.set('botconfs', botconfs);
+			await client.botconfs.set('botconfs', botconfs);
 		}, timeoutTime);
 	}
 
@@ -135,13 +135,13 @@ exports.run = async client => {
 	}
 
 	function timeoutForJob(jobreminder, timeoutTime) {
-		setTimeout(() => {
-			const userdb = client.userdb.get(jobreminder.userID);
+		setTimeout(async () => {
+			const userdb = await client.userdb.get(jobreminder.userID);
 			userdb.jobstatus = false;
-			client.userdb.set(jobreminder.userID, userdb);
+			await client.userdb.set(jobreminder.userID, userdb);
 
 			delete botconfs.jobreminder[jobreminder.userID];
-			client.botconfs.set('botconfs', botconfs);
+			await client.botconfs.set('botconfs', botconfs);
 
 			sql.get(`SELECT * FROM medals WHERE userId ="${jobreminder.userID}"`).then(row => {
 				if (!row) {
@@ -164,7 +164,7 @@ exports.run = async client => {
 	}
 
 	function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
-		setTimeout(() => {
+		setTimeout(async () => {
 			const fetchedbans = fetchedbansfromfunction;
 			const tableload = client.guildconfs.get(bansconf.discordserverid);
 
@@ -209,19 +209,19 @@ exports.run = async client => {
 			}
 			const newbansconf = client.botconfs.get('botconfs');
 			delete newbansconf.bans[botconfs.banscount];
-			client.botconfs.set('botconfs', newbansconf);
+			await client.botconfs.set('botconfs', newbansconf);
 		}, newBanTime);
 	}
 
 	function timeoutForMute(muteconf, newMuteTime) {
-		setTimeout(() => {
+		setTimeout(async () => {
 			const guild = client.guilds.get(muteconf.discordserverid);
 			if (!guild) return;
 
 			const membermention = guild.members.get(muteconf.memberid);
 			const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
 			const user = client.users.get(muteconf.memberid);
-			const tableload = client.guildconfs.get(muteconf.discordserverid);
+			const tableload = await client.guildconfs.get(muteconf.discordserverid);
 
 			if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
 				membermention.removeRole(role);
@@ -266,7 +266,7 @@ exports.run = async client => {
 			}
 			const newmuteconf = client.botconfs.get('botconfs');
 			delete newmuteconf.mutes[muteconf.mutescount];
-			client.botconfs.set('botconfs', newmuteconf);
+			await client.botconfs.set('botconfs', newmuteconf);
 		}, newMuteTime);
 	}
 
