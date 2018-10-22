@@ -2,8 +2,8 @@ const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
-	const userdb = client.userdb.get(msg.author.id);
-	const tableload = client.guildconfs.get(msg.guild.id);
+	const userdb = await client.userdb.get(msg.author.id);
+	const tableload = await client.guildconfs.get(msg.guild.id);
 	const validation = [
 		['crate', 'apple', 'phone'],
 		['cat', 'football', 'joystick'],
@@ -21,7 +21,7 @@ exports.run = async (client, msg, args, lang) => {
 		['bag', 'pickaxe', 'crate'],
 		['flashlight', 'cratekey', 'hamburger']
 	];
-	const marketconfs = client.botconfs.get('market');
+	const marketconfs = await client.botconfs.get('market');
 
 	const result = Math.floor(Math.random() * validation.length);
 
