@@ -1,6 +1,6 @@
 exports.run = async (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const userdb = client.userdb.get(msg.author.id);
+	const tableload = await client.guildconfs.get(msg.guild.id);
+	const userdb = await client.userdb.get(msg.author.id);
 
 	if (userdb.dailyremind === false) {
 		userdb.dailyremind = true;

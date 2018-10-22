@@ -95,12 +95,12 @@ exports.run = async (client, msg, args, lang) => {
 	};
 	await client.botconfs.set('botconfs', botconfs);
 
-	setTimeout(() => {
+	setTimeout(async () => {
 		userdb.jobstatus = false;
-		client.userdb.set(msg.author.id, userdb);
+		await client.userdb.set(msg.author.id, userdb);
 
 		delete botconfs.jobreminder[msg.author.id];
-		client.botconfs.set('botconfs', botconfs);
+		await client.botconfs.set('botconfs', botconfs);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {

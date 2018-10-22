@@ -4,7 +4,7 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const user1 = msg.mentions.users.first() || msg.author;
-	const userdb = client.userdb.get(msg.author.id);
+	const userdb = await client.userdb.get(msg.author.id);
 	const lenoxbotcoin = client.emojis.get('412952854354067456');
 
 	if (userdb.creditsmessage === false) {

@@ -3,7 +3,7 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const random = Math.random();
-	const userdb = client.userdb.get(msg.author.id);
+	const userdb = await client.userdb.get(msg.author.id);
 
 	if (userdb.inventory.flashlight === 0) {
 		const timestamps = client.cooldowns.get('templesearch');
