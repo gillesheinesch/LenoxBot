@@ -4725,7 +4725,7 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async (req, res) => {
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
 			const botconfs = await client.botconfs.get('botconfs');
-			if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
+			if (typeof botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 
 			const check = req.user.guilds[index];
 
