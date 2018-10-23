@@ -22,16 +22,20 @@ const sql = require('sqlite');
 
 client.wait = require('util').promisify(setTimeout);
 client.guildconfs = new Enmap({
-	name: 'guildsettings'
+	name: 'guildsettings',
+	fetchAll: false
 });
 client.botconfs = new Enmap({
-	name: 'botconfs'
+	name: 'botconfs',
+	fetchAll: false
 });
 client.userdb = new Enmap({
-	name: 'userdb'
+	name: 'userdb',
+	fetchAll: false
 });
 client.cooldowns = new Enmap({
-	name: 'cooldowns'
+	name: 'cooldowns',
+	fetchAll: false
 });
 
 client.queue = new Map();
