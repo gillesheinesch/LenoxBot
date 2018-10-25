@@ -87,17 +87,6 @@ exports.run = async client => {
 		botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
 	});
 
-	setInterval(() => {
-		client.botconfs.set('botstats', {
-			botguildscount: client.guilds.size,
-			botmemberscount: client.users.size,
-			botcommands: client.botconfs.get('botconfs').commandsexecuted,
-			botcommandsincrement: Math.floor(client.botconfs.get('botconfs').commandsexecuted / 170) + 1,
-			botmemberscountincrement: Math.floor(client.users.size / 170) + 1,
-			botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
-		});
-	}, 1800000);
-
 	const botconfs = await client.botconfs.get('botconfs');
 
 	const embed = new Discord.RichEmbed()
