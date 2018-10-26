@@ -1082,7 +1082,7 @@
     "urban_error": "We're sorry, we couldn't find anything to your query!",
     "urban_description": "Urban is a dictionary in which you can search for a definition for something",
 
-    "youtube_noinput": "You must include a query. Alternatively, you can check usage via",
+    "youtube_noinput": "You must include a query. Alternatively, you can check usage via **%prefixhelp youtube**",
     "youtube_error": "There is no video by that name.",
     "youtube_noresult": "I can't find a video matching that query!",
     "youtube_description": "Searches for a video on YouTube",
