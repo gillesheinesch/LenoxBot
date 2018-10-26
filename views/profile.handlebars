@@ -30,8 +30,13 @@
                     <div class="card lb-profile-user-card shadow mb-3 mt-5">
                         <div class="card-body">
                             <figure class="lb-profile-user-img">
+                                {{#if profileUser.avatar}}
                                 <img id="icon-selectserver" class="rounded-circle" src="https://cdn.discordapp.com/avatars/{{profileUser.id}}/{{profileUser.avatar}}.jpg"
                                     height="120" width="120">
+                                {{else}}
+                                <img id="icon-selectserver" class="rounded-circle" src="/discordicon.png"
+                                    height="120" width="120">
+                                {{/if}}
                             </figure>
                             <h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small></h1>
                             <p class="h4 font-weight-light text-center">{{userDescription}}</p>
@@ -44,7 +49,8 @@
                                 <div class="row">
                                     <div class="col-6 p-0"><small>CREDITS</small>
                                         <p class="h1">
-                                            <span data-toggle="tooltip" data-placement="left" title="{{addCommas userCredits}}"><script>document.write(numeral({{ userCredits }}).format('0.0a'))</script></span>
+                                            <span data-toggle="tooltip" data-placement="left" title="{{addCommas userCredits}}">
+                                                <script>document.write(numeral({{ userCredits }}).format('0.0a'))</script></span>
                                         </p>
                                     </div>
                                     <div class="col-6 p-0"><small>GLOBAL RANK</small>
@@ -101,16 +107,20 @@
                                 <div class="d-flex flex-wrap justify-content-center align-items-center">
                                     {{#if userSocialmediaCheck}}
                                     {{#if userSocialmediaTwitch}}
-                                    <a href="https://www.twitch.tv/{{userSocialmediaTwitch}}" class="lb-profile-social lb-profile-social-twitch"><i class="mdi mdi-twitch"></i></a>
+                                    <a href="https://www.twitch.tv/{{userSocialmediaTwitch}}" class="lb-profile-social lb-profile-social-twitch"><i
+                                            class="mdi mdi-twitch"></i></a>
                                     {{/if}}
                                     {{#if userSocialmediaYoutube}}
-                                    <a href="https://www.youtube.com/channel/{{userSocialmediaYoutube}}" class="lb-profile-social lb-profile-social-youtube"><i class="mdi mdi-youtube"></i></a>
+                                    <a href="https://www.youtube.com/channel/{{userSocialmediaYoutube}}" class="lb-profile-social lb-profile-social-youtube"><i
+                                            class="mdi mdi-youtube"></i></a>
                                     {{/if}}
                                     {{#if userSocialmediaTwitter}}
-                                    <a href="https://twitter.com/{{userSocialmediaTwitter}}" class="lb-profile-social lb-profile-social-twitter"><i class="mdi mdi-twitter"></i></a>
+                                    <a href="https://twitter.com/{{userSocialmediaTwitter}}" class="lb-profile-social lb-profile-social-twitter"><i
+                                            class="mdi mdi-twitter"></i></a>
                                     {{/if}}
                                     {{#if userSocialmediaInstagram}}
-                                    <a href="https://www.instagram.com/{{userSocialmediaInstagram}}" class="lb-profile-social lb-profile-social-instagram"><i class="mdi mdi-instagram"></i></a>
+                                    <a href="https://www.instagram.com/{{userSocialmediaInstagram}}" class="lb-profile-social lb-profile-social-instagram"><i
+                                            class="mdi mdi-instagram"></i></a>
                                     {{/if}}
                                     {{else}}
                                     <p>No social media accounts linked to this account 😢</p>

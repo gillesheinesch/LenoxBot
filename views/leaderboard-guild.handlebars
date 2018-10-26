@@ -70,7 +70,11 @@
                                     </td>
                                     <td class="lb-text-leaderboard-user">
                                         <figure class="lb-profile-leaderboard">
+                                            {{#if user.avatar}}
                                             <img class="rounded-circle shadow-sm lb-img-profile-leaderboard-user" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                                            {{else}}
+                                            <img class="rounded-circle shadow-sm lb-img-profile-leaderboard-user" src="/discordicon.png">
+                                            {{/if}}
                                         </figure>
                                         {{user.username}}
                                     </td>
@@ -105,7 +109,7 @@
                                                 src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
                                             {{else}}
                                             <img data-rel="{{@index}}img" class="rounded-circle shadow-sm lb-img-profile-leaderboard"
-                                                src="discordicon.png">
+                                                src="/discordicon.png">
                                             {{/if}}
                                             <div data-rel="{{@index}}badge" type="image/svg+xml" class="lb-badge-leaderboard"></div>
                                         </figure>
