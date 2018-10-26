@@ -458,6 +458,7 @@ exports.run = async (client, msg) => {
 			const botconfsload = client.botconfs.get('blackbanlist');
 			for (let i = 0; i < botconfsload.banlist.length; i++) {
 				if (msg.guild.id === botconfsload.banlist[i].discordServerID) {
+					banlistembed.addField(lang.messageevent_banlistreason, botconfsload.banlist[i].reason);
 					return msg.channel.send({
 						embed: banlistembed
 					});
@@ -465,6 +466,7 @@ exports.run = async (client, msg) => {
 			}
 			for (let i = 0; i < botconfsload.blacklist.length; i++) {
 				if (msg.author.id === botconfsload.blacklist[i].userID) {
+					blacklistembed.addField(lang.messageevent_blacklistreason, botconfsload.blacklist[i].reason);
 					return msg.channel.send({
 						embed: blacklistembed
 					});
