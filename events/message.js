@@ -392,6 +392,15 @@ exports.run = async (client, msg) => {
 							msg.channel.send(levelup);
 						}
 					}
+					if (curLevel < row.level) {
+						row.level = curLevel;
+						sql.run(`UPDATE scores SET points = ${row.points + 1}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+
+						if (tableload.xpmessages === 'true') {
+							const levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
+							msg.channel.send(levelup);
+						}
+					}
 					sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row2 => {
 						for (let i = 1; i < tableload.ara.length; i += 2) {
 							if (tableload.ara[i] < row2.points && !msg.member.roles.get(tableload.ara[i - 1])) {
