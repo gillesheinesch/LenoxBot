@@ -75,7 +75,6 @@ exports.run = async (client, msg, args, lang) => {
 	const jobpicture = jobslist[response.first().content - 1][4];
 
 	userdb.jobstatus = true;
-	await client.userdb.set(msg.author.id, userdb);
 
 	const duration = lang.job_duration.replace('%duration', jobtime);
 
@@ -94,6 +93,7 @@ exports.run = async (client, msg, args, lang) => {
 		amount: amount
 	};
 	await client.botconfs.set('botconfs', botconfs);
+	await client.userdb.set(msg.author.id, userdb);
 
 	setTimeout(async () => {
 		userdb.jobstatus = false;
