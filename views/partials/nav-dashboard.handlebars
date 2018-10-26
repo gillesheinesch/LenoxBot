@@ -2,7 +2,11 @@
 	<div class="row">
 		<div class="col-12 text-center">
 			<figure class="mb-0">
+				{{#if user.avatar}}
 				<img class="rounded-circle lb-img-profile-dashboard" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+				{{else}}
+				<img class="rounded-circle lb-img-profile-dashboard" src="/discordicon.png">
+				{{/if}}
 			</figure>
 		</div>
 		<div class="col-12 text-white text-center">
