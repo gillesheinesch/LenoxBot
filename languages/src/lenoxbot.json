@@ -1201,7 +1201,7 @@
     "userinfo_botinfo": "You can not get information about bots!",
     "userinfo_usernotfound": "This UserID does not match any user on this Discord server",
     "userinfo_descriptioninfo": "No description set!",
-    "userinfo_created": "Discord-Account created",
+    "userinfo_created": "Discord account created",
     "userinfo_joined": "Joined this Discord Server",
     "userinfo_roles": "Roles",
     "userinfo_noroles": "The user has no roles on this Discord server",
