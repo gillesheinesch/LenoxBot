@@ -1,6 +1,7 @@
 const sql = require('sqlite');
 const settings = require('../settings.json');
 const guildsettingskeys = require('../guildsettings-keys.json');
+const usersettingskeys = require('../usersettings-keys.json');
 guildsettingskeys.prefix = settings.prefix;
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const moment = require('moment');
@@ -13,55 +14,6 @@ exports.run = async (client, msg) => {
 
 	if (client.user.id === '353115097318555649') {
 		if (msg.guild.id !== '332612123492483094') return;
-	}
-
-	const userconfs = {
-		inventory: {
-			crate: 0,
-			cratekey: 0,
-			pickaxe: 0,
-			joystick: 0,
-			house: 0,
-			bag: 0,
-			diamond: 0,
-			dog: 0,
-			cat: 0,
-			apple: 0,
-			football: 0,
-			car: 0,
-			phone: 0,
-			computer: 0,
-			camera: 0,
-			clock: 0,
-			rose: 0,
-			umbrella: 0,
-			hamburger: 0,
-			croissant: 0,
-			basketball: 0,
-			watch: 0,
-			projector: 0,
-			flashlight: 0,
-			bed: 0,
-			hammer: 0,
-			book: 0,
-			mag: 0,
-			banana: 0,
-			inventoryslotticket: 0,
-			tractor: 0,
-			syringe: 0,
-			gun: 0,
-			knife: 0
-		},
-		inventoryslots: 30,
-		premium: {
-			status: false,
-			bought: [],
-			end: ''
-		}
-	};
-
-	if (!client.userdb.has(msg.author.id)) {
-		await client.userdb.set(msg.author.id, userconfs);
 	}
 
 	if (client.guildconfs.get(msg.guild.id)) {
@@ -121,6 +73,19 @@ exports.run = async (client, msg) => {
 		await client.guildconfs.set(msg.guild.id, guildsettingskeys);
 	}
 
+	if (client.userdb.get(msg.author.id)) {
+		const userdb = await client.userdb.get(msg.author.id);
+		for (const key in usersettingskeys) {
+			if (!userdb[key]) {
+				userdb[key] = usersettingskeys[key];
+			}
+		}
+
+		await client.userdb.set(msg.author.id, userdb);
+	} else {
+		await client.userdb.set(msg.author.id, usersettingskeys);
+	}
+
 
 	const tableload = await client.guildconfs.get(msg.guild.id);
 	const userdb = await client.userdb.get(msg.author.id);
@@ -132,6 +97,7 @@ exports.run = async (client, msg) => {
 		await client.botconfs.set('botconfs', botconfs);
 	}
 
+	/* eslint quote-props: ["error", "as-needed"]*/
 	botconfs.badgeEmojis = {
 		administrator: ['🅰', 10],
 		developer: ['⚒', 8],
@@ -193,25 +159,6 @@ exports.run = async (client, msg) => {
 		await client.botconfs.set('premium', botconfspremiumload);
 	}
 
-	if (!userdb.socialmedia) {
-		userdb.socialmedia = {
-			instagram: '',
-			twitter: '',
-			youtube: '',
-			twitch: ''
-		};
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (!userdb.premium) {
-		userdb.premium = {
-			status: false,
-			bought: [],
-			end: ''
-		};
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
 			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
@@ -222,37 +169,12 @@ exports.run = async (client, msg) => {
 		});
 	});
 
-	if (!userdb.badges) {
-		userdb.badges = [];
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
 	if (userdb.badges.length !== 0) {
 		for (let i = 0; i < userdb.badges.length; i++) {
 			if (userdb.badges[i].name === 'Birthday2018') {
 				userdb.badges[i].emoji = '🎁';
 			}
 		}
-		await client.userdb.set(msg.author.id, userdb);
-	}
-	/* eslint quote-props: ["error", "as-needed"]*/
-	if (!userdb.lenoxbotranks) {
-		userdb.lenoxbotranks = {
-			administrator: false,
-			developer: false,
-			moderator: false,
-			'test-moderator': false,
-			'documentation-proofreader': false,
-			'documentation-moderator': false,
-			designer: false,
-			'translation-leader': false,
-			'translation-proofreader': false,
-			translator: false,
-			donator: false,
-			bugreporter: false,
-			proposalwriter: false,
-			partner: false
-		};
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
@@ -299,19 +221,6 @@ exports.run = async (client, msg) => {
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
-	if (!userdb.dailyremind) {
-		userdb.dailyremind = false;
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (!userdb.math) {
-		userdb.math = {
-			points: 0,
-			level: 0
-		};
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
 	if (!botconfs.dailyreminder) {
 		botconfs.dailyreminder = {};
 		await client.botconfs.set('botconfs', botconfs);
@@ -320,92 +229,6 @@ exports.run = async (client, msg) => {
 	if (!botconfs.jobreminder) {
 		botconfs.jobreminder = {};
 		await client.botconfs.set('botconfs', botconfs);
-	}
-
-	if (!userdb.dailystreak) {
-		userdb.dailystreak = {
-			streak: 0,
-			lastpick: '',
-			deadline: ''
-		};
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (!userdb.creditsmessage) {
-		userdb.creditsmessage = false;
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (typeof userdb.inventory.gun !== 'number') {
-		userdb.inventory.tractor = 0;
-		userdb.inventory.syringe = 0;
-		userdb.inventory.gun = 0;
-		userdb.inventory.knife = 0;
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (typeof userdb.inventory.rose !== 'number') {
-		userdb.inventory.rose = 0;
-		userdb.inventory.umbrella = 0;
-		userdb.inventory.hamburger = 0;
-		userdb.inventory.croissant = 0;
-		userdb.inventory.basketball = 0;
-		userdb.inventory.watch = 0;
-		userdb.inventory.projector = 0;
-		userdb.inventory.flashlight = 0;
-		userdb.inventory.bed = 0;
-		userdb.inventory.hammer = 0;
-		userdb.inventory.book = 0;
-		userdb.inventory.mag = 0;
-		userdb.inventory.banana = 0;
-		userdb.inventory.inventoryslotticket = 0;
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (!userdb.inventoryslots) {
-		userdb.inventoryslots = 30;
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (!userdb.jobstatus) {
-		userdb.jobstatus = false;
-		await client.userdb.set(msg.author.id, userdb);
-	}
-
-	if (!userdb.inventory) {
-		userdb.inventory = {
-			crate: 0,
-			cratekey: 0,
-			pickaxe: 0,
-			joystick: 0,
-			house: 0,
-			bag: 0,
-			diamond: 0,
-			dog: 0,
-			cat: 0,
-			apple: 0,
-			football: 0,
-			car: 0,
-			phone: 0,
-			computer: 0,
-			camera: 0,
-			clock: 0,
-			rose: 0,
-			umbrella: 0,
-			hamburger: 0,
-			croissant: 0,
-			basketball: 0,
-			watch: 0,
-			projector: 0,
-			flashlight: 0,
-			bed: 0,
-			hammer: 0,
-			book: 0,
-			mag: 0,
-			banana: 0,
-			inventoryslotticket: 0
-		};
-		await client.userdb.set(msg.author.id, userdb);
 	}
 
 	// CHANGE TO THE NEW CROWDIN SYSTEM
