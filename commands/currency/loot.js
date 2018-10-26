@@ -1,12 +1,12 @@
 const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
+const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const d = Math.random();
 	const userdb = await client.userdb.get(msg.author.id);
 	const marketconfs = await client.botconfs.get('market');
 	const tableload = await client.guildconfs.get(msg.guild.id);
-	const Discord = require('discord.js');
 
 	let inventoryslotcheck = 0;
 	/* eslint guard-for-in: 0 */
