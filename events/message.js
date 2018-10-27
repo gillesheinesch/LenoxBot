@@ -81,6 +81,12 @@ exports.run = async (client, msg) => {
 			}
 		}
 
+		for (const key in usersettingskeys.inventory) {
+			if (!userdb.inventory[key]) {
+				userdb.inventory[key] = usersettingskeys.inventory[key];
+			}
+		}
+
 		await client.userdb.set(msg.author.id, userdb);
 	} else {
 		await client.userdb.set(msg.author.id, usersettingskeys);
