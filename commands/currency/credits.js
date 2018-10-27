@@ -47,7 +47,7 @@ exports.run = async (client, msg, args, lang) => {
 		const embed = new Discord.RichEmbed()
 			.setAuthor(`${user1.tag} (${lang.credits_globalrank} #${globalrank})`, user1.avatarURL)
 			.setDescription(`**${lang.credits_credits}** ${row.medals} ${lenoxbotcoin} `)
-			.setColor('#009933');
+			.setColor('GREEN');
 
 		msg.channel.send({
 			embed
