@@ -20,7 +20,9 @@ exports.run = async (client, msg, args, lang) => {
 		createdAt: Date.now()
 	};
 
-	const embedtitle = lang.blacklistadd_embedtitle.replace('%userid', userId);
+	const discordUserName = client.users.get(userId) ? client.users.get(userId).tag : 'undefined';
+
+	const embedtitle = lang.blacklistadd_embedtitle.replace('%userid', userId).replace('%username', discordUserName === 'undefined' ? lang.blacklistadd_usernamenotknown : discordUserName);
 	const embeddescription = lang.blacklistadd_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
 	const embed = new Discord.RichEmbed()
 		.setColor('#ff0000')

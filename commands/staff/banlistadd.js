@@ -20,7 +20,9 @@ exports.run = async (client, msg, args, lang) => {
 		createdAt: Date.now()
 	};
 
-	const embedtitle = lang.banlistadd_embedtitle.replace('%guildid', guildId);
+	const discordServerName = client.guilds.get(guildId) ? client.guilds.get(guildId).name : 'undefined';
+
+	const embedtitle = lang.banlistadd_embedtitle.replace('%guildid', guildId).replace('%guildname', discordServerName === 'undefined' ? lang.banlistadd_guildnamenotknown : discordServerName);
 	const embeddescription = lang.banlistadd_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
 	const embed = new Discord.RichEmbed()
 		.setColor('#ff0000')
