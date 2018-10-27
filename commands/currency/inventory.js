@@ -1,4 +1,5 @@
 const Discord = require('discord.js');
+const marketitemskeys = require('../../marketitems-keys.json');
 exports.run = async (client, msg, args, lang) => {
 	const userdb = await client.userdb.get(msg.author.id);
 	const tableload = await client.guildconfs.get(msg.guild.id);
@@ -21,7 +22,11 @@ exports.run = async (client, msg, args, lang) => {
 		}
 	}
 
-	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana', 'tractor', 'syringe', 'gun', 'knife'];
+	const itemsnames = [];
+	for (const x in marketitemskeys) {
+		itemsnames.push(x);
+	}
+
 	let inventoryslotcheck = 0;
 	for (let x = 0; x < itemsnames.length; x++) {
 		inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]], 10);
