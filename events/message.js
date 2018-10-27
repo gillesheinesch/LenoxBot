@@ -237,6 +237,13 @@ exports.run = async (client, msg) => {
 		await client.botconfs.set('botconfs', botconfs);
 	}
 
+	if (userdb.jobstatus === true && !botconfs.jobreminder[msg.author.id]) {
+		delete botconfs.jobreminder[msg.author.id];
+		userdb.jobstatus = false;
+		await client.botconfs.set('botconfs', botconfs);
+		await client.userdb.set(msg.author.id, userdb);
+	}
+
 	// CHANGE TO THE NEW CROWDIN SYSTEM
 	if (tableload.language === 'en') {
 		tableload.language = 'en-US';
