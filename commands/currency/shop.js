@@ -2,12 +2,19 @@ const Discord = require('discord.js');
 const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
+const marketitemskeys = require('../../marketitems-keys.json');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = await client.guildconfs.get(msg.guild.id);
 	const botconfs = await client.botconfs.get('market');
 	const validationforbuysell = ['sell', 'buy'];
-	const validationforitemsbuysell = ['📁', '🔑', '⛏', '🕹', '🏠', '👜', '💠', '🐶', '🐱', '🍎', '⚽', '🚙', '📱', '💻', '📷', '⏰', '📩', '🌹', '☂', '🍔', '🥐', '🏀', '⌚', '📽', '🔦', '🛏', '🔨', '📖', '🔍', '🍌', '🚜', '💉', '🔫', '🔪'];
-	const itemsnames = ['crate', 'cratekey', 'pickaxe', 'joystick', 'house', 'bag', 'diamond', 'dog', 'cat', 'apple', 'football', 'car', 'phone', 'computer', 'camera', 'clock', 'inventoryslotticket', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'watch', 'projector', 'flashlight', 'bed', 'hammer', 'book', 'mag', 'banana', 'tractor', 'syringe', 'gun', 'knife'];
+
+	const validationforitemsbuysell = [];
+	const itemsnames = [];
+	for (const x in marketitemskeys) {
+		validationforitemsbuysell.push(marketitemskeys[x][0]);
+		itemsnames.push(x);
+	}
+
 	const marketconfs = await client.botconfs.get('market');
 	const userdb = await client.userdb.get(msg.author.id);
 
