@@ -153,7 +153,12 @@ exports.run = async (client, msg, args, lang) => {
 					});
 
 					const sellall = lang.shop_sellall.replace('%items', messageedit.join(', ')).replace('%amount', `**${amounttoreceive}**`);
-					return msg.reply(sellall);
+					const soldallEmbed = new Discord.RichEmbed()
+						.setDescription(sellall)
+						.setColor('ORANGE');
+					return msg.channel.send({
+						embed: soldallEmbed
+					});
 				}
 
 				if (isNaN(howmanycheck[0])) {
@@ -182,7 +187,12 @@ exports.run = async (client, msg, args, lang) => {
 							await client.userdb.set(msg.author.id, userdb);
 
 							const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
-							return msg.reply(sold);
+							const soldEmbed = new Discord.RichEmbed()
+								.setDescription(sold)
+								.setColor('ORANGE');
+							return msg.channel.send({
+								embed: soldEmbed
+							});
 						}
 					}
 				}
@@ -221,7 +231,12 @@ exports.run = async (client, msg, args, lang) => {
 							await client.userdb.set(msg.author.id, userdb);
 
 							const bought = lang.shop_bought.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
-							return msg.reply(bought);
+							const boughtEmbed = new Discord.RichEmbed()
+								.setDescription(bought)
+								.setColor('GREEN');
+							return msg.channel.send({
+								embed: boughtEmbed
+							});
 						}
 					}
 				}
