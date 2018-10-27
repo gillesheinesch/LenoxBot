@@ -49,7 +49,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	const creditsloot = userdb.premium.status === false ? Math.floor(Math.random() * 70) + 1 : (Math.floor(Math.random() * 70) + 1) * 2;
 
-	if (d < 0.005) {
+	if (d < 0.001) {
 		const result = Math.floor(Math.random() * validationfor10procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
