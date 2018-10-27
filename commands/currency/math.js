@@ -12,7 +12,8 @@ exports.run = async (client, msg, args, lang) => {
 	const sign = Math.floor(Math.random() * 3);
 
 	const embed = new Discord.RichEmbed()
-		.setAuthor(lang.math_embedauthor)
+		.setFooter(msg.author.tag)
+		.setTitle(lang.math_embedauthor)
 		.setColor('#3399ff')
 		.setDescription(`**${firstNumber} ${signs[sign]} ${secondNumber}**`);
 
@@ -60,7 +61,8 @@ exports.run = async (client, msg, args, lang) => {
 		const embeddescription = lang.math_embeddescription.replace('%points', userdb.mathematics.points).replace('%level', userdb.mathematics.level);
 		const winnerEmbed = new Discord.RichEmbed()
 			.setColor('#00ff00')
-			.setAuthor(winauthor)
+			.setFooter(msg.author.tag)
+			.setTitle(winauthor)
 			.setDescription(embeddescription);
 
 		msg.channel.send({
@@ -78,7 +80,8 @@ exports.run = async (client, msg, args, lang) => {
 		const loseauthor = lang.math_loseauthor.replace('%correct', mathCalculation);
 		const loserEmbed = new Discord.RichEmbed()
 			.setColor('#ff0000')
-			.setAuthor(loseauthor)
+			.setFooter(msg.author.tag)
+			.setTitle(loseauthor)
 			.setDescription(embeddescription);
 
 		msg.channel.send({
