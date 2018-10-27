@@ -375,7 +375,7 @@
     "shop_inventoryfull": "Your inventoryslots are full! You can upgrade your inventory with %prefixinventory upgrade",
     "shop_bought": "You bought %howmanyx %item for $%amount",
     "shop_itemnotexist": "This item does not exist! Please check if you have used the correct emoji",
-    "shop_commanderror": "You used the command incorrectly. Please check with %prefixhelp shop how to use the command correctly!",
+    "shop_commanderror": "You used the command incorrectly. Please check with **%prefixhelp shop** how to use the command correctly!",
     "shop_price": "Price:",
     "shop_sellall": "You sold %items for a total of %amount credits",
     "shop_description": "You can view the list of all purchasable items and sell or buy items",

@@ -251,7 +251,12 @@ exports.run = async (client, msg, args, lang) => {
 		}
 	}
 	const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
-	return msg.reply(commanderror);
+	const commanderrorEmbed = new Discord.RichEmbed()
+		.setDescription(commanderror)
+		.setColor('RED');
+	return msg.channel.send({
+		embed: commanderrorEmbed
+	});
 };
 
 exports.conf = {
