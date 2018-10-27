@@ -2,11 +2,31 @@ const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const Discord = require('discord.js');
+const marketitemskeys = require('../../marketitems-keys.json');
 exports.run = async (client, msg, args, lang) => {
 	const d = Math.random();
 	const userdb = await client.userdb.get(msg.author.id);
 	const marketconfs = await client.botconfs.get('market');
 	const tableload = await client.guildconfs.get(msg.guild.id);
+
+	const validationfor10procent = [];
+	const validationfor30procent = [];
+	const validationfor50procent = [];
+	const validationforrest = [];
+	for (const x in marketitemskeys) {
+		if (Number(marketitemskeys[x][2]) >= 1000) { // Between 1000-unlimited
+			validationfor10procent.push(x);
+		}
+		if (Number(marketitemskeys[x][2]) >= 500 && Number(marketitemskeys[x][2]) < 1000) { // Between 500-999
+			validationfor30procent.push(x);
+		}
+		if (Number(marketitemskeys[x][2]) >= 100 && Number(marketitemskeys[x][2]) < 500) { // Between 200-499
+			validationfor50procent.push(x);
+		}
+		if (Number(marketitemskeys[x][2]) < 100) { // Between 0-199
+			validationforrest.push(x);
+		}
+	}
 
 	let inventoryslotcheck = 0;
 	/* eslint guard-for-in: 0 */
@@ -30,7 +50,6 @@ exports.run = async (client, msg, args, lang) => {
 	const creditsloot = userdb.premium.status === false ? Math.floor(Math.random() * 70) + 1 : (Math.floor(Math.random() * 70) + 1) * 2;
 
 	if (d < 0.005) {
-		const validationfor10procent = ['house', 'car', 'diamond', 'tractor'];
 		const result = Math.floor(Math.random() * validationfor10procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -49,7 +68,6 @@ exports.run = async (client, msg, args, lang) => {
 			.setDescription(`🎉 ${lootmessage}`);
 		return msg.channel.send({ embed });
 	} else if (d < 0.05) {
-		const validationfor30procent = ['phone', 'computer', 'camera', 'projector', 'bed', 'watch', 'gun'];
 		const result = Math.floor(Math.random() * validationfor30procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -70,7 +88,6 @@ exports.run = async (client, msg, args, lang) => {
 			.setDescription(`🎉 ${lootmessage}`);
 		return msg.channel.send({ embed });
 	} else if (d < 0.2) {
-		const validationfor50procent = ['cratekey', 'pickaxe', 'joystick', 'flashlight', 'hammer', 'inventoryslotticket', 'syringe', 'gun', 'knife'];
 		const result = Math.floor(Math.random() * validationfor50procent.length);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -91,7 +108,6 @@ exports.run = async (client, msg, args, lang) => {
 			.setDescription(`🎉 ${lootmessage}`);
 		return msg.channel.send({ embed });
 	}
-	const validationforrest = ['crate', 'bag', 'dog', 'cat', 'apple', 'football', 'clock', 'rose', 'umbrella', 'hamburger', 'croissant', 'basketball', 'book', 'mag', 'banana'];
 	const result = Math.floor(Math.random() * validationforrest.length);
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -121,7 +137,7 @@ exports.conf = {
 	aliases: ['l'],
 	userpermissions: [],
 	dashboardsettings: false,
-	cooldown: 600000
+	cooldown: 1
 };
 exports.help = {
 	name: 'loot',
