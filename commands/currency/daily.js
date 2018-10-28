@@ -14,9 +14,9 @@ exports.run = async (client, msg, args, lang) => {
 		};
 		await client.botconfs.set('botconfs', botconfs);
 
-		setTimeout(async () => {
+		setTimeout(() => {
 			delete botconfs.dailyreminder[msg.author.id];
-			await client.botconfs.set('botconfs', botconfs);
+			client.botconfs.set('botconfs', botconfs);
 			msg.author.send('Don\'t forget to pick up your daily reward');
 		}, 86400000);
 	}
