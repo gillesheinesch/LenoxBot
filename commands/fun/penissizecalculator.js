@@ -1,16 +1,16 @@
 exports.run = (client, msg, args, lang) => {
-	const randomsize = [lang.penissizecalculator_1,
-		lang.penissizecalculator_2,
-		lang.penissizecalculator_3,
-		lang.penissizecalculator_4,
-		lang.penissizecalculator_5,
-		lang.penissizecalculator_6];
-	const rand = Math.floor(Math.random() * randomsize.length);
+	const pscAnswers = [];
+	for (const x in lang) {
+		if (x.includes('penissizecalculator_answer')) {
+			pscAnswers.push(lang[x]);
+		}
+	}
+	const pscAnswersIndex = Math.floor(Math.random() * pscAnswers.length);
 
 	if (!msg.mentions.members.first()) {
-		return msg.channel.send(`${msg.author}, ${randomsize[rand]}`);
+		return msg.channel.send(`${msg.author}, ${pscAnswers[pscAnswersIndex]}`);
 	}
-	msg.channel.send(`${msg.mentions.members.first().displayName}, ${randomsize[rand]}`);
+	msg.channel.send(`${msg.mentions.members.first().displayName}, ${pscAnswers[pscAnswersIndex]}`);
 };
 
 exports.conf = {
