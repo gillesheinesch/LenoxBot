@@ -1,11 +1,18 @@
 const Discord = require(`discord.js`);
 exports.run = (client, msg, args, lang) => {
-	const eightball = require('8ball')();
 	if (args.length < 1) return msg.channel.send(lang.eightball_noinput);
+	const eightballAnswers = [];
+
+	for (const x in lang) {
+		if (x.includes('eightball_answer')) {
+			eightballAnswers.push(lang[x]);
+		}
+	}
+	const eightballAnswersIndex = Math.floor(Math.random() * eightballAnswers.length);
 
 	const embed = new Discord.RichEmbed()
 		.addField(lang.eightball_question, args.join(' '))
-		.addField(lang.eightball_answer, eightball)
+		.addField(lang.eightball_embedfield, eightballAnswers[eightballAnswersIndex])
 		.setColor('#ff6666')
 		.setAuthor(msg.author.tag, msg.author.displayAvatarURL);
 
