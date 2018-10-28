@@ -2,7 +2,6 @@ const Discord = require(`discord.js`);
 exports.run = (client, msg, args, lang) => {
 	if (args.length < 1) return msg.channel.send(lang.eightball_noinput);
 	const eightballAnswers = [];
-
 	for (const x in lang) {
 		if (x.includes('eightball_answer')) {
 			eightballAnswers.push(lang[x]);
