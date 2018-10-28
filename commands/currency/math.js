@@ -46,7 +46,7 @@ exports.run = async (client, msg, args, lang) => {
 
 		const mathLevel = Math.floor(1.5 * Math.sqrt(userdb.mathematics.points + 1));
 		if (mathLevel > userdb.mathematics.level) {
-			userdb.mathematics.level += 1;
+			userdb.mathematics.level = mathLevel;
 		}
 		await client.userdb.set(msg.author.id, userdb);
 
