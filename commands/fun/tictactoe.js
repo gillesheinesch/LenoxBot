@@ -8,13 +8,19 @@ exports.run = async (client, msg, args, lang) => {
 	if (mention.user.bot) return msg.channel.send(lang.tictactoe_botmention);
 	if (msg.author.id === mention.id) return msg.channel.send(lang.tictactoe_error);
 
-	const wannaplay = lang.tictactoe_wannaplay.replace('%mention', mention).replace('%author', msg.author);
-	const wantToPlayMessage = await msg.channel.send(wannaplay);
-	const wantToPlay = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id, {
-		maxMatches: 1,
-		time: 15000,
-		errors: ['time']
-	});
+	let wantToPlayMessage;
+	let wantToPlay;
+	try {
+		const wannaplay = lang.tictactoe_wannaplay.replace('%mention', mention).replace('%author', msg.author);
+		wantToPlayMessage = await msg.channel.send(wannaplay);
+		wantToPlay = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id, {
+			maxMatches: 1,
+			time: 60000,
+			errors: ['time']
+		});
+	} catch (error) {
+		await wantToPlayMessage.delete();
+	}
 
 	if (wantToPlay.first().content.toLowerCase() !== 'yes') {
 		const gamecanceled = lang.tictactoe_gamecanceled.replace('%mention', mention.user.tag);
