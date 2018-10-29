@@ -5,7 +5,7 @@ const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const mentioncheck = msg.mentions.users.first();
 	const userdb = await client.userdb.get(msg.author.id);
-	const botconfs = await client.botconfs.get('botconfs');
+	const botconfs = client.botconfs.get('botconfs');
 
 	if (userdb.dailyremind === true) {
 		botconfs.dailyreminder[msg.author.id] = {
