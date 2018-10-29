@@ -59,14 +59,20 @@ exports.run = async (client, msg, args, lang) => {
 			sql.run(`UPDATE medals SET medals = ${row.medals + creditsloot} WHERE userId = ${msg.author.id}`);
 		});
 
-		userdb.inventory[validationfor10procent[result]] = userdb.premium.status === false ? userdb.inventory[validationfor10procent[result]] + 1 : userdb.inventory[validationfor10procent[result]] + 2;
+		if (userdb.premium.status === true) {
+			userdb.inventory[validationfor10procent[result]] += 2;
+		} else {
+			userdb.inventory[validationfor10procent[result]] += 1;
+		}
 		await client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 		const embed = new Discord.RichEmbed()
 			.setColor('#66ff33')
 			.setDescription(`🎉 ${lootmessage}`);
-		return msg.channel.send({ embed });
+		return msg.channel.send({
+			embed
+		});
 	} else if (d < 0.05) {
 		const result = Math.floor(Math.random() * validationfor30procent.length);
 
@@ -78,7 +84,11 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 
-		userdb.inventory[validationfor30procent[result]] = userdb.premium.status === false ? userdb.inventory[validationfor30procent[result]] + 1 : userdb.inventory[validationfor30procent[result]] + 2;
+		if (userdb.premium.status === true) {
+			userdb.inventory[validationfor30procent[result]] += 2;
+		} else {
+			userdb.inventory[validationfor30procent[result]] += 1;
+		}
 		await client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
@@ -86,7 +96,9 @@ exports.run = async (client, msg, args, lang) => {
 		const embed = new Discord.RichEmbed()
 			.setColor('#66ff33')
 			.setDescription(`🎉 ${lootmessage}`);
-		return msg.channel.send({ embed });
+		return msg.channel.send({
+			embed
+		});
 	} else if (d < 0.2) {
 		const result = Math.floor(Math.random() * validationfor50procent.length);
 
@@ -98,7 +110,11 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 
-		userdb.inventory[validationfor50procent[result]] = userdb.premium.status === false ? userdb.inventory[validationfor50procent[result]] + 1 : userdb.inventory[validationfor50procent[result]] + 2;
+		if (userdb.premium.status === true) {
+			userdb.inventory[validationfor50procent[result]] += 2;
+		} else {
+			userdb.inventory[validationfor50procent[result]] += 1;
+		}
 		await client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
@@ -106,7 +122,9 @@ exports.run = async (client, msg, args, lang) => {
 		const embed = new Discord.RichEmbed()
 			.setColor('#66ff33')
 			.setDescription(`🎉 ${lootmessage}`);
-		return msg.channel.send({ embed });
+		return msg.channel.send({
+			embed
+		});
 	}
 	const result = Math.floor(Math.random() * validationforrest.length);
 
@@ -118,7 +136,11 @@ exports.run = async (client, msg, args, lang) => {
 	});
 
 
-	userdb.inventory[validationforrest[result]] = userdb.premium.status === false ? userdb.inventory[validationforrest[result]] + 1 : userdb.inventory[validationforrest[result]] + 2;
+	if (userdb.premium.status === true) {
+		userdb.inventory[validationforrest[result]] += 2;
+	} else {
+		userdb.inventory[validationforrest[result]] += 1;
+	}
 	await client.userdb.set(msg.author.id, userdb);
 
 
@@ -127,7 +149,9 @@ exports.run = async (client, msg, args, lang) => {
 	const embed = new Discord.RichEmbed()
 		.setColor('#66ff33')
 		.setDescription(`🎉 ${lootmessage}`);
-	return msg.channel.send({ embed });
+	return msg.channel.send({
+		embed
+	});
 };
 
 exports.conf = {
@@ -137,7 +161,7 @@ exports.conf = {
 	aliases: ['l'],
 	userpermissions: [],
 	dashboardsettings: false,
-	cooldown: 600000
+	cooldown: 1
 };
 exports.help = {
 	name: 'loot',
