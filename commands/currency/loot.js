@@ -161,7 +161,7 @@ exports.conf = {
 	aliases: ['l'],
 	userpermissions: [],
 	dashboardsettings: false,
-	cooldown: 1
+	cooldown: 600000
 };
 exports.help = {
 	name: 'loot',
