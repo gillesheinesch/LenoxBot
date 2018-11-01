@@ -76,7 +76,7 @@
                                             <img class="rounded-circle shadow-sm lb-img-profile-leaderboard-user" src="/discordicon.png">
                                             {{/if}}
                                         </figure>
-                                        {{user.username}}
+                                        <a class="text-dark" href="/profile/{{user.id}}">{{user.username}}</a>
                                     </td>
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-right"><span class="lb-bumer"
                                             data-toggle="tooltip" data-placement="left" title="{{addCommas userData.points}}">
@@ -113,7 +113,7 @@
                                             {{/if}}
                                             <div data-rel="{{@index}}badge" type="image/svg+xml" class="lb-badge-leaderboard"></div>
                                         </figure>
-                                        {{user.username}}
+                                        <a  class="text-dark" href="/profile/{{user.id}}">{{user.username}}</a>
                                     </td>
                                     {{else}}
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard">
