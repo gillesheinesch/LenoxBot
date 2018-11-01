@@ -424,14 +424,14 @@ app.get('/profile/:id', async (req, res) => {
 		const profileId = req.params.id;
 		const userdb = await client.userdb.get(profileId);
 		const profileUser = client.users.get(req.params.id);
-		var isstaff = false;
+		let isstaff = false;
 		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'documentation-moderator', 'designer', 'translation-leader', 'translation-proofreader'];
 		const guild = await client.guilds.get('352896116812939264');
 		for (let i = 0; i < teamroles.length; i++) {
 			const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
 			role.members.forEach(member => {
-				if(member.user.id === profileId){
-					isstaff =  true;
+				if (member.user.id === profileId) {
+					isstaff = true;
 				}
 			});
 		}
@@ -460,13 +460,11 @@ app.get('/profile/:id', async (req, res) => {
 			});
 		}
 
-		const topBadgesEmoji = [];
-		const topBadges = [];
+		const badgesAndTitles = [];
 		for (let i = 0; i < badges.length; i++) {
-			topBadgesEmoji.push(badges[i].emoji);
-			topBadges.push(badges[i].name);
+			badgesAndTitles.push(badges[i].emoji);
+			badgesAndTitles.push(badges[i].name);
 		}
-
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
 		const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
 		const useridsArray = [];
@@ -514,14 +512,12 @@ app.get('/profile/:id', async (req, res) => {
 		for (const x in userdb.socialmedia) {
 			if (userdb.socialmedia[x] === '') socialmediaCheck++;
 		}
-
 		const islenoxbot = islenoxboton(req);
 		return res.render('profile', {
 			user: req.user,
 			profileUser: profileUser,
 			userDescription: userdb.description.length === 0 ? null : userdb.description,
-			userBadgesEmoji: topBadgesEmoji,
-			userTitles: topBadges,
+			badgesAndTitles: badgesAndTitles,
 			userCredits: rowCredits.medals,
 			userCreditsGlobalRank: globalrank,
 			inventoryItems: check === Object.keys(userdb.inventory).length ? null : array1,
