@@ -62,3 +62,26 @@ $(window).resize(function () {
         }
     }
 });
+
+$(':a').click(function () {
+    var url = $(this).attr('href');
+    
+    if (typeof attr !== typeof undefined && attr !== false) {
+        event.preventDefault();
+        
+        $.ajax({
+            url: url,
+            type: "get",
+            dataType: 'html',
+            success: function(data) {
+                $("body").append("<div id=\"newPage\"><div>");
+                $("#newPage").append(data);
+                var html = $("#newPage").find("main").html();
+                
+                $("#newPage").remove();
+                
+                $("main").html(html);
+            }
+        });
+    }
+})
