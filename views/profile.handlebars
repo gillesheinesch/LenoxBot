@@ -38,7 +38,7 @@
                                     height="120" width="120">
                                 {{/if}}
                             </figure>
-                            <h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small></h1>
+                            <h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small> {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-muted mdi mdi-security-account"></small>{{/if}}</h1>
                             <p class="h4 font-weight-light text-center">{{userDescription}}</p>
                         </div>
                     </div>
@@ -62,10 +62,10 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h3 class="card-title">Badges</h3>
-                                {{#if userBadgesEmoji}}
+                                {{#if badgesAndTitles}}
                                 <div class="row">
-                                    {{#each userBadgesEmoji}}
-                                    <div class="col-3 p-0 lb-profile-badge ">{{this}}</div>
+                                    {{#each badgesAndTitles}}
+                                    <div data-toggle="tooltip" data-placement="left" title="{{capitalize title}}" class="col-3 p-0 lb-profile-badge">{{emoji}}</div>
                                     {{/each}}
                                 </div>
                                 {{else}}
@@ -76,10 +76,10 @@
                         <div class="card mb-3">
                             <div class="card-body">
                                 <h3 class="card-title">Titles</h3>
-                                {{#if userTitles}}
+                                {{#if badgesAndTitles}}
                                 <ul class="text-left">
-                                    {{#each userTitles}}
-                                    <li>{{this}}</li>
+                                    {{#each badgesAndTitles}}
+                                    <li>{{capitalize title}}</li>
                                     {{/each}}
                                 </ul>
                                 {{else}}
