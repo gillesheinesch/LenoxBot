@@ -63,11 +63,11 @@ $(window).resize(function () {
     }
 });
 
-$(':a').click(function () {
+$("a").click(function (event) {
     var url = $(this).attr('href');
-    
-    if (typeof attr !== typeof undefined && attr !== false) {
-        event.preventDefault();
+	
+    if (typeof url !== typeof undefined && url !== false) {
+        event.preventDefault();;
         
         $.ajax({
             url: url,
@@ -76,11 +76,12 @@ $(':a').click(function () {
             success: function(data) {
                 $("body").append("<div id=\"newPage\"><div>");
                 $("#newPage").append(data);
-                var html = $("#newPage").find("main").html();
-                
+                var html = $("#newPage").find("#page").html();
+                console.log(html);
+				
                 $("#newPage").remove();
                 
-                $("main").html(html);
+                $("#page").html(html);
             }
         });
     }
