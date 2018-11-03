@@ -66,7 +66,7 @@ $(window).resize(function () {
 $("a").click(function (event) {
     var url = $(this).attr('href');
 	
-    if (typeof url !== typeof undefined && url !== false && !$(this).hasClass("no-ajax")) {
+    if (typeof url !== typeof undefined && url !== false && !$(this).hasClass("no-ajax") && window.location.href.indexOf('dashboard') == -1) {
         event.preventDefault();
         
         $.ajax({
@@ -82,7 +82,7 @@ $("a").click(function (event) {
                 $("#newPage").remove();
                 
                 $("#page").html(html);
-            }
+            },
         });
     }
 })
