@@ -65,7 +65,7 @@
                                 {{#if badgesAndTitles}}
                                 <div class="row">
                                     {{#each badgesAndTitles}}
-                                    <div data-toggle="tooltip" data-placement="left" title="{{capitalize title}}" class="col-3 p-0 lb-profile-badge">{{emoji}}</div>
+                                    <div data-toggle="tooltip" data-placement="left" title="{{capitalize name}}" class="col-3 p-0 lb-profile-badge">{{emoji}}</div>
                                     {{/each}}
                                 </div>
                                 {{else}}
@@ -79,7 +79,7 @@
                                 {{#if badgesAndTitles}}
                                 <ul class="text-left">
                                     {{#each badgesAndTitles}}
-                                    <li>{{capitalize title}}</li>
+                                    <li>{{capitalize name}}</li>
                                     {{/each}}
                                 </ul>
                                 {{else}}
