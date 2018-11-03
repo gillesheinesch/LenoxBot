@@ -66,18 +66,18 @@ $(window).resize(function () {
 $("a").click(function (event) {
     var url = $(this).attr('href');
 	
-    if (typeof url !== typeof undefined && url !== false) {
-        event.preventDefault();;
+    if (typeof url !== typeof undefined && url !== false && !$(this).hasClass("no-ajax")) {
+        event.preventDefault();
         
         $.ajax({
             url: url,
             type: "get",
             dataType: 'html',
+			asnyc: true,
             success: function(data) {
                 $("body").append("<div id=\"newPage\"><div>");
                 $("#newPage").append(data);
                 var html = $("#newPage").find("#page").html();
-                console.log(html);
 				
                 $("#newPage").remove();
                 
