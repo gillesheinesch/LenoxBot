@@ -5113,6 +5113,7 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res
 			const tableload = await client.guildconfs.get(dashboardid);
 
 			let newDescription;
+			let newCommandName = req.body.commandname;
 			const newResponse = req.body.newcommandanswer;
 			if (req.body.newdescription) {
 				newDescription = req.body.newdescription;
@@ -5131,7 +5132,7 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res
 			}
 
 			const newCustomCommandSettings = {
-				name: req.params.command.toLowerCase(),
+				name: newCommandName.toLowerCase(),
 				creator: req.user.id,
 				commandanswer: newResponse,
 				descriptionOfTheCommand: newDescription,
