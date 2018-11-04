@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args, lang) => {
 	if (!client.guilds.get('352896116812939264').members.get(msg.author.id).roles.find(r => r.name.toLowerCase() === 'partner')) return msg.reply(lang.partner_error);
-	console.log(1);
 
 	const validation = ['lenoxbot', 'keinemxl', 'evilturtle', 'dadi'];
 	const margs = msg.content.split(' ');
