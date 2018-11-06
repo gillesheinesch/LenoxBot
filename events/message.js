@@ -606,7 +606,6 @@ exports.run = async (client, msg) => {
 			}
 
 			if (botCommandExists) {
-				if (!cmd.conf.enabled) return msg.reply('This command is currently disabled for maintenance! We work hard to find a solution as fast as possible! Thank you!');
 				cmd.run(client, msg, args, lang);
 			} else if (customcommand.embed === 'false') {
 				msg.channel.send(customcommand.commandanswer);

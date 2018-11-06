@@ -188,7 +188,7 @@ exports.run = async (client, msg, args, lang) => {
 };
 
 exports.conf = {
-	enabled: false,
+	enabled: true,
 	guildOnly: false,
 	shortDescription: 'Musicplayersettings',
 	aliases: [],
