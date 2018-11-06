@@ -3,13 +3,13 @@
     "removexp_amountnan": "You didn't enter a number for the amount of XP!",
     "removexp_atleast1": "Your amount of XP has to be at least 1!",
     "removexp_done": "XP has been successfully removed from the user!",
-    "removexp_description": "Removes an user a specific amount of XP on this discord server",
+    "removexp_description": "Removes an user a specific amount of XP on this Discord server",
 
     "givexp_noamount": "You didn't enter an amount of XP!",
     "givexp_amountnan": "You didn't enter a number for the amount of XP!",
     "givexp_atleast1": "Your amount of XP has to be at least 1!",
     "givexp_done": "XP has been successfully given to the user!",
-    "givexp_description": "Gives an user a specific amount of XP on this discord server",
+    "givexp_description": "Gives an user a specific amount of XP on this Discord server",
 
     "setsocialmedia_youtube": "YouTube",
     "setsocialmedia_twitch": "Twitch",
@@ -34,7 +34,7 @@
     "creditstoxp_nan": "Your amount of credits is not a number!",
     "creditstoxp_under1": "Your amount of credits has to be at least 1!",
     "creditstoxp_nocredits": "You haven't enough credits!",
-    "creditstoxp_done": "You have successfully converted $%credits to %xp experience on this discord server!",
+    "creditstoxp_done": "You have successfully converted $%credits to %xp experience on this Discord server!",
     "creditstoxp_description": "Converts credits to experience on a Discord server. 1 credit = 0.5 xp",
 
     "editentry_noid": "You have to specify an application entry ID!",
