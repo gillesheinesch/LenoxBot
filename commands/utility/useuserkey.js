@@ -10,7 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (botconfspremiumload.keys.redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
 
-	if (userdb.premium.status == false) {
+	if (userdb.premium.status === false) {
 		userdb.premium.status = true;
 		userdb.premium.bought.push(new Date().getTime);
 
