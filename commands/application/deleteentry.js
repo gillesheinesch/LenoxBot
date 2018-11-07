@@ -29,7 +29,7 @@ exports.run = async (client, msg, args, lang) => {
 			}
 		}
 	} else {
-		let template = tableload.application.template[parseInt(input, 10) - 1];
+		const template = tableload.application.template[parseInt(input, 10) - 1];
 		tableload.application.template.splice(parseInt(input, 10) - 1, 1);
 		await client.guildconfs.set(msg.guild.id, tableload);
 
