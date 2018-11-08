@@ -1,26 +1,26 @@
 const settings = require('../../settings.json');
-const keygenerator = require("../../utility/keygenerator.js");
+const keygenerator = require('../../utility/keygenerator.js');
 exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
 	const botconfspremiumload = await client.botconfs.get('premium');
-	
-	let key = "";
 
-	for(let i = 0; i < 1000; i++) {
+	let key = '';
+
+	for (let i = 0; i < 1000; i++) {
 		key = keygenerator.generateKey();
-		
-		if(!botconfspremiumload.keys.guildkeys.includes(key)) {
+
+		if (!botconfspremiumload.keys.guildkeys.includes(key)) {
 			break;
 		}
 
-		if(i === 999) {
+		if (i === 999) {
 			key = undefined;
 		}
 	}
 
-	if(key !== undefined) {
+	if (key !== undefined) {
 		botconfspremiumload.keys.guildkeys.push(key);
 	}
 
