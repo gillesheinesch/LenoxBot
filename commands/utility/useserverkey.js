@@ -19,7 +19,7 @@ exports.run = async (client, msg, args, lang) => {
 
 		botconfspremiumload.keys.redeemedguildkeys.push(input.join(' '));
 
-		await client.guildconfs.set(msg.author.id, tableload);
+		await client.guildconfs.set(msg.guild.id, tableload);
 		await client.botconfs.set('premium', botconfspremiumload);
 
 		const timestamps = client.cooldowns.get('useserverkey');
@@ -45,7 +45,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	botconfspremiumload.keys.redeemedguildkeys.push(input.join(' '));
 
-	await client.guildconfs.set(msg.author.id, tableload);
+	await client.guildconfs.set(msg.guild.id, tableload);
 	await client.botconfs.set('premium', botconfspremiumload);
 
 	const timestamps = client.cooldowns.get('useserverkey');
