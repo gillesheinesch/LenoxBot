@@ -90,17 +90,36 @@ exports.run = async (client, msg, args, lang) => {
 	botconfs.jobreminder[msg.author.id] = {
 		userID: msg.author.id,
 		remind: Date.now() + ms(`${jobtime}m`),
-		amount: amount
+		amount: amount,
+		job: job,
+		jobtime: jobtime,
+		discordServerID: msg.guild.id,
+		channelID: msg.channel.id
 	};
 	await client.botconfs.set('botconfs', botconfs);
 	await client.userdb.set(msg.author.id, userdb);
 
-	setTimeout(async () => {
+	const activityEmbed = new Discord.RichEmbed()
+		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+		.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
+		.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
+		.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
+		.setColor('AQUA')
+		.setFooter('JOB STARTED')
+		.setTimestamp();
+	if (botconfs.activity === true) {
+		const messagechannel = client.channels.get(botconfs.activitychannel);
+		messagechannel.send({
+			embed: activityEmbed
+		});
+	}
+
+	setTimeout(() => {
 		userdb.jobstatus = false;
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		delete botconfs.jobreminder[msg.author.id];
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {
@@ -111,6 +130,21 @@ exports.run = async (client, msg, args, lang) => {
 
 		const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${amount} credits`;
 		msg.member.send(jobfinish);
+
+		const activityEmbed2 = new Discord.RichEmbed()
+			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+			.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
+			.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
+			.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
+			.setColor('AQUA')
+			.setFooter('JOB FINISHED')
+			.setTimestamp();
+		if (botconfs.activity === true) {
+			const messagechannel = client.channels.get(botconfs.activitychannel);
+			messagechannel.send({
+				embed: activityEmbed2
+			});
+		}
 	}, ms(`${jobtime}m`));
 };
 

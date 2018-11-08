@@ -110,6 +110,21 @@ exports.run = async client => {
 
 			const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${jobreminder.amount} credits`;
 			client.users.get(jobreminder.userID).send(jobfinish);
+
+			const activityEmbed2 = new Discord.RichEmbed()
+				.setAuthor(`${client.users.get(jobreminder.userID).tag} (${jobreminder.userID})`, client.users.get(jobreminder.userID).displayAvatarURL)
+				.setDescription(`**Job:** ${jobreminder.job} \n**Duration:** ${jobreminder.jobtime} minutes \n**Amount:** ${jobreminder.amount} credits`)
+				.addField('Guild', `${client.guilds.get(jobreminder.discordServerID).name} (${jobreminder.discordServerID})`)
+				.addField('Channel', `${client.channels.get(jobreminder.channelID).name} (${jobreminder.channelID})`)
+				.setColor('AQUA')
+				.setFooter('JOB FINISHED')
+				.setTimestamp();
+			if (botconfs.activity === true) {
+				const messagechannel = client.channels.get(botconfs.activitychannel);
+				messagechannel.send({
+					embed: activityEmbed2
+				});
+			}
 		}, timeoutTime);
 	}
 

@@ -10,7 +10,6 @@ exports.run = (client, msg, args, lang) => {
 			.addField(lang.help_commandscommand, `${prefix}commands {${lang.help_modulename}}`)
 			.addField(lang.help_helpcommand, `${prefix}help {${lang.help_command}}`)
 			.addField(lang.botinfo_website, 'https://lenoxbot.com/')
-			.addField(lang.help_ludushosting, 'http://go.ludus-hosting.de/lenoxbot')
 			.addField(lang.help_translation, 'https://crowdin.com/project/lenoxbot')
 			.setColor('#ff3300')
 			.setAuthor(client.user.username, client.user.displayAvatarURL);
