@@ -6,7 +6,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
 	if (isNaN(input.join(' '))) return msg.reply(lang.useuserkey_error);
-	if (botconfspremiumload.keys.numberofuserkeys < input.join(' ')) return msg.reply(lang.useuserkey_notexist);
+	if (botconfspremiumload.keys.userkeys.contains(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
 
 	if (botconfspremiumload.keys.redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
 

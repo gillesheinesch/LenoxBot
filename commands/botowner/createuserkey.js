@@ -1,5 +1,5 @@
 const settings = require('../../settings.json');
-const keygenerator = require('../../utility/keygenerator.js');
+const keygenerator = require('../../utils/keygenerator.js');
 exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
@@ -31,7 +31,7 @@ exports.run = async (client, msg, args, lang) => {
 		.setTimestamp()
 		.setColor('#cc99ff')
 		.setTitle(lang.createuserkey_embedtitle);
-	await client.channels.get(settings.botdiscord).send({ embed });
+	await client.channels.get(settings.keychannel).send({ embed });
 
 	msg.reply(lang.createuserkey_message);
 };

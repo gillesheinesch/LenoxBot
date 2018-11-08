@@ -6,7 +6,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!input || input.length === 0) return msg.reply(lang.useserverkey_noinput);
 	if (isNaN(input.join(' '))) return msg.reply(lang.useserverkey_error);
-	if (botconfspremiumload.keys.numberofguildkeys < input.join(' ')) return msg.reply(lang.useserverkey_notexist);
+	if (botconfspremiumload.keys.guildkeys.contains(input.join(' '))) return msg.reply(lang.useserverkey_notexist);
 
 	if (botconfspremiumload.keys.redeemedguildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_already);
 
