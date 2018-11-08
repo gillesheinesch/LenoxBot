@@ -151,7 +151,7 @@ app.get('/callback',
 		res.redirect('/servers');
 	});
 
-app.listen(80, err => {
+app.listen(settings.websiteport, err => {
 	if (err) return console.log(err);
 });
 
