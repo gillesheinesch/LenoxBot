@@ -12,7 +12,8 @@
                 <div class="lb-bg-white rounded p-3">
                     <div class="card shadow-sm">
                         <div class="card-header">
-                            <p class="h5">All custom commands</p>
+                            <p class="h5 d-inline">All custom commands</p>
+                            <button type="button" class="btn lb-btn-green float-right" data-toggle="modal" data-target="#newmodal">New</button>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -72,12 +73,49 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="modal fade" id="newmodal" tabindex="-1" role="dialog"
+                                                    aria-labelledby="newTitle" aria-hidden="true">
+                                                    <div class="modal-dialog modal-dialog-centered" role="document">
+                                                        <div class="modal-content">
+                                                            <div class="modal-header">
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Create new custom command</h5>
+                                                                <button type="button" class="close" data-dismiss="modal"
+                                                                    aria-label="Close">
+                                                                    <span aria-hidden="true">&times;</span>
+                                                                </button>
+                                                            </div>
+
+                                                            <form id="newformmodal">
+                                                                <div class="modal-body">
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newdescription">Command name:</label>
+                                                                        <input type="text" class="form-control" name="newname" id="newinputdesc" required>
+                                                                    </div>
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newdescription">Description:</label>
+                                                                        <textarea required class="form-control" name="newdescription"
+                                                                            rows="2" maxlength="60" id="newinputdesc"></textarea>
+                                                                    </div>
+                                                                    <div class="form-group mb-2">
+                                                                        <label for="newcommandanswer">Response:</label>
+                                                                        <textarea required class="form-control" name="newcommandanswer"
+                                                                            rows="2" maxlength="2000"></textarea>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <button type="submit" id="newbmodal" class="btn lb-btn-green">Send</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 <div class="modal fade" id="{{name}}delmodal" tabindex="-1" role="dialog"
                                                     aria-labelledby="{{name}}Title" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Are you sure?</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">Are
+                                                                    you sure?</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -86,7 +124,8 @@
 
                                                             <form class="form-inline" id="{{name}}formdelmodal">
                                                                 <div class="modal-body">
-                                                                    <p>Are you sure you want to delete the command <strong>{{name}}</strong>?
+                                                                    <p>Are you sure you want to delete the command
+                                                                        <strong>{{name}}</strong>?
                                                                     </p>
                                                                     <hr>
                                                                     <button type="submit" id="{{name}}delb" class="btn lb-btn-green">Yes</button>
