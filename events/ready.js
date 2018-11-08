@@ -80,17 +80,16 @@ exports.run = async client => {
 		}, timeoutTime);
 	}
 
-	if(client.botconfs.get("botconfs").dailyreminder !== undefined) {
+	if (typeof client.botconfs.get('botconfs').dailyreminder !== 'undefined') {
 		if (Object.keys(client.botconfs.get('botconfs').dailyreminder).length !== 0) {
 			/* eslint guard-for-in: 0 */
 			for (const index in client.botconfs.get('botconfs').dailyreminder) {
 				const timeoutTime = botconfs.dailyreminder[index].remind - Date.now();
 				timeoutForDaily(botconfs.dailyreminder[index], timeoutTime);
 			}
-		}	
+		}
 	}
-	
-	
+
 
 	function timeoutForJob(jobreminder, timeoutTime) {
 		setTimeout(async () => {
@@ -128,7 +127,7 @@ exports.run = async client => {
 		}, timeoutTime);
 	}
 
-	if(client.botconfs.get('botconfs').jobreminder !== undefined) {
+	if (typeof client.botconfs.get('botconfs').jobreminder !== 'undefined') {
 		if (Object.keys(client.botconfs.get('botconfs').jobreminder).length !== 0) {
 			/* eslint guard-for-in: 0 */
 			for (const index in client.botconfs.get('botconfs').jobreminder) {
@@ -137,8 +136,7 @@ exports.run = async client => {
 			}
 		}
 	}
-	
-	
+
 
 	function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
 		setTimeout(async () => {
@@ -247,7 +245,7 @@ exports.run = async client => {
 		}, newMuteTime);
 	}
 
-	if(client.botconfs.get('botconfs').bans !== undefined) {
+	if (typeof client.botconfs.get('botconfs').bans !== 'undefined') {
 		if (Object.keys(client.botconfs.get('botconfs').bans).length !== 0) {
 			/* eslint guard-for-in: 0 */
 			for (const index in client.botconfs.get('botconfs').bans) {
@@ -258,10 +256,9 @@ exports.run = async client => {
 			}
 		}
 	}
-	
 
 
-    if(client.botconfs.get('botconfs').mutes !== undefined) {
+	if (typeof client.botconfs.get('botconfs').mutes !== 'undefined') {
 		if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
 			for (const index2 in client.botconfs.get('botconfs').mutes) {
 				const muteconf = await client.botconfs.get('botconfs');

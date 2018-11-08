@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 						return msg.channel.send(lang.botownercommands_error);
 					}
 
-					if (client.guilds.get('352896116812939264') !== undefined) {
+					if (typeof client.guilds.get('352896116812939264') !== 'undefined') {
 						const moderatorRole = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 						if (validation[index] === 'staff' && !msg.member.roles.get(moderatorRole)) {
 							return msg.channel.send(lang.botownercommands_error);
