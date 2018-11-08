@@ -55,7 +55,7 @@ if (settings.dbl_apikey && settings.dbl_apikey !== '') {
 }
 // Check if settings.json is correctly configuered
 
-if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '' || !settings.owners || settings.owners.length === 0) {
+if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '' || !settings.owners || settings.owners.length === 0 || !settings.botdiscord || settings.botdiscord === '' || !settings.websiteport || isNaN(settings.websiteport)) {
 	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
 	return process.exit(42);
 }
