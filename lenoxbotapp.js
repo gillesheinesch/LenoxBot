@@ -462,8 +462,11 @@ app.get('/profile/:id', async (req, res) => {
 
 		const badgesAndTitles = [];
 		for (let i = 0; i < badges.length; i++) {
-			badgesAndTitles.push(badges[i].emoji);
-			badgesAndTitles.push(badges[i].name);
+			const settingsForBadgesAndTitles = {
+				emoji: badges[i].emoji,
+				name: badges[i].name
+			};
+			badgesAndTitles.push(settingsForBadgesAndTitles);
 		}
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
 		const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
