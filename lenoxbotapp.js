@@ -2421,17 +2421,18 @@ app.get('/dashboard/:id/administration', async (req, res) => {
 			}
 
 			const languages = [{
-				name: 'english',
-				alias: 'en-US'
-			},
-			{
-				name: 'german',
-				alias: 'de-DE'
-			},
-			{
-				name: 'french',
-				alias: 'fr-FR'
-			}];
+					name: 'english',
+					alias: 'en-US'
+				},
+				{
+					name: 'german',
+					alias: 'de-DE'
+				},
+				{
+					name: 'french',
+					alias: 'fr-FR'
+				}
+			];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {
@@ -5364,6 +5365,90 @@ app.get('/dashboard/:id/lastlogs', async (req, res) => {
 				logs = null;
 			}
 
+			const islenoxbot = islenoxboton(req);
+
+			return res.render('dashboardlastlogs', {
+				user: req.user,
+				guilds: check,
+				client: client,
+				islenoxbot: islenoxbot,
+				logs: logs
+			});
+		}
+		return res.redirect('/nologin');
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
+app.post('/appeal/:type/:id/submitnewappeal', async (req, res) => {
+	try {
+		if (req.user) {
+
+			// HAS TO BE SAVED IN BOTCONFS.APPEALS @Monkeyyy11
+
+			return res.redirect(url.format({
+				pathname: `/home`,
+				query: {
+					appealsend: true
+				}
+			}));
+		}
+		return res.redirect('/nologin');
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
+app.get('/appeal/:type/:id', async (req, res) => {
+	if (req.params.type.toLowerCase() !== 'user' && req.params.type.toLowerCase() === 'server') throw Error('Invalid type!');
+	try {
+		const dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			let index = -1;
+			for (let i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (req.params.type.toLowerCase() === 'server') {
+				if (index === -1) return res.redirect('/servers');
+
+				if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
+					let allwhitelistedrolesoftheuser = 0;
+
+					for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+						if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
+						if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+							allwhitelistedrolesoftheuser += 1;
+						}
+					}
+					if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+						return res.redirect('/servers');
+					}
+				} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
+					return res.redirect('/servers');
+				}
+
+				if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
+			} else {
+				if (req.params.type.toLowerCase() === 'user' && req.user.id !== req.params.id) throw Error('Not authorised to visit this page!');
+			}
+
+			const check = req.user.guilds[index];
 			const islenoxbot = islenoxboton(req);
 
 			return res.render('dashboardlastlogs', {
