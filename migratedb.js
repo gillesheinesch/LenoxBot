@@ -1,30 +1,30 @@
 const Enmap = require('enmap');
 
-process.stdout.write("1/2 Loading db...")
+process.stdout.write('1/2 Loading db...');
 const botconfs = new Enmap({
-    name: "botconfs",
-    fetchAll: true
+	name: 'botconfs',
+	fetchAll: true
 });
 
-process.stdout.write("1/2 Loading db...");
+process.stdout.write('1/2 Loading db...');
 
 botconfs.defer.then(() => {
-        process.stdout.clearLine();
-        process.stdout.cursorTo(0);
-        process.stdout.write("2/2 Converting botconfspremiumload to new generator");
+	process.stdout.clearLine();
+	process.stdout.cursorTo(0);
+	process.stdout.write('2/2 Converting botconfspremiumload to new generator');
 
-        const botconfspremiumload = botconfs.get('premium');
+	const botconfspremiumload = botconfs.get('premium');
 
-        botconfspremiumload.keys.guildkeys = [];
-        botconfspremiumload.keys.userkeys = [];
+	botconfspremiumload.keys.guildkeys = [];
+	botconfspremiumload.keys.userkeys = [];
 
-        botconfs.set('premium', botconfspremiumload);
+	botconfs.set('premium', botconfspremiumload);
 
-        process.stdout.clearLine();
-        process.stdout.cursorTo(0);
-        process.stdout.write("Migration done.\n");
+	process.stdout.clearLine();
+	process.stdout.cursorTo(0);
+	process.stdout.write('Migration done.\n');
 
-        botconfs.close();
-        
-        process.exit(0);
+	botconfs.close();
+
+	process.exit(0);
 });
