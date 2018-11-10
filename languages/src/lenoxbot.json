@@ -329,7 +329,6 @@
     "job_description": "A full list of available jobs you can accept to earn credits",
 
     "useuserkey_noinput": "You forgot to enter your userkey!",
-    "useuserkey_error": "Your input wasn't an userkey!",
     "useuserkey_notexist": "This userkey doesn't exist!",
     "useuserkey_already": "This userkey has already been redeemed!",
     "useuserkey_redeemed": "You have successfully used your userkey. \nThe premium for your Discord account is activated until the %date!",
@@ -337,7 +336,6 @@
     "useuserkey_description": "With this command, you can use a premium userkey for your Discord account",
 
     "useserverkey_noinput": "You forgot to enter your serverkey!",
-    "useserverkey_error": "Your input wasn't a serverkey!",
     "useserverkey_notexist": "This serverkey doesn't exist!",
     "useserverkey_already": "This serverkey has already been redeemed!",
     "useserverkey_redeemed": "You have successfully used your serverkey. \nThe premium of this Discord server is activated until the %date!",
