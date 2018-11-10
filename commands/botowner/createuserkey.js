@@ -24,6 +24,8 @@ exports.run = async (client, msg, args, lang) => {
 		botconfspremiumload.keys.userkeys.push(key);
 	}
 
+	await client.botconfs.set('premium', botconfspremiumload);
+
 	const embeddescription = lang.createuserkey_embeddescription.replace('%premiumcode', key);
 	const embed = new Discord.RichEmbed()
 		.setDescription(embeddescription)
