@@ -50,7 +50,7 @@ exports.run = async (client, msg, args, lang) => {
 	await client.cooldowns.set('useuserkey', timestamps);
 
 	const embed = new Discord.RichEmbed()
-		.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(userdb.premium.end)).toUTCString()}`)
+		.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(userdb.premium.end + 15552000000)).toUTCString()}`)
 		.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 		.setTimestamp()
 		.setColor('#66ff33')
