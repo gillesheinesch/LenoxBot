@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const config = require('../../settings.json');
+	return msg.reply('Command is currently disabled. You want to know why? Here\'s more: https://status.lenoxbot.com/');
+	/* const config = require('../../settings.json');
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const moment = require('moment');
 	require('moment-duration-format');
@@ -101,7 +102,9 @@ exports.run = async (client, msg, args, lang) => {
 				embed
 			});
 		} else {
-			/* eslint no-else-return: 0 */
+			*/
+	/* eslint no-else-return: 0 */
+	/*
 			const queueConstruct = {
 				textChannel: msg.channel,
 				voiceChannel: voiceChannel,
@@ -185,10 +188,11 @@ exports.run = async (client, msg, args, lang) => {
 		}
 	}
 	handleVideo(video, false);
+	*/
 };
 
 exports.conf = {
-	enabled: true,
+	enabled: false,
 	guildOnly: false,
 	shortDescription: 'Musicplayersettings',
 	aliases: [],

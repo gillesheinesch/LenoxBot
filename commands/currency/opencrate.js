@@ -1,29 +1,23 @@
 const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
+const marketitemskeys = require('../../marketitems-keys.json');
 exports.run = async (client, msg, args, lang) => {
 	const userdb = await client.userdb.get(msg.author.id);
 	const tableload = await client.guildconfs.get(msg.guild.id);
-	const validation = [
-		['crate', 'apple', 'phone'],
-		['cat', 'football', 'joystick'],
-		['clock', 'dog', 'pickaxe'],
-		['dog', 'bag', 'phone'],
-		['clock', 'cat', 'dog'],
-		['crate', 'apple', 'joystick'],
-		['rose', 'umbrella', 'hamburger'],
-		['dog', 'book', 'mag'],
-		['cat', 'hammer', 'banana'],
-		['banana', 'apple', 'dog'],
-		['rose', 'bed', 'hamburger'],
-		['rose', 'croissant', 'clock'],
-		['apple', 'football', 'banana'],
-		['bag', 'pickaxe', 'crate'],
-		['flashlight', 'cratekey', 'hamburger']
-	];
-	const marketconfs = await client.botconfs.get('market');
 
-	const result = Math.floor(Math.random() * validation.length);
+	const validationOfItems = [];
+	for (const x in marketitemskeys) {
+		if (Number(marketitemskeys[x][2]) < 500) { // Between 200-499
+			validationOfItems.push(x);
+		}
+	}
+	const random1 = Math.floor(Math.random() * validationOfItems.length);
+	const random2 = Math.floor(Math.random() * validationOfItems.length);
+	const random3 = Math.floor(Math.random() * validationOfItems.length);
+	const validation = [validationOfItems[random1], validationOfItems[random2], validationOfItems[random3]]
+
+	const marketconfs = await client.botconfs.get('market');
 
 	let inventoryslotcheck = 0;
 	/* eslint guard-for-in: 0 */
@@ -59,8 +53,8 @@ exports.run = async (client, msg, args, lang) => {
 		return msg.reply(lang.opencrate_nocratekey);
 	}
 
-	for (let i = 0; i < validation[result].length; i++) {
-		userdb.inventory[validation[result][i]] += 1;
+	for (let i = 0; i < validation.length; i++) {
+		userdb.inventory[validation[i]] += 1;
 		await client.userdb.set(msg.author.id, userdb);
 	}
 
@@ -68,10 +62,10 @@ exports.run = async (client, msg, args, lang) => {
 	userdb.inventory.crate -= 1;
 	await client.userdb.set(msg.author.id, userdb);
 
-	const won = lang.opencrate_won.replace('%item1', `${marketconfs[validation[result][0]][0]} ${lang[`loot_${validation[result][0]}`]}`).replace('%amount1', marketconfs[validation[result][0]][1]).replace('%item2', `${marketconfs[validation[result][1]][0]} ${lang[`loot_${validation[result][1]}`]}`)
-		.replace('%amount2', marketconfs[validation[result][1]][1])
-		.replace('%item3', `${marketconfs[validation[result][2]][0]} ${lang[`loot_${validation[result][2]}`]}`)
-		.replace('%amount3', marketconfs[validation[result][2]][1]);
+	const won = lang.opencrate_won.replace('%item1', `${marketconfs[validation[0]][0]} ${lang[`loot_${validation[0]}`]}`).replace('%amount1', marketconfs[validation[0]][1]).replace('%item2', `${marketconfs[validation[1]][0]} ${lang[`loot_${validation[1]}`]}`)
+		.replace('%amount2', marketconfs[validation[1]][1])
+		.replace('%item3', `${marketconfs[validation[2]][0]} ${lang[`loot_${validation[2]}`]}`)
+		.replace('%amount3', marketconfs[validation[2]][1]);
 	msg.reply(`📁 ${won}`);
 };
 
