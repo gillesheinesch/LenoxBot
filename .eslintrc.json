@@ -10,6 +10,7 @@
     "rules": {
         "capitalized-comments": "off",
         "no-console": "off",
-        "no-await-in-loop": "off"
+        "no-await-in-loop": "off",
+		"no-undefined": "off"
     }
 }

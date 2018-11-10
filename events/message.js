@@ -160,8 +160,16 @@ exports.run = async (client, msg) => {
 			numberofuserkeys: 0,
 			numberofguildkeys: 0,
 			redeemeduserkeys: [],
-			redeemedguildkeys: []
+			redeemedguildkeys: [],
+			guildkeys: [],
+			userkeys: []
 		};
+		await client.botconfs.set('premium', botconfspremiumload);
+	}
+
+	if (!botconfspremiumload.keys.guildkeys) {
+		botconfspremiumload.keys.guildkeys = [];
+		botconfspremiumload.keys.userkeys = [];
 		await client.botconfs.set('premium', botconfspremiumload);
 	}
 
