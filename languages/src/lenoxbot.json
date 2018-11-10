@@ -475,7 +475,7 @@
 
     "togglexpmessages_set": "The xp messages were successfully activated",
     "togglexpmessages_deleted": "The xp messages were successfully disabled",
-    "togglexpmessages_description": "Sets the xp messages on or off",
+    "togglexpmessages_description": "Toggles the xp messages",
 
     "tictactoe_nomention": "You must mention an user to play TicTacToe!",
     "tictactoe_notoline": "The mentioned user has to be online to play TicTacToe with you!",
@@ -541,7 +541,7 @@
 
     "togglechatfilter_activated": "The chatfilter was successfully activated",
     "togglechatfilter_disabled": "The chatfilter was successfully disabled",
-    "togglechatfilter_description": "Sets the chatfilter on or off",
+    "togglechatfilter_description": "Toggles the chatfilter",
 
     "toggleapplication_error": "The application system is currently disabled for this server",
     "toggleapplication_activated": "The application system was successfully activated!",
@@ -620,7 +620,7 @@
     "commanddeletion_nodeletionset": "Commands are no longer deleted after execution",
     "commanddeletion_description": "Toggles the deletion of a command after execution",
 
-    "deactivatemodule_noinput": "You forgot to enter the name of the module you want to deactivate.",
+    "deactivatemodule_noinput": "You forgot to enter the name of the module you want to deactivate!",
     "deactivatemodule_administration": "Administration commands are always activated and cannot be deactivated.",
     "deactivatemodule_partner": "Partner commands are always activated and cannot be deactivated.",
     "deactivatemodule_alreadydisabled": "This module is already deactivated",
@@ -1114,7 +1114,7 @@
     "news_description": "Use this command to request news from different newspaper",
 
     "steamprofile_validsteamid": "Please make sure that you have inserted a valid SteamID64! Here you can get your Steam64ID: https://steamid.io/",
-    "steamprofile_nosteamid": "This wasn't a Steam64ID. Here you can get your Steam64ID: https://steamid.io/",
+    "steamprofile_nosteamid": "Your input wasn't a Steam64ID. Here you can get your Steam64ID: https://steamid.io/",
     "steamprofile_rep": "Reputation",
     "steamprofile_tban": "Trade ban(s)",
     "steamprofile_vban": "VAC ban(s)",
