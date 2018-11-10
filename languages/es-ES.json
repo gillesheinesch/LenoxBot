@@ -778,7 +778,6 @@
     "help_commandscommand": "Para ver todos los comandos de un módulo:",
     "help_helpcommand": "Para ver más detalles sobre un comando:",
     "help_permissions": "Permisos necesarios",
-    "help_ludushosting": "LudusHosting (Nuestro partner)",
     "help_usage": "Uso",
     "help_example": "Ejemplo",
     "help_category": "Módulo: %category",

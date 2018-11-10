@@ -38,7 +38,7 @@
                                     height="120" width="120">
                                 {{/if}}
                             </figure>
-                            <h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small> {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-muted mdi mdi-security-account"></small>{{/if}}</h1>
+                            <h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small> {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-primary mdi mdi-security-account"></small>{{/if}}</h1>
                             <p class="h4 font-weight-light text-center">{{userDescription}}</p>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                                 {{#if badgesAndTitles}}
                                 <div class="row">
                                     {{#each badgesAndTitles}}
-                                    <div data-toggle="tooltip" data-placement="left" title="{{capitalize name}}" class="col-3 p-0 lb-profile-badge">{{emoji}}</div>
+                                    <div class="col-3 p-0 lb-profile-badge"><span data-toggle="tooltip" data-placement="left" title="{{capitalize name}}">{{emoji}}</span></div>
                                     {{/each}}
                                 </div>
                                 {{else}}
