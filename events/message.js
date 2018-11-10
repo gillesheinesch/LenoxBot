@@ -167,6 +167,12 @@ exports.run = async (client, msg) => {
 		await client.botconfs.set('premium', botconfspremiumload);
 	}
 
+	if (!botconfspremiumload.keys.guildkeys) {
+		botconfspremiumload.keys.guildkeys = [];
+		botconfspremiumload.keys.userkeys = [];
+		await client.botconfs.set('premium', botconfspremiumload);
+	}
+
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 		if (!row) {
 			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
