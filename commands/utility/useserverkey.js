@@ -6,8 +6,7 @@ exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 
 	if (!input || input.length === 0) return msg.reply(lang.useserverkey_noinput);
-	if (botconfspremiumload.keys.guildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_notexist);
-
+	if (!botconfspremiumload.keys.guildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_notexist);
 	if (botconfspremiumload.keys.redeemedguildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_already);
 
 	if (tableload.premium.status === false) {
