@@ -3212,6 +3212,8 @@ app.get('/dashboard/:id/music', async (req, res) => {
 				roles: roles,
 				musiccurrentlyplaying: client.queue.get(dashboardid) ? true : false,
 				song: client.queue.get(dashboardid) ? client.queue.get(dashboardid).songs[0].title : false,
+				discordServerPremium: tableload.premium.status,
+				discordServerPlaylists: Object.keys(tableload.playlist).length === 0 ? false : tableload.playlist,
 				commands: commands,
 				submitmusic: req.query.submitmusic ? true : false
 			});
