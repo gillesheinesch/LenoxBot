@@ -103,6 +103,11 @@ exports.run = async (client, msg) => {
 		await client.botconfs.set('botconfs', botconfs);
 	}
 
+	if (!botconfs.appeals) {
+		botconfs.appeals = {};
+		await client.botconfs.set('botconfs', botconfs);
+	}
+
 	/* eslint quote-props: ["error", "as-needed"]*/
 	botconfs.badgeEmojis = {
 		administrator: ['🅰', 10],
