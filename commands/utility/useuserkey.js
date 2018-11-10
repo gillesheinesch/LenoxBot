@@ -6,8 +6,7 @@ exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 
 	if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
-	if (botconfspremiumload.keys.userkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
-
+	if (!botconfspremiumload.keys.userkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
 	if (botconfspremiumload.keys.redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
 
 	if (userdb.premium.status === false) {
@@ -51,7 +50,7 @@ exports.run = async (client, msg, args, lang) => {
 	await client.cooldowns.set('useuserkey', timestamps);
 
 	const embed = new Discord.RichEmbed()
-		.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}`)
+		.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(userdb.premium.end)).toUTCString()}`)
 		.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 		.setTimestamp()
 		.setColor('#66ff33')
