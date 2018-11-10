@@ -64,7 +64,7 @@
     "ytdl-core": "^0.20.1"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
+    "eslint": "^5.9.0",
     "eslint-config-aqua": "^4.4.1"
   },
   "scripts": {
