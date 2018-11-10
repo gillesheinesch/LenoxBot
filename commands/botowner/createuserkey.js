@@ -1,20 +1,37 @@
 const settings = require('../../settings.json');
+const keygenerator = require('../../utils/keygenerator.js');
 exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
 	const botconfspremiumload = await client.botconfs.get('premium');
-	botconfspremiumload.keys.numberofuserkeys += 1;
-	await client.botconfs.set('premium', botconfspremiumload);
 
-	const embeddescription = lang.createuserkey_embeddescription.replace('%premiumcode', botconfspremiumload.keys.numberofuserkeys);
+	let key = '';
+
+	for (let i = 0; i < 1000; i++) {
+		key = keygenerator.generateKey();
+
+		if (!botconfspremiumload.keys.userkeys.includes(key)) {
+			break;
+		}
+
+		if (i === 999) {
+			key = undefined;
+		}
+	}
+
+	if (key !== undefined) {
+		botconfspremiumload.keys.userkeys.push(key);
+	}
+
+	const embeddescription = lang.createuserkey_embeddescription.replace('%premiumcode', key);
 	const embed = new Discord.RichEmbed()
 		.setDescription(embeddescription)
 		.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 		.setTimestamp()
 		.setColor('#cc99ff')
 		.setTitle(lang.createuserkey_embedtitle);
-	await client.channels.get('497400179201277992').send({ embed });
+	await client.channels.get(settings.keychannel).send({ embed });
 
 	msg.reply(lang.createuserkey_message);
 };

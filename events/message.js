@@ -160,7 +160,9 @@ exports.run = async (client, msg) => {
 			numberofuserkeys: 0,
 			numberofguildkeys: 0,
 			redeemeduserkeys: [],
-			redeemedguildkeys: []
+			redeemedguildkeys: [],
+			guildkeys: [],
+			userkeys: []
 		};
 		await client.botconfs.set('premium', botconfspremiumload);
 	}
@@ -268,7 +270,7 @@ exports.run = async (client, msg) => {
 		await client.guildconfs.set(msg.guild.id, tableload);
 	}
 
-	// Check if all channels still exist
+	// Check if all channels of the guildsettings still exist
 	if (tableload.modlogchannel !== '' && !msg.guild.channels.get(tableload.modlogchannel)) {
 		tableload.modlog = 'false';
 		tableload.modlogchannel = '';

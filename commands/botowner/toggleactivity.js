@@ -2,7 +2,7 @@ const settings = require('../../settings.json');
 exports.run = async (client, msg, args, lang) => {
 	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
-	const tableload = client.botconfs.get('botconfs');
+	const tableload = await client.botconfs.get('botconfs');
 	const channelId = msg.channel.id;
 
 	if (tableload.activity === false) {
@@ -10,12 +10,13 @@ exports.run = async (client, msg, args, lang) => {
 		tableload.activitychannel = channelId;
 
 		const set = lang.toggleactivity_set.replace('%channelname', `#${msg.channel.name}`);
-		return msg.channel.send(set);
-	}
-	tableload.activity = false;
+		msg.channel.send(set);
+	} else {
+		tableload.activity = false;
 
-	const unset = lang.toggleactivity_unset.replace('%channelname', `#${msg.channel.name}`);
-	msg.channel.send(unset);
+		const unset = lang.toggleactivity_unset.replace('%channelname', `#${msg.channel.name}`);
+		msg.channel.send(unset);
+	}
 
 	await client.botconfs.set('botconfs', tableload);
 };

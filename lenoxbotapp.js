@@ -55,7 +55,7 @@ if (settings.dbl_apikey && settings.dbl_apikey !== '') {
 }
 // Check if settings.json is correctly configuered
 
-if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '' || !settings.owners || settings.owners.length === 0) {
+if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.sqlitefilename || settings.sqlitefilename === '' || !settings.owners || settings.owners.length === 0 || !settings.keychannel || settings.keychannel === '' || !settings.websiteport || isNaN(settings.websiteport)) {
 	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
 	return process.exit(42);
 }
@@ -151,7 +151,7 @@ app.get('/callback',
 		res.redirect('/servers');
 	});
 
-app.listen(80, err => {
+app.listen(settings.websiteport, err => {
 	if (err) return console.log(err);
 });
 
@@ -462,8 +462,11 @@ app.get('/profile/:id', async (req, res) => {
 
 		const badgesAndTitles = [];
 		for (let i = 0; i < badges.length; i++) {
-			badgesAndTitles.push(badges[i].emoji);
-			badgesAndTitles.push(badges[i].name);
+			const settingsForBadgesAndTitles = {
+				emoji: badges[i].emoji,
+				name: badges[i].name
+			};
+			badgesAndTitles.push(settingsForBadgesAndTitles);
 		}
 		sql.open(`../${settings.sqlitefilename}.sqlite`);
 		const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);

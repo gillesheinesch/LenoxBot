@@ -5,17 +5,29 @@ const math = require('math-expression-evaluator');
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const userdb = await client.userdb.get(msg.author.id);
-	const firstNumber = Math.floor(Math.random() * 10) + Math.floor(userdb.mathematics.level / 5);
-	const secondNumber = Math.floor(Math.random() * 10) + Math.floor(userdb.mathematics.level / 5);
+	const randomForNumbers = Math.random();
+	let firstNumber;
+	let secondNumber;
+
+	if (randomForNumbers <= 0.33) {
+		firstNumber = Math.floor(Math.random() * 10) + Math.floor(userdb.mathematics.level / 5);
+		secondNumber = Math.floor(Math.random() * 15) + Math.floor(userdb.mathematics.level / 5);
+	} else if (randomForNumbers <= 0.66) {
+		firstNumber = Math.floor(Math.random() * 10) - Math.floor(userdb.mathematics.level / 5);
+		secondNumber = Math.floor(Math.random() * 15) + Math.floor(userdb.mathematics.level / 5);
+	} else if (randomForNumbers <= 1) {
+		firstNumber = Math.floor(Math.random() * 10) - Math.floor(userdb.mathematics.level / 5);
+		secondNumber = Math.floor(Math.random() * 15) - Math.floor(userdb.mathematics.level / 5);
+	}
 
 	const signs = ['+', '-', '*'];
-	const sign = Math.floor(Math.random() * 3);
+	const sign = Math.floor(Math.random() * signs.length);
 
 	const embed = new Discord.RichEmbed()
 		.setFooter(msg.author.tag)
 		.setTitle(lang.math_embedauthor)
 		.setColor('#3399ff')
-		.setDescription(`**${firstNumber} ${signs[sign]} ${secondNumber}**`);
+		.setDescription(`**${Number(firstNumber) < 0 ? `(${firstNumber})` : firstNumber} ${signs[sign]} ${Number(secondNumber) < 0 ? `(${secondNumber})` : secondNumber}**`);
 
 	await msg.channel.send({
 		embed: embed

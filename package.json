@@ -11,7 +11,7 @@
     "better-sqlite-pool": "^0.1.2",
     "body-parser": "^1.18.2",
     "btc-value": "^1.4.3",
-    "canvas": "^2.0.0-alpha.13",
+    "canvas": "^2.0.1",
     "canvas-constructor": "^1.0.1",
     "chalk": "^2.4.1",
     "child_process": "^1.0.2",
@@ -23,7 +23,6 @@
     "destiny2": "^1.1.1",
     "discord.js": "^11.4.2",
     "enmap": "^4.3.3",
-    "enmap-level": "^2.1.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
@@ -64,7 +63,10 @@
     "util.js": "^0.0.0",
     "ytdl-core": "^0.20.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint": "^5.8.0",
+    "eslint-config-aqua": "^4.4.1"
+  },
   "scripts": {
     "test": "npm run lint && npm run lint:commands && npm run lint:events",
     "lint": "eslint *.js",
