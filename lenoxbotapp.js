@@ -5113,7 +5113,7 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res
 			const tableload = await client.guildconfs.get(dashboardid);
 
 			let newDescription;
-			const newCommandName = req.body.commandname;
+			const newCommandName = req.body.newname;
 			const newResponse = req.body.newcommandanswer;
 			if (req.body.newdescription) {
 				newDescription = req.body.newdescription;
