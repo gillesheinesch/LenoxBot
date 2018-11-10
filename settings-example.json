@@ -10,5 +10,5 @@
     "callbackURL_Auth": "Callback URL Auth",
     "dbl_apikey": "Your Discord Bot List API Token",
     "websiteport": "",
-    "botdiscord": ""
+    "keychannel": ""
 }
