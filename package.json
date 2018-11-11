@@ -68,9 +68,9 @@
     "eslint-config-aqua": "^4.4.1"
   },
   "scripts": {
-    "test": "npm run lint && npm run lint:commands && npm run lint:events",
+    "test": "npm run lint && npm run lint:commands && npm run lint:events && npm run lint:utils",
     "lint": "eslint *.js",
-    "lint:fix": "eslint commands --fix && eslint events --fix && eslint *js --fix",
+    "lint:fix": "eslint commands --fix && eslint events --fix && eslint *js --fix && eslint utils --fix",
     "lint:commands": "eslint commands",
     "lint:events": "eslint events"
   },

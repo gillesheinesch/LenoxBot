@@ -15,7 +15,7 @@ exports.run = async (client, msg, args, lang) => {
 	const random1 = Math.floor(Math.random() * validationOfItems.length);
 	const random2 = Math.floor(Math.random() * validationOfItems.length);
 	const random3 = Math.floor(Math.random() * validationOfItems.length);
-	const validation = [validationOfItems[random1], validationOfItems[random2], validationOfItems[random3]]
+	const validation = [validationOfItems[random1], validationOfItems[random2], validationOfItems[random3]];
 
 	const marketconfs = await client.botconfs.get('market');
 
