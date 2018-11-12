@@ -1,4 +1,9 @@
 {
+    "translate_embedtitle": "Translation project",
+    "translate_embeddescription": "Our goal is to offer LenoxBot in many different languages. It allows anyone to change the bot's language to their native language. However, there are over 10 thousand words to translate and that's why we need your help. \nYou have the opportunity to help us to translate LenoxBot by joining the project linked below! \n\nThank you and have fun!",
+    "translate_embedfieldtitle": "Translation project link:",
+    "translate_description": "Gives you informations about our translation project",
+
     "removexp_noamount": "You didn't enter an amount of XP!",
     "removexp_amountnan": "You didn't enter a number for the amount of XP!",
     "removexp_atleast1": "Your amount of XP has to be at least 1!",
