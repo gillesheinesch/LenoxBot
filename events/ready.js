@@ -194,8 +194,14 @@ exports.run = async client => {
 			if (!guild) return;
 
 			const membermention = guild.members.get(muteconf.memberid);
+			if (!membermention) return undefined;
+
 			const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
+			if (!role) return undefined;
+
 			const user = client.users.get(muteconf.memberid);
+			if (!user) return undefined;
+
 			const tableload = client.guildconfs.get(muteconf.discordserverid);
 
 			if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
