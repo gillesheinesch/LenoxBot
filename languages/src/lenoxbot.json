@@ -1235,7 +1235,7 @@
     "paycredits_creditsgiven": "%author, %creditscount credits were given to %mentiontag!",
     "paycredits_description": "Allows an user to give their credits to someone",
 
-    "ping_ping": "Here we go! It took %timestampms to send this message!",
+    "ping_ping": "Latency: %latencys \nAPI Latency: %latencyapis",
     "ping_description": "Shows you how long the bot needs to send a message",
 
     "randomnumber_number": "You must enter a number!",
