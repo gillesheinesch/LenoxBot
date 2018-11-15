@@ -1,4 +1,11 @@
 {
+    "togglecommand_noinput": "You forgot to enter the command name!",
+    "togglecommand_notchangeable": "We're sorry but you can't change the status of this command",
+    "togglecommand_settofalse": "You succesfully disabled the command!",
+    "togglecommand_settotrue": "You succesfully activated the command!",
+    "togglecommand_nocommand": "We couldn't find this command. Please check if you mistyped the command name!",
+    "togglecommand_description": "Toggles the status of a command",
+
     "translate_embedtitle": "Translation project",
     "translate_embeddescription": "Our goal is to offer LenoxBot in many different languages. It allows anyone to change the bot's language to their native language. However, there are over 10 thousand words to translate and that's why we need your help. \nYou have the opportunity to help us to translate LenoxBot by joining the project linked below! \n\nThank you and have fun!",
     "translate_embedfieldtitle": "Translation project link:",
