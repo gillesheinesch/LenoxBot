@@ -3,8 +3,8 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const marketitemskeys = require('../../marketitems-keys.json');
 exports.run = async (client, msg, args, lang) => {
-	const userdb = await client.userdb.get(msg.author.id);
-	const tableload = await client.guildconfs.get(msg.guild.id);
+	const userdb = client.userdb.get(msg.author.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
 
 	const validationOfItems = [];
 	for (const x in marketitemskeys) {
@@ -17,7 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 	const random3 = Math.floor(Math.random() * validationOfItems.length);
 	const validation = [validationOfItems[random1], validationOfItems[random2], validationOfItems[random3]];
 
-	const marketconfs = await client.botconfs.get('market');
+	const marketconfs = client.botconfs.get('market');
 
 	let inventoryslotcheck = 0;
 	/* eslint guard-for-in: 0 */
@@ -28,39 +28,39 @@ exports.run = async (client, msg, args, lang) => {
 	if (inventoryslotcheck >= userdb.inventoryslots) {
 		const timestamps = client.cooldowns.get('opencrate');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('opencrate', timestamps);
+		client.cooldowns.set('opencrate', timestamps);
 		return msg.reply(inventoryfull);
 	}
 
 	if (userdb.inventory.cratekey === 0 && userdb.inventory.crate === 0) {
 		const timestamps = client.cooldowns.get('opencrate');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('opencrate', timestamps);
+		client.cooldowns.set('opencrate', timestamps);
 		return msg.reply(lang.opencrate_nocrateandkey);
 	}
 
 	if (userdb.inventory.cratekey === 0) {
 		const timestamps = client.cooldowns.get('opencrate');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('opencrate', timestamps);
+		client.cooldowns.set('opencrate', timestamps);
 		return msg.reply(lang.opencrate_nocrate);
 	}
 
 	if (userdb.inventory.crate === 0) {
 		const timestamps = client.cooldowns.get('opencrate');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('opencrate', timestamps);
+		client.cooldowns.set('opencrate', timestamps);
 		return msg.reply(lang.opencrate_nocratekey);
 	}
 
 	for (let i = 0; i < validation.length; i++) {
 		userdb.inventory[validation[i]] += 1;
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 	}
 
 	userdb.inventory.cratekey -= 1;
 	userdb.inventory.crate -= 1;
-	await client.userdb.set(msg.author.id, userdb);
+	client.userdb.set(msg.author.id, userdb);
 
 	const won = lang.opencrate_won.replace('%item1', `${marketconfs[validation[0]][0]} ${lang[`loot_${validation[0]}`]}`).replace('%amount1', marketconfs[validation[0]][1]).replace('%item2', `${marketconfs[validation[1]][0]} ${lang[`loot_${validation[1]}`]}`)
 		.replace('%amount2', marketconfs[validation[1]][1])

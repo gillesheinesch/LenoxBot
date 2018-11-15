@@ -3,7 +3,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!tableload.skipvote) {
 		tableload.skipvote = 'false';
-		await client.guildconfs.set(msg.guild, tableload);
+		client.guildconfs.set(msg.guild, tableload);
 	}
 
 	if (tableload.skipvote === 'false') {

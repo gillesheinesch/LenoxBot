@@ -13,7 +13,7 @@ exports.run = async (client, msg, args, lang) => {
 			archivechannellog: '',
 			status: 'false'
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (firstNumber.length === 0) return msg.reply(lang.editentry_noid);
@@ -23,7 +23,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	tableload.application.template[Number(firstNumber) - 1] = newEntryText.join(' ');
 
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	const set = lang.editentry_set.replace('%id', firstNumber);
 	msg.reply(set);

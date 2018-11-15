@@ -3,7 +3,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!tableload.ara) {
 		tableload.ara = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	const input = args.slice();
@@ -22,7 +22,7 @@ exports.run = async (client, msg, args, lang) => {
 	const roleId = foundRole.id;
 	tableload.ara.push(roleId);
 	tableload.ara.push(input[0]);
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.addautomaticrole_added);
 };

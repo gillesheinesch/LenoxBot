@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
 exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
 	moment.locale(tableload.momentLanguage);
 
 	const servercreated = moment(msg.guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');

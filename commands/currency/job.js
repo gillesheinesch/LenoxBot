@@ -6,13 +6,13 @@ require('moment-duration-format');
 const Discord = require('discord.js');
 const ms = require('ms');
 exports.run = async (client, msg, args, lang) => {
-	const userdb = await client.userdb.get(msg.author.id);
-	const botconfs = await client.botconfs.get('botconfs');
+	const userdb = client.userdb.get(msg.author.id);
+	const botconfs = client.botconfs.get('botconfs');
 
 	if (userdb.jobstatus === true) {
 		const timestamps = client.cooldowns.get('job');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('job', timestamps);
+		client.cooldowns.set('job', timestamps);
 		return msg.reply(lang.job_error);
 	}
 
@@ -64,7 +64,7 @@ exports.run = async (client, msg, args, lang) => {
 		if (!userdb.inventory[jobslist[response.first().content - 1][3]] >= 1) {
 			const timestamps = client.cooldowns.get('job');
 			delete timestamps[msg.author.id];
-			await client.cooldowns.set('job', timestamps);
+			client.cooldowns.set('job', timestamps);
 			return msg.reply(notenough);
 		}
 	}
@@ -96,8 +96,8 @@ exports.run = async (client, msg, args, lang) => {
 		discordServerID: msg.guild.id,
 		channelID: msg.channel.id
 	};
-	await client.botconfs.set('botconfs', botconfs);
-	await client.userdb.set(msg.author.id, userdb);
+	client.botconfs.set('botconfs', botconfs);
+	client.userdb.set(msg.author.id, userdb);
 
 	const activityEmbed = new Discord.RichEmbed()
 		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)

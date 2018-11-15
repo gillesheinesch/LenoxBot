@@ -4,13 +4,13 @@ exports.run = async (client, msg, args, lang) => {
 	if (tableload.application.notificationstatus === false) {
 		tableload.application.notificationstatus = true;
 		tableload.application.notificationchannel = channelid;
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 
 		const channelset = lang.applicationnotification_channelset.replace('%channelname', `**#${msg.channel.name}**`);
 		return msg.channel.send(channelset);
 	}
 	tableload.application.notificationstatus = false;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.applicationnotification_channeldeleted);
 };

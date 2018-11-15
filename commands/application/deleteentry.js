@@ -11,7 +11,7 @@ exports.run = async (client, msg, args, lang) => {
 			archivechannellog: '',
 			status: 'false'
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	const input = args.slice().join(' ');
@@ -22,7 +22,7 @@ exports.run = async (client, msg, args, lang) => {
 		for (let i = 0; i < tableload.application.template.length; i++) {
 			if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {
 				tableload.application.template.splice(i, 1);
-				await client.guildconfs.set(msg.guild.id, tableload);
+				client.guildconfs.set(msg.guild.id, tableload);
 
 				const removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
 				return msg.channel.send(removed);
@@ -30,7 +30,7 @@ exports.run = async (client, msg, args, lang) => {
 		}
 	} else {
 		tableload.application.template.splice(parseInt(input, 10) - 1, 1);
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 
 		const removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
 		return msg.channel.send(removed);

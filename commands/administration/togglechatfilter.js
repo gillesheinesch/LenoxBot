@@ -6,17 +6,17 @@ exports.run = async (client, msg, args, lang) => {
 			chatfilter: 'false',
 			array: []
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.chatfilter.chatfilter === 'false') {
 		tableload.chatfilter.chatfilter = 'true';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 
 		return msg.channel.send(lang.togglechatfilter_activated);
 	}
 	tableload.chatfilter.chatfilter = 'false';
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.togglechatfilter_disabled);
 };

@@ -3,7 +3,7 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const creditsAmount = args.slice(0, 1);
-	const tableload = await client.guildconfs.get(msg.guild.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (isNaN(creditsAmount)) return msg.reply(lang.creditstoxp_nan);
 	if (Number(creditsAmount) <= 0) return msg.reply(lang.creditstoxp_under1);

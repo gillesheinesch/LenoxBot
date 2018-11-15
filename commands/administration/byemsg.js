@@ -3,7 +3,7 @@ exports.run = async (client, msg, args, lang) => {
 	const content = args.slice().join(' ');
 	if (!content) return msg.channel.send(lang.byemsg_noinput);
 	tableload.byemsg = content;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.byemsg_goodbyemsgset);
 };

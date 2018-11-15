@@ -422,7 +422,7 @@ app.get('/leaderboards/server/:id', async (req, res) => {
 app.get('/profile/:id', async (req, res) => {
 	try {
 		const profileId = req.params.id;
-		const userdb = await client.userdb.get(profileId);
+		const userdb = client.userdb.get(profileId);
 		const profileUser = client.users.get(req.params.id);
 		let isstaff = false;
 		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'documentation-moderator', 'designer', 'translation-leader', 'translation-proofreader'];
@@ -493,7 +493,7 @@ app.get('/profile/:id', async (req, res) => {
 
 		const rowCredits = await sql.get(`SELECT * FROM medals WHERE userId = "${req.params.id}"`);
 
-		const marketconfs = await client.botconfs.get('market');
+		const marketconfs = client.botconfs.get('market');
 		const lang = require('./languages/en-US.json');
 		let check = 0;
 		const array1 = [];
@@ -728,12 +728,12 @@ app.get('/servers', async (req, res) => {
 			for (let i = 0; i < req.user.guilds.length; i++) {
 				if (client.guildconfs.get(req.user.guilds[i].id) && client.guilds.get(req.user.guilds[i].id)) {
 					const dashboardid = req.user.guilds[i].id;
-					const tableload = await client.guildconfs.get(dashboardid);
+					const tableload = client.guildconfs.get(dashboardid);
 
 
 					if (!tableload.dashboardpermissionroles) {
 						tableload.dashboardpermissionroles = [];
-						await client.guildconfs.set(dashboardid, tableload);
+						client.guildconfs.set(dashboardid, tableload);
 					}
 
 					if (tableload.dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
@@ -796,7 +796,7 @@ app.get('/servers', async (req, res) => {
 app.post('/tickets/:ticketid/submitticketanswer', async (req, res) => {
 	try {
 		if (req.user) {
-			const botconfs = await client.botconfs.get('botconfs');
+			const botconfs = client.botconfs.get('botconfs');
 			if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 			if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 
@@ -814,10 +814,10 @@ app.post('/tickets/:ticketid/submitticketanswer', async (req, res) => {
 				timelineconf: ''
 			};
 
-			await client.botconfs.set('botconfs', botconfs);
+			client.botconfs.set('botconfs', botconfs);
 
 			if (client.guildconfs.get(ticket.guildid) && client.guildconfs.get(ticket.guildid).tickets.status === true) {
-				const tableload = await client.guildconfs.get(ticket.guildid);
+				const tableload = client.guildconfs.get(ticket.guildid);
 				const lang = require(`./languages/${tableload.language}.json`);
 
 				const ticketembedanswer = lang.mainfile_ticketembedanswer.replace('%ticketid', ticket.ticketid);
@@ -859,7 +859,7 @@ app.post('/tickets/:ticketid/submitticketanswer', async (req, res) => {
 app.post('/tickets/:ticketid/submitnewticketstatus', async (req, res) => {
 	try {
 		if (req.user) {
-			const botconfs = await client.botconfs.get('botconfs');
+			const botconfs = client.botconfs.get('botconfs');
 			if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 			if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 			if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
@@ -890,7 +890,7 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async (req, res) => {
 				};
 			}
 
-			await client.botconfs.set('botconfs', botconfs);
+			client.botconfs.set('botconfs', botconfs);
 
 			return res.redirect(url.format({
 				pathname: `/tickets/${ticket.ticketid}/overview`,
@@ -914,7 +914,7 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async (req, res) => {
 app.get('/tickets/:ticketid/overview', async (req, res) => {
 	try {
 		if (req.user) {
-			const botconfs = await client.botconfs.get('botconfs');
+			const botconfs = client.botconfs.get('botconfs');
 			if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 			if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 
@@ -967,7 +967,7 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 			const guildsettingskeys = require('./guildsettings-keys.json');
 			guildsettingskeys.prefix = settings.prefix;
 			if (client.guildconfs.get(dashboardid)) {
-				const tableload = await client.guildconfs.get(dashboardid);
+				const tableload = client.guildconfs.get(dashboardid);
 
 				for (const key in guildsettingskeys) {
 					if (!tableload[key]) {
@@ -997,7 +997,7 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 					}
 				}
 
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			} else {
 				for (let i = 0; i < client.commands.array().length; i++) {
 					if (!guildsettingskeys.commands[client.commands.array()[i].help.name]) {
@@ -1021,7 +1021,7 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 					}
 				}
 
-				await client.guildconfs.set(dashboardid, guildsettingskeys);
+				client.guildconfs.set(dashboardid, guildsettingskeys);
 			}
 
 			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
@@ -1056,7 +1056,7 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 			let logs;
 
 			if (client.guildconfs.get(dashboardid).globallogs) {
-				const thelogs = await client.guildconfs.get(dashboardid).globallogs;
+				const thelogs = client.guildconfs.get(dashboardid).globallogs;
 				logs = thelogs.sort((a, b) => {
 					if (a.date < b.date) {
 						return 1;
@@ -1122,7 +1122,7 @@ app.post('/dashboard/:id/administration/submitlogs', async (req, res) => {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (req.body[Object.keys(req.body)[0]] === 'false') {
 				tableload[Object.keys(req.body)[0]] = 'false';
@@ -1138,7 +1138,7 @@ app.post('/dashboard/:id/administration/submitlogs', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1190,7 +1190,7 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async (req, 
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (req.body.newselfassignableroles) {
 				const newselfassignableroles = req.body.newselfassignableroles;
@@ -1216,7 +1216,7 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async (req, 
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1270,7 +1270,7 @@ app.post('/dashboard/:id/administration/submittogglexp', async (req, res) => {
 
 			const newxpchannels = req.body.newxpchannels;
 			const array = [];
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (Array.isArray(newxpchannels)) {
 				for (let i = 0; i < newxpchannels.length; i++) {
@@ -1289,7 +1289,7 @@ app.post('/dashboard/:id/administration/submittogglexp', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1343,7 +1343,7 @@ app.post('/dashboard/:id/administration/submitbyemsg', async (req, res) => {
 
 			const newbyemsg = req.body.newbyemsg;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.byemsg = newbyemsg;
 
@@ -1354,7 +1354,7 @@ app.post('/dashboard/:id/administration/submitbyemsg', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1408,7 +1408,7 @@ app.post('/dashboard/:id/administration/submitwelcomemsg', async (req, res) => {
 
 			const newwelcomemsg = req.body.newwelcomemsg;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.welcomemsg = newwelcomemsg;
 
@@ -1419,7 +1419,7 @@ app.post('/dashboard/:id/administration/submitwelcomemsg', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1473,7 +1473,7 @@ app.post('/dashboard/:id/administration/submitprefix', async (req, res) => {
 
 			const newprefix = req.body.newprefix;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.prefix = newprefix;
 
@@ -1484,7 +1484,7 @@ app.post('/dashboard/:id/administration/submitprefix', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1538,7 +1538,7 @@ app.post('/dashboard/:id/administration/submitlanguage', async (req, res) => {
 
 			const newlanguage = req.body.newlanguage;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.language = newlanguage;
 
@@ -1549,7 +1549,7 @@ app.post('/dashboard/:id/administration/submitlanguage', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/modules`,
@@ -1603,7 +1603,7 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res)
 
 			const newcommanddeletion = req.body.newcommanddeletion;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.commanddel = newcommanddeletion;
 
@@ -1614,7 +1614,7 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res)
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1668,7 +1668,7 @@ app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 
 			const newmuterole = req.body.newmuterole;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.muterole = newmuterole;
 
@@ -1679,7 +1679,7 @@ app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1733,7 +1733,7 @@ app.post('/dashboard/:id/administration/submittogglechatfilter', async (req, res
 
 			const newchatfilter = req.body.newchatfilter;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.chatfilter.chatfilter = newchatfilter;
 
@@ -1744,7 +1744,7 @@ app.post('/dashboard/:id/administration/submittogglechatfilter', async (req, res
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1798,7 +1798,7 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async (req, res
 
 			const newxpmessages = req.body.newxpmessages;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.xpmessages = newxpmessages;
 
@@ -1809,7 +1809,7 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async (req, res
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1862,7 +1862,7 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res)
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
 
@@ -1883,7 +1883,7 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res)
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -1937,7 +1937,7 @@ app.post('/dashboard/:id/administration/submittogglewelcome', async (req, res) =
 
 			const newwelcome = req.body.newwelcome;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (newwelcome === 'false') {
 				tableload.welcome = 'false';
@@ -1953,7 +1953,7 @@ app.post('/dashboard/:id/administration/submittogglewelcome', async (req, res) =
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -2007,7 +2007,7 @@ app.post('/dashboard/:id/administration/submittogglebye', async (req, res) => {
 
 			const newbye = req.body.newbye;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (newbye === 'false') {
 				tableload.bye = 'false';
@@ -2023,7 +2023,7 @@ app.post('/dashboard/:id/administration/submittogglebye', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -2077,7 +2077,7 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async (req, res) 
 
 			const newannounce = req.body.newannounce;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (newannounce === 'false') {
 				tableload.announce = 'false';
@@ -2094,7 +2094,7 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async (req, res) 
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -2146,7 +2146,7 @@ app.post('/dashboard/:id/administration/submitpermissionsticket', async (req, re
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.dashboardticketpermissions = Number(req.body.newpermissionticket);
 
@@ -2157,7 +2157,7 @@ app.post('/dashboard/:id/administration/submitpermissionsticket', async (req, re
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -2209,7 +2209,7 @@ app.post('/dashboard/:id/administration/submitpermissionsapplication', async (re
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.dashboardapplicationpermissions = Number(req.body.newpermissionapplication);
 
@@ -2220,7 +2220,7 @@ app.post('/dashboard/:id/administration/submitpermissionsapplication', async (re
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -2272,7 +2272,7 @@ app.post('/dashboard/:id/administration/submitpermissionsdashboard', async (req,
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (!tableload.dashboardpermissionroles) {
 				tableload.dashboardpermissionroles = [];
@@ -2302,7 +2302,7 @@ app.post('/dashboard/:id/administration/submitpermissionsdashboard', async (req,
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/administration`,
@@ -2373,7 +2373,7 @@ app.get('/dashboard/:id/administration', async (req, res) => {
 
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			if (tableload.togglexp) {
 				for (let i = 0; i < channels.length; i++) {
 					if (tableload.togglexp.channelids.includes(channels[i].id)) {
@@ -2671,16 +2671,16 @@ app.post('/dashboard/:id/moderation/submittempbananonymous', async (req, res) =>
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (!tableload.muteanonymous) {
 				tableload.muteanonymous = 'false';
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			if (!tableload.tempbananonymous) {
 				tableload.tempbananonymous = 'false';
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			tableload.tempbananonymous = req.body.newtempbananonymous;
@@ -2692,7 +2692,7 @@ app.post('/dashboard/:id/moderation/submittempbananonymous', async (req, res) =>
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/moderation`,
@@ -2744,16 +2744,16 @@ app.post('/dashboard/:id/moderation/submitmuteanonymous', async (req, res) => {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (!tableload.muteanonymous) {
 				tableload.muteanonymous = 'false';
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			if (!tableload.tempbananonymous) {
 				tableload.tempbananonymous = 'false';
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			tableload.muteanonymous = req.body.newmuteanonymous;
@@ -2765,7 +2765,7 @@ app.post('/dashboard/:id/moderation/submitmuteanonymous', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/moderation`,
@@ -2834,7 +2834,7 @@ app.get('/dashboard/:id/moderation', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'moderation' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
@@ -2856,12 +2856,12 @@ app.get('/dashboard/:id/moderation', async (req, res) => {
 
 			if (!tableload.muteanonymous) {
 				tableload.muteanonymous = 'false';
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			if (!tableload.tempbananonymous) {
 				tableload.tempbananonymous = 'false';
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			const islenoxbot = islenoxboton(req);
@@ -2939,7 +2939,7 @@ app.get('/dashboard/:id/help', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'help' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
@@ -3017,7 +3017,7 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async (req, res) => {
 
 			const newchannelblacklist = req.body.newchannelblacklist;
 			const array = [];
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (Array.isArray(newchannelblacklist)) {
 				for (let i = 0; i < newchannelblacklist.length; i++) {
@@ -3036,7 +3036,7 @@ app.post('/dashboard/:id/music/submitchannelblacklist', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/music`,
@@ -3173,7 +3173,7 @@ app.get('/dashboard/:id/music', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			if (tableload.musicchannelblacklist) {
 				for (let i = 0; i < channels.length; i++) {
 					if (tableload.musicchannelblacklist.includes(channels[i].id)) {
@@ -3276,7 +3276,7 @@ app.get('/dashboard/:id/fun', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'fun' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
@@ -3369,7 +3369,7 @@ app.get('/dashboard/:id/searches', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'searches' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
@@ -3462,7 +3462,7 @@ app.get('/dashboard/:id/nsfw', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'nsfw' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
@@ -3538,7 +3538,7 @@ app.post('/dashboard/:id/utility/submitsendembed', async (req, res) => {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const embed = new Discord.RichEmbed();
 
@@ -3583,7 +3583,7 @@ app.post('/dashboard/:id/utility/submitsendembed', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/utility`,
@@ -3652,7 +3652,7 @@ app.get('/dashboard/:id/utility', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'utility' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
@@ -3716,12 +3716,12 @@ app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', a
 			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			if (tableload.application.applications[req.params.applicationid] === 'undefined') return res.redirect('../error');
 
 			delete tableload.application.applications[req.params.applicationid];
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/applications`,
@@ -3761,7 +3761,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async (req,
 			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			if (tableload.application.applications[req.params.applicationid] === 'undefined') return res.redirect('../error');
 
 			const application = tableload.application.applications[req.params.applicationid];
@@ -3794,7 +3794,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async (req,
 				'undefined';
 			}
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/applications/${req.params.applicationid}/overview`,
@@ -3834,7 +3834,7 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async (req, res) 
 			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			if (tableload.application.applications[req.params.applicationid] === 'undefined') return res.redirect('../error');
 
 			req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
@@ -3926,7 +3926,7 @@ app.get('/dashboard/:id/applications', async (req, res) => {
 
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			const newobject = {};
 			const oldobject = {};
 
@@ -4001,7 +4001,7 @@ app.post('/dashboard/:id/application/submitnewacceptedmsg', async (req, res) => 
 
 			const newacceptedmsg = req.body.newacceptedmsg;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.application.acceptedmessage = newacceptedmsg;
 
@@ -4012,7 +4012,7 @@ app.post('/dashboard/:id/application/submitnewacceptedmsg', async (req, res) => 
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/application`,
@@ -4066,7 +4066,7 @@ app.post('/dashboard/:id/application/submitnewrejectedmsg', async (req, res) => 
 
 			const newrejectedmsg = req.body.newrejectedmsg;
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.application.rejectedmessage = newrejectedmsg;
 
@@ -4077,7 +4077,7 @@ app.post('/dashboard/:id/application/submitnewrejectedmsg', async (req, res) => 
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/application`,
@@ -4129,7 +4129,7 @@ app.post('/dashboard/:id/application/submitdenyrole', async (req, res) => {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (req.body.newdenyrole === 'false') {
 				tableload.application.denyrole = '';
@@ -4145,7 +4145,7 @@ app.post('/dashboard/:id/application/submitdenyrole', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/application`,
@@ -4197,7 +4197,7 @@ app.post('/dashboard/:id/application/submitrole', async (req, res) => {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			if (req.body.newrole === 'false') {
 				tableload.application.role = '';
@@ -4213,7 +4213,7 @@ app.post('/dashboard/:id/application/submitrole', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/application`,
@@ -4265,7 +4265,7 @@ app.post('/dashboard/:id/application/submitreactionnumber', async (req, res) => 
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const newreactionnumber = req.body.newreactionnumber;
 
@@ -4279,7 +4279,7 @@ app.post('/dashboard/:id/application/submitreactionnumber', async (req, res) => 
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/application`,
@@ -4331,7 +4331,7 @@ app.post('/dashboard/:id/application/submitapplication', async (req, res) => {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const newapplication = req.body.newapplication;
 
@@ -4345,7 +4345,7 @@ app.post('/dashboard/:id/application/submitapplication', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/application`,
@@ -4419,7 +4419,7 @@ app.get('/dashboard/:id/application', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			if (tableload.application) {
 				for (let i = 0; i < channels.length; i++) {
 					if (tableload.application.votechannel === channels[i].id) {
@@ -4532,7 +4532,7 @@ app.get('/dashboard/:id/currency', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const commands = client.commands.filter(r => r.help.category === 'currency' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
@@ -4596,7 +4596,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async (req, res)
 			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const botconfs = await client.botconfs.get('botconfs');
+			const botconfs = client.botconfs.get('botconfs');
 			if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 
 			const ticket = botconfs.tickets[req.params.ticketid];
@@ -4613,10 +4613,10 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async (req, res)
 				timelineconf: 'timeline-inverted'
 			};
 
-			await client.botconfs.set('botconfs', botconfs);
+			client.botconfs.set('botconfs', botconfs);
 
 			try {
-				const tableload = await client.guildconfs.get(dashboardid);
+				const tableload = client.guildconfs.get(dashboardid);
 				const lang = require(`./languages/${tableload.language}.json`);
 				const newanswer = lang.mainfile_newanswer.replace('%link', `https://lenoxbot.com/tickets/${ticket.ticketid}/overview`);
 				client.users.get(ticket.authorid).send(newanswer);
@@ -4662,7 +4662,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async (req, r
 			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const botconfs = await client.botconfs.get('botconfs');
+			const botconfs = client.botconfs.get('botconfs');
 			if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 
 			const ticket = botconfs.tickets[req.params.ticketid];
@@ -4689,10 +4689,10 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async (req, r
 				};
 			}
 
-			await client.botconfs.set('botconfs', botconfs);
+			client.botconfs.set('botconfs', botconfs);
 
 			try {
-				const tableload = await client.guildconfs.get(dashboardid);
+				const tableload = client.guildconfs.get(dashboardid);
 				const lang = require(`./languages/${tableload.language}.json`);
 				const statuschange = lang.mainfile_statuschange.replace('%status', ticket.status).replace('%link', `https://lenoxbot.com/tickets/${ticket.ticketid}/overview`);
 				client.users.get(ticket.authorid).send(statuschange);
@@ -4738,7 +4738,7 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async (req, res) => {
 			}
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const botconfs = await client.botconfs.get('botconfs');
+			const botconfs = client.botconfs.get('botconfs');
 			if (typeof botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 
 			const check = req.user.guilds[index];
@@ -4823,7 +4823,7 @@ app.get('/dashboard/:id/tickets', async (req, res) => {
 				}
 			}
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			const commands = client.commands.filter(r => r.help.category === 'tickets' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en-US.json');
@@ -4902,7 +4902,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecomma
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			for (let i = 0; i < tableload.customcommands.length; i++) {
 				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
@@ -4917,7 +4917,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecomma
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/customcommands`,
@@ -4969,7 +4969,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstat
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			for (let i = 0; i < tableload.customcommands.length; i++) {
 				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
@@ -4984,7 +4984,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstat
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/customcommands`,
@@ -5036,7 +5036,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchan
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			let newDescription;
 			const newResponse = req.body.newcommandanswer;
@@ -5058,7 +5058,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchan
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/customcommands`,
@@ -5105,7 +5105,7 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			const commands = client.commands.filter(r => r.help.category === 'customcommands' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en-US.json');
@@ -5124,7 +5124,7 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 
 			if (!tableload.customcommands) {
 				tableload.customcommands = [];
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			const customcommands = tableload.customcommands;
@@ -5197,7 +5197,7 @@ app.post('/dashboard/:id/modules/submitmodules', async (req, res) => {
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const name = Object.keys(req.body)[0];
 			tableload.modules[name.toLowerCase()] = req.body[name];
@@ -5209,7 +5209,7 @@ app.post('/dashboard/:id/modules/submitmodules', async (req, res) => {
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/modules`,
@@ -5266,7 +5266,7 @@ app.get('/dashboard/:id/modules', async (req, res) => {
 
 			const modules = {};
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets', 'Customcommands'];
 
@@ -5350,7 +5350,7 @@ app.get('/dashboard/:id/lastlogs', async (req, res) => {
 			let logs;
 
 			if (client.guildconfs.get(dashboardid).globallogs) {
-				const thelogs = await client.guildconfs.get(dashboardid).globallogs;
+				const thelogs = client.guildconfs.get(dashboardid).globallogs;
 				logs = thelogs.sort((a, b) => {
 					if (a.date < b.date) {
 						return 1;
@@ -5456,7 +5456,7 @@ app.post('/dashboard/:id/global/:command/submitcommandstatuschange', async (req,
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.commands[req.params.command].status = req.body.statuschange;
 
@@ -5467,7 +5467,7 @@ app.post('/dashboard/:id/global/:command/submitcommandstatuschange', async (req,
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/modules`,
 				query: {
@@ -5520,7 +5520,7 @@ app.post('/dashboard/:id/global/:command/submitcommandchange', async (req, res) 
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			tableload.commands[req.params.command].bannedchannels = req.body.newblacklistedchannels;
 
@@ -5580,7 +5580,7 @@ app.post('/dashboard/:id/global/:command/submitcommandchange', async (req, res) 
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/modules`,

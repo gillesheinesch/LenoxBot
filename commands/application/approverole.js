@@ -11,7 +11,7 @@ exports.run = async (client, msg, args, lang) => {
 			archivechannellog: '',
 			status: 'false'
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (args.length < 1) return msg.reply(lang.approverole_noinput);
@@ -20,7 +20,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (!role) return msg.reply(lang.approverole_rolenotexist);
 
 	tableload.application.role = role.id;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	const set = lang.approverole_set.replace('%rolename', role.name);
 	return msg.channel.send(set);

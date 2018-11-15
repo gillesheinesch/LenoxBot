@@ -9,7 +9,7 @@ exports.run = async (client, msg, args, lang) => {
 	const now = new Date().getTime();
 	const margs = msg.content.split(' ');
 	const validation = ['creditsevent', 'extracreditsevent', 'birthdaybadge'];
-	const tableload = await client.guildconfs.get(msg.guild.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
 
 	for (let i = 0; i < margs.length; i++) {
 		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
@@ -116,11 +116,11 @@ exports.run = async (client, msg, args, lang) => {
 					if (!eventArray.includes(r.users.last().id)) {
 						eventArray.push(r.users.last().id);
 
-						const userdb = await client.userdb.get(r.users.last().id);
+						const userdb = client.userdb.get(r.users.last().id);
 
 						if (!userdb.badges) {
 							userdb.badges = [];
-							await client.userdb.set(r.users.last().id, userdb);
+							client.userdb.set(r.users.last().id, userdb);
 						}
 
 						const badgeSettings = {
@@ -138,7 +138,7 @@ exports.run = async (client, msg, args, lang) => {
 						client.users.get(r.users.last().id).send(lang.startevent_birthdaybadgemessage);
 
 						userdb.badges.push(badgeSettings);
-						await client.userdb.set(r.users.last().id, userdb);
+						client.userdb.set(r.users.last().id, userdb);
 					}
 				});
 				birthdaybadgecollector.on('end', () => {

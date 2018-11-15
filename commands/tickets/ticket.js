@@ -1,12 +1,12 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
-	const botconfs = await client.botconfs.get('botconfs');
+	const tableload = client.guildconfs.get(msg.guild.id);
+	const botconfs = client.botconfs.get('botconfs');
 
 	if (!args || args.length === 0) {
 		const timestamps = client.cooldowns.get('ticket');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('ticket', timestamps);
+		client.cooldowns.set('ticket', timestamps);
 		return msg.reply(lang.ticket_noinput);
 	}
 
@@ -26,7 +26,7 @@ exports.run = async (client, msg, args, lang) => {
 	botconfs.ticketid += 1;
 	botconfs.tickets[botconfs.ticketid] = confs;
 
-	await client.botconfs.set('botconfs', botconfs);
+	client.botconfs.set('botconfs', botconfs);
 
 	const ticket = botconfs.tickets[botconfs.ticketid];
 

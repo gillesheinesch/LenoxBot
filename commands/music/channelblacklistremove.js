@@ -16,7 +16,7 @@ exports.run = async (client, msg, args, lang) => {
 	for (let i = 0; i < tableload.musicchannelblacklist.length; i++) {
 		if (channel.id === tableload.musicchannelblacklist[i]) {
 			tableload.musicchannelblacklist.splice(i, 1);
-			await client.guildconfs.set(msg.guild.id, tableload);
+			client.guildconfs.set(msg.guild.id, tableload);
 			return msg.reply(lang.channelblacklistremove_removed);
 		}
 	}

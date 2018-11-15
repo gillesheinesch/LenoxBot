@@ -6,7 +6,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!tableload.ara) {
 		tableload.ara = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	const embed = new Discord.RichEmbed()

@@ -5,7 +5,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (!content) return msg.channel.send(lang.welcomemsg_error);
 
 	tableload.welcomemsg = content;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.welcomemsg_set);
 };

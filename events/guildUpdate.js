@@ -31,7 +31,7 @@ exports.run = async (client, oldGuild, newGuild) => {
 	if (!tableload.guildupdatelog) {
 		tableload.guildupdatelog = 'false';
 		tableload.guildupdatelogchannel = '';
-		await client.guildconfs.set(oldGuild.id, tableload);
+		client.guildconfs.set(oldGuild.id, tableload);
 	}
 	if (tableload.guildupdatelog === 'false') return;
 

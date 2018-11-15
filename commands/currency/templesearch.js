@@ -3,12 +3,12 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 exports.run = async (client, msg, args, lang) => {
 	const random = Math.random();
-	const userdb = await client.userdb.get(msg.author.id);
+	const userdb = client.userdb.get(msg.author.id);
 
 	if (userdb.inventory.flashlight === 0) {
 		const timestamps = client.cooldowns.get('templesearch');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('templesearch', timestamps);
+		client.cooldowns.set('templesearch', timestamps);
 		return msg.reply(lang.templesearch_error);
 	}
 
@@ -23,13 +23,13 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 		userdb.inventory.flashlight -= 1;
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		const received = lang.templesearch_received.replace('%amount', `\`$${result}\``);
 		return msg.reply(received);
 	}
 	userdb.inventory.pickaxe = userdb.inventory.flashlight - 1;
-	await client.userdb.set(msg.author.id, userdb);
+	client.userdb.set(msg.author.id, userdb);
 
 	return msg.reply(lang.templesearch_dust);
 };

@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 			array.push(`${channelname} (${tableload.musicchannelblacklist[i]})`);
 		} catch (error) {
 			tableload.musicchannelblacklist.splice(i, 1);
-			await client.guildconfs.set(msg.guild.id, tableload);
+			client.guildconfs.set(msg.guild.id, tableload);
 		}
 	}
 

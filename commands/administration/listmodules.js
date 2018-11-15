@@ -14,7 +14,7 @@ exports.run = async (client, msg, args, lang) => {
 		tableload.modules.application = 'true';
 		tableload.modules.tickets = 'true';
 		tableload.modules.currency = 'true';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	const embed = new Discord.RichEmbed()

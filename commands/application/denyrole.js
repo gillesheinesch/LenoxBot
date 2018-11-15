@@ -11,7 +11,7 @@ exports.run = async (client, msg, args, lang) => {
 			archivechannellog: '',
 			status: 'false'
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 
@@ -21,7 +21,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (!role) return msg.reply(lang.role_rolenotexist);
 
 	tableload.application.denyrole = role.id;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	const set = lang.denyrole_set.replace('%rolename', role.name);
 	return msg.channel.send(set);

@@ -29,14 +29,14 @@ exports.run = async (client, oldMember, newMember) => {
 	if (oldMember.nickname !== newMember.nickname) {
 		if (!tableload.nicknamelog) {
 			tableload.nicknamelog = [];
-			await client.guildconfs.set(newMember.guild.id, tableload);
+			client.guildconfs.set(newMember.guild.id, tableload);
 		}
 
 		tableload.nicknamelog.push(newMember.id);
 		tableload.nicknamelog.push(oldMember.nickname === null ? lang.guildmemberupdateevent_nonickname : oldMember.nickname);
 		tableload.nicknamelog.push(newMember.nickname === null ? lang.guildmemberupdateevent_nonickname : newMember.nickname);
 		tableload.nicknamelog.push(new Date().getTime());
-		await client.guildconfs.set(newMember.id, tableload);
+		client.guildconfs.set(newMember.id, tableload);
 	}
 
 	if (tableload.guildmemberupdatelog === 'false') return;

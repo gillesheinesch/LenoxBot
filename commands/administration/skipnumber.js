@@ -4,7 +4,7 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!tableconfig.skipnumber) {
 		tableconfig.skipnumber = 1;
-		await client.guildconfs.set(msg.guild.id, tableconfig);
+		client.guildconfs.set(msg.guild.id, tableconfig);
 	}
 
 	const currentvotenumber = lang.skipnumber_currentvotenumber.replace('%skipnumber', `\`${tableconfig.skipnumber}\``);
@@ -15,7 +15,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (number < 1) return msg.channel.send(lang.skipnumber_cannotbe0);
 
 	tableconfig.skipnumber = number;
-	await client.guildconfs.set(msg.guild.id, tableconfig);
+	client.guildconfs.set(msg.guild.id, tableconfig);
 
 	const changedskipvote = lang.skipnumber_changedskipvote.replace('%newskipnumber', number);
 

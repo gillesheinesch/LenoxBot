@@ -5,7 +5,7 @@ exports.run = async (client, msg, args, lang) => {
 	const time = args.slice(1, 2).join(' ');
 	let user = msg.mentions.users.first();
 	const membermention = msg.mentions.members.first();
-	const botconfs = await client.botconfs.get('botconfs');
+	const botconfs = client.botconfs.get('botconfs');
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!user) {
@@ -84,7 +84,7 @@ exports.run = async (client, msg, args, lang) => {
 	};
 
 	botconfs.bans[botconfs.banscount] = bansettings;
-	await client.botconfs.set('botconfs', botconfs);
+	client.botconfs.set('botconfs', botconfs);
 
 	setTimeout(async () => {
 		const fetchedbans = await msg.guild.fetchBans();
@@ -108,7 +108,7 @@ exports.run = async (client, msg, args, lang) => {
 			}
 		}
 		delete botconfs.bans[botconfs.banscount];
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}, bantime);
 };
 

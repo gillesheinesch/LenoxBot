@@ -10,7 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 	const roleId = foundRole.id;
 	tableload.selfassignableroles.push(roleId);
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.addselfassignablerole_roleset);
 };

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async (client, oldMember, newMember) => {
-	const tableload = await client.guildconfs.get(newMember.guild.id);
+	const tableload = client.guildconfs.get(newMember.guild.id);
 	if (!tableload) return;
 
 	if (tableload.presenceupdatelog === 'false') return;

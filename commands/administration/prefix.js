@@ -8,7 +8,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (newprefix.length > 1) return msg.channel.send(lang.prefix_error);
 
 	tableload.prefix = newprefix.join(' ');
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	const newprefixset = lang.prefix_newprefixset.replace('%newprefix', newprefix);
 

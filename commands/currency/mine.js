@@ -4,12 +4,12 @@ sql.open(`../${settings.sqlitefilename}.sqlite`);
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const d = Math.random();
-	const userdb = await client.userdb.get(msg.author.id);
+	const userdb = client.userdb.get(msg.author.id);
 
 	if (userdb.inventory.pickaxe === 0) {
 		const timestamps = client.cooldowns.get('mine');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('mine', timestamps);
+		client.cooldowns.set('mine', timestamps);
 		return msg.reply(lang.mine_nopicks);
 	}
 
@@ -25,7 +25,7 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 		userdb.inventory.pickaxe -= 1;
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		const dugup = lang.mine_dugup.replace('%amount', `**${validationfor10procent[result]}**`);
 		const embed = new Discord.RichEmbed()
@@ -44,7 +44,7 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 		userdb.inventory.pickaxe -= 1;
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		const dugup = lang.mine_dugup.replace('%amount', `**${validationfor30procent[result]}**`);
 
@@ -64,7 +64,7 @@ exports.run = async (client, msg, args, lang) => {
 		});
 
 		userdb.inventory.pickaxe -= 1;
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		const dugup = lang.mine_dugup.replace('%amount', `**${validationfor50procent[result]}**`);
 		const embed = new Discord.RichEmbed()
@@ -83,7 +83,7 @@ exports.run = async (client, msg, args, lang) => {
 	});
 
 	userdb.inventory.pickaxe -= 1;
-	await client.userdb.set(msg.author.id, userdb);
+	client.userdb.set(msg.author.id, userdb);
 
 	const dugup = lang.mine_dugup.replace('%amount', `**${validationforrest[result]}**`);
 	const embed = new Discord.RichEmbed()

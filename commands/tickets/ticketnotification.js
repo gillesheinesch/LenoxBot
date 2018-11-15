@@ -4,13 +4,13 @@ exports.run = async (client, msg, args, lang) => {
 	if (tableload.tickets.status === false) {
 		tableload.tickets.status = true;
 		tableload.tickets.notificationchannel = channelid;
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 
 		const channelset = lang.ticketnotification_channelset.replace('%channelname', `**#${msg.channel.name}**`);
 		return msg.channel.send(channelset);
 	}
 	tableload.tickets.status = false;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.ticketnotification_channeldeleted);
 };

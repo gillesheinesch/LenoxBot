@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
-	const botconfs = await client.botconfs.get('botconfs');
+	const tableload = client.guildconfs.get(msg.guild.id);
+	const botconfs = client.botconfs.get('botconfs');
 	let membermention = msg.mentions.members.first();
 	let user = msg.mentions.users.first();
 
@@ -65,7 +65,7 @@ exports.run = async (client, msg, args, lang) => {
 			}
 		}
 
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	} else {
 		const notownrole = lang.unmute_notownrole.replace('%username', user.username);
 		msg.reply(notownrole);

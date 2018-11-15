@@ -4,7 +4,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (!content) return msg.channel.send(lang.setacceptedmessage_noinput);
 
 	tableload.application.rejectedmessage = content;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.setacceptedmessage_set);
 };

@@ -4,7 +4,7 @@ sql.open(`../${settings.sqlitefilename}.sqlite`);
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
 	const mentioncheck = msg.mentions.users.first();
-	const userdb = await client.userdb.get(msg.author.id);
+	const userdb = client.userdb.get(msg.author.id);
 	const botconfs = client.botconfs.get('botconfs');
 
 	if (userdb.dailyremind === true) {
@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 			userID: msg.author.id,
 			remind: Date.now() + 86400000
 		};
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 
 		setTimeout(() => {
 			delete botconfs.dailyreminder[msg.author.id];
@@ -26,14 +26,14 @@ exports.run = async (client, msg, args, lang) => {
 			userdb.dailystreak.streak = 0;
 			userdb.dailystreak.lastpick = '';
 			userdb.dailystreak.deadline = '';
-			await client.userdb.set(msg.author.id, userdb);
+			client.userdb.set(msg.author.id, userdb);
 		}
 	}
 
 	userdb.dailystreak.streak += 1;
 	userdb.dailystreak.lastpick = Date.now();
 	userdb.dailystreak.deadline = Date.now() + 172800000;
-	await client.userdb.set(msg.author.id, userdb);
+	client.userdb.set(msg.author.id, userdb);
 
 	if (!mentioncheck) {
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
