@@ -41,7 +41,7 @@
     "setsocialmedia_deletetwitter": "Your Twitter username has been deleted!",
     "setsocialmedia_notsetup": "You didn't define an username for this social media account!",
     "setsocialmedia_notlinked": "No account linked to this social media",
-    "setsocialmedia_description": "Allows you to connect a social media account to your account",
+    "setsocialmedia_description": "Allows you to connect a social media account to your Discord account",
 
     "creditstoxp_nan": "Your amount of credits is not a number!",
     "creditstoxp_under1": "Your amount of credits has to be at least 1!",
@@ -584,7 +584,7 @@
     "activatemodule_administration": "Administration commands are always activated!",
     "activatemodule_partner": "Partner commands are always activated!",
     "activatemodule_alreadyactivated": "This module is already activated",
-    "activatemodule_moduleactivated": "%modulename module was activated successfully!",
+    "activatemodule_moduleactivated": "The module **%modulename** has been activated successfully!",
     "activatemodule_error": "This module doesn't exist. Please make sure that you haven't mistyped!",
     "activatemodule_description": "Activates a module and its commands on a Discord server",
 
@@ -632,7 +632,7 @@
     "deactivatemodule_administration": "Administration commands are always activated and cannot be deactivated.",
     "deactivatemodule_partner": "Partner commands are always activated and cannot be deactivated.",
     "deactivatemodule_alreadydisabled": "This module is already deactivated",
-    "deactivatemodule_moduledisabled": "%modulename module was deactivated successfully!",
+    "deactivatemodule_moduledisabled": "The module **%modulename** has been deactivated successfully!",
     "deactivatemodule_error": "This module doesn't exist. Please make sure that you haven't mistyped!",
     "deactivatemodule_description": "Deactivates a module and its commands on a Discord server",
 
