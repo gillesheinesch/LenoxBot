@@ -1,5 +1,5 @@
 const settings = require('../../settings.json');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
 	const tableload = client.botconfs.get('botconfs');

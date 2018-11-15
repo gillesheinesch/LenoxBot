@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const moduleactivated = lang.activatemodule_moduleactivated.replace('%modulename', args.slice());
 

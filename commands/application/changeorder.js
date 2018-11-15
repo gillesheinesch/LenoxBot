@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const firstNumber = args.slice(0, 1);
 	const secondNumber = args.slice(1, 2);

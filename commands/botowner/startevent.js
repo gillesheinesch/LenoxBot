@@ -112,7 +112,7 @@ exports.run = async (client, msg, args, lang) => {
 				const birthdaybadgecollector = message.createReactionCollector((reaction, user) => reaction.emoji.name === '🎈' && !user.bot, {
 					time: 86400000
 				});
-				birthdaybadgecollector.on('collect', async r => {
+				birthdaybadgecollector.on('collect', r => {
 					if (!eventArray.includes(r.users.last().id)) {
 						eventArray.push(r.users.last().id);
 

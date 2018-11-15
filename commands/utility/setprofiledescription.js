@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.userdb.get(msg.author.id);
 	const userdb = client.userdb.get(msg.author.id);
 	const input = args.slice();

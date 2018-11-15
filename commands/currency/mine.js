@@ -2,7 +2,7 @@ const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const Discord = require('discord.js');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const d = Math.random();
 	const userdb = client.userdb.get(msg.author.id);
 

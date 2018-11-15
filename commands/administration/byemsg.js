@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const content = args.slice().join(' ');
 	if (!content) return msg.channel.send(lang.byemsg_noinput);

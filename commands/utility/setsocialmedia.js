@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const validation = ['delete', 'edit', 'list'];
 	const validation2 = ['youtube', 'twitch', 'instagram', 'twitter'];
 	const margs = msg.content.split(' ');

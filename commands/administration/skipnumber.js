@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableconfig = client.guildconfs.get(msg.guild.id);
 	const number = args.slice();
 

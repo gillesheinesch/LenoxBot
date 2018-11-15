@@ -2,7 +2,7 @@ const sql = require('sqlite');
 const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const Discord = require('discord.js');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const mentioncheck = msg.mentions.users.first();
 	const userdb = client.userdb.get(msg.author.id);
 	const botconfs = client.botconfs.get('botconfs');

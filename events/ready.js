@@ -92,7 +92,7 @@ exports.run = async client => {
 
 
 	function timeoutForJob(jobreminder, timeoutTime) {
-		setTimeout(async () => {
+		setTimeout(() => {
 			const userdb = client.userdb.get(jobreminder.userID);
 			userdb.jobstatus = false;
 			client.userdb.set(jobreminder.userID, userdb);
@@ -139,7 +139,7 @@ exports.run = async client => {
 
 
 	function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
-		setTimeout(async () => {
+		setTimeout(() => {
 			const fetchedbans = fetchedbansfromfunction;
 			const tableload = client.guildconfs.get(bansconf.discordserverid);
 
@@ -189,7 +189,7 @@ exports.run = async client => {
 	}
 
 	function timeoutForMute(muteconf, newMuteTime) {
-		setTimeout(async () => {
+		setTimeout(() => {
 			const guild = client.guilds.get(muteconf.discordserverid);
 			if (!guild) return;
 

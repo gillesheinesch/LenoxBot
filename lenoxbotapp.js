@@ -720,7 +720,7 @@ app.get('/oauth2problem', (req, res) => {
 	}
 });
 
-app.get('/servers', async (req, res) => {
+app.get('/servers', (req, res) => {
 	try {
 		if (req.user) {
 			const check = [];
@@ -793,7 +793,7 @@ app.get('/servers', async (req, res) => {
 	}
 });
 
-app.post('/tickets/:ticketid/submitticketanswer', async (req, res) => {
+app.post('/tickets/:ticketid/submitticketanswer', (req, res) => {
 	try {
 		if (req.user) {
 			const botconfs = client.botconfs.get('botconfs');
@@ -856,7 +856,7 @@ app.post('/tickets/:ticketid/submitticketanswer', async (req, res) => {
 	}
 });
 
-app.post('/tickets/:ticketid/submitnewticketstatus', async (req, res) => {
+app.post('/tickets/:ticketid/submitnewticketstatus', (req, res) => {
 	try {
 		if (req.user) {
 			const botconfs = client.botconfs.get('botconfs');
@@ -911,7 +911,7 @@ app.post('/tickets/:ticketid/submitnewticketstatus', async (req, res) => {
 	}
 });
 
-app.get('/tickets/:ticketid/overview', async (req, res) => {
+app.get('/tickets/:ticketid/overview', (req, res) => {
 	try {
 		if (req.user) {
 			const botconfs = client.botconfs.get('botconfs');
@@ -951,7 +951,7 @@ app.get('/tickets/:ticketid/overview', async (req, res) => {
 });
 
 // ADMIN PANEL
-app.get('/dashboard/:id/overview', async (req, res) => {
+app.get('/dashboard/:id/overview', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1091,7 +1091,7 @@ app.get('/dashboard/:id/overview', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submitlogs', async (req, res) => {
+app.post('/dashboard/:id/administration/submitlogs', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1159,7 +1159,7 @@ app.post('/dashboard/:id/administration/submitlogs', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submitselfassignableroles', async (req, res) => {
+app.post('/dashboard/:id/administration/submitselfassignableroles', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1237,7 +1237,7 @@ app.post('/dashboard/:id/administration/submitselfassignableroles', async (req, 
 	}
 });
 
-app.post('/dashboard/:id/administration/submittogglexp', async (req, res) => {
+app.post('/dashboard/:id/administration/submittogglexp', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1310,7 +1310,7 @@ app.post('/dashboard/:id/administration/submittogglexp', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submitbyemsg', async (req, res) => {
+app.post('/dashboard/:id/administration/submitbyemsg', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1375,7 +1375,7 @@ app.post('/dashboard/:id/administration/submitbyemsg', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submitwelcomemsg', async (req, res) => {
+app.post('/dashboard/:id/administration/submitwelcomemsg', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1440,7 +1440,7 @@ app.post('/dashboard/:id/administration/submitwelcomemsg', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submitprefix', async (req, res) => {
+app.post('/dashboard/:id/administration/submitprefix', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1505,7 +1505,7 @@ app.post('/dashboard/:id/administration/submitprefix', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submitlanguage', async (req, res) => {
+app.post('/dashboard/:id/administration/submitlanguage', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1570,7 +1570,7 @@ app.post('/dashboard/:id/administration/submitlanguage', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res) => {
+app.post('/dashboard/:id/administration/submitcommanddeletion', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1635,7 +1635,7 @@ app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res)
 	}
 });
 
-app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
+app.post('/dashboard/:id/administration/submitmuterole', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1700,7 +1700,7 @@ app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submittogglechatfilter', async (req, res) => {
+app.post('/dashboard/:id/administration/submittogglechatfilter', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1765,7 +1765,7 @@ app.post('/dashboard/:id/administration/submittogglechatfilter', async (req, res
 	}
 });
 
-app.post('/dashboard/:id/administration/submittogglexpmessages', async (req, res) => {
+app.post('/dashboard/:id/administration/submittogglexpmessages', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1830,7 +1830,7 @@ app.post('/dashboard/:id/administration/submittogglexpmessages', async (req, res
 	}
 });
 
-app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res) => {
+app.post('/dashboard/:id/administration/submitchatfilterarray', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		let index;
@@ -1904,7 +1904,7 @@ app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res)
 	}
 });
 
-app.post('/dashboard/:id/administration/submittogglewelcome', async (req, res) => {
+app.post('/dashboard/:id/administration/submittogglewelcome', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -1974,7 +1974,7 @@ app.post('/dashboard/:id/administration/submittogglewelcome', async (req, res) =
 	}
 });
 
-app.post('/dashboard/:id/administration/submittogglebye', async (req, res) => {
+app.post('/dashboard/:id/administration/submittogglebye', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2044,7 +2044,7 @@ app.post('/dashboard/:id/administration/submittogglebye', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/administration/submittoggleannounce', async (req, res) => {
+app.post('/dashboard/:id/administration/submittoggleannounce', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2115,7 +2115,7 @@ app.post('/dashboard/:id/administration/submittoggleannounce', async (req, res) 
 	}
 });
 
-app.post('/dashboard/:id/administration/submitpermissionsticket', async (req, res) => {
+app.post('/dashboard/:id/administration/submitpermissionsticket', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2178,7 +2178,7 @@ app.post('/dashboard/:id/administration/submitpermissionsticket', async (req, re
 	}
 });
 
-app.post('/dashboard/:id/administration/submitpermissionsapplication', async (req, res) => {
+app.post('/dashboard/:id/administration/submitpermissionsapplication', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2241,7 +2241,7 @@ app.post('/dashboard/:id/administration/submitpermissionsapplication', async (re
 	}
 });
 
-app.post('/dashboard/:id/administration/submitpermissionsdashboard', async (req, res) => {
+app.post('/dashboard/:id/administration/submitpermissionsdashboard', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2323,7 +2323,7 @@ app.post('/dashboard/:id/administration/submitpermissionsdashboard', async (req,
 	}
 });
 
-app.get('/dashboard/:id/administration', async (req, res) => {
+app.get('/dashboard/:id/administration', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2640,7 +2640,7 @@ app.get('/dashboard/:id/administration', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/moderation/submittempbananonymous', async (req, res) => {
+app.post('/dashboard/:id/moderation/submittempbananonymous', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2713,7 +2713,7 @@ app.post('/dashboard/:id/moderation/submittempbananonymous', async (req, res) =>
 	}
 });
 
-app.post('/dashboard/:id/moderation/submitmuteanonymous', async (req, res) => {
+app.post('/dashboard/:id/moderation/submitmuteanonymous', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2786,7 +2786,7 @@ app.post('/dashboard/:id/moderation/submitmuteanonymous', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/moderation', async (req, res) => {
+app.get('/dashboard/:id/moderation', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2891,7 +2891,7 @@ app.get('/dashboard/:id/moderation', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/help', async (req, res) => {
+app.get('/dashboard/:id/help', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -2984,7 +2984,7 @@ app.get('/dashboard/:id/help', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/music/submitchannelblacklist', async (req, res) => {
+app.post('/dashboard/:id/music/submitchannelblacklist', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3124,7 +3124,7 @@ app.post('/dashboard/:id/music/submitnewmusicaction', (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/music', async (req, res) => {
+app.get('/dashboard/:id/music', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3228,7 +3228,7 @@ app.get('/dashboard/:id/music', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/fun', async (req, res) => {
+app.get('/dashboard/:id/fun', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3321,7 +3321,7 @@ app.get('/dashboard/:id/fun', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/searches', async (req, res) => {
+app.get('/dashboard/:id/searches', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3414,7 +3414,7 @@ app.get('/dashboard/:id/searches', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/nsfw', async (req, res) => {
+app.get('/dashboard/:id/nsfw', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3507,7 +3507,7 @@ app.get('/dashboard/:id/nsfw', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/utility/submitsendembed', async (req, res) => {
+app.post('/dashboard/:id/utility/submitsendembed', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3604,7 +3604,7 @@ app.post('/dashboard/:id/utility/submitsendembed', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/utility', async (req, res) => {
+app.get('/dashboard/:id/utility', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3697,7 +3697,7 @@ app.get('/dashboard/:id/utility', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', async (req, res) => {
+app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3815,7 +3815,7 @@ app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async (req,
 	}
 });
 
-app.get('/dashboard/:id/applications/:applicationid/overview', async (req, res) => {
+app.get('/dashboard/:id/applications/:applicationid/overview', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3889,7 +3889,7 @@ app.get('/dashboard/:id/applications/:applicationid/overview', async (req, res) 
 	}
 });
 
-app.get('/dashboard/:id/applications', async (req, res) => {
+app.get('/dashboard/:id/applications', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -3968,7 +3968,7 @@ app.get('/dashboard/:id/applications', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/application/submitnewacceptedmsg', async (req, res) => {
+app.post('/dashboard/:id/application/submitnewacceptedmsg', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4033,7 +4033,7 @@ app.post('/dashboard/:id/application/submitnewacceptedmsg', async (req, res) => 
 	}
 });
 
-app.post('/dashboard/:id/application/submitnewrejectedmsg', async (req, res) => {
+app.post('/dashboard/:id/application/submitnewrejectedmsg', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4098,7 +4098,7 @@ app.post('/dashboard/:id/application/submitnewrejectedmsg', async (req, res) => 
 	}
 });
 
-app.post('/dashboard/:id/application/submitdenyrole', async (req, res) => {
+app.post('/dashboard/:id/application/submitdenyrole', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4166,7 +4166,7 @@ app.post('/dashboard/:id/application/submitdenyrole', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/application/submitrole', async (req, res) => {
+app.post('/dashboard/:id/application/submitrole', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4234,7 +4234,7 @@ app.post('/dashboard/:id/application/submitrole', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/application/submitreactionnumber', async (req, res) => {
+app.post('/dashboard/:id/application/submitreactionnumber', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4300,7 +4300,7 @@ app.post('/dashboard/:id/application/submitreactionnumber', async (req, res) => 
 	}
 });
 
-app.post('/dashboard/:id/application/submitapplication', async (req, res) => {
+app.post('/dashboard/:id/application/submitapplication', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4366,7 +4366,7 @@ app.post('/dashboard/:id/application/submitapplication', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/application', async (req, res) => {
+app.get('/dashboard/:id/application', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4484,7 +4484,7 @@ app.get('/dashboard/:id/application', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/currency', async (req, res) => {
+app.get('/dashboard/:id/currency', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4577,7 +4577,7 @@ app.get('/dashboard/:id/currency', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async (req, res) => {
+app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4643,7 +4643,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', async (req, res)
 	}
 });
 
-app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async (req, res) => {
+app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4719,7 +4719,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', async (req, r
 	}
 });
 
-app.get('/dashboard/:id/tickets/:ticketid/overview', async (req, res) => {
+app.get('/dashboard/:id/tickets/:ticketid/overview', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4780,7 +4780,7 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/tickets', async (req, res) => {
+app.get('/dashboard/:id/tickets', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4871,7 +4871,7 @@ app.get('/dashboard/:id/tickets', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecommand', async (req, res) => {
+app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecommand', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -4938,7 +4938,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecomma
 	}
 });
 
-app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstatuschange', async (req, res) => {
+app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstatuschange', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5005,7 +5005,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstat
 	}
 });
 
-app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchange', async (req, res) => {
+app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchange', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5079,7 +5079,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchan
 	}
 });
 
-app.get('/dashboard/:id/customcommands', async (req, res) => {
+app.get('/dashboard/:id/customcommands', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5166,7 +5166,7 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 	}
 });
 
-app.post('/dashboard/:id/modules/submitmodules', async (req, res) => {
+app.post('/dashboard/:id/modules/submitmodules', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5230,7 +5230,7 @@ app.post('/dashboard/:id/modules/submitmodules', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/modules', async (req, res) => {
+app.get('/dashboard/:id/modules', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5315,7 +5315,7 @@ app.get('/dashboard/:id/modules', async (req, res) => {
 	}
 });
 
-app.get('/dashboard/:id/lastlogs', async (req, res) => {
+app.get('/dashboard/:id/lastlogs', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5425,7 +5425,7 @@ app.get('/error', (req, res) => {
 
 // Global post for commandstatuschange
 
-app.post('/dashboard/:id/global/:command/submitcommandstatuschange', async (req, res) => {
+app.post('/dashboard/:id/global/:command/submitcommandstatuschange', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5489,7 +5489,7 @@ app.post('/dashboard/:id/global/:command/submitcommandstatuschange', async (req,
 
 // Global post for commandchange
 
-app.post('/dashboard/:id/global/:command/submitcommandchange', async (req, res) => {
+app.post('/dashboard/:id/global/:command/submitcommandchange', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {

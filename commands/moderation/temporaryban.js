@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 const ms = require('ms');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const reason = args.slice(2).join(' ');
 	const time = args.slice(1, 2).join(' ');
 	let user = msg.mentions.users.first();

@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	moment.locale(tableload.momentLanguage);
 

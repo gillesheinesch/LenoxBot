@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async (client, role) => {
+exports.run = (client, role) => {
 	const tableload = client.guildconfs.get(role.guild.id);
 	if (!tableload) return;
 

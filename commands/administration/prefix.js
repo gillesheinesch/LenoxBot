@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const newprefix = args.slice();
 	const tableload = client.guildconfs.get(msg.guild.id);
 
