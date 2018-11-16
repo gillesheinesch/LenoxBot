@@ -268,6 +268,44 @@ app.get('/test', (req, res) => {
 	}
 });
 
+app.get('/banappeal', (req, res) => {
+	try {
+		const islenoxbot = islenoxboton(req);
+		return res.render('banappeal', {
+			user: req.user,
+			islenoxbot: islenoxbot,
+			client: client
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
+app.get('/formsubmitted', (req, res) => {
+	try {
+		const islenoxbot = islenoxboton(req);
+		return res.render('formsubmitted', {
+			user: req.user,
+			islenoxbot: islenoxbot,
+			client: client
+		});
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
 app.get('/invite', (req, res) => res.redirect('https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8'));
 
 app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/jmZZQja'));

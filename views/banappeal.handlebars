@@ -1,0 +1,72 @@
+<main>
+    <section id="policy" class="lb-bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 my-3">
+                    <h1>Ban Appeal</h1>
+                    <p>Here you can write a ban/blacklist appeal<br>
+                    <span class="text-danger">*</span> Required</p>
+                    <form>
+                        <div class="form-group">
+                            <label for="discordTag">Discord Tag <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control col-md-3" id="discordTag" name="discordTag"
+                                aria-describedby="discordTagHelp" placeholder="#0000">
+                            <small id="discordTagHelp" class="form-text text-muted">We need your Discord tag to remove
+                                you from the blacklist or to remove your server from the list of bans.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="discordUserID">Discord UserID <span class="text-danger">*</span></label>
+                            <input type="text" class="form-control col-md-3" id="discordUserID" name="discordUserID"
+                                aria-describedby="discordUserIDHelp" placeholder="Insert Discord UserID">
+                            <small id="discordUserIDHelp" class="form-text text-muted">You can get your USERID by
+                                entering \@YOURNAME in the chat. Copy this ID from the chat.</small>
+                        </div>
+                        <div class="form-group">
+                            <label for="radio">Were you set to the blacklist or were your server banned? <span class="text-danger">*</span></label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="blacklistOrServerRadio" id="blacklistOrServerRadio1"
+                                    value="0" checked>
+                                <label class="form-check-label" for="blacklistOrServerRadio1">
+                                    I am on the blacklist
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="blacklistOrServerRadio" id="blacklistOrServerRadio2"
+                                    value="1">
+                                <label class="form-check-label" for="blacklistOrServerRadio2">
+                                    My server got banned
+                                </label>
+                            </div>
+                            <div class="form-check disabled">
+                                <input class="form-check-input" type="radio" name="blacklistOrServerRadio" id="blacklistOrServerRadio3"
+                                    value="2">
+                                <label class="form-check-label" for="blacklistOrServerRadio3">
+                                    Both
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="radio">Are you on the support Discord server? (Link: <a href="https://www.discord.gg/5mpwCr8">Click
+                                    here</a>)</label>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="yesNoRadio" id="yesNoRadio2" value="1"
+                                    checked>
+                                <label class="form-check-label" for="yesNoRadio2">
+                                    Yes
+                                </label>
+                            </div>
+                            <div class="form-check">
+                                <input class="form-check-input" type="radio" name="yesNoRadio" id="yesNoRadio1" value="0">
+                                <label class="form-check-label" for="yesNoRadio1">
+                                    No
+                                </label>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn lb-btn-green">Send</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
