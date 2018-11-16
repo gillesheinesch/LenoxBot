@@ -73,42 +73,6 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="modal fade" id="newmodal" tabindex="-1" role="dialog"
-                                                    aria-labelledby="newTitle" aria-hidden="true">
-                                                    <div class="modal-dialog modal-dialog-centered" role="document">
-                                                        <div class="modal-content">
-                                                            <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">Create new custom command</h5>
-                                                                <button type="button" class="close" data-dismiss="modal"
-                                                                    aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                </button>
-                                                            </div>
-
-                                                            <form id="newformmodal">
-                                                                <div class="modal-body">
-                                                                    <div class="form-group mb-2">
-                                                                        <label for="newdescription">Command name:</label>
-                                                                        <input type="text" class="form-control" name="newname" id="newinputdesc" required>
-                                                                    </div>
-                                                                    <div class="form-group mb-2">
-                                                                        <label for="newdescription">Description:</label>
-                                                                        <textarea required class="form-control" name="newdescription"
-                                                                            rows="2" maxlength="60" id="newinputdesc"></textarea>
-                                                                    </div>
-                                                                    <div class="form-group mb-2">
-                                                                        <label for="newcommandanswer">Response:</label>
-                                                                        <textarea required class="form-control" name="newcommandanswer"
-                                                                            rows="2" maxlength="2000"></textarea>
-                                                                    </div>
-                                                                    <hr>
-                                                                    <button type="submit" id="newbmodal" class="btn lb-btn-green">Send</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-                                                </div>
-
                                                 <div class="modal fade" id="{{name}}delmodal" tabindex="-1" role="dialog"
                                                     aria-labelledby="{{name}}Title" aria-hidden="true">
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -173,6 +137,43 @@
                             </div>
                         </div>
                     </div>
+
+                    <div class="modal fade" id="newmodal" tabindex="-1" role="dialog" aria-labelledby="newTitle"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLongTitle">Create new custom command</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+
+                                <form id="newformmodal">
+                                    <div class="modal-body">
+                                        <div class="form-group mb-2">
+                                            <label for="newdescription">Command name:</label>
+                                            <input type="text" class="form-control" name="newname" id="newinputdesc"
+                                                required>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="newdescription">Description:</label>
+                                            <textarea required class="form-control" name="newdescription" rows="2"
+                                                maxlength="60" id="newinputdesc"></textarea>
+                                        </div>
+                                        <div class="form-group mb-2">
+                                            <label for="newcommandanswer">Response:</label>
+                                            <textarea required class="form-control" name="newcommandanswer" rows="2"
+                                                maxlength="2000"></textarea>
+                                        </div>
+                                        <hr>
+                                        <button type="submit" id="newbmodal" class="btn lb-btn-green">Send</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                     <div class="card shadow-sm mt-3">
                         {{> commandsection}}
                     </div>
