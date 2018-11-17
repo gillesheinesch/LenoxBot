@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const moduleactivated = lang.activatemodule_moduleactivated.replace('%modulename', args.slice());
 
@@ -17,67 +17,67 @@ exports.run = async (client, msg, args, lang) => {
 				if (tableload.modules.utility === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.utility = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'music') {
 				if (tableload.modules.music === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.music = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'fun') {
 				if (tableload.modules.fun === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.fun = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'help') {
 				if (tableload.modules.help === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.help = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'searches') {
 				if (tableload.modules.searches === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.searches = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'nsfw') {
 				if (tableload.modules.nsfw === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.nsfw = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'moderation') {
 				if (tableload.modules.moderation === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.moderation = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'application') {
 				if (tableload.modules.application === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.application = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'currency') {
 				if (tableload.modules.currency === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.currency = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'customcommands') {
 				if (tableload.modules.customcommands === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.customcommands = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			} else if (margs[1].toLowerCase() === 'tickets') {
 				if (tableload.modules.tickets === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
 				tableload.modules.tickets = 'true';
-			    await client.guildconfs.set(msg.guild.id, tableload);
+			    client.guildconfs.set(msg.guild.id, tableload);
 				return msg.channel.send(moduleactivated);
 			}
 		}

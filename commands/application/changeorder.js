@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const firstNumber = args.slice(0, 1);
 	const secondNumber = args.slice(1, 2);
@@ -13,7 +13,7 @@ exports.run = async (client, msg, args, lang) => {
 			archivechannellog: '',
 			status: 'false'
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (firstNumber.length === 0 || secondNumber.length === 0) return msg.reply(lang.entrychangeorder_error);
@@ -27,7 +27,7 @@ exports.run = async (client, msg, args, lang) => {
 	tableload.application.template[Number(secondNumber) - 1] = firstEntry;
 	tableload.application.template[Number(firstNumber) - 1] = secondEntry;
 
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	msg.reply(lang.entrychangeorder_set);
 };

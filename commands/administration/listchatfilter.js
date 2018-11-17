@@ -8,7 +8,7 @@ exports.run = async (client, msg, args, lang) => {
 			chatfilter: 'false',
 			array: []
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.chatfilter.array.length === 0) return msg.channel.send(lang.listchatfilter_error);

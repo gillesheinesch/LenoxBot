@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 			archivechannellog: '',
 			status: 'false'
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.application.status === 'false') return msg.channel.send(lang.toggleapplication_error);
@@ -69,7 +69,7 @@ exports.run = async (client, msg, args, lang) => {
 	tableload.application.applicationid += 1;
 	tableload.application.applications[tableload.application.applicationid] = confs;
 
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	await msg.channel.send(lang.application_applicatiosent);
 

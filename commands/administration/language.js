@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const margs = msg.content.split(' ');
 	const input = args.slice();
@@ -17,7 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 
 				tableload.language = 'en-US';
 				tableload.momentLanguage = 'en';
-				await client.guildconfs.set(msg.guild.id, tableload);
+				client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
 			} else if (margs[1].toLowerCase() === 'german') {
@@ -25,7 +25,7 @@ exports.run = async (client, msg, args, lang) => {
 
 				tableload.language = 'de-DE';
 				tableload.momentLanguage = 'de';
-				await client.guildconfs.set(msg.guild.id, tableload);
+				client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
 			} else if (margs[1].toLowerCase() === 'french') {
@@ -33,7 +33,7 @@ exports.run = async (client, msg, args, lang) => {
 
 				tableload.language = 'fr-FR';
 				tableload.momentLanguage = 'fr';
-				await client.guildconfs.set(msg.guild.id, tableload);
+				client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
 			} else if (margs[1].toLowerCase() === 'spanish') {
@@ -41,7 +41,7 @@ exports.run = async (client, msg, args, lang) => {
 
 				tableload.language = 'es-ES';
 				tableload.momentLanguage = 'es';
-				await client.guildconfs.set(msg.guild.id, tableload);
+				client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.channel.send(changed);
 			}

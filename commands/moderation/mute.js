@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 const ms = require('ms');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
-	const botconfs = await client.botconfs.get('botconfs');
+	const botconfs = client.botconfs.get('botconfs');
 	let membermention = msg.mentions.members.first();
 	let user = msg.mentions.users.first();
 
@@ -84,7 +84,7 @@ exports.run = async (client, msg, args, lang) => {
 	};
 
 	botconfs.mutes[botconfs.mutescount] = mutesettings;
-	await client.botconfs.set('botconfs', botconfs);
+	client.botconfs.set('botconfs', botconfs);
 
 	const muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
 	const muteembed = new Discord.RichEmbed()
@@ -115,7 +115,7 @@ exports.run = async (client, msg, args, lang) => {
 			}
 		}
 		delete botconfs.mutes[botconfs.mutescount];
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}, mutetime);
 };
 

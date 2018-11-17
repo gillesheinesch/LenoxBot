@@ -3,7 +3,7 @@ exports.run = async (client, msg, args, lang) => {
 	const guild = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
-	const botconfs = await client.botconfs.get('blackbanlist');
+	const botconfs = client.botconfs.get('blackbanlist');
 	const guildId = args.slice(0, 1).join(' ');
 
 	if (!guildId || isNaN(guildId)) return msg.reply(lang.banlistadd_noguildid);
@@ -35,7 +35,7 @@ exports.run = async (client, msg, args, lang) => {
 	});
 
 	botconfs.banlist.push(discordServerBanSettings);
-	await client.botconfs.set('blackbanlist', botconfs);
+	client.botconfs.set('blackbanlist', botconfs);
 
 	return msg.reply(lang.banlistadd_banned);
 };

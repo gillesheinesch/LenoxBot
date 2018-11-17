@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.userdb.get(msg.author.id);
 	const userdb = client.userdb.get(msg.author.id);
 	const input = args.slice();
@@ -8,7 +8,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (input.join(' ').length > 400) return msg.reply(lang.setprofiledescription_error2);
 
 	tableload.description = input.join(' ');
-	await client.userdb.set(msg.author.id, tableload);
+	client.userdb.set(msg.author.id, tableload);
 
 	msg.channel.send(lang.setprofiledescription_set);
 };

@@ -1,5 +1,5 @@
-exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
+exports.run = (client, msg, args, lang) => {
+	const tableload = client.guildconfs.get(msg.guild.id);
 	const addedrole = args.slice().join(' ');
 	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
 	const author = msg.guild.members.get(msg.author.id);

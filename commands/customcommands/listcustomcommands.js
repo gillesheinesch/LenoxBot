@@ -1,5 +1,5 @@
 exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
 	const Discord = require('discord.js');
 	const arrayOfCustomCommands = [];
 

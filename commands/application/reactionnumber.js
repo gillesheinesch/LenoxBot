@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.application) {
@@ -11,7 +11,7 @@ exports.run = async (client, msg, args, lang) => {
 			archivechannellog: '',
 			status: 'false'
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 
@@ -25,7 +25,7 @@ exports.run = async (client, msg, args, lang) => {
 	if (number < 2) return msg.channel.send(lang.reactionnumber_cannotbe0orless);
 
 	tableload.application.reactionnumber = number;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	const changed = lang.reactionnumber_changed.replace('%newreactionnumber', number);
 	msg.channel.send(changed);

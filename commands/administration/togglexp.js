@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const validation = ['list', 'add', 'remove'];
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const margs = msg.content.split(' ');
@@ -25,7 +25,7 @@ exports.run = async (client, msg, args, lang) => {
 					}
 				}
 				tableload.togglexp.channelids.push(channel.id);
-				await client.guildconfs.set(msg.guild.id, tableload);
+				client.guildconfs.set(msg.guild.id, tableload);
 
 				const add = lang.togglexp_add.replace('%channelname', channel.name);
 				return msg.reply(add);
@@ -44,7 +44,7 @@ exports.run = async (client, msg, args, lang) => {
 				for (let index2 = 0; index2 < tableload.togglexp.channelids.length; index2++) {
 					if (channel2.id === tableload.togglexp.channelids[index2]) {
 						tableload.togglexp.channelids.splice(index2, 1);
-						await client.guildconfs.set(msg.guild.id, tableload);
+						client.guildconfs.set(msg.guild.id, tableload);
 
 						const remove = lang.togglexp_remove.replace('%channelname', channel2.name);
 						return msg.reply(remove);
@@ -62,7 +62,7 @@ exports.run = async (client, msg, args, lang) => {
 						array.push(`${channelname} (${tableload.togglexp.channelids[index3]})`);
 					} catch (error) {
 						tableload.togglexp.channelids.splice(index3, 1);
-						await client.guildconfs.set(msg.guild.id, tableload);
+						client.guildconfs.set(msg.guild.id, tableload);
 					}
 				}
 				const embed = new Discord.RichEmbed()

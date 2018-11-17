@@ -1,5 +1,5 @@
-exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
+exports.run = (client, msg, args, lang) => {
+	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!args || args.slice().length === 0) return msg.reply(lang.createcustomcommand_noinput);
 	if (args.slice(1).length === 0) return msg.reply(lang.createcustomcommand_nocommandanswer);
@@ -20,7 +20,7 @@ exports.run = async (client, msg, args, lang) => {
 	};
 
 	tableload.customcommands.push(newcommandsettings);
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.reply(lang.createcustomcommand_created);
 };
