@@ -5171,7 +5171,7 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res
 	}
 });
 
-app.get('/dashboard/:id/customcommands', async (req, res) => {
+app.get('/dashboard/:id/customcommands', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5197,7 +5197,7 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 			const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
 			const check = req.user.guilds[index];
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 			const commands = client.commands.filter(r => r.help.category === 'customcommands' && r.conf.dashboardsettings === true).array();
 			for (let i = 0; i < commands.length; i++) {
 				const englishstrings = require('./languages/en-US.json');
@@ -5216,7 +5216,7 @@ app.get('/dashboard/:id/customcommands', async (req, res) => {
 
 			if (!tableload.customcommands) {
 				tableload.customcommands = [];
-				await client.guildconfs.set(dashboardid, tableload);
+				client.guildconfs.set(dashboardid, tableload);
 			}
 
 			const customcommands = tableload.customcommands;
