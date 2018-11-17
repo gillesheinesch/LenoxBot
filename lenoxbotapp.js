@@ -5079,7 +5079,7 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchan
 	}
 });
 
-app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res) => {
+app.post('/dashboard/:id/customcommands/submitnewcustomcommand', (req, res) => {
 	try {
 		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
@@ -5110,7 +5110,7 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res
 
 			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
 
-			const tableload = await client.guildconfs.get(dashboardid);
+			const tableload = client.guildconfs.get(dashboardid);
 
 			let newDescription;
 			const newCommandName = req.body.newname;
@@ -5118,6 +5118,7 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res
 			if (req.body.newdescription) {
 				newDescription = req.body.newdescription;
 			}
+			console.log('Works1');
 
 			for (let i = 0; i < tableload.customcommands.length; i++) {
 				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
@@ -5140,6 +5141,7 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res
 				commandCreatedAt: Date.now(),
 				enabled: 'true'
 			};
+			console.log(newCustomCommandSettings);
 
 			tableload.customcommands.push(newCustomCommandSettings);
 
@@ -5150,7 +5152,7 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', async (req, res
 				showeddate: new Date().toUTCString()
 			});
 
-			await client.guildconfs.set(dashboardid, tableload);
+			client.guildconfs.set(dashboardid, tableload);
 
 			return res.redirect(url.format({
 				pathname: `/dashboard/${dashboardid}/customcommands`,
