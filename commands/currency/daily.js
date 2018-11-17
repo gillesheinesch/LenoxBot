@@ -26,7 +26,6 @@ exports.run = (client, msg, args, lang) => {
 			userdb.dailystreak.streak = 0;
 			userdb.dailystreak.lastpick = '';
 			userdb.dailystreak.deadline = '';
-			client.userdb.set(msg.author.id, userdb);
 		}
 	}
 
