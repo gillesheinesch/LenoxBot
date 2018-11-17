@@ -1,8 +1,8 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
-exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
+exports.run = (client, msg, args, lang) => {
+	const tableload = client.guildconfs.get(msg.guild.id);
 	moment.locale(tableload.momentLanguage);
 
 	const uptimeserver = moment.duration(client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);

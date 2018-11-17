@@ -18,12 +18,12 @@ exports.run = async (client, msg, args, lang) => {
 
 		botconfspremiumload.keys.redeemedguildkeys.push(input.join(' '));
 
-		await client.guildconfs.set(msg.guild.id, tableload);
-		await client.botconfs.set('premium', botconfspremiumload);
+		client.guildconfs.set(msg.guild.id, tableload);
+		client.botconfs.set('premium', botconfspremiumload);
 
 		const timestamps = client.cooldowns.get('useserverkey');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('useserverkey', timestamps);
+		client.cooldowns.set('useserverkey', timestamps);
 
 		const embed = new Discord.RichEmbed()
 			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${tableload.premium.end.toUTCString()}`)
@@ -41,12 +41,12 @@ exports.run = async (client, msg, args, lang) => {
 
 	botconfspremiumload.keys.redeemedguildkeys.push(input.join(' '));
 
-	await client.guildconfs.set(msg.guild.id, tableload);
-	await client.botconfs.set('premium', botconfspremiumload);
+	client.guildconfs.set(msg.guild.id, tableload);
+	client.botconfs.set('premium', botconfspremiumload);
 
 	const timestamps = client.cooldowns.get('useserverkey');
 	delete timestamps[msg.author.id];
-	await client.cooldowns.set('useserverkey', timestamps);
+	client.cooldowns.set('useserverkey', timestamps);
 
 	const embed = new Discord.RichEmbed()
 		.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(tableload.premium.end) + 7776000000).toUTCString()}`)

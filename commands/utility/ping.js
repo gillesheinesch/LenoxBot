@@ -1,6 +1,6 @@
 exports.run = async (client, msg, args, lang) => {
 	const message = await msg.channel.send('Ping?');
-	const newmsg = lang.ping_ping.replace('%timestamp', message.createdTimestamp - msg.createdTimestamp);
+	const newmsg = lang.ping_ping.replace('%latency', message.createdTimestamp - msg.createdTimestamp).replace('%latencyapi', Math.round(client.ping));
 	message.edit(newmsg);
 };
 

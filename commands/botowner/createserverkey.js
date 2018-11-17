@@ -4,7 +4,7 @@ exports.run = async (client, msg, args, lang) => {
 	const Discord = require('discord.js');
 	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
-	const botconfspremiumload = await client.botconfs.get('premium');
+	const botconfspremiumload = client.botconfs.get('premium');
 
 	let key = '';
 
@@ -24,7 +24,7 @@ exports.run = async (client, msg, args, lang) => {
 		botconfspremiumload.keys.guildkeys.push(key);
 	}
 
-	await client.botconfs.set('premium', botconfspremiumload);
+	client.botconfs.set('premium', botconfspremiumload);
 
 	const embeddescription = lang.createserverkey_embeddescription.replace('%premiumcode', key);
 	const embed = new Discord.RichEmbed()

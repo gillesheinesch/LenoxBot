@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const botconfs = await client.botconfs.get('botconfs');
+	const botconfs = client.botconfs.get('botconfs');
 	const reason = args.slice(1).join(' ');
 	client.unbanReason = reason;
 	client.unbanAuth = msg.author;
@@ -47,7 +47,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 	if (banOfThisUser) {
 		delete botconfs.mutes[banOfThisUser.mutescount];
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 };
 

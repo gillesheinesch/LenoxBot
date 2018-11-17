@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const input = args.slice();
 
@@ -10,7 +10,7 @@ exports.run = async (client, msg, args, lang) => {
 			chatfilter: 'false',
 			array: []
 		};
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	// Check ob der Eintrag bereits im Chatfilter vorhanden ist
@@ -19,7 +19,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	tableload.chatfilter.array.push(input.join(' ').toLowerCase());
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	const added = lang.addchatfilter_added.replace('%input', input.join(' '));
 	msg.channel.send(added);

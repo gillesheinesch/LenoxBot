@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
-exports.run = async (client, member) => {
-	const tableload = await client.guildconfs.get(member.guild.id);
-	const botconfs = await client.botconfs.get('botconfs');
+exports.run = (client, member) => {
+	const tableload = client.guildconfs.get(member.guild.id);
+	const botconfs = client.botconfs.get('botconfs');
 	if (!tableload) return;
 
 	if (tableload.language === '') {
@@ -42,7 +42,7 @@ exports.run = async (client, member) => {
 			}
 		} else {
 			delete botconfs.mutes[muteOfThisUser.mutescount];
-			await client.botconfs.set('botconfs', botconfs);
+			client.botconfs.set('botconfs', botconfs);
 		}
 	}
 

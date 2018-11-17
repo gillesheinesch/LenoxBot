@@ -1,8 +1,8 @@
 const settings = require('../../settings.json');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
-	const tableload = await client.botconfs.get('botconfs');
+	const tableload = client.botconfs.get('botconfs');
 	const channelId = msg.channel.id;
 
 	if (tableload.activity === false) {
@@ -18,7 +18,7 @@ exports.run = async (client, msg, args, lang) => {
 		msg.channel.send(unset);
 	}
 
-	await client.botconfs.set('botconfs', tableload);
+	client.botconfs.set('botconfs', tableload);
 };
 
 exports.conf = {
