@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const input = args.slice();
 
@@ -20,7 +20,7 @@ exports.run = async (client, msg, args, lang) => {
 	const channelid = channel.id;
 
 	tableload.musicchannelblacklist.push(channelid);
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.reply(lang.channelblacklistadd_added);
 };

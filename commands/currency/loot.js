@@ -3,11 +3,11 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const Discord = require('discord.js');
 const marketitemskeys = require('../../marketitems-keys.json');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const d = Math.random();
-	const userdb = await client.userdb.get(msg.author.id);
-	const marketconfs = await client.botconfs.get('market');
-	const tableload = await client.guildconfs.get(msg.guild.id);
+	const userdb = client.userdb.get(msg.author.id);
+	const marketconfs = client.botconfs.get('market');
+	const tableload = client.guildconfs.get(msg.guild.id);
 
 	const validationfor10procent = [];
 	const validationfor30procent = [];
@@ -35,14 +35,14 @@ exports.run = async (client, msg, args, lang) => {
 	}
 	const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
 	if (inventoryslotcheck >= userdb.inventoryslots && userdb.premium.status === false) {
-		const timestamps = await client.cooldowns.get('loot');
+		const timestamps = client.cooldowns.get('loot');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('loot', timestamps);
+		client.cooldowns.set('loot', timestamps);
 		return msg.reply(inventoryfull);
 	} else if (inventoryslotcheck + 1 >= userdb.inventoryslots && userdb.premium.status === true) {
-		const timestamps = await client.cooldowns.get('loot');
+		const timestamps = client.cooldowns.get('loot');
 		delete timestamps[msg.author.id];
-		await client.cooldowns.set('loot', timestamps);
+		client.cooldowns.set('loot', timestamps);
 		return msg.reply(inventoryfull);
 	}
 
@@ -64,7 +64,7 @@ exports.run = async (client, msg, args, lang) => {
 		} else {
 			userdb.inventory[validationfor10procent[result]] += 1;
 		}
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 		const embed = new Discord.RichEmbed()
@@ -89,7 +89,7 @@ exports.run = async (client, msg, args, lang) => {
 		} else {
 			userdb.inventory[validationfor30procent[result]] += 1;
 		}
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 
@@ -115,7 +115,7 @@ exports.run = async (client, msg, args, lang) => {
 		} else {
 			userdb.inventory[validationfor50procent[result]] += 1;
 		}
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 
@@ -141,7 +141,7 @@ exports.run = async (client, msg, args, lang) => {
 	} else {
 		userdb.inventory[validationforrest[result]] += 1;
 	}
-	await client.userdb.set(msg.author.id, userdb);
+	client.userdb.set(msg.author.id, userdb);
 
 
 	const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');

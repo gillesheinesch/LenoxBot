@@ -17,7 +17,7 @@ exports.run = async (client, msg) => {
 	}
 
 	if (client.guildconfs.get(msg.guild.id)) {
-		const tableload = await client.guildconfs.get(msg.guild.id);
+		const tableload = client.guildconfs.get(msg.guild.id);
 		for (const key in guildsettingskeys) {
 			if (!tableload[key]) {
 				tableload[key] = guildsettingskeys[key];
@@ -46,7 +46,7 @@ exports.run = async (client, msg) => {
 			}
 		}
 
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	} else {
 		for (let i = 0; i < client.commands.array().length; i++) {
 			if (!guildsettingskeys.commands[client.commands.array()[i].help.name]) {
@@ -70,11 +70,11 @@ exports.run = async (client, msg) => {
 			}
 		}
 
-		await client.guildconfs.set(msg.guild.id, guildsettingskeys);
+		client.guildconfs.set(msg.guild.id, guildsettingskeys);
 	}
 
 	if (client.userdb.get(msg.author.id)) {
-		const userdb = await client.userdb.get(msg.author.id);
+		const userdb = client.userdb.get(msg.author.id);
 		for (const key in usersettingskeys) {
 			if (!userdb[key]) {
 				userdb[key] = usersettingskeys[key];
@@ -87,20 +87,20 @@ exports.run = async (client, msg) => {
 			}
 		}
 
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 	} else {
-		await client.userdb.set(msg.author.id, usersettingskeys);
+		client.userdb.set(msg.author.id, usersettingskeys);
 	}
 
 
-	const tableload = await client.guildconfs.get(msg.guild.id);
-	const userdb = await client.userdb.get(msg.author.id);
-	const botconfspremiumload = await client.botconfs.get('premium');
-	const botconfs = await client.botconfs.get('botconfs');
+	const tableload = client.guildconfs.get(msg.guild.id);
+	const userdb = client.userdb.get(msg.author.id);
+	const botconfspremiumload = client.botconfs.get('premium');
+	const botconfs = client.botconfs.get('botconfs');
 
 	if (!botconfs.badgeEmojis) {
 		botconfs.badgeEmojis = {};
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	/* eslint quote-props: ["error", "as-needed"]*/
@@ -120,39 +120,39 @@ exports.run = async (client, msg) => {
 		proposalwriter: ['🅿', 1],
 		partner: ['☑', 7]
 	};
-	await client.botconfs.set('botconfs', botconfs);
+	client.botconfs.set('botconfs', botconfs);
 
 	if (!botconfs.bans) {
 		botconfs.bans = {};
 		botconfs.banscount = 0;
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (!botconfs.mutes) {
 		botconfs.mutes = {};
 		botconfs.mutescount = 0;
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (!botconfs.commandsexecuted) {
 		botconfs.commandsexecuted = 0;
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (!botconfs.generalfaq) {
 		botconfs.generalfaq = {};
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (!botconfs.tutorials) {
 		botconfs.tutorials = {};
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (!botconfs.tickets || !botconfs.ticketid) {
 		botconfs.ticketid = 0;
 		botconfs.tickets = {};
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (!botconfspremiumload.keys) {
@@ -164,13 +164,13 @@ exports.run = async (client, msg) => {
 			guildkeys: [],
 			userkeys: []
 		};
-		await client.botconfs.set('premium', botconfspremiumload);
+		client.botconfs.set('premium', botconfspremiumload);
 	}
 
 	if (!botconfspremiumload.keys.guildkeys) {
 		botconfspremiumload.keys.guildkeys = [];
 		botconfspremiumload.keys.userkeys = [];
-		await client.botconfs.set('premium', botconfspremiumload);
+		client.botconfs.set('premium', botconfspremiumload);
 	}
 
 	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
@@ -189,7 +189,7 @@ exports.run = async (client, msg) => {
 				userdb.badges[i].emoji = '🎁';
 			}
 		}
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 	}
 
 	/* eslint guard-for-in: 0 */
@@ -227,45 +227,45 @@ exports.run = async (client, msg) => {
 				}
 			}
 		}
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 	}
 
 	if (!userdb.userID) {
 		userdb.userID = msg.author.id;
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 	}
 
 	if (!botconfs.dailyreminder) {
 		botconfs.dailyreminder = {};
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (!botconfs.jobreminder) {
 		botconfs.jobreminder = {};
-		await client.botconfs.set('botconfs', botconfs);
+		client.botconfs.set('botconfs', botconfs);
 	}
 
 	if (userdb.jobstatus === true && !botconfs.jobreminder[msg.author.id]) {
 		delete botconfs.jobreminder[msg.author.id];
 		userdb.jobstatus = false;
-		await client.botconfs.set('botconfs', botconfs);
-		await client.userdb.set(msg.author.id, userdb);
+		client.botconfs.set('botconfs', botconfs);
+		client.userdb.set(msg.author.id, userdb);
 	}
 
 	// CHANGE TO THE NEW CROWDIN SYSTEM
 	if (tableload.language === 'en') {
 		tableload.language = 'en-US';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.language === 'ge') {
 		tableload.language = 'de-DE';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.language === 'fr') {
 		tableload.language = 'fr-FR';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 	// CHANGE TO THE NEW CROWDIN SYSTEM
 
@@ -273,120 +273,120 @@ exports.run = async (client, msg) => {
 
 	if (tableload.language === 'de') {
 		tableload.language = 'ge';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	// Check if all channels of the guildsettings still exist
 	if (tableload.modlogchannel !== '' && !msg.guild.channels.get(tableload.modlogchannel)) {
 		tableload.modlog = 'false';
 		tableload.modlogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.messagedellogchannel !== '' && !msg.guild.channels.get(tableload.messagedellogchannel)) {
 		tableload.messagedellog = 'false';
 		tableload.messagedellogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.messageupdatelogchannel !== '' && !msg.guild.channels.get(tableload.messageupdatelogchannel)) {
 		tableload.messageupdatelog = 'false';
 		tableload.messageupdatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.channelupdatelogchannel !== '' && !msg.guild.channels.get(tableload.channelupdatelogchannel)) {
 		tableload.channelupdatelog = 'false';
 		tableload.channelupdatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.channelcreatelogchannel !== '' && !msg.guild.channels.get(tableload.channelcreatelogchannel)) {
 		tableload.channelcreatelog = 'false';
 		tableload.channelcreatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.channeldeletelogchannel !== '' && !msg.guild.channels.get(tableload.channeldeletelogchannel)) {
 		tableload.channeldeletelog = 'false';
 		tableload.channelcreatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.guildmemberupdatelogchannel !== '' && !msg.guild.channels.get(tableload.guildmemberupdatelogchannel)) {
 		tableload.guildmemberupdatelog = 'false';
 		tableload.guildmemberupdatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.presenceupdatelogchannel !== '' && !msg.guild.channels.get(tableload.presenceupdatelogchannel)) {
 		tableload.presenceupdatelog = 'false';
 		tableload.presenceupdatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.welcomelogchannel !== '' && !msg.guild.channels.get(tableload.welcomelogchannel)) {
 		tableload.welcomelog = 'false';
 		tableload.welcomelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.guildupdatelogchannel !== '' && !msg.guild.channels.get(tableload.guildupdatelogchannel)) {
 		tableload.guildupdatelog = 'false';
 		tableload.guildupdatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.byelogchannel !== '' && !msg.guild.channels.get(tableload.byelogchannel)) {
 		tableload.byelog = 'false';
 		tableload.byelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.rolecreatelogchannel !== '' && !msg.guild.channels.get(tableload.rolecreatelogchannel)) {
 		tableload.rolecreatelog = 'false';
 		tableload.rolecreatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.roledeletelogchannel !== '' && !msg.guild.channels.get(tableload.roledeletelogchannel)) {
 		tableload.roledeletelog = 'false';
 		tableload.roledeletelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.roleupdatelogchannel !== '' && !msg.guild.channels.get(tableload.roleupdatelogchannel)) {
 		tableload.roleupdatelog = 'false';
 		tableload.roleupdatelogchannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.welcomechannel !== '' && !msg.guild.channels.get(tableload.welcomechannel)) {
 		tableload.welcome = 'false';
 		tableload.welcomechannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.byechannel !== '' && !msg.guild.channels.get(tableload.byechannel)) {
 		tableload.bye = 'false';
 		tableload.byechannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.announcechannel !== '' && !msg.guild.channels.get(tableload.announcechannel)) {
 		tableload.announce = 'false';
 		tableload.announcechannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.votechannel !== '' && !msg.guild.channels.get(tableload.votechannel)) {
 		tableload.votechannel = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.archivechannellog !== '' && !msg.guild.channels.get(tableload.archivechannellog)) {
 		tableload.archivechannellog = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	if (tableload.musicchannelblacklist.length !== 0) {
@@ -395,7 +395,7 @@ exports.run = async (client, msg) => {
 				tableload.musicchannelblacklist.splice(i, 1);
 			}
 		}
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 	//
 
@@ -579,7 +579,7 @@ exports.run = async (client, msg) => {
 				}
 
 				const now = Date.now();
-				const timestamps = await client.cooldowns.get(cmd.help.name);
+				const timestamps = client.cooldowns.get(cmd.help.name);
 				let cooldownAmount;
 				if (tableload.commands[cmd.help.name]) {
 					cooldownAmount = cmd.conf.cooldown || Number(tableload.commands[cmd.help.name].cooldown);
@@ -602,14 +602,14 @@ exports.run = async (client, msg) => {
 						/* eslint no-else-return:0 */
 					} else if (now > expirationTime) {
 						timestamps[msg.author.id] = now;
-						await client.cooldowns.set(cmd.help.name, timestamps);
+						client.cooldowns.set(cmd.help.name, timestamps);
 					} else {
 						timestamps[msg.author.id] = now;
-						await client.cooldowns.set(cmd.help.name, timestamps);
+						client.cooldowns.set(cmd.help.name, timestamps);
 					}
 				} else {
 					timestamps[msg.author.id] = now;
-					await client.cooldowns.set(cmd.help.name, timestamps);
+					client.cooldowns.set(cmd.help.name, timestamps);
 				}
 			}
 

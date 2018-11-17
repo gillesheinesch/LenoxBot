@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (tableload.musicchannelblacklist.length === 0) return msg.reply(lang.channelblacklist_error);
@@ -12,7 +12,7 @@ exports.run = async (client, msg, args, lang) => {
 			array.push(`${channelname} (${tableload.musicchannelblacklist[i]})`);
 		} catch (error) {
 			tableload.musicchannelblacklist.splice(i, 1);
-			await client.guildconfs.set(msg.guild.id, tableload);
+			client.guildconfs.set(msg.guild.id, tableload);
 		}
 	}
 

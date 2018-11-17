@@ -4,8 +4,8 @@ const settings = require('../../settings.json');
 sql.open(`../${settings.sqlitefilename}.sqlite`);
 const marketitemskeys = require('../../marketitems-keys.json');
 exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
-	const botconfs = await client.botconfs.get('market');
+	const tableload = client.guildconfs.get(msg.guild.id);
+	const botconfs = client.botconfs.get('market');
 	const validationforbuysell = ['sell', 'buy'];
 
 	const validationforitemsbuysell = [];
@@ -15,8 +15,8 @@ exports.run = async (client, msg, args, lang) => {
 		itemsnames.push(x);
 	}
 
-	const marketconfs = await client.botconfs.get('market');
-	const userdb = await client.userdb.get(msg.author.id);
+	const marketconfs = client.botconfs.get('market');
+	const userdb = client.userdb.get(msg.author.id);
 
 	const input = args.slice();
 	const sellorbuycheck = args.slice(0, 1);
@@ -144,8 +144,8 @@ exports.run = async (client, msg, args, lang) => {
 						userdb.inventory[allitemsininventory[xxx][4]] = 0;
 					}
 
-					await client.botconfs.set('market', botconfs);
-					await client.userdb.set(msg.author.id, userdb);
+					client.botconfs.set('market', botconfs);
+					client.userdb.set(msg.author.id, userdb);
 
 					const messageedit = [];
 					for (let xxxx = 0; xxxx < allitemsininventory.length; xxxx++) {
@@ -190,8 +190,8 @@ exports.run = async (client, msg, args, lang) => {
 								sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
 							});
 
-							await client.botconfs.set('market', botconfs);
-							await client.userdb.set(msg.author.id, userdb);
+							client.botconfs.set('market', botconfs);
+							client.userdb.set(msg.author.id, userdb);
 
 							const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
 							const soldEmbed = new Discord.RichEmbed()
@@ -234,8 +234,8 @@ exports.run = async (client, msg, args, lang) => {
 								sql.run(`UPDATE medals SET medals = ${row.medals - amount} WHERE userId = ${msg.author.id}`);
 							});
 
-							await client.botconfs.set('market', botconfs);
-							await client.userdb.set(msg.author.id, userdb);
+							client.botconfs.set('market', botconfs);
+							client.userdb.set(msg.author.id, userdb);
 
 							const bought = lang.shop_bought.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
 							const boughtEmbed = new Discord.RichEmbed()

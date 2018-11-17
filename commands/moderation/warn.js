@@ -36,14 +36,14 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!tableload.warnlog) {
 		tableload.warnlog = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	await tableload.warnlog.push(user.id);
 	await tableload.warnlog.push(new Date().getTime());
 	await tableload.warnlog.push(reason);
 	await tableload.warnlog.push(msg.author.id);
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	if (tableload.modlog === 'true') {
 		const modlogchannel = client.channels.get(tableload.modlogchannel);

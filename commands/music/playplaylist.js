@@ -1,6 +1,4 @@
 exports.run = async (client, msg, args, lang) => {
-	return msg.reply('Command is currently disabled. You want to know why? Here\'s more: https://status.lenoxbot.com/');
-	/*
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const userdb = client.userdb.get(msg.author.id);
 	const skipvote = client.skipvote;
@@ -99,9 +97,7 @@ exports.run = async (client, msg, args, lang) => {
 				embed: embed
 			});
 		} else {
-			*/
-	/* eslint no-else-return: 0 */
-	/*
+			/* eslint no-else-return: 0 */
 			const queueConstruct = {
 				textChannel: msg.channel,
 				voiceChannel: voiceChannel,
@@ -131,14 +127,11 @@ exports.run = async (client, msg, args, lang) => {
 			}
 		}
 	}
-	/*
 	/* eslint guard-for-in: 0 */
-	/*
 	for (const song in tableload.playlist[args.slice().join(' ').toLowerCase()]) {
 		const video = tableload.playlist[args.slice().join(' ').toLowerCase()][song];
 		await handleVideo(video, msg, voiceChannel);
 	}
-	*/
 };
 
 exports.conf = {

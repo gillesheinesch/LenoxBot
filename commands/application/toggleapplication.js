@@ -1,14 +1,14 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (tableload.application.status === 'false') {
 		tableload.application.status = 'true';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 
 		return msg.channel.send(lang.toggleapplication_activated);
 	}
 	tableload.application.status = 'false';
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 
 	return msg.channel.send(lang.toggleapplication_disabled);
 };

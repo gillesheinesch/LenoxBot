@@ -1,4 +1,16 @@
 {
+    "togglecommand_noinput": "You forgot to enter the command name!",
+    "togglecommand_notchangeable": "We're sorry but you can't change the status of this command",
+    "togglecommand_settofalse": "You succesfully disabled the command!",
+    "togglecommand_settotrue": "You succesfully activated the command!",
+    "togglecommand_nocommand": "We couldn't find this command. Please check if you mistyped the command name!",
+    "togglecommand_description": "Toggles the status of a command",
+
+    "translate_embedtitle": "Translation project",
+    "translate_embeddescription": "Our goal is to offer LenoxBot in many different languages. It allows anyone to change the bot's language to their native language. However, there are over 10 thousand words to translate and that's why we need your help. \nYou have the opportunity to help us to translate LenoxBot by joining the project linked below! \n\nThank you and have fun!",
+    "translate_embedfieldtitle": "Translation project link:",
+    "translate_description": "Gives you informations about our translation project",
+
     "removexp_noamount": "You didn't enter an amount of XP!",
     "removexp_amountnan": "You didn't enter a number for the amount of XP!",
     "removexp_atleast1": "Your amount of XP has to be at least 1!",
@@ -199,7 +211,7 @@
 
     "createcustomcommand_noinput": "You forgot to enter a command name and a command response!",
     "createcustomcommand_nocommandanswer": "You forgot to enter a command response!",
-    "createcustomcommand_premiumneeded": "You can only create a maximum of 5 custom commands! If you want to create more than 5 custom commands, you only have to pay $3! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+    "createcustomcommand_premiumneeded": "You can only create a maximum of 5 custom commands! If you want to create more than 5 custom commands, you only have to pay 3€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "createcustomcommand_already": "This custom command name is already taken!",
     "createcustomcommand_created": "The custom command was created successfully!",
     "createcustomcommand_description": "Creates a custom command",
@@ -226,7 +238,7 @@
     "playplaylist_error": "You forgot to enter the name of the playlist!",
     "playplaylist_description": "Plays a music playlist",
 
-    "playlist_noguildpremium": "This is a premium-only command. To get access to the premium-only features, you only have to pay $3! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+    "playlist_noguildpremium": "This is a premium-only command. To get access to the premium-only features, you only have to pay 3€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "playlist_maxplaylist": "Limit reached! You can create a maximum of 8 playlists!",
     "playlist_errortitle": "You forgot to enter a title for the new playlist!",
     "playlist_titlelengtherror": "Your title for the new playlist can not exceed 30 characters!",
@@ -453,7 +465,7 @@
     "embed_description": "Creates an embed for you with any text. Use // to go to a new line",
 
     "setprofiledescription_noinput": "You forgot to enter a profile description!",
-    "setprofiledescription_error": "Your description is too long. If you want to have a longer description, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+    "setprofiledescription_error": "Your description is too long. If you want to have a longer description, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "setprofiledescription_error2": "Your description is too long.",
     "setprofiledescription_set": "The profile description has been set successfully!",
     "setprofiledescription_description": "Sets a global profile description",
@@ -952,6 +964,7 @@
     "softban_yourself": "You can not softban yourself!",
     "softban_daysundefined": "You haven't specified the number of days!",
     "softban_nonumber": "You have to specify of how many days you want to have the messages of @User deleted! (Up to 7 days)",
+    "softban_min1": "You need to delete the messages of a least one day!",
     "softban_max7": "You can only delete the messages up to the last 7 days!",
     "softban_noinput": "You must specify a reason for the softban!",
     "softban_nopermission": "I can not softban this user!",
@@ -1007,8 +1020,8 @@
     "play_error": "No or invalid value entered, cancelling video selection.",
     "play_noresult": "I could not obtain any search results.",
     "play_errorjoin": "I could not join the voice channel.",
-    "play_songlengthlimit": "You can only add videos that are less than 30 minutes to the queue. If you want to queue longer videos, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
-    "play_limitreached": "Only a maximum of 8 songs can be queued on this Discord server. If you want to add more, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+    "play_songlengthlimit": "You can only add videos that are less than 30 minutes to the queue. If you want to queue longer videos, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+    "play_limitreached": "Only a maximum of 8 songs can be queued on this Discord server. If you want to add more, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "play_songadded": "New song added to the music queue:",
     "play_duration": "**Duration:** %duration",
     "play_published": "Published at %publishedatdate",
@@ -1047,7 +1060,7 @@
     "stop_leftchannel": "I have left the voice channel!",
     "stop_description": "Stops the current music and the bot leaves the voice channel",
 
-    "volume_nopremium": "This is a premium-only command. To get access to the premium-only features, you only have to pay $1! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+    "volume_nopremium": "This is a premium-only command. To get access to the premium-only features, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
     "volume_notvoicechannel": "You are not in a voice channel, please join a voice channel to play music!",
     "volume_nothing": "There is nothing playing.",
     "volume_currentvolume": "The current volume is: **%volume**",
@@ -1222,7 +1235,7 @@
     "paycredits_creditsgiven": "%author, %creditscount credits were given to %mentiontag!",
     "paycredits_description": "Allows an user to give their credits to someone",
 
-    "ping_ping": "Here we go! It took %timestampms to send this message!",
+    "ping_ping": "Latency: %latencys \nAPI Latency: %latencyapis",
     "ping_description": "Shows you how long the bot needs to send a message",
 
     "randomnumber_number": "You must enter a number!",

@@ -3,8 +3,8 @@ exports.run = async (client, msg, args, lang) => {
 	const guild = client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
-	const tableload = await client.guildconfs.get(msg.guild.id);
-	const botconfs = await client.botconfs.get('blackbanlist');
+	const tableload = client.guildconfs.get(msg.guild.id);
+	const botconfs = client.botconfs.get('blackbanlist');
 	const banlist = [];
 
 	if (botconfs.banlist.length === 0) return msg.reply(lang.banlist_error);

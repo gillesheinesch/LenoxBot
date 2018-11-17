@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
 const marketitemskeys = require('../../marketitems-keys.json');
 exports.run = async (client, msg, args, lang) => {
-	const userdb = await client.userdb.get(msg.author.id);
-	const tableload = await client.guildconfs.get(msg.guild.id);
-	const marketconfs = await client.botconfs.get('market');
+	const userdb = client.userdb.get(msg.author.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
+	const marketconfs = client.botconfs.get('market');
 
 	const inventory = lang.inventory_inventory.replace('%authortag', msg.author.tag);
 	const validation = ['upgrade'];
@@ -14,7 +14,7 @@ exports.run = async (client, msg, args, lang) => {
 				if (userdb.inventory.inventoryslotticket === 0) return msg.reply(lang.inventory_notickets);
 				userdb.inventory.inventoryslotticket -= 1;
 				userdb.inventoryslots += 1;
-				await client.userdb.set(msg.author.id, userdb);
+				client.userdb.set(msg.author.id, userdb);
 
 				const ticketbought = lang.inventory_ticketbought.replace('%currentslots', `\`${userdb.inventoryslots}\``);
 				return msg.reply(ticketbought);

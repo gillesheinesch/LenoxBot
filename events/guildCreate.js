@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
 const settings = require('../settings.json');
 const guildsettingskeys = require('../guildsettings-keys.json');
-exports.run = async (client, guild) => {
+exports.run = (client, guild) => {
 	guildsettingskeys.prefix = settings.prefix;
 	if (client.guildconfs.get(guild.id)) {
-		const tableload = await client.guildconfs.get(guild.id);
+		const tableload = client.guildconfs.get(guild.id);
 
 		for (const key in guildsettingskeys) {
 			if (!tableload[key]) {
@@ -34,7 +34,7 @@ exports.run = async (client, guild) => {
 			}
 		}
 	}
-	await client.guildconfs.set(guild.id, guildsettingskeys);
+	client.guildconfs.set(guild.id, guildsettingskeys);
 
 	const embed1 = new Discord.RichEmbed()
 		.setColor('#ccff33')

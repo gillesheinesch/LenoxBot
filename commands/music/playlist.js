@@ -40,7 +40,7 @@ exports.run = async (client, msg, args, lang) => {
 
 						if (responsesongs.first().content.toLowerCase() === 'finish') {
 							tableload.playlist[newplaylisttitle.toLowerCase()] = newplaylistsongs;
-							await client.guildconfs.set(msg.guild.id, tableload);
+							client.guildconfs.set(msg.guild.id, tableload);
 							return msg.reply(lang.playlist_finish);
 						}
 
@@ -106,7 +106,7 @@ exports.run = async (client, msg, args, lang) => {
 
 									if (newplaylistsongs.length === 12) {
 										tableload.playlist[newplaylisttitle.toLowerCase()] = newplaylistsongs;
-										await client.guildconfs.set(msg.guild.id, tableload);
+										client.guildconfs.set(msg.guild.id, tableload);
 										return msg.reply(lang.playlist_finish);
 									}
 									const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', Util.escapeMarkdown(video.title));
@@ -163,7 +163,7 @@ exports.run = async (client, msg, args, lang) => {
 				if (!tableload.playlist[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 				delete tableload.playlist[args.slice(1).join(' ').toLowerCase()];
-				await client.guildconfs.set(msg.guild.id, tableload);
+				client.guildconfs.set(msg.guild.id, tableload);
 
 				return msg.reply(lang.playlist_deleted);
 			} else if (margs[1].toLowerCase() === 'addsong') {
@@ -191,7 +191,7 @@ exports.run = async (client, msg, args, lang) => {
 							}
 							selectedplaylist.push(video2);
 						}
-						await client.guildconfs.set(msg.guild.id, tableload);
+						client.guildconfs.set(msg.guild.id, tableload);
 						const newsongadded = lang.playlist_newsongadded.replace('%songname', playlist.title);
 						return msg.channel.send(newsongadded);
 					}
@@ -240,7 +240,7 @@ exports.run = async (client, msg, args, lang) => {
 							selectedplaylist.push(video);
 
 
-							await client.guildconfs.set(msg.guild.id, tableload);
+							client.guildconfs.set(msg.guild.id, tableload);
 
 							const newsongadded = lang.playlist_newsongadded.replace('%songname', Util.escapeMarkdown(video.title));
 							return msg.reply(newsongadded);
@@ -269,7 +269,7 @@ exports.run = async (client, msg, args, lang) => {
 				for (const x in tableload.playlist[args.slice(1).join(' ').toLowerCase()]) {
 					if (tableload.playlist[args.slice(1).join(' ').toLowerCase()][x].title.toLowerCase() === removesong.first().content.toLowerCase()) {
 						delete tableload.playlist[args.slice(1).join(' ').toLowerCase()][x];
-						await client.guildconfs.set(msg.guild.id, tableload);
+						client.guildconfs.set(msg.guild.id, tableload);
 
 						const removedsong = lang.playlist_removedsong.replace('%songname', x.title);
 						return msg.reply(removedsong);

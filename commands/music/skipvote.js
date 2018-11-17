@@ -1,9 +1,9 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.skipvote) {
 		tableload.skipvote = 'false';
-		await client.guildconfs.set(msg.guild, tableload);
+		client.guildconfs.set(msg.guild, tableload);
 	}
 
 	if (tableload.skipvote === 'false') {

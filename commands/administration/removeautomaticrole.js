@@ -1,9 +1,9 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (!tableload.ara) {
 		tableload.ara = [];
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	const addedrole = args.slice().join(' ');
@@ -20,10 +20,10 @@ exports.run = async (client, msg, args, lang) => {
 			for (let index = 0; index < tableload.ara.length; index += 2) {
 				if (roleId === tableload.ara[index]) {
 					tableload.ara.splice(index, 2);
-					await client.guildconfs.set(msg.guild.id, tableload);
+					client.guildconfs.set(msg.guild.id, tableload);
 				}
 			}
-			await client.guildconfs.set(msg.guild.id, tableload);
+			client.guildconfs.set(msg.guild.id, tableload);
 			return msg.channel.send(lang.removeautomaticrole_roleremoved);
 		}
 	}

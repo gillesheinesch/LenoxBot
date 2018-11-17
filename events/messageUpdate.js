@@ -3,12 +3,12 @@ exports.run = async (client, oldMsg, newMsg) => {
 	if (newMsg.author.bot) return;
 	if (newMsg.channel.type !== 'text') return;
 
-	const tableload = await client.guildconfs.get(newMsg.guild.id);
+	const tableload = client.guildconfs.get(newMsg.guild.id);
 	if (!tableload) return;
 
 	if (tableload.language === '') {
 		tableload.language = 'en-US';
-		await client.guildconfs.set(newMsg.guild.id, tableload);
+		client.guildconfs.set(newMsg.guild.id, tableload);
 	}
 
 	// CHANGE TO THE NEW CROWDIN SYSTEM

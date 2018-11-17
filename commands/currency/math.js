@@ -4,7 +4,7 @@ sql.open(`../${settings.sqlitefilename}.sqlite`);
 const math = require('math-expression-evaluator');
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const userdb = await client.userdb.get(msg.author.id);
+	const userdb = client.userdb.get(msg.author.id);
 	const randomForNumbers = Math.random();
 	let firstNumber;
 	let secondNumber;
@@ -60,7 +60,7 @@ exports.run = async (client, msg, args, lang) => {
 		if (mathLevel > userdb.mathematics.level) {
 			userdb.mathematics.level = mathLevel;
 		}
-		await client.userdb.set(msg.author.id, userdb);
+		client.userdb.set(msg.author.id, userdb);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {

@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async (client, msg, args, lang) => {
-	const tableload = await client.guildconfs.get(msg.guild.id);
+	const tableload = client.guildconfs.get(msg.guild.id);
 	const text = args.slice().join(' ');
 	const embedCheck = text.toLowerCase().includes('-embed');
 

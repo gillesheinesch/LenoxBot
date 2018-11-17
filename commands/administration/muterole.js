@@ -1,4 +1,4 @@
-exports.run = async (client, msg, args, lang) => {
+exports.run = (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 
 	if (args.length < 1) return msg.reply(lang.muterole_noinput);
@@ -8,11 +8,11 @@ exports.run = async (client, msg, args, lang) => {
 
 	if (!tableload.muterole) {
 		tableload.muterole = '';
-		await client.guildconfs.set(msg.guild.id, tableload);
+		client.guildconfs.set(msg.guild.id, tableload);
 	}
 
 	tableload.muterole = role.id;
-	await client.guildconfs.set(msg.guild.id, tableload);
+	client.guildconfs.set(msg.guild.id, tableload);
 	msg.channel.send(lang.muterole_mutedroleset);
 };
 
