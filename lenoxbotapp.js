@@ -139,6 +139,7 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// All routes:
 app.get('/loginpressedbutton', passport.authenticate('discord', {
 	scope: scopes
 }));
@@ -155,8 +156,7 @@ app.listen(settings.websiteport, err => {
 	if (err) return console.log(err);
 });
 
-// Check all user guild where user are owner and lenoxbot is
-
+// Check all guilds of the user where LenoxBot is a member
 function islenoxboton(req) {
 	const islenoxbot = [];
 	if (req.user) {
@@ -169,8 +169,7 @@ function islenoxboton(req) {
 	return islenoxbot;
 }
 
-// Check all user guilds where lenoxbot is
-
+// Check all guilds where LenoxBot is a member
 function islenoxbotonNonPermission(req) {
 	const islenoxbotNonPerm = [];
 	if (req.user) {
