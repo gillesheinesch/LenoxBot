@@ -5,19 +5,29 @@
                 <div class="col-12 my-3">
                     <h1>Ban Appeal</h1>
                     <p>Here you can write a ban/blacklist appeal<br>
-                    <span class="text-danger">*</span> Required</p>
+                        <span class="text-danger">*</span> Required</p>
                     <form>
                         <div class="form-group">
                             <label for="discordTag">Discord Tag <span class="text-danger">*</span></label>
+                            {{#if user.username}}
                             <input type="text" class="form-control col-md-3" id="discordTag" name="discordTag"
-                                aria-describedby="discordTagHelp" placeholder="0001" required>
+                                aria-describedby="discordTagHelp" required disabled value="{{user.username}}#{{user.discriminator}}">
+                            {{else}}
+                            <input type="text" class="form-control col-md-3" id="discordTag" name="discordTag"
+                                aria-describedby="discordTagHelp" placeholder="Tester#0001" required>
+                            {{/if}}
                             <small id="discordTagHelp" class="form-text text-muted">We need your Discord tag to remove
                                 you from the blacklist or to remove your server from the list of bans.</small>
                         </div>
                         <div class="form-group">
                             <label for="discordUserID">Discord UserID <span class="text-danger">*</span></label>
+                            {{#if user.id}}
                             <input type="text" class="form-control col-md-3" id="discordUserID" name="discordUserID"
-                                aria-describedby="discordUserIDHelp" placeholder="Insert Discord UserID" required>
+                                aria-describedby="discordUserIDHelp" disabled value="{{user.id}}">
+                            {{else}}
+                            <input type="text" class="form-control col-md-3" id="discordUserID" name="discordUserID"
+                                aria-describedby="discordUserIDHelp" required placeholder="Enter your discord userID">
+                            {{/if}}
                             <small id="discordUserIDHelp" class="form-text text-muted">You can get your USERID by
                                 entering \@YOURNAME in the chat. Copy this ID from the chat.</small>
                         </div>
