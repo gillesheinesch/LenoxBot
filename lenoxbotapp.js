@@ -268,44 +268,6 @@ app.get('/test', (req, res) => {
 	}
 });
 
-app.get('/banappeal', (req, res) => {
-	try {
-		const islenoxbot = islenoxboton(req);
-		return res.render('banappeal', {
-			user: req.user,
-			islenoxbot: islenoxbot,
-			client: client
-		});
-	} catch (error) {
-		return res.redirect(url.format({
-			pathname: `/error`,
-			query: {
-				statuscode: 500,
-				message: error.message
-			}
-		}));
-	}
-});
-
-app.get('/formsubmitted', (req, res) => {
-	try {
-		const islenoxbot = islenoxboton(req);
-		return res.render('formsubmitted', {
-			user: req.user,
-			islenoxbot: islenoxbot,
-			client: client
-		});
-	} catch (error) {
-		return res.redirect(url.format({
-			pathname: `/error`,
-			query: {
-				statuscode: 500,
-				message: error.message
-			}
-		}));
-	}
-});
-
 app.get('/invite', (req, res) => res.redirect('https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8'));
 
 app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/jmZZQja'));
@@ -5425,14 +5387,13 @@ app.get('/dashboard/:id/lastlogs', (req, res) => {
 	}
 });
 
-app.post('/appeal/:type/:id/submitnewappeal', async (req, res) => {
+app.post('/banappeal/submitnewappeal', async (req, res) => {
 	try {
 		if (req.user) {
-
-			// HAS TO BE SAVED IN BOTCONFS.APPEALS @Monkeyyy11
+			// HAS TO BE SAVED IN botconfs.banappeals @Monkeyyy11
 
 			return res.redirect(url.format({
-				pathname: `/home`,
+				pathname: `/formsubmitted`,
 				query: {
 					appealsend: true
 				}
@@ -5450,54 +5411,37 @@ app.post('/appeal/:type/:id/submitnewappeal', async (req, res) => {
 	}
 });
 
-app.get('/appeal/:type/:id', async (req, res) => {
-	if (req.params.type.toLowerCase() !== 'user' && req.params.type.toLowerCase() === 'server') throw Error('Invalid type!');
+app.get('/banappeal', (req, res) => {
 	try {
-		const dashboardid = res.req.originalUrl.substr(11, 18);
 		if (req.user) {
-			let index = -1;
-			for (let i = 0; i < req.user.guilds.length; i++) {
-				if (req.user.guilds[i].id === dashboardid) {
-					index = i;
-				}
-			}
-
-			if (req.params.type.toLowerCase() === 'server') {
-				if (index === -1) return res.redirect('/servers');
-
-				if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-					let allwhitelistedrolesoftheuser = 0;
-
-					for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-						if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-						if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-							allwhitelistedrolesoftheuser += 1;
-						}
-					}
-					if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-						return res.redirect('/servers');
-					}
-				} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-					return res.redirect('/servers');
-				}
-
-				if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-			} else {
-				if (req.params.type.toLowerCase() === 'user' && req.user.id !== req.params.id) throw Error('Not authorised to visit this page!');
-			}
-
-			const check = req.user.guilds[index];
+			if (!client.guilds.get('352896116812939264').members.get(req.user.id)) throw new Error('You need to join our discord server --> https://lenoxbot.com/discord');
 			const islenoxbot = islenoxboton(req);
-
-			return res.render('dashboardlastlogs', {
+			return res.render('banappeal', {
 				user: req.user,
-				guilds: check,
-				client: client,
 				islenoxbot: islenoxbot,
-				logs: logs
+				client: client
 			});
 		}
 		return res.redirect('/nologin');
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
+app.get('/formsubmitted', (req, res) => {
+	try {
+		const islenoxbot = islenoxboton(req);
+		return res.render('formsubmitted', {
+			user: req.user,
+			islenoxbot: islenoxbot,
+			client: client
+		});
 	} catch (error) {
 		return res.redirect(url.format({
 			pathname: `/error`,
