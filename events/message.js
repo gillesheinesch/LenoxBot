@@ -103,8 +103,8 @@ exports.run = async (client, msg) => {
 		client.botconfs.set('botconfs', botconfs);
 	}
 
-	if (!botconfs.appeals) {
-		botconfs.appeals = {};
+	if (!botconfs.banappeals) {
+		botconfs.banappeals = {};
 		await client.botconfs.set('botconfs', botconfs);
 	}
 
