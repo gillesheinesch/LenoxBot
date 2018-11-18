@@ -2421,18 +2421,17 @@ app.get('/dashboard/:id/administration', (req, res) => {
 			}
 
 			const languages = [{
-					name: 'english',
-					alias: 'en-US'
-				},
-				{
-					name: 'german',
-					alias: 'de-DE'
-				},
-				{
-					name: 'french',
-					alias: 'fr-FR'
-				}
-			];
+				name: 'english',
+				alias: 'en-US'
+			},
+			{
+				name: 'german',
+				alias: 'de-DE'
+			},
+			{
+				name: 'french',
+				alias: 'fr-FR'
+			}];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {
@@ -5387,7 +5386,7 @@ app.get('/dashboard/:id/lastlogs', (req, res) => {
 	}
 });
 
-app.post('/banappeal/submitnewappeal', async (req, res) => {
+app.post('/banappeal/submitnewappeal', (req, res) => {
 	try {
 		if (req.user) {
 			// HAS TO BE SAVED IN botconfs.banappeals @Monkeyyy11
