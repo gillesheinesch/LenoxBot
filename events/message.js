@@ -87,11 +87,16 @@ exports.run = async (client, msg) => {
 			}
 		}
 
+		for (const key in usersettingskeys.socialmedia) {
+			if (!userdb.socialmedia[key]) {
+				userdb.socialmedia[key] = usersettingskeys.socialmedia[key];
+			}
+		}
+
 		client.userdb.set(msg.author.id, userdb);
 	} else {
 		client.userdb.set(msg.author.id, usersettingskeys);
 	}
-
 
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const userdb = client.userdb.get(msg.author.id);
