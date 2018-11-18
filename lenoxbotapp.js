@@ -722,21 +722,17 @@ app.get('/oauth2problem', (req, res) => {
 app.get('/discordservers', (req, res) => {
 	try {
 		const willLookLikeThis = {
-			'guildid': {
+			guildid: {
 				name: 'Discord server name',
 				owners: ['userid of the owner/admin', 'userid of the owner/admin'],
 				members: 'memberscount',
 				tags: ['all tags'],
 				comments: {
-					'timestamp': {
+					timestamp: {
 						author: 'userid',
 						content: 'content of the comment',
 						commentreports: {
-							'userid': {
-								timestamp: 'timestamp',
-								reason: 'reason'
-							},
-							'userid': {
+							userid: {
 								timestamp: 'timestamp',
 								reason: 'reason'
 							}
@@ -744,19 +740,15 @@ app.get('/discordservers', (req, res) => {
 					}
 				},
 				serverreports: {
-					'userid': {
-						timestamp: 'timestamp',
-						reason: 'reason'
-					},
-					'userid': {
+					userid: {
 						timestamp: 'timestamp',
 						reason: 'reason'
 					}
 				},
 				verification: 'true or false',
 				isTheServerBanned: 'true or false'
-			};
-		}
+			}
+		};
 		return res.render('discordservers', {
 			user: req.user,
 			client: client,
@@ -2475,18 +2467,17 @@ app.get('/dashboard/:id/administration', (req, res) => {
 			}
 
 			const languages = [{
-					name: 'english',
-					alias: 'en-US'
-				},
-				{
-					name: 'german',
-					alias: 'de-DE'
-				},
-				{
-					name: 'french',
-					alias: 'fr-FR'
-				}
-			];
+				name: 'english',
+				alias: 'en-US'
+			},
+			{
+				name: 'german',
+				alias: 'de-DE'
+			},
+			{
+				name: 'french',
+				alias: 'fr-FR'
+			}];
 
 			if (tableload.language) {
 				for (let index3 = 0; index3 < languages.length; index3++) {
