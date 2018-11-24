@@ -28,11 +28,28 @@ module.exports = class LenoxBotSettingsProvider extends Commando.SettingProvider
                 settingsCollection.findOne({'guildId': guild.id}).then((err, result) => {
                     if(err) {
                         //Can't find DB make new one.
-
+                        settings = {};
                     }
 
-                    this.guildSettings.set(guild.id, result.settings);
+                    if(typeof result.settings !== 'undefined') {
+                        settings = result.settings;
+                    }
+
+                    this.guildSettings.set(guild.id, settings);
                 })
+                settingsCollection.findOne({'guildId': "global"}).then((err, result) => {
+                    if(err) {
+                        //Could not load global, do new one
+                        settings = {};
+                        this.setupGuild("global", settings);
+                    }
+
+                    if(typeof result.settings !== 'undefined') {
+                        settings = result.settings;
+                    }
+
+                    this.guildSettings.set("global", settings);
+                });
             });
         });
 
@@ -120,15 +137,38 @@ module.exports = class LenoxBotSettingsProvider extends Commando.SettingProvider
      * @param {snowflake} guildId 
      * @param {object containing properties} settings 
      */
-    setupGuild(guildId, settings) {
+    setupGuild(guild, settings) {
+        if(typeof guild !== 'string') throw new TypeError('The guild must be a guild ID or "global".');
+		guild = this.client.guilds.get(guild) || null;
 
+		// Load the command prefix
+		if(typeof settings.prefix !== 'undefined') {
+			if(guild) guild._commandPrefix = settings.prefix;
+			else this.client._commandPrefix = settings.prefix;
+		}
+
+		// Load all command/group statuses
+		for(const command of this.client.registry.commands.values()) this.setupGuildCommand(guild, command, settings);
+        for(const group of this.client.registry.groups.values()) this.setupGuildGroup(guild, group, settings);
     }
 
-    setupGuildCommand(guildId, command, setting) {
-
+    setupGuildCommand(guild, command, settings) {
+        if(typeof settings[`cmd-${command.name}`] === 'undefined') return;
+        if(guild) {
+            if(!guild._commandsEnabled) guild._commandsEnabled = {};
+            guild._commandsEnabled[command.name] = settings[`cmd-${command.name}`]
+        } else {
+            command._globalEnabled = settings[`cmd-${command.name}`]
+        }
     }
 
-    setupGuildGroup(guildId, command, setting) {
-
+    setupGuildGroup(guild, command, setting) {
+		if(typeof settings[`grp-${group.id}`] === 'undefined') return;
+		if(guild) {
+			if(!guild._groupsEnabled) guild._groupsEnabled = {};
+			guild._groupsEnabled[group.id] = settings[`grp-${group.id}`];
+		} else {
+			group._globalEnabled = settings[`grp-${group.id}`];
+        }
     }
 }
