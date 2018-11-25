@@ -3,55 +3,81 @@ const mongodb = require("mongodb");
 const assert = require("assert");
 const Commando = require("discord.js-commando");
 
-module.exports = class LenoxBotSettingsProvider extends Commando.SettingProvider { 
+class LenoxBotSettingsProvider extends Commando.SettingProvider { 
 
     constructor(settings) {
         super();
-        const url = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT`;
+        this.url = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT&authSource=admin`;
 
-        this.dbClient = new mongodb.MongoClient(url);
         this.guildSettings = new Map();
         this.listeners = new Map();
+        this.isReady = false;
     }
     
     async init(client) {
-        this.dbClient.connect(function(err) {
-            assert.strictEqual(null, err);
+        try {
+            this.dbClient = await mongodb.MongoClient.connect(this.url, {useNewUrlParser: true});
             console.log("Connected to mongodb");
+        } catch(err) {
+            console.log(err);
 
-            this.db = this.dbClient.db("lenoxbot");
-            const settingsCollection = db.collection('guildSettings');
+            process.exit(-1);
+        }
 
-            settingsCollection.createIndex("guildId", {unique: true});
+        this.db = this.dbClient.db("lenoxbot");
+        const settingsCollection = this.db.collection('guildSettings');
+        const guildSettings = this.guildSettings;
 
-            client.guilds.every(function(guild) {
-                settingsCollection.findOne({'guildId': guild.id}).then((err, result) => {
-                    if(err) {
-                        //Can't find DB make new one.
-                        settings = {};
-                    }
+        await settingsCollection.createIndex("guildId", {unique: true});
 
-                    if(typeof result.settings !== 'undefined') {
-                        settings = result.settings;
-                    }
+        for(var guild in client.guilds.array()) {
+            try {
+                let result = await settingsCollection.findOne({'guildId': guild.id});
+                var settings = undefined;
+                
+                if(!result) {
+                    //Can't find DB make new one.
+                    settings = {};
+                    settingsCollection.insertOne({'guildId': guild.id, settings: settings})
+                }
 
-                    this.guildSettings.set(guild.id, settings);
-                })
-                settingsCollection.findOne({'guildId': "global"}).then((err, result) => {
-                    if(err) {
-                        //Could not load global, do new one
-                        settings = {};
-                        this.setupGuild("global", settings);
-                    }
+                if(result && result.settings) {
+                    settings = result.settings;
+                }
 
-                    if(typeof result.settings !== 'undefined') {
-                        settings = result.settings;
-                    }
+                guildSettings.set(guild.id, settings);
+            } catch(err) {
+                console.warn(`Error while creating document of guild ${guild.id}`);
+                console.warn(err);
+            }
+        }
 
-                    this.guildSettings.set("global", settings);
-                });
-            });
-        });
+        try {
+            let result = await settingsCollection.findOne({'guildId': "global"})
+            var settings = undefined;
+            
+            if(!result) {
+                //Could not load global, do new one
+                settings = {};
+                settingsCollection.insertOne({'guildId': "global", settings: settings})
+                this.setupGuild("global", settings);
+            }
+
+            if(result && result.settings) {
+                settings = result.settings;
+            }
+
+            guildSettings.set("global", settings);
+        } catch(err) {
+            console.warn("Error while creating global document");
+            console.warn(err);
+        }
+
+        this.isReady = true;
+
+        if(this.readyCallback) {
+            this.readyCallback();
+        }
 
         this.listeners
         .set('commandPrefixChange', (guild, prefix) => this.set(guild, 'prefix', prefix))
@@ -94,7 +120,7 @@ module.exports = class LenoxBotSettingsProvider extends Commando.SettingProvider
         settings[key] = val;
         const settingsCollection = this.db.collection('guildSettings');
 
-        await settingsCollection.save({'guildId': guild, 'settings': settings});
+        await settingsCollection.updateOne({'guildId': guild, 'settings': settings});
         return val;
     }
 
@@ -130,6 +156,10 @@ module.exports = class LenoxBotSettingsProvider extends Commando.SettingProvider
 
     getDatabase() {
         return this.db;
+    }
+
+    whenReady(callback) {
+        this.readyCallback = callback;
     }
 
     /**
@@ -172,3 +202,5 @@ module.exports = class LenoxBotSettingsProvider extends Commando.SettingProvider
         }
     }
 }
+
+module.exports = LenoxBotSettingsProvider;
