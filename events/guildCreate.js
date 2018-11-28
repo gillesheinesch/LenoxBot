@@ -51,7 +51,7 @@ exports.run = (client, guild) => {
 		.addField(`Owner`, `${guild.owner.user.tag} (${guild.ownerID})`)
 		.addField(`Channels`, `${guild.channels.size}`)
 		.addField(`Members`, `${guild.memberCount}`)
-		.setColor('#00ff00')
+		.setColor('GREEN')
 		.setFooter('JOINED DISCORD SERVER');
 	client.channels.get('497400159894896651').send({
 		embed: embed
