@@ -45,7 +45,7 @@ exports.run = (client, oldMember, newMember) => {
 
 	if (oldMember.nickname !== newMember.nickname) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildmemberupdateevent_nicknamechanged)
 			.addField(`📎 ${lang.guildmemberupdateevent_member}`, `${oldMember.user.tag} (${oldMember.id})`)
@@ -59,7 +59,7 @@ exports.run = (client, oldMember, newMember) => {
 
 	if (oldMember.roles.size < newMember.roles.size) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildmemberupdateevent_roleassigned)
 			.addField(`📎 ${lang.guildmemberupdateevent_member}`, `${oldMember.user.tag} (${oldMember.id})`);
@@ -75,7 +75,7 @@ exports.run = (client, oldMember, newMember) => {
 
 	if (oldMember.roles.size > newMember.roles.size) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildmemberupdateevent_roleremoved)
 			.addField(`📎 ${lang.guildmemberupdateevent_member}`, `${oldMember.user.tag} (${oldMember.id})`);
