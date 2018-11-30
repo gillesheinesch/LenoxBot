@@ -87,11 +87,16 @@ exports.run = async (client, msg) => {
 			}
 		}
 
+		for (const key in usersettingskeys.socialmedia) {
+			if (!userdb.socialmedia[key]) {
+				userdb.socialmedia[key] = usersettingskeys.socialmedia[key];
+			}
+		}
+
 		client.userdb.set(msg.author.id, userdb);
 	} else {
 		client.userdb.set(msg.author.id, usersettingskeys);
 	}
-
 
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const userdb = client.userdb.get(msg.author.id);
@@ -651,7 +656,7 @@ exports.run = async (client, msg) => {
 									.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 									.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 									.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
-									.setColor('#FF0000')
+									.setColor('RED')
 									.setAuthor(chatfilterembed);
 
 								try {
@@ -684,7 +689,7 @@ exports.run = async (client, msg) => {
 								.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 								.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 								.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
-								.setColor('#FF0000')
+								.setColor('RED')
 								.setAuthor(chatfilterembed);
 
 							try {

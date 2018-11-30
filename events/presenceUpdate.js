@@ -34,7 +34,7 @@ exports.run = (client, oldMember, newMember) => {
 
 	if (oldMember.presence.status !== newMember.presence.status) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.presenceupdateevent_changed)
 			.addField(`📎 ${lang.presenceupdateevent_member}:`, `${oldMember.user.tag} (${oldMember.id})`)
