@@ -6,7 +6,7 @@
                     <h1>Ban Appeal</h1>
                     <p>Here you can write a ban/blacklist appeal<br>
                         <span class="text-danger">*</span> Required</p>
-                    <form>
+                    <form action="/banappeal/submitnewappeal" method="post">
                         <div class="form-group">
                             <label for="discordTag">Discord Tag <span class="text-danger">*</span></label>
                             {{#if user.username}}
@@ -32,6 +32,11 @@
                                 entering \@YOURNAME in the chat. Copy this ID from the chat.</small>
                         </div>
                         <div class="form-group">
+                            <label for="unbanReason">Why should we unban you or your server? <span class="text-danger">*</span></label>
+                            <textarea type="text" class="form-control col-md-6" id="unbanReason" name="unbanReason"
+                                aria-describedby="unbanReasonHelp" required placeholder="Explain us..."></textarea>
+                        </div>
+                        <div class="form-group">
                             <label for="radio">Were you set to the blacklist or were your server banned? <span class="text-danger">*</span></label>
                             <div class="form-check">
                                 <input class="form-check-input" type="radio" name="blacklistOrServerRadio" id="blacklistOrServerRadio1"
@@ -55,25 +60,26 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="radio">Are you on the support Discord server? (Link: <a href="https://www.discord.gg/5mpwCr8">Click
-                                    here</a>)</label>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="yesNoRadio" id="yesNoRadio2" value="1">
-                                <label class="form-check-label" for="yesNoRadio2">
-                                    Yes
-                                </label>
-                            </div>
-                            <div class="form-check">
-                                <input class="form-check-input" type="radio" name="yesNoRadio" id="yesNoRadio1" value="0">
-                                <label class="form-check-label" for="yesNoRadio1">
-                                    No
-                                </label>
-                            </div>
+                        <div class="form-group" id="serverSelect">
+                                <label for="server">Select server <span class="text-danger">*</span></label>
+                                <select class="form-control col-md-3" name="server" id="server">
+                                    <option value="0" selected disabled>Server...</option>
+                                    {{#if user.username}}
+                                    {{#each islenoxbot}}
+                                    <option value="{{id}}">{{name}}</option>
+                                    {{/each}}
+                                    {{/if}}
+                                    </select>
                         </div>
-
                         <button type="submit" class="btn lb-btn-green">Send</button>
                     </form>
+                    <script>
+                        $('#serverSelect').hide()
+                        $('input[name="blacklistOrServerRadio"').click(function () {
+                            if (this.value != 0) $('#serverSelect').show()
+                            else $('#serverSelect').hide()
+                        })
+                    </script>
                 </div>
             </div>
         </div>
