@@ -38,7 +38,7 @@ exports.run = (client, oldChannel, newChannel) => {
 
 	if (oldChannel.name !== newChannel.name) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_nameupdated)
 			.addField(`📎 ${lang.channelcreateevent_channelid}:`, oldChannel.id)
@@ -50,7 +50,7 @@ exports.run = (client, oldChannel, newChannel) => {
 	}
 	if (oldChannel.topic !== newChannel.topic) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_topicupdated)
 			.addField(`⚙ ${lang.channelcreateevent_channelname}`, oldChannel.name)
@@ -63,7 +63,7 @@ exports.run = (client, oldChannel, newChannel) => {
 	}
 	if (oldChannel.position !== newChannel.position) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_positionupdated)
 			.addField(`⚙ ${lang.channelcreateevent_channelname}:`, oldChannel.name)

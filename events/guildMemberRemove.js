@@ -34,7 +34,7 @@ exports.run = (client, member) => {
 		const embed = new Discord.RichEmbed()
 			.setFooter(lang.guildmemberremoveevent_userleft)
 			.setTimestamp()
-			.setColor('#FF0000')
+			.setColor('RED')
 			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
 		messagechannel.send({ embed: embed });
 	}

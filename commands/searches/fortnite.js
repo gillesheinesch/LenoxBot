@@ -5,28 +5,30 @@ exports.run = async (client, msg, args, lang) => {
 
 	const input = args.slice();
 
-	if (!input[0]) return msg.channel.send(lang.fortnite_noinput);
-	if (input.length > 1) {
-		if (input[1].toLowerCase() !== 'pc' && input[1].toLowerCase() !== 'psn' && input[1].toLowerCase() !== 'xbl') return msg.channel.send(lang.fortnite_invalidconsole);
-	}
+	if (!input || input.length === 0) return msg.reply(lang.fortnite_noinput);
+	if (input.length < 1) return msg.reply(lang.fortnite_invalidconsole);
+	if (input[0].toLowerCase() !== 'pc' && input[0].toLowerCase() !== 'psn' && input[0].toLowerCase() !== 'xbl') return msg.reply(lang.fortnite_invalidconsole);
 
 	let stats;
 	try {
-		stats = await fortniteclient.getInfo(input[0], input[1] ? input[1] : 'PC');
+		stats = await fortniteclient.getInfo(args.slice(1).join(' '), input[0]);
 	} catch (error) {
-		return msg.channel.send(lang.fortnite_playernotfound);
+		return msg.reply(lang.fortnite_playernotfound);
 	}
 
-	const embed = new Discord.RichEmbed()
-		.setURL(stats.url)
-		.setColor('#f45942')
+	const statsEmbed = new Discord.RichEmbed()
+		.setColor('BLUE')
 		.setAuthor(`${stats.username} || ${stats.platformNameLong}`);
+
 	for (let i = 0; i < stats.lifetimeStats.length; i++) {
 		const stat = stats.lifetimeStats[i].stat;
 		const value = stats.lifetimeStats[i].value;
-		embed.addField(stat, value, true);
+		statsEmbed.addField(stat, value, true);
 	}
-	return msg.channel.send({ embed });
+
+	return msg.channel.send({
+		embed: statsEmbed
+	});
 };
 
 exports.conf = {
@@ -40,8 +42,8 @@ exports.conf = {
 exports.help = {
 	name: 'fortnite',
 	description: 'Shows you Fortnite stats about a player on every console',
-	usage: 'fortnite {EpicGames Username} [pc, xbl, psn (pc default)]',
-	example: ['fortnite Monkeyyy11ez psn'],
+	usage: 'fortnite {pc, xbl, psn} {EpicGames Username}',
+	example: ['fortnite psn Monkeyyy11ez'],
 	category: 'searches',
 	botpermissions: ['SEND_MESSAGES']
 };

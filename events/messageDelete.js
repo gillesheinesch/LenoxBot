@@ -36,7 +36,7 @@ exports.run = (client, msg) => {
 	const lang = require(`../languages/${tableload.language}.json`);
 
 	const embed = new Discord.RichEmbed()
-		.setColor('#FE2E2E')
+		.setColor('RED')
 		.setTimestamp()
 		.setAuthor(lang.messagedeleteevent_deleted)
 		.addField(`🗣 ${lang.messagedeleteevent_author}`, msg.author.tag)
