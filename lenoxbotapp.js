@@ -5118,10 +5118,9 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', (req, res) => {
 			if (req.body.newdescription) {
 				newDescription = req.body.newdescription;
 			}
-			console.log('Works1');
 
 			for (let i = 0; i < tableload.customcommands.length; i++) {
-				if (tableload.customcommands[i].name === req.params.command.toLowerCase()) {
+				if (tableload.customcommands[i].name === newCommandName.toLowerCase()) {
 					return res.redirect(url.format({
 						pathname: `/error`,
 						query: {
@@ -5141,7 +5140,6 @@ app.post('/dashboard/:id/customcommands/submitnewcustomcommand', (req, res) => {
 				commandCreatedAt: Date.now(),
 				enabled: 'true'
 			};
-			console.log(newCustomCommandSettings);
 
 			tableload.customcommands.push(newCustomCommandSettings);
 
