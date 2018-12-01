@@ -39,7 +39,7 @@ exports.run = (client, oldGuild, newGuild) => {
 
 	if (oldGuild.name !== newGuild.name) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_namechanged)
 			.addField(`📤 ${lang.guildupdateevent_oldname}`, oldGuild.name)
@@ -49,7 +49,7 @@ exports.run = (client, oldGuild, newGuild) => {
 
 	if (oldGuild.afkChannelID !== newGuild.afkChannelID) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_afkchanged)
 			.addField(`📤 ${lang.guildupdateevent_oldafk}`, oldGuild.afkChannel === null ? lang.guildupdateevent_noafk : oldGuild.afkChannel.name)
@@ -59,7 +59,7 @@ exports.run = (client, oldGuild, newGuild) => {
 
 	if (oldGuild.afkTimeout !== newGuild.afkTimeout) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_afktimeoutchanged)
 			.addField(`📤${lang.guildupdateevent_oldafktimeout}`, `${oldGuild.afkTimeout} ${lang.guildupdateevent_seconds}`)
@@ -69,7 +69,7 @@ exports.run = (client, oldGuild, newGuild) => {
 
 	if (oldGuild.iconURL !== newGuild.iconURL) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_servericonchanged)
 			.addField(`📤 ${lang.guildupdateevent_oldservericon}`, oldGuild.iconURL === null ? lang.guildupdateevent_noservericon : oldGuild.iconURL)
@@ -79,7 +79,7 @@ exports.run = (client, oldGuild, newGuild) => {
 
 	if (oldGuild.owner.id !== newGuild.owner.id) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_ownerchanged)
 			.addField(`📤 ${lang.guildupdateevent_oldowner}`, oldGuild.owner.user.tag)

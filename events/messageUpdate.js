@@ -35,7 +35,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 		if (!messagechannel) return;
 		if (oldMsg.cleanContent !== newMsg.cleanContent) {
 			const embed = new Discord.RichEmbed()
-				.setColor('#FE2E2E')
+				.setColor('ORANGE')
 				.setTimestamp()
 				.setAuthor(lang.messageupdateevent_updated)
 				.addField(`🗣 ${lang.messagedeleteevent_author}:`, newMsg.author.tag)

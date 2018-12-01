@@ -651,7 +651,7 @@ exports.run = async (client, msg) => {
 									.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 									.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 									.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
-									.setColor('#FF0000')
+									.setColor('RED')
 									.setAuthor(chatfilterembed);
 
 								try {
@@ -684,7 +684,7 @@ exports.run = async (client, msg) => {
 								.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 								.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 								.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
-								.setColor('#FF0000')
+								.setColor('RED')
 								.setAuthor(chatfilterembed);
 
 							try {
