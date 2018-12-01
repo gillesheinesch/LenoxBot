@@ -5389,6 +5389,7 @@ app.get('/dashboard/:id/lastlogs', (req, res) => {
 app.post('/banappeal/submitnewappeal', (req, res) => {
 	try {
 		if (req.user) {
+			console.log(req.body);
 			// HAS TO BE SAVED IN botconfs.banappeals @Monkeyyy11
 
 			return res.redirect(url.format({
