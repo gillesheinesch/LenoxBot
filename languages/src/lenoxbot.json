@@ -259,7 +259,7 @@
     "playlist_removedsong": "The song (%songname) was successfully removed from the playlist!",
     "playlist_songnotinplaylist": "This song is not in the playlist!",
     "playlist_error": "You used the command incorrectly. Please use **%prefixhelp playlist** to read the correct usage of the command!",
-    "playlist_description": "Create new music playlists on this Discord server",
+    "playlist_description": "Creates a new music playlist on this Discord server",
 
     "dailyremind_set": "You have activated the dailyremind! (If you run the %prefixdaily command, you'll be reminded 24 hours later to pick up your daily reward again)",
     "dailyremind_removed": "You have deactivated the dailyremind!",
@@ -289,7 +289,7 @@
 
     "ticket_noinput": "You forgot to enter your message to the support team!",
     "ticket_created": "Your ticket has been successfully created. We will contact you by direct message as soon as there is something new about your ticket. You can manage it at this link: %link",
-    "ticket_description": "Create a new ticket which will be forwarded to the Discord server team",
+    "ticket_description": "Creates a new ticket which will be forwarded to the Discord server team",
 
     "togglexp_noinput": "You forgot to enter a channel name!",
     "togglexp_notexist": "This channel doesn't exist!",
@@ -669,7 +669,7 @@
     "listevents_memberupdate": "Logs all user changes on this Discord server",
     "listevents_description": "Lists you all events that you can log on your server",
 
-    "listmodules_embed": "All active/disabled modules!",
+    "listmodules_embed": "All active/disabled modules:",
     "listmodules_activemodules": "Active modules",
     "listmodules_noactivemodules": "No modules activated",
     "listmodules_disabledmodules": "Disabled modules",
