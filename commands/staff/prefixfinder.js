@@ -27,7 +27,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	shortDescription: 'General',
-	aliases: ['pf'],
+	aliases: [],
 	userpermissions: [],
 	dashboardsettings: true
 };
