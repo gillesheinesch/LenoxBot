@@ -315,7 +315,7 @@
     "templesearch_dust": "Unfortunately you only found dust in the temple.",
     "templesearch_description": "Search for something valuable in the long-abandoned temple in the Sahara",
 
-    "farmertitle": "Harvest fields",
+    "job_farmertitle": "Harvest fields",
     "job_farmerdescription": "You always wanted to drive a tractor? Then this is the right job for you, you can help the farmer to harvest his fields! You need a tractor.",
     "job_techniciantitle": "Assemble electronic devices",
     "job_techniciandescription": "Help the IT technician repair the computers, cameras, and smartphones! You need a hammer.",
