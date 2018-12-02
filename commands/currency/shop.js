@@ -172,7 +172,12 @@ exports.run = async (client, msg, args, lang) => {
 
 				if (isNaN(howmanycheck[0])) {
 					const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
-					return msg.reply(commanderror);
+					const commanderrorEmbed = new Discord.RichEmbed()
+						.setDescription(commanderror)
+						.setColor('RED');
+					return msg.channel.send({
+						embed: commanderrorEmbed
+					});
 				}
 
 				for (i = 0; i < itemcheck.length; i++) {
@@ -236,7 +241,12 @@ exports.run = async (client, msg, args, lang) => {
 			} else if (sellorbuycheck[0].toLowerCase() === 'buy') {
 				if (isNaN(howmanycheck[0])) {
 					const commanderror = lang.shop_commanderror.replace('%prefix', tableload.prefix);
-					return msg.reply(commanderror);
+					const commanderrorEmbed = new Discord.RichEmbed()
+						.setDescription(commanderror)
+						.setColor('RED');
+					return msg.channel.send({
+						embed: commanderrorEmbed
+					});
 				}
 				// Check if the use can buy this item
 				for (i = 0; i < itemcheck.length; i++) {
