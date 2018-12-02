@@ -6,13 +6,15 @@ const marketitemskeys = require('../../marketitems-keys.json');
 exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const botconfs = client.botconfs.get('market');
-	const validationforbuysell = ['sell', 'buy'];
+	const validationForBuySell = ['sell', 'buy'];
 
 	const validationforitemsbuysell = [];
-	const itemsnames = [];
+	const nameOfTheItems = [];
+	const nameOfTheItemsInServerLanguage = [];
 	for (const x in marketitemskeys) {
 		validationforitemsbuysell.push(marketitemskeys[x][0]);
-		itemsnames.push(x);
+		nameOfTheItems.push(x);
+		nameOfTheItemsInServerLanguage.push(lang[`loot_${x}`].toLowerCase());
 	}
 
 	const marketconfs = client.botconfs.get('market');
@@ -32,7 +34,7 @@ exports.run = async (client, msg, args, lang) => {
 			.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 			.setColor('#009933')
 			.setThumbnail('https://imgur.com/7qLINgn.png')
-			.setAuthor(shop);
+			.setAuthor(shop, client.user.displayAvatarURL);
 
 		/* eslint guard-for-in: 0 */
 		for (const i in marketconfs) {
@@ -76,7 +78,7 @@ exports.run = async (client, msg, args, lang) => {
 					.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 					.setColor('#009933')
 					.setThumbnail('https://imgur.com/7qLINgn.png')
-					.setAuthor(shop);
+					.setAuthor(shop, client.user.displayAvatarURL);
 
 				for (let i = 0; i < embedaddfield1.length; i++) {
 					newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
@@ -97,7 +99,7 @@ exports.run = async (client, msg, args, lang) => {
 					.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 					.setColor('#009933')
 					.setThumbnail('https://imgur.com/7qLINgn.png')
-					.setAuthor(shop);
+					.setAuthor(shop, client.user.displayAvatarURL);
 
 				for (let i = 0; i < embedaddfield1.length; i++) {
 					newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
@@ -115,21 +117,21 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	for (let i = 0; i < sellorbuycheck.length; i++) {
-		if (validationforbuysell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
+		if (validationForBuySell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
 			if (sellorbuycheck[0].toLowerCase() === 'sell') {
 				// Check if the item exists in the user's inventory
 				if (args.slice(1).join(' ').toLowerCase() === 'all') {
 					let inventoryslotcheck = 0;
-					for (let x = 0; x < itemsnames.length; x++) {
-						inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]], 10);
+					for (let x = 0; x < nameOfTheItems.length; x++) {
+						inventoryslotcheck += parseInt(userdb.inventory[nameOfTheItems[x]], 10);
 					}
 					const error = lang.inventory_error.replace('%prefix', tableload.prefix);
 					if (inventoryslotcheck === 0) return msg.reply(error);
 
 					const allitemsininventory = [];
-					for (let xx = 0; xx < itemsnames.length; xx++) {
-						if (userdb.inventory[itemsnames[xx]] !== 0) {
-							allitemsininventory.push([xx, userdb.inventory[itemsnames[xx]], marketconfs[itemsnames[xx]][0], marketconfs[itemsnames[xx]][2], itemsnames[xx]]);
+					for (let xx = 0; xx < nameOfTheItems.length; xx++) {
+						if (userdb.inventory[nameOfTheItems[xx]] !== 0) {
+							allitemsininventory.push([xx, userdb.inventory[nameOfTheItems[xx]], marketconfs[nameOfTheItems[xx]][0], marketconfs[nameOfTheItems[xx]][2], nameOfTheItems[xx]]);
 						}
 					}
 
@@ -176,12 +178,12 @@ exports.run = async (client, msg, args, lang) => {
 				for (i = 0; i < itemcheck.length; i++) {
 					if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
 						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
-						if (itemcheck[0] === validationforitemsbuysell[i]) {
+						if (itemcheck[0] === validationforitemsbuysell[i] || itemcheck[0] === lang[`loot_${nameOfTheItems[i]}`]) {
 							const notown = lang.shop_notown.replace('%prefix', tableload.prefix);
-							if (userdb.inventory[itemsnames[i]] < howmanycheck) return msg.reply(notown);
+							if (userdb.inventory[nameOfTheItems[i]] < howmanycheck) return msg.reply(notown);
 
-							const amount = parseInt(marketconfs[itemsnames[i]][2], 10) * parseInt(howmanycheck[0], 10);
-							userdb.inventory[itemsnames[i]] -= parseInt(howmanycheck[0], 10);
+							const amount = parseInt(marketconfs[nameOfTheItems[i]][2], 10) * parseInt(howmanycheck[0], 10);
+							userdb.inventory[nameOfTheItems[i]] -= parseInt(howmanycheck[0], 10);
 
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
@@ -193,7 +195,35 @@ exports.run = async (client, msg, args, lang) => {
 							client.botconfs.set('market', botconfs);
 							client.userdb.set(msg.author.id, userdb);
 
-							const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
+							const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${nameOfTheItems[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
+							const soldEmbed = new Discord.RichEmbed()
+								.setDescription(sold)
+								.setColor('ORANGE');
+							return msg.channel.send({
+								embed: soldEmbed
+							});
+						}
+					}
+					if (nameOfTheItemsInServerLanguage.indexOf(itemcheck[i].toLowerCase()) >= 0) {
+						i = nameOfTheItemsInServerLanguage.indexOf(itemcheck[i].toLowerCase());
+						if (itemcheck[0].toLowerCase() === lang[`loot_${nameOfTheItems[i]}`].toLowerCase()) {
+							const notown = lang.shop_notown.replace('%prefix', tableload.prefix);
+							if (userdb.inventory[nameOfTheItems[i]] < howmanycheck) return msg.reply(notown);
+
+							const amount = parseInt(marketconfs[nameOfTheItems[i]][2], 10) * parseInt(howmanycheck[0], 10);
+							userdb.inventory[nameOfTheItems[i]] -= parseInt(howmanycheck[0], 10);
+
+							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
+								if (!row) {
+									sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
+								}
+								sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
+							});
+
+							client.botconfs.set('market', botconfs);
+							client.userdb.set(msg.author.id, userdb);
+
+							const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${nameOfTheItems[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
 							const soldEmbed = new Discord.RichEmbed()
 								.setDescription(sold)
 								.setColor('ORANGE');
@@ -214,18 +244,18 @@ exports.run = async (client, msg, args, lang) => {
 						i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
 						if (itemcheck[0] === validationforitemsbuysell[i]) {
 							let inventoryslotcheck = 0;
-							for (let x = 0; x < itemsnames.length; x++) {
-								inventoryslotcheck += parseInt(userdb.inventory[itemsnames[x]], 10);
+							for (let x = 0; x < nameOfTheItems.length; x++) {
+								inventoryslotcheck += parseInt(userdb.inventory[nameOfTheItems[x]], 10);
 							}
 
 							const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
 							if ((inventoryslotcheck + parseInt(howmanycheck[0], 10)) > userdb.inventoryslots) return msg.reply(inventoryfull);
 
 							const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
-							if (msgauthortable.medals <= (marketconfs[itemsnames[i]][1] * parseInt(howmanycheck[0], 10))) return msg.channel.send(lang.shop_notenoughcredits);
+							if (msgauthortable.medals <= (marketconfs[nameOfTheItems[i]][1] * parseInt(howmanycheck[0], 10))) return msg.channel.send(lang.shop_notenoughcredits);
 
-							const amount = parseInt(marketconfs[itemsnames[i]][1], 10) * parseInt(howmanycheck[0], 10);
-							userdb.inventory[itemsnames[i]] += parseInt(howmanycheck[0], 10);
+							const amount = parseInt(marketconfs[nameOfTheItems[i]][1], 10) * parseInt(howmanycheck[0], 10);
+							userdb.inventory[nameOfTheItems[i]] += parseInt(howmanycheck[0], 10);
 
 							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 								if (!row) {
@@ -237,7 +267,43 @@ exports.run = async (client, msg, args, lang) => {
 							client.botconfs.set('market', botconfs);
 							client.userdb.set(msg.author.id, userdb);
 
-							const bought = lang.shop_bought.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${itemsnames[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
+							const bought = lang.shop_bought.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${nameOfTheItems[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
+							const boughtEmbed = new Discord.RichEmbed()
+								.setDescription(bought)
+								.setColor('GREEN');
+							return msg.channel.send({
+								embed: boughtEmbed
+							});
+						}
+					}
+					if (nameOfTheItemsInServerLanguage.indexOf(itemcheck[i].toLowerCase()) >= 0) {
+						i = nameOfTheItemsInServerLanguage.indexOf(itemcheck[i].toLowerCase());
+						if (itemcheck[0].toLowerCase() === nameOfTheItemsInServerLanguage[i].toLowerCase()) {
+							let inventoryslotcheck = 0;
+							for (let x = 0; x < nameOfTheItems.length; x++) {
+								inventoryslotcheck += parseInt(userdb.inventory[nameOfTheItems[x]], 10);
+							}
+
+							const inventoryfull = lang.shop_inventoryfull.replace('%prefix', tableload.prefix);
+							if ((inventoryslotcheck + parseInt(howmanycheck[0], 10)) > userdb.inventoryslots) return msg.reply(inventoryfull);
+
+							const msgauthortable = await sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`);
+							if (msgauthortable.medals <= (marketconfs[nameOfTheItems[i]][1] * parseInt(howmanycheck[0], 10))) return msg.channel.send(lang.shop_notenoughcredits);
+
+							const amount = parseInt(marketconfs[nameOfTheItems[i]][1], 10) * parseInt(howmanycheck[0], 10);
+							userdb.inventory[nameOfTheItems[i]] += parseInt(howmanycheck[0], 10);
+
+							sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
+								if (!row) {
+									sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
+								}
+								sql.run(`UPDATE medals SET medals = ${row.medals - amount} WHERE userId = ${msg.author.id}`);
+							});
+
+							client.botconfs.set('market', botconfs);
+							client.userdb.set(msg.author.id, userdb);
+
+							const bought = lang.shop_bought.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${nameOfTheItems[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
 							const boughtEmbed = new Discord.RichEmbed()
 								.setDescription(bought)
 								.setColor('GREEN');
@@ -270,8 +336,8 @@ exports.conf = {
 exports.help = {
 	name: 'shop',
 	description: 'You can view the list of all purchasable items and sell or buy items',
-	usage: 'shop [buy/sell] [amount/all (just works for sell)] [emoji of the item]',
-	example: ['shop', 'shop buy 1 :dog:', 'shop sell 3 :dog:', 'shop sell all'],
+	usage: 'shop [buy/sell] [amount/all (just works for sell)] [emoji or name of the item]',
+	example: ['shop', 'shop buy 1 dog', 'shop sell 3 🐶', 'shop sell all'],
 	category: 'currency',
 	botpermissions: ['SEND_MESSAGES']
 };
