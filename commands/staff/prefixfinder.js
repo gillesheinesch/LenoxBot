@@ -12,7 +12,7 @@ exports.run = (client, msg, args, lang) => {
 	const guildload = client.guilds.get(content);
 	const requestedby = lang.prefixfinder_requestedby.replace('%authortag', msg.author.tag);
 	const embed = new Discord.RichEmbed()
-		.setColor('#FF7F24')
+		.setColor('ORANGE')
 		.setThumbnail(guildload.iconURL)
 		.addField(lang.prefixfinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
 		.addField(lang.prefixfinder_embedfield2, tableload.prefix)
