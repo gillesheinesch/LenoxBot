@@ -1,6 +1,6 @@
 {
     "giveitem_nomention": "You forgot to mention an user!",
-    "giveitem_nodb": "We couldn't find the database of this user. He has to write a message on this discord server, so we can create a database for the user!",
+    "giveitem_nodb": "We couldn't find the database of this user. He has to write a message on this Discord server, so we can create a database for the user!",
     "giveitem_noamount": "You forgot to enter an amount!",
     "giveitem_nonumber": "Your amount isn't a number!",
     "giveitem_noitem": "We're sorry, we couldn't find such an item. Please check if you entered the correct name or emoji of the item!",
