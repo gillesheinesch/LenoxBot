@@ -4,6 +4,7 @@ const fs = require("fs");
 const mongodb = require("mongodb");
 const LenoxBotSettingsProvider = require("./utils/SettingsProvider");
 const settings = require("./settings.json");
+const path = require('path');
 
 if (process.env.SHARD_COUNT) {
     const shardId = process.env.SHARD_COUNT;
@@ -33,6 +34,27 @@ if (process.env.SHARD_COUNT) {
 
     client.setProvider(new LenoxBotSettingsProvider(settings));
     client.login(token);
+    
+    client.registry
+        .registerGroups([
+            ['administration', "Administration"],
+            ['application', 'Application'],
+            ['botowner', 'Bot Owner only'],
+            ['currency', 'Currency'],
+            ['customcommands', 'CustomCommands'],
+            ['fun', 'Fun'],
+            ['help', 'Help'],
+            ['moderation', "Moderation"],
+            ['music', 'Music'],
+            ['nsfw', 'NSFW'],
+            ['partner', 'Partner'],
+            ['searches', 'Searches'],
+            ['staff', 'Staff'],
+            ['tickets', 'Tickets'],
+            ['utility', 'Utility']
+        ])
+        .registerDefaults()
+        .registerCommandsIn(path.join(__dirname, "commands"));
 } else {
     console.log("Not running as a shard.");
     process.exit(0);

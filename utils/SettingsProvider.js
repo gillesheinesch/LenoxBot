@@ -38,6 +38,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
                 if(!result) {
                     //Can't find DB make new one.
                     settings = {};
+                    settings.language = "en-US";
                     settingsCollection.insertOne({'guildId': guild.id, settings: settings})
                 }
 
