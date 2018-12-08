@@ -1,13 +1,13 @@
 {
     "giveitem_nomention": "You forgot to mention an user!",
-    "giveitem_nodb": "We couldn't find the database of this user. He has to write a message on this discord server, so we can create a database for the user!",
+    "giveitem_nodb": "We couldn't find the database of this user. He has to write a message on this Discord server, so we can create a database for the user!",
     "giveitem_noamount": "You forgot to enter an amount!",
     "giveitem_nonumber": "Your amount isn't a number!",
     "giveitem_noitem": "We're sorry, we couldn't find such an item. Please check if you entered the correct name or emoji of the item!",
     "giveitem_notown": "You don't own this item as often as you specified!",
     "giveitem_noinventoryslots": "The mentioned user has not enough inventoryslots!",
     "giveitem_embeddescription": "**%user** gave **%amountx** %emoji → **%mentionuser**",
-    "giveitem_description": "Give items from your inventory to other discord users",
+    "giveitem_description": "Give items from your inventory to other Discord users",
 
     "togglecommand_noinput": "You forgot to enter the command name!",
     "togglecommand_notchangeable": "We're sorry but you can't change the status of this command",
@@ -235,7 +235,7 @@
 
     "currentlymuted_error": "There are currently no active mutes!",
     "currentlymuted_embedauthor": "Currently muted user:",
-    "currentlymuted_embeddescription": "Moderator: %moderatortag \nTemorary muted: %muteddate \nRemaining mutetime: %remainingmutetime \nReason: %reason",
+    "currentlymuted_embeddescription": "Moderator: %moderatortag \nTemporary muted: %muteddate \nRemaining mutetime: %remainingmutetime \nReason: %reason",
     "currentlymuted_description": "Shows you all currently muted users on this Discord server",
 
     "currentlybanned_error": "There are currently no active temporary bans!",
@@ -311,7 +311,7 @@
     "togglexp_noinput": "You forgot to enter a channel name!",
     "togglexp_notexist": "This channel doesn't exist!",
     "togglexp_notextchannel": "This channel isn't a text channel!",
-    "togglexp_alreadyadd": "This text channel has already been added to the list of channels in which you will not win XP!",
+    "togglexp_alreadyadd": "This text channel has already been added to the list of channels in which you will not receive XP!",
     "togglexp_add": "%channelname was added successfully!",
     "togglexp_nochannel": "So far, there are no channels in which you cannot get XP!",
     "togglexp_remove": "%channelname was successfully removed!",
@@ -330,7 +330,7 @@
     "job_techniciantitle": "Assemble electronic devices",
     "job_techniciandescription": "Help the IT technician repair the computers, cameras, and smartphones! You need a hammer.",
     "job_trainertitle": "Kids Football",
-    "job_trainerdescription": "The football coach needs your help. He needs a coach to help him train the kids. You need a football.",
+    "job_trainerdescription": "The football coach needs your help. He needs a coach to help him training the kids. You need a football.",
     "job_applespickertitle": "Pick apples",
     "job_applespickerdescription": "There are too many apple trees... The farmer doesn't come along with the apples picking so he needs your help. You need nothing.",
     "job_professortitle": "Researches",
@@ -359,15 +359,15 @@
 
     "useuserkey_noinput": "You forgot to enter your userkey!",
     "useuserkey_already": "This userkey has already been redeemed!",
-    "useuserkey_redeemed": "You have successfully used your userkey. \nThe premium for your Discord account is activated until the %date!",
-    "useuserkey_extended": "You have successfully used your userkey. \nThe premium for your Discord account has been extended to %date!",
-    "useuserkey_description": "With this command, you can use a premium userkey for your Discord account",
+    "useuserkey_redeemed": "You have successfully activated your userkey. \nThe premium for your Discord account is activated until the %date!",
+    "useuserkey_extended": "You have successfully activated your userkey. \nThe premium for your Discord account has been extended to %date!",
+    "useuserkey_description": "With this command you can activate a premium userkey for your Discord account",
 
     "useserverkey_noinput": "You forgot to enter your serverkey!",
     "useserverkey_already": "This serverkey has already been redeemed!",
-    "useserverkey_redeemed": "You have successfully used your serverkey. \nThe premium of this Discord server is activated until the %date!",
-    "useserverkey_extended": "You have successfully used your serverkey. \nThe premium of this Discord server has been extended to %date!",
-    "useserverkey_description": "With this command you can use a premium serverkey for a Discord server",
+    "useserverkey_redeemed": "You have successfully activated your serverkey. \nThe premium of this Discord server is activated until the %date!",
+    "useserverkey_extended": "You have successfully activated your serverkey. \nThe premium of this Discord server has been extended to %date!",
+    "useserverkey_description": "With this command you can activate a premium serverkey for a Discord server",
 
     "partner_error": "You are not affiliated with LenoxBot!",
     "partner_description": "With this command you can use the embed of LenoxBot and your partnered server",
@@ -551,7 +551,7 @@
     "overwatchstats_competitivestats": "**Winrate:** %winrate \n**Games:** %gamestotal \n**Wins:** %wins\n**Losses:** %losses",
     "overwatchstats_description": "Shows you overwatch-stats about a Overwatch player",
 
-    "addchatfilter_error": "You can only add different words",
+    "addchatfilter_error": "You can only add one word to the chatfilter",
     "addchatfilter_already": "This entry has already been added to the chatfilter!",
     "addchatfilter_added": "%input was successfully added to the chatfilter",
     "addchatfilter_description": "Inserts a new entry in the chatfilter",
@@ -625,7 +625,7 @@
     "addselfassignablerole_rolenotexist": "This role does not exist at all!",
     "addselfassignablerole_alreadyadded": "You have already added this role to the self-assignable roles!",
     "addselfassignablerole_roleset": "Role has been successfully set to self-assignable roles!",
-    "addselfassignablerole_description": "Add a role that allows users to assign themselves",
+    "addselfassignablerole_description": "Adds a role that allows users to assign themselves",
 
     "announce_announcedeactivated": "You must first define where announcements should be posted. \nUse the following command %prefixtoggleannounce to activate announcements in your current channel!",
     "announce_noinput": "You forgot to enter a text!",
