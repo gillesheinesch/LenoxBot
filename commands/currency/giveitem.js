@@ -19,7 +19,7 @@ exports.run = (client, msg, args, lang) => {
 	if (!userdbOfMention) return msg.reply(lang.giveitem_nodb);
 
 	const amount = args.slice(1, 2);
-	if (!amount) return msg.reply(lang.giveitem_noamount)
+	if (!amount) return msg.reply(lang.giveitem_noamount);
 	if (isNaN(Number(amount.join(' ')))) return msg.reply(lang.giveitem_nonumber);
 
 	if (!emojiOfTheItems.includes(args.slice(2).join(' ')) && !nameOfTheItemsInServerLanguage.includes(args.slice(2).join(' ').toLowerCase())) return msg.reply(lang.giveitem_noitem);
