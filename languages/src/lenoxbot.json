@@ -93,6 +93,7 @@
     "hangman_dontwanttoplay": "We are sorry but the mentioned Discord user doesn't want to play Hangman against you!",
     "hangman_letterorwordmessagenomention": "Please send a letter (A-Z) or guess the word!",
     "hangman_embedtitlecorrectnomention": "You guessed the letter **%letter** correctly! 😄",
+    "hangman_gamelost": "You lost this game! The word to guess was: **%word**",
     "hangman_gamewon": "You won this game! The word to guess was: **%word**",
     "hangman_embedtitlewrongnomention": "You guessed the letter **%letter** wrong! 😢",
     "hangman_noanswer": "You didn't give an answer! The word to guess was: **%word**",
