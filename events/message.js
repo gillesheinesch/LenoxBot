@@ -115,7 +115,6 @@ exports.run = async (client, msg) => {
 		moderator: ['👮', 8],
 		'test-moderator': ['👮', 8],
 		'documentation-proofreader': ['👁', 7],
-		'documentation-moderator': ['📝', 7],
 		designer: ['📸', 7],
 		'translation-leader': ['🗣', 7],
 		'translation-proofreader': ['👁', 6],
