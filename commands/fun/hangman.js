@@ -364,7 +364,7 @@ exports.run = async (client, msg, args, lang) => {
 								}
 
 								chances -= 1;
-
+								embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 								const embedtitlewrongnomentionword = lang.hangman_embedtitlewrongnomentionword.replace('%word', response.first().content.toLowerCase());
 								firstEmbed.setTitle(embedtitlewrongnomentionword);
 								firstEmbed.setFooter(embedtitlechances);
