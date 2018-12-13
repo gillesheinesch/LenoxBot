@@ -1,5 +1,6 @@
 const Discord = require(`discord.js`);
 exports.run = async (client, msg, args, lang) => {
+	let embedtitlechances;
 	let chances = 15;
 	const triedLetters = [];
 	const hangmanPictures = [
@@ -51,7 +52,7 @@ exports.run = async (client, msg, args, lang) => {
 			if (r.emoji.name === '👍') {
 				await questionMessage.delete();
 
-				const embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+				embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 				const embeddescription = lang.hangman_embeddescription.replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 				const firstEmbed = new Discord.RichEmbed()
 					.setColor('BLUE')
@@ -144,7 +145,7 @@ exports.run = async (client, msg, args, lang) => {
 									}
 
 									const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-									const embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+									embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 									if (chances > 0) {
 										firstEmbed.setTitle(embedtitlewrong);
 										firstEmbed.setFooter(embedtitlechances);
@@ -220,7 +221,7 @@ exports.run = async (client, msg, args, lang) => {
 										firstEmbed.setTitle(embedtitlewrong);
 									}
 
-									const embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+									embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 									const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 									firstEmbed.setFooter(embedtitlechances);
 									firstEmbed.setDescription(embeddescriptionwithtried);
@@ -258,7 +259,7 @@ exports.run = async (client, msg, args, lang) => {
 			}
 		});
 	} else {
-		const embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+		embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 		const embeddescription = lang.hangman_embeddescription.replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 		const firstEmbed = new Discord.RichEmbed()
 			.setColor('BLUE')
@@ -315,7 +316,7 @@ exports.run = async (client, msg, args, lang) => {
 
 							const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 							const embedtitlewrongnomention = lang.hangman_embedtitlewrongnomention.replace('%letter', response.first().content.toLowerCase());
-							const embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+							embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 							if (chances > 0) {
 								firstEmbed.setTitle(embedtitlewrongnomention);
 								firstEmbed.setFooter(embedtitlechances);
@@ -343,7 +344,7 @@ exports.run = async (client, msg, args, lang) => {
 						if (wordToGuess.length === response.first().content.length) {
 							const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 							const embedtitlecorrectnomention = lang.hangman_embedtitlecorrectnomention.replace('%letter', response.first().content.toLowerCase());
-							const embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+							embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 							if (wordToGuess === response.first().content.toLowerCase()) {
 								firstEmbed.setTitle(embedtitlecorrectnomention);
 								firstEmbed.setFooter(embedtitlechances);
