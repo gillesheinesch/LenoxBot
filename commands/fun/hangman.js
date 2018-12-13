@@ -397,7 +397,7 @@ exports.conf = {
 	enabled: true,
 	guildOnly: false,
 	shortDescription: 'Games',
-	aliases: [],
+	aliases: ['hg'],
 	userpermissions: [],
 	dashboardsettings: true
 };
