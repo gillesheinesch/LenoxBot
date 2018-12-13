@@ -1,3 +1,4 @@
+/* eslint no-negated-condition: 0 */
 const Discord = require(`discord.js`);
 exports.run = async (client, msg, args, lang) => {
 	let embedtitlechances;
@@ -96,96 +97,9 @@ exports.run = async (client, msg, args, lang) => {
 						}
 
 						if (response.first().content.toLowerCase().match(/[a-z]/i)) {
-							if (response.first().content.length === 1) {
-								if (wordToGuessInArray.includes(response.first().content.toLowerCase())) {
-									if (turn === 1) {
-										const embedtitlecorrect = lang.hangman_embedtitlecorrect.replace('%author', msg.author.tag).replace('%letter', response.first().content.toLowerCase());
-										firstEmbed.setTitle(embedtitlecorrect);
-									} else {
-										const embedtitlecorrect = lang.hangman_embedtitlecorrect.replace('%author', mention.tag).replace('%letter', response.first().content.toLowerCase());
-										firstEmbed.setTitle(embedtitlecorrect);
-									}
-
-									for (let index2 = 0; index2 < wordToGuess.length; index2++) {
-										if (wordToGuess[index2] === response.first().content.toLowerCase()) {
-											newWordString[index2] = response.first().content.toLowerCase();
-										}
-									}
-									const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-									firstEmbed.setDescription(embeddescriptionwithtried);
-
-									hangmanEmbed.edit({
-										embed: firstEmbed
-									});
-
-									if (turn === 1) {
-										turn = 2;
-									} else {
-										turn = 1;
-									}
-
-									if (!newWordString.includes('_') && turn === 1) {
-										const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', msg.author).replace('%word', wordToGuess);
-										msg.channel.send(mentiongamewon);
-									} else if (!newWordString.includes('_') && turn === 2) {
-										const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', mention).replace('%word', wordToGuess);
-										msg.channel.send(mentiongamewon);
-									}
-								} else {
-									if (!triedLetters.includes(response.first().content.toLowerCase())) {
-										chances -= 1;
-										triedLetters.push(response.first().content.toLowerCase());
-									}
-
-									let embedtitlewrong;
-									if (turn === 1) {
-										embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', msg.author.tag);
-									} else {
-										embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', mention.tag);
-									}
-
-									const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-									embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
-									if (chances > 0) {
-										firstEmbed.setTitle(embedtitlewrong);
-										firstEmbed.setFooter(embedtitlechances);
-										firstEmbed.setDescription(embeddescriptionwithtried);
-										firstEmbed.setImage(hangmanPictures[15 - chances]);
-
-										if (turn === 1) {
-											turn = 2;
-										} else {
-											turn = 1;
-										}
-
-										hangmanEmbed.edit({
-											embed: firstEmbed
-										});
-									} else {
-										firstEmbed.setTitle(embedtitlewrong);
-										firstEmbed.setFooter(embedtitlechances);
-										firstEmbed.setDescription(embeddescriptionwithtried);
-										firstEmbed.setImage(hangmanPictures[15 - chances]);
-
-										if (turn === 1) {
-											turn = 2;
-										} else {
-											turn = 1;
-										}
-
-										hangmanEmbed.edit({
-											embed: firstEmbed
-										});
-										const mentionnowin = lang.hangman_mentionnowin.replace('%word', wordToGuess);
-										return msg.channel.send(mentionnowin);
-									}
-								}
-							} else {
-								/* eslint no-lonely-if: 0 */
-								if (wordToGuess.length === response.first().content.length) {
-									if (wordToGuess === response.first().content.toLowerCase()) {
-										const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-
+							if (!triedLetters.includes(response.first().content.toLowerCase())) {
+								if (response.first().content.length === 1) {
+									if (wordToGuessInArray.includes(response.first().content.toLowerCase())) {
 										if (turn === 1) {
 											const embedtitlecorrect = lang.hangman_embedtitlecorrect.replace('%author', msg.author.tag).replace('%letter', response.first().content.toLowerCase());
 											firstEmbed.setTitle(embedtitlecorrect);
@@ -194,7 +108,12 @@ exports.run = async (client, msg, args, lang) => {
 											firstEmbed.setTitle(embedtitlecorrect);
 										}
 
-										firstEmbed.setFooter(embedtitlechances);
+										for (let index2 = 0; index2 < wordToGuess.length; index2++) {
+											if (wordToGuess[index2] === response.first().content.toLowerCase()) {
+												newWordString[index2] = response.first().content.toLowerCase();
+											}
+										}
+										const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 										firstEmbed.setDescription(embeddescriptionwithtried);
 
 										hangmanEmbed.edit({
@@ -203,43 +122,129 @@ exports.run = async (client, msg, args, lang) => {
 
 										if (turn === 1) {
 											turn = 2;
-											const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', msg.author);
+										} else {
+											turn = 1;
+										}
+
+										if (!newWordString.includes('_') && turn === 1) {
+											const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', msg.author).replace('%word', wordToGuess);
+											msg.channel.send(mentiongamewon);
+										} else if (!newWordString.includes('_') && turn === 2) {
+											const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', mention).replace('%word', wordToGuess);
+											msg.channel.send(mentiongamewon);
+										}
+									} else {
+										if (!triedLetters.includes(response.first().content.toLowerCase())) {
+											chances -= 1;
+											triedLetters.push(response.first().content.toLowerCase());
+										}
+
+										let embedtitlewrong;
+										if (turn === 1) {
+											embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', msg.author.tag);
+										} else {
+											embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', mention.tag);
+										}
+
+										const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
+										embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+										if (chances > 0) {
+											firstEmbed.setTitle(embedtitlewrong);
+											firstEmbed.setFooter(embedtitlechances);
+											firstEmbed.setDescription(embeddescriptionwithtried);
+											firstEmbed.setImage(hangmanPictures[15 - chances]);
+
+											if (turn === 1) {
+												turn = 2;
+											} else {
+												turn = 1;
+											}
+
+											hangmanEmbed.edit({
+												embed: firstEmbed
+											});
+										} else {
+											firstEmbed.setTitle(embedtitlewrong);
+											firstEmbed.setFooter(embedtitlechances);
+											firstEmbed.setDescription(embeddescriptionwithtried);
+											firstEmbed.setImage(hangmanPictures[15 - chances]);
+
+											if (turn === 1) {
+												turn = 2;
+											} else {
+												turn = 1;
+											}
+
+											hangmanEmbed.edit({
+												embed: firstEmbed
+											});
+											const mentionnowin = lang.hangman_mentionnowin.replace('%word', wordToGuess);
+											return msg.channel.send(mentionnowin);
+										}
+									}
+								} else {
+									/* eslint no-lonely-if: 0 */
+									if (wordToGuess.length === response.first().content.length) {
+										if (wordToGuess === response.first().content.toLowerCase()) {
+											const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
+
+											if (turn === 1) {
+												const embedtitlecorrect = lang.hangman_embedtitlecorrectword.replace('%author', msg.author.tag).replace('%word', response.first().content.toLowerCase());
+												firstEmbed.setTitle(embedtitlecorrect);
+											} else {
+												const embedtitlecorrect = lang.hangman_embedtitlecorrectword.replace('%author', mention.tag).replace('%word', response.first().content.toLowerCase());
+												firstEmbed.setTitle(embedtitlecorrect);
+											}
+
+											firstEmbed.setFooter(embedtitlechances);
+											firstEmbed.setDescription(embeddescriptionwithtried);
+
+											hangmanEmbed.edit({
+												embed: firstEmbed
+											});
+
+											if (turn === 1) {
+												turn = 2;
+												const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', msg.author).replace('%word', response.first().content.toLowerCase());
+												return msg.channel.send(mentiongamewon);
+											}
+											turn = 1;
+											const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', mention).replace('%word', response.first().content.toLowerCase());
 											return msg.channel.send(mentiongamewon);
 										}
-										turn = 1;
-										const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', mention);
-										return msg.channel.send(mentiongamewon);
-									}
 
-									chances -= 1;
+										chances -= 1;
 
-									if (turn === 1) {
-										const embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', msg.author.tag);
-										firstEmbed.setTitle(embedtitlewrong);
+										if (turn === 1) {
+											const embedtitlewrong = lang.hangman_embedtitlewrongword.replace('%author', msg.author.tag).replace('%word', response.first().content.toLowerCase());
+											firstEmbed.setTitle(embedtitlewrong);
+										} else {
+											const embedtitlewrong = lang.hangman_embedtitlewrongword.replace('%author', mention.tag).replace('%word', response.first().content.toLowerCase());
+											firstEmbed.setTitle(embedtitlewrong);
+										}
+
+										embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+										const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
+										firstEmbed.setFooter(embedtitlechances);
+										firstEmbed.setDescription(embeddescriptionwithtried);
+										firstEmbed.setImage(hangmanPictures[15 - chances]);
+
+										if (turn === 1) {
+											turn = 2;
+										} else {
+											turn = 1;
+										}
+
+										hangmanEmbed.edit({
+											embed: firstEmbed
+										});
 									} else {
-										const embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', mention.tag);
-										firstEmbed.setTitle(embedtitlewrong);
+										const notwordcharacters = lang.hangman_notwordcharacters.replace('%letterscount', wordToGuess.length);
+										msg.channel.send(notwordcharacters);
 									}
-
-									embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
-									const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-									firstEmbed.setFooter(embedtitlechances);
-									firstEmbed.setDescription(embeddescriptionwithtried);
-									firstEmbed.setImage(hangmanPictures[15 - chances]);
-
-									if (turn === 1) {
-										turn = 2;
-									} else {
-										turn = 1;
-									}
-
-									hangmanEmbed.edit({
-										embed: firstEmbed
-									});
-								} else {
-									const notwordcharacters = lang.hangman_notwordcharacters.replace('%letterscount', wordToGuess.length);
-									msg.channel.send(notwordcharacters);
 								}
+							} else {
+								msg.channel.send(lang.hangman_guessedletteralready);
 							}
 						} else {
 							msg.channel.send(lang.hangman_noletter);
@@ -289,36 +294,79 @@ exports.run = async (client, msg, args, lang) => {
 				});
 
 				if (response.first().content.toLowerCase().match(/[a-z]/i)) {
-					if (response.first().content.length === 1) {
-						if (wordToGuessInArray.includes(response.first().content.toLowerCase())) {
-							const embedtitlecorrectnomention = lang.hangman_embedtitlecorrectnomention.replace('%letter', response.first().content.toLowerCase());
-							firstEmbed.setTitle(embedtitlecorrectnomention);
+					if (!triedLetters.includes(response.first().content.toLowerCase())) {
+						if (response.first().content.length === 1) {
+							if (wordToGuessInArray.includes(response.first().content.toLowerCase())) {
+								const embedtitlecorrectnomention = lang.hangman_embedtitlecorrectnomention.replace('%letter', response.first().content.toLowerCase());
+								firstEmbed.setTitle(embedtitlecorrectnomention);
 
-							for (let index2 = 0; index2 < wordToGuess.length; index2++) {
-								if (wordToGuess[index2] === response.first().content.toLowerCase()) {
-									newWordString[index2] = response.first().content.toLowerCase();
+								for (let index2 = 0; index2 < wordToGuess.length; index2++) {
+									if (wordToGuess[index2] === response.first().content.toLowerCase()) {
+										newWordString[index2] = response.first().content.toLowerCase();
+									}
+								}
+								const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
+								firstEmbed.setDescription(embeddescriptionwithtried);
+
+								hangmanEmbed.edit({
+									embed: firstEmbed
+								});
+
+								const gamewon = lang.hangman_gamewon.replace('%word', wordToGuess);
+								if (!newWordString.includes('_')) return msg.reply(gamewon);
+							} else {
+								if (!triedLetters.includes(response.first().content.toLowerCase())) {
+									chances -= 1;
+									triedLetters.push(response.first().content.toLowerCase());
+								}
+
+								const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
+								const embedtitlewrongnomention = lang.hangman_embedtitlewrongnomention.replace('%letter', response.first().content.toLowerCase());
+								embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+								if (chances > 0) {
+									firstEmbed.setTitle(embedtitlewrongnomention);
+									firstEmbed.setFooter(embedtitlechances);
+									firstEmbed.setDescription(embeddescriptionwithtried);
+									firstEmbed.setImage(hangmanPictures[15 - chances]);
+
+									hangmanEmbed.edit({
+										embed: firstEmbed
+									});
+								} else {
+									firstEmbed.setTitle(embedtitlewrongnomention);
+									firstEmbed.setFooter(embedtitlechances);
+									firstEmbed.setDescription(embeddescriptionwithtried);
+									firstEmbed.setImage(hangmanPictures[15 - chances]);
+
+									hangmanEmbed.edit({
+										embed: firstEmbed
+									});
+									const gamelost = lang.hangman_gamelost.replace('%word', wordToGuess);
+									return msg.reply(gamelost);
 								}
 							}
-							const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-							firstEmbed.setDescription(embeddescriptionwithtried);
-
-							hangmanEmbed.edit({
-								embed: firstEmbed
-							});
-
-							const gamewon = lang.hangman_gamewon.replace('%word', wordToGuess);
-							if (!newWordString.includes('_')) return msg.reply(gamewon);
 						} else {
-							if (!triedLetters.includes(response.first().content.toLowerCase())) {
-								chances -= 1;
-								triedLetters.push(response.first().content.toLowerCase());
-							}
+							/* eslint no-lonely-if: 0 */
+							if (wordToGuess.length === response.first().content.length) {
+								const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
+								const embedtitlecorrectnomention = lang.hangman_embedtitlecorrectnomentionword.replace('%word', response.first().content.toLowerCase());
+								embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
+								if (wordToGuess === response.first().content.toLowerCase()) {
+									firstEmbed.setTitle(embedtitlecorrectnomention);
+									firstEmbed.setFooter(embedtitlechances);
+									firstEmbed.setDescription(embeddescriptionwithtried);
 
-							const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-							const embedtitlewrongnomention = lang.hangman_embedtitlewrongnomention.replace('%letter', response.first().content.toLowerCase());
-							embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
-							if (chances > 0) {
-								firstEmbed.setTitle(embedtitlewrongnomention);
+									hangmanEmbed.edit({
+										embed: firstEmbed
+									});
+									const gamewon = lang.hangman_gamewon.replace('%word', wordToGuess);
+									return msg.reply(gamewon);
+								}
+
+								chances -= 1;
+
+								const embedtitlewrongnomentionword = lang.hangman_embedtitlewrongnomentionword.replace('%word', response.first().content.toLowerCase());
+								firstEmbed.setTitle(embedtitlewrongnomentionword);
 								firstEmbed.setFooter(embedtitlechances);
 								firstEmbed.setDescription(embeddescriptionwithtried);
 								firstEmbed.setImage(hangmanPictures[15 - chances]);
@@ -327,49 +375,12 @@ exports.run = async (client, msg, args, lang) => {
 									embed: firstEmbed
 								});
 							} else {
-								firstEmbed.setTitle(embedtitlewrongnomention);
-								firstEmbed.setFooter(embedtitlechances);
-								firstEmbed.setDescription(embeddescriptionwithtried);
-								firstEmbed.setImage(hangmanPictures[15 - chances]);
-
-								hangmanEmbed.edit({
-									embed: firstEmbed
-								});
-								const gamelost = lang.hangman_gamelost.replace('%word', wordToGuess);
-								return msg.reply(gamelost);
+								const notwordcharacters = lang.hangman_notwordcharacters.replace('%letterscount', wordToGuess.length);
+								msg.reply(notwordcharacters);
 							}
 						}
 					} else {
-						/* eslint no-lonely-if: 0 */
-						if (wordToGuess.length === response.first().content.length) {
-							const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-							const embedtitlecorrectnomention = lang.hangman_embedtitlecorrectnomention.replace('%letter', response.first().content.toLowerCase());
-							embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
-							if (wordToGuess === response.first().content.toLowerCase()) {
-								firstEmbed.setTitle(embedtitlecorrectnomention);
-								firstEmbed.setFooter(embedtitlechances);
-								firstEmbed.setDescription(embeddescriptionwithtried);
-
-								hangmanEmbed.edit({
-									embed: firstEmbed
-								});
-								const gamewon = lang.hangman_gamewon.replace('%word', wordToGuess);
-								return msg.reply(gamewon);
-							}
-
-							chances -= 1;
-							firstEmbed.setTitle(embedtitlecorrectnomention);
-							firstEmbed.setFooter(embedtitlechances);
-							firstEmbed.setDescription(embeddescriptionwithtried);
-							firstEmbed.setImage(hangmanPictures[15 - chances]);
-
-							hangmanEmbed.edit({
-								embed: firstEmbed
-							});
-						} else {
-							const notwordcharacters = lang.hangman_notwordcharacters.replace('%letterscount', wordToGuess.length);
-							msg.reply(notwordcharacters);
-						}
+						msg.channel.send(lang.hangman_guessedletteralready);
 					}
 				} else {
 					msg.reply(lang.hangman_noletter);
