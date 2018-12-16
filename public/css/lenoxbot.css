@@ -644,6 +644,22 @@ body {
     color: #00aced;
 }
 
+.lb-profile-social-facebook:hover {
+    color: #4267b2;
+}
+
+.lb-profile-social-github:hover {
+    color: #263238;
+}
+
+.lb-profile-social-pinterest:hover {
+    color: #c8232c;
+}
+
+.lb-profile-social-reddit:hover {
+    color: #FF5700;
+}
+
 .lb-profile-badge {
     font-size: 3em;
 }

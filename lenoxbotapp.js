@@ -529,6 +529,10 @@ app.get('/profile/:id', async (req, res) => {
 			userSocialmediaYoutube: userdb.socialmedia.youtube === '' ? null : userdb.socialmedia.youtube,
 			userSocialmediaTwitter: userdb.socialmedia.twitter === '' ? null : userdb.socialmedia.twitter,
 			userSocialmediaInstagram: userdb.socialmedia.instagram === '' ? null : userdb.socialmedia.instagram,
+			userSocialmediaFacebook: userdb.socialmedia.facebook === '' ? null : userdb.socialmedia.facebook,
+			userSocialmediaGithub: userdb.socialmedia.github === '' ? null : userdb.socialmedia.github,
+			userSocialmediaPinterest: userdb.socialmedia.pinterest === '' ? null : userdb.socialmedia.pinterest,
+			userSocialmediaReddit: userdb.socialmedia.reddit === '' ? null : userdb.socialmedia.reddit,
 			client: client,
 			isstaff: isstaff,
 			islenoxbot: islenoxbot
