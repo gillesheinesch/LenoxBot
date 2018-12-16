@@ -1093,7 +1093,7 @@
     "softban_nopermission": "I cannot softban this user!",
     "softban_softbanned": "%usertag was successfully softbanned and the messages of the last %days days were deleted!",
     "softban_softbanby": "Softban by %authortag",
-    "softban_softbandescription": "Action**: Softban \n**User**: %usertag (%userid) \n**Reason**: %reason \nMessages of **%days days** got deleted",
+    "softban_softbandescription": "**Action**: Softban \n**User**: %usertag (%userid) \n**Reason**: %reason \nMessages of **%days days** got deleted",
     "softban_description": "Bans an user and deletes his messages of the last X days (max 14 days). After that, he will be unbanned immediately!",
 
     "unban_nouserid": "You must enter the userID to unban the user!",
