@@ -17,7 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	const jobslist = [
-		['farmer', 120, Math.floor(Math.random() * 200) + 100, 'tractor', 'https://imgur.com/1PVI8hM.png'],
+		['farmer', 240, Math.floor(Math.random() * 400) + 100, 'tractor', 'https://imgur.com/1PVI8hM.png'],
 		['technician', 90, Math.floor(Math.random() * 150) + 75, 'hammer', 'https://imgur.com/yQmaFIe.png'],
 		['trainer', 90, Math.floor(Math.random() * 150) + 75, 'football', 'https://imgur.com/bRqzmKw.png'],
 		['applespicker', 1, Math.floor(Math.random() * 10) + 3, 'undefined', 'https://imgur.com/qv4iev8.png'],
