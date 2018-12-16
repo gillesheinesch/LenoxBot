@@ -58,16 +58,31 @@ exports.run = (client, member) => {
 		});
 	}
 
+	let embed = false;
 	if (tableload.welcome === 'true') {
 		if (tableload.welcomemsg.length < 1) return;
-		const message = tableload.welcomemsg;
 		const messagechannel = client.channels.get(tableload.welcomechannel);
-		const newMessage = message.replace('$username$', member.user.username)
+		if (tableload.welcomemsg.toLowerCase().includes('$embed$')) {
+			embed = true;
+		}
+		const newMessage = tableload.welcomemsg.replace('$username$', member.user.username)
 			.replace('$usermention$', member.user)
 			.replace('$usertag$', member.user.tag)
 			.replace('$userid$', member.user.id)
 			.replace('$guildname$', member.guild.name)
-			.replace('$guildid$', member.guild.id);
-		messagechannel.send(newMessage);
+			.replace('$guildid$', member.guild.id)
+			.replace('$embed$', '');
+
+		if (embed) {
+			const welcomeEmbed = new Discord.RichEmbed()
+				.setTimestamp()
+				.setDescription(newMessage)
+				.setColor('GREEN');
+			messagechannel.send({
+				embed: welcomeEmbed
+			});
+		} else {
+			messagechannel.send(newMessage);
+		}
 	}
 };
