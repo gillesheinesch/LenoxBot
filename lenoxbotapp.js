@@ -425,6 +425,7 @@ app.get('/profile/:id', async (req, res) => {
 		const userdb = client.userdb.get(profileId);
 		const profileUser = client.users.get(req.params.id);
 		let isstaff = false;
+		let ispremium = false;
 		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
 		const guild = await client.guilds.get('352896116812939264');
 		for (let i = 0; i < teamroles.length; i++) {
@@ -434,6 +435,9 @@ app.get('/profile/:id', async (req, res) => {
 					isstaff = true;
 				}
 			});
+		}
+		if (userdb.premium.status) {
+			ispremium = true;
 		}
 		if (!profileUser || !userdb) throw Error('User was not found!');
 
@@ -535,6 +539,7 @@ app.get('/profile/:id', async (req, res) => {
 			userSocialmediaReddit: userdb.socialmedia.reddit === '' ? null : userdb.socialmedia.reddit,
 			client: client,
 			isstaff: isstaff,
+			ispremium: ispremium,
 			islenoxbot: islenoxbot
 		});
 	} catch (error) {

@@ -721,6 +721,10 @@ div.dataTables_wrapper div.dataTables_length select {
     color: #1e88e5 !important;
 }
 
+.lb-profile-premiumuser {
+    color: #FFA500;
+}
+
 @keyframes updown {
     0% {
         transform: translatey(0px);
