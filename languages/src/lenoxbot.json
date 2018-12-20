@@ -79,11 +79,11 @@
     "hangman_mentionplayquestion": "%mention, do you want to play hangman against %author?",
     "hangman_embedtitlestart": "Hangman game has been started!",
     "hangman_embedtitlechances": "%chances/15 chances left",
-    "hangman_embeddescription": "**Word to guess:**\n %word",
+    "hangman_embeddescription": "**Word to guess:**\n%word",
     "hangman_letterorwordmessage": "%author, Please send a letter (A-Z) or guess the word!",
     "hangman_embedtitlecorrect": "%author guessed the letter \"**%letter**\" correctly! 😄",
     "hangman_embedtitlecorrectword": "%author guessed the word \"**%word**\" correctly! 😄",
-    "hangman_embeddescriptionwithtried": "**Wrong letters used:** %triedletters \n\n**Word to guess:**\n %word",
+    "hangman_embeddescriptionwithtried": "**Wrong letters used:** %triedletters \n\n**Word to guess:**\n%word",
     "hangman_mentiongamewon": "%author won this game! The word to guess was: **%word**",
     "hangman_embedtitlewrong": "%author guessed the letter \"**%letter**\" wrong! 😢",
     "hangman_embedtitlewrongword": "%author guessed the word \"**%word**\" wrong! 😢",
@@ -298,7 +298,8 @@
 
     "removecredits_nomention": "You have to mention the user you want to remove credits!",
     "removecredits_novalue": "You have to enter an amount of credits!",
-    "removecredits_done": "Credits have been removed successfully!",
+    "removecredits_embeddescription": "%credits credits removed from %user",
+    "removecredits_done": "%credits credits have been removed successfully!",
     "removecredits_description": "Removes an user a certain amount of credits",
 
     "leaveserver_error": "You must enter a guild ID. For example: `352896116812939264`",
