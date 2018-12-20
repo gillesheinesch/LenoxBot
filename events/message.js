@@ -455,7 +455,7 @@ exports.run = async (client, msg) => {
 								emoji: '📈'
 							};
 							userdb.badges.push(badgeSettings);
-							const earnednewbadge = lang.messagevent_earnednewbadge.replace('%badgename', badgeSettings.name);
+							const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
 							msg.author.send(earnednewbadge);
 						}
 					}
