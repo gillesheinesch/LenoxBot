@@ -79,17 +79,14 @@ exports.run = async (client, msg) => {
 			if (!userdb[key]) {
 				userdb[key] = usersettingskeys[key];
 			}
-		}
 
-		for (const key in usersettingskeys.inventory) {
-			if (!userdb.inventory[key]) {
-				userdb.inventory[key] = usersettingskeys.inventory[key];
-			}
-		}
-
-		for (const key in usersettingskeys.socialmedia) {
-			if (!userdb.socialmedia[key]) {
-				userdb.socialmedia[key] = usersettingskeys.socialmedia[key];
+			if (typeof usersettingskeys[key] === 'object') {
+				for (const key2 in usersettingskeys[key]) {
+					if (!userdb[key][key2]) {
+						console.log(key, key2);
+						userdb[key][key2] = usersettingskeys[key][key2];
+					}
+				}
 			}
 		}
 
