@@ -1515,6 +1515,7 @@
     "messageevent_chatfilterembed": "Message from %authortag was deleted by the chatfilter",
     "messageevent_messagedeleted": "%author, your message has been deleted because you have used a word/number which has been blocked by the chatfilter!",
     "messageevent_commanddeactivated": "This command is currently disabled!",
+    "messagevent_earnednewbadge": "Congratulations! 🎉 You got a new badge on your profile \"**%badgename**\"",
 
     "messagedeleteevent_deleted": "Message deleted!",
     "messagedeleteevent_author": "Author",

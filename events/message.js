@@ -83,7 +83,6 @@ exports.run = async (client, msg) => {
 			if (typeof usersettingskeys[key] === 'object') {
 				for (const key2 in usersettingskeys[key]) {
 					if (!userdb[key][key2]) {
-						console.log(key, key2);
 						userdb[key][key2] = usersettingskeys[key][key2];
 					}
 				}
@@ -435,6 +434,32 @@ exports.run = async (client, msg) => {
 						}
 					});
 					sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+					
+					const badgesScores = [1000, 10000, 100000, 1000000, 10000000];
+					const badgesScoresStatus = [false, false, false, false, false];
+					for (let index = 0; index < userdb.badges.length; index++) {
+						for (let i = 0; i < badgesScores.length; i++) {
+							if (userdb.badges[index].name.toLowerCase() === `${badgesScores[i]}xp`) {
+								badgesScoresStatus[i] = true;
+							}
+						}
+					}
+
+					for (let i = 0; i < badgesScores.length; i++) {
+						if (row.points >= badgesScores[i] && !badgesScoresStatus[i]) {
+							const badgeSettings = {
+								name: `${badgesScores[i]}xp`,
+								rarity: 1,
+								staff: false,
+								date: Date.now(),
+								emoji: '📈'
+							};
+							userdb.badges.push(badgeSettings);
+							const earnednewbadge = lang.messagevent_earnednewbadge.replace('%badgename', badgeSettings.name);
+							msg.author.send(earnednewbadge);
+						}
+					}
+					client.userdb.set(msg.author.id, userdb);
 				} else {
 					sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, 1, 0]);
 				}
