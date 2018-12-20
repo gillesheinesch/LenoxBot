@@ -434,7 +434,7 @@ exports.run = async (client, msg) => {
 						}
 					});
 					sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
-					
+
 					const badgesScores = [1000, 10000, 100000, 1000000, 10000000];
 					const badgesScoresStatus = [false, false, false, false, false];
 					for (let index = 0; index < userdb.badges.length; index++) {
