@@ -308,7 +308,8 @@
 
     "givecredits_nomention": "You have to mention the user you want to give credits!",
     "givecredits_novalue": "You have to enter an amount of credits!",
-    "givecredits_done": "Credits have been awarded successfully!",
+    "givecredits_embeddescription": "%credits credits given to %user",
+    "givecredits_done": "%credits credits have been awarded successfully!",
     "givecredits_description": "Gives an user a certain amount of credits",
 
     "eval_description": "Executes an eval code",
