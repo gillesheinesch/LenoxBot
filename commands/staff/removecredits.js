@@ -29,7 +29,6 @@ exports.run = async (client, msg, args, lang) => {
 		.setDescription(embeddescription)
 		.setTimestamp()
 		.setColor('RED');
-
 	await client.channels.get('497395598182318100').send({
 		embed
 	});
