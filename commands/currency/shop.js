@@ -161,6 +161,21 @@ exports.run = async (client, msg, args, lang) => {
 						sql.run(`UPDATE medals SET medals = ${row.medals + amounttoreceive} WHERE userId = ${msg.author.id}`);
 					});
 
+					if (!userdb.firstSell) {
+						userdb.firstSell = true;
+						const badgeSettings = {
+							name: `First sold item`,
+							rarity: 1,
+							staff: false,
+							date: Date.now(),
+							emoji: '📤'
+						};
+						userdb.badges.push(badgeSettings);
+						const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
+						msg.author.send(earnednewbadge);
+						client.userdb.set(msg.author.id, userdb);
+					}
+
 					const sellall = lang.shop_sellall.replace('%items', messageedit.join(', ')).replace('%amount', `**${amounttoreceive}**`);
 					const soldallEmbed = new Discord.RichEmbed()
 						.setDescription(sellall)
@@ -197,6 +212,20 @@ exports.run = async (client, msg, args, lang) => {
 								sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
 							});
 
+							if (!userdb.firstSell) {
+								userdb.firstSell = true;
+								const badgeSettings = {
+									name: `First sold item`,
+									rarity: 1,
+									staff: false,
+									date: Date.now(),
+									emoji: '📤'
+								};
+								userdb.badges.push(badgeSettings);
+								const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
+								msg.author.send(earnednewbadge);
+							}
+
 							client.botconfs.set('market', botconfs);
 							client.userdb.set(msg.author.id, userdb);
 
@@ -224,6 +253,20 @@ exports.run = async (client, msg, args, lang) => {
 								}
 								sql.run(`UPDATE medals SET medals = ${row.medals + amount} WHERE userId = ${msg.author.id}`);
 							});
+
+							if (!userdb.firstSell) {
+								userdb.firstSell = true;
+								const badgeSettings = {
+									name: `First sold item`,
+									rarity: 1,
+									staff: false,
+									date: Date.now(),
+									emoji: '📤'
+								};
+								userdb.badges.push(badgeSettings);
+								const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
+								msg.author.send(earnednewbadge);
+							}
 
 							client.botconfs.set('market', botconfs);
 							client.userdb.set(msg.author.id, userdb);
@@ -274,6 +317,20 @@ exports.run = async (client, msg, args, lang) => {
 								sql.run(`UPDATE medals SET medals = ${row.medals - amount} WHERE userId = ${msg.author.id}`);
 							});
 
+							if (!userdb.firstBuy) {
+								userdb.firstBuy = true;
+								const badgeSettings = {
+									name: `First purchased item`,
+									rarity: 1,
+									staff: false,
+									date: Date.now(),
+									emoji: '📤'
+								};
+								userdb.badges.push(badgeSettings);
+								const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
+								msg.author.send(earnednewbadge);
+							}
+
 							client.botconfs.set('market', botconfs);
 							client.userdb.set(msg.author.id, userdb);
 
@@ -309,6 +366,20 @@ exports.run = async (client, msg, args, lang) => {
 								}
 								sql.run(`UPDATE medals SET medals = ${row.medals - amount} WHERE userId = ${msg.author.id}`);
 							});
+
+							if (!userdb.firstBuy) {
+								userdb.firstBuy = true;
+								const badgeSettings = {
+									name: `First purchased item`,
+									rarity: 1,
+									staff: false,
+									date: Date.now(),
+									emoji: '📤'
+								};
+								userdb.badges.push(badgeSettings);
+								const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
+								msg.author.send(earnednewbadge);
+							}
 
 							client.botconfs.set('market', botconfs);
 							client.userdb.set(msg.author.id, userdb);

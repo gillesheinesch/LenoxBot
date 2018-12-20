@@ -99,5 +99,7 @@
         "deadline": ""
     },
     "jobstatus": false,
-    "creditsmessage": false
+    "creditsmessage": false,
+    "firstBuy": false,
+    "firstSell": false
 }
