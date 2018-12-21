@@ -39,7 +39,7 @@ You must have already installed NPM, Git and NodeJS! There are many tutorials on
     - `$ sudo apt-get install build-essential`
     - `$ sudo apt-get install libcairo2-dev libjpeg-dev libpango1.0-dev libgif-dev build-essential g++`
     - `$ npm i -S canvas@next`
-    - `$ npm i -g ffmpeg-binaries`
+    - `$ sudo npm i -g ffmpeg-binaries`
     - `$ npm install`
 3. Now you should have a folder called `node_modules`. In this folder are now all your installed packages.
 4. Now you have to rename your `settings_example.json`, file located in the main folder to `settings.json`. Now enter your Discord Top Secret Token...
@@ -56,7 +56,7 @@ You must have already installed NPM, Git and NodeJS! There are many tutorials on
     - `$ sudo pacman -S base-devel`
     - `$ sudo pacman -S cairo libjpeg-turbo pango giflib g++`
     - `$ npm i -S canvas@next`
-    - `$ npm i -g ffmpeg-binaries`
+    - `$ sudo npm i -g ffmpeg-binaries`
     - `$ npm install`
 3. Now you should have a folder called `node_modules`. In this folder are now all your installed packages.
 4. Now you have to rename your `settings_example.json`, file located in the main folder to `settings.json`. Now enter your Discord Top Secret Token...
