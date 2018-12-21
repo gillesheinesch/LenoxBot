@@ -19,6 +19,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const sql = require('sqlite');
+moment.locale('en');
 
 client.wait = require('util').promisify(setTimeout);
 client.guildconfs = new Enmap({
