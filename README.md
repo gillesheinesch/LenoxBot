@@ -47,6 +47,24 @@ You must have already installed NPM, Git and NodeJS! There are many tutorials on
 
 To invite the Bot on your Discord Server, copy the Client ID of your Bot application that you find [here](https://discordapp.com/developers/applications/) if you click on the application (https://i.imgur.com/9ChWjol.png). Now you can create an Invite Link for your Bot [here](https://discordapi.com/permissions.html) for example.
 
+## Linux/ArchLinux
+You must have already installed NPM, Git and NodeJS! There are many tutorials online on how to install all these packages for your operating system.
+
+1. Clone this repository (Branch: Master)
+    - Execute `$ git clone https://github.com/LenoxBot/LenoxBot.git --branch master`
+2. Now you have to execute a few commands in the folder in which you cloned LenoxBot:
+    - `$ sudo pacman -S base-devel`
+    - `$ sudo pacman -S cairo libjpeg-turbo pango giflib g++`
+    - `$ npm i -S canvas@next`
+    - `$ npm i -g ffmpeg-binaries`
+    - `$ npm install`
+3. Now you should have a folder called `node_modules`. In this folder are now all your installed packages.
+4. Now you have to rename your `settings_example.json`, file located in the main folder to `settings.json`. Now enter your Discord Top Secret Token...
+5. You can run the bot using the command `node lenoxbotapp.js`
+
+To invite the Bot on your Discord Server, copy the Client ID of your Bot application that you find [here](https://discordapp.com/developers/applications/) if you click on the application (https://i.imgur.com/9ChWjol.png). Now you can create an Invite Link for your Bot [here](https://discordapi.com/permissions.html) for example.
+
+
 If you need any help, you can join our [Discord Server](https://lenoxbot.com/discord)
 
 # Support
