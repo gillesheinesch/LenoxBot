@@ -1,4 +1,17 @@
 {
+    "joinrole_noinput": "You forgot to enter the name of the role you want to add to the list of the joinroles!",
+    "joinrole_rolenotexist": "This role doesn't exist. Please check if you entered the right name of the role!",
+    "joinrole_alreadyadded": "You have already added this role to the joinroles of this Discord server!",
+    "joinrole_maximum": "This Discord server has reached the maximum of allowed joinroles. The limit is 5!",
+    "joinrole_roleadded": "Role has been successfully added to the list of the joinroles!",
+    "joinrole_noinputremove": "You forgot to enter the name of the role you want to remove from the list of the joinroles!",
+    "joinrole_notadded": "You haven't added this role to the joinroles of this Discord server!",
+    "joinrole_roleremoved": "Role has been successfully removed from the list of the joinroles!",
+    "joinrole_nojoinroles": "There are no roles on this Discord server which new members will get when they join!",
+    "joinrole_embedtitle": "All joinroles:",
+    "joinrole_invalidvalidation": "You used the command incorrectly. Please use **%prefixhelp joinrole** to read the correct usage of the command!",
+    "joinrole_description": "Roles that new guildmembers will get when they join the Discord server",
+
     "hangman_wordtoguess1": "people",
     "hangman_wordtoguess2": "history",
     "hangman_wordtoguess3": "information",
@@ -1456,6 +1469,7 @@
     "channelupdateevent_newposition": "New position:",
 
     "guildmemberaddevent_userjoined": "User joined",
+    "guildmemberaddevent_joinrolesnotgiven": "Unfortunately, we weren't able to assign all joinroles because LenoxBot doesn't have the required permissions. Please contact an administrator of the Discord server. (These roles could not be assigned: %roles)",
 
     "guildmemberremoveevent_userleft": "User left",
 
