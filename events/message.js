@@ -149,9 +149,13 @@ exports.run = async (client, msg) => {
 		client.botconfs.set('botconfs', botconfs);
 	}
 
-	if (!botconfs.tickets || !botconfs.ticketid) {
-		botconfs.ticketid = 0;
+	if (!botconfs.tickets) {
 		botconfs.tickets = {};
+		client.botconfs.set('botconfs', botconfs);
+	}
+
+	if (!botconfs.ticketids) {
+		botconfs.ticketids = [];
 		client.botconfs.set('botconfs', botconfs);
 	}
 

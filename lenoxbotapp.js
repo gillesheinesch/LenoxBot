@@ -792,7 +792,6 @@ app.get('/servers', (req, res) => {
 		}
 		return res.redirect('nologin');
 	} catch (error) {
-		console.log(error);
 		return res.redirect(url.format({
 			pathname: `/error`,
 			query: {
@@ -819,7 +818,7 @@ app.post('/tickets/:ticketid/submitticketanswer', (req, res) => {
 			ticket.answers[length] = {
 				authorid: req.user.id,
 				guildid: req.params.id,
-				date: new Date(),
+				date: Date.now(),
 				content: req.body.newticketanswer,
 				timelineconf: ''
 			};
@@ -886,17 +885,19 @@ app.post('/tickets/:ticketid/submitnewticketstatus', (req, res) => {
 				ticket.answers[length] = {
 					authorid: req.user.id,
 					guildid: req.params.id,
-					date: new Date(),
-					content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} closed the ticket!`,
-					timelineconf: ''
+					date: Date.now(),
+					content: `closed the ticket!`,
+					timelineconf: '',
+					toStatus: 'closed'
 				};
 			} else if (ticket.status === 'open') {
 				ticket.answers[length] = {
 					authorid: req.user.id,
 					guildid: req.params.id,
-					date: new Date(),
-					content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} opened the ticket!`,
-					timelineconf: ''
+					date: Date.now(),
+					content: `opened the ticket!`,
+					timelineconf: '',
+					toStatus: 'open'
 				};
 			}
 
@@ -939,12 +940,34 @@ app.get('/tickets/:ticketid/overview', (req, res) => {
 				ticket.answers[index].newdate = moment(ticket.answers[index].date).format('MMMM Do YYYY, h:mm:ss a');
 			}
 			const islenoxbot = islenoxboton(req);
+
+			const sortableAnswers = [];
+			for (const key in botconfs.tickets[req.params.ticketid].answers) {
+				sortableAnswers.push(botconfs.tickets[req.params.ticketid].answers[key]);
+			}
+
+			let answers;
+			if (Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0) {
+				answers = false;
+			} else {
+				const answersOnTicket = sortableAnswers;
+				answers = answersOnTicket.sort((a, b) => {
+					if (a.date < b.date) {
+						return 1;
+					}
+					if (a.date > b.date) {
+						return -1;
+					}
+					return 0;
+				});
+			}
+
 			return res.render('ticket', {
 				user: req.user,
 				client: client,
 				islenoxbot: islenoxbot,
 				ticket: ticket,
-				answers: Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0 ? false : botconfs.tickets[req.params.ticketid].answers,
+				answers: answers,
 				status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
 			});
 		}
@@ -4618,7 +4641,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', (req, res) => {
 			ticket.answers[length] = {
 				authorid: req.user.id,
 				guildid: req.params.id,
-				date: new Date(),
+				date: Date.now(),
 				content: req.body.newticketanswer,
 				timelineconf: 'timeline-inverted'
 			};
@@ -4686,16 +4709,18 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', (req, res) =>
 			if (ticket.status === 'closed') {
 				ticket.answers[length] = {
 					authorid: req.user.id,
-					date: new Date(),
-					content: `${client.users.get(req.user.id) ? client.users.get(req.user.id).tag : req.user.id} closed the ticket!`,
-					timelineconf: 'timeline-inverted'
+					date: Date.now(),
+					content: `closed the ticket!`,
+					timelineconf: 'timeline-inverted',
+					toStatus: 'closed'
 				};
 			} else if (ticket.status === 'open') {
 				ticket.answers[length] = {
 					authorid: req.user.id,
-					date: new Date(),
-					content: `${client.users.get(req.user.id) ? client.users.get(req.user.id).tag : req.user.id} opened the ticket!`,
-					timelineconf: 'timeline-inverted'
+					date: Date.now(),
+					content: `opened the ticket!`,
+					timelineconf: 'timeline-inverted',
+					toStatus: 'open'
 				};
 			}
 
@@ -4768,13 +4793,34 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', (req, res) => {
 
 			const islenoxbot = islenoxboton(req);
 
+			const sortableAnswers = [];
+			for (const key in botconfs.tickets[req.params.ticketid].answers) {
+				sortableAnswers.push(botconfs.tickets[req.params.ticketid].answers[key]);
+			}
+
+			let answers;
+			if (Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0) {
+				answers = false;
+			} else {
+				const answersOnTicket = sortableAnswers;
+				answers = answersOnTicket.sort((a, b) => {
+					if (a.date < b.date) {
+						return 1;
+					}
+					if (a.date > b.date) {
+						return -1;
+					}
+					return 0;
+				});
+			}
+
 			return res.render('dashboardticket', {
 				user: req.user,
 				guilds: check,
 				client: client,
 				islenoxbot: islenoxbot,
 				ticket: ticket,
-				answers: Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0 ? false : botconfs.tickets[req.params.ticketid].answers,
+				answers: answers,
 				status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
 			});
 		}
@@ -4823,12 +4869,12 @@ app.get('/dashboard/:id/tickets', (req, res) => {
 			for (const index2 in botconfs.tickets) {
 				if (botconfs.tickets[index2].guildid === dashboardid && botconfs.tickets[index2].status === 'open') {
 					newobject[index2] = botconfs.tickets[index2];
-					botconfs.tickets[index2].author = client.users.get(botconfs.tickets[index2].authorid).tag;
+					botconfs.tickets[index2].author = client.users.get(botconfs.tickets[index2].authorid).tag ? client.users.get(botconfs.tickets[index2].authorid).tag : botconfs.tickets[index2].authorid;
 					botconfs.tickets[index2].newdate = moment(botconfs.tickets[index2].date).format('MMMM Do YYYY, h:mm:ss a');
 				}
 				if (botconfs.tickets[index2].guildid === dashboardid && botconfs.tickets[index2].status === 'closed') {
 					oldobject[index2] = botconfs.tickets[index2];
-					botconfs.tickets[index2].author = client.users.get(botconfs.tickets[index2].authorid).tag;
+					botconfs.tickets[index2].author = client.users.get(botconfs.tickets[index2].authorid).tag ? client.users.get(botconfs.tickets[index2].authorid).tag : botconfs.tickets[index2].authorid;
 					botconfs.tickets[index2].newdate = moment(botconfs.tickets[index2].date).format('MMMM Do YYYY, h:mm:ss a');
 				}
 			}
