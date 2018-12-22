@@ -328,7 +328,9 @@ exports.run = async (client, msg, args, lang) => {
 								};
 								userdb.badges.push(badgeSettings);
 								const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
-								msg.author.send(earnednewbadge);
+								if (tableload.xpmessages === 'true') {
+									msg.author.send(earnednewbadge);
+								}
 							}
 
 							client.botconfs.set('market', botconfs);
@@ -378,7 +380,9 @@ exports.run = async (client, msg, args, lang) => {
 								};
 								userdb.badges.push(badgeSettings);
 								const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
-								msg.author.send(earnednewbadge);
+								if (tableload.xpmessages === 'true') {
+									msg.author.send(earnednewbadge);
+								}
 							}
 
 							client.botconfs.set('market', botconfs);
