@@ -15,7 +15,7 @@ module.exports = class BotInfoCommand extends DiscordCommando.Command {
 		});
 	}
 
-	async run(msg, args) {
+	run(msg) {
 		const provider = msg.client.provider;
 
 		const langSet = provider.get(msg.message.guild.id, 'language', 'en-US');

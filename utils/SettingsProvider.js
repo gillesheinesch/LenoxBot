@@ -137,22 +137,27 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		settings[key] = undefined;
 		const settingsCollection = this.db.collection('guildSettings');
 
-		await settingsCollection.save({'guildId': guild, 'settings': settings});
+		await settingsCollection.save({
+			guildId: guild,
+			settings: settings
+		});
 		return val;
 	}
 
 	
 	async clear(guild) {
 		guild = this.constructor.getGuildID(guild);
-		if(!this.settings.has(guild)) return;
+		if (!this.settings.has(guild)) return;
 		this.settings.delete(guild);
 		const settingsCollection = this.db.collection('guildSettings');
-		await this.settingsCollection.deleteOne({'guildId': guild});
+		await this.settingsCollection.deleteOne({
+			guildId: guild
+		});
 	}
 
 	get(guild, key, defVal) {
 		const settings = this.guildSettings.get(this.constructor.getGuildID(guild));
-		return settings ? typeof settings[key] !== 'undefined' ? settings[key] : defVal : defVal;
+		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
 	getDatabase() {
@@ -165,28 +170,28 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 	/**
 	 * Sets the guild up in the db for usage.
-	 * @param {snowflake} guildId 
-	 * @param {object containing properties} settings 
+	 * @param {snowflake} guildId
+	 * @param {object containing properties} settings
 	 */
 	setupGuild(guild, settings) {
-		if(typeof guild !== 'string') throw new TypeError('The guild must be a guild ID or "global".');
+		if (typeof guild !== 'string') throw new TypeError('The guild must be a guild ID or "global".');
 		guild = this.client.guilds.get(guild) || null;
 
 		// Load the command prefix
-		if(typeof settings.prefix !== 'undefined') {
-			if(guild) guild._commandPrefix = settings.prefix;
+		if (typeof settings.prefix !== 'undefined') {
+			if (guild) guild._commandPrefix = settings.prefix;
 			else this.client._commandPrefix = settings.prefix;
 		}
 
 		// Load all command/group statuses
-		for(const command of this.client.registry.commands.values()) this.setupGuildCommand(guild, command, settings);
-		for(const group of this.client.registry.groups.values()) this.setupGuildGroup(guild, group, settings);
+		for (const command of this.client.registry.commands.values()) this.setupGuildCommand(guild, command, settings);
+		for (const group of this.client.registry.groups.values()) this.setupGuildGroup(guild, group, settings);
 	}
 
 	setupGuildCommand(guild, command, settings) {
-		if(typeof settings[`cmd-${command.name}`] === 'undefined') return;
-		if(guild) {
-			if(!guild._commandsEnabled) guild._commandsEnabled = {};
+		if (typeof settings[`cmd-${command.name}`] === 'undefined') return;
+		if (guild) {
+			if (!guild._commandsEnabled) guild._commandsEnabled = {};
 			guild._commandsEnabled[command.name] = settings[`cmd-${command.name}`]
 		} else {
 			command._globalEnabled = settings[`cmd-${command.name}`]
@@ -194,8 +199,8 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	setupGuildGroup(guild, command, setting) {
-		if(typeof settings[`grp-${group.id}`] === 'undefined') return;
-		if(guild) {
+		if (typeof settings[`grp-${group.id}`] === 'undefined') return;
+		if (guild) {
 			if(!guild._groupsEnabled) guild._groupsEnabled = {};
 			guild._groupsEnabled[group.id] = settings[`grp-${group.id}`];
 		} else {
