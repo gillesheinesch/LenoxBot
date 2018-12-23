@@ -4,29 +4,29 @@ const moment = require('moment');
 require('moment-duration-format');
 
 module.exports = class BotInfoCommand extends DiscordCommando.Command {
-	constructor(client) {
-		super(client, {
-			name: 'botinfo',
-			group: 'utility',
-			memberName: 'botinfo',
-			description: 'Shows various bot infos like uptime.',
-			guarded: true,
-			guildOnly: true
-		});
-	}
+    constructor(client) {
+        super(client, {
+            name: 'botinfo',
+            group: 'utility',
+            memberName: 'botinfo',
+            description: 'Shows various bot infos like uptime.',
+            guarded: true,
+            guildOnly: true
+        });
+    }
 
-	async run(msg, args) {
-		const provider = msg.client.provider;
+    async run(msg, args) {
+        const provider = msg.client.provider;
 
-		var langSet = provider.get(msg.message.guild.id, 'language', 'en-US');
-		const lang = require(`../../languages/${langSet}.json`);
-		moment.locale(langSet);
+        var langSet = provider.get(msg.message.guild.id, 'language', 'en-US');
+        const lang = require(`../../languages/${langSet}.json`);
+        moment.locale(langSet);
 
-		const uptimeserver = moment.duration(msg.client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
-		const version = require('../../package.json').version;
+        const uptimeserver = moment.duration(msg.client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
+        const version = require('../../package.json').version;
 
-		const online = lang.botinfo_online.replace('%guilds', msg.client.guilds.size).replace('%users', msg.client.users.size);
-		const embed = new Discord.RichEmbed()
+        const online = lang.botinfo_online.replace('%guilds', msg.client.guilds.size).replace('%users', msg.client.users.size);
+        const embed = new Discord.RichEmbed()
 		.setAuthor('LenoxBot', msg.client.user.avatarURL)
 		.setColor('#0066CC')
 		.setThumbnail(msg.client.user.avatarURL)
@@ -38,8 +38,8 @@ module.exports = class BotInfoCommand extends DiscordCommando.Command {
 		.addField(`📢 ${lang.botinfo_supportserver}`, 'https://lenoxbot.com/discord/')
 		.addField(`🔛 ${lang.botinfo_version}`, version);
 
-		msg.message.channel.send({
-			embed
-		});
-	}
+        msg.message.channel.send({
+            embed
+        });
+    }
 }
