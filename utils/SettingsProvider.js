@@ -3,8 +3,7 @@ const mongodb = require("mongodb");
 const assert = require("assert");
 const Commando = require("discord.js-commando");
 
-class LenoxBotSettingsProvider extends Commando.SettingProvider { 
-
+class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	constructor(settings) {
 		super();
 		this.url = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT&authSource=admin`;
