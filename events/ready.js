@@ -7,11 +7,11 @@ exports.run = async client => {
 		}
 	});
 
-	if(client.provider.isReady) {
-		console.log(chalk.green("LenoxBot is ready!"));
+	if (client.provider.isReady) {
+		console.log(chalk.green('LenoxBot is ready!'));
 	} else {
-		client.provider.whenReady(function() {
-			console.log(chalk.green("LenoxBot is ready!"));
+		client.provider.whenReady(() => {
+			console.log(chalk.green('LenoxBot is ready!'));
 		});
 	}
-}
+};
