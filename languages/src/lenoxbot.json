@@ -100,7 +100,7 @@
     "hangman_embedtitlecorrect": "%author guessed the letter \"**%letter**\" correctly! 😄",
     "hangman_embedtitlecorrectword": "%author guessed the word \"**%word**\" correctly! 😄",
     "hangman_embeddescriptionwithtried": "**Wrong letters used:** %triedletters \n\n**Word to guess:**\n%word",
-    "hangman_mentiongamewon": "%author won this game! The word to guess was: \"**%word**\",
+    "hangman_mentiongamewon": "%author won this game! The word to guess was: \"**%word**\"",
     "hangman_embedtitlewrong": "%author guessed the letter \"**%letter**\" wrong! 😢",
     "hangman_embedtitlewrongword": "%author guessed the word \"**%word**\" wrong! 😢",
     "hangman_mentionnowin": "Nobody won! The word to guess was: \"**%word**\"",
