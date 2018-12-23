@@ -74,6 +74,7 @@
     "lint:fix": "eslint commands --fix && eslint events --fix && eslint *js --fix && eslint utils --fix",
     "lint:commands": "eslint commands",
     "lint:events": "eslint events",
+    "lint:utils": "eslint utils",
     "start": "node lenoxbotlauncher.js"
   },
   "author": "Gilles Heinesch",
