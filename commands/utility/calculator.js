@@ -3,9 +3,8 @@
  * - Add throttling (cooldown)
  */
 
-const DiscordCommando = require('discord.js-commando');
 const Discord = require('discord.js');
-const LenoxCommand = require("../LenoxCommand.js");
+const LenoxCommand = require('../LenoxCommand.js');
 const math = require('math-expression-evaluator');
 
 module.exports = class CalculatorCommand extends LenoxCommand {

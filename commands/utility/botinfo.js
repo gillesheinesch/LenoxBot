@@ -3,10 +3,9 @@
  * - Add throttling (cooldown)
  */
 
-const DiscordCommando = require('discord.js-commando');
 const Discord = require('discord.js');
 const moment = require('moment');
-const LenoxCommand = require("../LenoxCommand.js");
+const LenoxCommand = require('../LenoxCommand.js');
 require('moment-duration-format');
 
 module.exports = class BotInfoCommand extends LenoxCommand {
@@ -19,7 +18,7 @@ module.exports = class BotInfoCommand extends LenoxCommand {
 			guarded: true,
 			aliases: ['binfo', 'bi'],
 			examples: ['botinfo'],
-			clientPermissions: ['SEND_MESSAGES']
+			clientPermissions: ['SEND_MESSAGES', 'ADMINISTRATOR']
 		});
 	}
 

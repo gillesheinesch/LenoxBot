@@ -3,8 +3,7 @@
  * - Add throttling (cooldown)
  */
 
-const DiscordCommando = require('discord.js-commando');
-const LenoxCommand = require("../LenoxCommand.js");
+const LenoxCommand = require('../LenoxCommand.js');
 
 module.exports = class pingCommand extends LenoxCommand {
 	constructor(client) {
