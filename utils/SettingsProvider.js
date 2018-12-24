@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const mongodb = require('mongodb');
 const assert = require('assert');
 const Commando = require('discord.js-commando');
+const guildsettingskeys = require('../guildsettings-keys.json');
 
 class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	constructor(settings) {
@@ -37,8 +38,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 				if (!result) {
 					// Can't find DB make new one.
-					settings = {};
-					settings.language = 'en-US';
+					settings = guildsettingskeys;
 					settingsCollection.insertOne({ guildId: guild.id, settings: settings });
 				}
 
@@ -198,7 +198,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		}
 	}
 
-	setupGuildGroup(guild, command, setting) {
+	setupGuildGroup(guild, group, settings) {
 		if (typeof settings[`grp-${group.id}`] === 'undefined') return;
 		if (guild) {
 			if (!guild._groupsEnabled) guild._groupsEnabled = {};
