@@ -6,7 +6,7 @@
 const Discord = require('discord.js');
 const LenoxCommand = require('../LenoxCommand.js');
 
-module.exports = class channelsCommand extends LenoxCommand {
+module.exports = class channeltopicCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
 			name: 'channeltopic',
