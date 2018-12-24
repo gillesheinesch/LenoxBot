@@ -3,7 +3,7 @@ const Discord = require('discord.js');
 const moment = require('moment');
 require('moment-duration-format');
 
-module.exports = class BotInfoCommand extends DiscordCommando.Command {
+module.exports = class pingCommand extends DiscordCommando.Command {
 	constructor(client) {
 		super(client, {
 			name: 'ping',
@@ -11,7 +11,9 @@ module.exports = class BotInfoCommand extends DiscordCommando.Command {
 			memberName: 'ping',
 			description: 'Shows you how long the bot needs to send a message',
 			guarded: true,
-			guildOnly: true
+			guildOnly: true,
+			examples: ['ping'],
+			clientPermissions: ['SEND_MESSAGES']
 		});
 	}
 
