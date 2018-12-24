@@ -56,6 +56,6 @@ if (process.env.SHARD_COUNT) {
 		.registerDefaults()
 		.registerCommandsIn(path.join(__dirname, 'commands'));
 } else {
-	console.log('Not running as a shard.');
+	console.log(chalk.red('Not running as a shard.'));
 	process.exit(0);
 }
