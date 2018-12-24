@@ -1,3 +1,8 @@
+/**
+ * TODO:
+ * - Add throttling (cooldown)
+ */
+
 const DiscordCommando = require('discord.js-commando');
 const Discord = require('discord.js');
 const moment = require('moment');

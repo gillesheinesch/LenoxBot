@@ -1,7 +1,9 @@
+/**
+ * TODO:
+ * - Add throttling (cooldown)
+ */
+
 const DiscordCommando = require('discord.js-commando');
-const Discord = require('discord.js');
-const moment = require('moment');
-require('moment-duration-format');
 
 module.exports = class pingCommand extends DiscordCommando.Command {
 	constructor(client) {
