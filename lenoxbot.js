@@ -59,6 +59,6 @@ if (process.env.SHARD_COUNT) {
 		])
 		.registerCommandsIn(path.join(__dirname, 'commands'));
 } else {
-	console.log(chalk.red('Not running as a shard.'));
+	console.log(chalk.red('Stopped process because the bot isn\'t running as a shard! Please start lenoxbotlauncher.js to support sharding.'));
 	process.exit(0);
 }
