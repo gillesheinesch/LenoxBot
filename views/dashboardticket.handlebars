@@ -44,6 +44,63 @@
                             </form>
                             {{/if}}
                             <ul class="lb-timeline">
+                                {{#if answers}}
+                                {{#each answers}}
+                                {{#if timelineconf}}
+                                {{#if toStatus}}
+                                {{#eq toStatus 'open'}}
+                                <li class="li-2">
+                                    <h4 class="mb-0">
+                                        <p class="text-primary" style="display:inline">{{author}}</p> {{{content}}}
+                                    </h4>
+                                    <small class="text-muted">
+                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
+                                </li>
+                                {{else}}
+                                <li class="li-2">
+                                    <h4 class="mb-0">
+                                        <p class="text-primary" style="display:inline">{{author}}</p> {{{content}}}
+                                    </h4>
+                                    <small class="text-muted">
+                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
+                                </li>
+                                {{/eq}}
+                                {{else}}
+                                <li class="li-2">
+                                    <h4 class="mb-0 text-primary">{{author}}</h4>
+                                    <small class="text-muted">
+                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
+                                    <div class="timeline-body">
+                                        <p class="py-4">{{{content}}}</p>
+                                    </div>
+                                </li>
+                                {{/if}}
+                                {{else}}
+                                {{#if toStatus}}
+                                {{#eq toStatus 'open'}}
+                                <li>
+                                    <h4 class="mb-0">{{author}} {{{content}}}</h4>
+                                    <small class="text-muted">
+                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
+                                </li>
+                                {{else}}
+                                <li>
+                                    <h4 class="mb-0">{{author}} {{{content}}}</h4>
+                                    <small class="text-muted">
+                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
+                                </li>
+                                {{/eq}}
+                                {{else}}
+                                <li>
+                                    <h4 class="mb-0">{{author}}</h4>
+                                    <small class="text-muted">
+                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
+                                    <p class="py-4">{{{content}}}</p>
+                                </li>
+                                {{/if}}
+                                {{/if}}
+                                {{/each}}
+                                {{/if}}
                                 <li>
                                     <div class="timeline-heading">
                                         <h4 class="mb-0">{{ticket.author}}</h4>
@@ -54,25 +111,6 @@
                                         <p class="py-4">{{{ticket.content}}}</p>
                                     </div>
                                 </li>
-                                {{#if answers}} {{#each answers}}
-                                {{#if timelineconf}}
-                                <li class="li-2">
-                                    <h4 class="mb-0">{{author}} (Support-Team)</h4>
-                                    <small class="text-muted">
-                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
-                                    <div class="timeline-body">
-                                        <p class="py-4">{{{content}}}</p>
-                                    </div>
-                                </li>
-                                {{else}}
-                                <li>
-                                    <h4 class="mb-0">{{author}}</h4>
-                                    <small class="text-muted">
-                                        <i class="mdi mdi-clock-outline"></i> {{newdate}}</small>
-                                    <p class="py-4">{{{content}}}</p>
-                                </li>
-                                {{/if}}
-                                {{/each}} {{/if}}
                             </ul>
                         </div>
                     </div>

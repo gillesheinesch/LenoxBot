@@ -27,7 +27,6 @@
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
     "express-session": "^1.15.6",
-    "ffmpeg-binaries": "^4.0.0",
     "fortnite": "^3.0.0",
     "fs": "^0.0.1-security",
     "fs-nextra": "^0.3.5",
@@ -66,16 +65,17 @@
     "ytdl-core": "^0.20.1"
   },
   "devDependencies": {
-    "eslint": "^5.8.0",
+    "eslint": "^5.9.0",
     "eslint-config-aqua": "^4.4.1"
   },
   "scripts": {
-    "test": "npm run lint && npm run lint:commands && npm run lint:events",
+    "test": "npm run lint && npm run lint:commands && npm run lint:events && npm run lint:utils",
     "lint": "eslint *.js",
-    "lint:fix": "eslint commands --fix && eslint events --fix && eslint *js --fix",
+    "lint:fix": "eslint commands --fix && eslint events --fix && eslint *js --fix && eslint utils --fix",
     "lint:commands": "eslint commands",
     "lint:events": "eslint events",
-	"start": "node lenoxbotlauncher.js"
+    "lint:utils": "eslint utils",
+    "start": "node lenoxbotlauncher.js"
   },
   "author": "Gilles Heinesch",
   "license": "MIT"

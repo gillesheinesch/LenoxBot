@@ -9,6 +9,12 @@
     "clientSecret_Auth": "Client Secret Auth",
     "callbackURL_Auth": "Callback URL Auth",
     "dbl_apikey": "Your Discord Bot List API Token",
-    "websiteport": "",
-    "keychannel": ""
+    "websiteport": "Port of the website",
+    "keychannel": "Channelid where all premium keys should be posted in",
+    "db": {
+        "user": "db user",
+		"password": "db password",
+		"host": "db host",
+		"port": "db port"
+    }
 }

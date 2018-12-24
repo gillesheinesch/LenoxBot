@@ -4,9 +4,7 @@
 [![Crowdin](https://d322cqt584bo4o.cloudfront.net/lenoxbot/localized.svg)](https://crowdin.com/project/lenoxbot)
 
 ### Invite LenoxBot on your Discord Server: https://lenoxbot.com/invite
-
 # How can I host my own instance of LenoxBot?
-
 ## Windows
 You must have already installed NPM, Git and NodeJS! There are many tutorials online on how to install all these packages for your operating system.
 
