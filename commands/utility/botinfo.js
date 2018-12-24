@@ -11,7 +11,9 @@ module.exports = class BotInfoCommand extends DiscordCommando.Command {
 			memberName: 'botinfo',
 			description: 'Information about the bot',
 			guarded: true,
-			guildOnly: true
+			aliases: ['binfo', 'bi'],
+			examples: ['botinfo'],
+			clientPermissions: ['SEND_MESSAGES']
 		});
 	}
 
