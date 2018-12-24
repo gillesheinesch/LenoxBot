@@ -9,7 +9,7 @@ module.exports = class BotInfoCommand extends DiscordCommando.Command {
 			name: 'botinfo',
 			group: 'utility',
 			memberName: 'botinfo',
-			description: 'Shows various bot infos like uptime.',
+			description: 'Information about the bot',
 			guarded: true,
 			guildOnly: true
 		});
