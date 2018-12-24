@@ -8,7 +8,7 @@ const moment = require('moment');
 const LenoxCommand = require('../LenoxCommand.js');
 require('moment-duration-format');
 
-module.exports = class BotInfoCommand extends LenoxCommand {
+module.exports = class botinfoCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
 			name: 'botinfo',
