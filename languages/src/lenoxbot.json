@@ -957,9 +957,6 @@
     "approverole_set": "If an application has been accepted, the author of this application will now receive the %rolename role",
     "approverole_description": "Defines the role that members get if their application has been accepted",
 
-    "votechannel_set": "All applications will now be posted in %channelname and can be rated accordingly!",
-    "votechannel_description": "Defines a channel in which all new applications will be posted and can be rated accordingly",
-
     "eightball_noinput": "You have to specify what you want to ask the bot!",
     "eightball_answer1": "It is certain",
     "eightball_answer2": "It is decidedly so",
