@@ -20,7 +20,10 @@ if (process.env.SHARD_COUNT) {
 
 	const client = new Commando.Client({
 		owner: settings.owners,
-		commandPrefix: '?'
+		commandPrefix: '?',
+		invite: 'discord.gg/jmZZQja',
+		unknownCommandResponse: false,
+		nonCommandEditable: false
 	});
 
 	fs.readdir('./events/', (err, files) => {
