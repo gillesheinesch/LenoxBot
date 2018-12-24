@@ -39,6 +39,7 @@ if (process.env.SHARD_COUNT) {
 	client.login(token);
 
 	client.registry
+		.registerDefaultTypes()
 		.registerGroups([
 			['administration', 'Administration'],
 			['application', 'Application'],
@@ -56,7 +57,6 @@ if (process.env.SHARD_COUNT) {
 			['tickets', 'Tickets'],
 			['utility', 'Utility']
 		])
-		.registerDefaults()
 		.registerCommandsIn(path.join(__dirname, 'commands'));
 } else {
 	console.log(chalk.red('Not running as a shard.'));
