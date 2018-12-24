@@ -1,7 +1,7 @@
-const Discord = require("discord.js");
-const mongodb = require("mongodb");
-const assert = require("assert");
-const Commando = require("discord.js-commando");
+const Discord = require('discord.js');
+const mongodb = require('mongodb');
+const assert = require('assert');
+const Commando = require('discord.js-commando');
 
 class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	constructor(settings) {
@@ -12,107 +12,108 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		this.listeners = new Map();
 		this.isReady = false;
 	}
-	
+
 	async init(client) {
 		try {
-			this.dbClient = await mongodb.MongoClient.connect(this.url, {useNewUrlParser: true});
-			console.log("Connected to mongodb");
-		} catch(err) {
+			this.dbClient = await mongodb.MongoClient.connect(this.url, { useNewUrlParser: true });
+			console.log('Connected to mongodb');
+		} catch (err) {
 			console.log(err);
 
 			process.exit(-1);
 		}
 
-		this.db = this.dbClient.db("lenoxbot");
+		this.db = this.dbClient.db('lenoxbot');
 		const settingsCollection = this.db.collection('guildSettings');
 		const guildSettings = this.guildSettings;
 
-		await settingsCollection.createIndex("guildId", {unique: true});
+		await settingsCollection.createIndex('guildId', { unique: true });
 
-		for(var guild in client.guilds.array()) {
+		/* eslint guard-for-in: 0 */
+		for (const guild in client.guilds.array()) {
 			try {
-				let result = await settingsCollection.findOne({'guildId': guild.id});
-				var settings = undefined;
-				
-				if(!result) {
-					//Can't find DB make new one.
+				const result = await settingsCollection.findOne({ guildId: guild.id });
+				let settings = undefined;
+
+				if (!result) {
+					// Can't find DB make new one.
 					settings = {};
-					settings.language = "en-US";
-					settingsCollection.insertOne({'guildId': guild.id, settings: settings})
+					settings.language = 'en-US';
+					settingsCollection.insertOne({ guildId: guild.id, settings: settings });
 				}
 
-				if(result && result.settings) {
+				if (result && result.settings) {
 					settings = result.settings;
 				}
 
 				guildSettings.set(guild.id, settings);
-			} catch(err) {
+			} catch (err) {
 				console.warn(`Error while creating document of guild ${guild.id}`);
 				console.warn(err);
 			}
 		}
 
 		try {
-			let result = await settingsCollection.findOne({'guildId': "global"})
-			var settings = undefined;
-			
-			if(!result) {
-				//Could not load global, do new one
+			const result = await settingsCollection.findOne({ guildId: 'global' });
+			let settings = undefined;
+
+			if (!result) {
+				// Could not load global, do new one
 				settings = {};
-				settingsCollection.insertOne({'guildId': "global", settings: settings})
-				this.setupGuild("global", settings);
+				settingsCollection.insertOne({ guildId: 'global', settings: settings });
+				this.setupGuild('global', settings);
 			}
 
-			if(result && result.settings) {
+			if (result && result.settings) {
 				settings = result.settings;
 			}
 
-			guildSettings.set("global", settings);
-		} catch(err) {
-			console.warn("Error while creating global document");
+			guildSettings.set('global', settings);
+		} catch (err) {
+			console.warn('Error while creating global document');
 			console.warn(err);
 		}
 
 		this.isReady = true;
 
-		if(this.readyCallback) {
+		if (this.readyCallback) {
 			this.readyCallback();
 		}
 
 		this.listeners
-		.set('commandPrefixChange', (guild, prefix) => this.set(guild, 'prefix', prefix))
-		.set('commandStatusChange', (guild, command, enabled) => this.set(guild, `cmd-${command.name}`, enabled))
-		.set('groupStatusChange', (guild, group, enabled) => this.set(guild, `grp-${group.id}`, enabled))
-		.set('guildCreate', guild => {
-			const settings = this.guildSettings.get(guild.id);
-			if(!settings) return;
-			this.setupGuild(guild.id, settings);
-		})
-		.set('commandRegister', command => {
-			for(const [guild, settings] of this.guildSettings) {
-				if(guild !== 'global' && !client.guilds.has(guild)) continue;
-				this.setupGuildCommand(client.guilds.get(guild), command, settings);
-			}
-		})
-		.set('groupRegister', group => {
-			for(const [guild, settings] of this.guildSettings) {
-				if(guild !== 'global' && !client.guilds.has(guild)) continue;
-				this.setupGuildGroup(client.guilds.get(guild), group, settings);
-			}
-		});
-		for(const [event, listener] of this.listeners) client.on(event, listener);
+			.set('commandPrefixChange', (guild, prefix) => this.set(guild, 'prefix', prefix))
+			.set('commandStatusChange', (guild, command, enabled) => this.set(guild, `cmd-${command.name}`, enabled))
+			.set('groupStatusChange', (guild, group, enabled) => this.set(guild, `grp-${group.id}`, enabled))
+			.set('guildCreate', guild => {
+				const settings = this.guildSettings.get(guild.id);
+				if (!settings) return;
+				this.setupGuild(guild.id, settings);
+			})
+			.set('commandRegister', command => {
+				for (const [guild, settings] of this.guildSettings) {
+					if (guild !== 'global' && !client.guilds.has(guild)) continue;
+					this.setupGuildCommand(client.guilds.get(guild), command, settings);
+				}
+			})
+			.set('groupRegister', group => {
+				for (const [guild, settings] of this.guildSettings) {
+					if (guild !== 'global' && !client.guilds.has(guild)) continue;
+					this.setupGuildGroup(client.guilds.get(guild), group, settings);
+				}
+			});
+		for (const [event, listener] of this.listeners) client.on(event, listener);
 	}
 
-	async destroy() {
+	destroy() {
 		// Remove all listeners from the client
-		for(const [event, listener] of this.listeners) this.client.removeListener(event, listener);
+		for (const [event, listener] of this.listeners) this.client.removeListener(event, listener);
 		this.listeners.clear();
 	}
 
 	async set(guild, key, val) {
 		guild = this.constructor.getGuildID(guild);
 		let settings = this.guildSettings.get(guild);
-		if(!settings) {
+		if (!settings) {
 			settings = {};
 			this.guildSettings.set(guild, settings);
 		}
@@ -120,14 +121,14 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		settings[key] = val;
 		const settingsCollection = this.db.collection('guildSettings');
 
-		await settingsCollection.updateOne({'guildId': guild, 'settings': settings});
+		await settingsCollection.updateOne({ guildId: guild, settings: settings });
 		return val;
 	}
 
 	async remove(guild, key, val) {
 		guild = this.constructor.getGuildID(guild);
 		let settings = this.guildSettings.get(guild);
-		if(!settings) {
+		if (!settings) {
 			settings = {};
 			this.guildSettings.set(guild, settings);
 		}
@@ -143,7 +144,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return val;
 	}
 
-	
+
 	async clear(guild) {
 		guild = this.constructor.getGuildID(guild);
 		if (!this.settings.has(guild)) return;
@@ -191,16 +192,16 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		if (typeof settings[`cmd-${command.name}`] === 'undefined') return;
 		if (guild) {
 			if (!guild._commandsEnabled) guild._commandsEnabled = {};
-			guild._commandsEnabled[command.name] = settings[`cmd-${command.name}`]
+			guild._commandsEnabled[command.name] = settings[`cmd-${command.name}`];
 		} else {
-			command._globalEnabled = settings[`cmd-${command.name}`]
+			command._globalEnabled = settings[`cmd-${command.name}`];
 		}
 	}
 
 	setupGuildGroup(guild, command, setting) {
 		if (typeof settings[`grp-${group.id}`] === 'undefined') return;
 		if (guild) {
-			if(!guild._groupsEnabled) guild._groupsEnabled = {};
+			if (!guild._groupsEnabled) guild._groupsEnabled = {};
 			guild._groupsEnabled[group.id] = settings[`grp-${group.id}`];
 		} else {
 			group._globalEnabled = settings[`grp-${group.id}`];
