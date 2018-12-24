@@ -4,8 +4,9 @@
  */
 
 const DiscordCommando = require('discord.js-commando');
+const LenoxCommand = require("../LenoxCommand.js");
 
-module.exports = class pingCommand extends DiscordCommando.Command {
+module.exports = class pingCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
 			name: 'ping',
@@ -15,6 +16,7 @@ module.exports = class pingCommand extends DiscordCommando.Command {
 			guarded: true,
 			guildOnly: true,
 			examples: ['ping'],
+			ownerOnly: true,
 			clientPermissions: ['SEND_MESSAGES']
 		});
 	}

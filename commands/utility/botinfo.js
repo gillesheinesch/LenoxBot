@@ -6,9 +6,10 @@
 const DiscordCommando = require('discord.js-commando');
 const Discord = require('discord.js');
 const moment = require('moment');
+const LenoxCommand = require("../LenoxCommand.js");
 require('moment-duration-format');
 
-module.exports = class BotInfoCommand extends DiscordCommando.Command {
+module.exports = class BotInfoCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
 			name: 'botinfo',

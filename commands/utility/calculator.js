@@ -5,9 +5,10 @@
 
 const DiscordCommando = require('discord.js-commando');
 const Discord = require('discord.js');
+const LenoxCommand = require("../LenoxCommand.js");
 const math = require('math-expression-evaluator');
 
-module.exports = class CalculatorCommand extends DiscordCommando.Command {
+module.exports = class CalculatorCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
 			name: 'calculator',
