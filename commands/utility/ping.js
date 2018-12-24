@@ -15,7 +15,6 @@ module.exports = class pingCommand extends LenoxCommand {
 			guarded: true,
 			guildOnly: true,
 			examples: ['ping'],
-			ownerOnly: true,
 			clientPermissions: ['SEND_MESSAGES']
 		});
 	}
