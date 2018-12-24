@@ -1,14 +1,12 @@
-const Discord = require('discord.js');
 const Commando = require('discord.js-commando');
 const fs = require('fs');
-const mongodb = require('mongodb');
 const LenoxBotSettingsProvider = require('./utils/SettingsProvider');
 const settings = require('./settings.json');
 const path = require('path');
 const chalk = require('chalk');
 
 if (process.env.SHARD_COUNT) {
-	const shardId = process.env.SHARD_COUNT;
+	// const shardId = process.env.SHARD_COUNT;
 	const token = process.env.CLIENT_TOKEN;
 
 

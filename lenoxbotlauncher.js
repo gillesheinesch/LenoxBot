@@ -32,7 +32,6 @@ if (cluster.isMaster) {
 	const handlebars = require('express-handlebars');
 	const handlebarshelpers = require('handlebars-helpers')();
 	const app = express();
-	const url = require('url');
 	const path = require('path');
 	const cookieParser = require('cookie-parser');
 	const bodyParser = require('body-parser');

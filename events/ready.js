@@ -1,4 +1,4 @@
-exports.run = async client => {
+exports.run = client => {
 	const chalk = require('chalk');
 	client.user.setPresence({
 		game: {
