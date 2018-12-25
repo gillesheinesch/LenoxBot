@@ -20,7 +20,6 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			console.log('Connected to mongodb');
 		} catch (err) {
 			console.log(err);
-
 			process.exit(-1);
 		}
 
@@ -33,22 +32,22 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		/* eslint guard-for-in: 0 */
 		for (const guild in client.guilds.array()) {
 			try {
-				const result = await settingsCollection.findOne({ guildId: guild.id });
+				const result = await settingsCollection.findOne({ guildId: client.guilds.array()[guild].id });
 				let settings = undefined;
 
 				if (!result) {
 					// Can't find DB make new one.
 					settings = guildsettingskeys;
-					settingsCollection.insertOne({ guildId: guild.id, settings: settings });
+					settingsCollection.insertOne({ guildId: client.guilds.array()[guild].id, settings: settings });
 				}
 
 				if (result && result.settings) {
 					settings = result.settings;
 				}
 
-				guildSettings.set(guild.id, settings);
+				guildSettings.set(client.guilds.array()[guild].id, settings);
 			} catch (err) {
-				console.warn(`Error while creating document of guild ${guild.id}`);
+				console.warn(`Error while creating document of guild ${client.guilds.array()[guild].id}`);
 				console.warn(err);
 			}
 		}
@@ -121,7 +120,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		settings[key] = val;
 		const settingsCollection = this.db.collection('guildSettings');
 
-		await settingsCollection.updateOne({ guildId: guild, settings: settings });
+		await settingsCollection.updateOne({ guildId: guild }, { $set: { settings: settings } });
 		return val;
 	}
 
