@@ -4,7 +4,6 @@
  */
 
 const LenoxCommand = require('../LenoxCommand.js');
-require('moment-duration-format');
 
 module.exports = class languageCommand extends LenoxCommand {
 	constructor(client) {
@@ -13,9 +12,12 @@ module.exports = class languageCommand extends LenoxCommand {
 			group: 'administration',
 			memberName: 'language',
 			description: 'Changes the language of the bot for this server',
-			example: ['language', 'language german', 'language english', 'language spanish'],
+			format: 'language {desired language}',
+			aliases: [],
+			examples: ['language', 'language german', 'language english', 'language spanish'],
 			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR']
+			userPermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Localization'
 		});
 	}
 
