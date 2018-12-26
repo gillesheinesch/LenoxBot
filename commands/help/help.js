@@ -59,7 +59,7 @@ module.exports = class helpCommand extends LenoxCommand {
 			}
 
 			const examples = [];
-			if (command.examples !== null) {
+			if (command.examples.length !== 0) {
 				for (let i = 0; i < command.examples.length; i++) {
 					examples.push(`${prefix}${command.examples[i]}`);
 				}
@@ -71,7 +71,7 @@ module.exports = class helpCommand extends LenoxCommand {
 				.setAuthor(`${prefix}${command.aliases.length === 0 ? command.name : `${command.name} / `} ${aliases.join(' / ')}`)
 				.setDescription(lang[`${command.name}_description`])
 				.addField(lang.help_usage, prefix + command.format)
-				.addField(lang.help_permissions, command.userPermissions === null ? '/' : command.userPermissions.join(', '))
+				.addField(lang.help_permissions, command.userPermissions.length === 0 ? '/' : command.userPermissions.join(', '))
 				.addField(lang.help_example, examples.join('\n'))
 				.setFooter(category);
 
@@ -94,7 +94,7 @@ module.exports = class helpCommand extends LenoxCommand {
 					}
 
 					const examples = [];
-					if (command.examples !== null) {
+					if (command.examples.length === 0) {
 						for (let i = 0; i < command.examples.length; i++) {
 							examples.push(`${prefix}${command.examples[i]}`);
 						}
@@ -106,7 +106,7 @@ module.exports = class helpCommand extends LenoxCommand {
 						.setAuthor(`${prefix}${command.aliases.length === 0 ? command.name : `${command.name} / `} ${aliases.join(' / ')}`)
 						.setDescription(lang[`${command.name}_description`])
 						.addField(lang.help_usage, prefix + command.format)
-						.addField(lang.help_permissions, command.userPermissions === null ? '/' : command.userPermissions.join(', '))
+						.addField(lang.help_permissions, command.userPermissions.length === 0 ? '/' : command.userPermissions.join(', '))
 						.addField(lang.help_example, examples.join('\n'))
 						.setFooter(category);
 					return msg.channel.send({ embed: aliasembed });
