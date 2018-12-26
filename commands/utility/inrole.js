@@ -13,10 +13,12 @@ module.exports = class inroleCommand extends LenoxCommand {
 			group: 'utility',
 			memberName: 'inrole',
 			description: 'Allows you to see which members have a specific role',
-			guarded: true,
-			guildOnly: true,
+			format: 'help {commandname}',
+			aliases: [],
 			examples: ['inrole Admin'],
-			clientPermissions: ['SEND_MESSAGES']
+			clientPermissions: ['SEND_MESSAGES'],
+			userPermissions: [],
+			shortDescription: 'Information'
 		});
 	}
 

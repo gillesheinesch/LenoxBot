@@ -14,11 +14,12 @@ module.exports = class calculatorCommand extends LenoxCommand {
 			group: 'utility',
 			memberName: 'calculator',
 			description: 'Calculates for you an calculation',
-			guarded: true,
-			guildOnly: false,
+			format: 'calculator {math equation}',
 			aliases: ['cal'],
 			examples: ['calculator 1*20', 'calculator 100/10', 'calculator 100+10', 'calculator 100-10'],
-			clientPermissions: ['SEND_MESSAGES']
+			clientPermissions: ['SEND_MESSAGES'],
+			userPermissions: ['ADMINISTRATOR'],
+			shortDescription: 'General'
 		});
 	}
 

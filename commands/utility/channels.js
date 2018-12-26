@@ -13,10 +13,12 @@ module.exports = class channelsCommand extends LenoxCommand {
 			group: 'utility',
 			memberName: 'channels',
 			description: 'A list of all channels on your Discord server',
-			guarded: true,
-			guildOnly: true,
+			format: 'channels',
+			aliases: [],
 			examples: ['channels'],
-			clientPermissions: ['SEND_MESSAGES']
+			clientPermissions: ['SEND_MESSAGES'],
+			userPermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Information'
 		});
 	}
 

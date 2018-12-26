@@ -12,10 +12,12 @@ module.exports = class pingCommand extends LenoxCommand {
 			group: 'utility',
 			memberName: 'ping',
 			description: 'Shows you how long the bot needs to send a message',
-			guarded: true,
-			guildOnly: true,
+			format: 'ping',
+			aliases: [],
 			examples: ['ping'],
-			clientPermissions: ['SEND_MESSAGES']
+			clientPermissions: ['SEND_MESSAGES'],
+			userPermissions: [],
+			shortDescription: 'Information'
 		});
 	}
 

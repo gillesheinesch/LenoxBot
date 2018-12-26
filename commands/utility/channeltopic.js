@@ -13,10 +13,12 @@ module.exports = class channeltopicCommand extends LenoxCommand {
 			group: 'utility',
 			memberName: 'channeltopic',
 			description: 'Shows you the channel topic of the current channel if one exists',
-			guarded: true,
-			guildOnly: true,
+			format: 'channeltopic',
+			aliases: [],
 			examples: ['channeltopic'],
-			clientPermissions: ['SEND_MESSAGES']
+			clientPermissions: ['SEND_MESSAGES'],
+			userPermissions: [],
+			shortDescription: 'Information'
 		});
 	}
 

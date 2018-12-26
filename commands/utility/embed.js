@@ -13,10 +13,12 @@ module.exports = class embedCommand extends LenoxCommand {
 			group: 'utility',
 			memberName: 'embed',
 			description: 'Creates an embed for you with any text. Use // to go to a new line',
-			guarded: true,
-			guildOnly: true,
+			format: 'embed {text}',
+			aliases: [],
 			examples: ['embed Welcome on this discord server! Here is a list of all rules on this discord server...'],
-			clientPermissions: ['SEND_MESSAGES']
+			clientPermissions: ['SEND_MESSAGES'],
+			userPermissions: [],
+			shortDescription: 'General'
 		});
 	}
 
@@ -24,7 +26,7 @@ module.exports = class embedCommand extends LenoxCommand {
 		const langSet = msg.client.provider.get(msg.message.guild.id, 'language', 'en-US');
 		const lang = require(`../../languages/${langSet}.json`);
 
-        const args = msg.content.split(' ').slice(1);
+		const args = msg.content.split(' ').slice(1);
 		const input = args.slice();
 		if (!input || input.length === 0) return msg.reply(lang.embed_error);
 		if (input.join(' ').length > 1000) return msg.reply(lang.embed_toobig);
