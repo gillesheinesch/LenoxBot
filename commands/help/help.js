@@ -17,7 +17,8 @@ module.exports = class helpCommand extends LenoxCommand {
 			examples: ['help botinfo', 'help'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: [],
-			shortDescription: 'Help'
+			shortDescription: 'Help',
+			dashboardsettings: false
 		});
 	}
 

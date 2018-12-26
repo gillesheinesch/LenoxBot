@@ -19,7 +19,8 @@ module.exports = class calculatorCommand extends LenoxCommand {
 			examples: ['calculator 1*20', 'calculator 100/10', 'calculator 100+10', 'calculator 100-10'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: ['ADMINISTRATOR'],
-			shortDescription: 'General'
+			shortDescription: 'General',
+			dashboardsettings: true
 		});
 	}
 

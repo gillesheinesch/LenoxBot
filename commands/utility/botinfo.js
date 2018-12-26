@@ -20,7 +20,8 @@ module.exports = class botinfoCommand extends LenoxCommand {
 			examples: ['botinfo'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: ['ADMINISTRATOR'],
-			shortDescription: 'Information'
+			shortDescription: 'Information',
+			dashboardsettings: false
 		});
 	}
 
