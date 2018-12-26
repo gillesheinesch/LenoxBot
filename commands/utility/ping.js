@@ -1,8 +1,3 @@
-/**
- * TODO:
- * - Add throttling (cooldown)
- */
-
 const LenoxCommand = require('../LenoxCommand.js');
 
 module.exports = class pingCommand extends LenoxCommand {

@@ -1,8 +1,3 @@
-/**
- * TODO:
- * - Add throttling (cooldown)
- */
-
 const Discord = require('discord.js');
 const LenoxCommand = require('../LenoxCommand.js');
 const math = require('math-expression-evaluator');

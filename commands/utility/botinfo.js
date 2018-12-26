@@ -1,8 +1,3 @@
-/**
- * TODO:
- * - Add throttling (cooldown)
- */
-
 const Discord = require('discord.js');
 const moment = require('moment');
 const LenoxCommand = require('../LenoxCommand.js');
