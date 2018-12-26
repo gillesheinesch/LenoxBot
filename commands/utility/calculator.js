@@ -20,9 +20,7 @@ module.exports = class calculatorCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const provider = msg.client.provider;
-
-		const langSet = provider.get(msg.message.guild.id, 'language', 'en-US');
+		const langSet = msg.client.provider.get(msg.message.guild.id, 'language', 'en-US');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const args = msg.content.split(' ').slice(1);
