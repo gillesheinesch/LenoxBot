@@ -3,6 +3,7 @@ const mongodb = require('mongodb');
 const assert = require('assert');
 const Commando = require('discord.js-commando');
 const guildsettingskeys = require('../guildsettings-keys.json');
+const usersettingskeys = require('../usersettings-keys.json');
 
 class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	constructor(settings) {
@@ -10,6 +11,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		this.url = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT&authSource=admin`;
 
 		this.guildSettings = new Map();
+		this.userSettings = new Map();
 		this.listeners = new Map();
 		this.isReady = false;
 	}
@@ -24,21 +26,24 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		}
 
 		this.db = this.dbClient.db('lenoxbot');
-		const settingsCollection = this.db.collection('guildSettings');
+		const guildSettingsCollection = this.db.collection('guildSettings');
 		const guildSettings = this.guildSettings;
+		const userSettingsCollection = this.db.collection('userSettings');
+		const userSettings = this.userSettings;
 
-		await settingsCollection.createIndex('guildId', { unique: true });
+		await guildSettingsCollection.createIndex('guildId', { unique: true });
+		await userSettingsCollection.createIndex('userId', { unique: true });
 
 		/* eslint guard-for-in: 0 */
 		for (const guild in client.guilds.array()) {
 			try {
-				const result = await settingsCollection.findOne({ guildId: client.guilds.array()[guild].id });
+				const result = await guildSettingsCollection.findOne({ guildId: client.guilds.array()[guild].id });
 				let settings = undefined;
 
 				if (!result) {
 					// Can't find DB make new one.
 					settings = guildsettingskeys;
-					settingsCollection.insertOne({ guildId: client.guilds.array()[guild].id, settings: settings });
+					guildSettingsCollection.insertOne({ guildId: client.guilds.array()[guild].id, settings: settings });
 				}
 
 				if (result && result.settings) {
@@ -53,13 +58,13 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		}
 
 		try {
-			const result = await settingsCollection.findOne({ guildId: 'global' });
+			const result = await guildSettingsCollection.findOne({ guildId: 'global' });
 			let settings = undefined;
 
 			if (!result) {
 				// Could not load global, do new one
 				settings = {};
-				settingsCollection.insertOne({ guildId: 'global', settings: settings });
+				guildSettingsCollection.insertOne({ guildId: 'global', settings: settings });
 				this.setupGuild('global', settings);
 			}
 
@@ -68,6 +73,48 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			}
 
 			guildSettings.set('global', settings);
+		} catch (err) {
+			console.warn('Error while creating global document');
+			console.warn(err);
+		}
+
+		for (const user in client.users.array()) {
+			try {
+				const result = await userSettingsCollection.findOne({ userId: client.users.array()[user].id });
+				let settings = undefined;
+
+				if (!result) {
+					// Can't find DB make new one.
+					settings = usersettingskeys;
+					userSettingsCollection.insertOne({ userId: client.users.array()[user].id, settings: settings });
+				}
+
+				if (result && result.settings) {
+					settings = result.settings;
+				}
+
+				userSettings.set(client.users.array()[user].id, settings);
+			} catch (err) {
+				console.warn(`Error while creating document of user ${client.users.array()[user].id}`);
+				console.warn(err);
+			}
+		}
+
+		try {
+			const result = await userSettingsCollection.findOne({ userId: 'global' });
+			let settings = undefined;
+
+			if (!result) {
+				// Could not load global, do new one
+				settings = {};
+				userSettingsCollection.insertOne({ userId: 'global', settings: settings });
+			}
+
+			if (result && result.settings) {
+				settings = result.settings;
+			}
+
+			userSettings.set('global', settings);
 		} catch (err) {
 			console.warn('Error while creating global document');
 			console.warn(err);
