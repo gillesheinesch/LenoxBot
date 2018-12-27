@@ -18,7 +18,7 @@ module.exports = class languageCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language', 'en-US');
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const margs = msg.content.split(' ');
 		const args = msg.content.split(' ').slice(1);

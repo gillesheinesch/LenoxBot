@@ -19,7 +19,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language', 'en-US');
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().length > 0) {
