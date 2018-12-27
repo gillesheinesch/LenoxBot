@@ -19,10 +19,10 @@ module.exports = class helpCommand extends LenoxCommand {
 
 	run(msg) {
 		const Discord = require('discord.js');
-		const langSet = msg.client.provider.get(msg.message.guild.id, 'language', 'en-US');
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language', 'en-US');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
-		const prefix = msg.client.provider.get(msg.message.guild.id, 'prefix', '?');
+		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix', '?');
 		let command = args[0];
 
 		if (!args[0]) {

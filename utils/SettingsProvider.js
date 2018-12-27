@@ -156,7 +156,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		this.listeners.clear();
 	}
 
-	async set(guild, key, val) {
+	async setGuild(guild, key, val) {
 		guild = this.constructor.getGuildID(guild);
 		let settings = this.guildSettings.get(guild);
 		if (!settings) {
@@ -171,7 +171,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return val;
 	}
 
-	async remove(guild, key, val) {
+	async removeGuild(guild, key, val) {
 		guild = this.constructor.getGuildID(guild);
 		let settings = this.guildSettings.get(guild);
 		if (!settings) {
@@ -191,18 +191,65 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 
-	async clear(guild) {
+	async clearGuild(guild) {
 		guild = this.constructor.getGuildID(guild);
 		if (!this.settings.has(guild)) return;
 		this.settings.delete(guild);
 		const settingsCollection = this.db.collection('guildSettings');
-		await this.settingsCollection.deleteOne({
+		await settingsCollection.deleteOne({
 			guildId: guild
 		});
 	}
 
-	get(guild, key, defVal) {
+	getGuild(guild, key, defVal) {
 		const settings = this.guildSettings.get(this.constructor.getGuildID(guild));
+		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
+	}
+
+	async setUser(user, key, val) {
+		let settings = this.userSettings.get(user);
+		if (!settings) {
+			settings = {};
+			this.userSettings.set(user, settings);
+		}
+
+		settings[key] = val;
+		const settingsCollection = this.db.collection('userSettings');
+
+		await settingsCollection.updateOne({ userId: user }, { $set: { settings: settings } });
+		return val;
+	}
+
+	async removeUser(user, key, val) {
+		let settings = this.userSettings.get(user);
+		if (!settings) {
+			settings = {};
+			this.userSettings.set(user, settings);
+		}
+
+		val = settings[key];
+		settings[key] = undefined;
+		const settingsCollection = this.db.collection('userSettings');
+
+		await settingsCollection.save({
+			userId: user,
+			settings: settings
+		});
+		return val;
+	}
+
+
+	async clearUser(user) {
+		if (!this.settings.has(user)) return;
+		this.settings.delete(user);
+		const settingsCollection = this.db.collection('userSettings');
+		await settingsCollection.deleteOne({
+			userId: user
+		});
+	}
+
+	getUser(user, key, defVal) {
+		const settings = this.userSettings.get(user);
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 

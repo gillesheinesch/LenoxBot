@@ -19,7 +19,7 @@ module.exports = class channeltopicCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.get(msg.message.guild.id, 'language', 'en-US');
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language', 'en-US');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (msg.channel.topic === null || msg.channel.topic === '') return msg.channel.send(lang.channeltopic_error);

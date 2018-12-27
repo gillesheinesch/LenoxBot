@@ -18,7 +18,7 @@ module.exports = class languageCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.get(msg.message.guild.id, 'language', 'en-US');
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language', 'en-US');
 		const lang = require(`../../languages/${langSet}.json`);
 		const margs = msg.content.split(' ');
 		const args = msg.content.split(' ').slice(1);
@@ -36,29 +36,29 @@ module.exports = class languageCommand extends LenoxCommand {
 				if (margs[1].toLowerCase() === 'english') {
 					if (langSet === 'en-US') return msg.channel.send(already);
 
-					await msg.client.provider.set(msg.message.guild.id, 'language', 'en-US');
-					await msg.client.provider.set(msg.message.guild.id, 'momentLanguage', 'en');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'en-US');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'en');
 
 					return msg.channel.send(changed);
 				} else if (margs[1].toLowerCase() === 'german') {
 					if (langSet === 'de-DE') return msg.channel.send(already);
 
-					await msg.client.provider.set(msg.message.guild.id, 'language', 'de-DE');
-					await msg.client.provider.set(msg.message.guild.id, 'momentLanguage', 'de');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'de-DE');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'de');
 
 					return msg.channel.send(changed);
 				} else if (margs[1].toLowerCase() === 'french') {
 					if (langSet === 'fr-FR') return msg.channel.send(already);
 
-					await msg.client.provider.set(msg.message.guild.id, 'language', 'fr-FR');
-					await msg.client.provider.set(msg.message.guild.id, 'momentLanguage', 'fr');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'fr-FR');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'fr');
 
 					return msg.channel.send(changed);
 				} else if (margs[1].toLowerCase() === 'spanish') {
 					if (langSet === 'es-ES') return msg.channel.send(already);
 
-					await msg.client.provider.set(msg.message.guild.id, 'language', 'es-ES');
-					await msg.client.provider.set(msg.message.guild.id, 'momentLanguage', 'es');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'es-ES');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'es');
 
 					return msg.channel.send(changed);
 				}

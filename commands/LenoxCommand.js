@@ -6,7 +6,7 @@ module.exports = class LenoxCommand extends DiscordCommando.Command {
 		if (ownerOverride && this.client.isOwner(message.author)) return true;
 
 		const provider = message.client.provider;
-		const langSet = provider.get(message.guild.id, 'language', 'en-US');
+		const langSet = provider.getGuild(message.guild.id, 'language', 'en-US');
 		const lang = require(`../languages/${langSet}.json`);
 
 		if (this.ownerOnly && (ownerOverride || !this.client.isOwner(message.author))) {
