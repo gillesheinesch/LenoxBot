@@ -41,7 +41,9 @@ exports.run = async (client, msg, args, lang) => {
 		const dispatcher = await serverQueue.connection.playStream(stream)
 			.on('end', async reason => {
 				if (reason === 'Stream is not generating quickly enough.');
-				serverQueue.songs.shift('Stream is not generating quickly enough');
+				if (serverQueue.songs[0].repeat) serverQueue.songs.unshift(serverQueue.songs.shift('Stream is not generating quickly enough'));
+				else if (serverQueue.loop) serverQueue.songs.push(serverQueue.songs.shift('Stream is not generating quickly enough'));
+				else serverQueue.songs.shift('Stream is not generating quickly enough');
 				await play(guild, serverQueue.songs[0]);
 			})
 			.on('error', error => console.error(error));
@@ -76,7 +78,8 @@ exports.run = async (client, msg, args, lang) => {
 			publishedat: video.publishedAt,
 			id: video.id,
 			title: Util.escapeMarkdown(video.title),
-			url: `https://www.youtube.com/watch?v=${video.id}`
+			url: `https://www.youtube.com/watch?v=${video.id}`,
+			repeat: false
 		};
 
 		if (moment.duration(video.duration).format('m') > 30 && userdb.premium.status === false) return msg.reply(lang.play_songlengthlimit);
@@ -108,6 +111,7 @@ exports.run = async (client, msg, args, lang) => {
 				connection: null,
 				songs: [],
 				volume: 2,
+				loop: false,
 				playing: true
 			};
 			await queue.set(msg.guild.id, queueConstruct);
