@@ -6,7 +6,8 @@ exports.run = async (client, msg, args, lang) => {
 	if (!serverQueue) return msg.channel.send(`I can't repeat a song because the queue is empty!`);
   
 	serverQueue.songs[0].repeat = !serverQueue.songs[0].repeat;
-  msg.channel.send(`Song looping has been ${serverQueue.songs[0].repeat ? '`enabled`' : '`disabled`'}.`);
+	serverQueue.loop = false;
+	msg.channel.send(`Song looping has been ${serverQueue.songs[0].repeat ? '`enabled`' : '`disabled`'}.`);
 };
 
 exports.conf = {
