@@ -1,5 +1,19 @@
 **TODO for the LenoxBot Recode:**
-- [ ] Add all commands
+- [ ] Add all commands of the **administration** module
+- [ ] Add all commands of the **application** module
+- [ ] Add all commands of the **botowner** module
+- [ ] Add all commands of the **currency** module
+- [ ] Add all commands of the **customcommands** module
+- [ ] Add all commands of the **fun** module
+- [ ] Add all commands of the **help** module
+- [ ] Add all commands of the **moderation** module
+- [ ] Add all commands of the **music** module
+- [ ] Add all commands of the **nsfw** module
+- [ ] Add all commands of the **partner** module
+- [ ] Add all commands of the **searches** module
+- [ ] Add all commands of the **staff** module
+- [ ] Add all commands of the **tickets** module
+- [ ] Add all commands of the **utility** module
 - [ ] Add all events
 - [ ] Check all methods of the Database
 - [ ] Add all formats of the commands to the lenoxbot.json strings
