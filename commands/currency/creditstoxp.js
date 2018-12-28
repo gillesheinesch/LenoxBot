@@ -3,17 +3,17 @@ const LenoxCommand = require('../LenoxCommand.js');
 module.exports = class creditstoxpCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
-			name: 'credits',
+			name: 'creditstoxp',
 			group: 'currency',
-			memberName: 'credits',
-			description: 'Shows you the credits of you or another user',
-			format: 'credits [@USER]',
-			aliases: ['balance', 'c'],
-			examples: ['credits', 'credits @Monkeyyy11#7584'],
+			memberName: 'creditstoxp',
+			description: '',
+			format: 'creditstoxp {amount}',
+			aliases: [],
+			examples: ['creditstoxp 1000'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: [],
 			shortDescription: 'Credits',
-			dashboardsettings: false
+			dashboardsettings: true
 		});
 	}
 
@@ -35,39 +35,44 @@ module.exports = class creditstoxpCommand extends LenoxCommand {
 
 		await msg.client.provider.setUser(msg.author.id, 'credits', newCreditsCount);
 
-		/* await sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId ="${msg.author.id}"`).then(row => {
-			if (row) {
-				const curLevel = Math.floor(0.3 * Math.sqrt(row.points + Math.round(parseInt(creditsAmount, 10) / 2)));
-				if (curLevel > row.level) {
-					row.level = curLevel;
-					sql.run(`UPDATE scores SET points = ${row.points + Math.round(parseInt(creditsAmount, 10) / 2)}, level = ${row.level} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+		const currentScores = msg.client.provider.getGuild(msg.guild.id, 'scores');
+		if (currentScores[msg.author.id]) {
+			currentScores[msg.author.id].points += 1;
+		} else {
+			currentScores[msg.author.id] = {
+				points: 0,
+				level: 0
+			};
+		}
 
-					if (tableload.xpmessages === 'true') {
-						const levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', row.level);
-						msg.channel.send(levelup);
-					}
-				}
-				sql.get(`SELECT * FROM scores WHERE guildId ="${msg.guild.id}" AND userId = "${msg.author.id}"`).then(row2 => {
-					for (let i = 1; i < tableload.ara.length; i += 2) {
-						if (tableload.ara[i] < row2.points && !msg.member.roles.get(tableload.ara[i - 1])) {
-							const role = msg.guild.roles.get(tableload.ara[i - 1]);
-							msg.member.addRole(role);
+		const curLevel = Math.floor(0.3 * Math.sqrt(currentScores[msg.author.id].points + 1));
+		if (curLevel > currentScores[msg.author.id].level) {
+			currentScores[msg.author.id].level = curLevel;
 
-							const automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
-							msg.channel.send(automaticrolegotten);
-						}
-					}
-				});
-				sql.run(`UPDATE scores SET points = ${row.points + Math.round(parseInt(creditsAmount, 10) / 2)} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
-			} else {
-				sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, Math.round(parseInt(creditsAmount, 10) / 2), 0]);
+			if (msg.client.provider.getGuild(msg.guild.id, 'xpmessages') === 'true') {
+				const levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', currentScores[msg.author.id].level);
+				msg.channel.send(levelup);
 			}
-		}).catch(() => {
-			sql.run('CREATE TABLE IF NOT EXISTS scores (guildid TEXT, userId TEXT, points INTEGER, level INTEGER)').then(() => {
-				sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, Math.round(parseInt(creditsAmount, 10) / 2), 0]);
-			});
-        });
-        */
+		}
+		if (curLevel < currentScores[msg.author.id].level) {
+			currentScores[msg.author.id].level = curLevel;
+
+			if (msg.client.provider.getGuild(msg.guild.id, 'xpmessages') === 'true') {
+				const levelup = lang.messageevent_levelup.replace('%author', msg.author).replace('%level', currentScores[msg.author.id].level);
+				msg.channel.send(levelup);
+			}
+		}
+
+		for (let i = 1; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'ara').ara[i] < currentScores[msg.author.id].points && !msg.member.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i - 1])) {
+				const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i - 1]);
+				msg.member.addRole(role);
+
+				const automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
+				msg.channel.send(automaticrolegotten);
+			}
+		}
+		await msg.client.provider.setGuild(msg.guild.id, 'scores', currentScores);
 
 		const done = lang.creditstoxp_done.replace('%credits', `**${creditsAmount}**`).replace('%xp', `**${Math.round(parseInt(creditsAmount, 10) / 2)}**`);
 		return msg.reply(done);
