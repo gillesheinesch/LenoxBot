@@ -2,7 +2,7 @@ const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
 const marketitemskeys = require('../../marketitems-keys.json');
 
-module.exports = class mineCommand extends LenoxCommand {
+module.exports = class opencrateCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
 			name: 'opencrate',
