@@ -1,4 +1,4 @@
-exports.run = client => {
+exports.run = async client => {
 	const chalk = require('chalk');
 	client.user.setPresence({
 		game: {
@@ -10,8 +10,10 @@ exports.run = client => {
 	if (client.provider.isReady) {
 		console.log(chalk.green('LenoxBot is ready!'));
 	} else {
-		client.provider.whenReady(() => {
+		client.provider.whenReady(async () => {
 			console.log(chalk.green('LenoxBot is ready!'));
+			const marketconfs = require('../marketitems-keys.json');
+			await client.provider.setBotsettings('botconfs', 'market', marketconfs);
 		});
 	}
 };
