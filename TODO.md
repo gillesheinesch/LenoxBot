@@ -21,6 +21,7 @@
 - [ ] Remove untranslated strings from the ?rank command
 - [ ] Remove all duplicated keys in marketitems-keys.json
 - [ ] Fix commented code (cooldowns) in ?loot
+- [ ] ?giveitem needs to be tested after successfull setup of ?inventory
 
 **After recode:**
 - [ ] Check the **administration** module
