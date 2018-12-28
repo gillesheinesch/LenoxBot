@@ -305,7 +305,6 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			this.botSettings.set(index, settings);
 		}
 
-		console.log(key, settings[key]);
 		settings[key] = val;
 		const settingsCollection = this.db.collection('botSettings');
 
