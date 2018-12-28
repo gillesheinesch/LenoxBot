@@ -45,24 +45,27 @@ module.exports = class dailyCommand extends LenoxCommand {
 			}, 86400000);
 		}
 
-		if (msg.client.provider.getUser(msg.author.id, 'dailystreak.lastpick') !== '') {
-			if (Date.now() > msg.client.provider.getUser(msg.author.id, 'dailystreak.deadline')) {
-				await msg.client.provider.setUser(msg.author.id, 'dailystreak.streak', 0);
-				await msg.client.provider.setUser(msg.author.id, 'dailystreak.lastpick', '');
-				await msg.client.provider.setUser(msg.author.id, 'dailystreak.deadline', '');
+		if (msg.client.provider.getUser(msg.author.id, 'dailystreak').lastpick !== '') {
+			if (Date.now() > msg.client.provider.getUser(msg.author.id, 'dailystreak').deadline) {
+				const newDailystreakSettings = msg.client.provider.getUser(msg.author.id, 'dailystreak');
+				newDailystreakSettings.streak = 0;
+				newDailystreakSettings.lastpick = '';
+				newDailystreakSettings.deadline = '';
+				await msg.client.provider.setUser(msg.author.id, 'dailystreak', newDailystreakSettings);
 			}
 		}
 
-		const currentStreak = msg.client.provider.getUser(msg.author.id, 'dailystreak');
-		await msg.client.provider.setUser(msg.author.id, 'dailystreak.streak', (currentStreak.streak += 1));
-		await msg.client.provider.setUser(msg.author.id, 'dailystreak.lastpick', Date.now());
-		await msg.client.provider.setUser(msg.author.id, 'dailystreak.deadline', (Date.now() + 172800000));
+		const newDailystreakSettings = msg.client.provider.getUser(msg.author.id, 'dailystreak');
+		newDailystreakSettings.streak += 1;
+		newDailystreakSettings.lastpick = Date.now();
+		newDailystreakSettings.deadline = Date.now() + 172800000;
+		await msg.client.provider.setUser(msg.author.id, 'dailystreak', newDailystreakSettings);
 
 
 		if (!mentioncheck) {
 			let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
 			const currentDailystreak = msg.client.provider.getUser(msg.author.id, 'dailystreak');
-			if (msg.client.provider.getUser(msg.author.id, 'premium.status') === true) {
+			if (msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
 				await msg.client.provider.setUser(msg.author.id, 'credits', (currentCredits += 400 + (currentDailystreak.streak * 2)));
 			} else {
 				await msg.client.provider.setUser(msg.author.id, 'credits', (currentCredits += 200 + (currentDailystreak.streak * 2)));
@@ -92,7 +95,7 @@ module.exports = class dailyCommand extends LenoxCommand {
 
 		let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
 		const currentDailystreak = msg.client.provider.getUser(msg.author.id, 'dailystreak').streak;
-		if (msg.client.provider.getUser(msg.author.id, 'premium.status') === true) {
+		if (msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
 			await msg.client.provider.setUser(mentioncheck.id, 'credits', (currentCredits += 400 + (currentDailystreak * 2)));
 		} else {
 			await msg.client.provider.setUser(mentioncheck.id, 'credits', (currentCredits += 200 + (currentDailystreak * 2)));
