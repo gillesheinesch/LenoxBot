@@ -16,8 +16,9 @@
 - [ ] Add all commands of the **utility** module
 - [ ] Add all events
 - [ ] Check all methods of the Database
-- [ ] Add all formats of the commands to the lenoxbot.json strings
-- [ ] Add xp of the ?creditstoxp command
+- [ ] Add all formats (usages) of the commands to the lenoxbot.json strings
+- [ ] Add xp of the ?creditstoxp command (done, needs to be tested!)
+- [ ] Remove untranslated strings from the ?rank command
 
 **After recode:**
 - [ ] Check the **administration** module
