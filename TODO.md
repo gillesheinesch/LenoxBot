@@ -23,6 +23,7 @@
 - [ ] Fix commented code (cooldowns) in ?loot, ?mine, ?opencrate, ?templesearch, ?job
 - [X] ?giveitem needs to be tested after successfull setup of ?inventory
 - [ ] ?ranks answer needs to be .../server/serverid and not .../guild/serverid
+- [ ] Complete botsettings-keys.json
 
 **After recode:**
 - [ ] Check the **administration** module
