@@ -8,7 +8,7 @@ module.exports = class creditstoxpCommand extends LenoxCommand {
 			memberName: 'creditstoxp',
 			description: '',
 			format: 'creditstoxp {amount}',
-			aliases: [],
+			aliases: ['ctxp'],
 			examples: ['creditstoxp 1000'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: [],
@@ -37,7 +37,7 @@ module.exports = class creditstoxpCommand extends LenoxCommand {
 
 		const currentScores = msg.client.provider.getGuild(msg.guild.id, 'scores');
 		if (currentScores[msg.author.id]) {
-			currentScores[msg.author.id].points += 1;
+			currentScores[msg.author.id].points += Math.round(parseInt(creditsAmount, 10) / 2);
 		} else {
 			currentScores[msg.author.id] = {
 				points: 0,

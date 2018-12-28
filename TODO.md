@@ -17,7 +17,7 @@
 - [ ] Add all events
 - [ ] Check all methods of the Database
 - [ ] Add all formats (usages) of the commands to the lenoxbot.json strings
-- [ ] Add xp of the ?creditstoxp command (done, needs to be tested!)
+- [X] Add xp of the ?creditstoxp command (done, needs to be tested!)
 - [ ] Remove untranslated strings from the ?rank command
 
 **After recode:**
