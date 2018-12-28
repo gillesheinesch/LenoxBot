@@ -22,6 +22,7 @@
 - [ ] Remove all duplicated keys in marketitems-keys.json
 - [ ] Fix commented code (cooldowns) in ?loot, ?mine, ?opencrate, ?templesearch
 - [X] ?giveitem needs to be tested after successfull setup of ?inventory
+- [ ] ?ranks answer needs to be .../server/serverid and not .../guild/serverid
 
 **After recode:**
 - [ ] Check the **administration** module
