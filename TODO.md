@@ -17,6 +17,7 @@
 - [ ] Add all events
 - [ ] Check all methods of the Database
 - [ ] Add all formats of the commands to the lenoxbot.json strings
+- [ ] Add xp of the ?creditstoxp command
 
 **After recode:**
 - [ ] Check the **administration** module
