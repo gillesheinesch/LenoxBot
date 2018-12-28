@@ -19,6 +19,8 @@
 - [ ] Add all formats (usages) of the commands to the lenoxbot.json strings
 - [X] Add xp of the ?creditstoxp command (done, needs to be tested!)
 - [ ] Remove untranslated strings from the ?rank command
+- [ ] Remove all duplicated keys in marketitems-keys.json
+- [ ] Fix commented code (cooldowns) in ?loot
 
 **After recode:**
 - [ ] Check the **administration** module
