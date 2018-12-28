@@ -1,5 +1,4 @@
 const LenoxCommand = require('../LenoxCommand.js');
-const Discord = require('discord.js');
 const marketitemskeys = require('../../marketitems-keys.json');
 
 module.exports = class opencrateCommand extends LenoxCommand {
