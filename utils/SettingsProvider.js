@@ -132,6 +132,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				// Can't find DB make new one.
 				settings = {};
 				settings.dailyreminder = {};
+				settings.jobreminder = {};
 				botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 			}
 
