@@ -2,7 +2,7 @@
 - [ ] Add all commands of the **administration** module
 - [ ] Add all commands of the **application** module
 - [ ] Add all commands of the **botowner** module
-- [ ] Add all commands of the **currency** module
+- [X] Add all commands of the **currency** module
 - [ ] Add all commands of the **customcommands** module
 - [ ] Add all commands of the **fun** module
 - [ ] Add all commands of the **help** module
