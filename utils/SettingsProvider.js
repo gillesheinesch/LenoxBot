@@ -12,6 +12,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 		this.guildSettings = new Map();
 		this.userSettings = new Map();
+		this.botSettings = new Map();
 		this.listeners = new Map();
 		this.isReady = false;
 	}
@@ -30,9 +31,12 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		const guildSettings = this.guildSettings;
 		const userSettingsCollection = this.db.collection('userSettings');
 		const userSettings = this.userSettings;
+		const botSettingsCollection = this.db.collection('botSettings');
+		const botSettings = this.botSettings;
 
 		await guildSettingsCollection.createIndex('guildId', { unique: true });
 		await userSettingsCollection.createIndex('userId', { unique: true });
+		await botSettingsCollection.createIndex('botconfs', { unique: true });
 
 		/* eslint guard-for-in: 0 */
 		for (const guild in client.guilds.array()) {
@@ -74,7 +78,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 			guildSettings.set('global', settings);
 		} catch (err) {
-			console.warn('Error while creating global document');
+			console.warn('Error while creating guild global document');
 			console.warn(err);
 		}
 
@@ -116,7 +120,48 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 			userSettings.set('global', settings);
 		} catch (err) {
-			console.warn('Error while creating global document');
+			console.warn('Error while creating user global document');
+			console.warn(err);
+		}
+
+		try {
+			const result = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+			let settings = undefined;
+
+			if (!result) {
+				// Can't find DB make new one.
+				settings = {};
+				settings.dailyreminder = {};
+				botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
+			}
+
+			if (result && result.settings) {
+				settings = result.settings;
+			}
+
+			botSettings.set('botconfs', settings);
+		} catch (err) {
+			console.warn(`Error while creating document of botconfs`);
+			console.warn(err);
+		}
+
+		try {
+			const result = await botSettingsCollection.findOne({ botconfs: 'global' });
+			let settings = undefined;
+
+			if (!result) {
+				// Could not load global, do new one
+				settings = {};
+				botSettingsCollection.insertOne({ botconfs: 'global', settings: settings });
+			}
+
+			if (result && result.settings) {
+				settings = result.settings;
+			}
+
+			botSettings.set('global', settings);
+		} catch (err) {
+			console.warn('Error while creating botconfsglobal document');
 			console.warn(err);
 		}
 
@@ -250,6 +295,51 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 	getUser(user, key, defVal) {
 		const settings = this.userSettings.get(user);
+		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
+	}
+
+	async setBotsettings(index, key, val) {
+		let settings = this.botSettings.get(index);
+		if (!settings) {
+			settings = {};
+			this.botSettings.set(index, settings);
+		}
+
+		console.log(key, settings[key]);
+		settings[key] = val;
+		const settingsCollection = this.db.collection('botSettings');
+
+		await settingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: settings } });
+		return val;
+	}
+
+	async removeBotsettings(index, key, val) {
+		let settings = this.botSettings.get(index);
+		if (!settings) {
+			settings = {};
+			this.botSettings.set(index, settings);
+		}
+
+		val = settings[key];
+		delete settings[key];
+		const settingsCollection = this.db.collection('botSettings');
+
+		await settingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: settings } });
+		return val;
+	}
+
+
+	async clearBotsettings(index) {
+		if (!this.settings.has(index)) return;
+		this.settings.delete(index);
+		const settingsCollection = this.db.collection('botSettings');
+		await settingsCollection.deleteOne({
+			botconfs: index
+		});
+	}
+
+	getBotsettings(index, key, defVal) {
+		const settings = this.botSettings.get(index);
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
