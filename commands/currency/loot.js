@@ -10,7 +10,7 @@ module.exports = class lootCommand extends LenoxCommand {
 			memberName: 'loot',
 			description: 'Take your loot every 10 minutes',
 			format: 'loot',
-			aliases: [],
+			aliases: ['l'],
 			examples: ['loot'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: [],
