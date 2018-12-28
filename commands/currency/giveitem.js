@@ -53,7 +53,7 @@ module.exports = class giveitemCommand extends LenoxCommand {
 			index = nameOfTheItemsInServerLanguage.indexOf(args.slice(2).join(' ').toLowerCase());
 		}
 
-		if (msg.client.provider.getUser(mention.id, 'inventory')[nameOfTheItems[index]] < Number(amount)) return msg.reply(lang.giveitem_notown);
+		if (msg.client.provider.getUser(msg.author.id, 'inventory')[nameOfTheItems[index]] < Number(amount)) return msg.reply(lang.giveitem_notown);
 
 		let inventoryslotsCheck = 0;
 		for (const x in userdbOfMention.inventory) {
