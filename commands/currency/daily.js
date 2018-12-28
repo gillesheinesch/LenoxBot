@@ -61,13 +61,11 @@ module.exports = class dailyCommand extends LenoxCommand {
 
 		if (!mentioncheck) {
 			let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
-			console.log(1111, currentCredits, typeof currentCredits);
 			const currentDailystreak = msg.client.provider.getUser(msg.author.id, 'dailystreak');
 			if (msg.client.provider.getUser(msg.author.id, 'premium.status') === true) {
 				await msg.client.provider.setUser(msg.author.id, 'credits', (currentCredits += 400 + (currentDailystreak.streak * 2)));
 			} else {
 				await msg.client.provider.setUser(msg.author.id, 'credits', (currentCredits += 200 + (currentDailystreak.streak * 2)));
-				console.log(432432, (currentCredits += 200 + (currentDailystreak.streak * 2)));
 			}
 
 			const author = lang.daily_author.replace('%amount', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? 200 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2) : 400 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2));
