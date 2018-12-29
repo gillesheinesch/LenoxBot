@@ -24,6 +24,7 @@
 - [X] ?giveitem needs to be tested after successfull setup of ?inventory
 - [ ] ?ranks answer needs to be .../server/serverid and not .../guild/serverid
 - [ ] Complete botsettings-keys.json
+- [ ] Do the setGuild() method without the get and rewriting the variable. (makes much less code) for ?deleteevents
 
 **After recode:**
 - [ ] Check the **administration** module
