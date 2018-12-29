@@ -4,6 +4,7 @@ const LenoxBotSettingsProvider = require('./utils/SettingsProvider');
 const settings = require('./settings.json');
 const path = require('path');
 const chalk = require('chalk');
+const englishlang = require(`./languages/en-US.json`);
 
 if (process.env.SHARD_COUNT) {
 	// const shardId = process.env.SHARD_COUNT;
@@ -56,6 +57,17 @@ if (process.env.SHARD_COUNT) {
 			['utility', 'Utility']
 		])
 		.registerCommandsIn(path.join(__dirname, 'commands'));
+
+
+	client.dispatcher.addInhibitor(msg => {
+		if (msg.author.bot) return undefined;
+		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
+		if (!client.provider.isReady) return undefined;
+
+		if (client.user.id === '353115097318555649') {
+			if (msg.guild.id !== '332612123492483094') return undefined;
+		}
+	});
 } else {
 	console.log(chalk.red('Stopped process because the bot isn\'t running as a shard! Please start lenoxbotlauncher.js to support sharding.'));
 	process.exit(0);
