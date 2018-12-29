@@ -12,8 +12,17 @@ exports.run = async client => {
 	} else {
 		client.provider.whenReady(async () => {
 			console.log(chalk.green('LenoxBot is ready!'));
+
+			// Sets all marketitems
 			const marketconfs = require('../marketitems-keys.json');
 			await client.provider.setBotsettings('botconfs', 'market', marketconfs);
+
+			// Sets the prefix for every guild
+			for (let i = 0; i < client.guilds.array().length; i++) {
+				if (client.provider.getGuild(client.guilds.array()[i].id, 'prefix')) {
+					client.guilds.array()[i]._commandPrefix = client.provider.getGuild(client.guilds.array()[i].id, 'prefix');
+				}
+			}
 		});
 	}
 };
