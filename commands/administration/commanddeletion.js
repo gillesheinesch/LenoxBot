@@ -1,0 +1,38 @@
+const LenoxCommand = require('../LenoxCommand.js');
+
+module.exports = class commanddeletionCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'commanddeletion',
+			group: 'administration',
+			memberName: 'commanddeletion',
+			description: 'Toggles the deletion of a command after execution',
+			format: 'commanddeletion',
+			aliases: ['cmddel'],
+			examples: ['commanddeletion'],
+			category: 'administration',
+			clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
+			userPermissions: ['ADMINISTRATOR'],
+			shortDescription: 'General',
+			dashboardsettings: true
+		});
+	}
+
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'false') {
+			let currentCommanddel = msg.client.provider.getGuild(msg.message.guild.id, 'commanddel');
+			currentCommanddel = 'true';
+			await msg.client.provider.setGuild(msg.message.guild.id, 'commanddel', currentCommanddel);
+
+			return msg.channel.send(lang.commanddeletion_deletionset);
+		}
+		let currentCommanddel = msg.client.provider.getGuild(msg.message.guild.id, 'commanddel');
+		currentCommanddel = 'false';
+		await msg.client.provider.setGuild(msg.message.guild.id, 'commanddel', currentCommanddel);
+
+		return msg.channel.send(lang.commanddeletion_nodeletionset);
+	}
+};
