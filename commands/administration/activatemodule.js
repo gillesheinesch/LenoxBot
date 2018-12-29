@@ -1,6 +1,6 @@
 const LenoxCommand = require('../LenoxCommand.js');
 
-module.exports = class prefixCommand extends LenoxCommand {
+module.exports = class activatemoduleCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
 			name: 'activatemodule',
