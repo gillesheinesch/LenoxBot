@@ -34,8 +34,9 @@ module.exports = class prefixCommand extends LenoxCommand {
 		currentPrefix = newprefix.join(' ');
 		await msg.client.provider.setGuild(msg.message.guild.id, 'prefix', currentPrefix);
 
-		const newprefixset = lang.prefix_newprefixset.replace('%newprefix', newprefix);
+		msg.guild._commandPrefix = newprefix.join(' ');
 
+		const newprefixset = lang.prefix_newprefixset.replace('%newprefix', newprefix);
 		return msg.channel.send(newprefixset);
 	}
 };
