@@ -8,7 +8,7 @@ module.exports = class skipnumberCommand extends LenoxCommand {
 			memberName: 'skipnumber',
 			description: 'Changes the necessary votes to skip music for users',
 			format: 'skipnumber {number}',
-			aliases: ['rsar'],
+			aliases: [],
 			examples: ['skipnumber 3'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: ['ADMINISTRATOR'],

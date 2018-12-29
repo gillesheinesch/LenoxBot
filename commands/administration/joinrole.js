@@ -22,8 +22,8 @@ module.exports = class joinroleCommand extends LenoxCommand {
 	async run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-        const args = msg.content.split(' ').slice(1);
-        const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const args = msg.content.split(' ').slice(1);
+		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
 
 		const validation = ['add', 'list', 'remove'];
 		const margs = msg.content.split(' ');

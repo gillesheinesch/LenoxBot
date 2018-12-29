@@ -8,7 +8,7 @@ module.exports = class setchanneltopicCommand extends LenoxCommand {
 			memberName: 'setchanneltopic',
 			description: 'Sets a new channel topic for the current channel',
 			format: 'setchanneltopic {New channeltopic}',
-			aliases: ['rsar'],
+			aliases: [],
 			examples: ['setchanneltopic Hello World'],
 			clientPermissions: ['SEND_MESSAGES', 'MANAGE_CHANNELS'],
 			userPermissions: ['MANAGE_CHANNELS'],

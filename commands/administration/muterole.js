@@ -8,7 +8,7 @@ module.exports = class muteroleCommand extends LenoxCommand {
 			memberName: 'muterole',
 			description: 'Defines a muted role which muted users will get',
 			format: 'muterole {name of the role}',
-			aliases: ['m'],
+			aliases: [],
 			examples: ['muterole muted'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: ['ADMINISTRATOR'],
