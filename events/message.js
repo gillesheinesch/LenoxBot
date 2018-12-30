@@ -1,6 +1,7 @@
 const englishLang = require(`../languages/en-US.json`);
 const guildsettingskeys = require('../guildsettings-keys.json');
 const usersettingskeys = require('../usersettings-keys.json');
+const Discord = require('discord.js');
 exports.run = async (client, msg) => {
 	if (msg.author.bot) return;
 	if (msg.channel.type !== 'text') return msg.reply(englishLang.messageevent_error);
@@ -124,5 +125,37 @@ exports.run = async (client, msg) => {
 		}
 	} else {
 		await msg.client.provider.setUserComplete(msg.author.id, usersettingskeys);
+	}
+
+	const input = msg.content.split(' ').slice();
+	if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length !== 0) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length; i++) {
+			for (let index = 0; index < input.length; index++) {
+				if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array[i].toLowerCase()) {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilterlog') === 'true') {
+						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
+
+						const embed = new Discord.RichEmbed()
+							.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
+							.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
+							.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
+							.setColor('RED')
+							.setAuthor(chatfilterembed);
+
+						try {
+							await msg.guild.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'chatfilterlogchannel')).send({
+								embed
+							});
+						} catch (error) {
+							return;
+						}
+					}
+					await msg.delete();
+
+					const messagedeleted = lang.messageevent_messagedeleted.replace('%author', msg.author);
+					msg.channel.send(messagedeleted);
+				}
+			}
+		}
 	}
 };
