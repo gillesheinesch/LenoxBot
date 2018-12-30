@@ -133,6 +133,11 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				settings = {};
 				settings.dailyreminder = {};
 				settings.jobreminder = {};
+				settings.cooldowns = {};
+				settings.blackbanlist = {
+					banlist: [],
+					blacklist: []
+				};
 				botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 			}
 
@@ -201,6 +206,20 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		for (const [event, listener] of this.listeners) this.client.removeListener(event, listener);
 		this.listeners.clear();
 	}
+	
+	async setGuildComplete(guild, val) {
+		guild = this.constructor.getGuildID(guild);
+		let settings = this.guildSettings.get(guild);
+		if (!settings) {
+			settings = {};
+			this.guildSettings.set(guild, settings);
+		}
+
+		const settingsCollection = this.db.collection('guildSettings');
+
+		await settingsCollection.updateOne({ guildId: guild }, { $set: { settings: val } });
+		return val;
+	}
 
 	async setGuild(guild, key, val) {
 		guild = this.constructor.getGuildID(guild);
@@ -250,6 +269,19 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	getGuild(guild, key, defVal) {
 		const settings = this.guildSettings.get(this.constructor.getGuildID(guild));
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
+	}
+
+	async setUserComplete(user, val) {
+		let settings = this.userSettings.get(user);
+		if (!settings) {
+			settings = {};
+			this.userSettings.set(user, settings);
+		}
+
+		const settingsCollection = this.db.collection('userSettings');
+
+		await settingsCollection.updateOne({ userId: user }, { $set: { settings: val } });
+		return val;
 	}
 
 	async setUser(user, key, val) {
