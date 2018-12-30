@@ -127,6 +127,11 @@ exports.run = async (client, msg) => {
 		await msg.client.provider.setUserComplete(msg.author.id, usersettingskeys);
 	}
 
+	if (!client.provider.getUser(msg.author.id, 'userID')) {
+		await client.provider.setUser(msg.author.id, 'userID', msg.author.id);
+	}
+
+	// Chatfilter:
 	const input = msg.content.split(' ').slice();
 	if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length !== 0) {
 		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
