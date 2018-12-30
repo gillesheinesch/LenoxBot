@@ -28,6 +28,9 @@ if (process.env.SHARD_COUNT) {
 		nonCommandEditable: false
 	});
 
+	client.queue = new Map();
+	client.skipvote = new Map();
+
 	fs.readdir('./events/', (err, files) => {
 		if (err) return console.error(err);
 		files.forEach(file => {
