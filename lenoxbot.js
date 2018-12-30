@@ -106,6 +106,8 @@ if (process.env.SHARD_COUNT) {
 			cmd = aliasCommand;
 		} else if (customcommandstatus && customcommand.enabled) {
 			cmd = customcommand;
+		} else {
+			return undefined;
 		}
 
 		const banlistembed = new Discord.RichEmbed()

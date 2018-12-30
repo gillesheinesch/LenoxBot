@@ -200,7 +200,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		for (const [event, listener] of this.listeners) this.client.removeListener(event, listener);
 		this.listeners.clear();
 	}
-	
+
 	async setGuildComplete(guild, val) {
 		guild = this.constructor.getGuildID(guild);
 		let settings = this.guildSettings.get(guild);
