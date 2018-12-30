@@ -26,7 +26,7 @@ module.exports = class dailyCommand extends LenoxCommand {
 
 		if (msg.client.provider.getUser(msg.author.id, 'dailyremind') === true) {
 			const dailyreminder = {
-				userId: msg.author.id,
+				userID: msg.author.id,
 				remind: Date.now() + 86400000
 			};
 
