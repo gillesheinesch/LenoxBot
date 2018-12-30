@@ -31,7 +31,6 @@ module.exports = class dailyCommand extends LenoxCommand {
 			};
 
 			const currentDailyreminder = msg.client.provider.getBotsettings('botconfs', 'dailyreminder');
-
 			currentDailyreminder[msg.author.id] = dailyreminder;
 			await msg.client.provider.setBotsettings('botconfs', `dailyreminder`, currentDailyreminder);
 
@@ -41,7 +40,7 @@ module.exports = class dailyCommand extends LenoxCommand {
 				delete currentDailyreminderTimeout[msg.author.id];
 
 				await msg.client.provider.setBotsettings('botconfs', `dailyreminder`, currentDailyreminderTimeout);
-				msg.author.send('Don\'t forget to pick up your daily reward');
+				msg.author.send('Don\'t forget to pick up your daily reward!');
 			}, 86400000);
 		}
 
