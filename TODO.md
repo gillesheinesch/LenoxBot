@@ -26,6 +26,9 @@
 - [ ] Complete botsettings-keys.json
 - [ ] Do the setGuild() method without the get and rewriting the variable. (makes much less code) for ?deleteevents-
 - [X] Change the guildprefix on ready event (msg.guild._commandPrefix = newprefix.join(' '))
+- [ ] Check when you add a new key to the usersettingskeys, if it will be added in the DB
+- [ ] Check when you add a new key to the guildsettingskeys, if it will be added in the DB
+- [ ] Check when you add a new key to the botsettingskeys, if it will be added in the DB
 
 **After recode:**
 - [ ] Check the **administration** module
