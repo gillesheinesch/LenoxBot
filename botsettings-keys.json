@@ -7,7 +7,25 @@
     "activity": false,
     "activitychannel": "",
     "tickets": {},
-    "ticketid": 0,
-    "premium": {},
-    "botstats": {}
-}
+    "ticketids": [],
+    "premium": {
+		"numberofuserkeys": 0,
+		"numberofguildkeys": 0,
+		"redeemeduserkeys": [],
+		"redeemedguildkeys": [],
+		"guildkeys": [],
+		"userkeys": []
+    },
+    "botstats": {},
+    "badgeEmojis": {},
+    "bans": {},
+    "banscount": 0,
+    "mutes": {},
+    "mutescount": 0,
+    "commandsexecuted": 0,
+    "blackbanlist": {
+      "blacklist": [],
+      "banlist": []
+    },
+    "cooldowns": {}
+  }
