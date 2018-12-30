@@ -68,7 +68,7 @@ if (process.env.SHARD_COUNT) {
 		if (!client.provider.isReady) return undefined;
 
 		if (client.user.id === '353115097318555649') {
-			if (msg.guild.id !== '332612123492483094') return undefined;
+			if (msg.message.guild.id !== '332612123492483094') return undefined;
 		}
 
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
@@ -113,7 +113,7 @@ if (process.env.SHARD_COUNT) {
 			.setDescription(lang.messageevent_banlist)
 			.addField(lang.messageevent_support, 'https://lenoxbot.com/discord')
 			.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
-			.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
+			.setAuthor(`${msg.message.guild.name} (${msg.message.guild.id})`, msg.message.guild.iconURL);
 
 		const blacklistembed = new Discord.RichEmbed()
 			.setColor('#FF0000')
@@ -124,7 +124,7 @@ if (process.env.SHARD_COUNT) {
 
 		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
 		for (let i = 0; i < botconfsload.banlist.length; i++) {
-			if (msg.guild.id === botconfsload.banlist[i].discordServerID) {
+			if (msg.message.guild.id === botconfsload.banlist[i].discordServerID) {
 				banlistembed.addField(lang.messageevent_banlistreason, botconfsload.banlist[i].reason);
 				return msg.channel.send({
 					embed: banlistembed
@@ -143,7 +143,7 @@ if (process.env.SHARD_COUNT) {
 		const activityembed = new Discord.RichEmbed()
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
 			.addField('Command', `${prefix}${command} ${args.join(' ').substring(0, 980)}`)
-			.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
+			.addField('Guild', `${msg.message.guild.name} (${msg.message.guild.id})`)
 			.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
 			.setColor('#ff99ff')
 			.setTimestamp();
@@ -157,7 +157,7 @@ if (process.env.SHARD_COUNT) {
 		if (botCommandExists) {
 			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientPermissions.join(', '));
 			const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userPermissions.join(', '));
-			if (cmd.clientPermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
+			if (cmd.clientPermissions.every(perm => msg.message.guild.me.hasPermission(perm)) === false) {
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 					msg.delete();
 				}
