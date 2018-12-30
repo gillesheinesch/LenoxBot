@@ -5,6 +5,9 @@ const settings = require('./settings.json');
 const path = require('path');
 const chalk = require('chalk');
 const englishlang = require(`./languages/en-US.json`);
+const Discord = require('discord.js');
+const moment = require('moment');
+require('moment-duration-format');
 
 if (process.env.SHARD_COUNT) {
 	// const shardId = process.env.SHARD_COUNT;
@@ -66,6 +69,209 @@ if (process.env.SHARD_COUNT) {
 
 		if (client.user.id === '353115097318555649') {
 			if (msg.guild.id !== '332612123492483094') return undefined;
+		}
+
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`./languages/${langSet}.json`);
+		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+
+		const args = msg.content.split(' ').slice(1);
+		const command = msg.content.split(' ')[0].slice(prefix.length).toLowerCase();
+		let cmd;
+		let customcommand;
+
+		let customcommandstatus = false;
+		for (let index = 0; index < msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length; index++) {
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[index].name === command) {
+				customcommandstatus = true;
+				customcommand = msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[index];
+			}
+		}
+
+		let alias = false;
+		let aliasCommand;
+		for (let key = 0; key < msg.client.registry.commands.array().length; key++) {
+			if (msg.client.registry.commands.array()[key].aliases.includes(command)) {
+				alias = true;
+				aliasCommand = msg.client.registry.commands.array()[key];
+			}
+		}
+
+		let botCommandExists = false;
+		if (client.registry.commands.has(command)) {
+			botCommandExists = true;
+			cmd = client.registry.commands.get(command);
+		} else if (alias === true) {
+			botCommandExists = true;
+			cmd = aliasCommand;
+		} else if (customcommandstatus && customcommand.enabled) {
+			cmd = customcommand;
+		}
+
+		const banlistembed = new Discord.RichEmbed()
+			.setColor('#FF0000')
+			.setDescription(lang.messageevent_banlist)
+			.addField(lang.messageevent_support, 'https://lenoxbot.com/discord')
+			.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
+			.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
+
+		const blacklistembed = new Discord.RichEmbed()
+			.setColor('#FF0000')
+			.setDescription(lang.messageevent_blacklist)
+			.addField(lang.messageevent_support, 'https://lenoxbot.com/discord')
+			.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
+			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
+
+		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
+		for (let i = 0; i < botconfsload.banlist.length; i++) {
+			if (msg.guild.id === botconfsload.banlist[i].discordServerID) {
+				banlistembed.addField(lang.messageevent_banlistreason, botconfsload.banlist[i].reason);
+				return msg.channel.send({
+					embed: banlistembed
+				});
+			}
+		}
+		for (let i = 0; i < botconfsload.blacklist.length; i++) {
+			if (msg.author.id === botconfsload.blacklist[i].userID) {
+				blacklistembed.addField(lang.messageevent_blacklistreason, botconfsload.blacklist[i].reason);
+				return msg.channel.send({
+					embed: blacklistembed
+				});
+			}
+		}
+
+		const activityembed = new Discord.RichEmbed()
+			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+			.addField('Command', `${prefix}${command} ${args.join(' ').substring(0, 980)}`)
+			.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
+			.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
+			.setColor('#ff99ff')
+			.setTimestamp();
+		if (client.provider.getBotsettings('botconfs', 'activity') === true) {
+			const messagechannel = client.channels.get(client.provider.getBotsettings('botconfs', 'activitychannel'));
+			messagechannel.send({
+				embed: activityembed
+			});
+		}
+
+		if (botCommandExists) {
+			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientPermissions.join(', '));
+			const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userPermissions.join(', '));
+			if (cmd.clientPermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
+				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+					msg.delete();
+				}
+				return msg.channel.send(botnopermission);
+			}
+
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0 && cmd.clientPermissions.every(perm => msg.member.hasPermission(perm)) === false) {
+				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+					msg.delete();
+				}
+				return msg.channel.send(usernopermission);
+			}
+		}
+
+		if (botCommandExists) {
+			for (const prop in msg.client.provider.getGuild(msg.message.guild.id, 'modules')) {
+				if (prop === cmd.groupID) {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules')[prop] === 'false') {
+						const moduledeactivated = lang.messageevent_moduledeactivated.replace('%modulename', prop).replace('%prefix', prefix);
+						if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+							msg.delete();
+						}
+						return msg.channel.send(moduledeactivated);
+					}
+				}
+			}
+		}
+
+		if (botCommandExists) {
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].status === 'false') return msg.reply(lang.messageevent_commanddeactivated);
+		} else if (customcommand.enabled === 'false') {
+			return msg.reply(lang.messageevent_commanddeactivated);
+		}
+
+		if (botCommandExists) {
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0) {
+				for (let index = 0; index < msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedroles.length; index++) {
+					if (msg.member.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole);
+				}
+			} else {
+				let allwhitelistedrolesoftheuser = 0;
+				for (let index2 = 0; index2 < msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length; index2++) {
+					if (!msg.member.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles[index2])) {
+						allwhitelistedrolesoftheuser += 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length) {
+					return msg.reply(lang.messageevent_nowhitelistedroles);
+				}
+			}
+
+			if (!client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
+				const currentCooldowns = client.provider.getBotsettings('botconfs', 'cooldowns');
+				currentCooldowns[cmd.name] = {};
+				client.provider.setBotsettings('botconfs', 'cooldowns', currentCooldowns);
+			}
+
+			const now = Date.now();
+			const timestamps = client.provider.getBotsettings('botconfs', 'cooldowns');
+			let cooldownAmount;
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name]) {
+				cooldownAmount = cmd.cooldown || Number(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].cooldown);
+			} else {
+				cooldownAmount = cmd.cooldown || 3 * 1000;
+			}
+
+
+			if (timestamps[cmd.name][msg.author.id]) {
+				const expirationTime = timestamps[cmd.name][msg.author.id] + cooldownAmount;
+
+				if (now < expirationTime) {
+					const timeLeft = (expirationTime - now) / 1000;
+
+					const time = moment.duration(parseInt(timeLeft.toFixed(2), 10), 'seconds').format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
+					const anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${prefix}${cmd.name}\``);
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+						msg.delete();
+					}
+					return msg.reply(anticommandspam);
+				/* eslint no-else-return:0 */
+				} else if (now > expirationTime) {
+					timestamps[cmd.name][msg.author.id] = now;
+					client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+				} else {
+					timestamps[cmd.name][msg.author.id] = now;
+					client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+				}
+			} else {
+				timestamps[cmd.name][msg.author.id] = now;
+				client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+			}
+		}
+
+		if (!botCommandExists) {
+			if (customcommand.embed === 'false') {
+				return msg.channel.send(customcommand.commandanswer);
+			} else {
+				const customCommandEmbed = new Discord.RichEmbed()
+					.setColor('#33cc33')
+					.setDescription(customcommand.commandanswer);
+
+				return msg.channel.send({
+					embed: customCommandEmbed
+				});
+			}
+		}
+
+		let currentCommandsexecuted = client.provider.getBotsettings('botconfs', 'commandsexecuted');
+		currentCommandsexecuted += 1;
+		client.provider.setBotsettings('botconfs', 'commandsexecuted', currentCommandsexecuted);
+
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+			msg.delete();
 		}
 	});
 } else {
