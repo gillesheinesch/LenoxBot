@@ -11,7 +11,7 @@ module.exports = class joinCommand extends LenoxCommand {
 			aliases: [],
 			examples: ['join Member'],
 			clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
-			userPermissions: ['ADMINISTRATOR'],
+			userPermissions: [],
 			shortDescription: 'Selfassignableroles',
 			dashboardsettings: true
 		});
