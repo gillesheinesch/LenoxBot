@@ -95,6 +95,136 @@ exports.run = async client => {
 					}
 				}
 			}
+
+			function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
+				setTimeout(async () => {
+					const langSet = client.provider.getGuild(bansconf.discordserverid, 'language');
+					const lang = require(`../../languages/${langSet}.json`);
+					const fetchedbans = fetchedbansfromfunction;
+
+					if (fetchedbans.has(bansconf.memberid)) {
+						const user = fetchedbans.get(bansconf.memberid);
+
+						client.guilds.get(bansconf.discordserverid).unban(user);
+
+						const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
+						const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+						const unmutedembed = new Discord.RichEmbed()
+							.setAuthor(unbannedby, client.user.displayAvatarURL)
+							.setThumbnail(user.displayAvatarURL)
+							.setColor('#FF0000')
+							.setTimestamp()
+							.setDescription(automaticbandescription);
+
+						if (client.provider.getGuild(bansconf.discordserverid, 'modlog') === 'true') {
+							const modlogchannel = client.channels.get(client.provider.getGuild(bansconf.discordserverid, 'modlogchannel'));
+							modlogchannel.send({
+								embed: unmutedembed
+							});
+						}
+					}
+					const newbansconf = client.provider.getBotsettings('botconfs', 'bans');
+					delete newbansconf[client.provider.getBotsettings('botconfs', 'banscount')];
+					await client.provider.setBotsettings('botconfs', 'bans', newbansconf);
+				}, newBanTime);
+			}
+
+			function timeoutForMute(muteconf, newMuteTime) {
+				setTimeout(async () => {
+					const guild = client.guilds.get(muteconf.discordserverid);
+					if (!guild) return;
+
+					const membermention = guild.members.get(muteconf.memberid);
+					if (!membermention) return undefined;
+
+					const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
+					if (!role) return undefined;
+
+					const user = client.users.get(muteconf.memberid);
+					if (!user) return undefined;
+
+					const langSet = client.provider.getGuild(muteconf.discordserverid, 'language');
+					const lang = require(`../../languages/${langSet}.json`);
+
+					if (client.provider.getGuild(muteconf.discordserverid, 'muterole') !== '' && membermention.roles.has(client.provider.getGuild(muteconf.discordserverid, 'muterole'))) {
+						membermention.removeRole(role);
+
+						const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
+						const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+						const unmutedembed = new Discord.RichEmbed()
+							.setAuthor(unmutedby, client.user.displayAvatarURL)
+							.setThumbnail(user.displayAvatarURL)
+							.setColor('#FF0000')
+							.setTimestamp()
+							.setDescription(automaticunmutedescription);
+
+						user.send({
+							embed: unmutedembed
+						});
+
+						if (client.provider.getGuild(muteconf.discordserverid, 'modlog') === 'true') {
+							const modlogchannel = client.channels.get(client.provider.getGuild(muteconf.discordserverid, 'modlogchannel'));
+							modlogchannel.send({
+								embed: unmutedembed
+							});
+						}
+					}
+					const newmuteconf = client.provider.getBotsettings('botconfs', 'mutes');
+					delete newmuteconf[client.provider.getBotsettings('botconfs', 'mutescount')];
+					await client.provider.setBotsettings('botconfs', 'mutes', newmuteconf);
+				}, newMuteTime);
+			}
+
+			if (typeof client.provider.getBotsettings('botconfs', 'bans') !== 'undefined') {
+				if (Object.keys(client.provider.getBotsettings('botconfs', 'bans')).length !== 0) {
+					for (const index in client.provider.getBotsettings('botconfs', 'bans')) {
+						const newBanTime = client.provider.getBotsettings('botconfs', 'bans')[index].banEndDate - Date.now();
+						const fetchedbans = await client.guilds.get(client.provider.getBotsettings('botconfs', 'bans')[index].discordserverid).fetchBans();
+						timeoutForBan(client.provider.getBotsettings('botconfs', 'bans')[index], newBanTime, fetchedbans);
+					}
+				}
+			}
+
+
+			if (typeof client.provider.getBotsettings('botconfs', 'mutes') !== 'undefined') {
+				if (Object.keys(client.provider.getBotsettings('botconfs', 'mutes')).length !== 0) {
+					for (const index2 in client.provider.getBotsettings('botconfs', 'mutes')) {
+						const newMuteTime = client.provider.getBotsettings('botconfs', 'mutes')[index2].muteEndDate - Date.now();
+						timeoutForMute(client.provider.getBotsettings('botconfs', 'mutes')[index2], newMuteTime);
+					}
+				}
+			}
+			setInterval(() => {
+				client.guilds.filter(g => client.provider.getGuild(g.id, 'prefix')).forEach(async g => {
+					if (client.provider.getGuild(g.id, 'premium')) {
+						if (client.provider.getGuild(g.id, 'premium').status === true) {
+							if (new Date().getTime() >= Date.parse(client.provider.get(g.id, 'premium').end)) {
+								const currentPremium = client.provider.getGuild(g.id, 'premium');
+								currentPremium.status = false;
+								currentPremium.bought = [];
+								currentPremium.end = '';
+								await client.provider.setGuild(g.id, 'premium', currentPremium);
+							}
+						}
+					}
+				});
+			}, 86400000);
+
+			setInterval(() => {
+				client.users.filter(g => client.provider.getUser(g.id, 'credits')).forEach(async g => {
+					if (client.provider.getUser(g.id, 'premium')) {
+						if (client.userdb.get(g.id).premium.status === true) {
+							if (new Date().getTime() >= Date.parse(client.provider.getUser(g.id, 'premium').end)) {
+								const currentPremium = client.provider.getUser(g.id, 'premium');
+								currentPremium.status = false;
+								currentPremium.bought = [];
+								currentPremium.end = '';
+								await client.provider.setUser(g.id, 'premium', currentPremium);
+							}
+						}
+					}
+				});
+			}, 86400000);
 		});
 	}
 
