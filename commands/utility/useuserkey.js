@@ -1,0 +1,85 @@
+const LenoxCommand = require('../LenoxCommand.js');
+const Discord = require('discord.js');
+const settings = require('../../settings.json');
+
+module.exports = class useuserkeyCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'useuserkey',
+			group: 'utility',
+			memberName: 'useuserkey',
+			description: 'With this command you can use a premium userkey',
+			format: 'useuserkey {key}',
+			aliases: [],
+			examples: ['useuserkey 1122'],
+			clientPermissions: ['SEND_MESSAGES'],
+			userPermissions: [],
+			shortDescription: 'Premium',
+			dashboardsettings: true,
+			cooldown: 43200000
+		});
+	}
+
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
+
+		const input = args.slice();
+
+		if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
+		if (!msg.client.provider.getBotsettings('botconfs', 'premium').userkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
+		if (msg.client.provider.getBotsettings('botconfs', 'premium').redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
+
+		if (msg.client.provider.getUser(msg.author.id, 'premium').status === false) {
+			const currentPremium = msg.client.provider.getUser(msg.author.id, 'premium');
+			currentPremium.status = true;
+			currentPremium.bought.push(new Date().getTime);
+			const now = new Date().getTime();
+			currentPremium.end = new Date(now + 15552000000);
+			await msg.client.provider.setUser(msg.author.id, 'premium', currentPremium);
+
+			const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
+			newCurrentPremium.redeemeduserkeys.push(input.join(' '));
+			await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
+
+			/* const timestamps = client.cooldowns.get('useuserkey');
+			delete timestamps[msg.author.id];
+			client.cooldowns.set('useuserkey', timestamps); */
+
+			const embed = new Discord.RichEmbed()
+				.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}`)
+				.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+				.setTimestamp()
+				.setColor('#66ff33')
+				.setTitle('New Userkey used!');
+			await msg.client.channels.get(settings.keychannel).send({ embed });
+
+			const redeemed = lang.useuserkey_redeemed.replace('%date', `\`${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}\``);
+			return msg.reply(redeemed);
+		}
+		const currentPremium = msg.client.provider.getUser(msg.author.id, 'premium');
+		currentPremium.bought.push(new Date().getTime);
+		currentPremium.end = new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end) + 15552000000);
+		await msg.client.provider.setUser(msg.author.id, 'premium', currentPremium);
+
+		const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
+		newCurrentPremium.redeemeduserkeys.push(input.join(' '));
+		await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
+
+		/* const timestamps = client.cooldowns.get('useuserkey');
+		delete timestamps[msg.author.id];
+		client.cooldowns.set('useuserkey', timestamps); */
+
+		const embed = new Discord.RichEmbed()
+			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end + 15552000000)).toUTCString()}`)
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+			.setTimestamp()
+			.setColor('#66ff33')
+			.setTitle('Userkey used!');
+		await msg.client.channels.get(settings.keychannel).send({ embed });
+
+		const extended = lang.useuserkey_extended.replace('%date', `\`${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end) + 15552000000).toUTCString()}\``);
+		return msg.reply(extended);
+	}
+};

@@ -13,14 +13,14 @@
 - [ ] Add all commands of the **searches** module
 - [ ] Add all commands of the **staff** module
 - [ ] Add all commands of the **tickets** module
-- [ ] Add all commands of the **utility** module
+- [X] Add all commands of the **utility** module
 - [ ] Add all events
 - [ ] Check all methods of the Database
 - [ ] Add all formats (usages) of the commands to the lenoxbot.json strings
 - [X] Add xp of the ?creditstoxp command (done, needs to be tested!)
 - [ ] Remove untranslated strings from the ?rank command
 - [ ] Remove all duplicated keys in marketitems-keys.json
-- [ ] Fix commented code (cooldowns) in ?loot, ?mine, ?opencrate, ?templesearch, ?job
+- [ ] Fix commented code (cooldowns) in ?loot, ?mine, ?opencrate, ?templesearch, ?job, ?useserverkey, ?useuserkey
 - [X] ?giveitem needs to be tested after successfull setup of ?inventory
 - [ ] ?ranks answer needs to be .../server/serverid and not .../guild/serverid
 - [ ] Complete botsettings-keys.json
