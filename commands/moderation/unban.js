@@ -9,7 +9,7 @@ module.exports = class unbanCommand extends LenoxCommand {
 			memberName: 'unban',
 			description: 'Unban a user from the discord server with a certain reason',
 			format: 'unban {userID} {reason}',
-			aliases: ['u'],
+			aliases: ['ub'],
 			examples: ['unban 238590234135101440 Mistake'],
 			clientPermissions: ['BAN_MEMBERS', 'MANAGE_GUILD', 'SEND_MESSAGES'],
 			userPermissions: ['BAN_MEMBERS'],
@@ -55,7 +55,7 @@ module.exports = class unbanCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
 			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
-			return modlogchannel.send({ embed: embed });
+			modlogchannel.send({ embed: embed });
 		}
 
 		let banOfThisUser;

@@ -99,7 +99,7 @@ exports.run = async client => {
 			function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
 				setTimeout(async () => {
 					const langSet = client.provider.getGuild(bansconf.discordserverid, 'language');
-					const lang = require(`../../languages/${langSet}.json`);
+					const lang = require(`../languages/${langSet}.json`);
 					const fetchedbans = fetchedbansfromfunction;
 
 					if (fetchedbans.has(bansconf.memberid)) {
@@ -144,7 +144,7 @@ exports.run = async client => {
 					if (!user) return undefined;
 
 					const langSet = client.provider.getGuild(muteconf.discordserverid, 'language');
-					const lang = require(`../../languages/${langSet}.json`);
+					const lang = require(`../languages/${langSet}.json`);
 
 					if (client.provider.getGuild(muteconf.discordserverid, 'muterole') !== '' && membermention.roles.has(client.provider.getGuild(muteconf.discordserverid, 'muterole'))) {
 						membermention.removeRole(role);

@@ -86,7 +86,7 @@ module.exports = class muteCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
 			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
-			return modlogchannel.send({ embed: embed });
+			modlogchannel.send({ embed: embed });
 		}
 
 		let currentMutescount = msg.client.provider.getBotsettings('botconfs', 'mutescount');
@@ -132,7 +132,7 @@ module.exports = class muteCommand extends LenoxCommand {
 
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
 					const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
-					return modlogchannel.send({ embed: unmutedembed });
+					modlogchannel.send({ embed: unmutedembed });
 				}
 			}
 			const newCurrentMutes = msg.client.provider.getBotsettings('botconfs', 'mutes');

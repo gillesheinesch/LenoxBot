@@ -9,7 +9,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 			memberName: 'unmute',
 			description: 'Unmutes a user',
 			format: 'unmute {@User} {reason}',
-			aliases: ['u'],
+			aliases: ['um'],
 			examples: ['unmute @Tester#7352 Wrong mute'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: ['KICK_MEMBERS'],
@@ -66,7 +66,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
 				const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
-				return modlogchannel.send({ embed: embed });
+				modlogchannel.send({ embed: embed });
 			}
 
 			const unmuted = lang.unmute_unmuted.replace('%username', user.username);

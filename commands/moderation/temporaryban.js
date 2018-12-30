@@ -86,7 +86,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
 			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
-			return modlogchannel.send({ embed: embed });
+			modlogchannel.send({ embed: embed });
 		}
 
 		let currentBanscount = msg.client.provider.getBotsettings('botconfs', 'banscount');
@@ -124,7 +124,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
 					const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
-					return modlogchannel.send({ embed: unmutedembed });
+					modlogchannel.send({ embed: unmutedembed });
 				}
 			}
 
