@@ -31,7 +31,7 @@ if (cluster.isMaster) {
 	const Strategy = require('passport-discord').Strategy;
 	const handlebars = require('express-handlebars');
 	const handlebarshelpers = require('handlebars-helpers')();
-	const app = express();
+	/* const app = express();
 	const path = require('path');
 	const cookieParser = require('cookie-parser');
 	const bodyParser = require('body-parser');
@@ -96,4 +96,5 @@ if (cluster.isMaster) {
 		if (err) return console.log(err);
 		console.log(chalk.green('Website running on https://lenoxbot.com'));
 	});
+	*/
 }

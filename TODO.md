@@ -5,8 +5,8 @@
 - [X] Add all commands of the **currency** module
 - [ ] Add all commands of the **customcommands** module
 - [ ] Add all commands of the **fun** module
-- [ ] Add all commands of the **help** module
-- [ ] Add all commands of the **moderation** module
+- [X] Add all commands of the **help** module
+- [X] Add all commands of the **moderation** module
 - [ ] Add all commands of the **music** module
 - [ ] Add all commands of the **nsfw** module
 - [ ] Add all commands of the **partner** module
