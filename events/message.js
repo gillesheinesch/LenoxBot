@@ -1,4 +1,6 @@
 const englishLang = require(`../languages/en-US.json`);
+const guildsettingskeys = require('../guildsettings-keys.json');
+const usersettingskeys = require('../usersettings-keys.json');
 exports.run = async (client, msg) => {
 	if (msg.author.bot) return;
 	if (msg.channel.type !== 'text') return msg.reply(englishLang.messageevent_error);
@@ -38,7 +40,7 @@ exports.run = async (client, msg) => {
 
 			for (let i = 1; i < client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
 				if (client.provider.getGuild(msg.guild.id, 'ara').ara[i] < currentScores[msg.author.id].points && !msg.member.roles.get(client.provider.getGuild(msg.guild.id, 'ara')[i - 1])) {
-					const role = msg.guild.roles.get(client.provider.getGuild(msg.guild.id, 'ara')[i - 1]);
+					const role = msg.message.guild.roles.get(client.provider.getGuild(msg.guild.id, 'ara')[i - 1]);
 					msg.member.addRole(role);
 
 					const automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
@@ -47,5 +49,80 @@ exports.run = async (client, msg) => {
 			}
 			await client.provider.setGuild(msg.guild.id, 'scores', currentScores);
 		}
+	}
+	if (client.provider.getGuild(msg.guild.id, 'language')) { // Everything can be requested here
+		for (const key in guildsettingskeys) {
+			if (!client.provider.getGuild(msg.guild.id, key)) {
+				await client.provider.setGuild(msg.guild.id, key, guildsettingskeys[key]);
+			}
+		}
+
+		const currentCommands = client.provider.getGuild(msg.guild.id, 'commands');
+		for (let i = 0; i < client.registry.commands.array().length; i++) {
+			if (!client.provider.getGuild(msg.guild.id, 'commands')[client.registry.commands.array()[i].name]) {
+				currentCommands[client.registry.commands.array()[i].name] = {
+					name: client.registry.commands.array()[i].name,
+					status: 'true',
+					bannedroles: [],
+					bannedchannels: [],
+					cooldown: '3000',
+					ifBlacklistForRoles: 'true',
+					ifBlacklistForChannels: 'true',
+					whitelistedroles: [],
+					whitelistedchannels: []
+				};
+			}
+			if (!currentCommands[client.registry.commands.array()[i].name].ifBlacklistForRoles) {
+				currentCommands[client.registry.commands.array()[i].name].ifBlacklistForRoles = 'true';
+				currentCommands[client.registry.commands.array()[i].name].ifBlacklistForChannels = 'true';
+				currentCommands[client.registry.commands.array()[i].name].whitelistedroles = [];
+				currentCommands[client.registry.commands.array()[i].name].whitelistedchannels = [];
+			}
+		}
+
+		await msg.client.provider.setGuild(msg.guild.id, 'commands', currentCommands);
+	} else {
+		for (let i = 0; i < client.registry.commands.array().length; i++) {
+			if (!guildsettingskeys.commands[client.registry.commands.array()[i].name]) {
+				guildsettingskeys.commands[client.registry.commands.array()[i].name] = {
+					name: client.registry.commands.array()[i].name,
+					status: 'true',
+					bannedroles: [],
+					bannedchannels: [],
+					cooldown: '3000',
+					ifBlacklistForRoles: 'true',
+					ifBlacklistForChannels: 'true',
+					whitelistedroles: [],
+					whitelistedchannels: []
+				};
+			}
+			if (!guildsettingskeys.commands[client.registry.commands.array()[i].name].ifBlacklistForRoles) {
+				guildsettingskeys.commands[client.registry.commands.array()[i].name].ifBlacklistForRoles = 'true';
+				guildsettingskeys.commands[client.registry.commands.array()[i].name].ifBlacklistForChannels = 'true';
+				guildsettingskeys.commands[client.registry.commands.array()[i].name].whitelistedroles = [];
+				guildsettingskeys.commands[client.registry.commands.array()[i].name].whitelistedchannels = [];
+			}
+		}
+
+		await msg.client.provider.setGuildComplete(msg.guild.id, guildsettingskeys);
+	}
+
+	if (client.provider.getUser(msg.author.id, 'credits')) {
+		// eslint-disable-next-line guard-for-in
+		for (const key in usersettingskeys) {
+			if (!client.provider.getUser(msg.author.id, key)) {
+				await client.provider.setUser(msg.author.id, key, usersettingskeys[key]);
+			}
+
+			if (typeof usersettingskeys[key] === 'object') {
+				for (const key2 in usersettingskeys[key]) {
+					if (!client.provider.getUser(msg.author.id, key[key2])) {
+						await client.provider.setUser(msg.author.id, key[key2], usersettingskeys[key][key2]);
+					}
+				}
+			}
+		}
+	} else {
+		await msg.client.provider.setUserComplete(msg.author.id, usersettingskeys);
 	}
 };
