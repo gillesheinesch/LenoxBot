@@ -128,11 +128,11 @@ exports.run = async (client, msg) => {
 	}
 
 	const input = msg.content.split(' ').slice();
-	if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length !== 0) {
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length; i++) {
+	if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length !== 0) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
 			for (let index = 0; index < input.length; index++) {
-				if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array[i].toLowerCase()) {
-					if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilterlog') === 'true') {
+				if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase()) {
+					if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
 						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
 
 						const embed = new Discord.RichEmbed()
@@ -143,7 +143,7 @@ exports.run = async (client, msg) => {
 							.setAuthor(chatfilterembed);
 
 						try {
-							await msg.guild.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'chatfilterlogchannel')).send({
+							await msg.guild.channels.get(msg.client.provider.getGuild(msg.guild.id, 'chatfilterlogchannel')).send({
 								embed
 							});
 						} catch (error) {
