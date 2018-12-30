@@ -48,7 +48,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 			client.cooldowns.set('useserverkey', timestamps); */
 
 			const embed = new Discord.RichEmbed()
-				.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${tableload.premium.end.toUTCString()}`)
+				.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${msg.client.provider.getGuild(msg.message.guild.id, 'premium').end.toUTCString()}`)
 				.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
 				.setTimestamp()
 				.setColor('#ff0000')
