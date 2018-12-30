@@ -4,6 +4,7 @@ const assert = require('assert');
 const Commando = require('discord.js-commando');
 const guildsettingskeys = require('../guildsettings-keys.json');
 const usersettingskeys = require('../usersettings-keys.json');
+const botsettingskeys = require('../botsettings-keys.json');
 
 class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	constructor(settings) {
@@ -130,14 +131,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 			if (!result) {
 				// Can't find DB make new one.
-				settings = {};
-				settings.dailyreminder = {};
-				settings.jobreminder = {};
-				settings.cooldowns = {};
-				settings.blackbanlist = {
-					banlist: [],
-					blacklist: []
-				};
+				settings = botsettingskeys;
 				botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 			}
 
