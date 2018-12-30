@@ -53,6 +53,48 @@ exports.run = async client => {
 					}
 				}
 			}
+
+			function timeoutForJob(jobreminder, timeoutTime) {
+				setTimeout(async () => {
+					await client.provider.setUser(jobreminder.userID, 'jobstatus', false);
+
+					const newCurrentJobreminder = client.provider.getBotsettings('botconfs', 'jobreminder');
+					delete newCurrentJobreminder[jobreminder.userID];
+					await client.provider.setBotsettings('botconfs', 'jobreminder', newCurrentJobreminder);
+
+					let currentCredits = client.provider.getUser(jobreminder.userID, 'credits');
+					currentCredits += jobreminder.amount;
+					await client.provider.setUser(jobreminder.userID, 'credits', currentCredits);
+
+					const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${jobreminder.amount} credits`;
+					client.users.get(jobreminder.userID).send(jobfinish);
+
+					const activityEmbed2 = new Discord.RichEmbed()
+						.setAuthor(`${client.users.get(jobreminder.userID).tag} (${jobreminder.userID})`, client.users.get(jobreminder.userID).displayAvatarURL)
+						.setDescription(`**Job:** ${jobreminder.job} \n**Duration:** ${jobreminder.jobtime} minutes \n**Amount:** ${jobreminder.amount} credits`)
+						.addField('Guild', `${client.guilds.get(jobreminder.discordServerID).name} (${jobreminder.discordServerID})`)
+						.addField('Channel', `${client.channels.get(jobreminder.channelID).name} (${jobreminder.channelID})`)
+						.setColor('AQUA')
+						.setFooter('JOB FINISHED')
+						.setTimestamp();
+					if (client.provider.getBotsettings('botconfs', 'activity') === true) {
+						const messagechannel = client.channels.get(client.provider.getBotsettings('botconfs', 'activitychannel'));
+						messagechannel.send({
+							embed: activityEmbed2
+						});
+					}
+				}, timeoutTime);
+			}
+
+			if (typeof client.provider.getBotsettings('botconfs', 'jobreminder') !== 'undefined') {
+				if (Object.keys(client.provider.getBotsettings('botconfs', 'jobreminder')).length !== 0) {
+					/* eslint guard-for-in: 0 */
+					for (const index in client.provider.getBotsettings('botconfs', 'jobreminder')) {
+						const timeoutTime = client.provider.getBotsettings('botconfs', 'jobreminder')[index].remind - Date.now();
+						timeoutForJob(client.provider.getBotsettings('botconfs', 'jobreminder')[index], timeoutTime);
+					}
+				}
+			}
 		});
 	}
 
