@@ -14,7 +14,7 @@
 - [ ] Add all commands of the **staff** module
 - [ ] Add all commands of the **tickets** module
 - [X] Add all commands of the **utility** module
-- [ ] Add all events
+- [X] Add all events
 - [ ] Check all methods of the Database
 - [ ] Add all formats (usages) of the commands to the lenoxbot.json strings
 - [X] Add xp of the ?creditstoxp command (done, needs to be tested!)
