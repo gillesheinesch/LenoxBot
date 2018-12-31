@@ -3,7 +3,7 @@
 - [ ] Add all commands of the **application** module
 - [ ] Add all commands of the **botowner** module
 - [X] Add all commands of the **currency** module
-- [ ] Add all commands of the **customcommands** module
+- [X] Add all commands of the **customcommands** module
 - [X] Add all commands of the **fun** module
 - [X] Add all commands of the **help** module
 - [X] Add all commands of the **moderation** module
