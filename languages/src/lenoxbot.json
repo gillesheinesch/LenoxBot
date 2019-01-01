@@ -398,7 +398,7 @@
     "playlist_alreadyexists": "This playlist already exists. Please create a playlist with a name that does not exist yet!",
     "playlist_addnewsong": "Which song should be added to your playlist (%playlistname)?",
     "playlist_finish": "The playlist has been saved!",
-    "playlist_newsongaddedtoplaylist": "A new song (%songname) has been added to your new playlist. Enter another name for a song you'd like to add to your playlist!\nIf you have finished your playlist, please answer with \"**finish**\"",
+    "playlist_newsongaddedtoplaylist": "A new song (%songname) has been added to your new playlist. Enter another name for a song you'd like to add to your playlist! \nIf you have finished your playlist, please answer with \"**finish**\"",
     "playlist_noplaylistaddedyet": "So far no playlist has been added! Create a new one with the following command: %prefixplaylist new",
     "playlist_playlistnotexist": "The specified playlist does not exist!",
     "playlist_embedtitle": "All songs in this playlist:",
