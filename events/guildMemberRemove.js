@@ -34,20 +34,37 @@ exports.run = (client, member) => {
 		const embed = new Discord.RichEmbed()
 			.setFooter(lang.guildmemberremoveevent_userleft)
 			.setTimestamp()
-			.setColor('#FF0000')
+			.setColor('RED')
 			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
-		messagechannel.send({ embed: embed });
+		messagechannel.send({
+			embed: embed
+		});
 	}
 
+	let embed = false;
 	if (tableload.bye === 'true') {
 		if (tableload.byemsg.length < 1) return;
-		const message = tableload.byemsg;
-		const msgchannel = client.channels.get(tableload.byechannel);
-		const newMessage = message.replace('$username$', member.user.username)
+		const messagechannel = client.channels.get(tableload.byechannel);
+		if (tableload.byemsg.toLowerCase().includes('$embed$')) {
+			embed = true;
+		}
+		const newMessage = tableload.byemsg.replace('$username$', member.user.username)
 			.replace('$usertag$', member.user.tag)
 			.replace('$userid$', member.user.id)
 			.replace('$guildname$', member.guild.name)
-			.replace('$guildid$', member.guild.id);
-		msgchannel.send(newMessage);
+			.replace('$guildid$', member.guild.id)
+			.replace('$embed$', '');
+
+		if (embed) {
+			const byeEmbed = new Discord.RichEmbed()
+				.setTimestamp()
+				.setDescription(newMessage)
+				.setColor('RED');
+			messagechannel.send({
+				embed: byeEmbed
+			});
+		} else {
+			messagechannel.send(newMessage);
+		}
 	}
 };

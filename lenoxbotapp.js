@@ -19,6 +19,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const sql = require('sqlite');
+moment.locale('en');
 
 client.wait = require('util').promisify(setTimeout);
 client.guildconfs = new Enmap({
@@ -425,7 +426,8 @@ app.get('/profile/:id', async (req, res) => {
 		const userdb = client.userdb.get(profileId);
 		const profileUser = client.users.get(req.params.id);
 		let isstaff = false;
-		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'documentation-moderator', 'designer', 'translation-leader', 'translation-proofreader'];
+		let ispremium = false;
+		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
 		const guild = await client.guilds.get('352896116812939264');
 		for (let i = 0; i < teamroles.length; i++) {
 			const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
@@ -434,6 +436,9 @@ app.get('/profile/:id', async (req, res) => {
 					isstaff = true;
 				}
 			});
+		}
+		if (userdb.premium.status) {
+			ispremium = true;
 		}
 		if (!profileUser || !userdb) throw Error('User was not found!');
 
@@ -529,8 +534,13 @@ app.get('/profile/:id', async (req, res) => {
 			userSocialmediaYoutube: userdb.socialmedia.youtube === '' ? null : userdb.socialmedia.youtube,
 			userSocialmediaTwitter: userdb.socialmedia.twitter === '' ? null : userdb.socialmedia.twitter,
 			userSocialmediaInstagram: userdb.socialmedia.instagram === '' ? null : userdb.socialmedia.instagram,
+			userSocialmediaFacebook: userdb.socialmedia.facebook === '' ? null : userdb.socialmedia.facebook,
+			userSocialmediaGithub: userdb.socialmedia.github === '' ? null : userdb.socialmedia.github,
+			userSocialmediaPinterest: userdb.socialmedia.pinterest === '' ? null : userdb.socialmedia.pinterest,
+			userSocialmediaReddit: userdb.socialmedia.reddit === '' ? null : userdb.socialmedia.reddit,
 			client: client,
 			isstaff: isstaff,
+			ispremium: ispremium,
 			islenoxbot: islenoxbot
 		});
 	} catch (error) {
@@ -549,7 +559,7 @@ app.get('/team', async (req, res) => {
 	try {
 		const islenoxbot = islenoxboton(req);
 		const team = [];
-		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'documentation-moderator', 'designer', 'translation-leader', 'translation-proofreader'];
+		const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
 		const guild = await client.guilds.get('352896116812939264');
 		for (let i = 0; i < teamroles.length; i++) {
 			const teamSettings = {};
@@ -782,7 +792,6 @@ app.get('/servers', (req, res) => {
 		}
 		return res.redirect('nologin');
 	} catch (error) {
-		console.log(error);
 		return res.redirect(url.format({
 			pathname: `/error`,
 			query: {
@@ -809,7 +818,7 @@ app.post('/tickets/:ticketid/submitticketanswer', (req, res) => {
 			ticket.answers[length] = {
 				authorid: req.user.id,
 				guildid: req.params.id,
-				date: new Date(),
+				date: Date.now(),
 				content: req.body.newticketanswer,
 				timelineconf: ''
 			};
@@ -876,17 +885,19 @@ app.post('/tickets/:ticketid/submitnewticketstatus', (req, res) => {
 				ticket.answers[length] = {
 					authorid: req.user.id,
 					guildid: req.params.id,
-					date: new Date(),
-					content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} closed the ticket!`,
-					timelineconf: ''
+					date: Date.now(),
+					content: `closed the ticket!`,
+					timelineconf: '',
+					toStatus: 'closed'
 				};
 			} else if (ticket.status === 'open') {
 				ticket.answers[length] = {
 					authorid: req.user.id,
 					guildid: req.params.id,
-					date: new Date(),
-					content: `${client.users.get(ticket.authorid) ? client.users.get(ticket.authorid).tag : ticket.authorid} opened the ticket!`,
-					timelineconf: ''
+					date: Date.now(),
+					content: `opened the ticket!`,
+					timelineconf: '',
+					toStatus: 'open'
 				};
 			}
 
@@ -929,12 +940,34 @@ app.get('/tickets/:ticketid/overview', (req, res) => {
 				ticket.answers[index].newdate = moment(ticket.answers[index].date).format('MMMM Do YYYY, h:mm:ss a');
 			}
 			const islenoxbot = islenoxboton(req);
+
+			const sortableAnswers = [];
+			for (const key in botconfs.tickets[req.params.ticketid].answers) {
+				sortableAnswers.push(botconfs.tickets[req.params.ticketid].answers[key]);
+			}
+
+			let answers;
+			if (Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0) {
+				answers = false;
+			} else {
+				const answersOnTicket = sortableAnswers;
+				answers = answersOnTicket.sort((a, b) => {
+					if (a.date < b.date) {
+						return 1;
+					}
+					if (a.date > b.date) {
+						return -1;
+					}
+					return 0;
+				});
+			}
+
 			return res.render('ticket', {
 				user: req.user,
 				client: client,
 				islenoxbot: islenoxbot,
 				ticket: ticket,
-				answers: Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0 ? false : botconfs.tickets[req.params.ticketid].answers,
+				answers: answers,
 				status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
 			});
 		}
@@ -4608,7 +4641,7 @@ app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', (req, res) => {
 			ticket.answers[length] = {
 				authorid: req.user.id,
 				guildid: req.params.id,
-				date: new Date(),
+				date: Date.now(),
 				content: req.body.newticketanswer,
 				timelineconf: 'timeline-inverted'
 			};
@@ -4676,16 +4709,18 @@ app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', (req, res) =>
 			if (ticket.status === 'closed') {
 				ticket.answers[length] = {
 					authorid: req.user.id,
-					date: new Date(),
-					content: `${client.users.get(req.user.id) ? client.users.get(req.user.id).tag : req.user.id} closed the ticket!`,
-					timelineconf: 'timeline-inverted'
+					date: Date.now(),
+					content: `closed the ticket!`,
+					timelineconf: 'timeline-inverted',
+					toStatus: 'closed'
 				};
 			} else if (ticket.status === 'open') {
 				ticket.answers[length] = {
 					authorid: req.user.id,
-					date: new Date(),
-					content: `${client.users.get(req.user.id) ? client.users.get(req.user.id).tag : req.user.id} opened the ticket!`,
-					timelineconf: 'timeline-inverted'
+					date: Date.now(),
+					content: `opened the ticket!`,
+					timelineconf: 'timeline-inverted',
+					toStatus: 'open'
 				};
 			}
 
@@ -4758,13 +4793,34 @@ app.get('/dashboard/:id/tickets/:ticketid/overview', (req, res) => {
 
 			const islenoxbot = islenoxboton(req);
 
+			const sortableAnswers = [];
+			for (const key in botconfs.tickets[req.params.ticketid].answers) {
+				sortableAnswers.push(botconfs.tickets[req.params.ticketid].answers[key]);
+			}
+
+			let answers;
+			if (Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0) {
+				answers = false;
+			} else {
+				const answersOnTicket = sortableAnswers;
+				answers = answersOnTicket.sort((a, b) => {
+					if (a.date < b.date) {
+						return 1;
+					}
+					if (a.date > b.date) {
+						return -1;
+					}
+					return 0;
+				});
+			}
+
 			return res.render('dashboardticket', {
 				user: req.user,
 				guilds: check,
 				client: client,
 				islenoxbot: islenoxbot,
 				ticket: ticket,
-				answers: Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0 ? false : botconfs.tickets[req.params.ticketid].answers,
+				answers: answers,
 				status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
 			});
 		}
@@ -4813,12 +4869,12 @@ app.get('/dashboard/:id/tickets', (req, res) => {
 			for (const index2 in botconfs.tickets) {
 				if (botconfs.tickets[index2].guildid === dashboardid && botconfs.tickets[index2].status === 'open') {
 					newobject[index2] = botconfs.tickets[index2];
-					botconfs.tickets[index2].author = client.users.get(botconfs.tickets[index2].authorid).tag;
+					botconfs.tickets[index2].author = client.users.get(botconfs.tickets[index2].authorid).tag ? client.users.get(botconfs.tickets[index2].authorid).tag : botconfs.tickets[index2].authorid;
 					botconfs.tickets[index2].newdate = moment(botconfs.tickets[index2].date).format('MMMM Do YYYY, h:mm:ss a');
 				}
 				if (botconfs.tickets[index2].guildid === dashboardid && botconfs.tickets[index2].status === 'closed') {
 					oldobject[index2] = botconfs.tickets[index2];
-					botconfs.tickets[index2].author = client.users.get(botconfs.tickets[index2].authorid).tag;
+					botconfs.tickets[index2].author = client.users.get(botconfs.tickets[index2].authorid).tag ? client.users.get(botconfs.tickets[index2].authorid).tag : botconfs.tickets[index2].authorid;
 					botconfs.tickets[index2].newdate = moment(botconfs.tickets[index2].date).format('MMMM Do YYYY, h:mm:ss a');
 				}
 			}
@@ -5053,6 +5109,98 @@ app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchan
 
 			tableload.globallogs.push({
 				action: `Changed the settings of the "${req.params.command}" custom command!`,
+				username: req.user.username,
+				date: Date.now(),
+				showeddate: new Date().toUTCString()
+			});
+
+			client.guildconfs.set(dashboardid, tableload);
+
+			return res.redirect(url.format({
+				pathname: `/dashboard/${dashboardid}/customcommands`,
+				query: {
+					submitcustomcommands: true
+				}
+			}));
+		}
+		return res.redirect('/nologin');
+	} catch (error) {
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 500,
+				message: error.message
+			}
+		}));
+	}
+});
+
+app.post('/dashboard/:id/customcommands/submitnewcustomcommand', (req, res) => {
+	try {
+		const dashboardid = res.req.originalUrl.substr(11, 18);
+		if (req.user) {
+			let index = -1;
+			for (let i = 0; i < req.user.guilds.length; i++) {
+				if (req.user.guilds[i].id === dashboardid) {
+					index = i;
+				}
+			}
+
+			if (index === -1) return res.redirect('/servers');
+
+			if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
+				let allwhitelistedrolesoftheuser = 0;
+
+				for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
+					if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
+					if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
+						allwhitelistedrolesoftheuser += 1;
+					}
+				}
+				if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
+					return res.redirect('/servers');
+				}
+			} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
+				return res.redirect('/servers');
+			}
+
+			if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
+
+			const tableload = client.guildconfs.get(dashboardid);
+
+			let newDescription;
+			const newCommandName = req.body.newname;
+			const newResponse = req.body.newcommandanswer;
+			if (req.body.newdescription) {
+				newDescription = req.body.newdescription;
+			}
+
+			for (let i = 0; i < tableload.customcommands.length; i++) {
+				if (tableload.customcommands[i].name === newCommandName.toLowerCase()) {
+					return res.redirect(url.format({
+						pathname: `/error`,
+						query: {
+							statuscode: 500,
+							message: 'Custom command already exists!'
+						}
+					}));
+				}
+			}
+
+			const newCustomCommandSettings = {
+				name: newCommandName.toLowerCase(),
+				creator: req.user.id,
+				commandanswer: newResponse,
+				descriptionOfTheCommand: newDescription,
+				embed: 'false',
+				commandCreatedAt: Date.now(),
+				enabled: 'true'
+			};
+
+			tableload.customcommands.push(newCustomCommandSettings);
+
+			tableload.globallogs.push({
+				action: `Added a new custom command: "${req.params.command}"!`,
 				username: req.user.username,
 				date: Date.now(),
 				showeddate: new Date().toUTCString()

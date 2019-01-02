@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, msg, args, lang) => {
 	const validation = ['delete', 'edit', 'list'];
-	const validation2 = ['youtube', 'twitch', 'instagram', 'twitter'];
+	const validation2 = ['youtube', 'twitch', 'instagram', 'twitter', 'facebook', 'github', 'pinterest', 'reddit'];
 	const margs = msg.content.split(' ');
 	const userdb = client.userdb.get(msg.author.id);
 
@@ -34,6 +34,26 @@ exports.run = (client, msg, args, lang) => {
 							client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_newtwitter);
+						} else if (margs[2].toLowerCase() === 'facebook') {
+							userdb.socialmedia.facebook = args.slice(2).join(' ');
+							client.userdb.set(msg.author.id, userdb);
+
+							return msg.reply(lang.setsocialmedia_newfacebook);
+						} else if (margs[2].toLowerCase() === 'github') {
+							userdb.socialmedia.github = args.slice(2).join(' ');
+							client.userdb.set(msg.author.id, userdb);
+
+							return msg.reply(lang.setsocialmedia_newgithub);
+						} else if (margs[2].toLowerCase() === 'pinterest') {
+							userdb.socialmedia.pinterest = args.slice(2).join(' ');
+							client.userdb.set(msg.author.id, userdb);
+
+							return msg.reply(lang.setsocialmedia_newpinterest);
+						} else if (margs[2].toLowerCase() === 'reddit') {
+							userdb.socialmedia.reddit = args.slice(2).join(' ');
+							client.userdb.set(msg.author.id, userdb);
+
+							return msg.reply(lang.setsocialmedia_newreddit);
 						}
 					}
 				}
@@ -66,6 +86,30 @@ exports.run = (client, msg, args, lang) => {
 							client.userdb.set(msg.author.id, userdb);
 
 							return msg.reply(lang.setsocialmedia_deletetwitter);
+						} else if (margs[2].toLowerCase() === 'facebook') {
+							if (userdb.socialmedia.facebook === '') return msg.reply(lang.setsocialmedia_notsetup);
+							userdb.socialmedia.facebook = '';
+							client.userdb.set(msg.author.id, userdb);
+
+							return msg.reply(lang.setsocialmedia_deletefacebook);
+						} else if (margs[2].toLowerCase() === 'github') {
+							if (userdb.socialmedia.github === '') return msg.reply(lang.setsocialmedia_notsetup);
+							userdb.socialmedia.github = '';
+							client.userdb.set(msg.author.id, userdb);
+
+							return msg.reply(lang.setsocialmedia_deletegithub);
+						} else if (margs[2].toLowerCase() === 'pinterest') {
+							if (userdb.socialmedia.pinterest === '') return msg.reply(lang.setsocialmedia_notsetup);
+							userdb.socialmedia.pinterest = '';
+							client.userdb.set(msg.author.id, userdb);
+
+							return msg.reply(lang.setsocialmedia_deletepinterest);
+						} else if (margs[2].toLowerCase() === 'reddit') {
+							if (userdb.socialmedia.reddit === '') return msg.reply(lang.setsocialmedia_notsetup);
+							userdb.socialmedia.reddit = '';
+							client.userdb.set(msg.author.id, userdb);
+
+							return msg.reply(lang.setsocialmedia_deletereddit);
 						}
 					}
 				}
@@ -73,7 +117,7 @@ exports.run = (client, msg, args, lang) => {
 			} else if (margs[1].toLowerCase() === 'list') {
 				const embed = new Discord.RichEmbed()
 					.setTimestamp()
-					.setColor(' ');
+					.setColor('BLUE');
 
 				/* eslint guard-for-in: 0 */
 				for (const key in userdb.socialmedia) {

@@ -40,7 +40,7 @@ exports.run = (client, role) => {
 	if (!messagechannel) return;
 
 	const embed = new Discord.RichEmbed()
-		.setColor('#FE2E2E')
+		.setColor('RED')
 		.setTimestamp()
 		.setAuthor(lang.roledeleteevent_deleted)
 		.addField(`📎 ${lang.rolecreateevent_id}:`, role.id)

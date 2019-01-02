@@ -34,7 +34,7 @@ exports.run = (client, oldRole, newRole) => {
 
 	if (oldRole.name !== newRole.name) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.roleupdateevent_nameupdated)
 			.addField(`📎 ${lang.rolecreateevent_id}:`, oldRole.id)
@@ -44,7 +44,7 @@ exports.run = (client, oldRole, newRole) => {
 	}
 	if (oldRole.hexColor !== newRole.hexColor) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.roleupdateevent_rolecolorupdated)
 			.addField(`⚙ ${lang.rolecreateevent_rolename}:`, oldRole.name)
@@ -55,7 +55,7 @@ exports.run = (client, oldRole, newRole) => {
 	}
 	if (oldRole.position !== newRole.position) {
 		const embed = new Discord.RichEmbed()
-			.setColor('#FE2E2E')
+			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.roleupdateevent_positionupdated)
 			.addField(`⚙ ${lang.rolecreateevent_rolename}:`, oldRole.name)

@@ -35,7 +35,7 @@ exports.run = (client, channel) => {
 	if (!messagechannel) return;
 
 	const embed = new Discord.RichEmbed()
-		.setColor('#FE2E2E')
+		.setColor('GREEN')
 		.setTimestamp()
 		.setAuthor(lang.channelcreateevent_channelcreated)
 		.addField(`📎 ${lang.channelcreateevent_channelid}:`, channel.id)

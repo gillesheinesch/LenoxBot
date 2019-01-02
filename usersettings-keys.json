@@ -65,7 +65,11 @@
         "instagram": "",
         "twitter": "",
         "youtube": "",
-        "twitch": ""
+        "twitch": "",
+        "facebook": "",
+        "github": "",
+        "pinterest": "",
+        "reddit": ""
     },
     "badges": [],
     "lenoxbotranks": {
@@ -74,7 +78,6 @@
         "moderator": false,
         "test-moderator": false,
         "documentation-proofreader": false,
-        "documentation-moderator": false,
         "designer": false,
         "translation-leader": false,
         "translation-proofreader": false,
@@ -96,5 +99,7 @@
         "deadline": ""
     },
     "jobstatus": false,
-    "creditsmessage": false
+    "creditsmessage": false,
+    "firstBuy": false,
+    "firstSell": false
 }

@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
-exports.run = (client, msg, args, lang) => {
+const keygenerator = require('../../utils/keygenerator.js');
+exports.run = async (client, msg, args, lang) => {
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const botconfs = client.botconfs.get('botconfs');
 
@@ -12,10 +13,26 @@ exports.run = (client, msg, args, lang) => {
 
 	const input = args.slice();
 
+	let key = '';
+	for (let i = 0; i < 1000; i++) {
+		key = keygenerator.generateKey();
+
+		if (!botconfs.ticketids.includes(key)) {
+			break;
+		}
+
+		if (i === 999) {
+			key = undefined;
+		}
+	}
+	if (key !== undefined) {
+		await botconfs.ticketids.push(key);
+	}
+
 	const confs = {
 		guildid: msg.guild.id,
 		authorid: msg.author.id,
-		ticketid: botconfs.ticketid + 1,
+		ticketid: key,
 		date: msg.createdTimestamp,
 		users: [],
 		status: 'open',
@@ -23,17 +40,14 @@ exports.run = (client, msg, args, lang) => {
 		answers: {}
 	};
 
-	botconfs.ticketid += 1;
-	botconfs.tickets[botconfs.ticketid] = confs;
+	botconfs.tickets[key] = confs;
 
-	client.botconfs.set('botconfs', botconfs);
-
-	const ticket = botconfs.tickets[botconfs.ticketid];
+	const ticket = botconfs.tickets[key];
 
 	if (tableload.tickets.status === true) {
 		const ticketembed = lang.mainfile_ticketembed.replace('%ticketid', ticket.ticketid);
 		const embed = new Discord.RichEmbed()
-			.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${ticket.ticketid}/overview`)
+			.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${key}/overview`)
 			.setTimestamp()
 			.setColor('#66ff33')
 			.setTitle(lang.mainfile_ticketembedtitle)
@@ -46,7 +60,9 @@ exports.run = (client, msg, args, lang) => {
 		}
 	}
 
-	const created = lang.ticket_created.replace('%link', `https://lenoxbot.com/tickets/${botconfs.ticketid}/overview`);
+	client.botconfs.set('botconfs', botconfs);
+
+	const created = lang.ticket_created.replace('%link', `https://lenoxbot.com/tickets/${key}/overview`);
 	return msg.reply(created);
 };
 

@@ -1,5 +1,5 @@
 const Discord = require('discord.js');
-exports.run = (client, member) => {
+exports.run = async (client, member) => {
 	const tableload = client.guildconfs.get(member.guild.id);
 	const botconfs = client.botconfs.get('botconfs');
 	if (!tableload) return;
@@ -38,7 +38,7 @@ exports.run = (client, member) => {
 		if ((muteOfThisUser.muteEndDate - Date.now()) > 0) {
 			if (member.guild.roles.get(muteOfThisUser.roleid)) {
 				const mutedRole = member.guild.roles.get(muteOfThisUser.roleid);
-				member.addRole(mutedRole);
+				await member.addRole(mutedRole);
 			}
 		} else {
 			delete botconfs.mutes[muteOfThisUser.mutescount];
@@ -46,28 +46,71 @@ exports.run = (client, member) => {
 		}
 	}
 
+	// Joinroles that a guildMember will get when it joins the discord server
+	const rolesGiven = [];
+	const rolesNotGiven = [];
+	if (tableload.joinroles && tableload.joinroles.length !== 0) {
+		for (let i = 0; i < tableload.joinroles.length; i++) {
+			if (!member.guild.roles.get(tableload.joinroles[i])) {
+				const indexOfTheRole = tableload.joinroles.indexOf(tableload.joinroles[i]);
+				tableload.joinroles.splice(indexOfTheRole, 1);
+				client.guildconfs.set(member.guild.id, tableload);
+			}
+
+			if (tableload.joinroles.length !== 0) {
+				const roleToAssign = member.guild.roles.get(tableload.joinroles[i]);
+				try {
+					await member.addRole(roleToAssign);
+					rolesGiven.push(roleToAssign.name);
+				} catch (error) {
+					rolesNotGiven.push(roleToAssign.name);
+				}
+			}
+		}
+		if (rolesNotGiven.length !== 0) {
+			const joinrolesnotgiven = lang.guildmemberaddevent_joinrolesnotgiven.replace('%roles', rolesNotGiven.join(', '));
+			member.send(joinrolesnotgiven);
+		}
+	}
+
+	// Logs:
 	if (tableload.welcomelog === 'true') {
 		const messagechannel = client.channels.get(tableload.welcomelogchannel);
 		const embed = new Discord.RichEmbed()
 			.setFooter(lang.guildmemberaddevent_userjoined)
 			.setTimestamp()
-			.setColor(0x00AE86)
+			.setColor('GREEN')
 			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
 		messagechannel.send({
 			embed: embed
 		});
 	}
 
+	let embed = false;
 	if (tableload.welcome === 'true') {
 		if (tableload.welcomemsg.length < 1) return;
-		const message = tableload.welcomemsg;
 		const messagechannel = client.channels.get(tableload.welcomechannel);
-		const newMessage = message.replace('$username$', member.user.username)
+		if (tableload.welcomemsg.toLowerCase().includes('$embed$')) {
+			embed = true;
+		}
+		const newMessage = tableload.welcomemsg.replace('$username$', member.user.username)
 			.replace('$usermention$', member.user)
 			.replace('$usertag$', member.user.tag)
 			.replace('$userid$', member.user.id)
 			.replace('$guildname$', member.guild.name)
-			.replace('$guildid$', member.guild.id);
-		messagechannel.send(newMessage);
+			.replace('$guildid$', member.guild.id)
+			.replace('$embed$', '');
+
+		if (embed) {
+			const welcomeEmbed = new Discord.RichEmbed()
+				.setTimestamp()
+				.setDescription(newMessage)
+				.setColor('GREEN');
+			messagechannel.send({
+				embed: welcomeEmbed
+			});
+		} else {
+			messagechannel.send(newMessage);
+		}
 	}
 };

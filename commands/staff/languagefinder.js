@@ -4,18 +4,18 @@ exports.run = (client, msg, args, lang) => {
 	if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 	const content = args.slice().join(' ');
-	if (!content || isNaN(content)) return msg.reply(lang.prefixfinder_noguildid);
+	if (!content || isNaN(content)) return msg.reply(lang.languagefinder_noguildid);
 
 	const tableload = client.guildconfs.get(content);
-	if (!tableload) return msg.channel.send(lang.prefixfinder_nofetch);
+	if (!tableload) return msg.channel.send(lang.languagefinder_nofetch);
 
 	const guildload = client.guilds.get(content);
-	const requestedby = lang.prefixfinder_requestedby.replace('%authortag', msg.author.tag);
+	const requestedby = lang.languagefinder_requestedby.replace('%authortag', msg.author.tag);
 	const embed = new Discord.RichEmbed()
 		.setColor('ORANGE')
 		.setThumbnail(guildload.iconURL)
-		.addField(lang.prefixfinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
-		.addField(lang.prefixfinder_embedfield2, tableload.prefix)
+		.addField(lang.languagefinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
+		.addField(lang.languagefinder_embedfield2, tableload.language.toUpperCase())
 		.setFooter(requestedby)
 		.setAuthor(`${guildload.name} (${guildload.id})`);
 
@@ -32,10 +32,10 @@ exports.conf = {
 	dashboardsettings: true
 };
 exports.help = {
-	name: 'prefixfinder',
-	description: 'Allows the staff of the bot to find out the prefix of a Discord server',
-	usage: 'prefixfinder {guildid}',
-	example: ['prefixfinder 352896116812939264'],
+	name: 'languagefinder',
+	description: 'Allows the staffs of the bot to find out the language of a Discord server',
+	usage: 'languagefinder {guildid}',
+	example: ['languagefinder 352896116812939264'],
 	category: 'staff',
 	botpermissions: ['SEND_MESSAGES']
 };

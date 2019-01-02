@@ -64,13 +64,12 @@ exports.run = (client, msg, args, lang) => {
 		} else {
 			userdb.inventory[validationfor10procent[result]] += 1;
 		}
-		client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 		const embed = new Discord.RichEmbed()
 			.setColor('#66ff33')
 			.setDescription(`🎉 ${lootmessage}`);
-		return msg.channel.send({
+		msg.channel.send({
 			embed
 		});
 	} else if (d < 0.05) {
@@ -89,14 +88,13 @@ exports.run = (client, msg, args, lang) => {
 		} else {
 			userdb.inventory[validationfor30procent[result]] += 1;
 		}
-		client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 
 		const embed = new Discord.RichEmbed()
 			.setColor('#66ff33')
 			.setDescription(`🎉 ${lootmessage}`);
-		return msg.channel.send({
+		msg.channel.send({
 			embed
 		});
 	} else if (d < 0.2) {
@@ -115,43 +113,42 @@ exports.run = (client, msg, args, lang) => {
 		} else {
 			userdb.inventory[validationfor50procent[result]] += 1;
 		}
-		client.userdb.set(msg.author.id, userdb);
 
 		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
 
 		const embed = new Discord.RichEmbed()
 			.setColor('#66ff33')
 			.setDescription(`🎉 ${lootmessage}`);
-		return msg.channel.send({
+		msg.channel.send({
+			embed
+		});
+	} else {
+		const result = Math.floor(Math.random() * validationforrest.length);
+
+		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
+			if (!row) {
+				sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
+			}
+			sql.run(`UPDATE medals SET medals = ${row.medals + creditsloot} WHERE userId = ${msg.author.id}`);
+		});
+
+
+		if (userdb.premium.status === true) {
+			userdb.inventory[validationforrest[result]] += 2;
+		} else {
+			userdb.inventory[validationforrest[result]] += 1;
+		}
+
+		const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
+
+		const embed = new Discord.RichEmbed()
+			.setColor('#66ff33')
+			.setDescription(`🎉 ${lootmessage}`);
+		msg.channel.send({
 			embed
 		});
 	}
-	const result = Math.floor(Math.random() * validationforrest.length);
-
-	sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
-		if (!row) {
-			sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [msg.author.id, 0]);
-		}
-		sql.run(`UPDATE medals SET medals = ${row.medals + creditsloot} WHERE userId = ${msg.author.id}`);
-	});
-
-
-	if (userdb.premium.status === true) {
-		userdb.inventory[validationforrest[result]] += 2;
-	} else {
-		userdb.inventory[validationforrest[result]] += 1;
-	}
 	client.userdb.set(msg.author.id, userdb);
-
-
-	const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][1]})`).replace('%howmany', userdb.premium.status === false ? '1' : '2');
-
-	const embed = new Discord.RichEmbed()
-		.setColor('#66ff33')
-		.setDescription(`🎉 ${lootmessage}`);
-	return msg.channel.send({
-		embed
-	});
 };
 
 exports.conf = {

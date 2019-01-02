@@ -79,11 +79,13 @@ exports.run = async (client, msg) => {
 			if (!userdb[key]) {
 				userdb[key] = usersettingskeys[key];
 			}
-		}
 
-		for (const key in usersettingskeys.inventory) {
-			if (!userdb.inventory[key]) {
-				userdb.inventory[key] = usersettingskeys.inventory[key];
+			if (typeof usersettingskeys[key] === 'object') {
+				for (const key2 in usersettingskeys[key]) {
+					if (!userdb[key][key2]) {
+						userdb[key][key2] = usersettingskeys[key][key2];
+					}
+				}
 			}
 		}
 
@@ -91,7 +93,6 @@ exports.run = async (client, msg) => {
 	} else {
 		client.userdb.set(msg.author.id, usersettingskeys);
 	}
-
 
 	const tableload = client.guildconfs.get(msg.guild.id);
 	const userdb = client.userdb.get(msg.author.id);
@@ -110,7 +111,6 @@ exports.run = async (client, msg) => {
 		moderator: ['👮', 8],
 		'test-moderator': ['👮', 8],
 		'documentation-proofreader': ['👁', 7],
-		'documentation-moderator': ['📝', 7],
 		designer: ['📸', 7],
 		'translation-leader': ['🗣', 7],
 		'translation-proofreader': ['👁', 6],
@@ -149,9 +149,13 @@ exports.run = async (client, msg) => {
 		client.botconfs.set('botconfs', botconfs);
 	}
 
-	if (!botconfs.tickets || !botconfs.ticketid) {
-		botconfs.ticketid = 0;
+	if (!botconfs.tickets) {
 		botconfs.tickets = {};
+		client.botconfs.set('botconfs', botconfs);
+	}
+
+	if (!botconfs.ticketids) {
+		botconfs.ticketids = [];
 		client.botconfs.set('botconfs', botconfs);
 	}
 
@@ -434,6 +438,34 @@ exports.run = async (client, msg) => {
 						}
 					});
 					sql.run(`UPDATE scores SET points = ${row.points + 1} WHERE guildId = ${msg.guild.id} AND userId = ${msg.author.id}`);
+
+					const badgesScores = [1000, 10000, 100000, 1000000, 10000000];
+					const badgesScoresStatus = [false, false, false, false, false];
+					for (let index = 0; index < userdb.badges.length; index++) {
+						for (let i = 0; i < badgesScores.length; i++) {
+							if (userdb.badges[index].name.toLowerCase() === `${badgesScores[i]}xp`) {
+								badgesScoresStatus[i] = true;
+							}
+						}
+					}
+
+					for (let i = 0; i < badgesScores.length; i++) {
+						if (row.points >= badgesScores[i] && !badgesScoresStatus[i]) {
+							const badgeSettings = {
+								name: `${badgesScores[i]}xp`,
+								rarity: 1,
+								staff: false,
+								date: Date.now(),
+								emoji: '📈'
+							};
+							userdb.badges.push(badgeSettings);
+							if (tableload.xpmessages === 'true') {
+								const earnednewbadge = lang.messageevent_earnednewbadge.replace('%badgename', badgeSettings.name);
+								msg.author.send(earnednewbadge);
+							}
+						}
+					}
+					client.userdb.set(msg.author.id, userdb);
 				} else {
 					sql.run('INSERT INTO scores (guildId, userId, points, level) VALUES (?, ?, ?, ?)', [msg.guild.id, msg.author.id, 1, 0]);
 				}
@@ -506,7 +538,7 @@ exports.run = async (client, msg) => {
 			const botconfig = client.botconfs.get('botconfs');
 			const activityembed = new Discord.RichEmbed()
 				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
-				.addField('Command', `${tableload.prefix}${command} ${args.join(' ')}`)
+				.addField('Command', `${tableload.prefix}${command} ${args.join(' ').substring(0, 980)}`)
 				.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 				.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
 				.setColor('#ff99ff')
@@ -614,6 +646,7 @@ exports.run = async (client, msg) => {
 			}
 
 			if (botCommandExists) {
+				if (cmd.help.name === 'loot' || cmd.help.name === 'shop') return msg.reply('This command is currently deactivated! You can find more information here: https://status.lenoxbot.com/')
 				cmd.run(client, msg, args, lang);
 			} else if (customcommand.embed === 'false') {
 				msg.channel.send(customcommand.commandanswer);
@@ -646,7 +679,7 @@ exports.run = async (client, msg) => {
 									.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 									.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 									.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
-									.setColor('#FF0000')
+									.setColor('RED')
 									.setAuthor(chatfilterembed);
 
 								try {
@@ -679,7 +712,7 @@ exports.run = async (client, msg) => {
 								.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 								.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 								.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
-								.setColor('#FF0000')
+								.setColor('RED')
 								.setAuthor(chatfilterembed);
 
 							try {

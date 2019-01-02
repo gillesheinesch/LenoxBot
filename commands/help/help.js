@@ -11,6 +11,7 @@ exports.run = (client, msg, args, lang) => {
 			.addField(lang.help_helpcommand, `${prefix}help {${lang.help_command}}`)
 			.addField(lang.botinfo_website, 'https://lenoxbot.com/')
 			.addField(lang.help_translation, 'https://crowdin.com/project/lenoxbot')
+			.addField(lang.help_status, 'https://status.lenoxbot.com/')
 			.setColor('#ff3300')
 			.setAuthor(client.user.username, client.user.displayAvatarURL);
 

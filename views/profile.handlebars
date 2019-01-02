@@ -38,7 +38,7 @@
                                     height="120" width="120">
                                 {{/if}}
                             </figure>
-                            <h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small> {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-primary mdi mdi-security-account"></small>{{/if}}</h1>
+                            {{#if ispremium}}<h1 class="mt-5 lb-profile-premiumuser">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small>{{else}}<h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small>{{/if}} {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-primary mdi mdi-security-account"></small>{{/if}} {{#if ispremium}}<small data-toggle="tooltip" data-placement="right" title="Premium User" class="mdi mdi-heart lb-profile-premiumuser"></small>{{/if}}</h1>
                             <p class="h4 font-weight-light text-center">{{userDescription}}</p>
                         </div>
                     </div>
@@ -121,6 +121,22 @@
                                     {{#if userSocialmediaInstagram}}
                                     <a href="https://www.instagram.com/{{userSocialmediaInstagram}}" class="lb-profile-social lb-profile-social-instagram"><i
                                             class="mdi mdi-instagram"></i></a>
+                                    {{/if}}
+                                    {{#if userSocialmediaFacebook}}
+                                    <a href="https://www.facebook.com/{{userSocialmediaFacebook}}" class="lb-profile-social lb-profile-social-facebook"><i
+                                            class="mdi mdi-facebook-box"></i></a>
+                                    {{/if}}
+                                    {{#if userSocialmediaGithub}}
+                                    <a href="https://www.github.com/{{userSocialmediaGithub}}" class="lb-profile-social lb-profile-social-github"><i
+                                            class="mdi mdi-github-circle"></i></a>
+                                    {{/if}}
+                                    {{#if userSocialmediaPinterest}}
+                                    <a href="https://www.pinterest.com/{{userSocialmediaPinterest}}" class="lb-profile-social lb-profile-social-pinterest"><i
+                                            class="mdi mdi-pinterest-box"></i></a>
+                                    {{/if}}
+                                    {{#if userSocialmediaReddit}}
+                                    <a href="https://www.reddit.com/user/{{userSocialmediaReddit}}" class="lb-profile-social lb-profile-social-reddit"><i
+                                            class="mdi mdi-reddit"></i></a>
                                     {{/if}}
                                     {{else}}
                                     <p>No social media accounts linked to this account 😢</p>

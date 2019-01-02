@@ -17,7 +17,7 @@ exports.run = async (client, msg, args, lang) => {
 	}
 
 	const jobslist = [
-		['farmer', 120, Math.floor(Math.random() * 200) + 100, 'tractor', 'https://imgur.com/1PVI8hM.png'],
+		['farmer', 240, Math.floor(Math.random() * 400) + 100, 'tractor', 'https://imgur.com/1PVI8hM.png'],
 		['technician', 90, Math.floor(Math.random() * 150) + 75, 'hammer', 'https://imgur.com/yQmaFIe.png'],
 		['trainer', 90, Math.floor(Math.random() * 150) + 75, 'football', 'https://imgur.com/bRqzmKw.png'],
 		['applespicker', 1, Math.floor(Math.random() * 10) + 3, 'undefined', 'https://imgur.com/qv4iev8.png'],
@@ -96,8 +96,6 @@ exports.run = async (client, msg, args, lang) => {
 		discordServerID: msg.guild.id,
 		channelID: msg.channel.id
 	};
-	client.botconfs.set('botconfs', botconfs);
-	client.userdb.set(msg.author.id, userdb);
 
 	const activityEmbed = new Discord.RichEmbed()
 		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
@@ -114,12 +112,13 @@ exports.run = async (client, msg, args, lang) => {
 		});
 	}
 
+	client.botconfs.set('botconfs', botconfs);
+	client.userdb.set(msg.author.id, userdb);
+
 	setTimeout(() => {
 		userdb.jobstatus = false;
-		client.userdb.set(msg.author.id, userdb);
 
 		delete botconfs.jobreminder[msg.author.id];
-		client.botconfs.set('botconfs', botconfs);
 
 		sql.get(`SELECT * FROM medals WHERE userId ="${msg.author.id}"`).then(row => {
 			if (!row) {
@@ -145,6 +144,9 @@ exports.run = async (client, msg, args, lang) => {
 				embed: activityEmbed2
 			});
 		}
+
+		client.userdb.set(msg.author.id, userdb);
+		client.botconfs.set('botconfs', botconfs);
 	}, ms(`${jobtime}m`));
 };
 

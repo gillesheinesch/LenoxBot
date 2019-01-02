@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="HandheldFriendly" content="true">
-    <meta name="description" content="LenoxBot is a discord bot that offers many cool new features to your Discord Server!">
+    <meta name="description" content="LenoxBot is a Discord bot that offers many cool new features to your Discord server! Ticket system, Music, moderation and much more... ">
     <meta name="keywords" content="lenoxbot, discord bot, discord, bot, lenoxbot discord bot, lenoxbot discord, lenoxbot support, lenoxbot documentation, lenoxbot support, bot discord, discord, discord rank, discord ranks, dsicord leaderboard, discord leaderboards, rank, ranks, leaderboard, leaderboards">
     <meta name="robots" content="INDEX, FOLLOW">
     <meta name="revisit-after" content="7 days">
@@ -94,156 +94,161 @@
 </head>
 
 <body class="lb-body-bg">
-  <div id="page">
-	    <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGWQZKZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
+    <div id="page">
+        <!-- Google Tag Manager (noscript) -->
+        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-MGWQZKZ" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+        <!-- End Google Tag Manager (noscript) -->
 
-    <!-- Header -->
-    <header class="navbar navbar-expand-lg navbar-dark lb-navbar">
-        <a class="navbar-brand lb-navbar-text text-uppercase" href="https://lenoxbot.com">LenoxBot</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+        <!-- Header -->
+        <header class="navbar navbar-expand-lg navbar-dark lb-navbar">
+            <a class="navbar-brand lb-navbar-text text-uppercase" href="https://lenoxbot.com">LenoxBot</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a id="home" href="/home" class="nav-link">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a id="commands" href="/commands" class="nav-link">Commands</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/documentation" target="blanc" class="nav-link">Documentation</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/blog" target="blanc" class="nav-link">Blog</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/discord" target="blanc" class="nav-link">Support</a>
-                </li>
-                <li class="nav-item">
-                    <a href="https://discordbots.org/bot/lenoxbot/vote" target="blanc" class="nav-link">Vote</a>
-                </li>
-                <li class="nav-item">
-                    <a id="leaderboard" href="/leaderboards" class="nav-link lb-white-glow">Leaderboards</a>
-                </li>
-                <li class="nav-item">
-                    <a href="/donate" class="btn lb-btn-donate ml-lg-4 mb-2 mb-lg-auto">
-                        <div id="donate"><i class="mdi mdi-heart"></i> Donate</div>
-                    </a>
-                </li>
-            </ul>
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    {{#if user}}
-                    <div class="btn-group">
-                        <a class="btn lb-btn-profile dropdown-toggle" style="max-height: 40px;" data-toggle="dropdown"
-                            aria-haspopup="true" aria-expanded="false">
-                            {{#if user.avatar}}
-                            <img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
-                            {{else}}
-                            <img class="rounded-circle lb-img-profile" src="/discordicon.png">
-                            {{/if}}
-                            {{user.username}}
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a id="home" href="/home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="commands" href="/commands" class="nav-link">Commands</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/documentation" target="blanc" class="nav-link">Documentation</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/blog" target="blanc" class="nav-link">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/discord" target="blanc" class="nav-link">Support</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="https://discordbots.org/bot/lenoxbot/vote" target="blanc" class="nav-link">Vote</a>
+                    </li>
+                    <li class="nav-item">
+                        <a id="leaderboard" href="/leaderboards" class="nav-link lb-white-glow">Leaderboards</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/donate" class="btn lb-btn-donate ml-lg-4 mb-2 mb-lg-auto">
+                            <div id="donate"><i class="mdi mdi-heart"></i> Donate</div>
                         </a>
-                        <div class="dropdown-menu dropdown-menu-right" style="max-width: 320px;">
-                            <a class="dropdown-item lb-dropdown-item" href="/profile/{{user.id}}"> <i class="mdi mdi-account"></i>
-                                My Profile</a>
-                            <a class="dropdown-item lb-dropdown-item" href="/servers"> <i class="mdi mdi-account-group"></i>
-                                My servers</a>
-                            <div class="dropdown-divider"></div>
-                            {{#if islenoxbot}}
-                            <small class=" text-muted pl-4">Dashboards:</small>
-                            {{#each islenoxbot}}
-                            <a class="dropdown-item lb-dropdown-item lb-textcap" href="/dashboard/{{id}}/overview">{{name}}</a>
-                            {{/each}}
-                            <div class="dropdown-divider"></div>
-                            {{/if}}
-                            <a class="dropdown-item lb-dropdown-item-logout" href="/logout"><i class="mdi mdi-logout"></i>
-                                Log
-                                out</a>
-                        </div>
-                    </div>
-                    {{ else }}
-                    <a href="/loginpressedbutton" class="btn lb-btn-login">Login</a>
-                    {{/if}}
-                </li>
-            </ul>
-        </div>
-        </nav>
-    </header>
-    <!-- /Header -->
-
-    {{{ body }}}
-
-    <!-- Crowdin Webkit div -->
-    <div id="crowdjet-container" data-project-id="303975" style="bottom: 90px; right: 20px;">
-    </div>
-    <div id="crowdjet-expand-container" style="bottom: 10px; right: 20px;">
-    </div>
-    <!-- /Crowdin Webkit div -->
-
-    <!-- Footer -->
-    <footer class="lb-footer">
-        <div class="container">
-            <div class="row d-flex justify-content-center">
-                <div class="col-12 col-sm-6 col-md-3 mt-4">
-                    <h5>Product</h5>
-                    <ul>
-                        <li><a href="#" id="features" class="lb-footer-link">Features</a></li>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
                         {{#if user}}
-                        <li><a href="/servers" class="lb-footer-link">My servers</a></li>
+                        <div class="btn-group">
+                            <a class="btn lb-btn-profile dropdown-toggle" style="max-height: 40px;" data-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                {{#if user.avatar}}
+                                <img class="rounded-circle lb-img-profile" src="https://cdn.discordapp.com/avatars/{{user.id}}/{{user.avatar}}.jpg">
+                                {{else}}
+                                <img class="rounded-circle lb-img-profile" src="/discordicon.png">
+                                {{/if}}
+                                {{user.username}}
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" style="max-width: 320px;">
+                                <a class="dropdown-item lb-dropdown-item" href="/profile/{{user.id}}"> <i class="mdi mdi-account"></i>
+                                    My Profile</a>
+                                <a class="dropdown-item lb-dropdown-item" href="/servers"> <i class="mdi mdi-account-group"></i>
+                                    My servers</a>
+                                <div class="dropdown-divider"></div>
+                                {{#if islenoxbot}}
+                                <small class=" text-muted pl-4">Dashboards:</small>
+                                {{#each islenoxbot}}
+                                <a class="dropdown-item lb-dropdown-item lb-textcap" href="/dashboard/{{id}}/overview">{{name}}</a>
+                                {{/each}}
+                                <div class="dropdown-divider"></div>
+                                {{/if}}
+                                <a class="dropdown-item lb-dropdown-item-logout" href="/logout"><i class="mdi mdi-logout"></i>
+                                    Log
+                                    out</a>
+                            </div>
+                        </div>
                         {{ else }}
-                        <li><a href="/loginpressedbutton" class="lb-footer-link">Login</a></li>
+                        <a href="/loginpressedbutton" class="btn lb-btn-login">Login</a>
                         {{/if}}
-                        <li><a href="/invite" class="lb-footer-link" target="_blanc">Invite me to your server</a></li>
-                        <li><a href="/donate" class="lb-footer-link" target="_blanc">Donate</a></li>
-                    </ul>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 mt-4">
-                    <h5>Resources</h5>
-                    <ul>
-                        <li><a href="/discord" class="lb-footer-link" target="_blanc">Help and Support</a></li>
-                        <li><a href="/discord" class="lb-footer-link" target="_blanc">Feedback</a></li>
-                        <li><a href="/ban" class="lb-footer-link" target="_blanc">Write a ban appeal</a></li>
-                        <li><a href="/policy" class="lb-footer-link" target="_blanc">Policy</a></li>
-                        <li><a href="/dataprotection" class="lb-footer-link" target="_blanc">Data protection</a></li>
-                    </ul>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 mt-4">
-                    <h5>Developers</h5>
-                    <ul>
-                        <li><a href="https://github.com/LenoxBot/LenoxBot/tree/master" class="lb-footer-link" target="_blanc">Source
-                                Code</a></li>
-                        <li><a href="/documentation" class="lb-footer-link" target="_blanc">Documentation</a></li>
-                        <li><a href="/team" class="lb-footer-link">LenoxBot Team</a></li>
-                    </ul>
-                </div>
-                <div class="col-12 col-sm-6 col-md-3 mt-4">
-                    <h5>Social</h5>
-                    <ul>
-                        <li><a href="https://www.facebook.com/lenoxbotdiscord" class="lb-footer-link" target="_blanc"><i
-                                    class="mdi mdi-facebook"></i> Facebook</a></li>
-                        <li><a href="https://twitter.com/lenoxbot" class="lb-footer-link" target="_blanc"><i class="mdi mdi-twitter"></i>
-                                Twitter</a></li>
-                    </ul>
-                </div>
+                    </li>
+                </ul>
             </div>
-            <div class="row">
-                <div class="col d-flex justify-content-between mb-2 mt-5">
-                    <small>© 2018 <a class="lb-footer-link" href="https://www.lenoxbot.com">LenoxBot</a>, all rights
-                        reserved</small>
-                    <small>Made with <i class="mdi mdi-heart lb-text-red"></i> by <a href="/team" class="lb-footer-link">LenoxBot
-                            Team</a></small>
-                </div>
-            </div>
+            </nav>
+        </header>
+        <!-- /Header -->
+
+        {{{ body }}}
+
+        <!-- Crowdin Webkit div -->
+        <div id="crowdjet-container" data-project-id="303975" style="bottom: 90px; right: 20px;">
         </div>
-    </footer>
-    <!-- /Footer -->
-	<script src="/js/global.js"></script>
-  </div>
+        <div id="crowdjet-expand-container" style="bottom: 10px; right: 20px;">
+        </div>
+        <!-- /Crowdin Webkit div -->
+
+        <!-- Footer -->
+        <footer class="lb-footer">
+            <div class="container">
+                <div class="row d-flex justify-content-center">
+                    <div class="col-12 col-sm-6 col-md-3 mt-4">
+                        <h5>Product</h5>
+                        <ul>
+                            <li><a href="#" id="features" class="lb-footer-link">Features</a></li>
+                            {{#if user}}
+                            <li><a href="/servers" class="lb-footer-link">My servers</a></li>
+                            {{ else }}
+                            <li><a href="/loginpressedbutton" class="lb-footer-link">Login</a></li>
+                            {{/if}}
+                            <li><a href="/invite" class="lb-footer-link" target="_blanc">Invite me to your server</a></li>
+                            <li><a href="https://status.lenoxbot.com" class="lb-footer-link" target="_blanc">Status</a></li>
+                            <li><a href="/donate" class="lb-footer-link" target="_blanc">Donate</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 mt-4">
+                        <h5>Resources</h5>
+                        <ul>
+                            <li><a href="/discord" class="lb-footer-link" target="_blanc">Help and Support</a></li>
+                            <li><a href="/discord" class="lb-footer-link" target="_blanc">Feedback</a></li>
+                            <li><a href="/ban" class="lb-footer-link" target="_blanc">Write a ban appeal</a></li>
+                            <li><a href="https://crowdin.com/project/lenoxbot" class="lb-footer-link" target="_blanc">Help to translate LenoxBot</a></li>
+                            <li><a href="/policy" class="lb-footer-link" target="_blanc">Policy</a></li>
+                            <li><a href="/dataprotection" class="lb-footer-link" target="_blanc">Data protection</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 mt-4">
+                        <h5>Developers</h5>
+                        <ul>
+                            <li><a href="https://github.com/LenoxBot/LenoxBot/tree/master" class="lb-footer-link"
+                                    target="_blanc">Source
+                                    Code</a></li>
+                            <li><a href="/documentation" class="lb-footer-link" target="_blanc">Documentation</a></li>
+                            <li><a href="/team" class="lb-footer-link">LenoxBot Team</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-12 col-sm-6 col-md-3 mt-4">
+                        <h5>Social</h5>
+                        <ul>
+                            <li><a href="https://twitter.com/lenoxbot" class="lb-footer-link" target="_blanc"><i class="mdi mdi-twitter"></i>
+                                    Twitter</a></li>
+                            <li><a href="https://www.facebook.com/lenoxbotdiscord" class="lb-footer-link" target="_blanc"><i
+                                        class="mdi mdi-facebook"></i> Facebook</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col d-flex justify-content-between mb-2 mt-5">
+                        <small>© 2018 <a class="lb-footer-link" href="https://www.lenoxbot.com">LenoxBot</a>, all
+                            rights
+                            reserved</small>
+                        <small>Made with <i class="mdi mdi-heart lb-text-red"></i> by <a href="/team" class="lb-footer-link">LenoxBot
+                                Team</a></small>
+                    </div>
+                </div>
+            </div>
+        </footer>
+        <!-- /Footer -->
+        <script src="/js/global.js"></script>
+    </div>
 </body>
+
 </html>
