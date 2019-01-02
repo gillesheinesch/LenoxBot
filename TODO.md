@@ -9,7 +9,7 @@
 - [X] Add all commands of the **moderation** module
 - [X] Add all commands of the **music** module
 - [X] Add all commands of the **nsfw** module
-- [ ] Add all commands of the **partner** module
+- [X] Add all commands of the **partner** module
 - [ ] Add all commands of the **searches** module
 - [ ] Add all commands of the **staff** module
 - [ ] Add all commands of the **tickets** module
