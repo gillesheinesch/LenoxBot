@@ -11,7 +11,7 @@
 - [X] Add all commands of the **nsfw** module
 - [X] Add all commands of the **partner** module
 - [ ] Add all commands of the **searches** module
-- [ ] Add all commands of the **staff** module
+- [X] Add all commands of the **staff** module
 - [X] Add all commands of the **tickets** module
 - [X] Add all commands of the **utility** module
 - [X] Add all events
