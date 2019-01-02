@@ -10,7 +10,7 @@
     "joinrole_nojoinroles": "There are no roles on this Discord server which new members will get when they join!",
     "joinrole_embedtitle": "All joinroles:",
     "joinrole_invalidvalidation": "You used the command incorrectly. Please use **%prefixhelp joinrole** to read the correct usage of the command!",
-    "joinrole_description": "Roles that new guildmembers will get when they join the Discord server",
+    "joinrole_description": "Roles that new guildmembers will get when they join this Discord server",
 
     "hangman_wordtoguess1": "people",
     "hangman_wordtoguess2": "history",
@@ -121,7 +121,7 @@
     "hangman_description": "Play hangman alone or with your Discord friends",
 
     "giveitem_nomention": "You forgot to mention an user!",
-    "giveitem_nodb": "We couldn't find the database of this user. He has to write a message on this Discord server, so we can create a database for the user!",
+    "giveitem_nodb": "We couldn't find this user in the database. He has to write a message on this Discord server, so we can create a database for the user!",
     "giveitem_noamount": "You forgot to enter an amount!",
     "giveitem_nonumber": "Your amount isn't a number!",
     "giveitem_noitem": "We're sorry, we couldn't find such an item. Please check if you entered the correct name or emoji of the item!",
@@ -398,7 +398,7 @@
     "playlist_alreadyexists": "This playlist already exists. Please create a playlist with a name that does not exist yet!",
     "playlist_addnewsong": "Which song should be added to your playlist (%playlistname)?",
     "playlist_finish": "The playlist has been saved!",
-    "playlist_newsongaddedtoplaylist": "A new song (%songname) has been added to your new playlist. Enter a new name for a song you'd like to add to your playlist! \nShould your playlist be complete, please enter 'finish'",
+    "playlist_newsongaddedtoplaylist": "A new song (%songname) has been added to your new playlist. Enter another name for a song you'd like to add to your playlist! \nIf you have finished your playlist, please answer with \"**finish**\"",
     "playlist_noplaylistaddedyet": "So far no playlist has been added! Create a new one with the following command: %prefixplaylist new",
     "playlist_playlistnotexist": "The specified playlist does not exist!",
     "playlist_embedtitle": "All songs in this playlist:",
@@ -706,7 +706,7 @@
     "toggleapplication_error": "The application system is currently disabled for this server",
     "toggleapplication_activated": "The application system was successfully activated!",
     "toggleapplication_disabled": "The application system was successfully deactivated!",
-    "toggleapplication_description": "Toggles the applications on or off",
+    "toggleapplication_description": "Toggles the applications",
 
     "bitcoin_descriptionembed": "Bitcoin Value ($): **%value** \nBitcoin Percentage of changes in the last day: **%percentage** %",
     "bitcoin_authorembed": "Bitcoin information",
@@ -790,7 +790,7 @@
 
     "deleteevents_noactiveevents": "There are no active events!",
     "deleteevents_eventsdisabled": "All **active** events are now disabled!",
-    "deleteevents_description": "Deletes all active events on this server",
+    "deleteevents_description": "Deletes all active events on this Discord server",
 
     "events_commandinfo": "You can get a list of all available events with %prefixlistevents",
     "events_events": "All active/disabled events!",
@@ -873,7 +873,7 @@
 
     "muterole_noinput": "You forgot to insert the name of the role.",
     "muterole_rolenotexist": "This role does not exist at all!",
-    "muterole_mutedroleset": "The mute role was set.",
+    "muterole_mutedroleset": "The mute role was set!",
     "muterole_description": "Defines a mute role which muted users will get",
 
     "prefix_currentprefix": "The prefix of this server is %prefix",
