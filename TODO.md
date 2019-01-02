@@ -7,7 +7,7 @@
 - [X] Add all commands of the **fun** module
 - [X] Add all commands of the **help** module
 - [X] Add all commands of the **moderation** module
-- [ ] Add all commands of the **music** module
+- [X] Add all commands of the **music** module
 - [ ] Add all commands of the **nsfw** module
 - [ ] Add all commands of the **partner** module
 - [ ] Add all commands of the **searches** module
