@@ -44,7 +44,7 @@ module.exports = class givecreditsCommand extends LenoxCommand {
 			.setTimestamp()
 			.setColor('GREEN');
 
-		await msg.client.channels.get('497395598182318100').send({
+		await msg.client.channels.get('530079522532622396').send({
 			embed
 		});
 

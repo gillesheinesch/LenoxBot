@@ -29,6 +29,7 @@
 - [ ] Check when you add a new key to the usersettingskeys, if it will be added in the DB
 - [ ] Check when you add a new key to the guildsettingskeys, if it will be added in the DB
 - [ ] Check when you add a new key to the botsettingskeys, if it will be added in the DB
+- [ ] Add command or add a new key to the settings.json for the moderator-log channel (on discord)
 
 **After recode:**
 - [ ] Check the **administration** module
