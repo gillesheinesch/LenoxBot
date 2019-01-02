@@ -6,7 +6,7 @@ exports.run = (client, oldChannel, newChannel) => {
 	if (!client.provider.get(oldChannel.guild.id, 'prefix')) return;
 	if (client.provider.get(oldChannel.guild.id, 'channelupdatelog') === 'false') return;
 
-	const langSet = client.provider.get(oldChannel.guild.id, 'language')
+	const langSet = client.provider.get(oldChannel.guild.id, 'language');
 	const lang = require(`../languages/${langSet}.json`);
 
 	if (!client.channels.get(client.provider.get(oldChannel.guild.id, 'channelupdatelogchannel'))) return;
