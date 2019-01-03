@@ -1,6 +1,6 @@
 **TODO for the LenoxBot Recode:**
 - [X] Add all commands of the **administration** module
-- [ ] Add all commands of the **application** module
+- [X] Add all commands of the **application** module
 - [ ] Add all commands of the **botowner** module
 - [X] Add all commands of the **currency** module
 - [X] Add all commands of the **customcommands** module
