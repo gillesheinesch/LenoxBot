@@ -10,12 +10,12 @@ if (cluster.isMaster) {
 			token: settings.token
 		});
 
-	shardingManager.spawn(shardingManager.totalShards, 500).then(shards => {
+
+	shardingManager.spawn(shardingManager.totalShards, 500).then(() => {
 		console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
-	})
-		.catch(error => {
-			console.log(error);
-		});
+	}).catch(error => {
+		console.log(error);
+	});
 
 	for (let i = 0; i < numCPUs; i++); {
 		cluster.fork();
