@@ -10,7 +10,7 @@
 - [X] Add all commands of the **music** module
 - [X] Add all commands of the **nsfw** module
 - [X] Add all commands of the **partner** module
-- [ ] Add all commands of the **searches** module
+- [X] Add all commands of the **searches** module
 - [X] Add all commands of the **staff** module
 - [X] Add all commands of the **tickets** module
 - [X] Add all commands of the **utility** module
@@ -30,6 +30,8 @@
 - [ ] Check when you add a new key to the guildsettingskeys, if it will be added in the DB
 - [ ] Check when you add a new key to the botsettingskeys, if it will be added in the DB
 - [ ] Add command or add a new key to the settings.json for the moderator-log channel (on discord)
+- [ ] remove api key from ?fortnite, ?gif
+- [ ] Add client.newsapi
 
 **After recode:**
 - [ ] Check the **administration** module
