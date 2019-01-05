@@ -24,9 +24,9 @@ module.exports = class templesearchCommand extends LenoxCommand {
 		const random = Math.random();
 
 		if (msg.client.provider.getUser(msg.author.id, 'inventory').flashlight === 0) {
-			/* const timestamps = client.cooldowns.get('templesearch');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('templesearch', timestamps); */
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.templesearch[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(lang.templesearch_error);
 		}
 

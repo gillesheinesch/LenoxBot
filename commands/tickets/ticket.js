@@ -25,9 +25,9 @@ module.exports = class ticketCommand extends LenoxCommand {
 		const args = msg.content.split(' ').slice(1);
 
 		if (!args || args.length === 0) {
-			/* const timestamps = client.cooldowns.get('ticket');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('ticket', timestamps);*/
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.ticket[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(lang.ticket_noinput);
 		}
 

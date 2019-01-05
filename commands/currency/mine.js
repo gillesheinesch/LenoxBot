@@ -26,9 +26,9 @@ module.exports = class mineCommand extends LenoxCommand {
 		const d = Math.random();
 
 		if (msg.client.provider.getUser(msg.author.id, 'inventory').pickaxe === 0) {
-			/* const timestamps = client.cooldowns.get('mine');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('mine', timestamps); */
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.mine[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(lang.mine_nopicks);
 		}
 

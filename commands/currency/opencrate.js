@@ -41,30 +41,30 @@ module.exports = class opencrateCommand extends LenoxCommand {
 		}
 		const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix);
 		if (inventoryslotcheck >= msg.client.provider.getUser(msg.author.id, 'inventoryslots')) {
-			/* const timestamps = client.cooldowns.get('opencrate');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('opencrate', timestamps); */
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.opencrate[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(inventoryfull);
 		}
 
 		if (msg.client.provider.getUser(msg.author.id, 'inventory').cratekey === 0 && msg.client.provider.getUser(msg.author.id, 'inventory').crate === 0) {
-			/* const timestamps = client.cooldowns.get('opencrate');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('opencrate', timestamps); */
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.opencrate[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(lang.opencrate_nocrateandkey);
 		}
 
 		if (msg.client.provider.getUser(msg.author.id, 'inventory').cratekey === 0) {
-			/* const timestamps = client.cooldowns.get('opencrate');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('opencrate', timestamps); */
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.opencrate[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(lang.opencrate_nocrate);
 		}
 
 		if (msg.client.provider.getUser(msg.author.id, 'inventory').crate === 0) {
-			/* const timestamps = client.cooldowns.get('opencrate');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('opencrate', timestamps); */
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.opencrate[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(lang.opencrate_nocratekey);
 		}
 

@@ -43,9 +43,9 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 			newCurrentPremium.redeemeduserkeys.push(input.join(' '));
 			await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
 
-			/* const timestamps = client.cooldowns.get('useuserkey');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('useuserkey', timestamps); */
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.useuserkey[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 
 			const embed = new Discord.RichEmbed()
 				.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}`)

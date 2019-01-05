@@ -20,7 +20,7 @@
 - [X] Add xp of the ?creditstoxp command (done, needs to be tested!)
 - [ ] Remove untranslated strings from the ?rank command
 - [ ] Remove all duplicated keys in every array in marketitems-keys.json
-- [ ] Fix commented code (cooldowns) in ?loot, ?mine, ?opencrate, ?templesearch, ?job, ?useserverkey, ?useuserkey, ?ticket
+- [X] Fix commented code (cooldowns) in ?ticket
 - [X] ?giveitem needs to be tested after successfull setup of ?inventory
 - [ ] ?ranks answer needs to be .../server/serverid and not .../guild/serverid
 - [ ] Complete botsettings-keys.json

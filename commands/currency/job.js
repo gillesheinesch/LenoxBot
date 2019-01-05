@@ -26,9 +26,9 @@ module.exports = class jobCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (msg.client.provider.getUser(msg.author.id, 'jobstatus') === true) {
-			/* const timestamps = client.cooldowns.get('job');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('job', timestamps); */
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.job[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(lang.job_error);
 		}
 
@@ -78,9 +78,9 @@ module.exports = class jobCommand extends LenoxCommand {
 		if (jobslist[response.first().content - 1][3] !== 'undefined') {
 			const notenough = lang.job_notenough.replace('%item', `\`${jobslist[response.first().content - 1][3]}\``);
 			if (!msg.client.provider.getUser(msg.author.id, 'inventory')[jobslist[response.first().content - 1][3]] >= 1) {
-				/* const timestamps = client.cooldowns.get('job');
-				delete timestamps[msg.author.id];
-				client.cooldowns.set('job', timestamps); */
+				const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+				delete timestamps.job[msg.author.id];
+				await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 				return msg.reply(notenough);
 			}
 		}

@@ -54,14 +54,14 @@ module.exports = class lootCommand extends LenoxCommand {
 		}
 		const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix);
 		if (inventoryslotcheck >= msg.client.provider.getUser(msg.author.id, 'inventoryslots') && msg.client.provider.getUser(msg.author.id, 'premium').status === false) {
-			/* const timestamps = client.cooldowns.get('loot');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('loot', timestamps);*/
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.loot[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(inventoryfull);
 		} else if (inventoryslotcheck + 1 >= msg.client.provider.getUser(msg.author.id, 'inventoryslots') && msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
-			/* const timestamps = client.cooldowns.get('loot');
-			delete timestamps[msg.author.id];
-			client.cooldowns.set('loot', timestamps);*/
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.loot[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(inventoryfull);
 		}
 
