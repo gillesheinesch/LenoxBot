@@ -36,7 +36,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 			currentPremium.status = true;
 			currentPremium.bought.push(new Date().getTime);
 			const now = new Date().getTime();
-			currentPremium.end = new Date(now + 15552000000);
+			currentPremium.end = new Date(now + 2592000000);
 			await msg.client.provider.setUser(msg.author.id, 'premium', currentPremium);
 
 			const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
@@ -60,7 +60,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 		}
 		const currentPremium = msg.client.provider.getUser(msg.author.id, 'premium');
 		currentPremium.bought.push(new Date().getTime);
-		currentPremium.end = new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end) + 15552000000);
+		currentPremium.end = new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end) + 2592000000);
 		await msg.client.provider.setUser(msg.author.id, 'premium', currentPremium);
 
 		const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
@@ -72,14 +72,14 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 		client.cooldowns.set('useuserkey', timestamps); */
 
 		const embed = new Discord.RichEmbed()
-			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end + 15552000000)).toUTCString()}`)
+			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end + 2592000000)).toUTCString()}`)
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 			.setTimestamp()
 			.setColor('#66ff33')
 			.setTitle('Userkey used!');
 		await msg.client.channels.get(settings.keychannel).send({ embed });
 
-		const extended = lang.useuserkey_extended.replace('%date', `\`${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end) + 15552000000).toUTCString()}\``);
+		const extended = lang.useuserkey_extended.replace('%date', `\`${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end) + 2592000000).toUTCString()}\``);
 		return msg.reply(extended);
 	}
 };

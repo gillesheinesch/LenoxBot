@@ -36,7 +36,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 			currentPremium.status = true;
 			currentPremium.bought.push(new Date().getTime);
 			const now = new Date().getTime();
-			currentPremium.end = new Date(now + 7776000000);
+			currentPremium.end = new Date(now + 2592000000);
 			await msg.client.provider.setGuild(msg.message.guild.id, 'premium', currentPremium);
 
 			const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
@@ -59,7 +59,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 		}
 		const currentPremium = msg.client.provider.getGuild(msg.message.guild.id, 'premium');
 		currentPremium.bought.push(new Date().getTime);
-		currentPremium.end = new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 7776000000);
+		currentPremium.end = new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 2592000000);
 		await msg.client.provider.setGuild(msg.message.guild.id, 'premium', currentPremium);
 
 		const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
@@ -71,14 +71,14 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 		client.cooldowns.set('useserverkey', timestamps); */
 
 		const embed = new Discord.RichEmbed()
-			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 7776000000).toUTCString()}`)
+			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 2592000000).toUTCString()}`)
 			.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
 			.setTimestamp()
 			.setColor('#ff0000')
 			.setTitle('New Serverkey used!');
 		await msg.client.channels.get(settings.keychannel).send({ embed });
 
-		const extended = lang.useserverkey_extended.replace('%date', `\`${new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 7776000000).toUTCString()}\``);
+		const extended = lang.useserverkey_extended.replace('%date', `\`${new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 2592000000).toUTCString()}\``);
 		return msg.reply(extended);
 	}
 };
