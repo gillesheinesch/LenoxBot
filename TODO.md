@@ -1,7 +1,7 @@
 **TODO for the LenoxBot Recode:**
 - [X] Add all commands of the **administration** module
 - [X] Add all commands of the **application** module
-- [ ] Add all commands of the **botowner** module
+- [X] Add all commands of the **botowner** module
 - [X] Add all commands of the **currency** module
 - [X] Add all commands of the **customcommands** module
 - [X] Add all commands of the **fun** module
@@ -15,15 +15,13 @@
 - [X] Add all commands of the **tickets** module
 - [X] Add all commands of the **utility** module
 - [X] Add all events
-- [ ] Check all methods of the Database
 - [ ] Add all formats (usages) of the commands to the lenoxbot.json strings
 - [X] Add xp of the ?creditstoxp command (done, needs to be tested!)
 - [ ] Remove untranslated strings from the ?rank command
-- [ ] Remove all duplicated keys in every array in marketitems-keys.json
+- [X] Remove all duplicated keys in every array in marketitems-keys.json
 - [X] Fix commented code (cooldowns) in ?ticket
 - [X] ?giveitem needs to be tested after successfull setup of ?inventory
-- [ ] ?ranks answer needs to be .../server/serverid and not .../guild/serverid
-- [ ] Complete botsettings-keys.json
+- [X] ?ranks answer needs to be .../server/serverid and not .../guild/serverid
 - [ ] Do the setGuild() method without the get and rewriting the variable. (makes much less code) for ?deleteevents-
 - [X] Change the guildprefix on ready event (msg.guild._commandPrefix = newprefix.join(' '))
 - [ ] Check when you add a new key to the usersettingskeys, if it will be added in the DB
