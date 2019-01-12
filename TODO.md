@@ -30,7 +30,7 @@
 - [ ] Add command or add a new key to the settings.json for the moderator-log channel (on discord)
 - [ ] remove api key from ?fortnite, ?gif
 - [ ] Add client.newsapi
-- [ ] Give 5000 credits when a user uses a userkey
+- [X] Give 5000 credits when a user uses a userkey
 - [ ] Add ?startevent command
 - [ ] Change moderator check guildId and role name in all staff commands
 - [ ] Change ?givecredits cooldown to 300000

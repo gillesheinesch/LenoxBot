@@ -66,9 +66,9 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 		newCurrentPremium.redeemedguildkeys.push(input.join(' '));
 		await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
 
-		/* const timestamps = client.cooldowns.get('useserverkey');
-		delete timestamps[msg.author.id];
-		client.cooldowns.set('useserverkey', timestamps); */
+		const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+		delete timestamps.useserverkey[msg.author.id];
+		await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 
 		const embed = new Discord.RichEmbed()
 			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 2592000000).toUTCString()}`)

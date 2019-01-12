@@ -47,6 +47,10 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 			delete timestamps.useuserkey[msg.author.id];
 			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 
+			let currentCredits = msg.client.provider.getUsersettings(msg.author.id, 'credits');
+			currentCredits += 5000;
+			await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
+
 			const embed = new Discord.RichEmbed()
 				.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}`)
 				.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
@@ -67,9 +71,13 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 		newCurrentPremium.redeemeduserkeys.push(input.join(' '));
 		await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
 
-		/* const timestamps = client.cooldowns.get('useuserkey');
-		delete timestamps[msg.author.id];
-		client.cooldowns.set('useuserkey', timestamps); */
+		const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+		delete timestamps.useuserkey[msg.author.id];
+		await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+
+		let currentCredits = msg.client.provider.getUsersettings(msg.author.id, 'credits');
+		currentCredits += 5000;
+		await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
 
 		const embed = new Discord.RichEmbed()
 			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end + 2592000000)).toUTCString()}`)
