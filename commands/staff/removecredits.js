@@ -37,7 +37,7 @@ module.exports = class removecreditsCommand extends LenoxCommand {
 		currentCredits -= amountofcoins;
 		await msg.client.provider.setUser(user, 'credits', currentCredits);
 
-		const embeddescription = lang.removecredits_embeddescription.replace('%credits', amountofcoins).replace('%user', user.tag);
+		const embeddescription = lang.removecredits_embeddescription.replace('%credits', amountofcoins).replace('%user', msg.client.users.get(user) ? msg.client.users.get(user).tag : user);
 		const embed = new Discord.RichEmbed()
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 			.setDescription(embeddescription)
