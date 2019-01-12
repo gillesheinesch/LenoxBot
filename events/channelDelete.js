@@ -6,10 +6,10 @@ exports.run = (client, channel) => {
 	if (!client.provider.getGuild(channel.guild.id, 'prefix')) return;
 	if (client.provider.getGuild(channel.guild.id, 'channeldeletelog') === 'false') return;
 
-	const langSet = client.provider.get(channel.guild.id, 'language');
+	const langSet = client.provider.getGuild(channel.guild.id, 'language');
 	const lang = require(`../languages/${langSet}.json`);
 
-	const messagechannel = client.channels.get(client.provider.get(channel.guild.id, 'channeldeletelogchannel'));
+	const messagechannel = client.channels.get(client.provider.getGuild(channel.guild.id, 'channeldeletelogchannel'));
 	if (!messagechannel) return;
 
 	const embed = new Discord.RichEmbed()

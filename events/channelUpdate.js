@@ -6,12 +6,12 @@ exports.run = (client, oldChannel, newChannel) => {
 	if (!client.provider.getGuild(oldChannel.guild.id, 'prefix')) return;
 	if (client.provider.getGuild(oldChannel.guild.id, 'channelupdatelog') === 'false') return;
 
-	const langSet = client.provider.get(oldChannel.guild.id, 'language');
+	const langSet = client.provider.getGuild(oldChannel.guild.id, 'language');
 	const lang = require(`../languages/${langSet}.json`);
 
-	if (!client.channels.get(client.provider.get(oldChannel.guild.id, 'channelupdatelogchannel'))) return;
+	if (!client.channels.get(client.provider.getGuild(oldChannel.guild.id, 'channelupdatelogchannel'))) return;
 
-	const messagechannel = client.channels.get(client.provider.get(oldChannel.guild.id, 'channelupdatelogchannel'));
+	const messagechannel = client.channels.get(client.provider.getGuild(oldChannel.guild.id, 'channelupdatelogchannel'));
 	if (!messagechannel) return;
 
 	if (oldChannel.name !== newChannel.name) {
