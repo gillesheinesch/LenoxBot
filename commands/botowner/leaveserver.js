@@ -25,7 +25,7 @@ module.exports = class leaveserverCommand extends LenoxCommand {
 
 		const guildID = args.slice().join(' ');
 		if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
-		if (!guildID || isNaN(guildID)) return msg.channel.send('You must enter a guildid. For example: `352896116812939264`');
+		if (!guildID || isNaN(guildID)) return msg.channel.send('You must enter a guildid. For example: `332612123492483094`');
 
 		try {
 			await msg.client.guilds.get(args).leave();

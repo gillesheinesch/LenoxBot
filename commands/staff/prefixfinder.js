@@ -10,7 +10,7 @@ module.exports = class prefixfinderCommand extends LenoxCommand {
 			description: 'Allows the staff of the bot to find out the prefix of a Discord server',
 			format: 'prefixfinder {guildid}',
 			aliases: [],
-			examples: ['prefixfinder 352896116812939264'],
+			examples: ['prefixfinder 332612123492483094'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: [],
 			shortDescription: 'General',
@@ -23,7 +23,7 @@ module.exports = class prefixfinderCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+		const guild = msg.client.guilds.get('332612123492483094').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 		const content = args.slice().join(' ');

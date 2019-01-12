@@ -22,7 +22,7 @@ module.exports = class partnerCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (!msg.client.guilds.get('352896116812939264').members.get(msg.author.id).roles.find(r => r.name.toLowerCase() === 'partner')) return msg.reply(lang.partner_error);
+		if (!msg.client.guilds.get('332612123492483094').members.get(msg.author.id).roles.find(r => r.name.toLowerCase() === 'partner')) return msg.reply(lang.partner_error);
 
 		const validation = ['lenoxbot', 'keinemxl', 'evilturtle', 'dadi'];
 		const margs = msg.content.split(' ');

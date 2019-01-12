@@ -10,7 +10,7 @@ module.exports = class banlistaddCommand extends LenoxCommand {
 			description: 'Adds a discord server to the banlist',
 			format: 'banlistadd {guildId} {reason}',
 			aliases: [],
-			examples: ['banlistadd 352896116812939264 Crashing the bot'],
+			examples: ['banlistadd 332612123492483094 Crashing the bot'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: [],
 			shortDescription: 'Ban',
@@ -23,7 +23,7 @@ module.exports = class banlistaddCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+		const guild = msg.client.guilds.get('332612123492483094').roles.find(r => r.name.toLowerCase() === 'moderator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 		const guildId = args.slice(0, 1).join(' ');
