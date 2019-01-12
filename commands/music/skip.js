@@ -47,7 +47,7 @@ module.exports = class skipCommand extends LenoxCommand {
 		}
 
 		if (mapload.users.length === 1) {
-			const newvote = lang.skip_newvote.replace('%author', msg.author).replace('%skipnumber', msg.client.provider.getGuild(msg.message.guild.id, 'skipnumbeer'));
+			const newvote = lang.skip_newvote.replace('%author', msg.author).replace('%skipnumber', msg.client.provider.getGuild(msg.message.guild.id, 'skipnumber'));
 			msg.channel.send(newvote);
 		}
 
