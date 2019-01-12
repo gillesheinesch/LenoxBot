@@ -15,7 +15,6 @@
 - [X] Add all commands of the **tickets** module
 - [X] Add all commands of the **utility** module
 - [X] Add all events
-- [ ] Add all formats (usages) of the commands to the lenoxbot.json strings
 - [X] Add xp of the ?creditstoxp command (done, needs to be tested!)
 - [ ] Remove untranslated strings from the ?rank command
 - [X] Remove all duplicated keys in every array in marketitems-keys.json
@@ -28,8 +27,7 @@
 - [ ] Check when you add a new key to the guildsettingskeys, if it will be added in the DB
 - [ ] Check when you add a new key to the botsettingskeys, if it will be added in the DB
 - [ ] Add command or add a new key to the settings.json for the moderator-log channel (on discord)
-- [ ] remove api key from ?fortnite, ?gif
-- [ ] Add client.newsapi
+- [X] Add client.newsapi
 - [X] Give 5000 credits when a user uses a userkey
 - [ ] Add ?startevent command
 - [ ] Change moderator check guildId and role name in all staff commands

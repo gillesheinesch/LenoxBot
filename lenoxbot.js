@@ -6,6 +6,7 @@ const path = require('path');
 const chalk = require('chalk');
 const englishlang = require(`./languages/en-US.json`);
 const Discord = require('discord.js');
+const NewsAPI = require('newsapi');
 const moment = require('moment');
 require('moment-duration-format');
 
@@ -30,6 +31,7 @@ if (process.env.SHARD_COUNT) {
 
 	client.queue = new Map();
 	client.skipvote = new Map();
+	client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
 
 	fs.readdir('./events/', (err, files) => {
 		if (err) return console.error(err);
