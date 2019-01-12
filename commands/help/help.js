@@ -8,7 +8,7 @@ module.exports = class helpCommand extends LenoxCommand {
 			memberName: 'help',
 			description: 'TODO: Setdescription',
 			format: 'help {commandname}',
-			aliases: [],
+			aliases: ['h'],
 			examples: ['help botinfo', 'help'],
 			clientPermissions: ['SEND_MESSAGES'],
 			userPermissions: [],
