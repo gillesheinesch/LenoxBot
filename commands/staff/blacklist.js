@@ -23,7 +23,7 @@ module.exports = class blacklistCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
 
-		const guild = msg.client.guilds.get('332612123492483094').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+		const guild = msg.client.guilds.get('332612123492483094').roles.find(r => r.name.toLowerCase() === 'administrator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 		const blacklist = [];
