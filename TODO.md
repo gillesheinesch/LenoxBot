@@ -35,6 +35,7 @@
 - [ ] Give 5000 credits when a user uses a userkey
 - [ ] Add ?startevent command
 - [ ] Change moderator check guildId and role name in all staff commands
+- [ ] Change ?givecredits cooldown to 300000
 
 **After recode:**
 - [ ] Check the **administration** module
