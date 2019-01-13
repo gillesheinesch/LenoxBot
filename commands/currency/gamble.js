@@ -29,7 +29,7 @@ module.exports = class gambleCommand extends LenoxCommand {
 		if (!input || input.length === 0) return msg.reply(lang.gamble_noinput);
 		if (isNaN(input)) return msg.reply(lang.gamble_notnumber);
 		if (parseInt(input.join(' '), 10) < 10) return msg.reply(lang.gamble_atleast10);
-		if (parseInt(input.join(' '), 10) >= 1000000) return msg.reply(lang.gamble_gamble_max1million);
+		if (parseInt(input.join(' '), 10) > 1000000) return msg.reply(lang.gamble_gamble_max1million);
 
 		let msgauthortable = msg.client.provider.getUser(msg.author.id, 'credits');
 		if (msgauthortable < input.join(' ')) return msg.channel.send(lang.gamble_error);
