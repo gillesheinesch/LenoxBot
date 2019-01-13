@@ -26,8 +26,7 @@ module.exports = class queueclearCommand extends LenoxCommand {
 
 		if (!serverQueue || serverQueue.songs.length === 1) return msg.channel.send(lang.queueclear_queueempty);
 
-		const newArray = serverQueue.songs.slice(1, serverQueue.songs.length);
-		serverQueue.songs = newArray;
+		serverQueue.songs = [];
 		return msg.reply(lang.queueclear_done);
 	}
 };
