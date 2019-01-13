@@ -64,9 +64,7 @@ module.exports = class googleCommand extends LenoxCommand {
 
 			if (result.pagemap && result.pagemap.cse_thumbnail) embed.setThumbnail(result.pagemap.cse_thumbnail[0].src);
 
-			await msg.channel.send({ embed });
+			return msg.channel.send({ embed });
 		}
-
-		return false;
 	}
 };
