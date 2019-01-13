@@ -27,10 +27,10 @@ module.exports = class removecreditsCommand extends LenoxCommand {
 		const guild = msg.client.guilds.get('332612123492483094').roles.find(r => r.name.toLowerCase() === 'administrator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
-		const user = msg.mentions.users.first() ? msg.mentions.users.first().id : msg.mentions.users.first() || args.slice(0, 1).join(' ');
+		const user = msg.mentions.users.first() ? msg.mentions.users.first().id : args.slice(0, 1).join(' ');
 		const amountofcoins = parseInt(args.slice(1).join(' '), 10);
 
-		if (!user) return msg.reply(lang.removecredits_nomention);
+		if (!msg.client.users.get(user)) return msg.reply(lang.removecredits_nomention);
 		if (!amountofcoins) return msg.reply(lang.removecredits_novalue);
 
 		let currentCredits = msg.client.provider.getUser(user, 'credits');

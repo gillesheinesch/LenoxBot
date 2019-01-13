@@ -32,6 +32,7 @@
 - [ ] Add ?startevent command
 - [ ] Change moderator check guildId and role name in all staff commands
 - [ ] Change ?givecredits cooldown to 300000
+- [ ] Fix weather command
 
 **After recode:**
 - [ ] Check the **administration** module
