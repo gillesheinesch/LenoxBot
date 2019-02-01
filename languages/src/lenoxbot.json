@@ -60,7 +60,7 @@
     "hangman_wordtoguess46": "preparation",
     "hangman_wordtoguess47": "membership",
     "hangman_wordtoguess48": "steak",
-    "hangman_wordtoguess49": "extinguisher",
+    "hangman_wordtoguess49": "rain",
     "hangman_wordtoguess50": "engineering",
     "hangman_wordtoguess51": "way",
     "hangman_wordtoguess52": "world",
@@ -143,13 +143,13 @@
     "translate_description": "Gives you information about our translation project",
 
     "removexp_noamount": "You didn't enter an amount of XP!",
-    "removexp_amountnan": "You didn't enter a number for the amount of XP!",
+    "removexp_amountnan": "You didn't enter an amount of XP!",
     "removexp_atleast1": "Your amount of XP has to be at least 1!",
     "removexp_done": "XP has been successfully removed from the user!",
     "removexp_description": "Removes an user a specific amount of XP on this Discord server",
 
     "givexp_noamount": "You didn't enter an amount of XP!",
-    "givexp_amountnan": "You didn't enter a number for the amount of XP!",
+    "givexp_amountnan": "You didn't enter an amount of XP!",
     "givexp_atleast1": "Your amount of XP has to be at least 1!",
     "givexp_done": "XP has been successfully given to the user!",
     "givexp_description": "Gives an user a specific amount of XP on this Discord server",
@@ -672,7 +672,7 @@
 
     "botownercommands_error": "You don't have permissions to execute this command!",
 
-    "overwatchstats_missinginput": "You have to decide if you want to see the profile, quickplay, competitive stats from the Overwatch player",
+    "overwatchstats_missinginput": "You have to decide if you want to see the profile, quickplay or competitive stats of an Overwatch player",
     "overwatchstats_error": "You forgot to enter your BattleTag. Attention: the case is capitalized",
     "overwatchstats_accounterror": "Invalid BattleTag. Example: ***Test#2741***",
     "overwatchstats_incorrecttag": "Your BattleTag has more than 6 characters? There must be something wrong 🤔",
@@ -770,11 +770,11 @@
 
     "togglebye_channelset": "Your users are now said goodbye in **#%channelname**",
     "togglebye_channeldeleted": "The goodbye message is now disabled!",
-    "togglebye_description": "Disables the goodbye message",
+    "togglebye_description": "Toggles the goodbye message",
 
     "byemsg_noinput": "You must enter your goodbye message!",
     "byemsg_goodbyemsgset": "Goodbye message saved successfully!",
-    "byemsg_description": "Sets a message to say goodbye to your users",
+    "byemsg_description": "Defines a message to say goodbye to your users",
 
     "commanddeletion_deletionset": "Commands are now deleted after execution",
     "commanddeletion_nodeletionset": "Commands are no longer deleted after execution",
@@ -914,11 +914,11 @@
 
     "togglewelcome_channelset": "Your new users are now welcomed in %channelname",
     "togglewelcome_channeldeleted": "The welcome message is now disabled!",
-    "togglewelcome_description": "Toggles the welcome message in this channel",
+    "togglewelcome_description": "Toggles the welcome message",
 
     "welcomemsg_error": "You must enter your welcome message!",
     "welcomemsg_set": "Welcome message saved successfully!",
-    "welcomemsg_description": "Sets a welcome message to greet your users",
+    "welcomemsg_description": "Defines a welcome message to greet your users",
 
     "addentry_noinput": "You have to decide which new entry you want to add to the template!",
     "addentry_alreadyexists": "This entry already exists in the template",
@@ -1241,13 +1241,13 @@
     "clashroyale_clan": "Clan",
     "clashroyale_clanstats": "Name: %clanname \nRole: %clanrole",
     "clashroyale_deck": "Current deck",
-    "clashroyale_errorprofile": "Could not find the Clash Royale profile. Please make sure you have entered the ID of your profile!",
+    "clashroyale_errorprofile": "Could not find the Clash Royale profile. Please make sure you have entered the correct ID of your profile!",
     "clashroyale_clanrequest": "Clash Royale Clan Stats",
     "clashroyale_claninfo": "Description: %clandescription \nType: %type\nMembercount: %membercount \nScore: %score \nDonations: %donations",
     "clashroyale_clanchest": "Clanchest",
     "clashroyale_clanchestinfo": "Crowns: %crowns/%neededcrowns \nCrowns percent %crownspercent %",
     "clashroyale_allmembers": "All members",
-    "clashroyale_errorclan": "Could not find the Clash Royale clan. Please make sure you have the ID of your clan!",
+    "clashroyale_errorclan": "Could not find the Clash Royale clan. Please make sure you have entered the correct ID of your clan!",
     "clashroyale_error": "It looks like you were looking for something invalid. You have the choice of having statistics displayed by a Clash Royale profile or clan! For more help: %prefixhelp clashroyale",
     "clashroyale_description": "Shows you Clash Royale stats about a player or a clan",
 
@@ -1469,7 +1469,7 @@
     "channelupdateevent_newposition": "New position:",
 
     "guildmemberaddevent_userjoined": "User joined",
-    "guildmemberaddevent_joinrolesnotgiven": "Unfortunately, we weren't able to assign all joinroles because LenoxBot doesn't have the required permissions. Please contact an administrator of the Discord server. (These roles could not be assigned: %roles)",
+    "guildmemberaddevent_joinrolesnotgiven": "Unfortunately, I wasn't able to assign all joinroles because I have not the required permissions. Please contact an administrator of this Discord server. (These roles could not be assigned: %roles)",
 
     "guildmemberremoveevent_userleft": "User left",
 
@@ -1520,7 +1520,7 @@
     "messageevent_blacklistreason": "Reason:",
     "messageevent_botnopermission": "It looks like the bot hasn't enough permissions to execute this command! (Required permissions: %missingpermissions)",
     "messageevent_usernopermission": "It looks like you haven't enough permissions to execute this command! (Required permissions: %missingpermissions)",
-    "messageevent_moduledeactivated": "The module %modulename has been disabled. You can reactivate disabled modules by using %prefixactivatemodule.",
+    "messageevent_moduledeactivated": "The module **%modulename** is currently disabled. You can reactivate disabled modules by using %prefixactivatemodule.",
     "messageevent_seconds": "seconds",
     "messageevent_minutes": "minutes and",
     "messageevent_hours": "hours",
