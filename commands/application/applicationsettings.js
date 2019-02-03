@@ -18,7 +18,7 @@ module.exports = class applicationsettingsCommand extends LenoxCommand {
 		});
 	}
 
-	async run(msg) {
+	run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 

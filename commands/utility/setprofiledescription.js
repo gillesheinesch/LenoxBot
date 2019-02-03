@@ -1,7 +1,4 @@
 const LenoxCommand = require('../LenoxCommand.js');
-const Discord = require('discord.js');
-const moment = require('moment');
-require('moment-duration-format');
 
 module.exports = class setprofiledescriptionCommand extends LenoxCommand {
 	constructor(client) {

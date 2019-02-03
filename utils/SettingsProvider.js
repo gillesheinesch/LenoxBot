@@ -1,6 +1,4 @@
-const Discord = require('discord.js');
 const mongodb = require('mongodb');
-const assert = require('assert');
 const Commando = require('discord.js-commando');
 const guildsettingskeys = require('../guildsettings-keys.json');
 const usersettingskeys = require('../usersettings-keys.json');
