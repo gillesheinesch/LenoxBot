@@ -48,7 +48,6 @@ exports.run = client => {
 					/* eslint guard-for-in: 0 */
 					for (const index in client.provider.getBotsettings('botconfs', 'dailyreminder')) {
 						const timeoutTime = client.provider.getBotsettings('botconfs', 'dailyreminder')[index].remind - Date.now();
-						console.log(client.provider.getBotsettings('botconfs', 'dailyreminder')[index]);
 						timeoutForDaily(client.provider.getBotsettings('botconfs', 'dailyreminder')[index], timeoutTime);
 					}
 				}
