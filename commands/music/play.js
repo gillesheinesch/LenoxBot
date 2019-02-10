@@ -153,6 +153,10 @@ module.exports = class playCommand extends LenoxCommand {
 		if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
 			const playlist = await youtube.getPlaylist(url);
 			const videos = await playlist.getVideos();
+			const serverQueue = queue.get(msg.guild.id);
+
+			if ((Object.keys(videos).length + (serverQueue ? serverQueue.songs.length : 0)) > 8 && msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
+
 			for (const video of Object.values(videos)) {
 				const video2 = await youtube.getVideoByID(video.id);
 				await handleVideo(video2, true);
