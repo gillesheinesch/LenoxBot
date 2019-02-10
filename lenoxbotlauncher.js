@@ -25,7 +25,7 @@ if (cluster.isMaster) {
 		cluster.fork();
 	});
 } else {
-	const express = require('express');
+	/* const express = require('express');
 	const session = require('express-session');
 	const passport = require('passport');
 	const Strategy = require('passport-discord').Strategy;
@@ -4727,7 +4727,7 @@ if (cluster.isMaster) {
 
 				botconfs.tickets[req.params.ticketid].author = client.users.get(botconfs.tickets[req.params.ticketid].authorid) ? client.users.get(botconfs.tickets[req.params.ticketid].authorid).tag : botconfs.tickets[req.params.ticketid].authorid;
 
-				/* eslint guard-for-in: 0 */
+				/* eslint guard-for-in: 0 *//*
 				for (const index2 in ticket.answers) {
 					ticket.answers[index2].author = client.users.get(ticket.answers[index2].authorid) ? client.users.get(ticket.answers[index2].authorid).tag : ticket.answers[index2].authorid;
 					ticket.answers[index2].newdate = moment(ticket.answers[index2].date).format('MMMM Do YYYY, h:mm:ss a');
@@ -5704,4 +5704,5 @@ if (cluster.isMaster) {
 			}
 		}));
 	});
+	*/
 }
