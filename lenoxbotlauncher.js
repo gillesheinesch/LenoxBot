@@ -24,8 +24,20 @@ if (cluster.isMaster) {
 	cluster.on('exit', () => {
 		cluster.fork();
 	});
+
+	cluster.on('message', (worker, message, handle) => {
+		if(message.cmd) {
+			if(message.cmd == 'exec') {
+				if(message.script) {
+					shardingManager.shards.get(0).eval(script).then((result) => {
+						worker.send({cmd: 'execResult', script: script, result: result})
+					})
+				}
+			}
+		}
+	})
 } else {
-	/* const express = require('express');
+	const express = require('express');
 	const session = require('express-session');
 	const passport = require('passport');
 	const Strategy = require('passport-discord').Strategy;
@@ -100,6 +112,29 @@ if (cluster.isMaster) {
 
 	// Check all user guild where user are owner and lenoxbot is
 
+	// Script executes function on shard
+	async function exec(script) {
+		process.send({cmd: 'exec', script: script});
+
+		const callback = (message, sendHandle) => {
+			if(message.cmd) {
+				if(message.cmd == 'execResult') {
+					if(message.script) {
+						if(message.script == script) {
+							let result = message.result;
+
+							process.removeListener('message', callback);
+
+							return result;
+						}
+					}
+				}
+			}
+		}
+
+		process.on('message', callback);
+	}
+
 	function islenoxboton(req) {
 		const islenoxbot = [];
 		if (req.user) {
@@ -114,11 +149,11 @@ if (cluster.isMaster) {
 
 	// Check all user guilds where lenoxbot is
 
-	function islenoxbotonNonPermission(req) {
+	async function islenoxbotonNonPermission(req) {
 		const islenoxbotNonPerm = [];
 		if (req.user) {
 			for (let i = 0; i < req.user.guilds.length; i++) {
-				req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
+				req.user.guilds[i].lenoxbot = await exec(`client.guilds.get(req.user.guilds[i].id)`) ? true : false;
 				if (req.user.guilds[i].lenoxbot === true) {
 					islenoxbotNonPerm.push(req.user.guilds[i]);
 				}
@@ -277,7 +312,7 @@ if (cluster.isMaster) {
 	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
-			const islenoxbotnp = islenoxbotonNonPermission(req);
+			const islenoxbotnp = await islenoxbotonNonPermission(req);
 			const userData = {};
 			userData.loaded = false;
 
@@ -323,7 +358,7 @@ if (cluster.isMaster) {
 			userData.loaded = false;
 
 			const islenoxbot = islenoxboton(req);
-			const islenoxbotnp = islenoxbotonNonPermission(req);
+			const islenoxbotnp = await islenoxbotonNonPermission(req);
 
 			sql.open(`../${settings.sqlitefilename}.sqlite`);
 			const scores = await sql.all(`SELECT * FROM scores WHERE guildId = "${dashboardid}" GROUP BY userId ORDER BY points DESC`);
@@ -4727,7 +4762,7 @@ if (cluster.isMaster) {
 
 				botconfs.tickets[req.params.ticketid].author = client.users.get(botconfs.tickets[req.params.ticketid].authorid) ? client.users.get(botconfs.tickets[req.params.ticketid].authorid).tag : botconfs.tickets[req.params.ticketid].authorid;
 
-				/* eslint guard-for-in: 0 *//*
+				/* eslint guard-for-in: 0 */
 				for (const index2 in ticket.answers) {
 					ticket.answers[index2].author = client.users.get(ticket.answers[index2].authorid) ? client.users.get(ticket.answers[index2].authorid).tag : ticket.answers[index2].authorid;
 					ticket.answers[index2].newdate = moment(ticket.answers[index2].date).format('MMMM Do YYYY, h:mm:ss a');
@@ -5704,5 +5739,5 @@ if (cluster.isMaster) {
 			}
 		}));
 	});
-	*/
+	
 }
