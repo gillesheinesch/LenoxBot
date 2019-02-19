@@ -123,7 +123,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			console.warn(err);
 		}
 
-		try {
+		/*try {
 			const result = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
 			let settings = undefined;
 
@@ -141,9 +141,9 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		} catch (err) {
 			console.warn(`Error while creating document of botconfs`);
 			console.warn(err);
-		}
+		}*/
 
-		try {
+		/*try {
 			const result = await botSettingsCollection.findOne({ botconfs: 'global' });
 			let settings = undefined;
 
@@ -161,7 +161,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		} catch (err) {
 			console.warn('Error while creating botconfsglobal document');
 			console.warn(err);
-		}
+		}*/
 
 		this.isReady = true;
 
@@ -197,6 +197,58 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		// Remove all listeners from the client
 		for (const [event, listener] of this.listeners) this.client.removeListener(event, listener);
 		this.listeners.clear();
+	}
+
+	async fetchGuild(guildId, key) {
+		let settings = this.guildSettings.get(guildId);
+
+		if(!settings) {
+			const result = await guildSettingsCollection.findOne({ guildId: guildId });
+
+			if(result && result.settings) {
+				settings = result.settings;
+			}
+		}
+
+		if(key) {
+			return settings[key];
+		}
+
+		return settings;
+	}
+
+	async fetchUser(userId, key) {
+		let settings = this.userSettings.get(userId);
+
+		if(!settings) {
+			const result = await userSettingsCollection.findOne({ userId: userId });
+
+			if(result && result.settings) {
+				settings = result.settings;
+			}
+		}
+
+		if(key) {
+			return settings[key];
+		}
+
+		return settings;
+	}
+
+	async fetchBotSettings(index, key) {
+		const result = await botSettingsCollection.findOne({ botconfs: index });
+
+		let settings = undefined;
+
+		if(result && result.settings) {
+			settings = result.settings;
+		}
+
+		if(key) {
+			return settings[key];
+		}
+
+		return settings;
 	}
 
 	async setGuildComplete(guild, val) {
@@ -363,7 +415,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	getBotsettings(index, key, defVal) {
-		const settings = this.botSettings.get(index);
+		const settings = this.fetchBotSettings(index);
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
