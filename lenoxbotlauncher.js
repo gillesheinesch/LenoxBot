@@ -26,16 +26,16 @@ if (cluster.isMaster) {
 	});
 
 	cluster.on('message', (worker, message, handle) => {
-		if(message.cmd) {
-			if(message.cmd == 'exec') {
-				if(message.script) {
-					shardingManager.shards.get(0).eval(script).then((result) => {
-						worker.send({cmd: 'execResult', script: script, result: result})
-					})
+		if (message.cmd) {
+			if (message.cmd === 'exec') {
+				if (message.script) {
+					shardingManager.shards.get(0).eval(message.script).then(result => {
+						worker.send({ cmd: 'execResult', script: message.script, result: result });
+					});
 				}
 			}
 		}
-	})
+	});
 } else {
 	const express = require('express');
 	const session = require('express-session');
@@ -113,15 +113,15 @@ if (cluster.isMaster) {
 	// Check all user guild where user are owner and lenoxbot is
 
 	// Script executes function on shard
-	async function exec(script) {
-		process.send({cmd: 'exec', script: script});
+	function exec(script) {
+		process.send({ cmd: 'exec', script: script });
 
-		const callback = (message, sendHandle) => {
-			if(message.cmd) {
-				if(message.cmd == 'execResult') {
-					if(message.script) {
-						if(message.script == script) {
-							let result = message.result;
+		const callback = message => {
+			if (message.cmd) {
+				if (message.cmd === 'execResult') {
+					if (message.script) {
+						if (message.script === script) {
+							const result = message.result;
 
 							process.removeListener('message', callback);
 
@@ -130,7 +130,7 @@ if (cluster.isMaster) {
 					}
 				}
 			}
-		}
+		};
 
 		process.on('message', callback);
 	}
@@ -162,7 +162,7 @@ if (cluster.isMaster) {
 		return islenoxbotNonPerm;
 	}
 
-	app.get('/', (req, res) => {
+	app.get('/', async (req, res) => {
 		try {
 			const check = [];
 			if (req.user) {
@@ -175,12 +175,15 @@ if (cluster.isMaster) {
 
 			const islenoxbot = islenoxboton(req);
 
+			console.log(await exec(`this`));
+
 			return res.render('index', {
 				user: req.user,
 				guilds: check,
 				islenoxbot: islenoxbot,
-				client: client,
-				botstats: client.botconfs.get('botstats')
+				botguildscount: await exec(`this.provider.getBotsettings('botconfs', 'botstats').botguildscount`),
+				botmemberscount: await exec(`this.provider.getBotsettings('botconfs', 'botstats').botmemberscount`),
+				botcommands: await exec(`this.provider.getBotsettings('botconfs', 'botstats').botcommands`)
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -193,7 +196,7 @@ if (cluster.isMaster) {
 		}
 	});
 
-	app.get('/home', (req, res) => {
+	app.get('/home', async (req, res) => {
 		try {
 			const check = [];
 			if (req.user) {
@@ -210,8 +213,7 @@ if (cluster.isMaster) {
 				user: req.user,
 				guilds: check,
 				islenoxbot: islenoxbot,
-				client: client,
-				botstats: client.botconfs.get('botstats')
+				botstats: await exec(`client.provider.getBotsettings('botconfs', 'premium')`)
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -226,14 +228,13 @@ if (cluster.isMaster) {
 
 	// Temp get for test dynamic pages in static mode
 
-	app.get('/test', (req, res) => {
+	/*app.get('/test', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			return res.render('aatest', {
 				user: req.user,
 				islenoxbot: islenoxbot,
-				client: client,
-				botstats: client.botconfs.get('botstats')
+				botstats: await exec(`client.provider.getBotsettings('botconfs', 'premium')`)
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -250,13 +251,13 @@ if (cluster.isMaster) {
 
 	app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/jmZZQja'));
 
-	app.get('/status', (req, res) => res.redirect('https://lenoxbot.statuskit.com/'));
+	app.get('/status', (req, res) => res.redirect('https://status.lenoxbot.com/'));
 
 	app.get('/policy', (req, res) => {
 		try {
 			return res.render('policy', {
-				user: req.user,
-				client: client
+				user: req.user
+
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -272,8 +273,8 @@ if (cluster.isMaster) {
 	app.get('/dataprotection', (req, res) => {
 		try {
 			return res.render('dataprotection', {
-				user: req.user,
-				client: client
+				user: req.user
+
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -335,7 +336,6 @@ if (cluster.isMaster) {
 			return res.render('leaderboard', {
 				user: req.user,
 				credits: credits.slice(0, 100),
-				client: client,
 				userData: userData,
 				islenoxbot: islenoxbot,
 				islenoxbotnp: islenoxbotnp
@@ -380,7 +380,6 @@ if (cluster.isMaster) {
 			return res.render('leaderboard-guild', {
 				user: req.user,
 				scores: scores.length === 0 ? null : scores.slice(0, 100),
-				client: client,
 				guild: client.guilds.get(dashboardid) ? client.guilds.get(dashboardid) : null,
 				userData: userData,
 				islenoxbot: islenoxbot,
@@ -515,7 +514,6 @@ if (cluster.isMaster) {
 				userSocialmediaGithub: userdb.socialmedia.github === '' ? null : userdb.socialmedia.github,
 				userSocialmediaPinterest: userdb.socialmedia.pinterest === '' ? null : userdb.socialmedia.pinterest,
 				userSocialmediaReddit: userdb.socialmedia.reddit === '' ? null : userdb.socialmedia.reddit,
-				client: client,
 				isstaff: isstaff,
 				ispremium: ispremium,
 				islenoxbot: islenoxbot
@@ -555,7 +553,6 @@ if (cluster.isMaster) {
 			return res.render('team', {
 				user: req.user,
 				team: team,
-				client: client,
 				islenoxbot: islenoxbot
 			});
 		} catch (error) {
@@ -588,7 +585,6 @@ if (cluster.isMaster) {
 			return res.render('commands', {
 				user: req.user,
 				islenoxbot: islenoxbot,
-				client: client,
 				commands: newcommandlist
 			});
 		} catch (error) {
@@ -616,8 +612,7 @@ if (cluster.isMaster) {
 			return res.render('donate', {
 				user: req.user,
 				guilds: check,
-				islenoxbot: islenoxbot,
-				client: client
+				islenoxbot: islenoxbot
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -635,8 +630,7 @@ if (cluster.isMaster) {
 			const islenoxbot = islenoxboton(req);
 			return res.render('donationsuccess', {
 				user: req.user,
-				islenoxbot: islenoxbot,
-				client: client
+				islenoxbot: islenoxbot
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -665,8 +659,7 @@ if (cluster.isMaster) {
 			return res.render('index', {
 				notloggedin: true,
 				user: req.user,
-				guilds: check,
-				client: client
+				guilds: check
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -693,8 +686,7 @@ if (cluster.isMaster) {
 
 			return res.render('oauth2problem', {
 				user: req.user,
-				guilds: check,
-				client: client
+				guilds: check
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -763,8 +755,7 @@ if (cluster.isMaster) {
 				return res.render('servers', {
 					user: req.user,
 					guilds: check,
-					islenoxbot: islenoxbot,
-					client: client
+					islenoxbot: islenoxbot
 				});
 			}
 			return res.redirect('nologin');
@@ -941,7 +932,7 @@ if (cluster.isMaster) {
 
 				return res.render('ticket', {
 					user: req.user,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					ticket: ticket,
 					answers: answers,
@@ -1084,7 +1075,7 @@ if (cluster.isMaster) {
 				return res.render('dashboard', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					logs: logs
 				});
@@ -2621,7 +2612,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardadministration', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					channels: channels,
 					islenoxbot: islenoxbot,
 					roles: roles,
@@ -2881,7 +2872,7 @@ if (cluster.isMaster) {
 					muteanonymous: tableload.muteanonymous === 'true' ? true : false,
 					tempbananonymous: tableload.tempbananonymous === 'true' ? true : false,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -2974,7 +2965,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardhelp', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -3215,7 +3206,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardmusic', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					voicechannels: voicechannels,
@@ -3311,7 +3302,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardfun', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -3404,7 +3395,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardsearches', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -3497,7 +3488,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardnsfw', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -3687,7 +3678,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardutility', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -3878,7 +3869,7 @@ if (cluster.isMaster) {
 				return res.render('application', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					application: tableload.application.applications[req.params.applicationid],
 					yeslength: tableload.application.applications[req.params.applicationid].yes.length,
@@ -3958,7 +3949,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardapplications', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					applicationscheck: Object.keys(newobject).length === 0 ? false : true,
 					applications: newobject,
@@ -4474,7 +4465,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardapplication', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -4567,7 +4558,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardcurrency', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -4762,7 +4753,7 @@ if (cluster.isMaster) {
 
 				botconfs.tickets[req.params.ticketid].author = client.users.get(botconfs.tickets[req.params.ticketid].authorid) ? client.users.get(botconfs.tickets[req.params.ticketid].authorid).tag : botconfs.tickets[req.params.ticketid].authorid;
 
-				/* eslint guard-for-in: 0 */
+				/* eslint guard-for-in: 0 */ /*
 				for (const index2 in ticket.answers) {
 					ticket.answers[index2].author = client.users.get(ticket.answers[index2].authorid) ? client.users.get(ticket.answers[index2].authorid).tag : ticket.answers[index2].authorid;
 					ticket.answers[index2].newdate = moment(ticket.answers[index2].date).format('MMMM Do YYYY, h:mm:ss a');
@@ -4794,7 +4785,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardticket', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					ticket: ticket,
 					answers: answers,
@@ -4880,7 +4871,6 @@ if (cluster.isMaster) {
 				return res.render('dashboardtickets', {
 					user: req.user,
 					guilds: check,
-					client: client,
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -5269,7 +5259,6 @@ if (cluster.isMaster) {
 				return res.render('dashboardcustomcommands', {
 					user: req.user,
 					guilds: check,
-					client: client,
 					islenoxbot: islenoxbot,
 					channels: channels,
 					roles: roles,
@@ -5421,7 +5410,7 @@ if (cluster.isMaster) {
 				return res.render('dashboardmodules', {
 					user: req.user,
 					guilds: check,
-					client: client,
+
 					islenoxbot: islenoxbot,
 					channels: channels,
 					modules: modules,
@@ -5494,7 +5483,6 @@ if (cluster.isMaster) {
 				return res.render('dashboardlastlogs', {
 					user: req.user,
 					guilds: check,
-					client: client,
 					islenoxbot: islenoxbot,
 					logs: logs
 				});
@@ -5539,7 +5527,6 @@ if (cluster.isMaster) {
 			.render('error', {
 				user: req.user,
 				guilds: check,
-				client: client,
 				islenoxbot: islenoxbot,
 				statuscode: req.query.statuscode,
 				message: req.query.message,
@@ -5738,6 +5725,5 @@ if (cluster.isMaster) {
 				message: 'Page not found'
 			}
 		}));
-	});
-	
+	});*/
 }
