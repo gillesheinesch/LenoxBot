@@ -4,7 +4,7 @@ const mongodb = require('mongodb');
 const usersettingskeys = require('../usersettings-keys.json');
 const guildsettingskeys = require('../guildsettings-keys.json');
 
-async function migrate() {
+function migrate() {
 	process.stdout.write('This process may take a while, press any to start the process. Do not stop it before it finishes!');
 	process.stdin.setRawMode(true);
 
@@ -98,12 +98,12 @@ async function migrate() {
 							const result = await userSettingsCollection.findOne({ userId: row.userId });
 							let settings = undefined;
 
-							if (!result) {
+							if (result) {
+								settings = result.settings;
+							} else {
 								settings = usersettingskeys;
 
 								userSettingsCollection.insertOne({ userId: row.userId, settings: settings });
-							} else {
-								settings = result.settings;
 							}
 
 							settings.credits = row.medals;
