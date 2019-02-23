@@ -646,7 +646,7 @@ exports.run = async (client, msg) => {
 			}
 
 			if (botCommandExists) {
-				if (cmd.help.name === 'loot' || cmd.help.name === 'shop') return msg.reply('This command is currently deactivated! You can find more information here: https://status.lenoxbot.com/')
+				// if (cmd.help.name === 'loot' || cmd.help.name === 'shop') return msg.reply('This command is currently deactivated! You can find more information here: https://status.lenoxbot.com/')
 				cmd.run(client, msg, args, lang);
 			} else if (customcommand.embed === 'false') {
 				msg.channel.send(customcommand.commandanswer);
