@@ -414,9 +414,55 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		});
 	}
 
-	getBotsettings(index, key, defVal) {
+	async getBotsettings(index, key, defVal) {
 		const settings = this.fetchBotSettings(index);
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
+	}
+
+	async reloadGuild(id) {
+		try {
+			const result = await guildSettingsCollection.findOne({ guildId: id });
+			let settings = undefined;
+
+			if (!result) {
+				// Can't find DB make new one.
+				settings = guildsettingskeys;
+				guildSettingsCollection.insertOne({ guildId: id, settings: settings });
+			}
+
+			if (result && result.settings) {
+				settings = result.settings;
+			}
+
+			guildSettings.set(id, settings);
+		} catch (err) {
+			console.warn(`Error while creating document of guild ${id}`);
+			console.warn(err);
+		}
+	}
+
+	async reloadUser(id) {
+		if(client.users[id] !== undefined) {
+			try {
+				const result = await userSettingsCollection.findOne({ userId: id });
+				let settings = undefined;
+
+				if (!result) {
+					// Can't find DB make new one.
+					settings = usersettingskeys;
+					userSettingsCollection.insertOne({ userId: id, settings: settings });
+				}
+
+				if (result && result.settings) {
+					settings = result.settings;
+				}
+
+				userSettings.set(id, settings);
+			} catch (err) {
+				console.warn(`Error while creating document of user ${id}`);
+				console.warn(err);
+			}
+		}
 	}
 
 	getDatabase() {
