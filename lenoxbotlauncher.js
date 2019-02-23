@@ -176,15 +176,15 @@ if (cluster.isMaster) {
 
 			const islenoxbot = islenoxboton(req);
 
-			console.log(await exec(`this`));
+			console.log(await exec(`this.provider.fetchBotSettings('botconfs').botstats.botguildscount`), 34243243244);
 
 			return res.render('index', {
 				user: req.user,
 				guilds: check,
-				islenoxbot: islenoxbot,
-				botguildscount: await exec(`this.provider.getBotsettings('botconfs', 'botstats').botguildscount`),
-				botmemberscount: await exec(`this.provider.getBotsettings('botconfs', 'botstats').botmemberscount`),
-				botcommands: await exec(`this.provider.getBotsettings('botconfs', 'botstats').botcommands`)
+				islenoxbot: islenoxbot
+				//botguildscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botguildscount`),
+				//botmemberscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botmemberscount`),
+				//botcommands: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botcommands`)
 			});
 		} catch (error) {
 			return res.redirect(url.format({
@@ -229,7 +229,7 @@ if (cluster.isMaster) {
 
 	// Temp get for test dynamic pages in static mode
 
-	/*app.get('/test', async (req, res) => {
+	/* app.get('/test', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			return res.render('aatest', {

@@ -123,7 +123,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			console.warn(err);
 		}
 
-		/*try {
+		/* try {
 			const result = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
 			let settings = undefined;
 
@@ -143,7 +143,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			console.warn(err);
 		}*/
 
-		/*try {
+		/* try {
 			const result = await botSettingsCollection.findOne({ botconfs: 'global' });
 			let settings = undefined;
 
@@ -202,15 +202,15 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	async fetchGuild(guildId, key) {
 		let settings = this.guildSettings.get(guildId);
 
-		if(!settings) {
-			const result = await guildSettingsCollection.findOne({ guildId: guildId });
+		if (!settings) {
+			const result = await this.db.collection('guildSettings').findOne({ guildId: guildId });
 
-			if(result && result.settings) {
+			if (result && result.settings) {
 				settings = result.settings;
 			}
 		}
 
-		if(key) {
+		if (key) {
 			return settings[key];
 		}
 
@@ -220,34 +220,38 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	async fetchUser(userId, key) {
 		let settings = this.userSettings.get(userId);
 
-		if(!settings) {
-			const result = await userSettingsCollection.findOne({ userId: userId });
+		if (!settings) {
+			const result = await this.db.collection('userSettings').findOne({ userId: userId });
 
-			if(result && result.settings) {
+			if (result && result.settings) {
 				settings = result.settings;
 			}
 		}
 
-		if(key) {
+		if (key) {
 			return settings[key];
 		}
 
 		return settings;
 	}
 
-	async fetchBotSettings(index, key) {
-		const result = await botSettingsCollection.findOne({ botconfs: index });
+	async fetchBotSettings(index, key, key2) {
+		const result = await this.db.collection('botSettings').findOne({ botconfs: index });
 
 		let settings = undefined;
 
-		if(result && result.settings) {
+		if (result && result.settings) {
 			settings = result.settings;
 		}
 
-		if(key) {
+		if (key && !key2) {
 			return settings[key];
 		}
 
+		if (key2) {
+			return settings[key][key2];
+		}
+		console.log(settings)
 		return settings;
 	}
 
