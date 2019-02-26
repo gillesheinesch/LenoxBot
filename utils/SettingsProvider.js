@@ -251,7 +251,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		if (key2) {
 			return settings[key][key2];
 		}
-		console.log(settings)
+		console.log(settings);
 		return settings;
 	}
 

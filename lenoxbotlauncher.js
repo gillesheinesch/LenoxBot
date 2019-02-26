@@ -181,9 +181,9 @@ if (cluster.isMaster) {
 				user: req.user,
 				guilds: check,
 				islenoxbot: islenoxbot
-				//botguildscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botguildscount`),
-				//botmemberscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botmemberscount`),
-				//botcommands: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botcommands`)
+				// botguildscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botguildscount`),
+				// botmemberscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botmemberscount`),
+				// botcommands: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botcommands`)
 			});
 		} catch (error) {
 			return res.redirect(url.format({
