@@ -133,7 +133,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 			}
 
-/*			if (result && result.settings) {
+			/*			if (result && result.settings) {
 				settings = result.settings;
 			}
 
@@ -153,7 +153,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				botSettingsCollection.insertOne({ botconfs: 'global', settings: settings });
 			}
 
-			/*if (result && result.settings) {
+			/* if (result && result.settings) {
 				settings = result.settings;
 			}
 
@@ -251,7 +251,6 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		if (key2) {
 			return settings[key][key2];
 		}
-		console.log(settings);
 		return settings;
 	}
 
@@ -418,7 +417,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		});
 	}
 
-	async getBotsettings(index, key, defVal) {
+	getBotsettings(index, key, defVal) {
 		const settings = this.fetchBotSettings(index);
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
@@ -446,7 +445,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async reloadUser(id) {
-		if(client.users[id] !== undefined) {
+		if (client.users[id] !== undefined) {
 			try {
 				const result = await userSettingsCollection.findOne({ userId: id });
 				let settings = undefined;

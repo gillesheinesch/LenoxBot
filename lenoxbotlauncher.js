@@ -29,15 +29,15 @@ if (cluster.isMaster) {
 		if (message.cmd) {
 			if (message.cmd === 'reload') {
 				if (message.type) {
-					if(message.type === 'guild') {
-						if(message.id) {
+					if (message.type === 'guild') {
+						if (message.id) {
 							const shardId = (message.id >> 22) % shardingManager.shards.size;
 
-							shardingManager.shards.get(shardId).eval(`this.provider.reloadGuild(${message.id})`)
+							shardingManager.shards.get(shardId).eval(`this.provider.reloadGuild(${message.id})`);
 						}
-					} else if(message.type === 'user') {
-						if(message.id) {
-							shardingManager.broadcastEval(`this.provider.reloadUser(${message.id})`)
+					} else if (message.type === 'user') {
+						if (message.id) {
+							shardingManager.broadcastEval(`this.provider.reloadUser(${message.id})`);
 						}
 					}
 				}
@@ -133,7 +133,7 @@ if (cluster.isMaster) {
 	 * @argument type the type of reloadable element - "guild", "user" or "botsettings"
 	 * @argument id the id of the reloadable element, only usable on "guild" and "user"
 	 */
-	function execReload(type, id) {
+	/* function execReload(type, id) {
 		process.send({ cmd: 'reload', type: type, id: id });
 	}
 
@@ -226,7 +226,7 @@ if (cluster.isMaster) {
 				}
 			}));
 		}
-	});
+	});*/
 
 	// Temp get for test dynamic pages in static mode
 
