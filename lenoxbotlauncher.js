@@ -27,11 +27,19 @@ if (cluster.isMaster) {
 
 	cluster.on('message', (worker, message, handle) => {
 		if (message.cmd) {
-			if (message.cmd === 'exec') {
-				if (message.script) {
-					shardingManager.shards.get(0).eval(message.script).then(result => {
-						worker.send({ cmd: 'execResult', script: message.script, result: result });
-					});
+			if (message.cmd === 'reload') {
+				if (message.type) {
+					if(message.type === 'guild') {
+						if(message.id) {
+							const shardId = (message.id >> 22) % shardingManager.shards.size;
+
+							shardingManager.shards.get(shardId).eval(`this.provider.reloadGuild(${message.id})`)
+						}
+					} else if(message.type === 'user') {
+						if(message.id) {
+							shardingManager.broadcastEval(`this.provider.reloadUser(${message.id})`)
+						}
+					}
 				}
 			}
 		}
@@ -49,6 +57,13 @@ if (cluster.isMaster) {
 	const cookieParser = require('cookie-parser');
 	const bodyParser = require('body-parser');
 	const url = require('url');
+
+	const url = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT&authSource=admin`;
+	const dbClient = await mongodb.MongoClient.connect(this.url, { useNewUrlParser: true });
+	const db = this.dbClient.db('lenoxbot');
+	const guildSettingsCollection = this.db.collection('guildSettings');
+	const userSettingsCollection = this.db.collection('userSettings');
+	const botSettingsCollection = this.db.collection('botSettings');
 
 	app.use(bodyParser.json());
 	app.use(bodyParser.urlencoded({
@@ -114,26 +129,12 @@ if (cluster.isMaster) {
 	// Check all user guild where user are owner and lenoxbot is
 
 	// Script executes function on shard
-	function exec(script) {
-		process.send({ cmd: 'exec', script: script });
-
-		const callback = message => {
-			if (message.cmd) {
-				if (message.cmd === 'execResult') {
-					if (message.script) {
-						if (message.script === script) {
-							const result = message.result;
-
-							process.removeListener('message', callback);
-
-							return result;
-						}
-					}
-				}
-			}
-		};
-
-		process.on('message', callback);
+	/**Executes a reload on the shards for synchronization
+	 * @argument type the type of reloadable element - "guild", "user" or "botsettings"
+	 * @argument id the id of the reloadable element, only usable on "guild" and "user"
+	 */
+	function execReload(type, id) {
+		process.send({ cmd: 'reload', type: type, id: id });
 	}
 
 	function islenoxboton(req) {

@@ -31,7 +31,7 @@ module.exports = class createserverkeyCommand extends LenoxCommand {
 		for (let i = 0; i < 1000; i++) {
 			key = keygenerator.generateKey();
 
-			if (!msg.client.provider.getBotsettings('botconfs', 'premium').guildkeys.includes(key)) {
+			if (!(await msg.client.provider.getBotsettings('botconfs', 'premium').guildkeys.includes(key))) {
 				break;
 			}
 
