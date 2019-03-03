@@ -51,6 +51,7 @@ if (cluster.isMaster) {
 	const Strategy = require('passport-discord').Strategy;
 	const handlebars = require('express-handlebars');
 	const handlebarshelpers = require('handlebars-helpers')();
+	/*
 	const app = express();
 	const path = require('path');
 	const cookieParser = require('cookie-parser');
@@ -182,9 +183,9 @@ if (cluster.isMaster) {
 				user: req.user,
 				guilds: check,
 				islenoxbot: islenoxbot
-				//botguildscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botguildscount`),
-				//botmemberscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botmemberscount`),
-				//botcommands: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botcommands`)
+				// botguildscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botguildscount`),
+				// botmemberscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botmemberscount`),
+				// botcommands: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botcommands`)
 			});
 		} catch (error) {
 			return res.redirect(url.format({
