@@ -92,7 +92,7 @@ function migrate() {
 					process.stdout.cursorTo(0);
 					process.stdout.write('3/3 Loading sqlite db for credits and xp');
 
-					db = await sql.open(`${settingsFile.sqlitefilename}.sqlite`);
+					const db = await sql.open(`${settingsFile.sqlitefilename}.sqlite`);
 					db.get('SELECT * FROM medals').then(async row => {
 						if (row) {
 							const result = await userSettingsCollection.findOne({ userId: row.userId });
@@ -132,7 +132,7 @@ function migrate() {
 
 							process.stdout.cursorTo(0);
 							process.stdout.write('3/3 Finalizing...\n');
-							dbClient.close();
+							this.dbClient.close();
 
 							console.log('Migration done.');
 
