@@ -43,6 +43,7 @@ if (cluster.isMaster) {
 	const Strategy = require('passport-discord').Strategy;
 	const handlebars = require('express-handlebars');
 	const handlebarshelpers = require('handlebars-helpers')();
+	/*
 	const app = express();
 	const path = require('path');
 	const cookieParser = require('cookie-parser');
