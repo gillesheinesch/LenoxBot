@@ -123,7 +123,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			console.warn(err);
 		}
 
-		/* try {
+		try {
 			const result = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
 			let settings = undefined;
 
@@ -133,17 +133,17 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 			}
 
-			if (result && result.settings) {
+/*			if (result && result.settings) {
 				settings = result.settings;
 			}
 
-			botSettings.set('botconfs', settings);
+			botSettings.set('botconfs', settings);*/
 		} catch (err) {
 			console.warn(`Error while creating document of botconfs`);
 			console.warn(err);
-		}*/
+		}
 
-		/* try {
+		try {
 			const result = await botSettingsCollection.findOne({ botconfs: 'global' });
 			let settings = undefined;
 
@@ -153,15 +153,15 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				botSettingsCollection.insertOne({ botconfs: 'global', settings: settings });
 			}
 
-			if (result && result.settings) {
+			/*if (result && result.settings) {
 				settings = result.settings;
 			}
 
-			botSettings.set('global', settings);
+			botSettings.set('global', settings);*/
 		} catch (err) {
 			console.warn('Error while creating botconfsglobal document');
 			console.warn(err);
-		}*/
+		}
 
 		this.isReady = true;
 
