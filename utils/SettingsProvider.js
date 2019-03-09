@@ -444,7 +444,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async reloadUser(id) {
-		if (client.users[id] !== undefined) {
+		if (this.client.users[id] !== undefined) {
 			try {
 				const result = await this.db.collection('userSettings').findOne({ userId: id });
 				let settings = undefined;
