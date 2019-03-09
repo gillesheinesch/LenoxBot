@@ -25,7 +25,7 @@ if (cluster.isMaster) {
 		cluster.fork();
 	});
 
-	cluster.on('message', (worker, message, handle) => {
+	cluster.on('message', (worker, message) => {
 		if (message.cmd) {
 			if (message.cmd === 'reload') {
 				if (message.type) {
@@ -51,14 +51,14 @@ if (cluster.isMaster) {
 		}
 	});
 } else {
-	async function run() {
+	/* async function run() {
 		const express = require('express');
 		const session = require('express-session');
 		const passport = require('passport');
 		const Strategy = require('passport-discord').Strategy;
 		const handlebars = require('express-handlebars');
 		const handlebarshelpers = require('handlebars-helpers')();
-		
+
 		const app = express();
 		const path = require('path');
 		const cookieParser = require('cookie-parser');
@@ -135,14 +135,14 @@ if (cluster.isMaster) {
 			console.log(chalk.green('Website running on https://lenoxbot.com'));
 		});
 
-		var requestId = 0;
-		var _promiseQueue = new Map();
-		
+		let requestId = 0;
+		const _promiseQueue = new Map();
+
 		process.on('message', message => {
 			if (message.cmd) {
 				if (message.cmd === 'execResult') {
 					if (message.script) {
-						if(_promiseQueue[message.reqId] != null) {
+						if (_promiseQueue[message.reqId] != null) {
 							const mResult = message.result;
 							const resolve = _promiseQueue[message.reqId];
 
@@ -153,38 +153,38 @@ if (cluster.isMaster) {
 					}
 				}
 			}
-		})
+		});
 
 		// Check all user guild where user are owner and lenoxbot is
 
 		// Script executes function on shard
-		/**Executes a reload on the shards for synchronization
+		/** Executes a reload on the shards for synchronization
 		 * @argument type the type of reloadable element - "guild", "user" or "botsettings"
 		 * @argument id the id of the reloadable element, only usable on "guild" and "user"
 		 */
-		function execReload(type, id) {
+	/* function execReload(type, id) {
 			process.send({ cmd: 'reload', type: type, id: id });
 		}
 
 		function exec(script) {
 			const currentRequestId = requestId++;
-			
+
 			process.send({ cmd: 'exec', script: script, reqId: currentRequestId });
 
-			const promiseExec = new Promise((resolve) => {
+			const promiseExec = new Promise(resolve => {
 				_promiseQueue[currentRequestId] = resolve;
 			});
 			const promiseTimer = new Promise((resolve, reject) => {
 				setTimeout(() => {
-					reject("Promise timed out before completion @ LenoxBotLauncher/exec");
-				}, 60*1000);
+					reject('Promise timed out before completion @ LenoxBotLauncher/exec');
+				}, 60 * 1000);
 				_promiseQueue.delete(currentRequestId);
 			});
 
 			return Promise.race([promiseExec, promiseTimer]);
 		}
 
-		console.log("Testing something " + await exec(`this.status`));
+		console.log(`Testing something ${await exec(`this.status`)}`);
 
 		function islenoxboton(req) {
 			const islenoxbot = [];
@@ -226,15 +226,15 @@ if (cluster.isMaster) {
 
 				const islenoxbot = islenoxboton(req);
 
-				console.log(await exec(`this.provider.fetchBotSettings('botconfs').botstats.botguildscount`), 34243243244);
+				const botConfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
 
 				return res.render('index', {
 					user: req.user,
 					guilds: check,
-					islenoxbot: islenoxbot
-					// botguildscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botguildscount`),
-					// botmemberscount: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botmemberscount`),
-					// botcommands: await exec(`this.provider.fetchBotSettings('botconfs').botstats.botcommands`)
+					islenoxbot: islenoxbot,
+					botguildscount: botConfs.settings.botstats.botguildscount,
+					botmemberscount: botConfs.settings.botstats.botmemberscount,
+					botcommands: botConfs.settings.botstats.botcommands
 				});
 			} catch (error) {
 				return res.redirect(url.format({
@@ -260,11 +260,15 @@ if (cluster.isMaster) {
 
 				const islenoxbot = islenoxboton(req);
 
+				const botConfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+
 				return res.render('index', {
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
-					botstats: await exec(`client.provider.getBotsettings('botconfs', 'premium')`)
+					botguildscount: botConfs.settings.botstats.botguildscount,
+					botmemberscount: botConfs.settings.botstats.botmemberscount,
+					botcommands: botConfs.settings.botstats.botcommands
 				});
 			} catch (error) {
 				return res.redirect(url.format({
@@ -5776,10 +5780,11 @@ if (cluster.isMaster) {
 					message: 'Page not found'
 				}
 			}));
-		});*/
+		});*//*
 	}
 
-	run().catch((error) => {
+	run().catch(error => {
 		console.log(error);
 	});
+	*/
 }
