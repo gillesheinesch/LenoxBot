@@ -31,7 +31,6 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		const userSettingsCollection = this.db.collection('userSettings');
 		const userSettings = this.userSettings;
 		const botSettingsCollection = this.db.collection('botSettings');
-		const botSettings = this.botSettings;
 
 		await guildSettingsCollection.createIndex('guildId', { unique: true });
 		await userSettingsCollection.createIndex('userId', { unique: true });
@@ -424,20 +423,20 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 	async reloadGuild(id) {
 		try {
-			const result = await guildSettingsCollection.findOne({ guildId: id });
+			const result = await this.db.collection('guildSettings').findOne({ guildId: id });
 			let settings = undefined;
 
 			if (!result) {
 				// Can't find DB make new one.
 				settings = guildsettingskeys;
-				guildSettingsCollection.insertOne({ guildId: id, settings: settings });
+				await this.db.collection('guildSettings').insertOne({ guildId: id, settings: settings });
 			}
 
 			if (result && result.settings) {
 				settings = result.settings;
 			}
 
-			guildSettings.set(id, settings);
+			await this.db.collection('guildSettings').set(id, settings);
 		} catch (err) {
 			console.warn(`Error while creating document of guild ${id}`);
 			console.warn(err);
@@ -445,22 +444,22 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async reloadUser(id) {
-		if (client.users[id] !== undefined) {
+		if (this.client.users[id] !== undefined) {
 			try {
-				const result = await userSettingsCollection.findOne({ userId: id });
+				const result = await this.db.collection('userSettings').findOne({ userId: id });
 				let settings = undefined;
 
 				if (!result) {
 					// Can't find DB make new one.
 					settings = usersettingskeys;
-					userSettingsCollection.insertOne({ userId: id, settings: settings });
+					await this.db.collection('userSettings').insertOne({ userId: id, settings: settings });
 				}
 
 				if (result && result.settings) {
 					settings = result.settings;
 				}
 
-				userSettings.set(id, settings);
+				await this.db.collection('userSettings').set(id, settings);
 			} catch (err) {
 				console.warn(`Error while creating document of user ${id}`);
 				console.warn(err);
