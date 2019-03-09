@@ -122,7 +122,7 @@ function migrate() {
 							console.log('Migration done');
 						});
 					});*/
-					await db.all('SELECT * FROM medals', async (err, row) => {
+					await db.each('SELECT * FROM medals', async (err, row) => {
 						const result = await userSettingsCollection.findOne({ userId: row.userId });
 						let settings = undefined;
 
@@ -142,7 +142,7 @@ function migrate() {
 
 					});
 
-					await db.all('SELECT * FROM scores', async (err, row) => {
+					await db.each('SELECT * FROM scores', async (err, row) => {
 						const result = await guildSettingsCollection.findOne({ guildId: row.guildid });
 						let settings = undefined;
 
