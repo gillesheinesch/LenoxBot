@@ -100,11 +100,11 @@ function migrate() {
 					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('3/3 Loaded sqlite db for credits and xp');
-					/*.then(async rows => {
-						
+					/* .then(async rows => {
+
 
 						db.all('SELECT * FROM scores').then(async rowsScores => {
-							
+
 
 							process.stdout.clearLine();
 							process.stdout.cursorTo(0);
@@ -122,8 +122,7 @@ function migrate() {
 							console.log('Migration done');
 						});
 					});*/
-					const rows = await db.all('SELECT * FROM medals');
-					for (var row of rows) {
+					await db.all('SELECT * FROM medals', async (err, row) => {
 						const result = await userSettingsCollection.findOne({ userId: row.userId });
 						let settings = undefined;
 
@@ -135,40 +134,39 @@ function migrate() {
 							userSettingsCollection.insertOne({ userId: row.userId, settings: settings });
 						}
 
-						settings["credits"] = row.medals;
+						settings.credits = row.medals;
 						process.stdout.clearLine();
 						process.stdout.cursorTo(0);
 						process.stdout.write(`3/3 Converting credits of user ${row.userId}\n`);
 						await userSettingsCollection.updateOne({ userId: row.userId }, { $set: { settings: settings } });
-					}
 
+					});
 
-					const rowsScores = await db.all('SELECT * FROM scores');
-					for (var rowScores of rowsScores) {
-						const result = await guildSettingsCollection.findOne({ guildId: rowScores.guildid });
+					await db.all('SELECT * FROM scores', async (err, row) => {
+						const result = await guildSettingsCollection.findOne({ guildId: row.guildid });
 						let settings = undefined;
 
 						if (!result || !result.settings) {
 							settings = guildsettingskeys;
 
-							guildSettingsCollection.insertOne({ guildId: rowScores.guildid, settings: settings });
+							guildSettingsCollection.insertOne({ guildId: row.guildid, settings: settings });
 						} else {
 							settings = result.settings;
 						}
 
 						// This doesn't exist in the normal layout of the old db, so we need to create it.
-						if(!settings["scores"]) {
-							settings["scores"] = {};
+						if (!settings.scores) {
+							settings.scores = {};
 						}
-						let currentScores = settings["scores"];
-						currentScores[rowScores.userId] = {};
-						currentScores[rowScores.userId].points = rowScores.points;
-						currentScores[rowScores.userId].level = rowScores.level;
+						const currentScores = settings.scores;
+						currentScores[row.userId] = {};
+						currentScores[row.userId].points = row.points;
+						currentScores[row.userId].level = row.level;
 						process.stdout.clearLine();
 						process.stdout.cursorTo(0);
 						process.stdout.write(`3/3 Converting score of user ${row.userId}\n`);
-						await guildSettingsCollection.updateOne({ guildId: rowScores.guildid }, { $set: { settings: settings } });
-					}
+						await guildSettingsCollection.updateOne({ guildId: row.guildid }, { $set: { settings: settings } });
+					});
 				});
 			});
 		});
