@@ -83,7 +83,7 @@ function migrate() {
 					}
 
 					settings = {};
-					
+
 					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('2/3 Converting userdb...');
@@ -97,6 +97,9 @@ function migrate() {
 					process.stdout.write('3/3 Loading sqlite db for credits and xp');
 
 					const db = await sql.open(`${settingsFile.sqlitefilename}.sqlite`);
+					process.stdout.clearLine();
+					process.stdout.cursorTo(0);
+					process.stdout.write('3/3 Loaded sqlite db for credits and xp');
 					/*.then(async rows => {
 						
 
@@ -112,8 +115,8 @@ function migrate() {
 
 							process.exit(0);
 						}).catch(error => {
-							console.log("There is no table such as scores. Migration of credits will be cancelled. Finishing up...");
-							console.log("Error: ");
+							console.log('There is no table such as scores. Migration of credits will be cancelled. Finishing up...');
+							console.log('Error: ');
 							console.log(error);
 							this.dbClient.close();
 							console.log('Migration done');
