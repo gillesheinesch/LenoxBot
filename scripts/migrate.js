@@ -83,7 +83,7 @@ function migrate() {
 					}
 
 					settings = {};
-					
+
 					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('2/3 Converting userdb...');
@@ -97,6 +97,11 @@ function migrate() {
 					process.stdout.write('3/3 Loading sqlite db for credits and xp');
 
 					const db = await sql.open(`${settingsFile.sqlitefilename}.sqlite`);
+
+					process.stdout.clearLine();
+					process.stdout.cursorTo(0);
+					process.stdout.write('3/3 Loaded sqlite db for credits and xp');
+
 					db.all('SELECT * FROM medals').then(async rows => {
 						for (var row of rows) {
 							const result = await userSettingsCollection.findOne({ userId: row.userId });
@@ -110,7 +115,7 @@ function migrate() {
 								userSettingsCollection.insertOne({ userId: row.userId, settings: settings });
 							}
 
-							settings["credits"] = row.medals;
+							settings.credits = row.medals;
 							process.stdout.clearLine();
 							process.stdout.cursorTo(0);
 							process.stdout.write(`3/3 Converting credits of user ${row.userId}\n`);
@@ -118,7 +123,7 @@ function migrate() {
 						}
 
 						db.all('SELECT * FROM scores').then(async rowsScores => {
-							for (var rowScores of rowsScores) {
+							for (let rowScores of rowsScores) {
 								const result = await guildSettingsCollection.findOne({ guildId: rowScores.guildid });
 								let settings = undefined;
 
@@ -131,10 +136,10 @@ function migrate() {
 								}
 
 								// This doesn't exist in the normal layout of the old db, so we need to create it.
-								if(!settings["scores"]) {
-									settings["scores"] = {};
+								if (!settings.scores) {
+									settings.scores = {};
 								}
-								let currentScores = settings["scores"];
+								const currentScores = settings.scores;
 								currentScores[rowScores.userId] = {};
 								currentScores[rowScores.userId].points = rowScores.points;
 								currentScores[rowScores.userId].level = rowScores.level;
@@ -153,8 +158,8 @@ function migrate() {
 
 							process.exit(0);
 						}).catch(error => {
-							console.log("There is no table such as scores. Migration of credits will be cancelled. Finishing up...");
-							console.log("Error: ");
+							console.log('There is no table such as scores. Migration of credits will be cancelled. Finishing up...');
+							console.log('Error: ');
 							console.log(error);
 							this.dbClient.close();
 							console.log('Migration done');
