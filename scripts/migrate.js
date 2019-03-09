@@ -26,6 +26,7 @@ function migrate() {
 		});
 
 		botconfs.defer.then(() => {
+			process.stdout.clearLine();
 			process.stdout.cursorTo(0);
 			process.stdout.write('1/3 Loading db userdb...');
 			const userdb = new Enmap({
@@ -33,6 +34,7 @@ function migrate() {
 				fetchAll: true
 			});
 			userdb.defer.then(() => {
+				process.stdout.clearLine();
 				process.stdout.cursorTo(0);
 				process.stdout.write('1/3 Loading db guildsettings...');
 				const guildconfs = new Enmap({
@@ -59,6 +61,7 @@ function migrate() {
 					await userSettingsCollection.createIndex('userId', { unique: true });
 					await botSettingsCollection.createIndex('botconfs', { unique: true });
 
+					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('2/3 Converting botconfs...');
 
@@ -71,34 +74,35 @@ function migrate() {
 
 					settings = {};
 
+					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('2/3 Converting guildSettings...');
 
 					for (var [key, value] of guildconfs) {
-						settings[key] = value;
+						guildSettingsCollection.insertOne({ guildId: key, settings: value });
 					}
-					guildSettingsCollection.insertOne({ guildId: key, settings: value });
 
 					settings = {};
-
+					
+					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('2/3 Converting userdb...');
 
 					for (var [key, value] of userdb) {
-						settings[key] = value;
+						userSettingsCollection.insertOne({ userId: key, settings: value });
 					}
-					userSettingsCollection.insertOne({ userId: key, settings: value });
 
+					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('3/3 Loading sqlite db for credits and xp');
 
 					const db = await sql.open(`${settingsFile.sqlitefilename}.sqlite`);
-					db.get('SELECT * FROM medals').then(async row => {
-						if (row) {
+					db.all('SELECT * FROM medals').then(async rows => {
+						for (var row of rows) {
 							const result = await userSettingsCollection.findOne({ userId: row.userId });
 							let settings = undefined;
 
-							if (result) {
+							if (result && result.settings) {
 								settings = result.settings;
 							} else {
 								settings = usersettingskeys;
@@ -106,30 +110,41 @@ function migrate() {
 								userSettingsCollection.insertOne({ userId: row.userId, settings: settings });
 							}
 
-							settings.credits = row.medals;
+							settings["credits"] = row.medals;
+							process.stdout.clearLine();
+							process.stdout.cursorTo(0);
+							process.stdout.write(`3/3 Converting credits of user ${row.userId}\n`);
 							userSettingsCollection.updateOne({ userId: row.userId }, { $set: { settings: settings } });
 						}
 
-						db.get('SELECT * FROM scores').then(async row => {
-							if (row) {
-								const result = await guildSettingsCollection.findOne({ guildId: row.guildId });
+						db.all('SELECT * FROM scores').then(async rowsScores => {
+							for (var rowScores of rowsScores) {
+								const result = await guildSettingsCollection.findOne({ guildId: rowScores.guildid });
 								let settings = undefined;
 
-								if (!result) {
+								if (!result || !result.settings) {
 									settings = guildsettingskeys;
 
-									guildSettingsCollection.insertOne({ guildId: row.guildId, settings: settings });
+									guildSettingsCollection.insertOne({ guildId: rowScores.guildid, settings: settings });
 								} else {
 									settings = result.settings;
 								}
 
-								const currentScores = settings.scores;
-								currentScores[row.userId] = {};
-								currentScores[row.userId].points = row.points;
-								currentScores[row.userId].level = row.level;
-								guildSettingsCollection.updateOne({ guildId: row.guildId }, { $set: { settings: settings } });
+								// This doesn't exist in the normal layout of the old db, so we need to create it.
+								if(!settings["scores"]) {
+									settings["scores"] = {};
+								}
+								let currentScores = settings["scores"];
+								currentScores[rowScores.userId] = {};
+								currentScores[rowScores.userId].points = rowScores.points;
+								currentScores[rowScores.userId].level = rowScores.level;
+								process.stdout.clearLine();
+								process.stdout.cursorTo(0);
+								process.stdout.write(`3/3 Converting score of user ${row.userId}\n`);
+								guildSettingsCollection.updateOne({ guildId: rowScores.guildid }, { $set: { settings: settings } });
 							}
 
+							process.stdout.clearLine();
 							process.stdout.cursorTo(0);
 							process.stdout.write('3/3 Finalizing...\n');
 							this.dbClient.close();
@@ -137,6 +152,12 @@ function migrate() {
 							console.log('Migration done.');
 
 							process.exit(0);
+						}).catch(error => {
+							console.log("There is no table such as scores. Migration of credits will be cancelled. Finishing up...");
+							console.log("Error: ");
+							console.log(error);
+							this.dbClient.close();
+							console.log('Migration done');
 						});
 					});
 				});
