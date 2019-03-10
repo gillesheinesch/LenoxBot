@@ -7,6 +7,7 @@ exports.run = (client, oldGuild, newGuild) => {
 	if (client.provider.getGuild(newGuild.id, 'guildupdatelog') === 'false') return;
 
 	const messagechannel = client.channels.get(client.provider.getGuild(newGuild.id, 'guildupdatelogchannel'));
+	if (!messagechannel) return;
 
 	if (oldGuild.name !== newGuild.name) {
 		const embed = new Discord.RichEmbed()
