@@ -6,9 +6,6 @@ exports.run = async (client, msg) => {
 	if (msg.author.bot) return;
 	if (msg.channel.type !== 'text') return msg.reply(englishLang.messageevent_error);
 
-	const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
-	const lang = require(`../languages/${langSet}.json`);
-
 	if (client.provider.getGuild(msg.guild.id, 'language')) { // Everything can be requested here
 		for (const key in guildsettingskeys) {
 			if (!client.provider.getGuild(msg.guild.id, key)) {
@@ -84,6 +81,9 @@ exports.run = async (client, msg) => {
 	} else {
 		await msg.client.provider.setUserComplete(msg.author.id, usersettingskeys);
 	}
+
+	const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
+	const lang = require(`../languages/${langSet}.json`);
 
 	if (msg.client.provider.getGuild(msg.guild.id, 'modules').utility === 'true') {
 		if (!msg.client.provider.getGuild(msg.guild.id, 'togglexp').channelids.includes(msg.channel.id)) {
