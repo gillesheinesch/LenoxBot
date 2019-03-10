@@ -12,6 +12,7 @@ guildSettingsCollection = db.get_collection(name="guildSettings")
 conn = sqlite3.connect('lenoxbotscore.sqlite')
 c = conn.cursor()
 c.execute("SELECT * FROM medals")
+count = 0
 for row in c:
     settings = {}
     doc = userSettingsCollection.find_one({"userId": row[0]})
@@ -25,7 +26,9 @@ for row in c:
         settings = doc["settings"]
     settings["credits"] = row[1]
     userSettingsCollection.update_one({"userId": row[0]}, {"$set": {"settings": settings}})
-
+    count = count + 1
+print("Inserted %d documents" % count)
+count = 0
 c.execute("SELECT * FROM scores")
 for row in c:
     settings = {}
@@ -38,10 +41,12 @@ for row in c:
         guildSettingsCollection.insert_one(doc)
     else:
         settings = doc["settings"]
-    if not hasattr(settings, "scores"):
+    if not "scores" in settings:
         settings["scores"] = {}
     settings["scores"][row[1]] = {}
     settings["scores"][row[1]]["points"] = row[2]
     settings["scores"][row[1]]["level"] = row[3]
     guildSettingsCollection.update_one({"guildId": row[0]}, {"$set": {"settings": settings}})
+    count = count + 1
+print("Inserted %d documents" % count)
 exit()
