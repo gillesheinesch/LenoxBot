@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/693843fef1e5475498fb45d5205fb5d3)](https://app.codacy.com/app/Monkeyyy11/LenoxBot?utm_source=github.com&utm_medium=referral&utm_content=LenoxBot/LenoxBot&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.com/LenoxBot/LenoxBot.svg?branch=testing)](https://travis-ci.com/LenoxBot/LenoxBot)
 [![Discord](https://discordapp.com/api/guilds/352896116812939264/widget.png)](https://lenoxbot.com/discord)
 [![Discord Bots](https://discordbots.org/api/widget/status/354712333853130752.svg)](https://discordbots.org/bot/354712333853130752)
