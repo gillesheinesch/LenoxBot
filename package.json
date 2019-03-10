@@ -29,7 +29,7 @@
     "fortnite": "^3.0.0",
     "fs": "^0.0.1-security",
     "fs-nextra": "^0.4.3",
-    "got": "^7.1.0",
+    "got": "^9.6.0",
     "handlebars-helpers": "^0.10.0",
     "http": "^0.0.0",
     "lint": "^1.1.2",
