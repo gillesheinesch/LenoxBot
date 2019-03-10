@@ -41,6 +41,7 @@ function migrate() {
 					name: 'guildsettings',
 					fetchAll: true
 				});
+				
 
 				guildconfs.defer.then(async () => {
 					const settingsFile = require('../settings.json');
@@ -70,7 +71,7 @@ function migrate() {
 					for (var [key, value] of botconfs) {
 						settings[key] = value;
 					}
-					botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
+					await botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 
 					settings = {};
 
@@ -79,7 +80,7 @@ function migrate() {
 					process.stdout.write('2/3 Converting guildSettings...');
 
 					for (var [key, value] of guildconfs) {
-						guildSettingsCollection.insertOne({ guildId: key, settings: value });
+						await guildSettingsCollection.insertOne({ guildId: key, settings: value });
 					}
 
 					settings = {};
@@ -89,7 +90,7 @@ function migrate() {
 					process.stdout.write('2/3 Converting userdb...');
 
 					for (var [key, value] of userdb) {
-						userSettingsCollection.insertOne({ userId: key, settings: value });
+						await userSettingsCollection.insertOne({ userId: key, settings: value });
 					}
 
 					process.stdout.clearLine();
