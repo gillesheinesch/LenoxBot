@@ -19,7 +19,7 @@
     "concat-stream": "^1.6.0",
     "cookie-parser": "^1.4.3",
     "create-file": "^1.0.1",
-    "dblapi.js": "^1.1.0",
+    "dblapi.js": "^2.3.0",
     "destiny2": "^1.1.1",
     "discord.js": "^11.4.2",
     "enmap": "^4.8.1",
