@@ -16,7 +16,7 @@
     "chalk": "^2.4.1",
     "child_process": "^1.0.2",
     "clashroyale": "^1.0.0",
-    "concat-stream": "^1.6.0",
+    "concat-stream": "^2.0.0",
     "cookie-parser": "^1.4.3",
     "create-file": "^1.0.1",
     "dblapi.js": "^1.1.0",
