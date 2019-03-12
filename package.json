@@ -34,7 +34,7 @@
     "http": "^0.0.0",
     "lint": "^1.1.2",
     "math-expression-evaluator": "^1.2.17",
-    "mocha": "^5.2.0",
+    "mocha": "^6.0.2",
     "moment": "^2.22.2",
     "moment-duration-format": "^2.2.2",
     "ms": "^2.0.0",
