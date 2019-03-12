@@ -54,7 +54,7 @@
     "request-promise": "^4.2.2",
     "simple-youtube-api": "^5.0.1",
     "snekfetch": "^4.0.4",
-    "sqlite": "^2.8.0",
+    "sqlite": "^3.0.2",
     "steamrep": "^1.0.1",
     "stringstream": "^1.0.0",
     "url": "^0.11.0",
