@@ -63,7 +63,7 @@ function migrate() {
 				await userSettingsCollection.updateOne({ userId: row.userId }, { $set: { settings: settings } });
 			});
 
-			await db.each('SELECT * FROM scores', async (err, row) => {
+			/*await db.each('SELECT * FROM scores', async (err, row) => {
 				const result = await guildSettingsCollection.findOne({ guildId: row.guildid });
 				let settings = undefined;
 
@@ -87,7 +87,7 @@ function migrate() {
 				process.stdout.cursorTo(0);
 				process.stdout.write(`2/3 Converting score of user ${row.userId}\n`);
 				await guildSettingsCollection.updateOne({ guildId: row.guildid }, { $set: { settings: settings } });
-			});
+			});*/
 		}
 		migrate2();
 	});
