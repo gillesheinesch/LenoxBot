@@ -130,6 +130,7 @@ if (process.env.SHARD_COUNT) {
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
 		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
+		console.log(botconfsload)
 		if (botconfsload.banlist.length !== 0) {
 			for (let i = 0; i < botconfsload.banlist.length; i++) {
 				if (msg.message.guild.id === botconfsload.banlist[i].discordServerID) {
