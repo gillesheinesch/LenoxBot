@@ -67,7 +67,7 @@ if (process.env.SHARD_COUNT) {
 		.registerCommandsIn(path.join(__dirname, 'commands'));
 
 
-	client.dispatcher.addInhibitor(msg => {
+	client.dispatcher.addInhibitor(async msg => {
 		if (msg.author.bot) return undefined;
 		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 		if (!client.provider.isReady) return undefined;
@@ -129,7 +129,7 @@ if (process.env.SHARD_COUNT) {
 			.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
-		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
+		const botconfsload = await client.provider.getBotsettings('botconfs', 'blackbanlist');
 		console.log(botconfsload)
 		if (botconfsload.banlist.length !== 0) {
 			for (let i = 0; i < botconfsload.banlist.length; i++) {

@@ -412,8 +412,8 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		});
 	}
 
-	getBotsettings(index, key, defVal) {
-		const settings = this.botSettings.get(index);
+	async getBotsettings(index, key, defVal) {
+		const settings = await this.botSettings.get(index);
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
