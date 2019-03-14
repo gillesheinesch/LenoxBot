@@ -379,7 +379,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 	async setBotsettings(index, key, val) {
 		console.log(index, key, val);
-		let settings = await this.getBotsettings(index);
+		let settings = this.getBotsettings(index);
 		console.log(111, settings)
 		if (!settings) {
 			settings = {};
@@ -415,8 +415,8 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		});
 	}
 
-	async getBotsettings(index, key, defVal) {
-		const settings = await this.botSettings.get(index);
+	getBotsettings(index, key, defVal) {
+		const settings = this.botSettings.get(index);
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
