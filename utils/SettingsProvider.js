@@ -378,38 +378,34 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async setBotsettings(index, key, val) {
-		let settings = this.botSettings.get(index);
+		let settings = this.getBotsettings(index);
 		if (!settings) {
 			settings = {};
-			this.botSettings.set(index, settings);
 		}
 
 		settings[key] = val;
 		const settingsCollection = this.db.collection('botSettings');
 
-		await settingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: settings } });
+		await settingsCollection.updateOne({ botconfs: index }, { $set: { settings: settings } });
 		return val;
 	}
 
 	async removeBotsettings(index, key, val) {
-		let settings = this.botSettings.get(index);
+		let settings = this.getBotsettings(index);
 		if (!settings) {
 			settings = {};
-			this.botSettings.set(index, settings);
 		}
 
 		val = settings[key];
 		delete settings[key];
 		const settingsCollection = this.db.collection('botSettings');
 
-		await settingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: settings } });
+		await settingsCollection.updateOne({ botconfs: index }, { $set: { settings: settings } });
 		return val;
 	}
 
 
 	async clearBotsettings(index) {
-		if (!this.settings.has(index)) return;
-		this.settings.delete(index);
 		const settingsCollection = this.db.collection('botSettings');
 		await settingsCollection.deleteOne({
 			botconfs: index
