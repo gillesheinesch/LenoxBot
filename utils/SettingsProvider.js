@@ -31,6 +31,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		const userSettingsCollection = this.db.collection('userSettings');
 		const userSettings = this.userSettings;
 		const botSettingsCollection = this.db.collection('botSettings');
+		const botSettings = this.botSettings;
 
 		await guildSettingsCollection.createIndex('guildId', { unique: true });
 		await userSettingsCollection.createIndex('userId', { unique: true });
@@ -132,11 +133,11 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 			}
 
-			/*			if (result && result.settings) {
+			if (result && result.settings) {
 				settings = result.settings;
 			}
 
-			botSettings.set('botconfs', settings);*/
+			botSettings.set('botconfs', settings);
 		} catch (err) {
 			console.warn(`Error while creating document of botconfs`);
 			console.warn(err);
@@ -152,11 +153,11 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				botSettingsCollection.insertOne({ botconfs: 'global', settings: settings });
 			}
 
-			/* if (result && result.settings) {
+			if (result && result.settings) {
 				settings = result.settings;
 			}
 
-			botSettings.set('global', settings);*/
+			botSettings.set('global', settings);
 		} catch (err) {
 			console.warn('Error while creating botconfsglobal document');
 			console.warn(err);
@@ -301,7 +302,6 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return val;
 	}
 
-
 	async clearGuild(guild) {
 		guild = this.constructor.getGuildID(guild);
 		if (!this.settings.has(guild)) return;
@@ -362,7 +362,6 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return val;
 	}
 
-
 	async clearUser(user) {
 		if (!this.settings.has(user)) return;
 		this.settings.delete(user);
@@ -378,7 +377,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async setBotsettings(index, key, val) {
-		let settings = this.getBotsettings(index);
+		let settings = this.botSettings.get(index);
 		if (!settings) {
 			settings = {};
 		}
@@ -391,7 +390,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async removeBotsettings(index, key, val) {
-		let settings = this.getBotsettings(index);
+		let settings = this.botSettings.get(index);
 		if (!settings) {
 			settings = {};
 		}
@@ -413,7 +412,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	getBotsettings(index, key, defVal) {
-		const settings = this.fetchBotSettings(index);
+		const settings = this.botSettings.get(index);
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 

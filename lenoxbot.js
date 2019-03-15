@@ -67,7 +67,7 @@ if (process.env.SHARD_COUNT) {
 		.registerCommandsIn(path.join(__dirname, 'commands'));
 
 
-	client.dispatcher.addInhibitor(msg => {
+	client.dispatcher.addInhibitor(async msg => {
 		if (msg.author.bot) return undefined;
 		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 		if (!client.provider.isReady) return undefined;
@@ -129,21 +129,26 @@ if (process.env.SHARD_COUNT) {
 			.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
-		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
-		for (let i = 0; i < botconfsload.banlist.length; i++) {
-			if (msg.message.guild.id === botconfsload.banlist[i].discordServerID) {
-				banlistembed.addField(lang.messageevent_banlistreason, botconfsload.banlist[i].reason);
-				return msg.channel.send({
-					embed: banlistembed
-				});
+		const botconfsload = await client.provider.getBotsettings('botconfs', 'blackbanlist');
+		console.log(await client.provider.getBotsettings('botconfs', 'blackbanlist'))
+		if (botconfsload.banlist.length !== 0) {
+			for (let i = 0; i < botconfsload.banlist.length; i++) {
+				if (msg.message.guild.id === botconfsload.banlist[i].discordServerID) {
+					banlistembed.addField(lang.messageevent_banlistreason, botconfsload.banlist[i].reason);
+					return msg.channel.send({
+						embed: banlistembed
+					});
+				}
 			}
 		}
-		for (let i = 0; i < botconfsload.blacklist.length; i++) {
-			if (msg.author.id === botconfsload.blacklist[i].userID) {
-				blacklistembed.addField(lang.messageevent_blacklistreason, botconfsload.blacklist[i].reason);
-				return msg.channel.send({
-					embed: blacklistembed
-				});
+		if (botconfsload.blacklist.length !== 0) {
+			for (let i = 0; i < botconfsload.blacklist.length; i++) {
+				if (msg.author.id === botconfsload.blacklist[i].userID) {
+					blacklistembed.addField(lang.messageevent_blacklistreason, botconfsload.blacklist[i].reason);
+					return msg.channel.send({
+						embed: blacklistembed
+					});
+				}
 			}
 		}
 
@@ -217,14 +222,15 @@ if (process.env.SHARD_COUNT) {
 				}
 			}
 
-			if (!client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
-				const currentCooldowns = client.provider.getBotsettings('botconfs', 'cooldowns');
+			console.log(msg.client.provider.getBotsettings('botconfs', 'cooldowns'));
+			if (!msg.client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
+				const currentCooldowns = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 				currentCooldowns[cmd.name] = {};
-				client.provider.setBotsettings('botconfs', 'cooldowns', currentCooldowns);
+				await msg.client.provider.setBotsettings('botconfs', 'cooldowns', currentCooldowns);
 			}
 
 			const now = Date.now();
-			const timestamps = client.provider.getBotsettings('botconfs', 'cooldowns');
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 			let cooldownAmount;
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name]) {
 				cooldownAmount = cmd.cooldown || Number(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].cooldown);
@@ -248,14 +254,14 @@ if (process.env.SHARD_COUNT) {
 				/* eslint no-else-return:0 */
 				} else if (now > expirationTime) {
 					timestamps[cmd.name][msg.author.id] = now;
-					client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+					await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 				} else {
 					timestamps[cmd.name][msg.author.id] = now;
-					client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+					await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 				}
 			} else {
 				timestamps[cmd.name][msg.author.id] = now;
-				client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+				await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			}
 		}
 
@@ -273,9 +279,9 @@ if (process.env.SHARD_COUNT) {
 			}
 		}
 
-		let currentCommandsexecuted = client.provider.getBotsettings('botconfs', 'commandsexecuted');
+		let currentCommandsexecuted = msg.client.provider.getBotsettings('botconfs', 'commandsexecuted');
 		currentCommandsexecuted += 1;
-		client.provider.setBotsettings('botconfs', 'commandsexecuted', currentCommandsexecuted);
+		await msg.client.provider.setBotsettings('botconfs', 'commandsexecuted', currentCommandsexecuted);
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 			msg.delete();
