@@ -222,6 +222,7 @@ if (process.env.SHARD_COUNT) {
 				}
 			}
 
+			console.log(msg.client.provider.getBotsettings('botconfs', 'cooldowns'));
 			if (!msg.client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
 				const currentCooldowns = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 				currentCooldowns[cmd.name] = {};
