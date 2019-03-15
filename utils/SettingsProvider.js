@@ -301,7 +301,6 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return val;
 	}
 
-
 	async clearGuild(guild) {
 		guild = this.constructor.getGuildID(guild);
 		if (!this.settings.has(guild)) return;
@@ -362,7 +361,6 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return val;
 	}
 
-
 	async clearUser(user) {
 		if (!this.settings.has(user)) return;
 		this.settings.delete(user);
@@ -378,13 +376,10 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async setBotsettings(index, key, val) {
-		console.log(index, key, val);
-		let settings = this.getBotsettings(index);
-		console.log(111, settings)
+		let settings = this.botSettings.get(index);
 		if (!settings) {
 			settings = {};
 		}
-		console.log(settings)
 
 		settings[key] = val;
 		const settingsCollection = this.db.collection('botSettings');
@@ -394,7 +389,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async removeBotsettings(index, key, val) {
-		let settings = this.getBotsettings(index);
+		let settings = this.botSettings.get(index);
 		if (!settings) {
 			settings = {};
 		}
