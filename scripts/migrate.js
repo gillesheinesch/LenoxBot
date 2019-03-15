@@ -71,8 +71,11 @@ function migrate() {
 					for (var [key, value] of botconfs) {
 						if(key === 'botconfs') {
 							for(var [key2, value2] in botconfs['botconfs']) {
+								console.log(`Setting ${key2}...`);
 								settings[key2] = value2;
 							}
+
+							continue;
 						}
 
 						settings[key] = value;
