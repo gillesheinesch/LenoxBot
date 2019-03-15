@@ -222,14 +222,14 @@ if (process.env.SHARD_COUNT) {
 				}
 			}
 
-			if (!client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
-				const currentCooldowns = client.provider.getBotsettings('botconfs', 'cooldowns');
+			if (!msg.client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
+				const currentCooldowns = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 				currentCooldowns[cmd.name] = {};
-				client.provider.setBotsettings('botconfs', 'cooldowns', currentCooldowns);
+				await msg.client.provider.setBotsettings('botconfs', 'cooldowns', currentCooldowns);
 			}
 
 			const now = Date.now();
-			const timestamps = client.provider.getBotsettings('botconfs', 'cooldowns');
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 			let cooldownAmount;
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name]) {
 				cooldownAmount = cmd.cooldown || Number(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].cooldown);
@@ -253,14 +253,14 @@ if (process.env.SHARD_COUNT) {
 				/* eslint no-else-return:0 */
 				} else if (now > expirationTime) {
 					timestamps[cmd.name][msg.author.id] = now;
-					client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+					await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 				} else {
 					timestamps[cmd.name][msg.author.id] = now;
-					client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+					await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 				}
 			} else {
 				timestamps[cmd.name][msg.author.id] = now;
-				client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+				await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			}
 		}
 
@@ -278,9 +278,9 @@ if (process.env.SHARD_COUNT) {
 			}
 		}
 
-		let currentCommandsexecuted = client.provider.getBotsettings('botconfs', 'commandsexecuted');
+		let currentCommandsexecuted = msg.client.provider.getBotsettings('botconfs', 'commandsexecuted');
 		currentCommandsexecuted += 1;
-		client.provider.setBotsettings('botconfs', 'commandsexecuted', currentCommandsexecuted);
+		await msg.client.provider.setBotsettings('botconfs', 'commandsexecuted', currentCommandsexecuted);
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 			msg.delete();
