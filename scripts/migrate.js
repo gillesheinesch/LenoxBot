@@ -69,17 +69,12 @@ function migrate() {
 					let settings = {};
 
 					for (var [key, value] of botconfs) {
-						if(key === 'botconfs') {
-							for(var [key2, value2] in botconfs['botconfs']) {
-								console.log(`Setting ${key2}...`);
-								settings[key2] = value2;
-							}
-
-							continue;
-						}
-
 						settings[key] = value;
 					}
+					for (var key2 of settings['botconfs']) {
+						settings[key2] = settings['botconfs'][key2];
+					}
+					delete settings['botconfs']
 					await botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 
 					settings = {};
