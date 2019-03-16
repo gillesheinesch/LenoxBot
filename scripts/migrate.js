@@ -76,8 +76,8 @@ function migrate() {
 					}
 					delete settings['botconfs']
 
-					for (var key2 in settings['premium']) {
-						settings[key2] = settings['botconfs'][key2];
+					for (var key3 in settings['premium']) {
+						settings[key3] = settings['premium'][key3];
 					}
 					delete settings['premium']
 
