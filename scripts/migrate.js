@@ -75,6 +75,12 @@ function migrate() {
 						settings[key2] = settings['botconfs'][key2];
 					}
 					delete settings['botconfs']
+
+					for (var key2 in settings['premium']) {
+						settings[key2] = settings['botconfs'][key2];
+					}
+					delete settings['premium']
+
 					await botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 
 					settings = {};
