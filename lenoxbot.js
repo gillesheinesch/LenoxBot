@@ -129,8 +129,7 @@ if (process.env.SHARD_COUNT) {
 			.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
-		const botconfsload = await client.provider.getBotsettings('botconfs', 'blackbanlist');
-		console.log(await client.provider.getBotsettings('botconfs', 'blackbanlist'))
+		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
 		if (botconfsload.banlist.length !== 0) {
 			for (let i = 0; i < botconfsload.banlist.length; i++) {
 				if (msg.message.guild.id === botconfsload.banlist[i].discordServerID) {
@@ -222,7 +221,6 @@ if (process.env.SHARD_COUNT) {
 				}
 			}
 
-			console.log(msg.client.provider.getBotsettings('botconfs', 'cooldowns'));
 			if (!msg.client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
 				const currentCooldowns = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 				currentCooldowns[cmd.name] = {};
