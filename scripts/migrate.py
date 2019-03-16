@@ -86,4 +86,7 @@ for row in c:
     count = count + 1
     guilds[row[0]] = guildMembers
 print("Inserted %d documents" % count)
+f = open("data.json", "w+")
+f.write(json.dumps(guilds))
+f.close()
 exit()

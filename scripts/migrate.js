@@ -85,20 +85,6 @@ function migrate() {
 
 					settings = {};
 
-					const doc = await botSettingsCollection.findOne({botconfs: 'botconfs'})
-					settings = doc.settings;
-
-					for (var [key, value] of settings) {
-						if(key == 'botconfs') {
-							for(var [key2, value2] of settings['botconfs']) {
-								settings[key2] = value;
-							}
-							settings[key] = null;
-						}
-					}
-
-					settings = {}
-
 					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('2/3 Converting guildSettings...');
