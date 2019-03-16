@@ -129,6 +129,8 @@ if (process.env.SHARD_COUNT) {
 			.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
+		console.log(1);
+
 		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
 		if (botconfsload.banlist.length !== 0) {
 			for (let i = 0; i < botconfsload.banlist.length; i++) {
@@ -140,6 +142,7 @@ if (process.env.SHARD_COUNT) {
 				}
 			}
 		}
+		console.log(2);
 		if (botconfsload.blacklist.length !== 0) {
 			for (let i = 0; i < botconfsload.blacklist.length; i++) {
 				if (msg.author.id === botconfsload.blacklist[i].userID) {
@@ -150,6 +153,7 @@ if (process.env.SHARD_COUNT) {
 				}
 			}
 		}
+		console.log(3);
 
 		const activityembed = new Discord.RichEmbed()
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
@@ -164,6 +168,7 @@ if (process.env.SHARD_COUNT) {
 				embed: activityembed
 			});
 		}
+		console.log(4);
 
 		if (botCommandExists) {
 			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientPermissions.join(', '));
@@ -182,6 +187,7 @@ if (process.env.SHARD_COUNT) {
 				return msg.channel.send(usernopermission);
 			}
 		}
+		console.log(5);
 
 		if (botCommandExists) {
 			for (const prop in msg.client.provider.getGuild(msg.message.guild.id, 'modules')) {
@@ -196,12 +202,14 @@ if (process.env.SHARD_COUNT) {
 				}
 			}
 		}
+		console.log(6);
 
 		if (botCommandExists) {
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].status === 'false') return msg.reply(lang.messageevent_commanddeactivated);
 		} else if (customcommand.enabled === 'false') {
 			return msg.reply(lang.messageevent_commanddeactivated);
 		}
+		console.log(7);
 
 		if (botCommandExists) {
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
@@ -220,6 +228,7 @@ if (process.env.SHARD_COUNT) {
 					return msg.reply(lang.messageevent_nowhitelistedroles);
 				}
 			}
+			console.log(8);
 
 			if (!msg.client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
 				const currentCooldowns = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
@@ -235,6 +244,7 @@ if (process.env.SHARD_COUNT) {
 			} else {
 				cooldownAmount = cmd.cooldown || 3 * 1000;
 			}
+			console.log(9);
 
 
 			if (timestamps[cmd.name][msg.author.id]) {
@@ -261,7 +271,9 @@ if (process.env.SHARD_COUNT) {
 				timestamps[cmd.name][msg.author.id] = now;
 				await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			}
+			console.log(10);
 		}
+		console.log(11);
 
 		if (!botCommandExists) {
 			if (customcommand.embed === 'false') {
@@ -276,6 +288,7 @@ if (process.env.SHARD_COUNT) {
 				});
 			}
 		}
+		console.log(12);
 
 		let currentCommandsexecuted = msg.client.provider.getBotsettings('botconfs', 'commandsexecuted');
 		currentCommandsexecuted += 1;
@@ -284,6 +297,7 @@ if (process.env.SHARD_COUNT) {
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 			msg.delete();
 		}
+		console.log(13);
 	});
 } else {
 	console.log(chalk.red('Stopped process because the bot isn\'t running as a shard! Please start lenoxbotlauncher.js to support sharding.'));
