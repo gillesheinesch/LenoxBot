@@ -71,7 +71,7 @@ function migrate() {
 					for (var [key, value] of botconfs) {
 						settings[key] = value;
 					}
-					for (var key2 of settings['botconfs']) {
+					for (var key2 in settings['botconfs']) {
 						settings[key2] = settings['botconfs'][key2];
 					}
 					delete settings['botconfs']
