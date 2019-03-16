@@ -13,7 +13,7 @@ guildSettingsKeys = json.load(open("guildsettings-keys.json", "r"))
 
 print("Starting conversion...")
 
-client = MongoClient('mongodb://jannik:Tigerkacke@localhost:27017/')
+client = MongoClient('mongodb://user:password@localhost:27017/')
 db = client.get_database(name="lenoxbot")
 userSettingsCollection = db.get_collection(name="userSettings")
 guildSettingsCollection = db.get_collection(name="guildSettings")
