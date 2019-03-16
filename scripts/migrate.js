@@ -69,20 +69,23 @@ function migrate() {
 					let settings = {};
 
 					for (var [key, value] of botconfs) {
-						if(key === 'botconfs') {
-							for(var [key2, value2] in botconfs['botconfs']) {
-								console.log(`Setting ${key2}...`);
-								settings[key2] = value2;
-							}
-
-							continue;
-						}
-
 						settings[key] = value;
 					}
 					await botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 
 					settings = {};
+
+					const doc = await botSettingsCollection.findOne({botconfs: 'botconfs'})
+					settings = doc.settings;
+
+					for (var [key, value] of settings) {
+						if(key == 'botconfs') {
+							for(var [key2, value2] of settings['botconfs']) {
+								settings[key2] = value;
+							}
+							settings[key] = null;
+						}
+					}
 
 					process.stdout.clearLine();
 					process.stdout.cursorTo(0);

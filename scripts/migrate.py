@@ -13,7 +13,7 @@ guildSettingsKeys = json.load(open("guildsettings-keys.json", "r"))
 
 print("Starting conversion...")
 
-client = MongoClient('mongodb://jannik:Tigerkacke@localhost:27017/')
+client = MongoClient('mongodb://user:password@localhost:27017/')
 db = client.get_database(name="lenoxbot")
 userSettingsCollection = db.get_collection(name="userSettings")
 guildSettingsCollection = db.get_collection(name="guildSettings")
@@ -45,7 +45,7 @@ for row in c:
 print("Inserted %d documents" % count)
 count = 1
 countUser = 0
-guilds = []
+guilds = {}
 c.execute("SELECT * FROM scores")
 for row in c:
     settings = {}
@@ -66,6 +66,7 @@ for row in c:
         settings["scores"] = {}
     curInner = conn.cursor()
     curInner.execute("SELECT * FROM scores WHERE guildId={0}".format(row[0]))
+    guildMembers = []
     if (count % 100) == 0:
         sys.stdout.write("Inserting guild #{0}\n".format(count))
         sys.stdout.write("\033[1A")
@@ -79,9 +80,10 @@ for row in c:
         sys.stdout.write("Inserting guild #{0} > user #{1}\n".format(count, countUser))
         sys.stdout.write("\033[1A")
         sys.stdout.flush()
+        guildMembers.append(row[1])
     guildSettingsCollection.update_one({"guildId": row[0]}, {"$set": {"settings": settings}})
     countUser = 0
     count = count + 1
-    guilds.append(row[0])
+    guilds[row[0]] = guildMembers
 print("Inserted %d documents" % count)
 exit()
