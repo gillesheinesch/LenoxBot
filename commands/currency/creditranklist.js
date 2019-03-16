@@ -25,14 +25,16 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 		let userArray = [];
 		await msg.client.provider.getDatabase().collection('userSettings').find()
 			.forEach(row => {
-				const member = msg.client.users.get(row.userId);
-				const settings = {
-					userId: row.userId,
-					user: member ? member.tag : row.userId,
-					credits: Number(row.settings.credits)
-				};
-				if (settings.userId !== 'global') {
-					userArray.push(settings);
+				if (!isNaN(row.settings.credits)) {
+					const member = msg.client.users.get(row.userId);
+					const settings = {
+						userId: row.userId,
+						user: member ? member.tag : row.userId,
+						credits: Number(row.settings.credits)
+					};
+					if (settings.userId !== 'global') {
+						userArray.push(settings);
+					}
 				}
 			});
 

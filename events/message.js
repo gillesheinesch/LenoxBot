@@ -85,7 +85,7 @@ exports.run = async (client, msg) => {
 	const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 	const lang = require(`../languages/${langSet}.json`);
 
-	if (msg.client.provider.getGuild(msg.guild.id, 'modules').utility === 'true') {
+	/* if (msg.client.provider.getGuild(msg.guild.id, 'modules').utility === 'true') {
 		if (!msg.client.provider.getGuild(msg.guild.id, 'togglexp').channelids.includes(msg.channel.id)) {
 			const currentScores = client.provider.getGuild(msg.guild.id, 'scores');
 			if (currentScores[msg.author.id]) {
@@ -124,9 +124,9 @@ exports.run = async (client, msg) => {
 					const automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
 					msg.channel.send(automaticrolegotten);
 				}
-			} */
+} *//*
 		}
-	}
+	} */
 
 	if (!client.provider.getUser(msg.author.id, 'userID')) {
 		await client.provider.setUser(msg.author.id, 'userID', msg.author.id);

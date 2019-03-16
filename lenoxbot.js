@@ -67,7 +67,7 @@ if (process.env.SHARD_COUNT) {
 		.registerCommandsIn(path.join(__dirname, 'commands'));
 
 
-	client.dispatcher.addInhibitor(async msg => {
+	client.dispatcher.addInhibitor(msg => {
 		if (msg.author.bot) return undefined;
 		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 		if (!client.provider.isReady) return undefined;
@@ -129,8 +129,8 @@ if (process.env.SHARD_COUNT) {
 			.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
-		const botconfsload = await client.provider.getBotsettings('botconfs', 'blackbanlist');
-		console.log(await client.provider.getBotsettings('botconfs', 'blackbanlist'))
+
+		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
 		if (botconfsload.banlist.length !== 0) {
 			for (let i = 0; i < botconfsload.banlist.length; i++) {
 				if (msg.message.guild.id === botconfsload.banlist[i].discordServerID) {
@@ -222,11 +222,10 @@ if (process.env.SHARD_COUNT) {
 				}
 			}
 
-			console.log(msg.client.provider.getBotsettings('botconfs', 'cooldowns'));
 			if (!msg.client.provider.getBotsettings('botconfs', 'cooldowns')[cmd.name]) {
 				const currentCooldowns = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 				currentCooldowns[cmd.name] = {};
-				await msg.client.provider.setBotsettings('botconfs', 'cooldowns', currentCooldowns);
+				msg.client.provider.setBotsettings('botconfs', 'cooldowns', currentCooldowns);
 			}
 
 			const now = Date.now();
@@ -254,14 +253,14 @@ if (process.env.SHARD_COUNT) {
 				/* eslint no-else-return:0 */
 				} else if (now > expirationTime) {
 					timestamps[cmd.name][msg.author.id] = now;
-					await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+					 msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 				} else {
 					timestamps[cmd.name][msg.author.id] = now;
-					await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+					 msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 				}
 			} else {
 				timestamps[cmd.name][msg.author.id] = now;
-				await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+				 msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			}
 		}
 
@@ -281,7 +280,7 @@ if (process.env.SHARD_COUNT) {
 
 		let currentCommandsexecuted = msg.client.provider.getBotsettings('botconfs', 'commandsexecuted');
 		currentCommandsexecuted += 1;
-		await msg.client.provider.setBotsettings('botconfs', 'commandsexecuted', currentCommandsexecuted);
+		 msg.client.provider.setBotsettings('botconfs', 'commandsexecuted', currentCommandsexecuted);
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 			msg.delete();
