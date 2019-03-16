@@ -97,6 +97,8 @@ function migrate() {
 						}
 					}
 
+					settings = {}
+
 					process.stdout.clearLine();
 					process.stdout.cursorTo(0);
 					process.stdout.write('2/3 Converting guildSettings...');
