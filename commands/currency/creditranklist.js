@@ -23,7 +23,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		let userArray = [];
-		await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ "$sort": { "settings.credits": 1 }, "$limit": 20 }])
+		await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ "$sort": { "settings.credits": 1 } }, {"$limit": 20}])
 			.forEach(row => {
 				if (!isNaN(row.settings.credits)) {
 					const member = msg.client.users.get(row.userId);
