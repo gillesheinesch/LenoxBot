@@ -68,9 +68,8 @@ if (process.env.SHARD_COUNT) {
 
 
 	client.dispatcher.addInhibitor(msg => {
-		if (msg.author.bot) return undefined;
 		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
-		if (!client.provider.isReady) return undefined;
+		if (!client.provider.isReady) return 'notinitialized';
 		console.log(`isReady> ${client.provider.isReady}`)
 
 		if (client.user.id === '353115097318555649') {
