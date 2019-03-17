@@ -23,23 +23,23 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		let userArray = [];
-		await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ "$sort": { "settings.credits": 1 } }, {"$limit": 20}])
-			.forEach(row => {
-				if (!isNaN(row.settings.credits)) {
-					const member = msg.client.users.get(row.userId);
-					const settings = {
-						userId: row.userId,
-						user: member ? member.tag : row.userId,
-						credits: Number(row.settings.credits)
-					};
-					console.log(`User: ${member.name}, credits: ${row.settings.credits}`);
-					if (settings.userId !== 'global') {
-						userArray.push(settings);
-					}
-				}
-			});
+		const array = await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ "$sort": { "settings.credits": -1 } }, {"$limit": 20}]).toArray();
 
-		/*userArray = userArray.sort((a, b) => {
+		for(let row of array) {
+			if (!isNaN(row.settings.credits)) {
+				const member = await msg.client.fetchUser(row.userId);
+				const settings = {
+					userId: row.userId,
+					user: member ? member.tag : row.userId,
+					credits: Number(row.settings.credits)
+				};
+				if(row.userId !== 'global') {
+					userArray.push(settings)
+				}
+			}
+		}
+
+		userArray = userArray.sort((a, b) => {
 			if (a.credits < b.credits) {
 				return 1;
 			}
@@ -47,7 +47,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 				return -1;
 			}
 			return 0;
-		});*/
+		});
 
 		for (let i = 0; i < userArray.length; i++) {
 			userArray[i].final = `${i + 1}. ${userArray[i].user}`;
@@ -55,7 +55,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 
 		const embedFinalName = [];
 		const embedCredits = [];
-		Object.entries(userArray).slice(0, 20).map(obj => {
+		Object.entries(userArray).map(obj => {
 			embedFinalName.push(obj[1].final);
 			embedCredits.push(obj[1].credits);
 		});
