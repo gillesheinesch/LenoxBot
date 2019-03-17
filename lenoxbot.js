@@ -68,6 +68,7 @@ if (process.env.SHARD_COUNT) {
 
 
 	client.dispatcher.addInhibitor(msg => {
+		if (!msg.client.provider.isReady) return;
 		if (msg.author.bot) return undefined;
 		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 		if (!client.provider.isReady) return undefined;
