@@ -18,12 +18,12 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 		});
 	}
 
-	async run(msg) {
+	run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		let userArray = [];
-		await msg.client.provider.getDatabase().collection('userSettings').find()
+		msg.client.provider.getDatabase().collection('userSettings').find()
 			.forEach(row => {
 				if (!isNaN(row.settings.credits)) {
 					const member = msg.client.users.get(row.userId);
