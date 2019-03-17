@@ -41,7 +41,7 @@ module.exports = class banlistremoveCommand extends LenoxCommand {
 					.setTitle(embedtitle)
 					.setDescription(embeddescription);
 
-				await msg.client.channels.get('530079522532622396').send({
+				await msg.client.channels.get('497395598182318100').send({
 					embed: embed
 				});
 

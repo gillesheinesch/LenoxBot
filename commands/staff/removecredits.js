@@ -43,7 +43,7 @@ module.exports = class removecreditsCommand extends LenoxCommand {
 			.setDescription(embeddescription)
 			.setTimestamp()
 			.setColor('RED');
-		await msg.client.channels.get('530079522532622396').send({
+		await msg.client.channels.get('497395598182318100').send({
 			embed
 		});
 
