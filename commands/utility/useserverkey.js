@@ -28,8 +28,8 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 		const input = args.slice();
 
 		if (!input || input.length === 0) return msg.reply(lang.useserverkey_noinput);
-		if (!msg.client.provider.getBotsettings('botconfs', 'premium').guildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_notexist);
-		if (msg.client.provider.getBotsettings('botconfs', 'premium').redeemedguildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_already);
+		if (!msg.client.provider.getBotsettings('botconfs', 'premium').keys.guildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_notexist);
+		if (msg.client.provider.getBotsettings('botconfs', 'premium').keys.redeemedguildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_already);
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) {
 			const currentPremium = msg.client.provider.getGuild(msg.message.guild.id, 'premium');
@@ -40,7 +40,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 			await msg.client.provider.setGuild(msg.message.guild.id, 'premium', currentPremium);
 
 			const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
-			newCurrentPremium.redeemedguildkeys.push(input.join(' '));
+			newCurrentPremium.keys.redeemedguildkeys.push(input.join(' '));
 			await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
 
 			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
@@ -63,7 +63,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 		await msg.client.provider.setGuild(msg.message.guild.id, 'premium', currentPremium);
 
 		const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
-		newCurrentPremium.redeemedguildkeys.push(input.join(' '));
+		newCurrentPremium.keys.redeemedguildkeys.push(input.join(' '));
 		await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
 
 		const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
