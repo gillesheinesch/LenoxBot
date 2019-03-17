@@ -30,7 +30,7 @@ module.exports = class creditsCommand extends LenoxCommand {
 				.setDescription(lang.credits_hintembed)
 				.setAuthor(lang.credits_hint);
 
-			msg.client.provider.setUser(msg.author.id, 'creditsmessage', true);
+			await msg.client.provider.setUser(msg.author.id, 'creditsmessage', true);
 
 			msg.author.send({
 				embed
