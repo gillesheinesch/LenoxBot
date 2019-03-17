@@ -25,6 +25,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			process.exit(-1);
 		}
 
+		this.client = client;
 		this.db = this.dbClient.db('lenoxbot');
 		const guildSettingsCollection = this.db.collection('guildSettings');
 		const guildSettings = this.guildSettings;

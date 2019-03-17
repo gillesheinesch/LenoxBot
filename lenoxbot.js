@@ -71,6 +71,7 @@ if (process.env.SHARD_COUNT) {
 		if (msg.author.bot) return undefined;
 		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 		if (!client.provider.isReady) return undefined;
+		console.log(`isReady> ${client.provider.isReady}`)
 
 		if (client.user.id === '353115097318555649') {
 			if (msg.message.guild.id !== '332612123492483094') return undefined;

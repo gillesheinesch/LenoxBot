@@ -23,7 +23,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		let userArray = [];
-		await msg.client.provider.getDatabase().collection('userSettings').find()
+		await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ "$sort": { "settings.credits": 1 }, "$limit": 20 }])
 			.forEach(row => {
 				if (!isNaN(row.settings.credits)) {
 					const member = msg.client.users.get(row.userId);
@@ -38,7 +38,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 				}
 			});
 
-		userArray = userArray.sort((a, b) => {
+		/*userArray = userArray.sort((a, b) => {
 			if (a.credits < b.credits) {
 				return 1;
 			}
@@ -46,7 +46,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 				return -1;
 			}
 			return 0;
-		});
+		});*/
 
 		for (let i = 0; i < userArray.length; i++) {
 			userArray[i].final = `${i + 1}. ${userArray[i].user}`;
