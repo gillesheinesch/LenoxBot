@@ -76,11 +76,6 @@ function migrate() {
 					}
 					delete settings['botconfs']
 
-					for (var key3 in settings['blackbanlist']) {
-						settings[key3] = settings['blackbanlist'][key3];
-					}
-					delete settings['blackbanlist']
-
 					await botSettingsCollection.insertOne({ botconfs: 'botconfs', settings: settings });
 
 					settings = {};
