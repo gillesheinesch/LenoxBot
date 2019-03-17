@@ -131,21 +131,22 @@ if (process.env.SHARD_COUNT) {
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
 
 
-		const botconfsload = client.provider.getBotsettings('botconfs', 'blackbanlist');
-		if (botconfsload.banlist.length !== 0) {
-			for (let i = 0; i < botconfsload.banlist.length; i++) {
-				if (msg.message.guild.id === botconfsload.banlist[i].discordServerID) {
-					banlistembed.addField(lang.messageevent_banlistreason, botconfsload.banlist[i].reason);
+		const blackbanlist = client.provider.getBotsettings('botconfs', 'blacklist');
+		const banlist = client.provider.getBotsettings('botconfs', 'banlist');
+		if (banlist.length !== 0) {
+			for (let i = 0; i < banlist.length; i++) {
+				if (msg.message.guild.id === banlist[i].discordServerID) {
+					banlistembed.addField(lang.messageevent_banlistreason, banlist[i].reason);
 					return msg.channel.send({
 						embed: banlistembed
 					});
 				}
 			}
 		}
-		if (botconfsload.blacklist.length !== 0) {
-			for (let i = 0; i < botconfsload.blacklist.length; i++) {
-				if (msg.author.id === botconfsload.blacklist[i].userID) {
-					blacklistembed.addField(lang.messageevent_blacklistreason, botconfsload.blacklist[i].reason);
+		if (blackbanlist.length !== 0) {
+			for (let i = 0; i < blackbanlist.length; i++) {
+				if (msg.author.id === blackbanlist[i].userID) {
+					blacklistembed.addField(lang.messageevent_blacklistreason, blackbanlist[i].reason);
 					return msg.channel.send({
 						embed: blacklistembed
 					});
