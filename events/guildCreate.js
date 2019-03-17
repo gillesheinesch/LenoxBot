@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 const settings = require('../settings.json');
 const guildsettingskeys = require('../guildsettings-keys.json');
 exports.run = async (client, guild) => {
+	if (!client.provider.isReady) return;
 	guildsettingskeys.prefix = settings.prefix;
 
 	if (client.provider.getGuild(guild.id, 'language')) { // Everything can be requested here

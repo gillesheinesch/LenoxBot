@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 exports.run = (client, channel) => {
 	if (!channel) return;
 	if (channel.type !== 'text') return;
+	if (!client.provider.isReady) return;
 
 	if (!client.provider.getGuild(channel.guild.id, 'prefix')) return;
 	if (client.provider.getGuild(channel.guild.id, 'channeldeletelog') === 'false') return;

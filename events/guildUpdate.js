@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, oldGuild, newGuild) => {
+	if (!client.provider.isReady) return;
 	if (!client.provider.getGuild(newGuild.id, 'prefix')) return;
 
 	const lang = require(`../languages/${client.provider.getGuild(newGuild.id, 'language')}.json`);

@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async (client, member) => {
+	if (!client.provider.isReady) return;
 	if (!client.provider.getGuild(member.guild.id, 'prefix')) return;
 
 	const lang = require(`../languages/${client.provider.getGuild(member.guild.id, 'language')}.json`);

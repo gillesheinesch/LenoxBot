@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, role) => {
+	if (!client.provider.isReady) return;
 	if (!client.provider.getGuild(role.guild.id, 'prefix')) return;
 	if (client.provider.getGuild(role.guild.id, 'rolecreatelog') === 'false') return;
 

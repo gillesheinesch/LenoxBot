@@ -2,6 +2,7 @@ const Discord = require('discord.js');
 exports.run = (client, oldChannel, newChannel) => {
 	if (!oldChannel || !newChannel) return;
 	if (newChannel.type !== 'text' || oldChannel.type !== 'text') return;
+	if (!client.provider.isReady) return;
 
 	if (!client.provider.getGuild(oldChannel.guild.id, 'prefix')) return;
 	if (client.provider.getGuild(oldChannel.guild.id, 'channelupdatelog') === 'false') return;

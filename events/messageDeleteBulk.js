@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, messages) => {
+	if (!client.provider.isReady) return;
 	if (messages.size === 0) return;
 
 	/* eslint guard-for-in: 0 */

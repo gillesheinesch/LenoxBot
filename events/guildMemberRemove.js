@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, member) => {
+	if (!client.provider.isReady) return;
 	if (client.user.id === member.id) return;
 
 	if (!client.provider.getGuild(member.guild.id, 'prefix')) return;

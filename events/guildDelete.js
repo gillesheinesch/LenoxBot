@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async (client, guild) => {
+	if (!client.provider.isReady) return;
 	await client.provider.clearGuild(guild.id);
 
 	const embed = new Discord.RichEmbed()
