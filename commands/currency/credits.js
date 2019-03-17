@@ -37,7 +37,7 @@ module.exports = class creditsCommand extends LenoxCommand {
 			});
 		}
 
-		let userArray = [];
+		/* let userArray = [];
 		const tempArray = [];
 		let globalrank;
 		await msg.client.provider.getDatabase().collection('userSettings').find()
@@ -73,10 +73,10 @@ module.exports = class creditsCommand extends LenoxCommand {
 			if (userArray[index].userId === user1.id) {
 				globalrank = tempArray[index];
 			}
-		}
+		}*/
 
 		const embed = new Discord.RichEmbed()
-			.setAuthor(`${user1.tag} (${lang.credits_globalrank} #${globalrank})`, user1.avatarURL)
+			.setAuthor(`${user1.tag}`, user1.avatarURL)
 			.setDescription(`**${lang.credits_credits}** ${msg.client.provider.getUser(user1.id, 'credits')} ${lenoxbotcoin} `)
 			.setColor('GREEN');
 
