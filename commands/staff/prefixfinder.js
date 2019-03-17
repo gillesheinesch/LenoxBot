@@ -41,6 +41,6 @@ module.exports = class prefixfinderCommand extends LenoxCommand {
 			.setFooter(requestedby)
 			.setAuthor(`${guildload.name} (${guildload.id})`);
 
-		return msg.client.channels.get('530079522532622396').send({ embed: embed });
+		return msg.client.channels.get('497395598182318100').send({ embed: embed });
 	}
 };
