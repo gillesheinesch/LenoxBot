@@ -31,7 +31,7 @@ module.exports = class createuserkeyCommand extends LenoxCommand {
 		for (let i = 0; i < 1000; i++) {
 			key = keygenerator.generateKey();
 
-			if (!msg.client.provider.getBotsettings('botconfs', 'premium').userkeys.includes(key)) {
+			if (!msg.client.provider.getBotsettings('botconfs', 'premium').keys.userkeys.includes(key)) {
 				break;
 			}
 
@@ -42,7 +42,7 @@ module.exports = class createuserkeyCommand extends LenoxCommand {
 
 		if (key !== undefined) {
 			const currentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
-			currentPremium.userkeys.push(key);
+			currentPremium.keys.userkeys.push(key);
 			await msg.client.provider.setBotsettings('botconfs', 'premium', currentPremium);
 		}
 

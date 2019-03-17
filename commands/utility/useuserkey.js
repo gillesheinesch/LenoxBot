@@ -28,8 +28,8 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 		const input = args.slice();
 
 		if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
-		if (!msg.client.provider.getBotsettings('botconfs', 'premium').userkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
-		if (msg.client.provider.getBotsettings('botconfs', 'premium').redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
+		if (!msg.client.provider.getBotsettings('botconfs', 'premium').keys.userkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
+		if (msg.client.provider.getBotsettings('botconfs', 'premium').keys.redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
 
 		if (msg.client.provider.getUser(msg.author.id, 'premium').status === false) {
 			const currentPremium = msg.client.provider.getUser(msg.author.id, 'premium');
@@ -40,7 +40,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 			await msg.client.provider.setUser(msg.author.id, 'premium', currentPremium);
 
 			const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
-			newCurrentPremium.redeemeduserkeys.push(input.join(' '));
+			newCurrentPremium.keys.redeemeduserkeys.push(input.join(' '));
 			await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
 
 			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
@@ -68,7 +68,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 		await msg.client.provider.setUser(msg.author.id, 'premium', currentPremium);
 
 		const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
-		newCurrentPremium.redeemeduserkeys.push(input.join(' '));
+		newCurrentPremium.keys.redeemeduserkeys.push(input.join(' '));
 		await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
 
 		const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
