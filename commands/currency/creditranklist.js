@@ -32,6 +32,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 						user: member ? member.tag : row.userId,
 						credits: Number(row.settings.credits)
 					};
+					console.log(`User: ${member.name}, credits: ${row.settings.credits}`);
 					if (settings.userId !== 'global') {
 						userArray.push(settings);
 					}
