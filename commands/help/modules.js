@@ -28,7 +28,7 @@ module.exports = class modulesCommand extends LenoxCommand {
 			.setFooter(commandscommand)
 			.setColor('0066CC')
 			.addField('Administration', lang.modules_administration)
-			.addField('Moderation', lang.modules_administration)
+			.addField('Moderation', lang.modules_moderation)
 			.addField('Help', lang.modules_help)
 			.addField('Music', lang.modules_music)
 			.addField('Fun', lang.modules_fun)
