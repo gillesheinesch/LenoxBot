@@ -70,7 +70,6 @@ if (process.env.SHARD_COUNT) {
 	client.dispatcher.addInhibitor(msg => {
 		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
 		if (!client.provider.isReady) return 'notinitialized';
-		console.log(`isReady> ${client.provider.isReady}`)
 
 		if (client.user.id === '353115097318555649') {
 			if (msg.message.guild.id !== '332612123492483094') return undefined;
@@ -168,7 +167,6 @@ if (process.env.SHARD_COUNT) {
 		}
 
 		if (botCommandExists) {
-
 			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientpermissions.join(', '));
 			const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userpermissions.join(', '));
 
@@ -177,7 +175,7 @@ if (process.env.SHARD_COUNT) {
 					msg.delete();
 				}
 				msg.channel.send(botnopermission);
-				return 'NoPermission'
+				return 'NoPermission';
 			}
 
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0 && cmd.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
@@ -185,7 +183,7 @@ if (process.env.SHARD_COUNT) {
 					msg.delete();
 				}
 				msg.channel.send(usernopermission);
-				return 'NoPermission'
+				return 'NoPermission';
 			}
 		}
 
