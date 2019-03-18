@@ -11,8 +11,8 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 			format: 'nicknamelog [@User]',
 			aliases: [],
 			examples: ['nicknamelog', 'nicknamelog @Monkeyyy11#7584'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

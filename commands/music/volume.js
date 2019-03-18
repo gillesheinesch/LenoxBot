@@ -10,8 +10,8 @@ module.exports = class volumeCommand extends LenoxCommand {
 			format: 'volume {1-5}',
 			aliases: [],
 			examples: ['volume 3'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Musicplayersettings',
 			dashboardsettings: true
 		});

@@ -11,8 +11,8 @@ module.exports = class setgameCommand extends LenoxCommand {
 			format: 'setgame {new game status}',
 			aliases: [],
 			examples: ['setgame LenoxBot'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

@@ -11,8 +11,8 @@ module.exports = class listautomaticroleCommand extends LenoxCommand {
 			format: 'listautomaticrole',
 			aliases: ['lar'],
 			examples: ['listautomaticrole'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Automaticroles',
 			dashboardsettings: true
 		});

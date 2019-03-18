@@ -11,8 +11,8 @@ module.exports = class kickCommand extends LenoxCommand {
 			format: 'kick {@User} {reason}',
 			aliases: ['k'],
 			examples: ['kick @Monkeyyy11#7584 Spam'],
-			clientPermissions: ['SEND_MESSAGES', 'KICK_MEMBERS'],
-			userPermissions: ['KICK_MEMBERS'],
+			clientermissions: ['SEND_MESSAGES', 'KICK_MEMBERS'],
+			userpermissions: ['KICK_MEMBERS'],
 			shortDescription: 'Kick',
 			dashboardsettings: true
 		});

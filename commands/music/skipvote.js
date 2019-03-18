@@ -10,8 +10,8 @@ module.exports = class skipvoteCommand extends LenoxCommand {
 			format: 'skipvote',
 			aliases: [],
 			examples: ['skipvote'],
-			clientPermissions: ['SEND_MESSAGES', 'SPEAK'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES', 'SPEAK'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Skip',
 			dashboardsettings: true
 		});

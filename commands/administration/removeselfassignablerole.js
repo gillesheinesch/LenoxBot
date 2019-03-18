@@ -10,8 +10,8 @@ module.exports = class removeselfassignableroleCommand extends LenoxCommand {
 			format: 'removeselfassignablerole {name of the role}',
 			aliases: ['rsar'],
 			examples: ['removeselfassignablerole Member'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Selfassignableroles',
 			dashboardsettings: true
 		});

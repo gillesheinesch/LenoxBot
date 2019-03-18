@@ -12,8 +12,8 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 			format: 'temporaryban {@User/UserID} {time (d, h, m, s)} {reason}',
 			aliases: ['tempban'],
 			examples: ['temporaryban @Monkeyyy11#0001 1d Toxic behaviour'],
-			clientPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
-			userPermissions: ['BAN_MEMBERS'],
+			clientermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
+			userpermissions: ['BAN_MEMBERS'],
 			shortDescription: 'Ban',
 			dashboardsettings: true
 		});

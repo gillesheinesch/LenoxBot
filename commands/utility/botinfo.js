@@ -13,8 +13,8 @@ module.exports = class botinfoCommand extends LenoxCommand {
 			format: 'language {desired language}',
 			aliases: ['binfo', 'bi'],
 			examples: ['botinfo'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Information',
 			dashboardsettings: false
 		});

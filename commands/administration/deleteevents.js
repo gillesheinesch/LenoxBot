@@ -11,8 +11,8 @@ module.exports = class deleteeventsCommand extends LenoxCommand {
 			aliases: [],
 			examples: ['deleteevents'],
 			category: 'administration',
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Events',
 			dashboardsettings: true
 		});

@@ -11,8 +11,8 @@ module.exports = class banCommand extends LenoxCommand {
 			format: 'ban {@User/UserID} {reason}',
 			aliases: ['b'],
 			examples: ['ban @Monkeyyy11#7584 Toxic behavior', 'ban 406177968252256257 Spam'],
-			clientPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
-			userPermissions: ['BAN_MEMBERS'],
+			clientermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
+			userpermissions: ['BAN_MEMBERS'],
 			shortDescription: 'Ban',
 			dashboardsettings: true
 		});

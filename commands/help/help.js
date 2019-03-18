@@ -10,8 +10,8 @@ module.exports = class helpCommand extends LenoxCommand {
 			format: 'help {commandname}',
 			aliases: ['h'],
 			examples: ['help botinfo', 'help'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Help',
 			dashboardsettings: false
 		});
@@ -67,7 +67,7 @@ module.exports = class helpCommand extends LenoxCommand {
 				.setAuthor(`${prefix}${command.aliases.length === 0 ? command.name : `${command.name} / `} ${aliases.join(' / ')}`)
 				.setDescription(lang[`${command.name}_description`])
 				.addField(lang.help_usage, prefix + command.format)
-				.addField(lang.help_permissions, command.userPermissions.length === 0 ? '/' : command.userPermissions.join(', '))
+				.addField(lang.help_permissions, command.userpermissions.length === 0 ? '/' : command.userpermissions.join(', '))
 				.addField(lang.help_example, examples.join('\n'))
 				.setFooter(category);
 
@@ -102,7 +102,7 @@ module.exports = class helpCommand extends LenoxCommand {
 						.setAuthor(`${prefix}${command.aliases.length === 0 ? command.name : `${command.name} / `} ${aliases.join(' / ')}`)
 						.setDescription(lang[`${command.name}_description`])
 						.addField(lang.help_usage, prefix + command.format)
-						.addField(lang.help_permissions, command.userPermissions.length === 0 ? '/' : command.userPermissions.join(', '))
+						.addField(lang.help_permissions, command.userpermissions.length === 0 ? '/' : command.userpermissions.join(', '))
 						.addField(lang.help_example, examples.join('\n'))
 						.setFooter(category);
 					return msg.channel.send({ embed: aliasembed });

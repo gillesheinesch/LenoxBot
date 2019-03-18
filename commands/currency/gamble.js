@@ -11,8 +11,8 @@ module.exports = class gambleCommand extends LenoxCommand {
 			format: 'gamble',
 			aliases: [],
 			examples: ['gamble 1000', 'gamble 8344', 'gamble 828', 'gamble 10'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Daily',
 			dashboardsettings: true
 		});

@@ -12,8 +12,8 @@ module.exports = class overwatchstatsCommand extends LenoxCommand {
 			format: 'overwatch {profile, quickplay, competitive} {BATTLETAG}',
 			aliases: ['owstats'],
 			examples: ['overwatch profile Monkeyyy11#2761'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true
 		});

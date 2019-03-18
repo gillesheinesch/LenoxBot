@@ -10,8 +10,8 @@ module.exports = class modulesCommand extends LenoxCommand {
 			format: 'modules',
 			aliases: ['m'],
 			examples: ['modules'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Help',
 			dashboardsettings: false
 		});

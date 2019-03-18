@@ -11,8 +11,8 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 			format: 'rockpaperscissors {scissors, rock, paper}',
 			aliases: ['rps'],
 			examples: ['rockpaperscissors scissors'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

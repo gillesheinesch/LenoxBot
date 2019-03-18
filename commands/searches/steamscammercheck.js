@@ -11,8 +11,8 @@ module.exports = class steamscammercheckCommand extends LenoxCommand {
 			format: 'steamscammercheck {SteamID64}',
 			aliases: ['ssc'],
 			examples: ['steamscammercheck 76561198150711701'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Steam',
 			dashboardsettings: true
 		});

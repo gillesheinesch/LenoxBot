@@ -11,8 +11,8 @@ module.exports = class languagefinderCommand extends LenoxCommand {
 			format: 'languagefinder {guildid}',
 			aliases: [],
 			examples: ['languagefinder 352896116812939264'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

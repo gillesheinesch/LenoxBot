@@ -10,8 +10,8 @@ module.exports = class editentryCommand extends LenoxCommand {
 			format: 'editentry {application entry ID} {new application entry text}',
 			aliases: [],
 			examples: ['editentry 1 Hello dear applicant'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Entries',
 			dashboardsettings: true
 		});

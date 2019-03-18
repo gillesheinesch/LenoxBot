@@ -12,8 +12,8 @@ module.exports = class userinfoCommand extends LenoxCommand {
 			format: 'userinfo [@User/UserID]',
 			aliases: ['uinfo', 'ui'],
 			examples: ['userinfo @Tester#0001', 'userinfo 327533963923161090'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Information',
 			dashboardsettings: true
 		});

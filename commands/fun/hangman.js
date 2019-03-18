@@ -11,8 +11,8 @@ module.exports = class hangmanCommand extends LenoxCommand {
 			format: 'eightball {question}',
 			aliases: ['hg'],
 			examples: ['hangman', 'hangman @Tester#0001'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true
 		});

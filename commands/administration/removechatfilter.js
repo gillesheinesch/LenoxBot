@@ -10,8 +10,8 @@ module.exports = class removechatfilterCommand extends LenoxCommand {
 			format: 'removechatfilter {word}',
 			aliases: [],
 			examples: ['removechatfilter bastard', 'removechatfilter idiot'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Chatfilter',
 			dashboardsettings: true
 		});

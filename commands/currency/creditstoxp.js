@@ -10,8 +10,8 @@ module.exports = class creditstoxpCommand extends LenoxCommand {
 			format: 'creditstoxp {amount}',
 			aliases: ['ctxp'],
 			examples: ['creditstoxp 1000'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Credits',
 			dashboardsettings: true
 		});

@@ -11,8 +11,8 @@ module.exports = class newsCommand extends LenoxCommand {
 			format: 'news {newspaper}',
 			aliases: [],
 			examples: ['news bild'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

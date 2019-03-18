@@ -12,8 +12,8 @@ module.exports = class urbanCommand extends LenoxCommand {
 			format: 'urban {query}',
 			aliases: [],
 			examples: ['urban Discord'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

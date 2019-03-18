@@ -11,8 +11,8 @@ module.exports = class memberstatusCommand extends LenoxCommand {
 			format: 'memberstatus',
 			aliases: [],
 			examples: ['memberstatus'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Information',
 			dashboardsettings: true
 		});

@@ -12,8 +12,8 @@ module.exports = class bitcoinCommand extends LenoxCommand {
 			format: 'bitcoin',
 			aliases: [],
 			examples: ['bitcoin'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

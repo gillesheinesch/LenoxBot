@@ -11,8 +11,8 @@ module.exports = class listselfassignableroleCommand extends LenoxCommand {
 			format: 'listselfassignablerole',
 			aliases: ['lsar'],
 			examples: ['listselfassignablerole'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Selfassignableroles',
 			dashboardsettings: true
 		});

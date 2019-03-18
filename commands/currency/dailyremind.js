@@ -10,8 +10,8 @@ module.exports = class dailyremindCommand extends LenoxCommand {
 			format: 'dailyremind',
 			aliases: [],
 			examples: ['dailyremind'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Daily',
 			dashboardsettings: false
 		});

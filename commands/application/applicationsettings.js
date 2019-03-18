@@ -11,8 +11,8 @@ module.exports = class applicationsettingsCommand extends LenoxCommand {
 			format: 'applicationsettings',
 			aliases: [],
 			examples: ['applicationsettings'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['MANAGE_GUILD'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['MANAGE_GUILD'],
 			shortDescription: 'Settings',
 			dashboardsettings: true
 		});

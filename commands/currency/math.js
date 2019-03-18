@@ -12,8 +12,8 @@ module.exports = class mathCommand extends LenoxCommand {
 			format: 'math',
 			aliases: [],
 			examples: ['math'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true
 		});

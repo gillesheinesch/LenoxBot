@@ -11,8 +11,8 @@ module.exports = class inroleCommand extends LenoxCommand {
 			format: 'help {commandname}',
 			aliases: [],
 			examples: ['inrole Admin'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Information',
 			dashboardsettings: true
 		});

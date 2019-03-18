@@ -11,8 +11,8 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			format: 'tictactoe {@User}',
 			aliases: ['ttt'],
 			examples: ['tictactoe @Tester#7584'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true
 		});

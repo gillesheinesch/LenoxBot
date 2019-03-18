@@ -10,8 +10,8 @@ module.exports = class setprofiledescriptionCommand extends LenoxCommand {
 			format: 'setprofiledescription {description}',
 			aliases: [],
 			examples: ['setprofiledescription 27y/o | Love Lenoxbot | pilot at American Airline'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Settings',
 			dashboardsettings: true
 		});

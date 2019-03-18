@@ -11,8 +11,8 @@ module.exports = class redtubeCommand extends LenoxCommand {
 			format: 'redtube {query}',
 			aliases: [],
 			examples: ['redtube ass', 'redtube tits'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Videos',
 			dashboardsettings: true
 		});

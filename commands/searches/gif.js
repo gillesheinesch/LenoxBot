@@ -13,8 +13,8 @@ module.exports = class gifCommand extends LenoxCommand {
 			format: 'gif {query}',
 			aliases: [],
 			examples: ['gif Discord', 'gif Fortnite'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

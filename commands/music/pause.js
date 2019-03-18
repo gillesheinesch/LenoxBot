@@ -10,8 +10,8 @@ module.exports = class pauseCommand extends LenoxCommand {
 			format: 'pause',
 			aliases: [],
 			examples: ['pause'],
-			clientPermissions: ['SEND_MESSAGES', 'SPEAK'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES', 'SPEAK'],
+			userpermissions: [],
 			shortDescription: 'Musicplayersettings',
 			dashboardsettings: true
 		});

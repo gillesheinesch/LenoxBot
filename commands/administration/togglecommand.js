@@ -10,8 +10,8 @@ module.exports = class togglecommandCommand extends LenoxCommand {
 			format: 'togglecommand {name of the command}',
 			aliases: [],
 			examples: ['togglecommand ban', 'togglecommand kick'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

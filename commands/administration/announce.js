@@ -12,8 +12,8 @@ module.exports = class announceCommand extends LenoxCommand {
 			aliases: ['a'],
 			examples: ['announce Today we reached 5000 members. Thank you for that!', 'announce Today we reached 5000 members. Thank you for that! -embed'],
 			category: 'administration',
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Announcements',
 			dashboardsettings: true
 		});

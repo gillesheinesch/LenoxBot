@@ -6,10 +6,12 @@ module.exports = class LenoxCommand extends DiscordCommando.Command {
 		this.shortDescription = info.shortDescription || null;
 		this.cooldown = info.cooldown || null;
 		this.dashboardsettings = info.dashboardsettings || null;
+		this.clientpermissions = info.clientpermissions || [];
+		this.userpermissions = info.userpermissions || [];
 	}
 
 	hasPermission(message, ownerOverride = true) {
-		if (!this.ownerOnly && !this.userPermissions) return true;
+		if (!this.ownerOnly && !this.userpermissions) return true;
 		if (ownerOverride && this.client.isOwner(message.author)) return true;
 
 		const provider = message.client.provider;
@@ -20,8 +22,8 @@ module.exports = class LenoxCommand extends DiscordCommando.Command {
 			return `${lang.botownercommands_error}`;
 		}
 
-		if (message.channel.type === 'text' && this.userPermissions) {
-			const missing = message.channel.permissionsFor(message.author).missing(this.userPermissions);
+		if (message.channel.type === 'text' && this.userpermissions) {
+			const missing = message.channel.permissionsFor(message.author).missing(this.userpermissions);
 			if (missing.length > 0) {
 				const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', missing.map(perm => missing[perm]).join(', '));
 				if (missing.length === 1) {

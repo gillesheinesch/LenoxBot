@@ -10,8 +10,8 @@ module.exports = class setacceptedmessageCommand extends LenoxCommand {
 			format: 'setacceptedmessage {custom message}',
 			aliases: [],
 			examples: ['setacceptedmessage You have been accepted!'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Settings',
 			dashboardsettings: true
 		});

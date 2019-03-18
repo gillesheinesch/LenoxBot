@@ -11,8 +11,8 @@ module.exports = class applicationCommand extends LenoxCommand {
 			format: 'application',
 			aliases: ['apply'],
 			examples: ['application'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

@@ -10,8 +10,8 @@ module.exports = class deletecustomcommandCommand extends LenoxCommand {
 			format: 'deletecustomcommand {name of the custom command}',
 			aliases: ['dcc'],
 			examples: ['deletecustomcommand test221'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Customcommands',
 			dashboardsettings: true
 		});
