@@ -10,7 +10,7 @@ module.exports = class botinfoCommand extends LenoxCommand {
 			group: 'utility',
 			memberName: 'botinfo',
 			description: 'Information about the bot',
-			format: 'language {desired language}',
+			format: 'botinfo',
 			aliases: ['binfo', 'bi'],
 			examples: ['botinfo'],
 			clientpermissions: ['SEND_MESSAGES'],
