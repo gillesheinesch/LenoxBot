@@ -11,7 +11,7 @@ module.exports = class setsocialmediaCommand extends LenoxCommand {
 			format: 'setsocialmedia {edit/delete/list} [youtube, twitch, instagram, twitter]',
 			aliases: [],
 			examples: ['setsocialmedia edit youtube Monkeyyy11', 'setsocialmedia delete twitch', 'setsocialmedia list'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

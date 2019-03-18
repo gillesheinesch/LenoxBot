@@ -11,7 +11,7 @@ module.exports = class commanddeletionCommand extends LenoxCommand {
 			aliases: ['cmddel'],
 			examples: ['commanddeletion'],
 			category: 'administration',
-			clientermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'General',
 			dashboardsettings: true

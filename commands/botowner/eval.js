@@ -11,7 +11,7 @@ module.exports = class evalCommand extends LenoxCommand {
 			format: 'eval {command}',
 			aliases: [],
 			examples: ['eval msg.channel.send(1);'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

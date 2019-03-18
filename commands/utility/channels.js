@@ -11,7 +11,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 			format: 'channels',
 			aliases: [],
 			examples: ['channels'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Information',
 			dashboardsettings: true

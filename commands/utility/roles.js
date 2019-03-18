@@ -11,7 +11,7 @@ module.exports = class rolesCommand extends LenoxCommand {
 			format: 'roles',
 			aliases: [],
 			examples: ['roles'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Information',
 			dashboardsettings: true

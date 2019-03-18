@@ -11,7 +11,7 @@ module.exports = class mineCommand extends LenoxCommand {
 			format: 'mine',
 			aliases: [],
 			examples: ['mine'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true,

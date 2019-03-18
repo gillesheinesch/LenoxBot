@@ -10,7 +10,7 @@ module.exports = class deleteentryCommand extends LenoxCommand {
 			format: 'deleteentry {entry}',
 			aliases: [],
 			examples: ['deleteentry How old are you?'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Entries',
 			dashboardsettings: true

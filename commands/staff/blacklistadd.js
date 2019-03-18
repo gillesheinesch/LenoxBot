@@ -11,7 +11,7 @@ module.exports = class blacklistaddCommand extends LenoxCommand {
 			format: 'blacklistadd {userId} {reason}',
 			aliases: [],
 			examples: ['blacklistadd 238590234135101440 Bugusing'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Blacklist',
 			dashboardsettings: true

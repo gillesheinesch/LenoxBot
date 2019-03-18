@@ -10,7 +10,7 @@ module.exports = class penissizecalculatorCommand extends LenoxCommand {
 			format: 'penissizecalculator [@User]',
 			aliases: ['psc'],
 			examples: ['penissizecalculator', 'penissizecalculator @Tester#8234'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Jokes',
 			dashboardsettings: true

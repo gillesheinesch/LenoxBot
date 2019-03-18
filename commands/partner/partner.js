@@ -11,7 +11,7 @@ module.exports = class partnerCommand extends LenoxCommand {
 			format: 'partner {serverownername}',
 			aliases: [],
 			examples: ['partner lenoxbot'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

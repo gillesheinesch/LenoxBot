@@ -10,7 +10,7 @@ module.exports = class addautomaticroleCommand extends LenoxCommand {
 			format: 'addautomaticrole {points} {name of the role}',
 			aliases: ['aar'],
 			examples: ['addautomaticrole 10 TestRole'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Automaticroles',
 			dashboardsettings: true

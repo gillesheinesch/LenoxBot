@@ -11,7 +11,7 @@ module.exports = class banlistCommand extends LenoxCommand {
 			format: 'banlist',
 			aliases: [],
 			examples: ['banlist'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Ban',
 			dashboardsettings: true

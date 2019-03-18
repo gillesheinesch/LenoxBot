@@ -11,7 +11,7 @@ module.exports = class deactivatemoduleCommand extends LenoxCommand {
 			aliases: ['dm'],
 			examples: ['deactivatemodule help'],
 			category: 'administration',
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Modules',
 			dashboardsettings: true

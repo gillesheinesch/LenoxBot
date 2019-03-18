@@ -11,7 +11,7 @@ module.exports = class softbanCommand extends LenoxCommand {
 			format: 'softban @User {days} {reason}',
 			aliases: [],
 			examples: ['softban @Monkeyyy11#7584 7 Spam'],
-			clientermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
+			clientpermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
 			userpermissions: ['BAN_MEMBERS'],
 			shortDescription: 'Ban',
 			dashboardsettings: true

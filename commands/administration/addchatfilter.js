@@ -10,7 +10,7 @@ module.exports = class addchatfilterCommand extends LenoxCommand {
 			format: 'addchatfilter {word}',
 			aliases: [],
 			examples: ['addchatfilter bitch', 'addchatfilter idiot'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Chatfilter',
 			dashboardsettings: true

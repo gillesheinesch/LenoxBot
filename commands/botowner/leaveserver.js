@@ -11,7 +11,7 @@ module.exports = class leaveserverCommand extends LenoxCommand {
 			format: 'leaveserver {guildid}',
 			aliases: [],
 			examples: ['leaveserver 8738704872894987'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

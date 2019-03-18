@@ -11,7 +11,7 @@ module.exports = class queueCommand extends LenoxCommand {
 			format: 'queue',
 			aliases: [],
 			examples: ['queue'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Queue',
 			dashboardsettings: true

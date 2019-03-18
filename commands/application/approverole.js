@@ -10,7 +10,7 @@ module.exports = class approveroleCommand extends LenoxCommand {
 			format: 'approverole {name of the role}',
 			aliases: [],
 			examples: ['approverole accepted'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Roles',
 			dashboardsettings: true

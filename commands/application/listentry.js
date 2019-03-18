@@ -11,7 +11,7 @@ module.exports = class listentryCommand extends LenoxCommand {
 			format: 'listentry',
 			aliases: [],
 			examples: ['listentry'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Entries',
 			dashboardsettings: true

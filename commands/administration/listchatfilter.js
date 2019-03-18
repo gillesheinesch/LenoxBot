@@ -11,7 +11,7 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 			format: 'listchatfilter',
 			aliases: [],
 			examples: ['listchatfilter'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Chatfilter',
 			dashboardsettings: true

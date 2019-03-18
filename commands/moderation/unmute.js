@@ -11,7 +11,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 			format: 'unmute {@User} {reason}',
 			aliases: ['um'],
 			examples: ['unmute @Tester#7352 Wrong mute'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['KICK_MEMBERS'],
 			shortDescription: 'Mute',
 			dashboardsettings: true

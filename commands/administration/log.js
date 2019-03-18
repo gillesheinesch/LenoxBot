@@ -10,7 +10,7 @@ module.exports = class logCommand extends LenoxCommand {
 			format: 'log {name of the event}',
 			aliases: [],
 			examples: ['log modlog'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Events',
 			dashboardsettings: true

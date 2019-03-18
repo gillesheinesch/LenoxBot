@@ -11,7 +11,7 @@ module.exports = class listeventsCommand extends LenoxCommand {
 			format: 'listevents',
 			aliases: [],
 			examples: ['listevents'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['MANAGE_GUILD'],
 			shortDescription: 'Events',
 			dashboardsettings: true

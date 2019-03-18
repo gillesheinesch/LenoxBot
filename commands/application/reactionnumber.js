@@ -10,7 +10,7 @@ module.exports = class reactionnumberCommand extends LenoxCommand {
 			format: 'reactionnumber {number}',
 			aliases: [],
 			examples: ['reactionnumber 2'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Settings',
 			dashboardsettings: true

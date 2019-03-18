@@ -11,7 +11,7 @@ module.exports = class createmuteroleCommand extends LenoxCommand {
 			aliases: [],
 			examples: ['createmuterole'],
 			category: 'administration',
-			clientermissions: ['SEND_MESSAGES', 'MANAGE_ROLES', 'MANAGE_CHANNELS'],
+			clientpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES', 'MANAGE_CHANNELS'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Roles',
 			dashboardsettings: true

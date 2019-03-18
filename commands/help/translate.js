@@ -10,7 +10,7 @@ module.exports = class translateCommand extends LenoxCommand {
 			format: 'translate',
 			aliases: [],
 			examples: ['translate'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Help',
 			dashboardsettings: false

@@ -10,7 +10,7 @@ module.exports = class forceskipCommand extends LenoxCommand {
 			format: 'forceskip',
 			aliases: [],
 			examples: ['forceskip'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['MANAGE_GUILD'],
 			shortDescription: 'Skip',
 			dashboardsettings: true

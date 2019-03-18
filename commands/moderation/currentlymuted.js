@@ -12,7 +12,7 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 			format: 'currentlymuted [@USER/UserID]',
 			aliases: ['cm'],
 			examples: ['currentlymuted', 'currentlymuted @Monkeyyy11#0001', 'currentlymuted 353115097318555649'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['KICK_MEMBERS'],
 			shortDescription: 'Mute',
 			dashboardsettings: true

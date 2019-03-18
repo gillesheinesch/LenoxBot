@@ -11,7 +11,7 @@ module.exports = class warnlogCommand extends LenoxCommand {
 			format: 'warnlog [@User]',
 			aliases: ['wl', 'warns'],
 			examples: ['warnlog', 'warnlog @Monkeyyy11#7584'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['KICK_MEMBERS'],
 			shortDescription: 'Warn',
 			dashboardsettings: true

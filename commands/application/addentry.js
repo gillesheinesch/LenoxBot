@@ -10,7 +10,7 @@ module.exports = class addentryCommand extends LenoxCommand {
 			format: 'addentry {new entry}',
 			aliases: [],
 			examples: ['addentry How old are you?'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Entries',
 			dashboardsettings: true

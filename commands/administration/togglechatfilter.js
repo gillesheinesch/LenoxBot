@@ -10,7 +10,7 @@ module.exports = class togglechatfilterCommand extends LenoxCommand {
 			format: 'togglechatfilter',
 			aliases: [],
 			examples: ['togglechatfilter'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Chatfilter',
 			dashboardsettings: true

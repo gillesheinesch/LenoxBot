@@ -12,7 +12,7 @@ module.exports = class googleCommand extends LenoxCommand {
 			format: 'google {query}',
 			aliases: ['g'],
 			examples: ['google Discord'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

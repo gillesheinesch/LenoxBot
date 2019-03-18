@@ -12,7 +12,7 @@ module.exports = class availablelanguagesCommand extends LenoxCommand {
 			aliases: [],
 			examples: ['availablelanguages'],
 			category: 'administration',
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Localization',
 			dashboardsettings: true

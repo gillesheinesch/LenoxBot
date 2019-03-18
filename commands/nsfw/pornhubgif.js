@@ -11,7 +11,7 @@ module.exports = class pornhubgifCommand extends LenoxCommand {
 			format: 'pornhubgif {query}',
 			aliases: [],
 			examples: ['pornhubgif ass', 'pornhubgif tits'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'GIFS',
 			dashboardsettings: true

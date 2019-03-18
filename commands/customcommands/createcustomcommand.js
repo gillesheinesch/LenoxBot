@@ -10,7 +10,7 @@ module.exports = class createcustomcommandCommand extends LenoxCommand {
 			format: 'createcustomcommand {name of the custom command} {response of the custom command}',
 			aliases: ['ccc'],
 			examples: ['createcustomcommand welcome Hello World!'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Customcommands',
 			dashboardsettings: true

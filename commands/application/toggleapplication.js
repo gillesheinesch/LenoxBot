@@ -10,7 +10,7 @@ module.exports = class toggleapplicationCommand extends LenoxCommand {
 			format: 'toggleapplication',
 			aliases: [],
 			examples: ['toggleapplication'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Settings',
 			dashboardsettings: true

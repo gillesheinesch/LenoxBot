@@ -14,7 +14,7 @@ module.exports = class jobCommand extends LenoxCommand {
 			format: 'job',
 			aliases: [],
 			examples: ['job'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true

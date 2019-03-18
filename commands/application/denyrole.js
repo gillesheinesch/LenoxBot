@@ -10,7 +10,7 @@ module.exports = class denyroleCommand extends LenoxCommand {
 			format: 'denyrole {name of the role}',
 			aliases: [],
 			examples: ['denyrole rejected'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Roles',
 			dashboardsettings: true

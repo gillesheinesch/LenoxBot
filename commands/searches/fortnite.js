@@ -13,7 +13,7 @@ module.exports = class fortniteCommand extends LenoxCommand {
 			format: 'fortnite {pc, xbl, psn} {EpicGames Username}',
 			aliases: [],
 			examples: ['fortnite psn Monkeyyy11ez'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true

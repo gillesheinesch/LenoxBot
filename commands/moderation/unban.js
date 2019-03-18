@@ -11,7 +11,7 @@ module.exports = class unbanCommand extends LenoxCommand {
 			format: 'unban {userID} {reason}',
 			aliases: ['ub'],
 			examples: ['unban 238590234135101440 Mistake'],
-			clientermissions: ['BAN_MEMBERS', 'MANAGE_GUILD', 'SEND_MESSAGES'],
+			clientpermissions: ['BAN_MEMBERS', 'MANAGE_GUILD', 'SEND_MESSAGES'],
 			userpermissions: ['BAN_MEMBERS'],
 			shortDescription: 'Ban',
 			dashboardsettings: true

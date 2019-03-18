@@ -11,7 +11,7 @@ module.exports = class prefixfinderCommand extends LenoxCommand {
 			format: 'prefixfinder {guildid}',
 			aliases: [],
 			examples: ['prefixfinder 352896116812939264'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

@@ -12,7 +12,7 @@ module.exports = class mathCommand extends LenoxCommand {
 			format: 'math',
 			aliases: [],
 			examples: ['math'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true

@@ -10,7 +10,7 @@ module.exports = class resumeCommand extends LenoxCommand {
 			format: 'resume',
 			aliases: [],
 			examples: ['resume'],
-			clientermissions: ['SEND_MESSAGES', 'SPEAK'],
+			clientpermissions: ['SEND_MESSAGES', 'SPEAK'],
 			userpermissions: [],
 			shortDescription: 'Musicplayersettings',
 			dashboardsettings: true

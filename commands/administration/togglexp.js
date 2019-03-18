@@ -11,7 +11,7 @@ module.exports = class togglexpCommand extends LenoxCommand {
 			format: 'togglexp {add/remove/list} [channelname]',
 			aliases: [],
 			examples: ['togglexp add spam', 'togglexp remove spam', 'togglexp list'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['MANAGE_GUILD'],
 			shortDescription: 'XP',
 			dashboardsettings: true

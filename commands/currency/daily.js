@@ -11,7 +11,7 @@ module.exports = class dailyCommand extends LenoxCommand {
 			format: 'daily [@User]',
 			aliases: ['d'],
 			examples: ['daily', 'daily @Tester#3873'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Daily',
 			dashboardsettings: false,

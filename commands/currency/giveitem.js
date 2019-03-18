@@ -12,7 +12,7 @@ module.exports = class giveitemCommand extends LenoxCommand {
 			format: 'giveitem {@User} {amount} {emoji or name of the item}',
 			aliases: [],
 			examples: ['giveitem @Monkeyyy11#0001 7 🛴', 'giveitem @Monkeyyy11#0001 7 scooter'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

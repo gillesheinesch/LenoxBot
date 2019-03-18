@@ -18,7 +18,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 			format: 'playlist {new/delete/list/addsong/removesong} {name of the playlist}',
 			aliases: [],
 			examples: ['playlist new DJKhaled', 'playlist list', 'playlist list DJKhaled', 'playlist delete DJKhaled', 'playlist addsong DJKhaled', 'playlist removesong DJKhaled'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['MANAGE_GUILD'],
 			shortDescription: 'General',
 			dashboardsettings: true

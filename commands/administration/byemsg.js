@@ -11,7 +11,7 @@ module.exports = class byemsgCommand extends LenoxCommand {
 			aliases: [],
 			examples: ['byemsg Bye $user$, we gonna miss you on the $servername$ discord-server!'],
 			category: 'administration',
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Bye',
 			dashboardsettings: true

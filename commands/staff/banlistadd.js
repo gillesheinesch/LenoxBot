@@ -11,7 +11,7 @@ module.exports = class banlistaddCommand extends LenoxCommand {
 			format: 'banlistadd {guildId} {reason}',
 			aliases: [],
 			examples: ['banlistadd 352896116812939264 Crashing the bot'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Ban',
 			dashboardsettings: true

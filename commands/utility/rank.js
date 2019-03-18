@@ -11,7 +11,7 @@ module.exports = class rankCommand extends LenoxCommand {
 			format: 'rank [@User]',
 			aliases: [],
 			examples: ['rank', 'rank @Monkeyyy11'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'XP',
 			dashboardsettings: true

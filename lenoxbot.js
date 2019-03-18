@@ -168,10 +168,11 @@ if (process.env.SHARD_COUNT) {
 		}
 
 		if (botCommandExists) {
-			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientermissions.join(', '));
+
+			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientpermissions.join(', '));
 			const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userpermissions.join(', '));
 
-			if (cmd.clientermissions.every(perm => msg.message.guild.me.hasPermission(perm)) === false) {
+			if (cmd.clientpermissions.every(perm => msg.message.guild.me.hasPermission(perm)) === false) {
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 					msg.delete();
 				}

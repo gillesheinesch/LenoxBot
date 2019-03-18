@@ -10,7 +10,7 @@ module.exports = class templesearchCommand extends LenoxCommand {
 			format: 'templesearch',
 			aliases: [],
 			examples: ['templesearch'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true

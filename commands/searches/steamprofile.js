@@ -13,7 +13,7 @@ module.exports = class steamprofileCommand extends LenoxCommand {
 			format: 'steamprofile {SteamID64}',
 			aliases: ['sp'],
 			examples: ['steamprofile 76561198150711701'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Steam',
 			dashboardsettings: true

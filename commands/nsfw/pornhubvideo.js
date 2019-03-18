@@ -11,7 +11,7 @@ module.exports = class pornhubvideoCommand extends LenoxCommand {
 			format: 'pornhubvideo {query}',
 			aliases: [],
 			examples: ['pornhubvideo ass', 'pornhubvideo tits'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Videos',
 			dashboardsettings: true

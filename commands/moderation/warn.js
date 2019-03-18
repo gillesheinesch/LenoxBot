@@ -11,7 +11,7 @@ module.exports = class warnCommand extends LenoxCommand {
 			format: 'warn {@User/UserID} {reason}',
 			aliases: ['w'],
 			examples: ['warn @Monkeyyy11#7584 Spam'],
-			clientermissions: ['SEND_MESSAGES', 'KICK_MEMBERS'],
+			clientpermissions: ['SEND_MESSAGES', 'KICK_MEMBERS'],
 			userpermissions: ['KICK_MEMBERS'],
 			shortDescription: 'Mute',
 			dashboardsettings: true

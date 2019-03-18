@@ -11,7 +11,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 			format: 'creditranklist',
 			aliases: ['richest'],
 			examples: ['creditranklist'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Credits',
 			dashboardsettings: true

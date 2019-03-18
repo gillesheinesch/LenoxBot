@@ -11,7 +11,7 @@ module.exports = class listmodulesCommand extends LenoxCommand {
 			format: 'listmodules',
 			aliases: [],
 			examples: ['listmodules'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Modules',
 			dashboardsettings: true

@@ -12,7 +12,7 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 			format: 'currentlybanned [@USER/UserID]',
 			aliases: ['cb'],
 			examples: ['currentlybanned', 'currentlybanned @Monkeyyy11#0001', 'currentlybanned 353115097318555649'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['KICK_MEMBERS'],
 			shortDescription: 'Ban',
 			dashboardsettings: true

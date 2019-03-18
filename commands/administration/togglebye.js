@@ -10,7 +10,7 @@ module.exports = class togglebyeCommand extends LenoxCommand {
 			format: 'togglebye',
 			aliases: [],
 			examples: ['togglebye'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Bye',
 			dashboardsettings: true

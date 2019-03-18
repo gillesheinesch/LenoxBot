@@ -10,7 +10,7 @@ module.exports = class skipCommand extends LenoxCommand {
 			format: 'skip',
 			aliases: [],
 			examples: ['skip'],
-			clientermissions: ['SEND_MESSAGES', 'SPEAK'],
+			clientpermissions: ['SEND_MESSAGES', 'SPEAK'],
 			userpermissions: [],
 			shortDescription: 'Skip',
 			dashboardsettings: true

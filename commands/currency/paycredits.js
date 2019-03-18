@@ -10,7 +10,7 @@ module.exports = class paycreditsCommand extends LenoxCommand {
 			format: 'paycredits {@User} {amount}',
 			aliases: [],
 			examples: ['paycredits @Monkeyyy11#7584 100'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Credits',
 			dashboardsettings: true

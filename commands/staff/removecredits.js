@@ -11,7 +11,7 @@ module.exports = class removecreditsCommand extends LenoxCommand {
 			format: 'removecredits {@USER} {amount}',
 			aliases: [],
 			examples: ['removecredits @Monkeyyy11#0001 2000'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Credits',
 			dashboardsettings: true,

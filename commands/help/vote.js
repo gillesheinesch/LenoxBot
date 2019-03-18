@@ -10,7 +10,7 @@ module.exports = class voteCommand extends LenoxCommand {
 			format: 'vote',
 			aliases: [],
 			examples: ['vote'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Help',
 			dashboardsettings: false

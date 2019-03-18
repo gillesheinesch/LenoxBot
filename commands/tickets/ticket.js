@@ -12,7 +12,7 @@ module.exports = class ticketCommand extends LenoxCommand {
 			format: 'ticket {text}',
 			aliases: [],
 			examples: ['ticket Hello how can I open Discord?'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

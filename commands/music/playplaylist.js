@@ -15,7 +15,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 			format: 'playplaylist {name of the playlist}',
 			aliases: [],
 			examples: ['playplaylist DJKhaled-Playlist'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Musicplayersettings',
 			dashboardsettings: true

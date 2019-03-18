@@ -12,7 +12,7 @@ module.exports = class shopCommand extends LenoxCommand {
 			format: 'shop [buy/sell] [amount/all (just works for sell)] [emoji or name of the item]',
 			aliases: ['market'],
 			examples: ['shop', 'shop buy 1 dog', 'shop sell 3 🐶', 'shop sell all'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: false

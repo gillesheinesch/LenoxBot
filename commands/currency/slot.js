@@ -12,7 +12,7 @@ module.exports = class slotCommand extends LenoxCommand {
 			format: 'slot',
 			aliases: [],
 			examples: ['slot'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true

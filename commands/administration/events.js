@@ -12,7 +12,7 @@ module.exports = class eventsCommand extends LenoxCommand {
 			aliases: ['e'],
 			examples: ['events'],
 			category: 'administration',
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Events',
 			dashboardsettings: true

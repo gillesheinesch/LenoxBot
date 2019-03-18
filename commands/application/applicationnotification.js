@@ -10,7 +10,7 @@ module.exports = class applicationnotificationCommand extends LenoxCommand {
 			format: 'applicationnotification',
 			aliases: [],
 			examples: ['applicationnotification'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Settings',
 			dashboardsettings: true

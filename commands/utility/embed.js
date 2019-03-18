@@ -11,7 +11,7 @@ module.exports = class embedCommand extends LenoxCommand {
 			format: 'embed {text}',
 			aliases: [],
 			examples: ['embed Welcome on this discord server! Here is a list of all rules on this discord server...'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true

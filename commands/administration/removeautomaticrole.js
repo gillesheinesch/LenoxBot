@@ -10,7 +10,7 @@ module.exports = class removeautomaticroleCommand extends LenoxCommand {
 			format: 'removeautomaticrole {name of the role}',
 			aliases: ['rar'],
 			examples: ['removeautomaticrole TestRole'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Automaticroles',
 			dashboardsettings: true

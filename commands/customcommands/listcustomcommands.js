@@ -10,7 +10,7 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 			format: 'listcustomcommands',
 			aliases: ['lcc'],
 			examples: ['listcustomcommands'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Customcommands',
 			dashboardsettings: true

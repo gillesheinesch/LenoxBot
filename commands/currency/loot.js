@@ -12,7 +12,7 @@ module.exports = class lootCommand extends LenoxCommand {
 			format: 'loot',
 			aliases: ['l'],
 			examples: ['loot'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true,

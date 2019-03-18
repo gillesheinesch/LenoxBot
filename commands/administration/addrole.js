@@ -10,7 +10,7 @@ module.exports = class addroleCommand extends LenoxCommand {
 			format: 'addrole {@User} {name of the role}',
 			aliases: ['ar'],
 			examples: ['addrole @Monkeyyy11#7584 Member'],
-			clientermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
+			clientpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
 			userpermissions: ['MANAGE_ROLES'],
 			shortDescription: 'Roles',
 			dashboardsettings: true

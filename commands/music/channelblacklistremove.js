@@ -10,7 +10,7 @@ module.exports = class channelblacklistremoveCommand extends LenoxCommand {
 			format: 'channelblacklistremove {name of the voicechannel}',
 			aliases: [],
 			examples: ['channelblacklistremove music #1'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Channelblacklist',
 			dashboardsettings: true

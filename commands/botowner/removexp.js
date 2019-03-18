@@ -11,7 +11,7 @@ module.exports = class removexpCommand extends LenoxCommand {
 			format: 'removexp {userid} {amount}',
 			aliases: [],
 			examples: ['removexp 327533963923161090 1000'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'xp',
 			dashboardsettings: true

@@ -10,7 +10,7 @@ module.exports = class removeroleCommand extends LenoxCommand {
 			format: 'removerole {@User} {name of the role}',
 			aliases: ['rr'],
 			examples: ['removerole @Monkeyyy11#7584 Member'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['MANAGE_ROLES'],
 			shortDescription: 'Roles',
 			dashboardsettings: true

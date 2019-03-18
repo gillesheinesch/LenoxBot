@@ -12,7 +12,7 @@ module.exports = class clashroyaleCommand extends LenoxCommand {
 			format: 'clashroyale {profile or clan}',
 			aliases: ['cr'],
 			examples: ['clashroyale clan 2QLU0LYJ'],
-			clientermissions: ['SEND_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true
