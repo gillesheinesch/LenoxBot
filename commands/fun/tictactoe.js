@@ -41,7 +41,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 				errors: ['time']
 			});
 		} catch (error) {
-			await wantToPlayMessage.delete();
+			return wantToPlayMessage.delete();
 		}
 
 		if (wantToPlay.first().content.toLowerCase() !== 'yes') {
