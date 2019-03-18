@@ -175,6 +175,11 @@ if (process.env.SHARD_COUNT) {
 			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientpermissions.join(', '));
 			const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userpermissions.join(', '));
 
+			cmd.clientpermissions.every(perm => {
+				msg.message.guild.me.hasPermission(perm);
+				console.log(perm);
+			});
+
 			if (cmd.clientpermissions.every(perm => msg.message.guild.me.hasPermission(perm)) === false) {
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 					msg.delete();
