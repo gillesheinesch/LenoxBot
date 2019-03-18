@@ -14,7 +14,7 @@ module.exports = class botinfoCommand extends LenoxCommand {
 			aliases: ['binfo', 'bi'],
 			examples: ['botinfo'],
 			clientpermissions: ['SEND_MESSAGES'],
-			userpermissions: ['ADMINISTRATOR'],
+			userpermissions: [],
 			shortDescription: 'Information',
 			dashboardsettings: false
 		});
