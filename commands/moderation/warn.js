@@ -13,7 +13,7 @@ module.exports = class warnCommand extends LenoxCommand {
 			examples: ['warn @Monkeyyy11#7584 Spam'],
 			clientpermissions: ['SEND_MESSAGES', 'KICK_MEMBERS'],
 			userpermissions: ['KICK_MEMBERS'],
-			shortDescription: 'Mute',
+			shortDescription: 'Warn',
 			dashboardsettings: true
 		});
 	}
