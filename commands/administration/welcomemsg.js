@@ -12,7 +12,7 @@ module.exports = class welcomemsgCommand extends LenoxCommand {
 			examples: ['welcomemsg Hello $username$, welcome on the $servername$ discord-server!'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
-			shortDescription: 'XP',
+			shortDescription: 'Welcome',
 			dashboardsettings: true
 		});
 	}
