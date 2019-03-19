@@ -11,7 +11,7 @@ if (cluster.isMaster) {
 		});
 
 
-	shardingManager.spawn(shardingManager.totalShards, 500).then(() => {
+	shardingManager.spawn('auto', 500).then(() => {
 		console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
 	}).catch(error => {
 		console.log(error);
