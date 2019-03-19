@@ -11,8 +11,8 @@ module.exports = class eightballCommand extends LenoxCommand {
 			format: 'eightball {question}',
 			aliases: [],
 			examples: ['eightball What is your name?'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true
 		});

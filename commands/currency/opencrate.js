@@ -11,8 +11,8 @@ module.exports = class opencrateCommand extends LenoxCommand {
 			format: 'opencrate',
 			aliases: [],
 			examples: ['opencrate'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true
 		});

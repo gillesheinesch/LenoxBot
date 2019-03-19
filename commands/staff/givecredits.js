@@ -11,8 +11,8 @@ module.exports = class givecreditsCommand extends LenoxCommand {
 			format: 'givecredits {@USER} {count}',
 			aliases: [],
 			examples: ['givecredits @Monkeyyy11#0001 2000'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Credits',
 			dashboardsettings: true,
 			cooldown: 1

@@ -10,8 +10,8 @@ module.exports = class prefixCommand extends LenoxCommand {
 			format: 'prefix {new prefix}',
 			aliases: [],
 			examples: ['prefix !=!'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

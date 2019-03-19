@@ -68,12 +68,14 @@ if (process.env.SHARD_COUNT) {
 
 
 	client.dispatcher.addInhibitor(msg => {
-		if (msg.channel.type !== 'text') return msg.reply(englishlang.messageevent_error);
+		if (msg.channel.type !== 'text') {
+			msg.reply(englishlang.messageevent_error);
+			return 'Not a text channel';
+		}
 		if (!client.provider.isReady) return 'notinitialized';
-		console.log(`isReady> ${client.provider.isReady}`)
 
 		if (client.user.id === '353115097318555649') {
-			if (msg.message.guild.id !== '332612123492483094') return undefined;
+			if (msg.message.guild.id !== '332612123492483094') return 'This is not the Test LenoxBot Server';
 		}
 
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
@@ -112,7 +114,7 @@ if (process.env.SHARD_COUNT) {
 		} else if (customcommandstatus && customcommand.enabled) {
 			cmd = customcommand;
 		} else {
-			return undefined;
+			return 'No command';
 		}
 
 		const banlistembed = new Discord.RichEmbed()
@@ -136,9 +138,10 @@ if (process.env.SHARD_COUNT) {
 			for (let i = 0; i < banlist.length; i++) {
 				if (msg.message.guild.id === banlist[i].discordServerID) {
 					banlistembed.addField(lang.messageevent_banlistreason, banlist[i].reason);
-					return msg.channel.send({
+					msg.channel.send({
 						embed: banlistembed
 					});
+					return 'Banlisted';
 				}
 			}
 		}
@@ -146,9 +149,10 @@ if (process.env.SHARD_COUNT) {
 			for (let i = 0; i < blackbanlist.length; i++) {
 				if (msg.author.id === blackbanlist[i].userID) {
 					blacklistembed.addField(lang.messageevent_blacklistreason, blackbanlist[i].reason);
-					return msg.channel.send({
+					msg.channel.send({
 						embed: blacklistembed
 					});
+					return 'Blacklisted';
 				}
 			}
 		}
@@ -168,20 +172,24 @@ if (process.env.SHARD_COUNT) {
 		}
 
 		if (botCommandExists) {
-			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientPermissions.join(', '));
-			const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userPermissions.join(', '));
-			if (cmd.clientPermissions.every(perm => msg.message.guild.me.hasPermission(perm)) === false) {
+			const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientpermissions.join(', '));
+			const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userpermissions.join(', '));
+
+			if (cmd.clientpermissions.every(perm => msg.message.guild.me.hasPermission(perm)) === false) {
+				console.log(msg.message.guild.id, cmd.name);
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 					msg.delete();
 				}
-				return msg.channel.send(botnopermission);
+				msg.channel.send(botnopermission);
+				return 'NoPermission';
 			}
 
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0 && cmd.userPermissions.every(perm => msg.member.hasPermission(perm)) === false) {
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0 && cmd.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 					msg.delete();
 				}
-				return msg.channel.send(usernopermission);
+				msg.channel.send(usernopermission);
+				return 'NoPermission';
 			}
 		}
 
@@ -193,23 +201,35 @@ if (process.env.SHARD_COUNT) {
 						if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 							msg.delete();
 						}
-						return msg.channel.send(moduledeactivated);
+						msg.channel.send(moduledeactivated);
+						return 'Module not activated!';
 					}
 				}
 			}
 		}
 
 		if (botCommandExists) {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].status === 'false') return msg.reply(lang.messageevent_commanddeactivated);
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].status === 'false') {
+				msg.reply(lang.messageevent_commanddeactivated);
+				return 'command deactivated';
+			}
 		} else if (customcommand.enabled === 'false') {
-			return msg.reply(lang.messageevent_commanddeactivated);
+			msg.reply(lang.messageevent_commanddeactivated);
+			return 'customcommand deactivated';
 		}
 
 		if (botCommandExists) {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedchannels.includes(msg.channel.id)) return msg.reply(lang.messageevent_bannedchannel);
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedchannels.includes(msg.channel.id)) {
+				msg.reply(lang.messageevent_bannedchannel);
+				return 'banned channel';
+			}
+
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0) {
 				for (let index = 0; index < msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedroles.length; index++) {
-					if (msg.member.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedroles[index])) return msg.reply(lang.messageevent_bannedrole);
+					if (msg.member.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedroles[index])) {
+						msg.reply(lang.messageevent_bannedrole);
+						return 'Banned role';
+					}
 				}
 			} else {
 				let allwhitelistedrolesoftheuser = 0;
@@ -219,7 +239,8 @@ if (process.env.SHARD_COUNT) {
 					}
 				}
 				if (allwhitelistedrolesoftheuser === msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length) {
-					return msg.reply(lang.messageevent_nowhitelistedroles);
+					msg.reply(lang.messageevent_nowhitelistedroles);
+					return 'Not whitelisted role';
 				}
 			}
 
@@ -250,7 +271,8 @@ if (process.env.SHARD_COUNT) {
 					if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 						msg.delete();
 					}
-					return msg.reply(anticommandspam);
+					msg.reply(anticommandspam);
+					return 'Antispam';
 				/* eslint no-else-return:0 */
 				} else if (now > expirationTime) {
 					timestamps[cmd.name][msg.author.id] = now;
@@ -267,15 +289,17 @@ if (process.env.SHARD_COUNT) {
 
 		if (!botCommandExists) {
 			if (customcommand.embed === 'false') {
-				return msg.channel.send(customcommand.commandanswer);
+				msg.channel.send(customcommand.commandanswer);
+				return 'custom command answer send';
 			} else {
 				const customCommandEmbed = new Discord.RichEmbed()
 					.setColor('#33cc33')
 					.setDescription(customcommand.commandanswer);
 
-				return msg.channel.send({
+				msg.channel.send({
 					embed: customCommandEmbed
 				});
+				return 'custom command answer send (embed)';
 			}
 		}
 

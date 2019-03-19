@@ -10,8 +10,8 @@ module.exports = class nowplayingCommand extends LenoxCommand {
 			format: 'nowplaying',
 			aliases: ['np'],
 			examples: ['nowplaying'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

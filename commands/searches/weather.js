@@ -14,8 +14,8 @@ module.exports = class weatherCommand extends LenoxCommand {
 			format: 'weather {location}',
 			aliases: [],
 			examples: ['weather Paris'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

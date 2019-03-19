@@ -12,8 +12,8 @@ module.exports = class muteCommand extends LenoxCommand {
 			format: 'mute {@User} {time (d, h, m, s)} {reason}',
 			aliases: [],
 			examples: ['mute @Tester#7362 1d Toxic behaviour'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['KICK_MEMBERS'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['KICK_MEMBERS'],
 			shortDescription: 'Mute',
 			dashboardsettings: true
 		});

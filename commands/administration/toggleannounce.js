@@ -10,8 +10,8 @@ module.exports = class toggleannounceCommand extends LenoxCommand {
 			format: 'toggleannounce',
 			aliases: [],
 			examples: ['toggleannounce'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Announcements',
 			dashboardsettings: true
 		});

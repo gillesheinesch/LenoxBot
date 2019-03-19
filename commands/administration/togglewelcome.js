@@ -10,8 +10,8 @@ module.exports = class togglewelcomeCommand extends LenoxCommand {
 			format: 'togglewelcome',
 			aliases: [],
 			examples: ['togglewelcome'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Welcome',
 			dashboardsettings: true
 		});

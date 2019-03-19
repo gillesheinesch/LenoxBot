@@ -11,8 +11,8 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			format: 'tictactoe {@User}',
 			aliases: ['ttt'],
 			examples: ['tictactoe @Tester#7584'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Games',
 			dashboardsettings: true
 		});
@@ -41,7 +41,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 				errors: ['time']
 			});
 		} catch (error) {
-			await wantToPlayMessage.delete();
+			return wantToPlayMessage.delete();
 		}
 
 		if (wantToPlay.first().content.toLowerCase() !== 'yes') {

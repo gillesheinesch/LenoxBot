@@ -11,8 +11,8 @@ module.exports = class banlistremoveCommand extends LenoxCommand {
 			format: 'banlistremove {guildid} {reason}',
 			aliases: [],
 			examples: ['banlistremove 352896116812939264 Mistake'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Ban',
 			dashboardsettings: true
 		});

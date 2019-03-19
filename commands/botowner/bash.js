@@ -11,8 +11,8 @@ module.exports = class bashCommand extends LenoxCommand {
 			format: 'bash {code}',
 			aliases: ['exec'],
 			examples: ['bash git help'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

@@ -13,8 +13,8 @@ module.exports = class serverinfoCommand extends LenoxCommand {
 			format: 'serverinfo',
 			aliases: ['sinfo', 'si'],
 			examples: ['serverinfo'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Information',
 			dashboardsettings: true
 		});

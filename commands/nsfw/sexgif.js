@@ -11,8 +11,8 @@ module.exports = class sexgifCommand extends LenoxCommand {
 			format: 'sexgif {query}',
 			aliases: [],
 			examples: ['sexgif ass', 'sexgif tits'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'GIFS',
 			dashboardsettings: true
 		});

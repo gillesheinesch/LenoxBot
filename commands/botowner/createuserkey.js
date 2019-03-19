@@ -12,8 +12,8 @@ module.exports = class createuserkeyCommand extends LenoxCommand {
 			format: 'createuserkey',
 			aliases: [],
 			examples: ['createuserkey'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

@@ -11,8 +11,8 @@ module.exports = class randomfactCommand extends LenoxCommand {
 			format: 'randomfact',
 			aliases: [],
 			examples: ['randomfact'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

@@ -11,8 +11,8 @@ module.exports = class sexvideoCommand extends LenoxCommand {
 			format: 'sexvideo {query}',
 			aliases: [],
 			examples: ['sexvideo ass', 'sexvideo tits'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Videos',
 			dashboardsettings: true
 		});

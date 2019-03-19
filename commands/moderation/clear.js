@@ -11,8 +11,8 @@ module.exports = class clearCommand extends LenoxCommand {
 			format: 'clear {amount of messages between 2 and 100}',
 			aliases: ['purge'],
 			examples: ['clear 50'],
-			clientPermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
-			userPermissions: ['MANAGE_MESSAGES'],
+			clientpermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
+			userpermissions: ['MANAGE_MESSAGES'],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

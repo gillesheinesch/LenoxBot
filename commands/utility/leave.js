@@ -10,8 +10,8 @@ module.exports = class leaveCommand extends LenoxCommand {
 			format: 'leave {rolename}',
 			aliases: [],
 			examples: ['leave Member'],
-			clientPermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES', 'MANAGE_ROLES'],
+			userpermissions: [],
 			shortDescription: 'Selfassignableroles',
 			dashboardsettings: true
 		});

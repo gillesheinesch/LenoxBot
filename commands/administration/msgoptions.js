@@ -11,8 +11,8 @@ module.exports = class msgoptionsCommand extends LenoxCommand {
 			format: 'msgoptions',
 			aliases: [],
 			examples: ['msgoptions'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

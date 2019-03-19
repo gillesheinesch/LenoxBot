@@ -12,8 +12,8 @@ module.exports = class inventoryCommand extends LenoxCommand {
 			format: 'inventory [upgrade]',
 			aliases: ['inv'],
 			examples: ['inventory', 'inventory upgrade'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

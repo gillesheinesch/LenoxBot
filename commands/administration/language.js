@@ -10,8 +10,8 @@ module.exports = class languageCommand extends LenoxCommand {
 			format: 'language {desired language}',
 			aliases: [],
 			examples: ['language', 'language german', 'language english', 'language spanish'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Localization',
 			dashboardsettings: true
 		});

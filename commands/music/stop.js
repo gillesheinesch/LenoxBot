@@ -10,8 +10,8 @@ module.exports = class stopCommand extends LenoxCommand {
 			format: 'stop',
 			aliases: [],
 			examples: ['stop'],
-			clientPermissions: ['SEND_MESSAGES', 'SPEAK'],
-			userPermissions: ['MANAGE_GUILD'],
+			clientpermissions: ['SEND_MESSAGES', 'SPEAK'],
+			userpermissions: ['MANAGE_GUILD'],
 			shortDescription: 'Musicplayersettings',
 			dashboardsettings: true
 		});

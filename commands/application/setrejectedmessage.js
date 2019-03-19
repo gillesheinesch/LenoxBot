@@ -10,8 +10,8 @@ module.exports = class setrejectedmessageCommand extends LenoxCommand {
 			format: 'setrejectedmessage {custom message}',
 			aliases: [],
 			examples: ['setrejectedmessage You have been rejected!'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Settings',
 			dashboardsettings: true
 		});

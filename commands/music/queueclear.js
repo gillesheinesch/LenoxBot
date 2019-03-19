@@ -10,8 +10,8 @@ module.exports = class queueclearCommand extends LenoxCommand {
 			format: 'queueclear',
 			aliases: [],
 			examples: ['queueclear'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['MANAGE_GUILD'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['MANAGE_GUILD'],
 			shortDescription: 'Queue',
 			dashboardsettings: true
 		});

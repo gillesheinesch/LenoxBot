@@ -10,8 +10,8 @@ module.exports = class pingCommand extends LenoxCommand {
 			format: 'ping',
 			aliases: [],
 			examples: ['ping'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Information',
 			dashboardsettings: true
 		});

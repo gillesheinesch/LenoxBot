@@ -11,8 +11,8 @@ module.exports = class channelblacklistCommand extends LenoxCommand {
 			format: 'channelblacklist',
 			aliases: [],
 			examples: ['channelblacklist'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Channelblacklist',
 			dashboardsettings: true
 		});

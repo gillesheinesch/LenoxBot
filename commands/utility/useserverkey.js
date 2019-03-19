@@ -12,8 +12,8 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 			format: 'useserverkey {key}',
 			aliases: [],
 			examples: ['useserverkey 1122'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Premium',
 			dashboardsettings: true,
 			cooldown: 43200000

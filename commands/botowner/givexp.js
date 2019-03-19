@@ -11,8 +11,8 @@ module.exports = class givexpCommand extends LenoxCommand {
 			format: 'givexp {userid} {amount}',
 			aliases: [],
 			examples: ['givexp 327533963923161090 1000'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'xp',
 			dashboardsettings: true
 		});

@@ -18,8 +18,8 @@ module.exports = class playCommand extends LenoxCommand {
 			format: 'play {query}',
 			aliases: [],
 			examples: ['play Gangnam Style'],
-			clientPermissions: ['SEND_MESSAGES', 'CONNECT', 'SPEAK'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES', 'CONNECT', 'SPEAK'],
+			userpermissions: [],
 			shortDescription: 'Musicplayersettings',
 			dashboardsettings: true
 		});

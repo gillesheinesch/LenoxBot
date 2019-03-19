@@ -11,8 +11,8 @@ module.exports = class randomnumberCommand extends LenoxCommand {
 			format: 'randomnumber {input}',
 			aliases: ['rn'],
 			examples: ['randomnumber 100'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

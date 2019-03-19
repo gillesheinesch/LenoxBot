@@ -10,8 +10,8 @@ module.exports = class ticketnotificationCommand extends LenoxCommand {
 			format: 'ticketnotification',
 			aliases: [],
 			examples: ['ticketnotification'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

@@ -11,8 +11,8 @@ module.exports = class restartCommand extends LenoxCommand {
 			format: 'restart',
 			aliases: ['reboot'],
 			examples: ['restart'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

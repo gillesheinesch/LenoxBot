@@ -12,8 +12,8 @@ module.exports = class joinroleCommand extends LenoxCommand {
 			aliases: [],
 			examples: ['joinrole list', 'joinrole add test', 'joinrole remove test'],
 			category: 'administration',
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Roles',
 			dashboardsettings: true
 		});

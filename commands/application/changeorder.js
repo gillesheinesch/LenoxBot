@@ -10,8 +10,8 @@ module.exports = class changeorderCommand extends LenoxCommand {
 			format: 'changeorder {first application entry ID} {second application entry ID}',
 			aliases: [],
 			examples: ['changeorder 1 2', 'changeorder 3 1'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Entries',
 			dashboardsettings: true
 		});

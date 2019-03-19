@@ -10,8 +10,8 @@ module.exports = class skipnumberCommand extends LenoxCommand {
 			format: 'skipnumber {number}',
 			aliases: [],
 			examples: ['skipnumber 3'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Music',
 			dashboardsettings: true
 		});

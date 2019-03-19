@@ -13,8 +13,8 @@ module.exports = class youtubeCommand extends LenoxCommand {
 			format: 'youtube {input}',
 			aliases: ['yt'],
 			examples: ['youtube Discord'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

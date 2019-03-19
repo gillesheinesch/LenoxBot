@@ -11,8 +11,8 @@ module.exports = class toggleactivityCommand extends LenoxCommand {
 			format: 'toggleactivity',
 			aliases: [],
 			examples: ['toggleactivity'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'General',
 			dashboardsettings: true
 		});

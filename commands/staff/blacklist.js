@@ -11,8 +11,8 @@ module.exports = class blacklistCommand extends LenoxCommand {
 			format: 'blacklist',
 			aliases: [],
 			examples: ['blacklist'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: [],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
 			shortDescription: 'Blacklist',
 			dashboardsettings: true
 		});
@@ -30,7 +30,7 @@ module.exports = class blacklistCommand extends LenoxCommand {
 
 		if (msg.client.provider.getBotsettings('botconfs', 'blacklist').length === 0) return msg.reply(lang.blacklist_error);
 
-		const embedfooter = lang.blacklist_embedfooter.replace('%prefix', prefix);
+		const embedfooter = lang.blacklist_embedfooter.replace('%prefix', prefix).replace('%prefix', prefix);
 		const embed = new Discord.RichEmbed()
 			.setTitle(lang.blacklist_embedtitle)
 			.setFooter(embedfooter);

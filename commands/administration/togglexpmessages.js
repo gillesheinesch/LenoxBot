@@ -10,8 +10,8 @@ module.exports = class togglexpmessagesCommand extends LenoxCommand {
 			format: 'togglexpmessages',
 			aliases: [],
 			examples: ['togglexpmessages'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'XP',
 			dashboardsettings: true
 		});

@@ -10,8 +10,8 @@ module.exports = class addselfassignableroleCommand extends LenoxCommand {
 			format: 'addselfassignablerole {name of the role}',
 			aliases: ['asar'],
 			examples: ['addselfassignablerole Member'],
-			clientPermissions: ['SEND_MESSAGES'],
-			userPermissions: ['ADMINISTRATOR'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Selfassignableroles',
 			dashboardsettings: true
 		});
