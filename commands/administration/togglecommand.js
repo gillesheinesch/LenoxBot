@@ -27,7 +27,7 @@ module.exports = class togglecommandCommand extends LenoxCommand {
 		/* eslint no-else-return: 0 */
 		for (const x in msg.client.provider.getGuild(msg.message.guild.id, 'commands')) {
 			if (x.toLowerCase() === args.slice().join(' ').toLowerCase()) {
-				if (msg.client.registry.commands.get(x.toLowerCase()).conf.dashboardsettings === false) return msg.reply(lang.togglecommand_notchangeable);
+				if (msg.client.registry.commands.get(x.toLowerCase()).dashboardsettings === false) return msg.reply(lang.togglecommand_notchangeable);
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[x.toLowerCase()].status === 'true') {
 					const currentCommands = await msg.client.provider.getGuild(msg.message.guild.id, 'commands');
 					currentCommands[x.toLowerCase()].status = 'false';
