@@ -13,7 +13,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 			examples: ['serverwarns'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
-			shortDescription: 'General',
+			shortDescription: 'Warn',
 			dashboardsettings: true
 		});
 	}
