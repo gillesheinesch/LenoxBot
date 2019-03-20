@@ -71,7 +71,6 @@ module.exports = class muteCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'muteanonymous') === 'true') {
 			const anonymousembed = new Discord.RichEmbed()
-				.setAuthor(mutedby, msg.client.user.displayAvatarURL)
 				.setThumbnail(user.displayAvatarURL)
 				.setColor('#FF0000')
 				.setTimestamp()

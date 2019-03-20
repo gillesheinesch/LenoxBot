@@ -69,7 +69,6 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'tempbananonymous') === 'true') {
 			const ananonymousembed = new Discord.RichEmbed()
-				.setAuthor(`${lang.temporaryban_bannedby} ${msg.client.user.username}${msg.client.user.discriminator}`, msg.client.user.displayAvatarURL)
 				.setThumbnail(user.displayAvatarURL)
 				.setColor('#FF0000')
 				.setTimestamp()
