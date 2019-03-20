@@ -182,7 +182,7 @@ module.exports = class shopCommand extends LenoxCommand {
 						});
 					}
 
-					if (isNaN(howmanycheck[0])) {
+					if (isNaN(howmanycheck[0]) || !howmanycheck[0]) {
 						const commanderror = lang.shop_commanderror.replace('%prefix', prefix);
 						const commanderrorEmbed = new Discord.RichEmbed()
 							.setDescription(commanderror)
@@ -243,7 +243,7 @@ module.exports = class shopCommand extends LenoxCommand {
 						}
 					}
 				} else if (sellorbuycheck[0].toLowerCase() === 'buy') {
-					if (isNaN(howmanycheck[0])) {
+					if (isNaN(howmanycheck[0]) || !howmanycheck[0]) {
 						const commanderror = lang.shop_commanderror.replace('%prefix', prefix);
 						const commanderrorEmbed = new Discord.RichEmbed()
 							.setDescription(commanderror)
