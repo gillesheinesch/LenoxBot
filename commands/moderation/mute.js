@@ -94,6 +94,8 @@ module.exports = class muteCommand extends LenoxCommand {
 		currentMutescount += 1;
 		await msg.client.provider.setBotsettings('botconfs', 'mutescount', currentMutescount);
 
+		const currentMutescount2 = msg.client.provider.getBotsettings('botconfs', 'mutescount');
+
 		const mutesettings = {
 			discordserverid: msg.guild.id,
 			memberid: membermention.id,
@@ -103,11 +105,11 @@ module.exports = class muteCommand extends LenoxCommand {
 			mutetime: mutetime,
 			muteCreatedAt: Date.now(),
 			muteEndDate: Date.now() + mutetime,
-			mutescount: msg.client.provider.getBotsettings('botconfs', 'mutescount')
+			mutescount: currentMutescount2
 		};
 
 		const currentMutes = msg.client.provider.getBotsettings('botconfs', 'mutes');
-		currentMutes[msg.client.provider.getBotsettings('botconfs', 'mutescount')] = mutesettings;
+		currentMutes[currentMutescount2] = mutesettings;
 		await msg.client.provider.setBotsettings('botconfs', 'mutes', currentMutes);
 
 		const muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
@@ -137,7 +139,7 @@ module.exports = class muteCommand extends LenoxCommand {
 				}
 			}
 			const newCurrentMutes = msg.client.provider.getBotsettings('botconfs', 'mutes');
-			delete newCurrentMutes[msg.client.provider.getBotsettings('botconfs', 'mutescount')];
+			delete newCurrentMutes[currentMutescount2];
 			await msg.client.provider.setBotsettings('botconfs', 'mutes', newCurrentMutes);
 		}, mutetime);
 	}
