@@ -60,9 +60,20 @@ module.exports = class unmuteCommand extends LenoxCommand {
 				.setTimestamp()
 				.setDescription(unmutedescription);
 
-			user.send({
-				embed: embed
-			});
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'muteanonymous') === 'true') {
+				const anonymousembed = new Discord.RichEmbed()
+					.setThumbnail(user.displayAvatarURL)
+					.setColor('#FF0000')
+					.setTimestamp()
+					.setDescription(unmutedescription);
+				user.send({
+					embed: anonymousembed
+				});
+			} else {
+				user.send({
+					embed: embed
+				});
+			}
 
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
 				const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
