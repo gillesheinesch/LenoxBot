@@ -23,7 +23,7 @@ module.exports = class createmuteroleCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const newMuteRole = await msg.guild.createRole({
-			name: 'muted',
+			name: 'Muted',
 			position: 1
 		}, 'Lenoxbot muted role');
 
