@@ -224,18 +224,18 @@ exports.run = client => {
 					}
 				});
 			}, 86400000);
-		});
-	}
 
-	const embed = new Discord.RichEmbed()
-		.setTitle('Botrestart')
-		.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
-		.setColor('#99ff66')
-		.setAuthor(client.user.tag, client.user.displayAvatarURL);
+			const embed = new Discord.RichEmbed()
+				.setTitle('Botrestart')
+				.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
+				.setColor('GREEN')
+				.setAuthor(client.user.tag, client.user.displayAvatarURL);
 
-	if (client.user.id === '354712333853130752') {
-		client.channels.get('497400107109580801').send({
-			embed
+			if (client.user.id === '354712333853130752') {
+				client.channels.get('497400107109580801').send({
+					embed
+				});
+			}
 		});
 	}
 };
