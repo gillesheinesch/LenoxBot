@@ -36,9 +36,9 @@ exports.run = client => {
 
 			function timeoutForDaily(dailyreminder, timeoutTime) {
 				setTimeout(async () => {
-					client.users.get(dailyreminder.userId).send('Don\'t forget to pick up your daily reward');
+					client.users.get(dailyreminder.userID).send('Don\'t forget to pick up your daily reward');
 					const currentDailyreminder = client.provider.getBotsettings('botconfs', 'dailyreminder');
-					delete currentDailyreminder[dailyreminder.userId];
+					delete currentDailyreminder[dailyreminder.userID];
 					await client.provider.setBotsettings('botconfs', 'dailyreminder', currentDailyreminder);
 				}, timeoutTime);
 			}
