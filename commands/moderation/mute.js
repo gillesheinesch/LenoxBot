@@ -58,7 +58,8 @@ module.exports = class muteCommand extends LenoxCommand {
 		if (typeof mutetime === 'undefined') return msg.channel.send(lang.mute_invalidtimeformat);
 
 		const alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
-		if (membermention.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(alreadymuted);
+		console.log("3.1", membermention, args.slice(0, 1).join(' '));
+		if (membermention.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(alreadymuted);
 		console.log("4");
 
 		membermention.addRole(role);
