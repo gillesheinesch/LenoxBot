@@ -46,21 +46,16 @@ module.exports = class muteCommand extends LenoxCommand {
 		if (!args.slice(2).join(' ')) return msg.channel.send(lang.mute_noinput);
 
 		const rolenotexist = lang.mute_rolenotexist.replace('%prefix', prefix);
-		console.log("1");
 		if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(rolenotexist);
-		console.log("2");
 
 		const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'));
-		console.log("3");
 
 		if (!args.slice(1, 2).join(' ') || args.slice(1, 2).join(' ').length === 0) return msg.channel.send(lang.mute_invalidtimeformat);
 		const mutetime = ms(args.slice(1, 2).join(' '));
 		if (typeof mutetime === 'undefined') return msg.channel.send(lang.mute_invalidtimeformat);
 
 		const alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
-		console.log("3.1", membermention, args.slice(0, 1).join(' '));
 		if (membermention.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(alreadymuted);
-		console.log("4");
 
 		membermention.addRole(role);
 
