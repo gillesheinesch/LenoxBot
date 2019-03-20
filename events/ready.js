@@ -169,7 +169,7 @@ exports.run = client => {
 						}
 					}
 					const newmuteconf = client.provider.getBotsettings('botconfs', 'mutes');
-					delete newmuteconf[client.provider.getBotsettings('botconfs', 'mutescount')];
+					delete newmuteconf[muteconf.mutescount];
 					await client.provider.setBotsettings('botconfs', 'mutes', newmuteconf);
 				}, newMuteTime);
 			}
