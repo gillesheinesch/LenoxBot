@@ -37,8 +37,9 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 			let user = msg.mentions.users.first();
 			if (!user) {
 				try {
-					if (!msg.guild.members.get(args.slice().join(' '))) throw new Error('User not found!');
-					user = msg.guild.members.get(args.slice().join(' ')).user;
+					const fetchedMember = await msg.guild.fetchMember(args.slice().join(' '));
+					if (!fetchedMember) throw new Error('User not found!');
+					user = fetchedMember.user;
 				} catch (error) {
 					return msg.reply(lang.ban_idcheck);
 				}

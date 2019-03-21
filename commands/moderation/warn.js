@@ -28,8 +28,9 @@ module.exports = class warnCommand extends LenoxCommand {
 
 		if (!user) {
 			try {
-				if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
-				user = msg.guild.members.get(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				if (!fetchedMember) throw new Error('User not found!');
+				user = fetchedMember;
 				user = user.user;
 			} catch (error) {
 				return msg.reply(lang.warn_idcheck);

@@ -27,12 +27,17 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 		const reason = args.slice(2).join(' ');
 		const time = args.slice(1, 2).join(' ');
 		let user = msg.mentions.users.first();
-		const membermention = msg.mentions.members.first();
+
+		let membermention;
+		if (user) {
+			membermention = await msg.guild.fetchMember(user);
+		}
 
 		if (!user) {
 			try {
-				if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
-				user = msg.guild.members.get(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				if (!fetchedMember) throw new Error('User not found!');
+				user = fetchedMember;
 				user = user.user;
 			} catch (error) {
 				return msg.reply(lang.ban_idcheck);
@@ -44,8 +49,8 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 		if (!reason) return msg.reply(lang.ban_noinput);
 
 
-		if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission);
-		msg.guild.ban(user);
+		if (!membermention.bannable) return msg.reply(lang.ban_nopermission);
+		await membermention.ban(user);
 
 		const bantime = ms(args.slice(1, 2).join(' '));
 		if (typeof bantime === 'undefined') return msg.channel.send(lang.temporaryban_invalidtimeformat);

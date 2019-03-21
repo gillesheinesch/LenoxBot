@@ -35,8 +35,9 @@ module.exports = class userinfoCommand extends LenoxCommand {
 			if (user.bot) return msg.reply(lang.userinfo_botinfo);
 		} else {
 			try {
-				if (!msg.guild.members.get(args.slice().join(' '))) new Error('User not found!');
-				user = await msg.guild.members.get(args.slice().join(' '));
+				const fetchedMember = await msg.guild.fetchMember(args.slice().join(' '));
+				if (!fetchedMember) new Error('User not found!');
+				user = fetchedMember;
 				user = user.user;
 
 				if (user.bot) return msg.reply(lang.userinfo_botinfo);

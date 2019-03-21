@@ -24,17 +24,22 @@ module.exports = class unmuteCommand extends LenoxCommand {
 		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
-		let membermention = msg.mentions.members.first();
 		let user = msg.mentions.users.first();
+
+		let membermention;
+		if (user) {
+			membermention = await msg.guild.fetchMember(user);
+		}
 
 		const muteroleundefined = lang.unmute_muteroleundefined.replace('%prefix', prefix);
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'muterole') === '') return msg.channel.send(muteroleundefined);
 
 		if (!user) {
 			try {
-				if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
-				user = msg.guild.members.get(args.slice(0, 1).join(' '));
-				membermention = msg.guild.members.get(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				if (!fetchedMember) throw new Error('User not found!');
+				user = fetchedMember;
+				membermention = fetchedMember;
 				user = user.user;
 			} catch (error) {
 				return msg.reply(lang.mute_idcheck);

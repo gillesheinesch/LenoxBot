@@ -26,10 +26,16 @@ module.exports = class kickCommand extends LenoxCommand {
 		const reason = args.slice(1).join(' ');
 		let user = msg.mentions.users.first();
 
+		let member;
+		if (user) {
+			member = await msg.guild.fetchMember(user);
+		}
+
 		if (!user) {
 			try {
-				if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
-				user = msg.guild.members.get(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				if (!fetchedMember) throw new Error('User not found!');
+				user = fetchedMember;
 				user = user.user;
 			} catch (error) {
 				return msg.reply(lang.kick_idcheck);
@@ -39,8 +45,8 @@ module.exports = class kickCommand extends LenoxCommand {
 		if (user === msg.author) return msg.channel.send(lang.kick_yourself);
 		if (!reason) return msg.reply(lang.kick_noinput);
 
-		if (!msg.guild.member(user).kickable) return msg.reply(lang.kick_nopermission);
-		await msg.guild.member(user).kick();
+		if (!member.kickable) return msg.reply(lang.kick_nopermission);
+		await member.kick();
 
 		const kicked = lang.kick_kicked.replace('%usertag', user.tag);
 		const kickembed = new Discord.RichEmbed()

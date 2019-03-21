@@ -17,7 +17,7 @@ module.exports = class leaveCommand extends LenoxCommand {
 		});
 	}
 
-	run(msg) {
+	async run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
@@ -25,7 +25,7 @@ module.exports = class leaveCommand extends LenoxCommand {
 
 		const addedrole = args.slice().join(' ');
 		const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
-		const author = msg.guild.members.get(msg.author.id);
+		const author = await msg.message.guild.fetchMember(msg.author.id);
 		const channelID = msg.channel.id;
 
 		if (addedrole.length < 1) return msg.reply(lang.leave_noinput);

@@ -18,18 +18,24 @@ module.exports = class banCommand extends LenoxCommand {
 		});
 	}
 
-	run(msg) {
+	async run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
 		const reason = args.slice(1).join(' ');
 		let user = msg.mentions.users.first();
+		
+		let member;
+		if (user) {
+			member = await msg.guild.fetchMember(user);
+		}
 
 		if (!user) {
 			try {
-				if (!msg.guild.members.get(args.slice(0, 1).join(' '))) throw new Error('User not found!');
-				user = msg.guild.members.get(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				if (!fetchedMember) throw new Error('User not found!');
+				user = fetchedMember;
 				user = user.user;
 			} catch (error) {
 				return msg.reply(lang.ban_idcheck);
@@ -39,7 +45,7 @@ module.exports = class banCommand extends LenoxCommand {
 		if (user === msg.author) return msg.channel.send(lang.ban_yourself);
 		if (!reason) return msg.reply(lang.ban_noinput);
 
-		if (!msg.guild.member(user).bannable) return msg.reply(lang.ban_nopermission);
+		if (!member.bannable) return msg.reply(lang.ban_nopermission);
 		msg.guild.ban(user);
 
 		const banned = lang.ban_banned.replace('%usertag', user.tag);

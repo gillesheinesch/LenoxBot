@@ -18,11 +18,12 @@ module.exports = class partnerCommand extends LenoxCommand {
 		});
 	}
 
-	run(msg) {
+	async run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (!msg.client.guilds.get('352896116812939264').members.get(msg.author.id).roles.find(r => r.name.toLowerCase() === 'partner')) return msg.reply(lang.partner_error);
+		const fetchedMember = await msg.client.guilds.get('352896116812939264').fetchMember(msg.author.id);
+		if (!fetchedMember.roles.find(r => r.name.toLowerCase() === 'partner')) return msg.reply(lang.partner_error);
 
 		const validation = ['lenoxbot', 'keinemxl', 'evilturtle', 'dadi'];
 		const margs = msg.content.split(' ');
