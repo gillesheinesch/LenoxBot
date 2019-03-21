@@ -804,7 +804,7 @@
     "listautomaticrole_description": "Lists all auto assignable roles",
 
     "listevents_embed": "List of all events",
-    "listevents_modlog": "Logs all bans, unbans, kicks, warns, mutes, unmutes, softban",
+    "listevents_modlog": "Logs all bans, unbans, kicks, warns, mutes, unmutes, softbans",
     "listevents_messageupdate": "Logs all message updates on this Discord server",
     "listevents_messagedelete": "Logs all deleted messages on this Discord server",
     "listevents_channelupdate": "Logs all channel changes on this Discord server",
@@ -813,7 +813,7 @@
     "listevents_presenceupdate": "Logs all presence updates of the members on this Discord server",
     "listevents_rolecreate": "Logs all recently created roles on this Discord server",
     "listevents_roledelete": "Logs all recently deleted roles on this Discord server",
-    "listevents_roleupdate": "Logs all changes to the roles on this Discord server",
+    "listevents_roleupdate": "Logs all changes of the roles on this Discord server",
     "listevents_userjoin": "Logs all recently joined members on this Discord server",
     "listevents_userleft": "Logs all recently left members on this Discord server",
     "listevents_guildupdate": "Logs all changes of the guild on this Discord server",
@@ -1096,7 +1096,7 @@
     "kick_kicked": "%usertag was successfully kicked!",
     "kick_kickedby": "Kicked by %authortag",
     "kick_kickdescription": "**Action**: Kick \n**User**: %usertag (%userid) \n**Reason**: %reason",
-    "kick_description": "Kick an user from the Discord server with a certain reason",
+    "kick_description": "Kicks an user from the Discord server with a certain reason",
 
     "mute_muteroleundefined": "First of all, you have to define the mute role by using the **%prefixmuterole** command",
     "mute_idcheck": "This user was not found on this Discord server!",
@@ -1338,14 +1338,14 @@
     "join_alreadyhave": "You already have this role!",
     "join_roleassigned": "Role successfully assigned!",
     "join_nopermission": "I don't have the necessary permissions to give you this role. Please take a look at the right and the order of your roles!",
-    "join_description": "Join a self-assignable role",
+    "join_description": "Joins a self-assignable role",
 
     "leave_noinput": "You must specify the name of the role!",
     "leave_rolenotexist": "This role does not exist at all!",
     "leave_error": "You don't even have this role!",
     "leave_roleremoved": "Role successfully removed!",
     "leave_nopermission": "I don't have the necessary permissions to remove this role from you. Please take a look at the permissions of your roles and the order of your roles!",
-    "leave_description": "Leave a self-assignable role",
+    "leave_description": "Leaves a self-assignable role",
 
     "listselfassignablerole_help": "You can join a role with the following command: %prefixjoin {rolename}",
     "listselfassignablerole_embed": "Self-assignable roles",
