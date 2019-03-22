@@ -150,10 +150,10 @@ module.exports = class hangmanCommand extends LenoxCommand {
 
 											if (!newWordString.includes('_') && turn === 1) {
 												const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', msg.author).replace('%word', wordToGuess);
-												msg.channel.send(mentiongamewon);
+												return msg.channel.send(mentiongamewon);
 											} else if (!newWordString.includes('_') && turn === 2) {
 												const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', mention).replace('%word', wordToGuess);
-												msg.channel.send(mentiongamewon);
+												return msg.channel.send(mentiongamewon);
 											}
 										} else {
 											if (!triedLetters.includes(response.first().content.toLowerCase())) {
