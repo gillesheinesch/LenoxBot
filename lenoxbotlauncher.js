@@ -51,7 +51,7 @@ if (cluster.isMaster) {
 		}
 	});
 } else {
-	/* async function run() {
+	async function run() {
 		const express = require('express');
 		const session = require('express-session');
 		const passport = require('passport');
@@ -65,7 +65,6 @@ if (cluster.isMaster) {
 		const bodyParser = require('body-parser');
 		const url = require('url');
 		const mongodb = require('mongodb');
-		const util = require('util');
 
 		const mongoUrl = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT&authSource=admin`;
 		const dbClient = await mongodb.MongoClient.connect(mongoUrl, { useNewUrlParser: true });
@@ -142,7 +141,7 @@ if (cluster.isMaster) {
 			if (message.cmd) {
 				if (message.cmd === 'execResult') {
 					if (message.script) {
-						if (_promiseQueue[message.reqId] != null) {
+						if (_promiseQueue[message.reqId] !== null) {
 							const mResult = message.result;
 							const resolve = _promiseQueue[message.reqId];
 
@@ -162,7 +161,7 @@ if (cluster.isMaster) {
 		 * @argument type the type of reloadable element - "guild", "user" or "botsettings"
 		 * @argument id the id of the reloadable element, only usable on "guild" and "user"
 		 */
-	/* function execReload(type, id) {
+	    function execReload(type, id) {
 			process.send({ cmd: 'reload', type: type, id: id });
 		}
 
@@ -183,8 +182,6 @@ if (cluster.isMaster) {
 
 			return Promise.race([promiseExec, promiseTimer]);
 		}
-
-		console.log(`Testing something ${await exec(`this.status`)}`);
 
 		function islenoxboton(req) {
 			const islenoxbot = [];
@@ -283,13 +280,12 @@ if (cluster.isMaster) {
 
 		// Temp get for test dynamic pages in static mode
 
-		/* app.get('/test', async (req, res) => {
+		app.get('/test', async (req, res) => {
 			try {
 				const islenoxbot = islenoxboton(req);
 				return res.render('aatest', {
 					user: req.user,
-					islenoxbot: islenoxbot,
-					botstats: await exec(`client.provider.getBotsettings('botconfs', 'premium')`)
+					islenoxbot: islenoxbot
 				});
 			} catch (error) {
 				return res.redirect(url.format({
@@ -365,15 +361,40 @@ if (cluster.isMaster) {
 			}
 		});
 
-		app.get('/leaderboards', async (req, res) => {
+		/* app.get('/leaderboards', async (req, res) => {
 			try {
 				const islenoxbot = islenoxboton(req);
 				const islenoxbotnp = await islenoxbotonNonPermission(req);
+
 				const userData = {};
 				userData.loaded = false;
 
-				sql.open(`../${settings.sqlitefilename}.sqlite`);
-				const credits = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
+				let userArray = [];
+				const array = await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ $sort: { 'settings.credits': -1 } }, { $limit: 20 }]).toArray();
+
+				for (const row of array) {
+					if (!isNaN(row.settings.credits)) {
+						const member = await msg.client.fetchUser(row.userId);
+						const settings = {
+							userId: row.userId,
+							user: member ? member.tag : row.userId,
+							credits: Number(row.settings.credits)
+						};
+						if (row.userId !== 'global') {
+							userArray.push(settings);
+						}
+					}
+				}
+
+				userArray = userArray.sort((a, b) => {
+					if (a.credits < b.credits) {
+						return 1;
+					}
+					if (a.credits > b.credits) {
+						return -1;
+					}
+					return 0;
+				});
 
 				for (let i = 0; i < credits.length; i++) {
 					if (client.users.get(credits[i].userId)) {
@@ -5552,7 +5573,7 @@ if (cluster.isMaster) {
 					}
 				}));
 			}
-		});
+		}); */
 
 		app.get('/error', (req, res) => {
 			const check = [];
@@ -5589,7 +5610,7 @@ if (cluster.isMaster) {
 					howtofix: howtofix
 				});
 		});
-
+		/*
 		// Global post for commandstatuschange
 
 		app.post('/dashboard/:id/global/:command/submitcommandstatuschange', (req, res) => {
@@ -5768,7 +5789,7 @@ if (cluster.isMaster) {
 			}
 		});
 
-		// catch error and forward to error handler
+		// catch error and forward to error handler */
 
 		app.use((req, res) => {
 			const err = new Error('Not Found');
@@ -5780,11 +5801,10 @@ if (cluster.isMaster) {
 					message: 'Page not found'
 				}
 			}));
-		});*//*
+		});
 	}
 
 	run().catch(error => {
 		console.log(error);
 	});
-	*/
 }
