@@ -25,7 +25,7 @@ module.exports = class banCommand extends LenoxCommand {
 
 		const reason = args.slice(1).join(' ');
 		let user = msg.mentions.users.first();
-		
+
 		let member;
 		if (user) {
 			member = await msg.guild.fetchMember(user);

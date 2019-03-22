@@ -23,9 +23,10 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		let userArray = [];
-		const array = await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ "$sort": { "settings.credits": -1 } }, {"$limit": 20}]).toArray();
+		const array = await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ $sort: { 'settings.credits': -1 } }, { $limit: 20 }])
+			.toArray();
 
-		for(let row of array) {
+		for (const row of array) {
 			if (!isNaN(row.settings.credits)) {
 				const member = await msg.client.fetchUser(row.userId);
 				const settings = {
@@ -33,8 +34,8 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 					user: member ? member.tag : row.userId,
 					credits: Number(row.settings.credits)
 				};
-				if(row.userId !== 'global') {
-					userArray.push(settings)
+				if (row.userId !== 'global') {
+					userArray.push(settings);
 				}
 			}
 		}
