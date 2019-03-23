@@ -11,7 +11,7 @@ if (cluster.isMaster) {
 		});
 
 
-	shardingManager.spawn(3, 500).then(() => {
+	shardingManager.spawn('auto', 500).then(() => {
 		console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
 	}).catch(error => {
 		console.log(error);
@@ -211,7 +211,6 @@ if (cluster.isMaster) {
 		}
 
 		app.get('/', async (req, res) => {
-			console.log(await exec('this.users.size'));
 			try {
 				const check = [];
 				if (req.user) {
