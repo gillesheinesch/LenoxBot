@@ -1,6 +1,7 @@
 const englishLang = require(`../languages/en-US.json`);
 const guildsettingskeys = require('../guildsettings-keys.json');
 const usersettingskeys = require('../usersettings-keys.json');
+const botsettingskeys = require('../botsettings-keys.json');
 const Discord = require('discord.js');
 exports.run = async (client, msg) => {
 	if (msg.author.bot) return;
@@ -81,6 +82,15 @@ exports.run = async (client, msg) => {
 		}
 	} else {
 		await msg.client.provider.setUserComplete(msg.author.id, usersettingskeys);
+	}
+
+	if (client.provider.getBotsettings('botconfs', 'premium')) {
+		// eslint-disable-next-line guard-for-in
+		for (const key in botsettingskeys) {
+			if (!client.provider.getBotsettings('botconfs', key)) {
+				await client.provider.setBotsettings('botconfs', key, botsettingskeys[key]);
+			}
+		}
 	}
 
 	const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
