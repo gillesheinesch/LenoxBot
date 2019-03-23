@@ -11,7 +11,7 @@ if (cluster.isMaster) {
 		});
 
 
-	shardingManager.spawn('auto', 500).then(() => {
+	shardingManager.spawn(3, 500).then(() => {
 		console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
 	}).catch(error => {
 		console.log(error);
@@ -201,7 +201,7 @@ if (cluster.isMaster) {
 			const islenoxbotNonPerm = [];
 			if (req.user) {
 				for (let i = 0; i < req.user.guilds.length; i++) {
-					req.user.guilds[i].lenoxbot = await exec(`client.guilds.get(req.user.guilds[i].id) ? true : false`);
+					req.user.guilds[i].lenoxbot = await exec(`this.guilds.get(req.user.guilds[i].id) ? true : false`);
 					if (req.user.guilds[i].lenoxbot === true) {
 						islenoxbotNonPerm.push(req.user.guilds[i]);
 					}
@@ -211,6 +211,7 @@ if (cluster.isMaster) {
 		}
 
 		app.get('/', async (req, res) => {
+			console.log(await exec('this.users.size'));
 			try {
 				const check = [];
 				if (req.user) {
@@ -362,12 +363,11 @@ if (cluster.isMaster) {
 		});
 
 		// temporary!!!
-		app.get('/servers', (req, res) => {
-			return res.redirect('https://status.lenoxbot.com');
-		});
+		app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
 		// temporary!!!
 
-		/* app.get('/leaderboards', async (req, res) => {
+		/*
+		app.get('/leaderboards', async (req, res) => {
 			try {
 				const islenoxbot = islenoxboton(req);
 				const islenoxbotnp = await islenoxbotonNonPermission(req);
@@ -376,14 +376,15 @@ if (cluster.isMaster) {
 				userData.loaded = false;
 
 				let userArray = [];
-				const array = await msg.client.provider.getDatabase().collection('userSettings').aggregate([{ $sort: { 'settings.credits': -1 } }, { $limit: 20 }]).toArray();
+				const arrayofUsers = await userSettingsCollection.find().toArray();
 
-				for (const row of array) {
+				for (const row of arrayofUsers) {
 					if (!isNaN(row.settings.credits)) {
-						const member = await msg.client.fetchUser(row.userId);
+						const member = await exec(`JSON.stringify(this.users.get(${row.userId}))`);
+						console.log(member, row.userId)
 						const settings = {
 							userId: row.userId,
-							user: member ? member.tag : row.userId,
+							user: member ? member : row.userId,
 							credits: Number(row.settings.credits)
 						};
 						if (row.userId !== 'global') {
@@ -402,14 +403,16 @@ if (cluster.isMaster) {
 					return 0;
 				});
 
-				for (let i = 0; i < credits.length; i++) {
-					if (client.users.get(credits[i].userId)) {
-						credits[i].user = client.users.get(credits[i].userId);
+				for (let i = 0; i < userArray.length; i++) {
+					const user = await exec(`this.users.get(${userArray[i].userId})`);
+					console.log(user)
+					if (user) {
+						userArray[i].user = user;
 					}
 					if (req.user) {
-						if (credits[i].userId === req.user.id) {
+						if (userArray[i].userId === req.user.id) {
 							userData.place = i + 1;
-							userData.credits = credits[i].medals;
+							userData.credits = userArray[i].credits;
 							userData.loaded = true;
 						}
 					}
@@ -417,7 +420,7 @@ if (cluster.isMaster) {
 
 				return res.render('leaderboard', {
 					user: req.user,
-					credits: credits.slice(0, 100),
+					credits: userArray.slice(0, 100),
 					userData: userData,
 					islenoxbot: islenoxbot,
 					islenoxbotnp: islenoxbotnp
