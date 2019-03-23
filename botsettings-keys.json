@@ -23,5 +23,6 @@
     "mutes": {},
     "mutescount": 0,
     "commandsexecuted": 0,
-    "cooldowns": {}
+    "cooldowns": {},
+    "commands": {}
   }
