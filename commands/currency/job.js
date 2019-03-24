@@ -42,23 +42,95 @@ module.exports = class jobCommand extends LenoxCommand {
 			['taxidriver', 240, Math.floor(Math.random() * 400) + 200, 'car', 'https://imgur.com/uOMpS17.png'],
 			['paramedic', 180, Math.floor(Math.random() * 300) + 150, 'syringe', 'https://imgur.com/Z97fWoc.png'],
 			['police', 180, Math.floor(Math.random() * 300) + 150, 'gun', 'https://imgur.com/HQXp8R8.png'],
-			['chef', 120, Math.floor(Math.random() * 200) + 60, 'knife', 'https://imgur.com/F940PkL.png']
+			['chef', 120, Math.floor(Math.random() * 200) + 60, 'knife', 'https://imgur.com/F940PkL.png'],
+			['pilot', 480, Math.floor(Math.random() * 400) + 500, 'airplane', 'https://imgur.com/kZqjcbJ.png'],
+			['gamer', 90, Math.floor(Math.random() * 160) + 90, 'joystick', 'https://imgur.com/hCCGeJC.png'],
+			['youtuber', 120, Math.floor(Math.random() * 200) + 150, 'computer', 'https://imgur.com/MNx0RIm.png'],
+			['vlogger', 120, Math.floor(Math.random() * 150) + 120, 'camera', 'https://imgur.com/mLpAIbc.png'],
+			['busdriver', 420, Math.floor(Math.random() * 200) + 400, 'bus', 'https://imgur.com/2HpQcNT.png'],
+			['guitarist', 90, Math.floor(Math.random() * 100) + 190, 'guitar', 'https://imgur.com/7nLBU2b.png'],
+			['designer', 120, Math.floor(Math.random() * 150) + 250, 'undefined', 'https://imgur.com/kN0JaqY.png'],
+			['teacher', 325, Math.floor(Math.random() * 250) + 400, 'book', 'https://imgur.com/NXgcqGF.png'],
+			['nurse', 350, Math.floor(Math.random() * 150) + 300, 'syringe', 'https://imgur.com/7OGLkVE.png'],
+			['programmer', 240, Math.floor(Math.random() * 200) + 200, 'computer', 'https://imgur.com/qJyC8Y7.png']
 		];
 
 		let index = 0;
 
-		const embed = new Discord.RichEmbed()
-			.setColor('#66ff66')
+		const startEmbed = new Discord.RichEmbed()
+			.setColor('BLUE')
 			.setFooter(lang.job_embed)
 			.setAuthor(lang.job_available);
 
+		const arrayOfJobs = [];
+
 		for (let i = 0; i < jobslist.length; i++) {
-			embed.addField(`${++index}. ${lang[`job_${jobslist[i][0]}title`]} (${moment.duration(jobslist[i][1], 'minutes').format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`)})`, `${lang[`job_${jobslist[i][0]}description`]}`);
+			arrayOfJobs.push([`${++index}. ${lang[`job_${jobslist[i][0]}title`]} (${moment.duration(jobslist[i][1], 'minutes').format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`)})`, `${lang[`job_${jobslist[i][0]}description`]}`]);
 		}
 
-		msg.channel.send({
-			embed
+		arrayOfJobs.slice(0, 10).forEach(r => {
+			startEmbed.addField(r[0], r[1]);
 		});
+
+		const jobsMessage = await msg.channel.send({
+			embed: startEmbed
+		});
+
+		if (arrayOfJobs.length > 10) {
+			const reaction1 = await jobsMessage.react('◀');
+			const reaction2 = await jobsMessage.react('▶');
+
+			let firsttext = 0;
+			let secondtext = 10;
+
+			const collector = jobsMessage.createReactionCollector((reaction, user) => user.id === msg.author.id, { time: 60000 });
+			collector.on('collect', r => {
+				const reactionadd = arrayOfJobs.slice(firsttext + 10, secondtext + 10).length;
+				const reactionremove = arrayOfJobs.slice(firsttext - 10, secondtext - 10).length;
+
+				if (r.emoji.name === '▶' && reactionadd !== 0) {
+					r.remove(msg.author.id);
+
+					firsttext += 10;
+					secondtext += 10;
+
+					const newJobs = arrayOfJobs.slice(firsttext, secondtext);
+
+					const newEmbed = new Discord.RichEmbed()
+						.setColor('BLUE')
+						.setFooter(lang.job_embed)
+						.setAuthor(lang.job_available);
+
+					newJobs.forEach(r => {
+						newEmbed.addField(r[0], r[1]);
+					});
+
+					jobsMessage.edit({ embed: newEmbed });
+				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
+					r.remove(msg.author.id);
+
+					firsttext -= 10;
+					secondtext -= 10;
+
+					const newJobs = arrayOfJobs.slice(firsttext, secondtext);
+
+					const newEmbed = new Discord.RichEmbed()
+						.setColor('BLUE')
+						.setFooter(lang.job_embed)
+						.setAuthor(lang.job_available);
+
+					newJobs.forEach(r => {
+						newEmbed.addField(r[0], r[1]);
+					});
+
+					jobsMessage.edit({ embed: newEmbed });
+				}
+			});
+			collector.on('end', () => {
+				reaction1.remove();
+				reaction2.remove();
+			});
+		}
 
 		let response;
 		try {
