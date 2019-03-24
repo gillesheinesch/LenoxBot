@@ -3,13 +3,69 @@ const Discord = require('discord.js');
 const settings = require('./settings.json');
 const numCPUs = require('os').cpus().length;
 const chalk = require('chalk');
+const readline = require('readline');
 
 if (cluster.isMaster) {
+	// map type: number = user
+	const userdb = new Map();
 	const shardingManager = new Discord.ShardingManager('./lenoxbot.js',
 		{
 			token: settings.token
 		});
+	shardingManager.on('message', (shard, message) => {
+		if(message.type === 'bulk') {
+			//data type: array: user
+			const data = message.data;
+			for(var user of data) {
+				if(userdb.has(user.id)) {
+					var other = userdb.get(user.id);
+					//now we check if there are new infos
+					if(!(user.username === other.username
+							&& user.discriminator === other.discriminator
+							&& user.avatar === other.avatar)) {
+								userdb.set(user.id, user);
+							}
+				} else {
+					userdb.set(user.id, user);
+				}
+			}
+			console.log(`Received bulk members from shard ${shard.id}`)
+		} else if(message.type === "single") {
+			const user = message.data;
+			if(userdb.has(user.id)) {
+				var other = userdb.get(user.id);
+				//now we check if there are new infos
+				if(!(user.username === other.username
+						&& user.discriminator === other.discriminator
+						&& user.avatar === other.avatar)) {
+							userdb.set(user.id, user);
+						}
+			} else {
+				userdb.set(user.id, user);
+			}
+		}
+	});
 
+	const rl = readline.createInterface({
+			input: process.stdin,
+			output: process.stdout
+	});
+
+	rl.setPrompt("> ");
+	rl.prompt();
+
+	rl.on('line', (input) => {
+			if(input === 'exit') {
+				console.log("Stopping...");
+				process.exit(0);
+			} else if(input === 'user') {
+				for(let user of userdb.values()) {
+					console.log(user);
+					break;
+				}
+			}
+			rl.prompt();
+	});
 
 	shardingManager.spawn('auto', 500).then(() => {
 		console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
@@ -43,9 +99,18 @@ if (cluster.isMaster) {
 				}
 			} else if (message.cmd === 'exec') {
 				if (message.script) {
-					shardingManager.shards.get(0).eval(message.script).then(result => {
+					shardingManager.shards.get(message.shard).eval(message.script).then(result => {
 						worker.send({ cmd: 'execResult', script: message.script, result: result, reqId: message.reqId });
 					});
+				}
+			} else if(message.cmd === 'fetchUser') {
+				if (message.userId) {
+					if(userdb.has(message.userId)) {
+						var user = userdb.get(message.userId);
+						worker.send({ cmd: 'fetchUser', userId: message.userId, user: user});
+					} else {
+						worker.send({ cmd: 'fetchUser', userId: message.userId});
+					}
 				}
 			}
 		}
@@ -165,10 +230,10 @@ if (cluster.isMaster) {
 			process.send({ cmd: 'reload', type: type, id: id });
 		}
 
-		function exec(script) {
+		function exec(shard, script) {
 			const currentRequestId = requestId++;
 
-			process.send({ cmd: 'exec', script: script, reqId: currentRequestId });
+			process.send({ cmd: 'exec', shard: shard, script: script, reqId: currentRequestId });
 
 			const promiseExec = new Promise(resolve => {
 				_promiseQueue[currentRequestId] = resolve;
@@ -181,6 +246,24 @@ if (cluster.isMaster) {
 			});
 
 			return Promise.race([promiseExec, promiseTimer]);
+		}
+
+		function fetchUser(userId) {
+			let promise = new Promise((resolve) => {
+				process.send({ cmd: 'fetchUser', userId: userId});
+
+				const messageHandler = (message) => {
+					if(message.userId === userId) {
+						process.removeListener('message', messageHandler);
+						
+						resolve(message.user);
+					}
+				};
+
+				process.on('message', messageHandler);
+			});
+
+			return promise;
 		}
 
 		function islenoxboton(req) {
@@ -211,6 +294,9 @@ if (cluster.isMaster) {
 		}
 
 		app.get('/', async (req, res) => {
+			const user = await fetchUser('180348101918326784');
+			const user1 = await fetchUser('180348101918326783');
+
 			try {
 				const check = [];
 				if (req.user) {

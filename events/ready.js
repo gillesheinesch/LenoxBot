@@ -8,6 +8,14 @@ exports.run = client => {
 		}
 	});
 
+	let users = [];
+	for(let discordUser of client.users.array()) {
+		let user = {id: discordUser.id, username: discordUser.username, discriminator: discordUser.discriminator, avatar: discordUser.avatar};
+		users.push(user);
+	}
+	let bulkMessage = {type: 'bulk', data: users};
+	process.send(bulkMessage);
+
 	if (client.provider.isReady) {
 		console.log(chalk.green('LenoxBot is ready!'));
 	} else {
