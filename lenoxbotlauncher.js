@@ -13,33 +13,33 @@ if (cluster.isMaster) {
 			token: settings.token
 		});
 	shardingManager.on('message', (shard, message) => {
-		if(message.type === 'bulk') {
-			//data type: array: user
+		if (message.type === 'bulk') {
+			// data type: array: user
 			const data = message.data;
-			for(var user of data) {
-				if(userdb.has(user.id)) {
+			for (const user of data) {
+				if (userdb.has(user.id)) {
 					var other = userdb.get(user.id);
-					//now we check if there are new infos
-					if(!(user.username === other.username
-							&& user.discriminator === other.discriminator
-							&& user.avatar === other.avatar)) {
-								userdb.set(user.id, user);
-							}
+					// now we check if there are new infos
+					if (!(user.username === other.username &&
+							user.discriminator === other.discriminator &&
+							user.avatar === other.avatar)) {
+						userdb.set(user.id, user);
+					}
 				} else {
 					userdb.set(user.id, user);
 				}
 			}
-			console.log(`Received bulk members from shard ${shard.id}`)
-		} else if(message.type === "single") {
+			console.log(`Received bulk members from shard ${shard.id}`);
+		} else if (message.type === 'single') {
 			const user = message.data;
-			if(userdb.has(user.id)) {
+			if (userdb.has(user.id)) {
 				var other = userdb.get(user.id);
-				//now we check if there are new infos
-				if(!(user.username === other.username
-						&& user.discriminator === other.discriminator
-						&& user.avatar === other.avatar)) {
-							userdb.set(user.id, user);
-						}
+				// now we check if there are new infos
+				if (!(user.username === other.username &&
+						user.discriminator === other.discriminator &&
+						user.avatar === other.avatar)) {
+					userdb.set(user.id, user);
+				}
 			} else {
 				userdb.set(user.id, user);
 			}
@@ -47,24 +47,24 @@ if (cluster.isMaster) {
 	});
 
 	const rl = readline.createInterface({
-			input: process.stdin,
-			output: process.stdout
+		input: process.stdin,
+		output: process.stdout
 	});
 
-	rl.setPrompt("> ");
+	rl.setPrompt('> ');
 	rl.prompt();
 
-	rl.on('line', (input) => {
-			if(input === 'exit') {
-				console.log("Stopping...");
-				process.exit(0);
-			} else if(input === 'user') {
-				for(let user of userdb.values()) {
-					console.log(user);
-					break;
-				}
+	rl.on('line', input => {
+		if (input === 'exit') {
+			console.log('Stopping...');
+			process.exit(0);
+		} else if (input === 'user') {
+			for (const user of userdb.values()) {
+				console.log(user);
+				break;
 			}
-			rl.prompt();
+		}
+		rl.prompt();
 	});
 
 	shardingManager.spawn('auto', 500).then(() => {
@@ -103,13 +103,13 @@ if (cluster.isMaster) {
 						worker.send({ cmd: 'execResult', script: message.script, result: result, reqId: message.reqId });
 					});
 				}
-			} else if(message.cmd === 'fetchUser') {
+			} else if (message.cmd === 'fetchUser') {
 				if (message.userId) {
-					if(userdb.has(message.userId)) {
-						var user = userdb.get(message.userId);
-						worker.send({ cmd: 'fetchUser', userId: message.userId, user: user});
+					if (userdb.has(message.userId)) {
+						const user = userdb.get(message.userId);
+						worker.send({ cmd: 'fetchUser', userId: message.userId, user: user });
 					} else {
-						worker.send({ cmd: 'fetchUser', userId: message.userId});
+						worker.send({ cmd: 'fetchUser', userId: message.userId });
 					}
 				}
 			}
@@ -249,13 +249,13 @@ if (cluster.isMaster) {
 		}
 
 		function fetchUser(userId) {
-			let promise = new Promise((resolve) => {
-				process.send({ cmd: 'fetchUser', userId: userId});
+			const promise = new Promise(resolve => {
+				process.send({ cmd: 'fetchUser', userId: userId });
 
-				const messageHandler = (message) => {
-					if(message.userId === userId) {
+				const messageHandler = message => {
+					if (message.userId === userId) {
 						process.removeListener('message', messageHandler);
-						
+
 						resolve(message.user);
 					}
 				};
@@ -294,9 +294,6 @@ if (cluster.isMaster) {
 		}
 
 		app.get('/', async (req, res) => {
-			const user = await fetchUser('180348101918326784');
-			const user1 = await fetchUser('180348101918326783');
-
 			try {
 				const check = [];
 				if (req.user) {
@@ -451,8 +448,8 @@ if (cluster.isMaster) {
 		app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
 		// temporary!!!
 
-		/*
-		app.get('/leaderboards', async (req, res) => {
+
+		/* app.get('/leaderboards', async (req, res) => {
 			try {
 				const islenoxbot = islenoxboton(req);
 				const islenoxbotnp = await islenoxbotonNonPermission(req);
@@ -465,11 +462,10 @@ if (cluster.isMaster) {
 
 				for (const row of arrayofUsers) {
 					if (!isNaN(row.settings.credits)) {
-						const member = await exec(`JSON.stringify(this.users.get(${row.userId}))`);
-						console.log(member, row.userId)
+						const user = await fetchUser(row.userId);
 						const settings = {
 							userId: row.userId,
-							user: member ? member : row.userId,
+							user: user ? user : row.userId,
 							credits: Number(row.settings.credits)
 						};
 						if (row.userId !== 'global') {
@@ -489,8 +485,7 @@ if (cluster.isMaster) {
 				});
 
 				for (let i = 0; i < userArray.length; i++) {
-					const user = await exec(`this.users.get(${userArray[i].userId})`);
-					console.log(user)
+					const user = await fetchUser(userArray[i].userId);
 					if (user) {
 						userArray[i].user = user;
 					}
