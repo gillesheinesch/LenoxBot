@@ -1,19 +1,19 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
 
-module.exports = class blacklistremoveCommand extends LenoxCommand {
+module.exports = class unbanuserCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
-			name: 'blacklistremove',
+			name: 'unbanuser',
 			group: 'staff',
-			memberName: 'blacklistremove',
+			memberName: 'unbanuser',
 			description: 'Removes an user from the blacklist',
-			format: 'blacklistremove {userId} {reason}',
+			format: 'unbanuser {userId} {reason}',
 			aliases: [],
-			examples: ['blacklistremove 238590234135101440 Mistake'],
+			examples: ['unbanuser 238590234135101440 Mistake'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
-			shortDescription: 'Blacklist',
+			shortDescription: 'Banuser',
 			dashboardsettings: true
 		});
 	}
@@ -28,13 +28,13 @@ module.exports = class blacklistremoveCommand extends LenoxCommand {
 
 		const userId = args.slice(0, 1).join(' ');
 
-		if (!userId || isNaN(userId)) return msg.reply(lang.blacklistremove_noguildid);
-		if (args.slice(1).length === 0) return msg.reply(lang.blacklistremove_noreason);
+		if (!userId || isNaN(userId)) return msg.reply(lang.unbanuser_noguildid);
+		if (args.slice(1).length === 0) return msg.reply(lang.unbanuser_noreason);
 
 		for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'blacklist').length; i++) {
 			if (msg.client.provider.getBotsettings('botconfs', 'blacklist')[i].userID === userId) {
-				const embedtitle = lang.blacklistremove_embedtitle.replace('%userid', userId);
-				const embeddescription = lang.blacklistremove_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
+				const embedtitle = lang.unbanuser_embedtitle.replace('%userid', userId);
+				const embeddescription = lang.unbanuser_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
 				const embed = new Discord.RichEmbed()
 					.setColor('#66ff33')
 					.setTimestamp()
@@ -49,9 +49,9 @@ module.exports = class blacklistremoveCommand extends LenoxCommand {
 				currentBlacklist.splice(i, 1);
 				await msg.client.provider.setBotsettings('botconfs', 'blacklist', currentBlacklist);
 
-				return msg.reply(lang.blacklistremove_unbanned);
+				return msg.reply(lang.unbanuser_unbanned);
 			}
 		}
-		return msg.reply(lang.blacklistremove_notbanned);
+		return msg.reply(lang.unbanuser_notbanned);
 	}
 };

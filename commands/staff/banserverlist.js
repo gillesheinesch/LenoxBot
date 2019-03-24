@@ -1,19 +1,19 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
 
-module.exports = class banlistCommand extends LenoxCommand {
+module.exports = class banserverlistCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
-			name: 'banlist',
+			name: 'banserverlist',
 			group: 'staff',
-			memberName: 'banlist',
+			memberName: 'banserverlist',
 			description: 'Shows you a list of all Discord servers banned by the bot',
-			format: 'banlist',
+			format: 'banserverlist',
 			aliases: [],
-			examples: ['banlist'],
+			examples: ['banserverlist'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
-			shortDescription: 'Ban',
+			shortDescription: 'Banserver',
 			dashboardsettings: true
 		});
 	}
@@ -28,17 +28,17 @@ module.exports = class banlistCommand extends LenoxCommand {
 
 		const banlist = [];
 
-		if (msg.client.provider.getBotsettings('botconfs', 'banlist').length === 0) return msg.reply(lang.banlist_error);
+		if (msg.client.provider.getBotsettings('botconfs', 'banlist').length === 0) return msg.reply(lang.banserverlist_error);
 
-		const embedfooter = lang.banlist_embedfooter.replace('%prefix', prefix);
+		const embedfooter = lang.banserverlist_embedfooter.replace('%prefix', prefix);
 		const embed = new Discord.RichEmbed()
-			.setTitle(lang.banlist_embedtitle)
+			.setTitle(lang.banserverlist_embedtitle)
 			.setFooter(embedfooter);
 
 		for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'banlist').length; i++) {
 			banlist.push(msg.client.provider.getBotsettings('botconfs', 'banlist')[i]);
 		}
-		banlist.forEach(r => embed.addField(`${r.discordServerID}`, lang.banlist_embedfield.replace('%moderatortag', msg.client.users.get(r.moderator) ? msg.client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));
+		banlist.forEach(r => embed.addField(`${r.discordServerID}`, lang.banserverlist_embedfield.replace('%moderatortag', msg.client.users.get(r.moderator) ? msg.client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));
 
 		await msg.channel.send({
 			embed

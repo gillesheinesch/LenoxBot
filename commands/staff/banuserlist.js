@@ -1,19 +1,19 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
 
-module.exports = class blacklistCommand extends LenoxCommand {
+module.exports = class banuserlistCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
-			name: 'blacklist',
+			name: 'banuserlist',
 			group: 'staff',
-			memberName: 'blacklist',
+			memberName: 'banuserlist',
 			description: 'Shows you a list of all Discord users banned by the bot',
-			format: 'blacklist',
+			format: 'banuserlist',
 			aliases: [],
-			examples: ['blacklist'],
+			examples: ['banuserlist'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
-			shortDescription: 'Blacklist',
+			shortDescription: 'Banuser',
 			dashboardsettings: true
 		});
 	}
@@ -28,18 +28,18 @@ module.exports = class blacklistCommand extends LenoxCommand {
 
 		const blacklist = [];
 
-		if (msg.client.provider.getBotsettings('botconfs', 'blacklist').length === 0) return msg.reply(lang.blacklist_error);
+		if (msg.client.provider.getBotsettings('botconfs', 'blacklist').length === 0) return msg.reply(lang.banuserlist_error);
 
-		const embedfooter = lang.blacklist_embedfooter.replace('%prefix', prefix).replace('%prefix', prefix);
+		const embedfooter = lang.banuserlist_embedfooter.replace('%prefix', prefix).replace('%prefix', prefix);
 		const embed = new Discord.RichEmbed()
-			.setTitle(lang.blacklist_embedtitle)
+			.setTitle(lang.banuserlist_embedtitle)
 			.setFooter(embedfooter);
 
 		if (msg.client.provider.getBotsettings('botconfs', 'blacklist').length < 1) return msg.channel.send('There are no banned Discord users!');
 		for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'blacklist').length; i++) {
 			blacklist.push(msg.client.provider.getBotsettings('botconfs', 'blacklist')[i]);
 		}
-		blacklist.forEach(r => embed.addField(`${r.userID}`, lang.blacklist_embedfield.replace('%moderatortag', msg.client.users.get(r.moderator) ? msg.client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));
+		blacklist.forEach(r => embed.addField(`${r.userID}`, lang.banuserlist_embedfield.replace('%moderatortag', msg.client.users.get(r.moderator) ? msg.client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));
 
 		await msg.channel.send({
 			embed
