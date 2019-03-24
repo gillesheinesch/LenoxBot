@@ -10,7 +10,7 @@ async function run() {
 	const handlebarshelpers = require('handlebars-helpers')();
 
 	const snekfetch = require('snekfetch');
-	const baseUrl = 'https://discordapp.com/api/';
+	const baseUrl = 'https://discordapp.com/api/v';
 	const apiVersion = 7;
 
 	const app = express();
@@ -135,7 +135,7 @@ async function run() {
 		});
 
 		return Promise.race([promiseExec, promiseTimer]);
-	}
+    }
 
 	function islenoxboton(req) {
 		const islenoxbot = [];
@@ -332,20 +332,20 @@ async function run() {
 
 			for (const row of arrayofUsers) {
 				if (!isNaN(row.settings.credits)) {
-					const member = snekfetch.get(`${baseUrl}${apiVersion}/users/${row.userId}`)
+					snekfetch.get(`${baseUrl}${apiVersion}/users/${row.userId}`)
 						.set('Authorization', `Bot ${settings.token}`)
 						.end((err, res) => {
-							const result = JSON.parse(res.body);
-							console.log(result);
+							console.log(res.body);
+
+							const userSettings = {
+								userId: row.userId,
+								user: res.body ? member : row.userId,
+								credits: Number(row.settings.credits)
+							};
+							if (row.userId !== 'global') {
+								userArray.push(userSettings);
+							}
 						});
-					const userSettings = {
-						userId: row.userId,
-						user: member ? member : row.userId,
-						credits: Number(row.settings.credits)
-					};
-					if (row.userId !== 'global') {
-						userArray.push(userSettings);
-					}
 				}
 			}
 
@@ -361,7 +361,6 @@ async function run() {
 
 			for (let i = 0; i < userArray.length; i++) {
 				const user = await exec(`this.users.get(${userArray[i].userId})`);
-				console.log(user);
 				if (user) {
 					userArray[i].user = user;
 				}
@@ -606,41 +605,41 @@ async function run() {
 					}
 				}));
 			}
-		});
+		}); */
 
-		app.get('/commands', (req, res) => {
-			try {
-				const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
+	app.get('/commands', (req, res) => {
+		try {
+			const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
 
-				const commandlist = client.commands.filter(c => validation.includes(c.help.category) && c.conf.enabled === true).array();
-				const newcommandlist = [];
-				commandlist.map(cmd => {
-					const lang = require('./languages/en-US.json');
-					cmd.help.description = lang[`${cmd.help.name}_description`];
-					cmd.conf.newuserpermissions = cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(', ') : '';
-					cmd.conf.newaliases = cmd.conf.aliases.length > 0 ? cmd.conf.aliases.join(', ') : '';
-					newcommandlist.push(cmd);
-				});
+			const commandlist = client.commands.filter(c => validation.includes(c.help.category) && c.conf.enabled === true).array();
+			const newcommandlist = [];
+			commandlist.map(cmd => {
+				const lang = require('./languages/en-US.json');
+				cmd.description = lang[`${cmd.help.name}_description`];
+				cmd.newuserpermissions = cmd.userpermissions.length > 0 ? cmd.userpermissions.join(', ') : '';
+				cmd.newaliases = cmd.aliases.length > 0 ? cmd.aliases.join(', ') : '';
+				newcommandlist.push(cmd);
+			});
 
-				const islenoxbot = islenoxboton(req);
+			const islenoxbot = islenoxboton(req);
 
-				return res.render('commands', {
-					user: req.user,
-					islenoxbot: islenoxbot,
-					commands: newcommandlist
-				});
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
+			return res.render('commands', {
+				user: req.user,
+				islenoxbot: islenoxbot,
+				commands: newcommandlist
+			});
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
-		app.get('/donate', (req, res) => {
+	/* app.get('/donate', (req, res) => {
 			try {
 				const check = [];
 				if (req.user) {
