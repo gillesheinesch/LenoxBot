@@ -47,7 +47,7 @@ module.exports = class banuserCommand extends LenoxCommand {
 		const embedtitle = lang.banuser_embedtitle.replace('%userid', userId).replace('%username', discordUserName === 'undefined' ? lang.banuser_usernamenotknown : discordUserName);
 		const embeddescription = lang.banuser_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
 		const embed = new Discord.RichEmbed()
-			.setColor('#ff0000')
+			.setColor('RED')
 			.setTimestamp()
 			.setTitle(embedtitle)
 			.setDescription(embeddescription);

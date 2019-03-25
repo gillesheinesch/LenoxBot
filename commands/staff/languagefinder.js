@@ -34,7 +34,7 @@ module.exports = class languagefinderCommand extends LenoxCommand {
 		const guildload = msg.client.guilds.get(content);
 		const requestedby = lang.languagefinder_requestedby.replace('%authortag', msg.author.tag);
 		const embed = new Discord.RichEmbed()
-			.setColor('ORANGE')
+			.setColor('BLUE')
 			.setThumbnail(guildload.iconURL)
 			.addField(lang.languagefinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
 			.addField(lang.languagefinder_embedfield2, msg.client.provider.getGuild(msg.message.guild.id, 'language').toUpperCase())

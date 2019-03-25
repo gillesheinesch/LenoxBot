@@ -36,7 +36,7 @@ module.exports = class unbanserverCommand extends LenoxCommand {
 				const embedtitle = lang.unbanserver_embedtitle.replace('%guildid', guildId);
 				const embeddescription = lang.unbanserver_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
 				const embed = new Discord.RichEmbed()
-					.setColor('#66ff33')
+					.setColor('GREEN')
 					.setTimestamp()
 					.setTitle(embedtitle)
 					.setDescription(embeddescription);

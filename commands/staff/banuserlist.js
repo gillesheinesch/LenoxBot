@@ -32,6 +32,7 @@ module.exports = class banuserlistCommand extends LenoxCommand {
 
 		const embedfooter = lang.banuserlist_embedfooter.replace('%prefix', prefix).replace('%prefix', prefix);
 		const embed = new Discord.RichEmbed()
+			.setColor('RED')
 			.setTitle(lang.banuserlist_embedtitle)
 			.setFooter(embedfooter);
 
