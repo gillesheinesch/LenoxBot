@@ -449,10 +449,10 @@ if (cluster.isMaster) {
 		// temporary!!!
 
 
-		/* app.get('/leaderboards', async (req, res) => {
+		app.get('/leaderboards', async (req, res) => {
 			try {
 				const islenoxbot = islenoxboton(req);
-				const islenoxbotnp = await islenoxbotonNonPermission(req);
+				// const islenoxbotnp = await islenoxbotonNonPermission(req);
 
 				const userData = {};
 				userData.loaded = false;
@@ -502,8 +502,8 @@ if (cluster.isMaster) {
 					user: req.user,
 					credits: userArray.slice(0, 100),
 					userData: userData,
-					islenoxbot: islenoxbot,
-					islenoxbotnp: islenoxbotnp
+					islenoxbot: islenoxbot
+					// islenoxbotnp: islenoxbotnp
 				});
 			} catch (error) {
 				return res.redirect(url.format({
@@ -516,7 +516,7 @@ if (cluster.isMaster) {
 			}
 		});
 
-		app.get('/leaderboards/server/:id', async (req, res) => {
+		/* app.get('/leaderboards/server/:id', async (req, res) => {
 			try {
 				const dashboardid = res.req.originalUrl.substr(21, 18);
 				const userData = {};
