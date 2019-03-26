@@ -93,7 +93,8 @@ module.exports = class playCommand extends LenoxCommand {
 				publishedat: video.publishedAt,
 				id: video.id,
 				title: Util.escapeMarkdown(video.title),
-				url: `https://www.youtube.com/watch?v=${video.id}`
+				url: `https://www.youtube.com/watch?v=${video.id}`,
+				repeat: false
 			};
 
 			if (moment.duration(video.duration).format('m') > 30 && msg.client.provider.getUser(msg.author.id, 'premium').status === false) return msg.reply(lang.play_songlengthlimit);
@@ -125,7 +126,8 @@ module.exports = class playCommand extends LenoxCommand {
 					connection: null,
 					songs: [],
 					volume: 2,
-					playing: true
+					playing: true,
+					loop: false
 				};
 				await queue.set(msg.guild.id, queueConstruct);
 
