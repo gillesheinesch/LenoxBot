@@ -58,7 +58,9 @@ module.exports = class playCommand extends LenoxCommand {
 			const dispatcher = await serverQueue.connection.playStream(stream)
 				.on('end', async reason => {
 					if (reason === 'Stream is not generating quickly enough.');
-					serverQueue.songs.shift('Stream is not generating quickly enough');
+					if (serverQueue.songs[0].repeat) serverQueue.songs.unshift(serverQueue.songs.shift('Stream is not generating quickly enough'));
+					else if (serverQueue.loop) serverQueue.songs.push(serverQueue.songs.shift('Stream is not generating quickly enough'));
+					else serverQueue.songs.shift('Stream is not generating quickly enough');
 					await play(guild, serverQueue.songs[0]);
 				})
 				.on('error', error => console.error(error));
