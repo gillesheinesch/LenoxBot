@@ -564,12 +564,13 @@ if (cluster.isMaster) {
 		app.get('/profile/:id', async (req, res) => {
 			try {
 				const profileId = req.params.id;
-				const userdb = client.userdb.get(profileId);
-				const profileUser = client.users.get(req.params.id);
+				const userdb = await userSettingsCollection.findOne({ userId: profileId });
+				const profileUser = await fetchUser(profileId);
+
 				let isstaff = false;
 				let ispremium = false;
 				const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
-				const guild = await client.guilds.get('352896116812939264');
+				const guild = await exec(`client.guilds.get('352896116812939264')`);
 				for (let i = 0; i < teamroles.length; i++) {
 					const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
 					role.members.forEach(member => {
@@ -578,23 +579,23 @@ if (cluster.isMaster) {
 						}
 					});
 				}
-				if (userdb.premium.status) {
+				if (userdb.settings.premium.status) {
 					ispremium = true;
 				}
 				if (!profileUser || !userdb) throw Error('User was not found!');
 
-				if (!userdb.description) {
-					userdb.description = 'No description 😢';
+				if (!userdb.settings.description) {
+					userdb.settings.description = 'No description 😢';
 				}
-				if (!userdb.badges) {
-					userdb.badges = [];
+				if (!userdb.settings.badges) {
+					userdb.settings.badges = [];
 				}
 
 				let badges;
-				if (userdb.badges.length === 0) {
+				if (userdb.settings.badges.length === 0) {
 					badges = [];
 				} else {
-					const userBadges = userdb.badges;
+					const userBadges = userdb.settings.badges;
 					badges = userBadges.sort((a, b) => {
 						if (a.rarity < b.rarity) {
 							return 1;
@@ -614,8 +615,7 @@ if (cluster.isMaster) {
 					};
 					badgesAndTitles.push(settingsForBadgesAndTitles);
 				}
-				sql.open(`../${settings.sqlitefilename}.sqlite`);
-				const rows = await sql.all(`SELECT * FROM medals GROUP BY userId ORDER BY medals DESC`);
+
 				const useridsArray = [];
 				const userArray = [];
 				const moneyArray = [];
@@ -635,22 +635,23 @@ if (cluster.isMaster) {
 					if (useridsArray[index] === req.params.id) {
 						globalrank.push(tempArray[index]);
 					}
-				}
+				} */
 
-				const rowCredits = await sql.get(`SELECT * FROM medals WHERE userId = "${req.params.id}"`);
+				const rowCredits = userdb.settings.credits;
 
-				const marketconfs = client.botconfs.get('market');
+				const marketconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' }).settings.market;
 				const lang = require('./languages/en-US.json');
 				let check = 0;
 				const array1 = [];
-				for (const i in userdb.inventory) {
-					if (userdb.inventory[i] === 0) {
+				// eslint-disable-next-line guard-for-in
+				for (const i in userdb.settings.inventory) {
+					if (userdb.settings.inventory[i] === 0) {
 						check++;
 					}
-					if (userdb.inventory[i] !== 0) {
+					if (userdb.settings.inventory[i] !== 0) {
 						const itemSettings = {
 							emoji: marketconfs[i][0],
-							amount: userdb.inventory[i],
+							amount: userdb.settings.inventory[i],
 							name: lang[`loot_${i}`]
 						};
 						array1.push(itemSettings);
@@ -658,27 +659,27 @@ if (cluster.isMaster) {
 				}
 
 				let socialmediaCheck = 0;
-				for (const x in userdb.socialmedia) {
-					if (userdb.socialmedia[x] === '') socialmediaCheck++;
+				for (const x in userdb.settings.socialmedia) {
+					if (userdb.settings.socialmedia[x] === '') socialmediaCheck++;
 				}
 				const islenoxbot = islenoxboton(req);
 				return res.render('profile', {
 					user: req.user,
 					profileUser: profileUser,
-					userDescription: userdb.description.length === 0 ? null : userdb.description,
+					userDescription: userdb.settings.description.length === 0 ? null : userdb.settings.description,
 					badgesAndTitles: badgesAndTitles,
 					userCredits: rowCredits.medals,
-					userCreditsGlobalRank: globalrank,
-					inventoryItems: check === Object.keys(userdb.inventory).length ? null : array1,
-					userSocialmediaCheck: socialmediaCheck === Object.keys(userdb.socialmedia).length ? null : true,
-					userSocialmediaTwitch: userdb.socialmedia.twitch === '' ? null : userdb.socialmedia.twitch,
-					userSocialmediaYoutube: userdb.socialmedia.youtube === '' ? null : userdb.socialmedia.youtube,
-					userSocialmediaTwitter: userdb.socialmedia.twitter === '' ? null : userdb.socialmedia.twitter,
-					userSocialmediaInstagram: userdb.socialmedia.instagram === '' ? null : userdb.socialmedia.instagram,
-					userSocialmediaFacebook: userdb.socialmedia.facebook === '' ? null : userdb.socialmedia.facebook,
-					userSocialmediaGithub: userdb.socialmedia.github === '' ? null : userdb.socialmedia.github,
-					userSocialmediaPinterest: userdb.socialmedia.pinterest === '' ? null : userdb.socialmedia.pinterest,
-					userSocialmediaReddit: userdb.socialmedia.reddit === '' ? null : userdb.socialmedia.reddit,
+					// userCreditsGlobalRank: globalrank,
+					inventoryItems: check === Object.keys(userdb.settings.inventory).length ? null : array1,
+					userSocialmediaCheck: socialmediaCheck === Object.keys(userdb.settings.socialmedia).length ? null : true,
+					userSocialmediaTwitch: userdb.settings.socialmedia.twitch === '' ? null : userdb.settings.socialmedia.twitch,
+					userSocialmediaYoutube: userdb.settings.socialmedia.youtube === '' ? null : userdb.settings.socialmedia.youtube,
+					userSocialmediaTwitter: userdb.settings.socialmedia.twitter === '' ? null : userdb.settings.socialmedia.twitter,
+					userSocialmediaInstagram: userdb.settings.socialmedia.instagram === '' ? null : userdb.settings.socialmedia.instagram,
+					userSocialmediaFacebook: userdb.settings.socialmedia.facebook === '' ? null : userdb.settings.socialmedia.facebook,
+					userSocialmediaGithub: userdb.settings.socialmedia.github === '' ? null : userdb.settings.socialmedia.github,
+					userSocialmediaPinterest: userdb.settings.socialmedia.pinterest === '' ? null : userdb.settings.socialmedia.pinterest,
+					userSocialmediaReddit: userdb.settings.socialmedia.reddit === '' ? null : userdb.settings.socialmedia.reddit,
 					isstaff: isstaff,
 					ispremium: ispremium,
 					islenoxbot: islenoxbot
@@ -695,6 +696,7 @@ if (cluster.isMaster) {
 		});
 
 
+		/*
 		app.get('/team', async (req, res) => {
 			try {
 				const islenoxbot = islenoxboton(req);
