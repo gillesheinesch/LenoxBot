@@ -661,7 +661,7 @@
     "channeltopic_embed": "Channelbeschriibig:",
     "channeltopic_description": "Zeigt dir d Channelbeschriibig vom aktuelle Channel, falls es eini git",
     "availablelanguages_languages": "Alli verfüegbare Sprache",
-    "availablelanguages_descriptionembed": "English \nGerman \nFrench \nSpanish",
+    "availablelanguages_descriptionembed": "English \nGerman \nFrench \nSpanish \nSwiss",
     "availablelanguages_description": "Zeigt dir e Liiste i welne Sprache de Bot verfüegbar isch und gänderet cha werde",
     "language_noinput": "Du häsch vergässe d Sprach aazgeh, i weli du de Bot ändere wetsch!",
     "language_already": "D Sprach vom Bot für de Server isch scho %language",
