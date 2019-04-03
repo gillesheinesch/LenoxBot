@@ -9,7 +9,7 @@ module.exports = class languageCommand extends LenoxCommand {
 			description: 'Changes the language of the bot for this server',
 			format: 'language {desired language}',
 			aliases: [],
-			examples: ['language', 'language german', 'language english', 'language spanish'],
+			examples: ['language', 'language german', 'language english', 'language spanish', 'language french', 'language swiss'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: ['ADMINISTRATOR'],
 			shortDescription: 'Localization',
@@ -24,7 +24,7 @@ module.exports = class languageCommand extends LenoxCommand {
 		const args = msg.content.split(' ').slice(1);
 		const input = args.slice();
 
-		const validation = ['english', 'german', 'french', 'spanish'];
+		const validation = ['english', 'german', 'french', 'spanish', 'swiss'];
 
 		const already = lang.language_already.replace('%language', `\`${input[0]}\``);
 		const changed = lang.language_changed.replace('%input', `\`${input[0]}\``);
@@ -59,6 +59,13 @@ module.exports = class languageCommand extends LenoxCommand {
 
 					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'es-ES');
 					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'es');
+
+					return msg.channel.send(changed);
+				} else if (margs[1].toLowerCase() === 'swiss') {
+					if (langSet === 'de-CH') return msg.channel.send(already);
+
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'de-CH');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'de-CH');
 
 					return msg.channel.send(changed);
 				}
