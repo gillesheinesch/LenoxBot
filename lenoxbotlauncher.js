@@ -29,7 +29,6 @@ if (cluster.isMaster) {
 					userdb.set(user.id, user);
 				}
 			}
-			console.log(`Received bulk members from shard ${shard.id}`);
 		} else if (message.type === 'single') {
 			const user = message.data;
 			if (userdb.has(user.id)) {
