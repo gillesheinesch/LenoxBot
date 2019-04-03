@@ -66,17 +66,10 @@ if (cluster.isMaster) {
 		rl.prompt();
 	});
 
-	async function fetchShards() {
-		const x = await Discord.fetchRecommendedShards(settings.token, 500);
-		return x;
-	}
-
-	fetchShards().then(r => {
-		shardingManager.spawn(r, 15000).then(() => {
-			console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
-		}).catch(error => {
-			console.log(error);
-		});
+	shardingManager.spawn(shardingManager.totalShards, 15000).then(() => {
+		console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
+	}).catch(error => {
+		console.log(error);
 	});
 
 	for (let i = 0; i < numCPUs; i++); {
