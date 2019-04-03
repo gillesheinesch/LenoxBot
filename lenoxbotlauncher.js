@@ -635,7 +635,7 @@ if (cluster.isMaster) {
 					if (useridsArray[index] === req.params.id) {
 						globalrank.push(tempArray[index]);
 					}
-				} */
+				}
 
 				const rowCredits = userdb.settings.credits;
 
