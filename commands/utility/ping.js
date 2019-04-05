@@ -19,8 +19,10 @@ module.exports = class pingCommand extends LenoxCommand {
 
 	async run(msg) {
 		console.log('Ping 1');
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language').then(r => console.log('getGuild done'));
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		console.log('Ping 1.2');
 		const lang = require(`../../languages/${langSet}.json`);
+		console.log('Ping 1.3');
 
 		const message = await msg.channel.send('Ping?');
 		const newmsg = lang.ping_ping.replace('%latency', message.createdTimestamp - msg.createdTimestamp).replace('%latencyapi', Math.round(msg.client.ping));
