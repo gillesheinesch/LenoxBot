@@ -19,7 +19,7 @@ module.exports = class pingCommand extends LenoxCommand {
 
 	async run(msg) {
 		console.log('Ping 1');
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language').then(r => console.log('getGuild done'));
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const message = await msg.channel.send('Ping?');
