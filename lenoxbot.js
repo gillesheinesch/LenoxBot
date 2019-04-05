@@ -67,6 +67,7 @@ if (process.env.SHARD_COUNT) {
 
 
 	client.dispatcher.addInhibitor(msg => {
+		console.log('Inhibitor 1');
 		if (msg.channel.type !== 'text') {
 			msg.reply(englishlang.messageevent_error);
 			return 'Not a text channel';
@@ -190,9 +191,7 @@ if (process.env.SHARD_COUNT) {
 				msg.channel.send(usernopermission);
 				return 'NoPermission';
 			}
-		}
 
-		if (botCommandExists) {
 			for (const prop in msg.client.provider.getGuild(msg.message.guild.id, 'modules')) {
 				if (prop === cmd.groupID) {
 					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules')[prop] === 'false') {
@@ -309,6 +308,7 @@ if (process.env.SHARD_COUNT) {
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 			msg.delete();
 		}
+		console.log('Inhibitor 2');
 	});
 } else {
 	console.log(chalk.red('Stopped process because the bot isn\'t running as a shard! Please start lenoxbotlauncher.js to support sharding.'));
