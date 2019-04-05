@@ -314,7 +314,9 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	getGuild(guild, key, defVal) {
+		console.log('getGuild 1');
 		const settings = this.guildSettings.get(this.constructor.getGuildID(guild));
+		console.log('getGuild 2');
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
