@@ -23,7 +23,7 @@
     "dblapi.js": "^2.3.0",
     "destiny2": "^1.1.1",
     "discord.js": "^11.4.2",
-    "discord.js-commando": "^0.10.0",
+    "discord.js-commando": "github:discordjs/commando#master",
     "enmap": "^4.3.3",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
