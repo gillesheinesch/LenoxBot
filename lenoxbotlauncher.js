@@ -114,7 +114,7 @@ if (cluster.isMaster) {
 			}
 		}
 	});
-} else {
+} /* else {
 	async function run() {
 		const express = require('express');
 		const session = require('express-session');
@@ -225,7 +225,7 @@ if (cluster.isMaster) {
 		 * @argument type the type of reloadable element - "guild", "user" or "botsettings"
 		 * @argument id the id of the reloadable element, only usable on "guild" and "user"
 		 */
-	    function execReload(type, id) {
+	    /* function execReload(type, id) {
 			process.send({ cmd: 'reload', type: type, id: id });
 		}
 
@@ -5665,7 +5665,7 @@ if (cluster.isMaster) {
 			}
 		}); */
 
-		app.get('/error', (req, res) => {
+/* app.get('/error', (req, res) => {
 			const check = [];
 			if (req.user) {
 				for (let i = 0; i < req.user.guilds.length; i++) {
@@ -5879,8 +5879,7 @@ if (cluster.isMaster) {
 			}
 		});
 
-		// catch error and forward to error handler */
-
+		// catch error and forward to error handler
 		app.use((req, res) => {
 			const err = new Error('Not Found');
 			err.status = 404;
@@ -5897,4 +5896,4 @@ if (cluster.isMaster) {
 	run().catch(error => {
 		console.log(error);
 	});
-}
+} */
