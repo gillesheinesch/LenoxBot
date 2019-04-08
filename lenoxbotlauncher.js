@@ -5,116 +5,19 @@ const numCPUs = require('os').cpus().length;
 const chalk = require('chalk');
 const readline = require('readline');
 
-if (cluster.isMaster) {
-	// map type: number = user
-	const userdb = new Map();
-	const shardingManager = new Discord.ShardingManager('./lenoxbot.js',
-		{
-			token: settings.token
-		});
-	shardingManager.on('message', (shard, message) => {
-		if (message.type === 'bulk') {
-			// data type: array: user
-			const data = message.data;
-			for (const user of data) {
-				if (userdb.has(user.id)) {
-					var other = userdb.get(user.id);
-					// now we check if there are new infos
-					if (!(user.username === other.username &&
-							user.discriminator === other.discriminator &&
-							user.avatar === other.avatar)) {
-						userdb.set(user.id, user);
-					}
-				} else {
-					userdb.set(user.id, user);
-				}
-			}
-		} else if (message.type === 'single') {
-			const user = message.data;
-			if (userdb.has(user.id)) {
-				var other = userdb.get(user.id);
-				// now we check if there are new infos
-				if (!(user.username === other.username &&
-						user.discriminator === other.discriminator &&
-						user.avatar === other.avatar)) {
-					userdb.set(user.id, user);
-				}
-			} else {
-				userdb.set(user.id, user);
-			}
-		}
+const userdb = new Map();
+const shardingManager = new Discord.ShardingManager('./lenoxbot.js',
+	{
+		token: settings.token
 	});
 
-	const rl = readline.createInterface({
-		input: process.stdin,
-		output: process.stdout
-	});
+shardingManager.spawn(shardingManager.totalShards, 15000).then(() => {
+	console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
+}).catch(error => {
+	console.log(error);
+});
 
-	rl.setPrompt('> ');
-	rl.prompt();
-
-	rl.on('line', input => {
-		if (input === 'exit') {
-			console.log('Stopping...');
-			process.exit(0);
-		} else if (input === 'user') {
-			for (const user of userdb.values()) {
-				console.log(user);
-				break;
-			}
-		}
-		rl.prompt();
-	});
-
-	shardingManager.spawn(shardingManager.totalShards, 15000).then(() => {
-		console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
-	}).catch(error => {
-		console.log(error);
-	});
-
-	for (let i = 0; i < numCPUs; i++); {
-		cluster.fork();
-	}
-
-	cluster.on('exit', () => {
-		cluster.fork();
-	});
-
-	cluster.on('message', (worker, message) => {
-		if (message.cmd) {
-			if (message.cmd === 'reload') {
-				if (message.type) {
-					if (message.type === 'guild') {
-						if (message.id) {
-							const shardId = (message.id >> 22) % shardingManager.shards.size;
-
-							shardingManager.shards.get(shardId).eval(`this.provider.reloadGuild(${message.id})`);
-						}
-					} else if (message.type === 'user') {
-						if (message.id) {
-							shardingManager.broadcastEval(`this.provider.reloadUser(${message.id})`);
-						}
-					}
-				}
-			} else if (message.cmd === 'exec') {
-				if (message.script) {
-					shardingManager.shards.get(message.shard).eval(message.script).then(result => {
-						worker.send({ cmd: 'execResult', script: message.script, result: result, reqId: message.reqId });
-					});
-				}
-			} else if (message.cmd === 'fetchUser') {
-				if (message.userId) {
-					if (userdb.has(message.userId)) {
-						const user = userdb.get(message.userId);
-						worker.send({ cmd: 'fetchUser', userId: message.userId, user: user });
-					} else {
-						worker.send({ cmd: 'fetchUser', userId: message.userId });
-					}
-				}
-			}
-		}
-	});
-} /* else {
+/* else {
 	async function run() {
 		const express = require('express');
 		const session = require('express-session');
