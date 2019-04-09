@@ -13,9 +13,9 @@ exports.run = async (client, oldMember, newMember) => {
 		await client.provider.setGuild(newMember.guild.id, 'nicknamelog', currentNicknamelog);
 	}
 
-	//SEND SINGLE MESSAGE
-	let user = {id: newMember.user.id, username: newMember.user.username, discriminator: newMember.user.discriminator, avatar: newMember.user.avatar};
-	let singleMessage = {type: 'single', data: user};
+	// SEND SINGLE MESSAGE
+	const user = { id: newMember.user.id, username: newMember.user.username, discriminator: newMember.user.discriminator, avatar: newMember.user.avatar };
+	const singleMessage = { type: 'single', data: user };
 	process.send(singleMessage);
 
 	if (client.provider.getGuild(newMember.guild.id, 'guildmemberupdatelog') === 'false') return;
