@@ -1,73 +1,5 @@
-const Discord = require('discord.js');
 const settings = require('./settings.json');
 const chalk = require('chalk');
-const readline = require('readline');
-
-// map type: number = user
-const userdb = new Map();
-const shardingManager = new Discord.ShardingManager('./lenoxbot.js',
-	{
-		token: settings.token
-	});
-shardingManager.on('message', (shard, message) => {
-	if (message.type === 'bulk') {
-		// data type: array: user
-		const data = message.data;
-		for (const user of data) {
-			if (userdb.has(user.id)) {
-				const other = userdb.get(user.id);
-				// now we check if there are new infos
-				if (!(user.username === other.username &&
-							user.discriminator === other.discriminator &&
-							user.avatar === other.avatar)) {
-					userdb.set(user.id, user);
-				}
-			} else {
-				userdb.set(user.id, user);
-			}
-		}
-	} else if (message.type === 'single') {
-		const user = message.data;
-		if (userdb.has(user.id)) {
-			const other = userdb.get(user.id);
-			// now we check if there are new infos
-			if (!(user.username === other.username &&
-						user.discriminator === other.discriminator &&
-						user.avatar === other.avatar)) {
-				userdb.set(user.id, user);
-			}
-		} else {
-			userdb.set(user.id, user);
-		}
-	}
-});
-
-const rl = readline.createInterface({
-	input: process.stdin,
-	output: process.stdout
-});
-
-rl.setPrompt('> ');
-rl.prompt();
-
-rl.on('line', input => {
-	if (input === 'exit') {
-		console.log('Stopping...');
-		process.exit(0);
-	} else if (input === 'user') {
-		for (const user of userdb.values()) {
-			console.log(user);
-			break;
-		}
-	}
-	rl.prompt();
-});
-
-shardingManager.spawn(shardingManager.totalShards, 15000).then(() => {
-	console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
-}).catch(error => {
-	console.log(error);
-});
 
 async function run() {
 	const express = require('express');
@@ -152,26 +84,6 @@ async function run() {
 		console.log(chalk.green('Website running on https://lenoxbot.com'));
 	});
 
-	let requestId = 0;
-	const _promiseQueue = new Map();
-
-	process.on('message', message => {
-		if (message.cmd) {
-			if (message.cmd === 'execResult') {
-				if (message.script) {
-					if (_promiseQueue[message.reqId] !== null) {
-						const mResult = message.result;
-						const resolve = _promiseQueue[message.reqId];
-
-						_promiseQueue.delete(message.reqId);
-
-						resolve(mResult);
-					}
-				}
-			}
-		}
-	});
-
 	// Check all user guild where user are owner and lenoxbot is
 
 	// Script executes function on shard
@@ -181,24 +93,6 @@ async function run() {
 		 */
 	    function execReload(type, id) {
 		process.send({ cmd: 'reload', type: type, id: id });
-	}
-
-	function exec(shard, script) {
-		const currentRequestId = requestId++;
-
-		process.send({ cmd: 'exec', shard: shard, script: script, reqId: currentRequestId });
-
-		const promiseExec = new Promise(resolve => {
-			_promiseQueue[currentRequestId] = resolve;
-		});
-		const promiseTimer = new Promise((resolve, reject) => {
-			setTimeout(() => {
-				reject('Promise timed out before completion @ LenoxBotLauncher/exec');
-			}, 60 * 1000);
-			_promiseQueue.delete(currentRequestId);
-		});
-
-		return Promise.race([promiseExec, promiseTimer]);
 	}
 
 	function fetchUser(userId) {
@@ -237,7 +131,7 @@ async function run() {
 		const islenoxbotNonPerm = [];
 		if (req.user) {
 			for (let i = 0; i < req.user.guilds.length; i++) {
-				req.user.guilds[i].lenoxbot = await exec(`this.guilds.get(req.user.guilds[i].id) ? true : false`);
+				// req.user.guilds[i].lenoxbot = await exec(`this.guilds.get(req.user.guilds[i].id) ? true : false`);
 				if (req.user.guilds[i].lenoxbot === true) {
 					islenoxbotNonPerm.push(req.user.guilds[i]);
 				}
@@ -312,7 +206,7 @@ async function run() {
 				}
 			}));
 		}
-	});
+	}); /*
 
 	// Temp get for test dynamic pages in static mode
 
@@ -5619,42 +5513,42 @@ async function run() {
 			}
 		}); */
 
-	app.get('/error', (req, res) => {
-		const check = [];
-		if (req.user) {
-			for (let i = 0; i < req.user.guilds.length; i++) {
-				if (((req.user.guilds[i].permissions) & 8) === 8) {
-					check.push(req.user.guilds[i]);
+	/* app.get('/error', (req, res) => {
+			const check = [];
+			if (req.user) {
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (((req.user.guilds[i].permissions) & 8) === 8) {
+						check.push(req.user.guilds[i]);
+					}
 				}
 			}
-		}
 
-		let fix = false;
-		let howtofix = '';
+			let fix = false;
+			let howtofix = '';
 
-		if (req.query.message === "Cannot read property 'prefix' of null") {
-			fix = true;
-			howtofix = 'Write a textmessage in a textchannel on your discord server';
-		}
-		if (req.query.message === "Cannot read property 'dashboardpermissionroles' of null") {
-			fix = true;
-			howtofix = 'Write a textmessage in a textchannel on your discord server';
-		}
+			if (req.query.message === "Cannot read property 'prefix' of null") {
+				fix = true;
+				howtofix = 'Write a textmessage in a textchannel on your discord server';
+			}
+			if (req.query.message === "Cannot read property 'dashboardpermissionroles' of null") {
+				fix = true;
+				howtofix = 'Write a textmessage in a textchannel on your discord server';
+			}
 
-		const islenoxbot = islenoxboton(req);
+			const islenoxbot = islenoxboton(req);
 
-		res.status(404)
-			.render('error', {
-				user: req.user,
-				guilds: check,
-				islenoxbot: islenoxbot,
-				statuscode: req.query.statuscode,
-				message: req.query.message,
-				fix: fix,
-				howtofix: howtofix
-			});
-	});
-	/*
+			res.status(404)
+				.render('error', {
+					user: req.user,
+					guilds: check,
+					islenoxbot: islenoxbot,
+					statuscode: req.query.statuscode,
+					message: req.query.message,
+					fix: fix,
+					howtofix: howtofix
+				});
+		});
+		/*
 		// Global post for commandstatuschange
 
 		app.post('/dashboard/:id/global/:command/submitcommandstatuschange', (req, res) => {
@@ -5833,19 +5727,18 @@ async function run() {
 			}
 		});
 
-		// catch error and forward to error handler */
-
-	app.use((req, res) => {
-		const err = new Error('Not Found');
-		err.status = 404;
-		return res.redirect(url.format({
-			pathname: `/error`,
-			query: {
-				statuscode: 404,
-				message: 'Page not found'
-			}
-		}));
-	});
+		// catch error and forward to error handler
+		app.use((req, res) => {
+			const err = new Error('Not Found');
+			err.status = 404;
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 404,
+					message: 'Page not found'
+				}
+			}));
+		}); */
 }
 
 run().catch(error => {
