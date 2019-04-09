@@ -141,7 +141,9 @@ exports.run = client => {
 					const guild = client.guilds.get(muteconf.discordserverid);
 					if (!guild) return;
 
-					const membermention = await guild.fetchMember(muteconf.memberid);
+					const membermention = await guild.fetchMember(muteconf.memberid).catch(() => {
+						return undefined;
+					});
 					if (!membermention) return undefined;
 
 					const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
