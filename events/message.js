@@ -11,6 +11,7 @@ exports.run = async (client, msg) => {
 	if (client.provider.getGuild(msg.guild.id, 'language')) { // Everything can be requested here
 		for (const key in guildsettingskeys) {
 			if (!client.provider.getGuild(msg.guild.id, key)) {
+				console.log(msg.guild.id, key);
 				await client.provider.setGuild(msg.guild.id, key, guildsettingskeys[key]);
 			}
 		}
