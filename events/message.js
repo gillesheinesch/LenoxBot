@@ -9,12 +9,15 @@ exports.run = async (client, msg) => {
 	if (!client.provider.isReady) return;
 
 	if (client.provider.getGuild(msg.guild.id, 'language')) { // Everything can be requested here
+		const settings = client.provider.guildSettings.get(msg.guild.id);
 		for (const key in guildsettingskeys) {
-			if (!client.provider.getGuild(msg.guild.id, key)) {
-				console.log(msg.guild.id, key);
-				await client.provider.setGuild(msg.guild.id, key, guildsettingskeys[key]);
+			if (!settings[key] && typeof settings[key] === 'undefined') {
+				console.log(settings);
+				console.log(settings[key]);
+				settings[key] = guildsettingskeys[key];
 			}
 		}
+		await client.provider.setGuildComplete(msg.guild.id, settings);
 
 		const currentCommands = client.provider.getGuild(msg.guild.id, 'commands');
 		for (let i = 0; i < client.registry.commands.array().length; i++) {
