@@ -44,7 +44,6 @@
     "newsapi": "^2.0.1",
     "node-async-loop": "^1.2.2",
     "opusscript": "^0.0.6",
-    "os": "^0.1.1",
     "overwatch-stats": "^3.0.2",
     "passport": "^0.4.0",
     "passport-discord": "^0.1.3",
