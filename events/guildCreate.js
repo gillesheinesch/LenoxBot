@@ -6,11 +6,13 @@ exports.run = async (client, guild) => {
 	guildsettingskeys.prefix = settings.prefix;
 
 	if (client.provider.getGuild(guild.id, 'language')) { // Everything can be requested here
+		const guildSettings = client.provider.guildSettings.get(guild.id);
 		for (const key in guildsettingskeys) {
-			if (!client.provider.getGuild(guild.id, key)) {
-				await client.provider.setGuild(guild.id, key, guildsettingskeys[key]);
+			if (!guildSettings[key] && guildSettings[key] === 'undefined') {
+				guildSettings[key] = guildsettingskeys[key];
 			}
 		}
+		await client.provider.setGuildComplete(guild.id, guildSettings);
 
 		const currentCommands = client.provider.getGuild(guild.id, 'commands');
 		for (let i = 0; i < client.registry.commands.array().length; i++) {
@@ -36,8 +38,10 @@ exports.run = async (client, guild) => {
 		}
 
 		await client.provider.setGuild(guild.id, 'commands', currentCommands);
+	} else {
+		await client.provider.setGuildComplete(guild.id, guildsettingskeys);
 	}
-	await client.provider.setGuildComplete(guild.id, guildsettingskeys);
+
 
 	const embed1 = new Discord.RichEmbed()
 		.setColor('#ccff33')
