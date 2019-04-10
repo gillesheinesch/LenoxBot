@@ -49,8 +49,8 @@ app.get('/api/v1/:authorizationcode/islenoxbotondiscordserver/:guildid', async (
 	}
 });
 
-const PORT = 8080;
+const PORT = 443;
 
 app.listen(PORT, () => {
-	console.log(`API running on port ${settings.websiteport}`);
+	console.log(`API running on port ${PORT}`);
 });
