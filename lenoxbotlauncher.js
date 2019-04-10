@@ -49,7 +49,7 @@ app.get('/api/v1/:authorizationcode/islenoxbotondiscordserver/:guildid', async (
 	}
 });
 
-const PORT = 443;
+const PORT = 80;
 
 app.listen(PORT, () => {
 	console.log(`API running on port ${PORT}`);
