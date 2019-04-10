@@ -305,7 +305,9 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 	async clearGuild(guild) {
 		guild = this.constructor.getGuildID(guild);
+
 		if (!this.settings.has(guild)) return;
+
 		this.settings.delete(guild);
 		const settingsCollection = this.db.collection('guildSettings');
 		await settingsCollection.deleteOne({
