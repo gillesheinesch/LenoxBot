@@ -206,7 +206,7 @@ async function run() {
 				}
 			}));
 		}
-	}); /*
+	});
 
 	// Temp get for test dynamic pages in static mode
 
@@ -295,7 +295,7 @@ async function run() {
 	app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
 	// temporary!!!
 
-
+	/*
 	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
