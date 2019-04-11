@@ -140,7 +140,6 @@ async function run() {
 	}
 
 	// Check all user guilds where lenoxbot is
-
 	async function islenoxbotonNonPermission(req) {
 		const islenoxbotNonPerm = [];
 		if (req.user) {
@@ -313,7 +312,7 @@ async function run() {
 	});
 
 	// temporary!!!
-	app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
+	// app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
 	// temporary!!!
 
 	/*
@@ -732,78 +731,93 @@ async function run() {
 					}
 				}));
 			}
-		});
+		}); */
 
-		app.get('/servers', (req, res) => {
-			try {
-				if (req.user) {
-					const check = [];
+	app.get('/servers', async (req, res) => {
+		try {
+			if (req.user) {
+				const check = [];
 
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (client.guildconfs.get(req.user.guilds[i].id) && client.guilds.get(req.user.guilds[i].id)) {
-							const dashboardid = req.user.guilds[i].id;
-							const tableload = client.guildconfs.get(dashboardid);
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					const dashboardid = req.user.guilds[i].id;
+					await guildSettingsCollection.findOne({ guildId: dashboardid }).then(async fetchedGuild => {
+						if (!fetchedGuild) return;
 
-
-							if (!tableload.dashboardpermissionroles) {
-								tableload.dashboardpermissionroles = [];
-								client.guildconfs.set(dashboardid, tableload);
-							}
-
-							if (tableload.dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-								let allwhitelistedrolesoftheuser = 0;
-
-								for (let index2 = 0; index2 < tableload.dashboardpermissionroles.length; index2++) {
-									if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-									if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(tableload.dashboardpermissionroles[index2])) {
-										allwhitelistedrolesoftheuser += 1;
+						await shardingManager.broadcastEval(`this.guilds.get('${req.user.guilds[i].id}')`).then(async guildResult => {
+							let guildCheck;
+							let guildCheckIndex;
+							if (guildResult) {
+								for (let index = 0; index < guildResult.length; index++) {
+									if (typeof guildResult[index] !== 'undefined') {
+										guildCheck = true;
+										guildCheckIndex = index;
 									}
 								}
-								if (allwhitelistedrolesoftheuser !== tableload.dashboardpermissionroles.length) {
-									req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
+							}
+
+							if (fetchedGuild && guildCheck) {
+								if (!fetchedGuild.settings.dashboardpermissionroles) {
+									fetchedGuild.settings.dashboardpermissionroles = [];
+									await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: fetchedGuild.settings } });
+								}
+
+								if (fetchedGuild.settings.dashboardpermissionroles.length !== 0 && guildResult[guildCheckIndex].ownerID !== req.user.id) {
+									let allwhitelistedrolesoftheuser = 0;
+
+									for (let index2 = 0; index2 < fetchedGuild.settings.dashboardpermissionroles.length; index2++) {
+										if (!guildResult[guildCheckIndex].members.get(req.user.id)) return res.redirect('/servers');
+										if (!guildResult[guildCheckIndex].members.get(req.user.id).roles.has(fetchedGuild.settings.dashboardpermissionroles[index2])) {
+											allwhitelistedrolesoftheuser += 1;
+										}
+									}
+									if (allwhitelistedrolesoftheuser !== fetchedGuild.settings.dashboardpermissionroles.length) {
+										req.user.guilds[i].lenoxbot = guildCheck ? true : false;
+
+										if (req.user.guilds[i].lenoxbot === true) {
+											req.user.guilds[i].memberscount = guildResult[guildCheckIndex].memberCount;
+										}
+										check.push(req.user.guilds[i]);
+									}
+								} else if (((req.user.guilds[i].permissions) & 8) === 8) {
+									req.user.guilds[i].lenoxbot = guildCheck ? true : false;
 
 									if (req.user.guilds[i].lenoxbot === true) {
-										req.user.guilds[i].memberscount = client.guilds.get(req.user.guilds[i].id).memberCount;
+										req.user.guilds[i].memberscount = guildResult[guildCheckIndex].memberCount;
 									}
+
 									check.push(req.user.guilds[i]);
 								}
 							} else if (((req.user.guilds[i].permissions) & 8) === 8) {
-								req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
+								req.user.guilds[i].lenoxbot = guildCheck ? true : false;
 
 								if (req.user.guilds[i].lenoxbot === true) {
-									req.user.guilds[i].memberscount = client.guilds.get(req.user.guilds[i].id).memberCount;
+									req.user.guilds[i].memberscount = guildResult[guildCheckIndex].memberCount;
 								}
 
 								check.push(req.user.guilds[i]);
 							}
-						} else if (((req.user.guilds[i].permissions) & 8) === 8) {
-							req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
-
-							if (req.user.guilds[i].lenoxbot === true) {
-								req.user.guilds[i].memberscount = client.guilds.get(req.user.guilds[i].id).memberCount;
-							}
-
-							check.push(req.user.guilds[i]);
-						}
-					}
-					const islenoxbot = islenoxboton(req);
-					return res.render('servers', {
-						user: req.user,
-						guilds: check,
-						islenoxbot: islenoxbot
+						});
 					});
 				}
-				return res.redirect('nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
+				const islenoxbot = islenoxboton(req);
+				return res.render('servers', {
+					user: req.user,
+					guilds: check,
+					islenoxbot: islenoxbot
+				});
 			}
-		});
+			return res.redirect('nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+	/*
 
 		app.post('/tickets/:ticketid/submitticketanswer', (req, res) => {
 			try {
@@ -5534,42 +5548,42 @@ async function run() {
 			}
 		}); */
 
-	/* app.get('/error', (req, res) => {
-			const check = [];
-			if (req.user) {
-				for (let i = 0; i < req.user.guilds.length; i++) {
-					if (((req.user.guilds[i].permissions) & 8) === 8) {
-						check.push(req.user.guilds[i]);
-					}
+	app.get('/error', (req, res) => {
+		const check = [];
+		if (req.user) {
+			for (let i = 0; i < req.user.guilds.length; i++) {
+				if (((req.user.guilds[i].permissions) & 8) === 8) {
+					check.push(req.user.guilds[i]);
 				}
 			}
+		}
 
-			let fix = false;
-			let howtofix = '';
+		let fix = false;
+		let howtofix = '';
 
-			if (req.query.message === "Cannot read property 'prefix' of null") {
-				fix = true;
-				howtofix = 'Write a textmessage in a textchannel on your discord server';
-			}
-			if (req.query.message === "Cannot read property 'dashboardpermissionroles' of null") {
-				fix = true;
-				howtofix = 'Write a textmessage in a textchannel on your discord server';
-			}
+		if (req.query.message === "Cannot read property 'prefix' of null") {
+			fix = true;
+			howtofix = 'Write a textmessage in a textchannel on your discord server';
+		}
+		if (req.query.message === "Cannot read property 'dashboardpermissionroles' of null") {
+			fix = true;
+			howtofix = 'Write a textmessage in a textchannel on your discord server';
+		}
 
-			const islenoxbot = islenoxboton(req);
+		const islenoxbot = islenoxboton(req);
 
-			res.status(404)
-				.render('error', {
-					user: req.user,
-					guilds: check,
-					islenoxbot: islenoxbot,
-					statuscode: req.query.statuscode,
-					message: req.query.message,
-					fix: fix,
-					howtofix: howtofix
-				});
-		});
-		/*
+		res.status(404)
+			.render('error', {
+				user: req.user,
+				guilds: check,
+				islenoxbot: islenoxbot,
+				statuscode: req.query.statuscode,
+				message: req.query.message,
+				fix: fix,
+				howtofix: howtofix
+			});
+	});
+	/*
 		// Global post for commandstatuschange
 
 		app.post('/dashboard/:id/global/:command/submitcommandstatuschange', (req, res) => {
@@ -5746,20 +5760,20 @@ async function run() {
 					}
 				}));
 			}
-		});
-
-		// catch error and forward to error handler
-		app.use((req, res) => {
-			const err = new Error('Not Found');
-			err.status = 404;
-			return res.redirect(url.format({
-				pathname: `/error`,
-				query: {
-					statuscode: 404,
-					message: 'Page not found'
-				}
-			}));
 		}); */
+
+	// catch error and forward to error handler
+	app.use((req, res) => {
+		const err = new Error('Not Found');
+		err.status = 404;
+		return res.redirect(url.format({
+			pathname: `/error`,
+			query: {
+				statuscode: 404,
+				message: 'Page not found'
+			}
+		}));
+	});
 }
 
 run().catch(error => {
