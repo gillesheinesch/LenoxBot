@@ -312,14 +312,13 @@ async function run() {
 	});
 
 	// temporary!!!
-	// app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
+	app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
 	// temporary!!!
 
-	/*
 	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
-			// const islenoxbotnp = await islenoxbotonNonPermission(req);
+			const islenoxbotnp = await islenoxbotonNonPermission(req);
 
 			const userData = {};
 			userData.loaded = false;
@@ -329,15 +328,37 @@ async function run() {
 
 			for (const row of arrayofUsers) {
 				if (!isNaN(row.settings.credits)) {
-					const user = await fetchUser(row.userId);
-					const settings = {
-						userId: row.userId,
-						user: user ? user : row.userId,
-						credits: Number(row.settings.credits)
-					};
-					if (row.userId !== 'global') {
-						userArray.push(settings);
+					await shardingManager.broadcastEval(`
+					const user = this.users.get('${row.userId}');
+					if (user) {
+						const newObject = {
+							id: user.id,
+							username: user.username,
+							discriminator: user.discriminator,
+							avatar: user.avatar,
+							bot: user.bot
+						};
+						newObject;
 					}
+					`).then(userResult => {
+						let userCheckIndex;
+						if (userResult) {
+							for (let index = 0; index < userResult.length; index++) {
+								if (typeof userResult[index] !== 'undefined') {
+									userCheckIndex = index;
+								}
+							}
+						}
+
+						const userCreditsSettings = {
+							userId: row.userId,
+							user: userResult[userCheckIndex] ? userResult[userCheckIndex] : row.userId,
+							credits: Number(row.settings.credits)
+						};
+						if (row.userId !== 'global') {
+							userArray.push(userCreditsSettings);
+						}
+					});
 				}
 			}
 
@@ -352,25 +373,49 @@ async function run() {
 			});
 
 			for (let i = 0; i < userArray.length; i++) {
-				const user = await fetchUser(userArray[i].userId);
-				if (user) {
-					userArray[i].user = user;
-				}
-				if (req.user) {
-					if (userArray[i].userId === req.user.id) {
-						userData.place = i + 1;
-						userData.credits = userArray[i].credits;
-						userData.loaded = true;
+				await shardingManager.broadcastEval(`
+					const user = this.users.get('${userArray[i].userId}');
+					if (user) {
+						const newObject = {
+							id: user.id,
+							username: user.username,
+							discriminator: user.discriminator,
+							avatar: user.avatar,
+							bot: user.bot
+						};
+						newObject;
 					}
-				}
+					`).then(userResult => {
+					let userCheck;
+					let userCheckIndex;
+					if (userResult) {
+						for (let index = 0; index < userResult.length; index++) {
+							if (typeof userResult[index] !== 'undefined') {
+								userCheck = true;
+								userCheckIndex = index;
+							}
+						}
+					}
+
+					if (userCheck) {
+						userArray[i].user = userResult[userCheckIndex];
+					}
+					if (req.user) {
+						if (userArray[i].userId === req.user.id) {
+							userData.place = i + 1;
+							userData.credits = userArray[i].credits;
+							userData.loaded = true;
+						}
+					}
+				});
 			}
 
 			return res.render('leaderboard', {
 				user: req.user,
 				credits: userArray.slice(0, 100),
 				userData: userData,
-				islenoxbot: islenoxbot
-				// islenoxbotnp: islenoxbotnp
+				islenoxbot: islenoxbot,
+				islenoxbotnp: islenoxbotnp
 			});
 		} catch (error) {
 			return res.redirect(url.format({
