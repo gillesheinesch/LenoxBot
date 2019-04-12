@@ -120,7 +120,7 @@
     "hangman_guessedletteralready": "You guessed this letter already!",
     "hangman_description": "Play hangman alone or with your Discord friends",
 
-    "giveitem_nomention": "You forgot to mention an user!",
+    "giveitem_nomention": "You forgot to mention a user!",
     "giveitem_nodb": "We couldn't find this user in the database. He has to write a message on this Discord server, so we can create a database for the user!",
     "giveitem_noamount": "You forgot to enter an amount!",
     "giveitem_nonumber": "Your amount isn't a number!",
@@ -146,13 +146,13 @@
     "removexp_amountnan": "You didn't enter an amount of XP!",
     "removexp_atleast1": "Your amount of XP has to be at least 1!",
     "removexp_done": "XP has been successfully removed from the user!",
-    "removexp_description": "Removes an user a specific amount of XP on this Discord server",
+    "removexp_description": "Removes a user a specific amount of XP on this Discord server",
 
     "givexp_noamount": "You didn't enter an amount of XP!",
     "givexp_amountnan": "You didn't enter an amount of XP!",
     "givexp_atleast1": "Your amount of XP has to be at least 1!",
     "givexp_done": "XP has been successfully given to the user!",
-    "givexp_description": "Gives an user a specific amount of XP on this Discord server",
+    "givexp_description": "Gives a user a specific amount of XP on this Discord server",
 
     "setsocialmedia_youtube": "YouTube",
     "setsocialmedia_twitch": "Twitch",
@@ -182,7 +182,7 @@
     "setsocialmedia_deletegithub": "Your GitHub username has been deleted!",
     "setsocialmedia_deletepinterest": "Your Pinterest username has been deleted!",
     "setsocialmedia_deletereddit": "Your Reddit username has been deleted!",
-    "setsocialmedia_notsetup": "You didn't define an username for this social media account!",
+    "setsocialmedia_notsetup": "You didn't define a username for this social media account!",
     "setsocialmedia_notlinked": "No account linked to this social media",
     "setsocialmedia_description": "Allows you to connect a social media account to your Discord account",
 
@@ -240,7 +240,7 @@
     "blacklistremove_embeddescription": "Moderator: %moderatortag (ID: %moderatorid) \nReason: %reason",
     "blacklistremove_unbanned": "The user has been successfully unbanned!",
     "blacklistremove_notbanned": "This user isn't banned!",
-    "blacklistremove_description": "Removes an user from the blacklist",
+    "blacklistremove_description": "Removes a user from the blacklist",
 
     "blacklistadd_noguildid": "You didn't enter a Discord server ID!",
     "blacklistadd_noreason": "You have to enter a reason!",
@@ -249,7 +249,7 @@
     "blacklistadd_usernamenotknown": "Discord username unknown",
     "blacklistadd_embeddescription": "Moderator: %moderatortag (ID: %moderatorid) \nReason: %reason",
     "blacklistadd_banned": "The user has been successfully banned!",
-    "blacklistadd_description": "Adds an user to the blacklist",
+    "blacklistadd_description": "Adds a user to the blacklist",
 
     "blacklist_error": "No users have been added to the blacklist!",
     "blacklist_embedtitle": "Banned users:",
@@ -316,7 +316,7 @@
     "removecredits_novalue": "You have to enter an amount of credits!",
     "removecredits_embeddescription": "%credits credits removed from %user",
     "removecredits_done": "%credits credits have been removed successfully!",
-    "removecredits_description": "Removes an user a certain amount of credits",
+    "removecredits_description": "Removes a user a certain amount of credits",
 
     "leaveserver_error": "You must enter a guild ID. For example: `352896116812939264`",
     "leaveserver_nofetch": "Couldn't fetch this guild. Please check if the guild ID is correct and the bot is currently on this Discord server!",
@@ -327,7 +327,7 @@
     "givecredits_novalue": "You have to enter an amount of credits!",
     "givecredits_embeddescription": "%credits credits given to %user",
     "givecredits_done": "%credits credits have been awarded successfully!",
-    "givecredits_description": "Gives an user a certain amount of credits",
+    "givecredits_description": "Gives a user a certain amount of credits",
 
     "eval_description": "Executes an eval code",
 
@@ -637,10 +637,10 @@
     "togglexpmessages_deleted": "The XP messages were successfully disabled",
     "togglexpmessages_description": "Toggles the XP messages",
 
-    "tictactoe_nomention": "You must mention an user to play TicTacToe!",
+    "tictactoe_nomention": "You must mention a user to play TicTacToe!",
     "tictactoe_notoline": "The mentioned user has to be online to play TicTacToe against you!",
     "tictactoe_botmention": "You cannot mention a bot to play TicTacToe!",
-    "tictactoe_error": "You cannot play with yourself. You have to mention an user against whom you want to play.",
+    "tictactoe_error": "You cannot play with yourself. You have to mention a user against whom you want to play.",
     "tictactoe_gamecreated": "New TicTacToe Game created!",
     "tictactoe_turn": "It's your turn",
     "tictactoe_title": "TicTacToe game",
@@ -740,8 +740,8 @@
     "activatemodule_error": "This module doesn't exist. Please make sure that you haven't mistyped!",
     "activatemodule_description": "Activates a module and its commands on a Discord server",
 
-    "addautomaticrole_noinput": "You have to insert the required points for an user to get the role.",
-    "addautomaticrole_inputcannotbe0": "The required number of points for an user to get the role cannot be under 0.",
+    "addautomaticrole_noinput": "You have to insert the required points for a user to get the role.",
+    "addautomaticrole_inputcannotbe0": "The required number of points for a user to get the role cannot be under 0.",
     "addautomaticrole_norolename": "You have to insert the name of the role.",
     "addautomaticrole_rolenotexist": "This role does not exist at all!",
     "addautomaticrole_alreadyadded": "You have already added the role to the auto assignable roles.",
@@ -1108,9 +1108,9 @@
     "mute_mutedby": "Muted by %authortag",
     "mute_mutedescription": "**Action**: Mute \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Muted for**: %mutetime",
     "mute_muted": "%username was muted successfully for %mutetime",
-    "mute_description": "Mutes an user for a certain time",
+    "mute_description": "Mutes a user for a certain time",
 
-    "softban_nomention": "You must mention an user to softban!",
+    "softban_nomention": "You must mention a user to softban!",
     "softban_yourself": "You cannot softban yourself!",
     "softban_daysundefined": "You haven't specified the number of days!",
     "softban_nonumber": "You have to specify of how many days you want to have the messages of %user deleted! (Up to 7 days)",
@@ -1121,7 +1121,7 @@
     "softban_softbanned": "%usertag was successfully softbanned and the messages of the last %days days were deleted!",
     "softban_softbanby": "Softban by %authortag",
     "softban_softbandescription": "**Action**: Softban \n**User**: %usertag (%userid) \n**Reason**: %reason \nMessages of **%days days** got deleted",
-    "softban_description": "Bans an user and deletes his messages of the last X days (max 14 days). After that, he will be unbanned immediately!",
+    "softban_description": "Bans a user and deletes his messages of the last X days (max 14 days). After that, he will be unbanned immediately!",
 
     "unban_nouserid": "You must enter the userID to unban the user!",
     "unban_noinput": "You must specify a reason for the unban!",
@@ -1129,7 +1129,7 @@
     "unban_unbanned": "%userid was successfully unbanned!",
     "unban_unbannedby": "Unbanned by %authortag",
     "unban_unbandescription": "**Action**: Unban \n**UserID**: %userid \n**Reason**: %reason",
-    "unban_description": "Unban an user from the Discord server with a certain reason",
+    "unban_description": "Unban a user from the Discord server with a certain reason",
 
     "unmute_muteroleundefined": "First of all, you have to define the mute role by using the **%prefixmuterole** command",
     "unmute_nomention": "You forgot to mention the user who has to be unmuted.",
@@ -1140,7 +1140,7 @@
     "unmute_unmutedescription": "**Action**: Unmute \n**User**: %usertag (%userid) \n**Reason**: %reason",
     "unmute_automaticunmutedescription": "**Action**: Automatic unmute \n**User**: %usertag (%userid) \n**Reason**: The mutetime has expired",
     "unmute_unmuted": "%username was unmuted successfully.",
-    "unmute_description": "Unmutes an user",
+    "unmute_description": "Unmutes a user",
 
     "warn_idcheck": "This user was not found on this Discord server!",
     "warn_yourself": "You cannot warn yourself!",
@@ -1148,7 +1148,7 @@
     "warn_warned": "%usertag was successfully warned!",
     "warn_warnedby": "Warned by %authortag",
     "warn_warndescription": "**Action**: Warning \n**User**: %usertag (%userid) \n**Reason**: %reason",
-    "warn_description": "Warn an user on the Discord server with a certain reason",
+    "warn_description": "Warn a user on the Discord server with a certain reason",
 
     "forceskip_notvoicechannel": "You are not in a voice channel, please join a voice channel to play music!",
     "forceskip_noserverqueue": "There is nothing playing that I could skip for you!",
@@ -1383,7 +1383,7 @@
     "paycredits_one": "You have to give away minimal 2 credits",
     "paycredits_notenough": "Unfortunately, you do not have enough credits!",
     "paycredits_creditsgiven": "%author, %creditscount credits were given to %mentiontag!",
-    "paycredits_description": "Allows an user to give their credits to someone",
+    "paycredits_description": "Allows a user to give their credits to someone",
 
     "ping_ping": "Latency: %latencyms \nAPI Latency: %latencyapims",
     "ping_description": "Shows you how long the bot needs to send a message",
