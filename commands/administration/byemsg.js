@@ -1,27 +1,35 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const content = args.slice().join(' ');
-	if (!content) return msg.channel.send(lang.byemsg_noinput);
-	tableload.byemsg = content;
-	client.guildconfs.set(msg.guild.id, tableload);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	return msg.channel.send(lang.byemsg_goodbyemsgset);
-};
+module.exports = class byemsgCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'byemsg',
+			group: 'administration',
+			memberName: 'byemsg',
+			description: 'Sets a goodbye message to say goodbye to your users',
+			format: 'byemsg {goodbye message}',
+			aliases: [],
+			examples: ['byemsg Bye $user$, we gonna miss you on the $servername$ discord-server!'],
+			category: 'administration',
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Bye',
+			dashboardsettings: true
+		});
+	}
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Bye',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-exports.help = {
-	name: 'byemsg',
-	description: 'Sets a goodbye message to say goodbye to your users',
-	usage: 'byemsg {goodbye message}',
-	example: ['byemsg Bye $user$, we gonna miss you on the $servername$ discord-server!'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
+		const content = args.slice().join(' ');
+		if (!content) return msg.channel.send(lang.byemsg_noinput);
+
+		let currentByemsg = msg.client.provider.getGuild(msg.message.guild.id, 'byemsg');
+		currentByemsg = content;
+		await msg.client.provider.setGuild(msg.message.guild.id, 'byemsg', currentByemsg);
+
+		return msg.channel.send(lang.byemsg_goodbyemsgset);
+	}
 };

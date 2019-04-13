@@ -1,21 +1,27 @@
-exports.run = (client, msg, args, lang) => {
-	const message = lang.ranks_message.replace('%id', msg.guild.id).replace('%guildname', msg.guild.name);
-	msg.reply(message);
-};
+const LenoxCommand = require('../LenoxCommand.js');
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'XP',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'ranks',
-	description: `Ranking list, sorted by points`,
-	usage: 'ranks',
-	example: ['ranks'],
-	category: 'utility',
-	botpermissions: ['SEND_MESSAGES']
+module.exports = class ranksCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'ranks',
+			group: 'utility',
+			memberName: 'ranks',
+			description: 'Ranking list, sorted by points',
+			format: 'ranks',
+			aliases: [],
+			examples: ['ranks'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'XP',
+			dashboardsettings: true
+		});
+	}
+
+	run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+
+		const message = lang.ranks_message.replace('%id', msg.guild.id).replace('%guildname', msg.guild.name);
+		msg.reply(message);
+	}
 };

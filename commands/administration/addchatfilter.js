@@ -1,42 +1,47 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const input = args.slice();
+const LenoxCommand = require('../LenoxCommand.js');
 
-	// Wenn der Array länger ist wie 1 dann kommt eine Fehlermeldung da man nur verschiedene Wörter einfügen kann
-	if (input.length !== 1) return msg.channel.send(lang.addchatfilter_error);
-
-	if (!tableload.chatfilter) {
-		tableload.chatfilter = {
-			chatfilter: 'false',
-			array: []
-		};
-		client.guildconfs.set(msg.guild.id, tableload);
+module.exports = class addchatfilterCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'addchatfilter',
+			group: 'administration',
+			memberName: 'addchatfilter',
+			description: 'Inserts a new entry in the chat filter',
+			format: 'addchatfilter {word}',
+			aliases: [],
+			examples: ['addchatfilter bitch', 'addchatfilter idiot'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Chatfilter',
+			dashboardsettings: true
+		});
 	}
 
-	// Check ob der Eintrag bereits im Chatfilter vorhanden ist
-	for (let i = 0; i < tableload.chatfilter.array.length; i++) {
-		if (input.join(' ').toLowerCase() === tableload.chatfilter.array[i].toLowerCase()) return msg.channel.send(lang.addchatfilter_already);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
+
+		const input = args.slice();
+
+		if (input.length !== 1) return msg.channel.send(lang.addchatfilter_error);
+
+		if (!msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter')) {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', {
+				chatfilter: 'false',
+				array: []
+			});
+		}
+
+		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length; i++) {
+			if (input.join(' ').toLowerCase() === msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array[i].toLowerCase()) return msg.channel.send(lang.addchatfilter_already);
+		}
+
+		const currentChatfilter = msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter');
+		currentChatfilter.array.push(input.join(' ').toLowerCase());
+		await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', currentChatfilter);
+
+		const added = lang.addchatfilter_added.replace('%input', input.join(' '));
+		msg.channel.send(added);
 	}
-
-	tableload.chatfilter.array.push(input.join(' ').toLowerCase());
-	client.guildconfs.set(msg.guild.id, tableload);
-
-	const added = lang.addchatfilter_added.replace('%input', input.join(' '));
-	msg.channel.send(added);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Chatfilter',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'], dashboardsettings: true
-};
-exports.help = {
-	name: 'addchatfilter',
-	description: 'Inserts a new entry in the chat filter',
-	usage: 'addchatfilter {word}',
-	example: ['addchatfilter bitch', 'addchatfilter idiot'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
 };

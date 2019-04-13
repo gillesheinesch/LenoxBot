@@ -1,41 +1,14 @@
 const Discord = require('discord.js');
 exports.run = (client, oldGuild, newGuild) => {
-	const tableload = client.guildconfs.get(oldGuild.id);
-	if (!tableload) return;
+	if (!client.provider.isReady) return;
+	if (!client.provider.getGuild(newGuild.id, 'prefix')) return;
 
-	if (tableload.language === '') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(oldGuild.id, tableload);
-	}
+	const lang = require(`../languages/${client.provider.getGuild(newGuild.id, 'language')}.json`);
 
+	if (client.provider.getGuild(newGuild.id, 'guildupdatelog') === 'false') return;
 
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(oldGuild.id, tableload);
-	}
-
-	if (tableload.language === 'ge') {
-		tableload.language = 'de-DE';
-		client.guildconfs.set(oldGuild.id, tableload);
-	}
-
-	if (tableload.language === 'fr') {
-		tableload.language = 'fr-FR';
-		client.guildconfs.set(oldGuild.id, tableload);
-	}
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-
-	const lang = require(`../languages/${tableload.language}.json`);
-
-	if (!tableload.guildupdatelog) {
-		tableload.guildupdatelog = 'false';
-		tableload.guildupdatelogchannel = '';
-		client.guildconfs.set(oldGuild.id, tableload);
-	}
-	if (tableload.guildupdatelog === 'false') return;
-
-	const messagechannel = client.channels.get(tableload.guildupdatelogchannel);
+	const messagechannel = client.channels.get(client.provider.getGuild(newGuild.id, 'guildupdatelogchannel'));
+	if (!messagechannel) return;
 
 	if (oldGuild.name !== newGuild.name) {
 		const embed = new Discord.RichEmbed()

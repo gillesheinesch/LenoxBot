@@ -1,103 +1,130 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const moduledeactivated = lang.deactivatemodule_moduledisabled.replace('%modulename', args.slice());
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (args.slice().length === 0) return msg.channel.send(lang.deactivatemodule_noinput);
+module.exports = class deactivatemoduleCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'deactivatemodule',
+			group: 'administration',
+			memberName: 'deactivatemodule',
+			description: 'Disables a module and its commands on a Discord server',
+			format: 'deactivatemodule {name of the module}',
+			aliases: ['dm'],
+			examples: ['deactivatemodule help'],
+			category: 'administration',
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Modules',
+			dashboardsettings: true
+		});
+	}
 
-	const margs = msg.content.split(' ');
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	for (let i = 0; i < margs.length; i++) {
-		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			if (margs[1].toLowerCase() === 'administration') {
-				return msg.channel.send(lang.deactivatemodule_administration);
-			} else if (margs[1].toLowerCase() === 'partner') {
-				return msg.channel.send(lang.deactivatemodule_partner);
-			} else if (margs[1].toLowerCase() === 'utility') {
-				if (tableload.modules.utility === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+		const moduledeactivated = lang.deactivatemodule_moduledisabled.replace('%modulename', args.slice());
+		if (args.slice().length === 0) return msg.channel.send(lang.deactivatemodule_noinput);
+		const margs = msg.content.split(' ');
+		const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 
-				tableload.modules.utility = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'music') {
-				if (tableload.modules.music === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+		for (let i = 0; i < margs.length; i++) {
+			if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
+				if (margs[1].toLowerCase() === 'administration') {
+					return msg.channel.send(lang.deactivatemodule_administration);
+				} else if (margs[1].toLowerCase() === 'partner') {
+					return msg.channel.send(lang.deactivatemodule_partner);
+				} else if (margs[1].toLowerCase() === 'utility') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').utility === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
 
-				tableload.modules.music = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'fun') {
-				if (tableload.modules.fun === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.utility = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.fun = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'help') {
-				if (tableload.modules.help === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'music') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').music === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
 
-				tableload.modules.help = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'searches') {
-				if (tableload.modules.searches === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.music = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.searches = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'nsfw') {
-				if (tableload.modules.nsfw === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'fun') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').fun === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
 
-				tableload.modules.nsfw = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'moderation') {
-				if (tableload.modules.moderation === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.fun = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.moderation = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'application') {
-				if (tableload.modules.application === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'help') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').help === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
 
-				tableload.modules.application = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'currency') {
-				if (tableload.modules.currency === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.help = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.currency = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'customcommands') {
-				if (tableload.modules.customcommands === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'searches') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').searches === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
 
-				tableload.modules.customcommands = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
-			} else if (margs[1].toLowerCase() === 'tickets') {
-				if (tableload.modules.tickets === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.searches = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.tickets = 'false';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduledeactivated);
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'nsfw') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').nsfw === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.nsfw = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'moderation') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').moderation === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.moderation = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'application') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').application === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.application = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'currency') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').currency === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.currency = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'customcommands') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').customcommands === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.customcommands = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduledeactivated);
+				} else if (margs[1].toLowerCase() === 'tickets') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').tickets === 'false') return msg.channel.send(lang.deactivatemodule_alreadydisabled);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.tickets = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduledeactivated);
+				}
 			}
 		}
+		msg.channel.send(lang.deactivatemodule_error);
 	}
-	msg.channel.send(lang.deactivatemodule_error);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Modules',
-	aliases: ['dm'],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'deactivatemodule',
-	description: 'Disables a module and its commands on a Discord server',
-	usage: 'deactivatemodule {name of the module}',
-	example: ['deactivatemodule help'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
 };

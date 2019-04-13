@@ -1,34 +1,37 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	if (tableload.welcome === 'false') {
-		tableload.welcome = 'true';
+const LenoxCommand = require('../LenoxCommand.js');
 
-		const channelid = msg.channel.id;
-		tableload.welcomechannel = channelid;
-
-		const channelset = lang.togglewelcome_channelset.replace('%channelname', `#**${msg.channel.name}**`);
-		msg.channel.send(channelset);
-	} else if (tableload.welcome === 'true') {
-		tableload.welcome = 'false';
-		msg.channel.send(lang.togglewelcome_channeldeleted);
+module.exports = class togglewelcomeCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'togglewelcome',
+			group: 'administration',
+			memberName: 'togglewelcome',
+			description: 'Toggles the welcome message in this channel',
+			format: 'togglewelcome',
+			aliases: [],
+			examples: ['togglewelcome'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Welcome',
+			dashboardsettings: true
+		});
 	}
-	client.guildconfs.set(msg.guild.id, tableload);
-};
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Welcome',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.help = {
-	name: 'togglewelcome',
-	description: 'Toggles the welcome message in this channel',
-	usage: 'togglewelcome',
-	example: ['togglewelcome'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'welcome') === 'false') {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'welcome', 'true');
+
+			const channelid = msg.channel.id;
+			await msg.client.provider.setGuild(msg.message.guild.id, 'welcomechannel', channelid);
+
+			const channelset = lang.togglewelcome_channelset.replace('%channelname', `#**${msg.channel.name}**`);
+			msg.channel.send(channelset);
+		} else if (msg.client.provider.getGuild(msg.message.guild.id, 'welcome') === 'true') {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'welcome', 'false');
+			msg.channel.send(lang.togglewelcome_channeldeleted);
+		}
+	}
 };

@@ -1,30 +1,38 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	if (tableload.commanddel === 'false') {
-		tableload.commanddel = 'true';
-		client.guildconfs.set(msg.guild.id, tableload);
+const LenoxCommand = require('../LenoxCommand.js');
 
-		return msg.channel.send(lang.commanddeletion_deletionset);
+module.exports = class commanddeletionCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'commanddeletion',
+			group: 'administration',
+			memberName: 'commanddeletion',
+			description: 'Toggles the deletion of a command after execution',
+			format: 'commanddeletion',
+			aliases: ['cmddel'],
+			examples: ['commanddeletion'],
+			category: 'administration',
+			clientpermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'General',
+			dashboardsettings: true
+		});
 	}
-	tableload.commanddel = 'false';
-	client.guildconfs.set(msg.guild.id, tableload);
 
-	return msg.channel.send(lang.commanddeletion_nodeletionset);
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'General',
-	aliases: ['cmddel'],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'commanddeletion',
-	description: 'Toggles the deletion of a command after execution',
-	usage: 'commanddeletion',
-	example: ['commanddeletion'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES', 'MANAGE_MESSAGES']
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'false') {
+			let currentCommanddel = msg.client.provider.getGuild(msg.message.guild.id, 'commanddel');
+			currentCommanddel = 'true';
+			await msg.client.provider.setGuild(msg.message.guild.id, 'commanddel', currentCommanddel);
+
+			return msg.channel.send(lang.commanddeletion_deletionset);
+		}
+		let currentCommanddel = msg.client.provider.getGuild(msg.message.guild.id, 'commanddel');
+		currentCommanddel = 'false';
+		await msg.client.provider.setGuild(msg.message.guild.id, 'commanddel', currentCommanddel);
+
+		return msg.channel.send(lang.commanddeletion_nodeletionset);
+	}
 };

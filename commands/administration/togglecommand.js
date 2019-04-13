@@ -1,40 +1,47 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (args.slice().length === 0) return msg.reply(lang.togglecommand_noinput);
+module.exports = class togglecommandCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'togglecommand',
+			group: 'administration',
+			memberName: 'togglecommand',
+			description: 'Toggles the status of a command',
+			format: 'togglecommand {name of the command}',
+			aliases: [],
+			examples: ['togglecommand ban', 'togglecommand kick'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'General',
+			dashboardsettings: true
+		});
+	}
 
-	/* eslint no-else-return: 0 */
-	for (const x in tableload.commands) {
-		if (x.toLowerCase() === args.slice().join(' ').toLowerCase()) {
-			if (client.commands.get(x.toLowerCase()).conf.dashboardsettings === false) return msg.reply(lang.togglecommand_notchangeable);
-			if (tableload.commands[x.toLowerCase()].status === 'true') {
-				tableload.commands[x.toLowerCase()].status = 'false';
-				client.guildconfs.set(msg.guild.id, tableload);
-				return msg.reply(lang.togglecommand_settofalse);
-			} else {
-				tableload.commands[x.toLowerCase()].status = 'true';
-				client.guildconfs.set(msg.guild.id, tableload);
-				return msg.reply(lang.togglecommand_settotrue);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
+
+		if (args.slice().length === 0) return msg.reply(lang.togglecommand_noinput);
+
+		/* eslint no-else-return: 0 */
+		for (const x in msg.client.provider.getGuild(msg.message.guild.id, 'commands')) {
+			if (x.toLowerCase() === args.slice().join(' ').toLowerCase()) {
+				if (msg.client.registry.commands.get(x.toLowerCase()).dashboardsettings === false) return msg.reply(lang.togglecommand_notchangeable);
+				if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[x.toLowerCase()].status === 'true') {
+					const currentCommands = await msg.client.provider.getGuild(msg.message.guild.id, 'commands');
+					currentCommands[x.toLowerCase()].status = 'false';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'commands', currentCommands);
+
+					return msg.reply(lang.togglecommand_settofalse);
+				} else {
+					const currentCommands = await msg.client.provider.getGuild(msg.message.guild.id, 'commands');
+					currentCommands[x.toLowerCase()].status = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'commands', currentCommands);
+					return msg.reply(lang.togglecommand_settotrue);
+				}
 			}
 		}
+		return msg.reply(lang.togglecommand_nocommand);
 	}
-	return msg.reply(lang.togglecommand_nocommand);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'General',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-
-exports.help = {
-	name: 'togglecommand',
-	description: 'Toggles the status of a command',
-	usage: 'togglecommand {name of the command}',
-	example: ['togglecommand ban', 'togglecommand kick'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
 };

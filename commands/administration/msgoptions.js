@@ -1,34 +1,39 @@
+const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
-exports.run = (client, msg, args, lang) => {
-	const validation = ['$usertag$', '$usermention$', '$username$', '$userid$', '$guildname$', '$guildid$'];
 
-	const embed = new Discord.RichEmbed()
-		.setColor('#7FFFD4')
-		.setAuthor(lang.msgoptions_embed);
-
-	for (let i = 0; i < validation.length; i++) {
-		embed.addField(validation[i], lang[`msgoptions_${validation[i]}`]);
+module.exports = class msgoptionsCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'msgoptions',
+			group: 'administration',
+			memberName: 'msgoptions',
+			description: 'Shows you a list of all available options for your welcome and bye msg',
+			format: 'msgoptions',
+			aliases: [],
+			examples: ['msgoptions'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'General',
+			dashboardsettings: true
+		});
 	}
 
-	msg.channel.send({
-		embed
-	});
-};
+	run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'General',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
+		const validation = ['$usertag$', '$usermention$', '$username$', '$userid$', '$guildname$', '$guildid$'];
 
-exports.help = {
-	name: 'msgoptions',
-	description: 'Shows you a list of all available options for your welcome and bye msg',
-	usage: 'msgoptions',
-	example: ['msgoptions'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
+		const embed = new Discord.RichEmbed()
+			.setColor('#7FFFD4')
+			.setAuthor(lang.msgoptions_embed);
+
+		for (let i = 0; i < validation.length; i++) {
+			embed.addField(validation[i], lang[`msgoptions_${validation[i]}`]);
+		}
+
+		msg.channel.send({
+			embed
+		});
+	}
 };

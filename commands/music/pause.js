@@ -1,28 +1,33 @@
-exports.run = (client, msg, args, lang) => {
-	const queue = client.queue;
-	const serverQueue = queue.get(msg.guild.id);
-	if (serverQueue && serverQueue.playing) {
-		serverQueue.playing = false;
-		serverQueue.connection.dispatcher.pause();
-		return msg.channel.send(lang.pause_paused);
+const LenoxCommand = require('../LenoxCommand.js');
+
+module.exports = class pauseCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'pause',
+			group: 'music',
+			memberName: 'pause',
+			description: 'Forces the bot to skip the current song without a poll!',
+			format: 'pause',
+			aliases: [],
+			examples: ['pause'],
+			clientpermissions: ['SEND_MESSAGES', 'SPEAK'],
+			userpermissions: [],
+			shortDescription: 'Musicplayersettings',
+			dashboardsettings: true
+		});
 	}
-	return msg.channel.send(lang.pause_nothing);
-};
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Musicplayersettings',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
+	run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.help = {
-	name: 'pause',
-	description: 'Stops the current music',
-	usage: 'pause',
-	example: ['pause'],
-	category: 'music',
-	botpermissions: ['SEND_MESSAGES', 'SPEAK']
+		const queue = msg.client.queue;
+		const serverQueue = queue.get(msg.guild.id);
+		if (serverQueue && serverQueue.playing) {
+			serverQueue.playing = false;
+			serverQueue.connection.dispatcher.pause();
+			return msg.channel.send(lang.pause_paused);
+		}
+		return msg.channel.send(lang.pause_nothing);
+	}
 };

@@ -1,36 +1,14 @@
 const Discord = require('discord.js');
 exports.run = async (client, member) => {
-	const tableload = client.guildconfs.get(member.guild.id);
-	const botconfs = client.botconfs.get('botconfs');
-	if (!tableload) return;
+	if (!client.provider.isReady) return;
+	if (!client.provider.getGuild(member.guild.id, 'prefix')) return;
 
-	if (tableload.language === '') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(member.guild.id, tableload);
-	}
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(member.guild.id, tableload);
-	}
-
-	if (tableload.language === 'ge') {
-		tableload.language = 'de-DE';
-		client.guildconfs.set(member.guild.id, tableload);
-	}
-
-	if (tableload.language === 'fr') {
-		tableload.language = 'fr-FR';
-		client.guildconfs.set(member.guild.id, tableload);
-	}
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-
-	const lang = require(`../languages/${tableload.language}.json`);
+	const lang = require(`../languages/${client.provider.getGuild(member.guild.id, 'language')}.json`);
 
 	let muteOfThisUser;
-	for (const i in botconfs.mutes) {
-		if (botconfs.mutes[i].discordserverid === member.guild.id && botconfs.mutes[i].memberid === member.id) {
-			muteOfThisUser = botconfs.mutes[i];
+	for (const i in client.provider.getBotsettings('botconfs', 'mutes')) {
+		if (client.provider.getBotsettings('botconfs', 'mutes')[i].discordserverid === member.guild.id && client.provider.getBotsettings('botconfs', 'mutes')[i].memberid === member.id) {
+			muteOfThisUser = client.provider.getBotsettings('botconfs', 'mutes')[i];
 		}
 	}
 
@@ -41,24 +19,26 @@ exports.run = async (client, member) => {
 				await member.addRole(mutedRole);
 			}
 		} else {
-			delete botconfs.mutes[muteOfThisUser.mutescount];
-			client.botconfs.set('botconfs', botconfs);
+			const currentMutes = client.provider.getBotsettings('botconfs', 'mutes');
+			delete currentMutes[muteOfThisUser.mutescount];
+			await client.provider.setBotsettings('botconfs', 'mutes', currentMutes);
 		}
 	}
 
 	// Joinroles that a guildMember will get when it joins the discord server
 	const rolesGiven = [];
 	const rolesNotGiven = [];
-	if (tableload.joinroles && tableload.joinroles.length !== 0) {
-		for (let i = 0; i < tableload.joinroles.length; i++) {
-			if (!member.guild.roles.get(tableload.joinroles[i])) {
-				const indexOfTheRole = tableload.joinroles.indexOf(tableload.joinroles[i]);
-				tableload.joinroles.splice(indexOfTheRole, 1);
-				client.guildconfs.set(member.guild.id, tableload);
+	if (client.provider.getGuild(member.guild.id, 'joinroles') && client.provider.getGuild(member.guild.id, 'joinroles').length !== 0) {
+		for (let i = 0; i < client.provider.getGuild(member.guild.id, 'joinroles').length; i++) {
+			if (!member.guild.roles.get(client.provider.getGuild(member.guild.id, 'joinroles')[i])) {
+				const indexOfTheRole = client.provider.getGuild(member.guild.id, 'joinroles').indexOf(client.provider.getGuild(member.guild.id, 'joinroles')[i]);
+				const currentJoinroles = client.provider.getGuild(member.guild.id, 'joinroles');
+				currentJoinroles.splice(indexOfTheRole, 1);
+				await client.provider.setGuild(member.guild.id, 'joinroles', currentJoinroles);
 			}
 
-			if (tableload.joinroles.length !== 0) {
-				const roleToAssign = member.guild.roles.get(tableload.joinroles[i]);
+			if (client.provider.getGuild(member.guild.id, 'joinroles').length !== 0) {
+				const roleToAssign = member.guild.roles.get(client.provider.getGuild(member.guild.id, 'joinroles')[i]);
 				try {
 					await member.addRole(roleToAssign);
 					rolesGiven.push(roleToAssign.name);
@@ -74,8 +54,8 @@ exports.run = async (client, member) => {
 	}
 
 	// Logs:
-	if (tableload.welcomelog === 'true') {
-		const messagechannel = client.channels.get(tableload.welcomelogchannel);
+	if (client.provider.getGuild(member.guild.id, 'welcomelog') === 'true') {
+		const messagechannel = client.channels.get(client.provider.getGuild(member.guild.id, 'welcomelogchannel'));
 		const embed = new Discord.RichEmbed()
 			.setFooter(lang.guildmemberaddevent_userjoined)
 			.setTimestamp()
@@ -87,13 +67,13 @@ exports.run = async (client, member) => {
 	}
 
 	let embed = false;
-	if (tableload.welcome === 'true') {
-		if (tableload.welcomemsg.length < 1) return;
-		const messagechannel = client.channels.get(tableload.welcomechannel);
-		if (tableload.welcomemsg.toLowerCase().includes('$embed$')) {
+	if (client.provider.getGuild(member.guild.id, 'welcome') === 'true') {
+		if (client.provider.getGuild(member.guild.id, 'welcomemsg').length < 1) return;
+		const messagechannel = client.channels.get(client.provider.getGuild(member.guild.id, 'welcomechannel'));
+		if (client.provider.getGuild(member.guild.id, 'welcomemsg').toLowerCase().includes('$embed$')) {
 			embed = true;
 		}
-		const newMessage = tableload.welcomemsg.replace('$username$', member.user.username)
+		const newMessage = client.provider.getGuild(member.guild.id, 'welcomemsg').replace('$username$', member.user.username)
 			.replace('$usermention$', member.user)
 			.replace('$usertag$', member.user.tag)
 			.replace('$userid$', member.user.id)

@@ -1,41 +1,43 @@
-exports.run = (client, msg, args, lang) => {
-	const tableconfig = client.guildconfs.get(msg.guild.id);
-	const number = args.slice();
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (!tableconfig.skipnumber) {
-		tableconfig.skipnumber = 1;
-		client.guildconfs.set(msg.guild.id, tableconfig);
+module.exports = class skipnumberCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'skipnumber',
+			group: 'administration',
+			memberName: 'skipnumber',
+			description: 'Changes the necessary votes to skip music for users',
+			format: 'skipnumber {number}',
+			aliases: [],
+			examples: ['skipnumber 3'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Music',
+			dashboardsettings: true
+		});
 	}
 
-	const currentvotenumber = lang.skipnumber_currentvotenumber.replace('%skipnumber', `\`${tableconfig.skipnumber}\``);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	if (number.length === 0) return msg.channel.send(currentvotenumber);
-	if (number.length > 1) return msg.channel.send(lang.skipnumber_error);
-	if (isNaN(number)) return msg.channel.send(lang.skipnumber_noinput);
-	if (number < 1) return msg.channel.send(lang.skipnumber_cannotbe0);
+		const number = args.slice();
 
-	tableconfig.skipnumber = number;
-	client.guildconfs.set(msg.guild.id, tableconfig);
+		if (!msg.client.provider.getGuild(msg.message.guild.id, 'skipnumber')) {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'skipnumber', 1);
+		}
 
-	const changedskipvote = lang.skipnumber_changedskipvote.replace('%newskipnumber', number);
+		const currentvotenumber = lang.skipnumber_currentvotenumber.replace('%skipnumber', `\`${msg.client.provider.getGuild(msg.message.guild.id, 'skipnumber')}\``);
 
-	return msg.channel.send(changedskipvote);
-};
+		if (number.length === 0) return msg.channel.send(currentvotenumber);
+		if (number.length > 1) return msg.channel.send(lang.skipnumber_error);
+		if (isNaN(number)) return msg.channel.send(lang.skipnumber_noinput);
+		if (number < 1) return msg.channel.send(lang.skipnumber_cannotbe0);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Music',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
+		await msg.client.provider.setGuild(msg.message.guild.id, 'skipnumber', number);
 
-exports.help = {
-	name: 'skipnumber',
-	description: 'Changes the necessary votes to skip music for users',
-	usage: 'skipnumber {number}',
-	example: ['skipnumber 3'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
+		const changedskipvote = lang.skipnumber_changedskipvote.replace('%newskipnumber', number);
+		return msg.channel.send(changedskipvote);
+	}
 };

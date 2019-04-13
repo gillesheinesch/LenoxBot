@@ -1,39 +1,42 @@
-exports.run = (client, msg, args, lang) => {
-	const queue = client.queue;
-	const userdb = client.userdb.get(msg.author.id);
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const serverQueue = queue.get(msg.guild.id);
-	const volumeinput = msg.content.split(' ');
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (tableload.premium.status === false && userdb.premium.status === false) return msg.reply(lang.volume_nopremium);
+module.exports = class volumeCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'volume',
+			group: 'music',
+			memberName: 'volume',
+			description: 'Changes the volume of the bot',
+			format: 'volume {1-5}',
+			aliases: [],
+			examples: ['volume 3'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'Musicplayersettings',
+			dashboardsettings: true
+		});
+	}
 
-	if (!msg.member.voiceChannel) return msg.channel.send(lang.volume_notvoicechannel);
-	if (!serverQueue) return msg.channel.send(lang.volume_nothing);
-	const currentvolume = lang.volume_currentvolume.replace('%volume', serverQueue.volume);
-	if (!volumeinput[1]) return msg.channel.send(currentvolume);
-	if (volumeinput > 5) return msg.channel.send(lang.volume_error);
+	run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-	serverQueue.volume = volumeinput[1];
-	serverQueue.connection.dispatcher.setVolumeLogarithmic(volumeinput[1] / 5);
+		const queue = msg.client.queue;
+		const serverQueue = queue.get(msg.guild.id);
+		const volumeinput = msg.content.split(' ');
 
-	const volumeset = lang.volume_volumeset.replace('%volumeinput', volumeinput[1]);
-	return msg.channel.send(volumeset);
-};
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false && msg.client.provider.getUser(msg.author.id, 'premium').status === false) return msg.reply(lang.volume_nopremium);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Musicplayersettings',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
+		if (!msg.member.voiceChannel) return msg.channel.send(lang.volume_notvoicechannel);
+		if (!serverQueue) return msg.channel.send(lang.volume_nothing);
+		const currentvolume = lang.volume_currentvolume.replace('%volume', serverQueue.volume);
+		if (!volumeinput[1]) return msg.channel.send(currentvolume);
+		if (volumeinput > 5) return msg.channel.send(lang.volume_error);
 
-exports.help = {
-	name: 'volume',
-	description: 'Changes the volume of the bot',
-	usage: 'volume {1-5}',
-	example: ['volume 3'],
-	category: 'music',
-	botpermissions: ['SEND_MESSAGES']
+		serverQueue.volume = volumeinput[1];
+		serverQueue.connection.dispatcher.setVolumeLogarithmic(volumeinput[1] / 5);
+
+		const volumeset = lang.volume_volumeset.replace('%volumeinput', volumeinput[1]);
+		return msg.channel.send(volumeset);
+	}
 };

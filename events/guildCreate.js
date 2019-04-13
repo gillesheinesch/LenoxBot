@@ -1,21 +1,24 @@
 const Discord = require('discord.js');
 const settings = require('../settings.json');
 const guildsettingskeys = require('../guildsettings-keys.json');
-exports.run = (client, guild) => {
+exports.run = async (client, guild) => {
+	if (!client.provider.isReady) return;
 	guildsettingskeys.prefix = settings.prefix;
-	if (client.guildconfs.get(guild.id)) {
-		const tableload = client.guildconfs.get(guild.id);
 
+	if (client.provider.getGuild(guild.id, 'language')) { // Everything can be requested here
+		const guildSettings = client.provider.guildSettings.get(guild.id);
 		for (const key in guildsettingskeys) {
-			if (!tableload[key]) {
-				tableload[key] = guildsettingskeys[key];
+			if (!guildSettings[key] && guildSettings[key] === 'undefined') {
+				guildSettings[key] = guildsettingskeys[key];
 			}
 		}
+		await client.provider.setGuildComplete(guild.id, guildSettings);
 
-		for (let i = 0; i < client.commands.array().length; i++) {
-			if (!tableload.commands[client.commands.array()[i].help.name]) {
-				tableload.commands[client.commands.array()[i].help.name] = {
-					name: client.commands.array()[i].help.name,
+		const currentCommands = client.provider.getGuild(guild.id, 'commands');
+		for (let i = 0; i < client.registry.commands.array().length; i++) {
+			if (!client.provider.getGuild(guild.id, 'commands')[client.registry.commands.array()[i].name]) {
+				currentCommands[client.registry.commands.array()[i].name] = {
+					name: client.registry.commands.array()[i].name,
 					status: 'true',
 					bannedroles: [],
 					bannedchannels: [],
@@ -26,15 +29,19 @@ exports.run = (client, guild) => {
 					whitelistedchannels: []
 				};
 			}
-			if (!tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles) {
-				tableload.commands[client.commands.array()[i].help.name].ifBlacklistForRoles = 'true';
-				tableload.commands[client.commands.array()[i].help.name].ifBlacklistForChannels = 'true';
-				tableload.commands[client.commands.array()[i].help.name].whitelistedroles = [];
-				tableload.commands[client.commands.array()[i].help.name].whitelistedchannels = [];
+			if (!currentCommands[client.registry.commands.array()[i].name].ifBlacklistForRoles) {
+				currentCommands[client.registry.commands.array()[i].name].ifBlacklistForRoles = 'true';
+				currentCommands[client.registry.commands.array()[i].name].ifBlacklistForChannels = 'true';
+				currentCommands[client.registry.commands.array()[i].name].whitelistedroles = [];
+				currentCommands[client.registry.commands.array()[i].name].whitelistedchannels = [];
 			}
 		}
+
+		await client.provider.setGuild(guild.id, 'commands', currentCommands);
+	} else {
+		await client.provider.setGuildComplete(guild.id, guildsettingskeys);
 	}
-	client.guildconfs.set(guild.id, guildsettingskeys);
+
 
 	const embed1 = new Discord.RichEmbed()
 		.setColor('#ccff33')

@@ -1,32 +1,38 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (args.slice(0).length === 0) return msg.reply(lang.deletecustomcommand_noinput);
-
-	for (let i = 0; i < tableload.customcommands.length; i++) {
-		if (tableload.customcommands[i].name.toLowerCase() === args.slice(0).join(' ').toLowerCase()) {
-			tableload.customcommands.splice(i, 1);
-			client.guildconfs.set(msg.guild.id, tableload);
-
-			return msg.reply(lang.deletecustomcommand_deleted);
-		}
+module.exports = class deletecustomcommandCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'deletecustomcommand',
+			group: 'customcommands',
+			memberName: 'deletecustomcommand',
+			description: 'Deletes a custom command',
+			format: 'deletecustomcommand {name of the custom command}',
+			aliases: ['dcc'],
+			examples: ['deletecustomcommand test221'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Customcommands',
+			dashboardsettings: true
+		});
 	}
-	return msg.reply(lang.deletecustomcommand_notexists);
-};
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Customcommands',
-	aliases: ['dcc'],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'deletecustomcommand',
-	description: 'Deletes a custom command',
-	usage: 'deletecustomcommand {name of the custom command}',
-	example: ['deletecustomcommand test221'],
-	category: 'customcommands',
-	botpermissions: ['SEND_MESSAGES']
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
+
+		if (args.slice(0).length === 0) return msg.reply(lang.deletecustomcommand_noinput);
+
+		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length; i++) {
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[i].name.toLowerCase() === args.slice(0).join(' ').toLowerCase()) {
+				const currentCustomcommands = msg.client.provider.getGuild(msg.message.guild.id, 'customcommands');
+				currentCustomcommands.splice(i, 1);
+				await msg.client.provider.setGuild(msg.message.guild.id, 'customcommands', currentCustomcommands);
+
+				return msg.reply(lang.deletecustomcommand_deleted);
+			}
+		}
+		return msg.reply(lang.deletecustomcommand_notexists);
+	}
 };

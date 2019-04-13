@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 exports.run = (client, messages) => {
+	if (!client.provider.isReady) return;
 	if (messages.size === 0) return;
 
 	/* eslint guard-for-in: 0 */
@@ -7,20 +8,14 @@ exports.run = (client, messages) => {
 		if (msg.author.bot) return;
 		if (msg.channel.type !== 'text') return;
 
-		const tableload = client.guildconfs.get(msg.guild.id);
-		if (!tableload) return;
+		if (!client.provider.getGuild(msg.guild.id, 'prefix')) return;
 
-		if (tableload.messagedellog === 'false') return;
-		const messagechannel = client.channels.get(tableload.messagedellogchannel);
+		if (client.provider.getGuild(msg.guild.id, 'messagedellog') === 'false') return;
+		const messagechannel = client.channels.get(client.provider.getGuild(msg.guild.id, 'messagedellogchannel'));
 
 		if (!messagechannel) return;
 
-		if (tableload.language === '') {
-			tableload.language = 'en-US';
-			client.guildconfs.set(msg.guild.id, tableload);
-		}
-
-		const lang = require(`../languages/${tableload.language}.json`);
+		const lang = require(`../languages/${client.provider.getGuild(msg.guild.id, 'language')}.json`);
 
 		const embed = new Discord.RichEmbed()
 			.setColor('RED')

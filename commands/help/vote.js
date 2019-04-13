@@ -1,30 +1,36 @@
-exports.run = (client, msg, args, lang) => {
-	const Discord = require('discord.js');
+const LenoxCommand = require('../LenoxCommand.js');
 
-	const embeddescription = lang.vote_embeddescription.replace('%link', `https://discordbots.org/bot/lenoxbot/vote`);
-	const embed = new Discord.RichEmbed()
-		.setAuthor(lang.vote_embedauthor)
-		.setColor('')
-		.setDescription(embeddescription);
+module.exports = class voteCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'vote',
+			group: 'help',
+			memberName: 'vote',
+			description: 'All details about voting for LenoxBot',
+			format: 'vote',
+			aliases: [],
+			examples: ['vote'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'Help',
+			dashboardsettings: false
+		});
+	}
 
-	return msg.channel.send({
-		embed: embed
-	});
-};
+	run(msg) {
+		const Discord = require('discord.js');
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Help',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'vote',
-	description: 'All details about voting for LenoxBot',
-	usage: 'vote',
-	example: ['vote'],
-	category: 'help',
-	botpermissions: ['SEND_MESSAGES']
+
+		const embeddescription = lang.vote_embeddescription.replace('%link', `https://discordbots.org/bot/lenoxbot/vote`);
+		const embed = new Discord.RichEmbed()
+			.setAuthor(lang.vote_embedauthor)
+			.setColor('BLUE')
+			.setDescription(embeddescription);
+
+		return msg.channel.send({
+			embed: embed
+		});
+	}
 };

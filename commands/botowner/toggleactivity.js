@@ -1,39 +1,42 @@
+const LenoxCommand = require('../LenoxCommand.js');
 const settings = require('../../settings.json');
-exports.run = (client, msg, args, lang) => {
-	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
-	const tableload = client.botconfs.get('botconfs');
-	const channelId = msg.channel.id;
-
-	if (tableload.activity === false) {
-		tableload.activity = true;
-		tableload.activitychannel = channelId;
-
-		const set = lang.toggleactivity_set.replace('%channelname', `#${msg.channel.name}`);
-		msg.channel.send(set);
-	} else {
-		tableload.activity = false;
-
-		const unset = lang.toggleactivity_unset.replace('%channelname', `#${msg.channel.name}`);
-		msg.channel.send(unset);
+module.exports = class toggleactivityCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'toggleactivity',
+			group: 'botowner',
+			memberName: 'toggleactivity',
+			description: 'Shows the current bot usage',
+			format: 'toggleactivity',
+			aliases: [],
+			examples: ['toggleactivity'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'General',
+			dashboardsettings: true
+		});
 	}
 
-	client.botconfs.set('botconfs', tableload);
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'General',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'toggleactivity',
-	description: 'Shows the current bot usage',
-	usage: 'toggleactivity',
-	example: ['toggleactivity'],
-	category: 'botowner',
-	botpermissions: ['SEND_MESSAGES']
+		if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
+
+		const channelId = msg.channel.id;
+
+		if (msg.client.provider.getBotsettings('botconfs', 'activity') === false) {
+			await msg.client.provider.setBotsettings('botconfs', 'activity', true);
+			await msg.client.provider.setBotsettings('botconfs', 'activitychannel', channelId);
+
+			const set = lang.toggleactivity_set.replace('%channelname', `#${msg.channel.name}`);
+			msg.channel.send(set);
+		} else {
+			await msg.client.provider.setBotsettings('botconfs', 'activity', false);
+
+			const unset = lang.toggleactivity_unset.replace('%channelname', `#${msg.channel.name}`);
+			msg.channel.send(unset);
+		}
+	}
 };

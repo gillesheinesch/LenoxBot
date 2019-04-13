@@ -1,33 +1,36 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const channelid = msg.channel.id;
-	if (tableload.announce === 'false') {
-		tableload.announce = 'true';
-		tableload.announcechannel = channelid;
-		client.guildconfs.set(msg.guild.id, tableload);
+const LenoxCommand = require('../LenoxCommand.js');
 
-		const channelset = lang.toggleannounce_channelset.replace('%channelname', `**#${msg.channel.name}**`);
-		return msg.channel.send(channelset);
+module.exports = class toggleannounceCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'toggleannounce',
+			group: 'administration',
+			memberName: 'toggleannounce',
+			description: 'Sets a channel for announcements, where you can use the announce-command',
+			format: 'toggleannounce',
+			aliases: [],
+			examples: ['toggleannounce'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Announcements',
+			dashboardsettings: true
+		});
 	}
-	tableload.announce = 'false';
-	client.guildconfs.set(msg.guild.id, tableload);
 
-	return msg.channel.send(lang.toggleannounce_channeldeleted);
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Announcements',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'toggleannounce',
-	description: 'Sets a channel for announcements, where you can use the announce-command',
-	usage: 'toggleannounce',
-	example: ['toggleannounce'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
+		const channelid = msg.channel.id;
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'announce') === 'false') {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'announce', 'true');
+			await msg.client.provider.setGuild(msg.message.guild.id, 'announcechannel', channelid);
+
+			const channelset = lang.toggleannounce_channelset.replace('%channelname', `**#${msg.channel.name}**`);
+			return msg.channel.send(channelset);
+		}
+		await msg.client.provider.setGuild(msg.message.guild.id, 'announce', 'false');
+
+		return msg.channel.send(lang.toggleannounce_channeldeleted);
+	}
 };

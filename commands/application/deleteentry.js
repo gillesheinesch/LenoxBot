@@ -1,56 +1,50 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (!tableload.application) {
-		tableload.application = {
-			reactionnumber: '',
-			template: [],
-			role: '',
-			votechannel: '',
-			archivechannel: false,
-			archivechannellog: '',
-			status: 'false'
-		};
-		client.guildconfs.set(msg.guild.id, tableload);
+module.exports = class deleteentryCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'deleteentry',
+			group: 'application',
+			memberName: 'deleteentry',
+			description: 'Deletes an entry from the template',
+			format: 'deleteentry {entry}',
+			aliases: [],
+			examples: ['deleteentry How old are you?'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Entries',
+			dashboardsettings: true
+		});
 	}
 
-	const input = args.slice().join(' ');
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	if (input.length < 1) return msg.reply(lang.deleteentry_noinput);
+		const input = args.slice().join(' ');
 
-	if (isNaN(input)) {
-		for (let i = 0; i < tableload.application.template.length; i++) {
-			if (input.toLowerCase() === tableload.application.template[i].toLowerCase()) {
-				tableload.application.template.splice(i, 1);
-				client.guildconfs.set(msg.guild.id, tableload);
+		if (input.length < 1) return msg.reply(lang.deleteentry_noinput);
 
-				const removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
-				return msg.channel.send(removed);
+		if (isNaN(input)) {
+			for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'application').template.length; i++) {
+				if (input.toLowerCase() === msg.client.provider.getGuild(msg.message.guild.id, 'application').template[i].toLowerCase()) {
+					const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+					currentApplication.template.splice(i, 1);
+					await msg.client.provider.getGuild(msg.message.guild.id, 'application', currentApplication);
+
+					const removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
+					return msg.channel.send(removed);
+				}
 			}
+		} else {
+			const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+			currentApplication.template.splice(parseInt(input, 10) - 1, 1);
+			await msg.client.provider.getGuild(msg.message.guild.id, 'application', currentApplication);
+
+			const removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
+			return msg.channel.send(removed);
 		}
-	} else {
-		tableload.application.template.splice(parseInt(input, 10) - 1, 1);
-		client.guildconfs.set(msg.guild.id, tableload);
-
-		const removed = lang.deleteentry_removed.replace('%entry', `\`${input}\``);
-		return msg.channel.send(removed);
+		return msg.channel.send(lang.deleteentry_notexists);
 	}
-	return msg.channel.send(lang.deleteentry_notexists);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Entries',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'deleteentry',
-	description: 'Deletes an entry from the template',
-	usage: 'deleteentry {entry}',
-	example: ['deleteentry How old are you?'],
-	category: 'application',
-	botpermissions: ['SEND_MESSAGES']
 };

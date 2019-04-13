@@ -1,37 +1,15 @@
 const Discord = require('discord.js');
 exports.run = async (client, oldMsg, newMsg) => {
+	if (!client.provider.isReady) return;
 	if (newMsg.author.bot) return;
 	if (newMsg.channel.type !== 'text') return;
 
-	const tableload = client.guildconfs.get(newMsg.guild.id);
-	if (!tableload) return;
+	if (!client.provider.getGuild(newMsg.guild.id, 'prefix')) return;
 
-	if (tableload.language === '') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(newMsg.guild.id, tableload);
-	}
+	const lang = require(`../languages/${client.provider.getGuild(newMsg.guild.id, 'language')}.json`);
 
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(newMsg.guild.id, tableload);
-	}
-
-	if (tableload.language === 'ge') {
-		tableload.language = 'de-DE';
-		client.guildconfs.set(newMsg.guild.id, tableload);
-	}
-
-	if (tableload.language === 'fr') {
-		tableload.language = 'fr-FR';
-		client.guildconfs.set(newMsg.guild.id, tableload);
-	}
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-
-	const lang = require(`../languages/${tableload.language}.json`);
-
-	if (tableload.messageupdatelog === 'true') {
-		const messagechannel = client.channels.get(tableload.messageupdatelogchannel);
+	if (client.provider.getGuild(newMsg.guild.id, 'messageupdatelog') === 'true') {
+		const messagechannel = client.channels.get(client.provider.getGuild(newMsg.guild.id, 'messageupdatelogchannel'));
 		if (!messagechannel) return;
 		if (oldMsg.cleanContent !== newMsg.cleanContent) {
 			const embed = new Discord.RichEmbed()
@@ -49,11 +27,11 @@ exports.run = async (client, oldMsg, newMsg) => {
 		}
 	}
 	const input = newMsg.content.split(' ').slice();
-	if (tableload.chatfilter.chatfilter === 'true' && tableload.chatfilter.array.length !== 0) {
-		for (let i = 0; i < tableload.chatfilter.array.length; i++) {
+	if (client.provider.getGuild(newMsg.guild.id, 'chatfilter').chatfilter === 'true' && client.provider.getGuild(newMsg.guild.id, 'chatfilter').array.length !== 0) {
+		for (let i = 0; i < client.provider.getGuild(newMsg.guild.id, 'chatfilter').array.length; i++) {
 			for (let index = 0; index < input.length; index++) {
-				if (input[index].toLowerCase() === tableload.chatfilter.array[i].toLowerCase()) {
-					if (tableload.chatfilterlog === 'true') {
+				if (input[index].toLowerCase() === client.provider.getGuild(newMsg.guild.id, 'chatfilter').array[i].toLowerCase()) {
+					if (client.provider.getGuild(newMsg.guild.id, 'chatfilterlog') === 'true') {
 						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', newMsg.author.tag);
 
 						const embed = new Discord.RichEmbed()
@@ -64,7 +42,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 							.setAuthor(chatfilterembed);
 
 						try {
-							await newMsg.guild.channels.get(tableload.chatfilterlogchannel).send({
+							newMsg.guild.channels.get(client.provider.getGuild(newMsg.guild.id, 'chatfilterlogchannel')).send({
 								embed
 							});
 						} catch (error) {

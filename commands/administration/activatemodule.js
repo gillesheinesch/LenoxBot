@@ -1,103 +1,129 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const moduleactivated = lang.activatemodule_moduleactivated.replace('%modulename', args.slice());
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (args.slice().length === 0) return msg.channel.send(lang.activatemodule_noinput);
+module.exports = class activatemoduleCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'activatemodule',
+			group: 'administration',
+			memberName: 'activatemodule',
+			description: 'Activates a module and its commands on a Discord server',
+			format: 'activatemodule {name of the module}',
+			aliases: ['am'],
+			examples: ['activatemodule help'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Modules',
+			dashboardsettings: true
+		});
+	}
 
-	const margs = msg.content.split(' ');
-	const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	for (let i = 0; i < margs.length; i++) {
-		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			if (margs[1].toLowerCase() === 'administration') {
-				return msg.channel.send(lang.activatemodule_administration);
-			} else if (margs[1].toLowerCase() === 'partner') {
-				return msg.channel.send(lang.activatemodule_partner);
-			} else if (margs[1].toLowerCase() === 'utility') {
-				if (tableload.modules.utility === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+		const moduleactivated = lang.activatemodule_moduleactivated.replace('%modulename', args.slice());
+		if (args.slice().length === 0) return msg.channel.send(lang.activatemodule_noinput);
+		const margs = msg.content.split(' ');
+		const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 
-				tableload.modules.utility = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'music') {
-				if (tableload.modules.music === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+		for (let i = 0; i < margs.length; i++) {
+			if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
+				if (margs[1].toLowerCase() === 'administration') {
+					return msg.channel.send(lang.activatemodule_administration);
+				} else if (margs[1].toLowerCase() === 'partner') {
+					return msg.channel.send(lang.activatemodule_partner);
+				} else if (margs[1].toLowerCase() === 'utility') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').utility === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
-				tableload.modules.music = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'fun') {
-				if (tableload.modules.fun === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.utility = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.fun = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'help') {
-				if (tableload.modules.help === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'music') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').music === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
-				tableload.modules.help = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'searches') {
-				if (tableload.modules.searches === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.music = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.searches = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'nsfw') {
-				if (tableload.modules.nsfw === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'fun') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').fun === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
-				tableload.modules.nsfw = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'moderation') {
-				if (tableload.modules.moderation === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.fun = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.moderation = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'application') {
-				if (tableload.modules.application === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'help') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').help === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
-				tableload.modules.application = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'currency') {
-				if (tableload.modules.currency === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.help = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.currency = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'customcommands') {
-				if (tableload.modules.customcommands === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'searches') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').searches === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
 
-				tableload.modules.customcommands = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
-			} else if (margs[1].toLowerCase() === 'tickets') {
-				if (tableload.modules.tickets === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.searches = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
 
-				tableload.modules.tickets = 'true';
-			    client.guildconfs.set(msg.guild.id, tableload);
-				return msg.channel.send(moduleactivated);
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'nsfw') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').nsfw === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.nsfw = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'moderation') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').moderation === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.moderation = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'application') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').application === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.application = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'currency') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').currency === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.currency = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'customcommands') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').customcommands === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.customcommands = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduleactivated);
+				} else if (margs[1].toLowerCase() === 'tickets') {
+					if (msg.client.provider.getGuild(msg.message.guild.id, 'modules').tickets === 'true') return msg.channel.send(lang.activatemodule_alreadyactivated);
+
+					const currentModules = msg.client.provider.getGuild(msg.message.guild.id, 'modules');
+					currentModules.tickets = 'true';
+					await msg.client.provider.setGuild(msg.message.guild.id, 'modules', currentModules);
+
+					return msg.channel.send(moduleactivated);
+				}
 			}
 		}
+		return msg.channel.send(lang.activatemodule_error);
 	}
-	return msg.channel.send(lang.activatemodule_error);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Modules',
-	aliases: ['am'],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'activatemodule',
-	description: 'Activates a module and its commands on a Discord server',
-	usage: 'activatemodule {name of the module}',
-	example: ['activatemodule help'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
 };

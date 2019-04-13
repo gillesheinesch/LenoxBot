@@ -1,39 +1,44 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (!tableload.chatfilter) {
-		tableload.chatfilter = {
-			chatfilter: 'false',
-			array: []
-		};
-		client.guildconfs.set(msg.guild.id, tableload);
+module.exports = class togglechatfilterCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'togglechatfilter',
+			group: 'administration',
+			memberName: 'togglechatfilter',
+			description: 'Set the chat filter on or off',
+			format: 'togglechatfilter',
+			aliases: [],
+			examples: ['togglechatfilter'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Chatfilter',
+			dashboardsettings: true
+		});
 	}
 
-	if (tableload.chatfilter.chatfilter === 'false') {
-		tableload.chatfilter.chatfilter = 'true';
-		client.guildconfs.set(msg.guild.id, tableload);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-		return msg.channel.send(lang.togglechatfilter_activated);
+		if (!msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter')) {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', {
+				chatfilter: 'false',
+				array: []
+			});
+		}
+
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').chatfilter === 'false') {
+			const currentChatfilter = msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter');
+			currentChatfilter.chatfilter = 'true';
+			await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', currentChatfilter);
+
+			return msg.channel.send(lang.togglechatfilter_activated);
+		}
+		const currentChatfilter = msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter');
+		currentChatfilter.chatfilter = 'false';
+		await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', currentChatfilter);
+
+		return msg.channel.send(lang.togglechatfilter_disabled);
 	}
-	tableload.chatfilter.chatfilter = 'false';
-	client.guildconfs.set(msg.guild.id, tableload);
-
-	return msg.channel.send(lang.togglechatfilter_disabled);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Chatfilter',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'togglechatfilter',
-	description: 'Set the chat filter on or off',
-	usage: 'togglechatfilter',
-	example: ['togglechatfilter'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
 };

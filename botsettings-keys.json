@@ -1,0 +1,29 @@
+{
+    "dailyreminder": {},
+    "jobreminder": {},
+    "market": {},
+    "blacklist": [],
+    "banlist": [],
+    "activity": false,
+    "activitychannel": "",
+    "tickets": {},
+    "ticketids": [],
+    "premium": {
+		"numberofuserkeys": 0,
+		"numberofguildkeys": 0,
+		"redeemeduserkeys": [],
+		"redeemedguildkeys": [],
+		"guildkeys": [],
+		"userkeys": []
+    },
+    "botstats": {},
+    "badgeEmojis": {},
+    "bans": {},
+    "banscount": 0,
+    "mutes": {},
+    "mutescount": 0,
+    "commandsexecuted": 0,
+    "cooldowns": {},
+    "commands": {},
+    "top100credits": {}
+  }
