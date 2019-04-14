@@ -309,8 +309,8 @@
     "setgame_done": "The new game status has been set successfully!",
     "setgame_description": "Sets a new game status for the bot",
 
-    "restart_message": "The bot will restart! See you later! 👋",
-    "restart_description": "Restarts the bot",
+    "restart_message": "LenoxBot will restart now! See you later! 👋",
+    "restart_description": "Restarts Lenoxbot",
 
     "removecredits_nomention": "You have to mention the user you want to remove credits!",
     "removecredits_novalue": "You have to enter an amount of credits!",
