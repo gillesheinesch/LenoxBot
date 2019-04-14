@@ -257,11 +257,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
 	async setGuildComplete(guild, val) {
 		guild = this.constructor.getGuildID(guild);
-		let settings = this.guildSettings.get(guild);
-		if (!settings) {
-			settings = {};
-			this.guildSettings.set(guild, settings);
-		}
+		this.guildSettings.set(guild, val);
 
 		const settingsCollection = this.db.collection('guildSettings');
 
@@ -435,6 +431,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			}
 
 			await this.db.collection('guildSettings').set(id, settings);
+			this.guildSettings.set(id, settings);
 		} catch (err) {
 			console.warn(`Error while creating document of guild ${id}`);
 			console.warn(err);
