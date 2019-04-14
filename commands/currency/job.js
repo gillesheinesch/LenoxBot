@@ -101,8 +101,8 @@ module.exports = class jobCommand extends LenoxCommand {
 						.setFooter(lang.job_embed)
 						.setAuthor(lang.job_available);
 
-					newJobs.forEach(r => {
-						newEmbed.addField(r[0], r[1]);
+					newJobs.forEach(rr => {
+						newEmbed.addField(rr[0], rr[1]);
 					});
 
 					jobsMessage.edit({ embed: newEmbed });
@@ -119,8 +119,8 @@ module.exports = class jobCommand extends LenoxCommand {
 						.setFooter(lang.job_embed)
 						.setAuthor(lang.job_available);
 
-					newJobs.forEach(r => {
-						newEmbed.addField(r[0], r[1]);
+					newJobs.forEach(rrr => {
+						newEmbed.addField(rrr[0], rrr[1]);
 					});
 
 					jobsMessage.edit({ embed: newEmbed });

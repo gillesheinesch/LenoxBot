@@ -10,6 +10,7 @@ module.exports = {
 		env_production: {
 			NODE_ENV: 'production'
 		},
+		// eslint-disable-next-line camelcase
 		node_args: '--max-old-space-size=16384'
 	}]
 };
