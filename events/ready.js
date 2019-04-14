@@ -237,6 +237,7 @@ exports.run = client => {
 				.setTitle('Botrestart')
 				.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
 				.setColor('GREEN')
+				.setTimestamp()
 				.setAuthor(client.user.tag, client.user.displayAvatarURL);
 
 			if (client.user.id === '354712333853130752') {
