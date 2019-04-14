@@ -385,7 +385,7 @@
     "temporaryban_bannedby": "Temporarily banned by",
     "temporaryban_bandescription": "**Action**: Temporary ban \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Banned for**: %bantime",
     "temporaryban_automaticbandescription": "**Action**: Automatic unban \n**User**: %usertag (%userid) \n**Reason**: The bantime has expired",
-    "temporaryban_description": "Bans an user temporarily",
+    "temporaryban_description": "Bans a user temporarily",
 
     "playplaylist_error": "You forgot to enter the name of the playlist!",
     "playplaylist_description": "Plays a music playlist",
