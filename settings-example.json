@@ -1,5 +1,6 @@
 {
     "owners": ["UserID", "UserID", "UserID"],
+    "administrators": ["UserID", "UserID", "UserID"],
 	"token": "Your Super Secret Token",
     "prefix": "Standard Prefix",
     "sqlitefilename": "",
