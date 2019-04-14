@@ -264,13 +264,13 @@
     "banlistremove_embeddescription": "Moderator: %moderatortag (ID: %moderatorid) \nReason: %reason",
     "banlistremove_unbanned": "The Discord server has been successfully unbanned!",
     "banlistremove_notbanned": "This Discord server isn't banned!",
-    "banlistremove_description": "Removes a Discord server to the banlist",
+    "banlistremove_description": "Removes a Discord server of the banlist",
 
     "banlistadd_noguildid": "You didn't enter a Discord server ID!",
     "banlistadd_noreason": "You have to enter a reason!",
     "banlistadd_alreadybanned": "This Discord server has already been banned!",
     "banlistadd_embedtitle": "The following Discord server has been banned: %guildname (ID: %guildid)",
-    "banlistadd_guildnamenotknown": "Discord server name unknown",
+    "banlistadd_guildnamenotknown": "Server name unknown",
     "banlistadd_embeddescription": "Moderator: %moderatortag (ID: %moderatorid) \nReason: %reason",
     "banlistadd_banned": "The Discord server has been successfully banned!",
     "banlistadd_description": "Adds a Discord server to the banlist",
@@ -348,7 +348,7 @@
     "bash_done": "Code executed! There is no output.",
     "bash_description": "Executes a code for you",
 
-    "toggleactivity_set": "All executed commands are now logged in %channelname!",
+    "toggleactivity_set": "All executed commands are now logged in **%channelname**!",
     "toggleactivity_unset": "All executed commands will no longer be logged!",
     "toggleactivity_description": "Logs all executed commands of the bot in a specific textchannel",
 
@@ -385,7 +385,7 @@
     "temporaryban_bannedby": "Temporarily banned by",
     "temporaryban_bandescription": "**Action**: Temporary ban \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Banned for**: %bantime",
     "temporaryban_automaticbandescription": "**Action**: Automatic unban \n**User**: %usertag (%userid) \n**Reason**: The bantime has expired",
-    "temporaryban_description": "Bans an user temporary",
+    "temporaryban_description": "Bans an user temporarily",
 
     "playplaylist_error": "You forgot to enter the name of the playlist!",
     "playplaylist_description": "Plays a music playlist",
@@ -399,7 +399,7 @@
     "playlist_addnewsong": "Which song should be added to your playlist (%playlistname)?",
     "playlist_finish": "The playlist has been saved!",
     "playlist_newsongaddedtoplaylist": "A new song (%songname) has been added to your new playlist. Enter another name for a song you'd like to add to your playlist! \nIf you have finished your playlist, please answer with \"**finish**\"",
-    "playlist_noplaylistaddedyet": "So far no playlist has been added! Create a new one with the following command: %prefixplaylist new",
+    "playlist_noplaylistaddedyet": "So far, no playlist has been added! Create a new one with the following command: %prefixplaylist new",
     "playlist_playlistnotexist": "The specified playlist does not exist!",
     "playlist_embedtitle": "All songs in this playlist:",
     "playlist_playlistserverembed": "All playlists available on this server:",
@@ -432,7 +432,7 @@
     "ticketnotification_description": "Defines a channel in which ticket notifications will be sent",
 
     "mainfile_statuschange": "The status of your ticket has changed to '%status'. You can manage your ticket at this link: %link",
-    "mainfile_newanswer": "There is a new answer to your ticket. You can see it under the following link: %link",
+    "mainfile_newanswer": "There is a new answer to your ticket. You can see it via the following link: %link",
     "mainfile_ticketembedtitle": "Click on me to be forwarded directly to the ticket!",
     "mainfile_ticketembedanswer": "There is a new answer on a ticket (ID: %ticketid)!",
     "mainfile_ticketembed": "A new ticket has been created (ID: %ticketid)!",
@@ -489,7 +489,7 @@
     "job_vloggertitle": "Vlogger",
     "job_vloggerdescription": "You make vlogs to entertain your subscribers. You need a computer.",
     "job_busdrivertitle": "Bus driver",
-    "job_busdriverdescription": "Multiplicity needs bus drivers! Transport their passengers to their desired location. You need a bus.",
+    "job_busdriverdescription": "The bus company needs bus drivers! Transport their passengers to their desired location. You need a bus.",
     "job_guitaristtitle": "Guitarist concert",
     "job_guitaristdescription": "Robert needs a guitarist for his party. You need a guitar.",
     "job_designertitle": "Designer",
@@ -675,7 +675,7 @@
 
     "channelblacklist_error": "There are no voicechannels on the blacklist yet",
     "channelblacklist_embed": "All blacklisted voicechannel",
-    "channelblacklist_description": "Displays a list of which voicechannels have been blacklisted",
+    "channelblacklist_description": "Shows you a list of which voicechannels have been blacklisted",
 
     "channelblacklistadd_error": "You forgot to enter the name of the voice channel you want to add to the blacklist",
     "channelblacklistadd_channelnotfind": "This voicechannel could not be found.",
@@ -949,7 +949,7 @@
     "application_reactionnumber": "First, an administrator of this server has to set the number of required reactions for acceptance or refusal of an application. This can be done by using %prefixreactionnumber",
     "application_undefinedmessages": "First, an administrator of this server has to define the messages that accepted and rejected applications get. This can be done by using %prefixsetacceptedmessage and %prefixsetrejectedmessage",
     "application_newapplication": "%author, a new application form was created!",
-    "application_timeerror": "You didn't reply within 5 minutes, so your application was aborted now. If you want to write a new one, you can do this easily by using %prefixapplication.",
+    "application_timeerror": "You didn't reply within 5 minutes, so your application has been canceled. If you want to write a new one, you can do this easily by using %prefixapplication.",
     "application_applicatiosent": "The application was sent successfully! Now you just have to wait until your application has been rated. If your application has been processed, then you will receive a direct message from the bot!",
     "application_description": "Creates a new application on this server",
 
@@ -1017,7 +1017,7 @@
     "penissizecalculator_answer8": "Do you even have a penis?",
     "penissizecalculator_answer9": "Oh god that resembles a big sausage",
     "penissizecalculator_answer10": "Wow, that's crazy! 40 centimeters",
-    "penissizecalculator_description": "Calculates the size of the penis of you or an user",
+    "penissizecalculator_description": "Calculates the size of the penis of you or another user",
 
     "slot_error": "You must have at least 50 credits to play a round slot!",
     "slot_triple": "Triple! Congratulations, you won 100 credits!",
@@ -1059,8 +1059,8 @@
     "commands_credits": "Credits",
     "commands_daily": "Daily reward",
     "commands_customcommands": "Custom commands",
-    "commands_banserver": "Ban server globally",
-    "commands_banuser": "Ban users globally",
+    "commands_banserver": "Bans a server globally",
+    "commands_banuser": "Bans a user globally",
     "commands_description": "All commands of a module",
 
     "help_modulename": "name of the module",
@@ -1090,7 +1090,7 @@
     "modules_nsfw": "Gifs, images, videos containing pornography",
     "modules_utility": "Commands that all users can use and which are useful",
     "modules_application": "Entire application system with many settings options",
-    "modules_currency": "Commands that allows you to receive credits and items (You can sell items)",
+    "modules_currency": "Commands that allows you to receive credits and items",
     "modules_tickets": "Ticket system which allows you for example to provide support",
     "modules_customcommands": "Allows each Discord server to add its own commands",
     "modules_description": "Gives you a list of all modules and their meaning",
@@ -1151,7 +1151,7 @@
     "unban_unbanned": "%userid was successfully unbanned!",
     "unban_unbannedby": "Unbanned by %authortag",
     "unban_unbandescription": "**Action**: Unban \n**UserID**: %userid \n**Reason**: %reason",
-    "unban_description": "Unban a user from the Discord server with a certain reason",
+    "unban_description": "Unbans a user from the Discord server with a certain reason",
 
     "unmute_muteroleundefined": "First of all, you have to define the mute role by using the **%prefixmuterole** command",
     "unmute_nomention": "You forgot to mention the user who has to be unmuted.",
@@ -1170,7 +1170,7 @@
     "warn_warned": "%usertag was successfully warned!",
     "warn_warnedby": "Warned by %authortag",
     "warn_warndescription": "**Action**: Warning \n**User**: %usertag (%userid) \n**Reason**: %reason",
-    "warn_description": "Warn a user on the Discord server with a certain reason",
+    "warn_description": "Warns a user on the Discord server with a certain reason",
 
     "forceskip_notvoicechannel": "You are not in a voice channel, please join a voice channel to play music!",
     "forceskip_noserverqueue": "There is nothing playing that I could skip for you!",
@@ -1469,7 +1469,7 @@
     "weather_temperature": "The highest temperature is %highesttemperature, the lowest temperature %lowesttemperature",
     "weather_sunrise": "Sunrise",
     "weather_sunset": "Sunset",
-    "weather_queryby": "Query by %authortag",
+    "weather_queryby": "Queried by %authortag",
     "weather_description": "Weather of a town or a city",
 
     "channelcreateevent_channelcreated": "Channel created!",
