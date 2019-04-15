@@ -6,6 +6,9 @@
 
 ### Invite LenoxBot on your Discord Server: https://lenoxbot.com/invite
 # How can I host my own instance of LenoxBot?
+
+### Dashboard is currently not working!!!
+
 ## Windows
 You must have already installed NPM, Git and NodeJS! There are many tutorials online on how to install all these packages for your operating system.
 
