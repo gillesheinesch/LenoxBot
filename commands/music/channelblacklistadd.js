@@ -1,44 +1,48 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const input = args.slice();
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (!input || input.length === 0) return msg.reply(lang.channelblacklistadd_error);
-
-	let channel;
-	try {
-		channel = msg.guild.channels.find(r => r.name.toLowerCase() === input.join(' ').toLowerCase());
-	} catch (error) {
-		return msg.channel.send(lang.channelblacklistadd_channelnotfind);
+module.exports = class channelblacklistaddCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'channelblacklistadd',
+			group: 'music',
+			memberName: 'channelblacklistadd',
+			description: 'Adds a voicechannel to the blacklist',
+			format: 'channelblacklistadd {name of the voicechannel}',
+			aliases: [],
+			examples: ['channelblacklistadd music #1'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Channelblacklist',
+			dashboardsettings: true
+		});
 	}
 
-	if (channel.type !== 'voice') return msg.reply(lang.channelblacklistadd_wrongtype);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	for (let i = 0; i < tableload.musicchannelblacklist.length; i++) {
-		if (tableload.musicchannelblacklist[i] === channel.id) return msg.reply(lang.channelblacklistadd_already);
+		const input = args.slice();
+
+		if (!input || input.length === 0) return msg.reply(lang.channelblacklistadd_error);
+
+		let channel;
+		try {
+			channel = msg.guild.channels.find(r => r.name.toLowerCase() === input.join(' ').toLowerCase());
+		} catch (error) {
+			return msg.channel.send(lang.channelblacklistadd_channelnotfind);
+		}
+
+		if (channel.type !== 'voice') return msg.reply(lang.channelblacklistadd_wrongtype);
+
+		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist').length; i++) {
+			if (msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist')[i] === channel.id) return msg.reply(lang.channelblacklistadd_already);
+		}
+
+		const channelid = channel.id;
+
+		const currentMusicchannelblacklist = msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist');
+		currentMusicchannelblacklist.push(channelid);
+		await msg.client.provider.setGuild(msg.message.guild.id, 'musicchannelblacklist', currentMusicchannelblacklist);
 	}
-
-	const channelid = channel.id;
-
-	tableload.musicchannelblacklist.push(channelid);
-	client.guildconfs.set(msg.guild.id, tableload);
-
-	return msg.reply(lang.channelblacklistadd_added);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Channelblacklist',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-
-exports.help = {
-	name: 'channelblacklistadd',
-	description: 'Adds a voicechannel to the blacklist',
-	usage: 'channelblacklistadd {name of the voicechannel}',
-	example: ['channelblacklistadd music #1'],
-	category: 'music',
-	botpermissions: ['SEND_MESSAGES']
 };

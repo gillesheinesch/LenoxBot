@@ -1,35 +1,13 @@
 const Discord = require('discord.js');
 exports.run = (client, oldRole, newRole) => {
-	const tableload = client.guildconfs.get(oldRole.guild.id);
-	if (!tableload) return;
+	if (!client.provider.isReady) return;
+	if (!client.provider.getGuild(oldRole.guild.id, 'prefix')) return;
 
-	if (tableload.rolecreatelog === 'false') return;
+	if (client.provider.getGuild(oldRole.guild.id, 'rolecreatelog') === 'false') return;
 
-	if (tableload.language === '') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(oldRole.guild.id, tableload);
-	}
+	const lang = require(`../languages/${client.provider.getGuild(oldRole.guild.id, 'language')}.json`);
 
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(oldRole.guild.id, tableload);
-	}
-
-	if (tableload.language === 'ge') {
-		tableload.language = 'de-DE';
-		client.guildconfs.set(oldRole.guild.id, tableload);
-	}
-
-	if (tableload.language === 'fr') {
-		tableload.language = 'fr-FR';
-		client.guildconfs.set(oldRole.guild.id, tableload);
-	}
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-
-	const lang = require(`../languages/${tableload.language}.json`);
-
-	const messagechannel = client.channels.get(tableload.rolecreatelogchannel);
+	const messagechannel = client.channels.get(client.provider.getGuild(oldRole.guild.id, 'rolecreatelogchannel'));
 	if (!messagechannel) return;
 
 	if (oldRole.name !== newRole.name) {

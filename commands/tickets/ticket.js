@@ -1,84 +1,90 @@
+const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
 const keygenerator = require('../../utils/keygenerator.js');
-exports.run = async (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const botconfs = client.botconfs.get('botconfs');
 
-	if (!args || args.length === 0) {
-		const timestamps = client.cooldowns.get('ticket');
-		delete timestamps[msg.author.id];
-		client.cooldowns.set('ticket', timestamps);
-		return msg.reply(lang.ticket_noinput);
+module.exports = class ticketCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'ticket',
+			group: 'tickets',
+			memberName: 'ticket',
+			description: 'Creates a new ticket',
+			format: 'ticket {text}',
+			aliases: [],
+			examples: ['ticket Hello how can I open Discord?'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'General',
+			dashboardsettings: true
+		});
 	}
 
-	const input = args.slice();
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	let key = '';
-	for (let i = 0; i < 1000; i++) {
-		key = keygenerator.generateKey();
-
-		if (!botconfs.ticketids.includes(key)) {
-			break;
+		if (!args || args.length === 0) {
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.ticket[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+			return msg.reply(lang.ticket_noinput);
 		}
 
-		if (i === 999) {
-			key = undefined;
+		const input = args.slice();
+
+		let key = '';
+		for (let i = 0; i < 1000; i++) {
+			key = keygenerator.generateKey();
+
+			if (!msg.client.provider.getBotsettings('botconfs', 'ticketids').includes(key)) {
+				break;
+			}
+
+			if (i === 999) {
+				key = undefined;
+			}
 		}
-	}
-	if (key !== undefined) {
-		await botconfs.ticketids.push(key);
-	}
-
-	const confs = {
-		guildid: msg.guild.id,
-		authorid: msg.author.id,
-		ticketid: key,
-		date: msg.createdTimestamp,
-		users: [],
-		status: 'open',
-		content: input.join(' '),
-		answers: {}
-	};
-
-	botconfs.tickets[key] = confs;
-
-	const ticket = botconfs.tickets[key];
-
-	if (tableload.tickets.status === true) {
-		const ticketembed = lang.mainfile_ticketembed.replace('%ticketid', ticket.ticketid);
-		const embed = new Discord.RichEmbed()
-			.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${key}/overview`)
-			.setTimestamp()
-			.setColor('#66ff33')
-			.setTitle(lang.mainfile_ticketembedtitle)
-			.setDescription(ticketembed);
-
-		if (client.channels.get(tableload.tickets.notificationchannel)) {
-			client.channels.get(tableload.tickets.notificationchannel).send({
-				embed
-			});
+		if (key !== undefined) {
+			const currentTicketids = msg.client.provider.getBotsettings('botconfs', 'ticketids');
+			currentTicketids.push(key);
+			await msg.client.provider.setBotsettings('botconfs', 'ticketids', currentTicketids);
 		}
+
+		const confs = {
+			guildid: msg.guild.id,
+			authorid: msg.author.id,
+			ticketid: key,
+			date: msg.createdTimestamp,
+			users: [],
+			status: 'open',
+			content: input.join(' '),
+			answers: {}
+		};
+
+		const currentTickets = msg.client.provider.getBotsettings('botconfs', 'tickets');
+		currentTickets[key] = confs;
+		await msg.client.provider.setBotsettings('botconfs', 'tickets', currentTickets);
+
+		const ticket = msg.client.provider.getBotsettings('botconfs', 'tickets')[key];
+
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'tickets').status === true) {
+			const ticketembed = lang.mainfile_ticketembed.replace('%ticketid', ticket.ticketid);
+			const embed = new Discord.RichEmbed()
+				.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${key}/overview`)
+				.setTimestamp()
+				.setColor('#66ff33')
+				.setTitle(lang.mainfile_ticketembedtitle)
+				.setDescription(ticketembed);
+
+			if (msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'tickets').notificationchannel)) {
+				msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'tickets').notificationchannel).send({
+					embed
+				});
+			}
+		}
+
+		const created = lang.ticket_created.replace('%link', `https://lenoxbot.com/tickets/${key}/overview`);
+		return msg.reply(created);
 	}
-
-	client.botconfs.set('botconfs', botconfs);
-
-	const created = lang.ticket_created.replace('%link', `https://lenoxbot.com/tickets/${key}/overview`);
-	return msg.reply(created);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'General',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'ticket',
-	description: 'Creates a new ticket',
-	usage: 'ticket {text}',
-	example: ['ticket Hello how can I open Discord?'],
-	category: 'tickets',
-	botpermissions: ['SEND_MESSAGES']
 };

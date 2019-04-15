@@ -1,28 +1,35 @@
+const LenoxCommand = require('../LenoxCommand.js');
 const settings = require('../../settings.json');
-exports.run = async (client, msg, args, lang) => {
-	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
-	const input = args.slice();
-	if (!input || input.length === 0) return msg.reply(lang.setgame_error);
+module.exports = class setgameCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'setgame',
+			group: 'botowner',
+			memberName: 'setgame',
+			description: 'Sets a new game status for the bot',
+			format: 'setgame {new game status}',
+			aliases: [],
+			examples: ['setgame LenoxBot'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'General',
+			dashboardsettings: true
+		});
+	}
 
-	await client.user.setPresence({ game: { name: `${input.join(' ')}`, type: 0 } });
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	return msg.channel.send(lang.setgame_done);
-};
+		if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'General',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'setgame',
-	description: 'Sets a new game status for the bot',
-	usage: 'setgame {new game status}',
-	example: ['setgame LenoxBot'],
-	category: 'botowner',
-	botpermissions: ['SEND_MESSAGES']
+		const input = args.slice();
+		if (!input || input.length === 0) return msg.reply(lang.setgame_error);
+
+		await msg.client.user.setPresence({ game: { name: `${input.join(' ')}`, type: 0 } });
+
+		return msg.channel.send(lang.setgame_done);
+	}
 };

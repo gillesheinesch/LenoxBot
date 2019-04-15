@@ -1,80 +1,93 @@
+const LenoxCommand = require('../LenoxCommand.js');
+const Discord = require('discord.js');
 const settings = require('../../settings.json');
-exports.run = async (client, msg, args, lang) => {
-	const input = args.slice();
-	const botconfspremiumload = client.botconfs.get('premium');
-	const userdb = client.userdb.get(msg.author.id);
-	const Discord = require('discord.js');
 
-	if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
-	if (!botconfspremiumload.keys.userkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
-	if (botconfspremiumload.keys.redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
+module.exports = class useuserkeyCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'useuserkey',
+			group: 'utility',
+			memberName: 'useuserkey',
+			description: 'With this command you can use a premium userkey',
+			format: 'useuserkey {key}',
+			aliases: [],
+			examples: ['useuserkey 1122'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'Premium',
+			dashboardsettings: true,
+			cooldown: 43200000
+		});
+	}
 
-	if (userdb.premium.status === false) {
-		userdb.premium.status = true;
-		userdb.premium.bought.push(new Date().getTime);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-		const now = new Date().getTime();
-		userdb.premium.end = new Date(now + 15552000000);
+		const input = args.slice();
 
-		botconfspremiumload.keys.redeemeduserkeys.push(input.join(' '));
+		if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
+		if (!msg.client.provider.getBotsettings('botconfs', 'premium').keys.userkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
+		if (msg.client.provider.getBotsettings('botconfs', 'premium').keys.redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);
 
-		client.userdb.set(msg.author.id, userdb);
-		client.botconfs.set('premium', botconfspremiumload);
+		if (msg.client.provider.getUser(msg.author.id, 'premium').status === false) {
+			const currentPremium = msg.client.provider.getUser(msg.author.id, 'premium');
+			currentPremium.status = true;
+			currentPremium.bought.push(new Date().getTime);
+			const now = new Date().getTime();
+			currentPremium.end = new Date(now + 2592000000);
+			await msg.client.provider.setUser(msg.author.id, 'premium', currentPremium);
 
-		const timestamps = client.cooldowns.get('useuserkey');
-		delete timestamps[msg.author.id];
-		client.cooldowns.set('useuserkey', timestamps);
+			const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
+			newCurrentPremium.keys.redeemeduserkeys.push(input.join(' '));
+			await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
+
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.useuserkey[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+
+			let currentCredits = msg.client.provider.getUsersettings(msg.author.id, 'credits');
+			currentCredits += 5000;
+			await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
+
+			const embed = new Discord.RichEmbed()
+				.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}`)
+				.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+				.setTimestamp()
+				.setColor('#66ff33')
+				.setTitle('New Userkey used!');
+			await msg.client.channels.get(settings.keychannel).send({ embed });
+
+			const redeemed = lang.useuserkey_redeemed.replace('%date', `\`${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}\``);
+			return msg.reply(redeemed);
+		}
+		const currentPremium = msg.client.provider.getUser(msg.author.id, 'premium');
+		currentPremium.bought.push(new Date().getTime);
+		currentPremium.end = new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end) + 2592000000);
+		await msg.client.provider.setUser(msg.author.id, 'premium', currentPremium);
+
+		const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
+		newCurrentPremium.keys.redeemeduserkeys.push(input.join(' '));
+		await msg.client.provider.setBotsettings('botconfs', 'premium', newCurrentPremium);
+
+		const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+		delete timestamps.useuserkey[msg.author.id];
+		await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+
+		let currentCredits = msg.client.provider.getUsersettings(msg.author.id, 'credits');
+		currentCredits += 5000;
+		await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
 
 		const embed = new Discord.RichEmbed()
-			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${userdb.premium.end.toUTCString()}`)
+			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end + 2592000000)).toUTCString()}`)
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 			.setTimestamp()
 			.setColor('#66ff33')
-			.setTitle('New Userkey used!');
-		await client.channels.get(settings.keychannel).send({ embed });
+			.setTitle('Userkey used!');
+		await msg.client.channels.get(settings.keychannel).send({ embed });
 
-		const redeemed = lang.useuserkey_redeemed.replace('%date', `\`${userdb.premium.end.toUTCString()}\``);
-		return msg.reply(redeemed);
+		const extended = lang.useuserkey_extended.replace('%date', `\`${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end) + 2592000000).toUTCString()}\``);
+		return msg.reply(extended);
 	}
-	userdb.premium.bought.push(new Date().getTime);
-
-	userdb.premium.end = new Date(Date.parse(userdb.premium.end) + 15552000000);
-
-	botconfspremiumload.keys.redeemeduserkeys.push(input.join(' '));
-
-	client.userdb.set(msg.author.id, userdb);
-	client.botconfs.set('premium', botconfspremiumload);
-
-	const timestamps = client.cooldowns.get('useuserkey');
-	delete timestamps[msg.author.id];
-	client.cooldowns.set('useuserkey', timestamps);
-
-	const embed = new Discord.RichEmbed()
-		.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(userdb.premium.end + 15552000000)).toUTCString()}`)
-		.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
-		.setTimestamp()
-		.setColor('#66ff33')
-		.setTitle('Userkey used!');
-	await client.channels.get(settings.keychannel).send({ embed });
-
-	const extended = lang.useuserkey_extended.replace('%date', `\`${new Date(Date.parse(userdb.premium.end) + 15552000000).toUTCString()}\``);
-	return msg.reply(extended);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Premium',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: false,
-	cooldown: 43200000
-};
-exports.help = {
-	name: 'useuserkey',
-	description: 'With this command you can use a premium userkey',
-	usage: 'useuserkey {key}',
-	example: ['useuserkey 122'],
-	category: 'utility',
-	botpermissions: ['SEND_MESSAGES']
 };

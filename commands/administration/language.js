@@ -1,68 +1,76 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const margs = msg.content.split(' ');
-	const input = args.slice();
+const LenoxCommand = require('../LenoxCommand.js');
 
-	const validation = ['english', 'german', 'french', 'spanish'];
+module.exports = class languageCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'language',
+			group: 'administration',
+			memberName: 'language',
+			description: 'Changes the language of the bot for this server',
+			format: 'language {desired language}',
+			aliases: [],
+			examples: ['language', 'language german', 'language english', 'language spanish', 'language french', 'language swiss'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Localization',
+			dashboardsettings: true
+		});
+	}
 
-	const already = lang.language_already.replace('%language', `\`${input[0]}\``);
-	const changed = lang.language_changed.replace('%input', `\`${input[0]}\``);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const margs = msg.content.split(' ');
+		const args = msg.content.split(' ').slice(1);
+		const input = args.slice();
 
-	if (!input || input.length === 0) return msg.reply(lang.language_noinput);
+		const validation = ['english', 'german', 'french', 'spanish', 'swiss'];
 
-	for (let i = 0; i < margs.length; i++) {
-		if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-			if (margs[1].toLowerCase() === 'english') {
-				if (tableload.language === 'en-US') return msg.channel.send(already);
+		const already = lang.language_already.replace('%language', `\`${input[0]}\``);
+		const changed = lang.language_changed.replace('%input', `\`${input[0]}\``);
 
-				tableload.language = 'en-US';
-				tableload.momentLanguage = 'en';
-				client.guildconfs.set(msg.guild.id, tableload);
+		if (!input || input.length === 0) return msg.reply(lang.language_noinput);
 
-				return msg.channel.send(changed);
-			} else if (margs[1].toLowerCase() === 'german') {
-				if (tableload.language === 'de-DE') return msg.channel.send(already);
+		for (let i = 0; i < margs.length; i++) {
+			if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
+				if (margs[1].toLowerCase() === 'english') {
+					if (langSet === 'en-US') return msg.channel.send(already);
 
-				tableload.language = 'de-DE';
-				tableload.momentLanguage = 'de';
-				client.guildconfs.set(msg.guild.id, tableload);
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'en-US');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'en');
 
-				return msg.channel.send(changed);
-			} else if (margs[1].toLowerCase() === 'french') {
-				if (tableload.language === 'fr-FR') return msg.channel.send(already);
+					return msg.channel.send(changed);
+				} else if (margs[1].toLowerCase() === 'german') {
+					if (langSet === 'de-DE') return msg.channel.send(already);
 
-				tableload.language = 'fr-FR';
-				tableload.momentLanguage = 'fr';
-				client.guildconfs.set(msg.guild.id, tableload);
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'de-DE');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'de');
 
-				return msg.channel.send(changed);
-			} else if (margs[1].toLowerCase() === 'spanish') {
-				if (tableload.language === 'fr-FR') return msg.channel.send(already);
+					return msg.channel.send(changed);
+				} else if (margs[1].toLowerCase() === 'french') {
+					if (langSet === 'fr-FR') return msg.channel.send(already);
 
-				tableload.language = 'es-ES';
-				tableload.momentLanguage = 'es';
-				client.guildconfs.set(msg.guild.id, tableload);
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'fr-FR');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'fr');
 
-				return msg.channel.send(changed);
+					return msg.channel.send(changed);
+				} else if (margs[1].toLowerCase() === 'spanish') {
+					if (langSet === 'es-ES') return msg.channel.send(already);
+
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'es-ES');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'es');
+
+					return msg.channel.send(changed);
+				} else if (margs[1].toLowerCase() === 'swiss') {
+					if (langSet === 'de-CH') return msg.channel.send(already);
+
+					await msg.client.provider.setGuild(msg.message.guild.id, 'language', 'de-CH');
+					await msg.client.provider.setGuild(msg.message.guild.id, 'momentLanguage', 'de-CH');
+
+					return msg.channel.send(changed);
+				}
 			}
 		}
+		return msg.channel.send(lang.language_error);
 	}
-	return msg.channel.send(lang.language_error);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Localization',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'language',
-	description: 'Changes the language of the bot for this server',
-	usage: 'language {name of the language (in english)}',
-	example: ['language', 'language german', 'language english', 'language spanish'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
 };

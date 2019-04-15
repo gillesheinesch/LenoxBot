@@ -1,29 +1,34 @@
 const Discord = require('discord.js');
+const LenoxCommand = require('../LenoxCommand.js');
 
-exports.run = (client, msg, args, lang) => {
-	if (msg.channel.topic === null || msg.channel.topic === '') return msg.channel.send(lang.channeltopic_error);
+module.exports = class channeltopicCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'channeltopic',
+			group: 'utility',
+			memberName: 'channeltopic',
+			description: 'Shows you the channel topic of the current channel if one exists',
+			format: 'channeltopic',
+			aliases: [],
+			examples: ['channeltopic'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'Information',
+			dashboardsettings: true
+		});
+	}
 
-	const embed = new Discord.RichEmbed()
-		.setColor('#99ff99')
-		.setDescription(`${lang.channeltopic_embed} \n\n${msg.channel.topic}`)
-		.setAuthor(`${msg.channel.name} (${msg.channel.id})`);
+	run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-	msg.channel.send({ embed });
-};
+		if (msg.channel.topic === null || msg.channel.topic === '') return msg.channel.send(lang.channeltopic_error);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Information',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'channeltopic',
-	description: 'Shows you the channel topic of the current channel if one exists',
-	usage: 'channeltopic',
-	example: ['channeltopic'],
-	category: 'utility',
-	botpermissions: ['SEND_MESSAGES']
+		const embed = new Discord.RichEmbed()
+			.setColor('#99ff99')
+			.setDescription(`${lang.channeltopic_embed} \n\n${msg.channel.topic}`)
+			.setAuthor(`${msg.channel.name} (${msg.channel.id})`);
+
+		return msg.channel.send({ embed });
+	}
 };

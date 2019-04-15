@@ -1,28 +1,33 @@
-exports.run = (client, msg, args, lang) => {
-	const queue = client.queue;
-	const serverQueue = queue.get(msg.guild.id);
-	if (serverQueue && !serverQueue.playing) {
-		serverQueue.playing = true;
-		serverQueue.connection.dispatcher.resume();
-		return msg.channel.send(lang.resume_resumed);
+const LenoxCommand = require('../LenoxCommand.js');
+
+module.exports = class resumeCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'resume',
+			group: 'music',
+			memberName: 'resume',
+			description: 'Continues the current music',
+			format: 'resume',
+			aliases: [],
+			examples: ['resume'],
+			clientpermissions: ['SEND_MESSAGES', 'SPEAK'],
+			userpermissions: [],
+			shortDescription: 'Musicplayersettings',
+			dashboardsettings: true
+		});
 	}
-	return msg.channel.send(lang.resume_nothing);
-};
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Musicplayersettings',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
+	run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.help = {
-	name: 'resume',
-	description: 'Continues the current music',
-	usage: 'resume',
-	example: ['resume'],
-	category: 'music',
-	botpermissions: ['SEND_MESSAGES', 'SPEAK']
+		const queue = msg.client.queue;
+		const serverQueue = queue.get(msg.guild.id);
+		if (serverQueue && !serverQueue.playing) {
+			serverQueue.playing = true;
+			serverQueue.connection.dispatcher.resume();
+			return msg.channel.send(lang.resume_resumed);
+		}
+		return msg.channel.send(lang.resume_nothing);
+	}
 };

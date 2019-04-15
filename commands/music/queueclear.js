@@ -1,28 +1,32 @@
-exports.run = (client, msg, args, lang) => {
-	const queue = client.queue;
-	const serverQueue = queue.get(msg.guild.id);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (!serverQueue || serverQueue.songs.length === 1) return msg.channel.send(lang.queueclear_queueempty);
+module.exports = class queueclearCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'queueclear',
+			group: 'music',
+			memberName: 'queueclear',
+			description: 'Clears the whole music queue',
+			format: 'queueclear',
+			aliases: [],
+			examples: ['queueclear'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['MANAGE_GUILD'],
+			shortDescription: 'Queue',
+			dashboardsettings: true
+		});
+	}
 
-	const newArray = serverQueue.songs.slice(1, serverQueue.songs.length);
-	serverQueue.songs = newArray;
-	return msg.reply(lang.queueclear_done);
-};
+	run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Queue',
-	aliases: [],
-	userpermissions: ['MANAGE_GUILD'],
-	dashboardsettings: true
-};
+		const queue = msg.client.queue;
+		const serverQueue = queue.get(msg.guild.id);
 
-exports.help = {
-	name: 'queueclear',
-	description: 'Clears the whole music queue',
-	usage: 'queueclear',
-	example: ['queueclear'],
-	category: 'music',
-	botpermissions: ['SEND_MESSAGES']
+		if (!serverQueue || serverQueue.songs.length === 1) return msg.channel.send(lang.queueclear_queueempty);
+
+		serverQueue.songs = [];
+		return msg.reply(lang.queueclear_done);
+	}
 };

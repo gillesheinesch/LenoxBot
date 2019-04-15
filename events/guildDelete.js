@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 exports.run = async (client, guild) => {
-	client.guildconfs.delete(guild.id);
+	if (!client.provider.isReady) return;
+	console.log(`${guild} kicked LenoxBot!`);
+
 	const embed = new Discord.RichEmbed()
 		.setTimestamp()
 		.setAuthor(`${guild.name} (${guild.id})`)
@@ -8,4 +10,6 @@ exports.run = async (client, guild) => {
 		.setColor('RED')
 		.setFooter('LEFT DISCORD SERVER');
 	await client.channels.get('497400159894896651').send({ embed: embed });
+
+	await client.provider.clearGuild(guild.id);
 };

@@ -1,36 +1,37 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (!tableload.xpmessages) {
-		tableload.xpmessages = 'false';
-		client.guildconfs.set(msg.guild.id, tableload);
+module.exports = class togglexpmessagesCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'togglexpmessages',
+			group: 'administration',
+			memberName: 'togglexpmessages',
+			description: 'Set the xp messages on or off',
+			format: 'togglexpmessages',
+			aliases: [],
+			examples: ['togglexpmessages'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'XP',
+			dashboardsettings: true
+		});
 	}
 
-	if (tableload.xpmessages === 'false') {
-		tableload.xpmessages = 'true';
-		client.guildconfs.set(msg.guild.id, tableload);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-		return msg.channel.send(lang.togglexpmessages_set);
+		if (!msg.client.provider.getGuild(msg.message.guild.id, 'xpmessages')) {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'xpmessages', 'false');
+		}
+
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'xpmessages')) {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'xpmessages', 'true');
+
+			return msg.channel.send(lang.togglexpmessages_set);
+		}
+		await msg.client.provider.setGuild(msg.message.guild.id, 'xpmessages', 'false');
+
+		return msg.channel.send(lang.togglexpmessages_deleted);
 	}
-	tableload.xpmessages = 'false';
-	client.guildconfs.set(msg.guild.id, tableload);
-
-	return msg.channel.send(lang.togglexpmessages_deleted);
-};
-
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'XP',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'togglexpmessages',
-	description: 'Set the xp messages on or off',
-	usage: 'togglexpmessages',
-	example: ['togglexpmessages'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
 };

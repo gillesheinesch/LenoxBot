@@ -1,35 +1,37 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const userdb = client.userdb.get(msg.author.id);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (userdb.dailyremind === false) {
-		userdb.dailyremind = true;
-
-		const set = lang.dailyremind_set.replace('%prefix', tableload.prefix);
-		msg.reply(set);
-	} else {
-		userdb.dailyremind = false;
-
-		const removed = lang.dailyremind_removed.replace('%prefix', tableload.prefix);
-		msg.reply(removed);
+module.exports = class dailyremindCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'dailyremind',
+			group: 'currency',
+			memberName: 'dailyremind',
+			description: 'Enables or disables the dailyremind',
+			format: 'dailyremind',
+			aliases: [],
+			examples: ['dailyremind'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'Daily',
+			dashboardsettings: false
+		});
 	}
 
-	client.userdb.set(msg.author.id, userdb);
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Daily',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: false
-};
-exports.help = {
-	name: 'dailyremind',
-	description: 'Enables or disables the dailyremind',
-	usage: 'dailyremind',
-	example: ['dailyremind'],
-	category: 'currency',
-	botpermissions: ['SEND_MESSAGES']
+		if (msg.client.provider.getUser(msg.author.id, 'dailyremind') === false) {
+			await msg.client.provider.setUser(msg.author.id, 'dailyremind', true);
+
+			const set = lang.dailyremind_set.replace('%prefix', prefix);
+			msg.reply(set);
+		} else {
+			await msg.client.provider.setUser(msg.author.id, 'dailyremind', false);
+
+			const removed = lang.dailyremind_removed.replace('%prefix', prefix);
+			msg.reply(removed);
+		}
+	}
 };

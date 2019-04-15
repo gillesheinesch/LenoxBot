@@ -1,36 +1,6 @@
-const sql = require('sqlite');
-const settings = require('../settings.json');
-sql.open(`../${settings.sqlitefilename}.sqlite`);
-exports.run = async client => {
-	const Discord = require('discord.js');
+const Discord = require('discord.js');
+exports.run = client => {
 	const chalk = require('chalk');
-
-	await client.guildconfs.defer.then(() => {
-		console.log(chalk.green(`${client.guildconfs.size}keys loaded for all discord servers`));
-	});
-	await client.botconfs.defer.then(() => {
-		console.log(chalk.green(`${client.botconfs.size}keys loaded for all bot configs`));
-	});
-	await client.userdb.defer.then(() => {
-		console.log(chalk.green(`${client.userdb.size}keys loaded for all user keys`));
-	});
-
-	const botconfsdefault = {
-		blacklist: [],
-		banlist: []
-	};
-
-	const botconfig = {
-		activity: false,
-		activitychannel: '',
-		tickets: {},
-		ticketid: 0
-	};
-
-	const marketconfs = require('../marketitems-keys.json');
-
-	const botconfspremium = {};
-
 	client.user.setPresence({
 		game: {
 			name: `?help | www.lenoxbot.com`,
@@ -38,273 +8,244 @@ exports.run = async client => {
 		}
 	});
 
-	if (!client.botconfs.has('blackbanlist')) client.botconfs.set('blackbanlist', botconfsdefault);
-	if (!client.botconfs.has('botconfs')) client.botconfs.set('botconfs', botconfig);
-	client.botconfs.set('market', marketconfs);
-	if (!client.botconfs.has('premium')) client.botconfs.set('premium', botconfspremium);
-
-	client.botconfs.set('botstats', {
-		botguildscount: client.guilds.size,
-		botmemberscount: client.users.size,
-		botcommands: client.botconfs.get('botconfs').commandsexecuted,
-		botcommandsincrement: Math.floor(client.botconfs.get('botconfs').commandsexecuted / 170) + 1,
-		botmemberscountincrement: Math.floor(client.users.size / 170) + 1,
-		botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
-	});
-
-	const botconfs = client.botconfs.get('botconfs');
-
-	const embed = new Discord.RichEmbed()
-		.setTitle('Botrestart')
-		.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
-		.setColor('#99ff66')
-		.setAuthor(client.user.tag, client.user.displayAvatarURL);
-
-	if (client.user.id === '354712333853130752') {
-		client.channels.get('497400107109580801').send({
-			embed
-		});
+	const users = [];
+	for (const discordUser of client.users.array()) {
+		const user = { id: discordUser.id, username: discordUser.username, discriminator: discordUser.discriminator, avatar: discordUser.avatar };
+		users.push(user);
 	}
+	const bulkMessage = { type: 'bulk', data: users };
+	process.send(bulkMessage);
 
-	if (client.user.id === '354712333853130752') {
-		setInterval(() => {
-			client.dbl.postStats(client.guilds.size);
-		}, 1800000);
-	}
+	if (client.provider.isReady) {
+		console.log(chalk.green('LenoxBot is ready!'));
+	} else {
+		client.provider.whenReady(async () => {
+			console.log(chalk.green('LenoxBot is ready!'));
 
-	function timeoutForDaily(dailyreminder, timeoutTime) {
-		setTimeout(() => {
-			client.users.get(dailyreminder.userID).send('Don\'t forget to pick up your daily reward');
-			delete botconfs.dailyreminder[dailyreminder.userID];
-			client.botconfs.set('botconfs', botconfs);
-		}, timeoutTime);
-	}
+			// Sets all marketitems
+			const marketconfs = require('../marketitems-keys.json');
+			await client.provider.setBotsettings('botconfs', 'market', marketconfs);
 
-	if (typeof client.botconfs.get('botconfs').dailyreminder !== 'undefined') {
-		if (Object.keys(client.botconfs.get('botconfs').dailyreminder).length !== 0) {
-			/* eslint guard-for-in: 0 */
-			for (const index in client.botconfs.get('botconfs').dailyreminder) {
-				const timeoutTime = botconfs.dailyreminder[index].remind - Date.now();
-				timeoutForDaily(botconfs.dailyreminder[index], timeoutTime);
-			}
-		}
-	}
-
-
-	function timeoutForJob(jobreminder, timeoutTime) {
-		setTimeout(() => {
-			const userdb = client.userdb.get(jobreminder.userID);
-			userdb.jobstatus = false;
-			client.userdb.set(jobreminder.userID, userdb);
-
-			delete botconfs.jobreminder[jobreminder.userID];
-			client.botconfs.set('botconfs', botconfs);
-
-			sql.get(`SELECT * FROM medals WHERE userId ="${jobreminder.userID}"`).then(row => {
-				if (!row) {
-					sql.run('INSERT INTO medals (userId, medals) VALUES (?, ?)', [jobreminder.userID, 0]);
+			// Sets the prefix for every guild
+			for (let i = 0; i < client.guilds.array().length; i++) {
+				if (client.provider.getGuild(client.guilds.array()[i].id, 'prefix')) {
+					client.guilds.array()[i]._commandPrefix = client.provider.getGuild(client.guilds.array()[i].id, 'prefix');
 				}
-				sql.run(`UPDATE medals SET medals = ${row.medals + jobreminder.amount} WHERE userId = ${jobreminder.userID}`);
+			}
+
+			await client.provider.setBotsettings('botconfs', 'botstats', {
+				botguildscount: client.guilds.size,
+				botmemberscount: client.users.size,
+				botcommands: client.provider.getBotsettings('botconfs', 'commandsexecuted'),
+				botcommandsincrement: Math.floor(client.provider.getBotsettings('botconfs', 'commandsexecuted') / 170) + 1,
+				botmemberscountincrement: Math.floor(client.users.size / 170) + 1,
+				botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
 			});
 
-			const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${jobreminder.amount} credits`;
-			client.users.get(jobreminder.userID).send(jobfinish);
-
-			const activityEmbed2 = new Discord.RichEmbed()
-				.setAuthor(`${client.users.get(jobreminder.userID).tag} (${jobreminder.userID})`, client.users.get(jobreminder.userID).displayAvatarURL)
-				.setDescription(`**Job:** ${jobreminder.job} \n**Duration:** ${jobreminder.jobtime} minutes \n**Amount:** ${jobreminder.amount} credits`)
-				.addField('Guild', `${client.guilds.get(jobreminder.discordServerID).name} (${jobreminder.discordServerID})`)
-				.addField('Channel', `${client.channels.get(jobreminder.channelID).name} (${jobreminder.channelID})`)
-				.setColor('AQUA')
-				.setFooter('JOB FINISHED')
-				.setTimestamp();
-			if (botconfs.activity === true) {
-				const messagechannel = client.channels.get(botconfs.activitychannel);
-				messagechannel.send({
-					embed: activityEmbed2
-				});
+			function timeoutForDaily(dailyreminder, timeoutTime) {
+				setTimeout(async () => {
+					client.users.get(dailyreminder.userID).send('Don\'t forget to pick up your daily reward');
+					const currentDailyreminder = client.provider.getBotsettings('botconfs', 'dailyreminder');
+					delete currentDailyreminder[dailyreminder.userID];
+					await client.provider.setBotsettings('botconfs', 'dailyreminder', currentDailyreminder);
+				}, timeoutTime);
 			}
-		}, timeoutTime);
-	}
 
-	if (typeof client.botconfs.get('botconfs').jobreminder !== 'undefined') {
-		if (Object.keys(client.botconfs.get('botconfs').jobreminder).length !== 0) {
-			/* eslint guard-for-in: 0 */
-			for (const index in client.botconfs.get('botconfs').jobreminder) {
-				const timeoutTime = botconfs.jobreminder[index].remind - Date.now();
-				timeoutForJob(botconfs.jobreminder[index], timeoutTime);
-			}
-		}
-	}
-
-
-	function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
-		setTimeout(() => {
-			const fetchedbans = fetchedbansfromfunction;
-			const tableload = client.guildconfs.get(bansconf.discordserverid);
-
-			if (fetchedbans.has(bansconf.memberid)) {
-				const user = fetchedbans.get(bansconf.memberid);
-
-				client.guilds.get(bansconf.discordserverid).unban(user);
-
-				const lang = require(`../languages/${tableload.language}.json`);
-				// CHANGE TO THE NEW CROWDIN SYSTEM
-				if (tableload.language === 'en') {
-					tableload.language = 'en-US';
-					client.guildconfs.set(bansconf.discordserverid, tableload);
-				}
-
-				if (tableload.language === 'ge') {
-					tableload.language = 'de-DE';
-					client.guildconfs.set(bansconf.discordserverid, tableload);
-				}
-
-				if (tableload.language === 'fr') {
-					tableload.language = 'fr-FR';
-					client.guildconfs.set(bansconf.discordserverid, tableload);
-				}
-				// CHANGE TO THE NEW CROWDIN SYSTEM
-
-				const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
-				const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-				const unmutedembed = new Discord.RichEmbed()
-					.setAuthor(unbannedby, client.user.displayAvatarURL)
-					.setThumbnail(user.displayAvatarURL)
-					.setColor('#FF0000')
-					.setTimestamp()
-					.setDescription(automaticbandescription);
-
-				if (tableload.modlog === 'true') {
-					const modlogchannel = client.channels.get(tableload.modlogchannel);
-					modlogchannel.send({
-						embed: unmutedembed
-					});
-				}
-			}
-			const newbansconf = client.botconfs.get('botconfs');
-			delete newbansconf.bans[botconfs.banscount];
-			client.botconfs.set('botconfs', newbansconf);
-		}, newBanTime);
-	}
-
-	function timeoutForMute(muteconf, newMuteTime) {
-		setTimeout(() => {
-			const guild = client.guilds.get(muteconf.discordserverid);
-			if (!guild) return;
-
-			const membermention = guild.members.get(muteconf.memberid);
-			if (!membermention) return undefined;
-
-			const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
-			if (!role) return undefined;
-
-			const user = client.users.get(muteconf.memberid);
-			if (!user) return undefined;
-
-			const tableload = client.guildconfs.get(muteconf.discordserverid);
-
-			if (tableload && tableload.muterole !== '' && membermention.roles.has(tableload.muterole)) {
-				membermention.removeRole(role);
-
-				const lang = require(`../languages/${tableload.language}.json`);
-				// CHANGE TO THE NEW CROWDIN SYSTEM
-				if (tableload.language === 'en') {
-					tableload.language = 'en-US';
-					client.guildconfs.set(muteconf.discordserverid, tableload);
-				}
-
-				if (tableload.language === 'ge') {
-					tableload.language = 'de-DE';
-					client.guildconfs.set(muteconf.discordserverid, tableload);
-				}
-
-				if (tableload.language === 'fr') {
-					tableload.language = 'fr-FR';
-					client.guildconfs.set(muteconf.discordserverid, tableload);
-				}
-				// CHANGE TO THE NEW CROWDIN SYSTEM
-
-				const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
-				const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-				const unmutedembed = new Discord.RichEmbed()
-					.setAuthor(unmutedby, client.user.displayAvatarURL)
-					.setThumbnail(user.displayAvatarURL)
-					.setColor('#FF0000')
-					.setTimestamp()
-					.setDescription(automaticunmutedescription);
-
-				user.send({
-					embed: unmutedembed
-				});
-
-				if (tableload.modlog === 'true') {
-					const modlogchannel = client.channels.get(tableload.modlogchannel);
-					modlogchannel.send({
-						embed: unmutedembed
-					});
-				}
-			}
-			const newmuteconf = client.botconfs.get('botconfs');
-			delete newmuteconf.mutes[muteconf.mutescount];
-			client.botconfs.set('botconfs', newmuteconf);
-		}, newMuteTime);
-	}
-
-	if (typeof client.botconfs.get('botconfs').bans !== 'undefined') {
-		if (Object.keys(client.botconfs.get('botconfs').bans).length !== 0) {
-			/* eslint guard-for-in: 0 */
-			for (const index in client.botconfs.get('botconfs').bans) {
-				const bansconf = client.botconfs.get('botconfs');
-				const newBanTime = bansconf.bans[index].banEndDate - Date.now();
-				const fetchedbans = await client.guilds.get(bansconf.bans[index].discordserverid).fetchBans();
-				timeoutForBan(bansconf.bans[index], newBanTime, fetchedbans);
-			}
-		}
-	}
-
-
-	if (typeof client.botconfs.get('botconfs').mutes !== 'undefined') {
-		if (Object.keys(client.botconfs.get('botconfs').mutes).length !== 0) {
-			for (const index2 in client.botconfs.get('botconfs').mutes) {
-				const muteconf = client.botconfs.get('botconfs');
-				const newMuteTime = muteconf.mutes[index2].muteEndDate - Date.now();
-				timeoutForMute(muteconf.mutes[index2], newMuteTime);
-			}
-		}
-	}
-
-	setInterval(() => {
-		client.guilds.filter(g => client.guilds.has(g.id)).forEach(g => {
-			const tableload = client.guildconfs.get(g.id);
-			if (tableload && tableload.premium) {
-				if (client.guildconfs.get(g.id).premium.status === true) {
-					if (new Date().getTime() >= Date.parse(tableload.premium.end)) {
-						tableload.premium.status = false;
-						tableload.premium.bought = [];
-						tableload.premium.end = '';
-						client.guildconfs.set(g.id, tableload);
+			if (typeof client.provider.getBotsettings('botconfs', 'dailyreminder') !== 'undefined') {
+				if (Object.keys(client.provider.getBotsettings('botconfs', 'dailyreminder')).length !== 0) {
+					/* eslint guard-for-in: 0 */
+					for (const index in client.provider.getBotsettings('botconfs', 'dailyreminder')) {
+						const timeoutTime = client.provider.getBotsettings('botconfs', 'dailyreminder')[index].remind - Date.now();
+						timeoutForDaily(client.provider.getBotsettings('botconfs', 'dailyreminder')[index], timeoutTime);
 					}
 				}
 			}
-		});
-	}, 86400000);
 
-	setInterval(() => {
-		client.users.filter(g => client.userdb.has(g.id)).forEach(g => {
-			const userdb = client.userdb.get(g.id);
-			if (userdb.premium) {
-				if (client.userdb.get(g.id).premium.status === true) {
-					if (new Date().getTime() >= Date.parse(userdb.premium.end)) {
-						userdb.premium.status = false;
-						userdb.premium.bought = [];
-						userdb.premium.end = '';
-						client.userdb.set(g.id, userdb);
+			function timeoutForJob(jobreminder, timeoutTime) {
+				setTimeout(async () => {
+					await client.provider.setUser(jobreminder.userID, 'jobstatus', false);
+
+					const newCurrentJobreminder = client.provider.getBotsettings('botconfs', 'jobreminder');
+					delete newCurrentJobreminder[jobreminder.userID];
+					await client.provider.setBotsettings('botconfs', 'jobreminder', newCurrentJobreminder);
+
+					let currentCredits = client.provider.getUser(jobreminder.userID, 'credits');
+					currentCredits += jobreminder.amount;
+					await client.provider.setUser(jobreminder.userID, 'credits', currentCredits);
+
+					const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${jobreminder.amount} credits`;
+					client.users.get(jobreminder.userID).send(jobfinish);
+
+					const activityEmbed2 = new Discord.RichEmbed()
+						.setAuthor(`${client.users.get(jobreminder.userID).tag} (${jobreminder.userID})`, client.users.get(jobreminder.userID).displayAvatarURL)
+						.setDescription(`**Job:** ${jobreminder.job} \n**Duration:** ${jobreminder.jobtime} minutes \n**Amount:** ${jobreminder.amount} credits`)
+						.addField('Guild', `${client.guilds.get(jobreminder.discordServerID).name} (${jobreminder.discordServerID})`)
+						.addField('Channel', `${client.channels.get(jobreminder.channelID).name} (${jobreminder.channelID})`)
+						.setColor('AQUA')
+						.setFooter('JOB FINISHED')
+						.setTimestamp();
+					if (client.provider.getBotsettings('botconfs', 'activity') === true) {
+						const messagechannel = client.channels.get(client.provider.getBotsettings('botconfs', 'activitychannel'));
+						messagechannel.send({
+							embed: activityEmbed2
+						});
+					}
+				}, timeoutTime);
+			}
+
+			if (typeof client.provider.getBotsettings('botconfs', 'jobreminder') !== 'undefined') {
+				if (Object.keys(client.provider.getBotsettings('botconfs', 'jobreminder')).length !== 0) {
+					/* eslint guard-for-in: 0 */
+					for (const index in client.provider.getBotsettings('botconfs', 'jobreminder')) {
+						const timeoutTime = client.provider.getBotsettings('botconfs', 'jobreminder')[index].remind - Date.now();
+						timeoutForJob(client.provider.getBotsettings('botconfs', 'jobreminder')[index], timeoutTime);
 					}
 				}
 			}
-		});
-	}, 86400000);
 
-	console.log(chalk.green(`LenoxBot: Ready to serve in ${client.channels.size} channels on ${client.guilds.size}, for a total of ${client.users.size} users.`));
+			function timeoutForBan(bansconf, newBanTime, fetchedbansfromfunction) {
+				setTimeout(async () => {
+					const langSet = client.provider.getGuild(bansconf.discordserverid, 'language');
+					const lang = require(`../languages/${langSet}.json`);
+					const fetchedbans = fetchedbansfromfunction;
+
+					if (fetchedbans.has(bansconf.memberid)) {
+						const user = fetchedbans.get(bansconf.memberid);
+
+						client.guilds.get(bansconf.discordserverid).unban(user);
+
+						const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
+						const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+						const unmutedembed = new Discord.RichEmbed()
+							.setAuthor(unbannedby, client.user.displayAvatarURL)
+							.setThumbnail(user.displayAvatarURL)
+							.setColor('#FF0000')
+							.setTimestamp()
+							.setDescription(automaticbandescription);
+
+						if (client.provider.getGuild(bansconf.discordserverid, 'modlog') === 'true') {
+							const modlogchannel = client.channels.get(client.provider.getGuild(bansconf.discordserverid, 'modlogchannel'));
+							modlogchannel.send({
+								embed: unmutedembed
+							});
+						}
+					}
+					const newbansconf = client.provider.getBotsettings('botconfs', 'bans');
+					delete newbansconf[client.provider.getBotsettings('botconfs', 'banscount')];
+					await client.provider.setBotsettings('botconfs', 'bans', newbansconf);
+				}, newBanTime);
+			}
+
+			function timeoutForMute(muteconf, newMuteTime) {
+				setTimeout(async () => {
+					const guild = client.guilds.get(muteconf.discordserverid);
+					if (!guild) return;
+
+					const membermention = await guild.fetchMember(muteconf.memberid).catch(() => undefined);
+					if (!membermention) return undefined;
+
+					const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
+					if (!role) return undefined;
+
+					const user = client.users.get(muteconf.memberid);
+					if (!user) return undefined;
+
+					const langSet = client.provider.getGuild(muteconf.discordserverid, 'language');
+					const lang = require(`../languages/${langSet}.json`);
+
+					if (client.provider.getGuild(muteconf.discordserverid, 'muterole') !== '' && membermention.roles.has(client.provider.getGuild(muteconf.discordserverid, 'muterole'))) {
+						membermention.removeRole(role);
+
+						const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
+						const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
+						const unmutedembed = new Discord.RichEmbed()
+							.setAuthor(unmutedby, client.user.displayAvatarURL)
+							.setThumbnail(user.displayAvatarURL)
+							.setColor('#FF0000')
+							.setTimestamp()
+							.setDescription(automaticunmutedescription);
+
+						user.send({
+							embed: unmutedembed
+						});
+
+						if (client.provider.getGuild(muteconf.discordserverid, 'modlog') === 'true') {
+							const modlogchannel = client.channels.get(client.provider.getGuild(muteconf.discordserverid, 'modlogchannel'));
+							modlogchannel.send({
+								embed: unmutedembed
+							});
+						}
+					}
+					const newmuteconf = client.provider.getBotsettings('botconfs', 'mutes');
+					delete newmuteconf[muteconf.mutescount];
+					await client.provider.setBotsettings('botconfs', 'mutes', newmuteconf);
+				}, newMuteTime);
+			}
+
+			if (typeof client.provider.getBotsettings('botconfs', 'bans') !== 'undefined') {
+				if (Object.keys(client.provider.getBotsettings('botconfs', 'bans')).length !== 0) {
+					for (const index in client.provider.getBotsettings('botconfs', 'bans')) {
+						const newBanTime = client.provider.getBotsettings('botconfs', 'bans')[index].banEndDate - Date.now();
+						const fetchedbans = await client.guilds.get(client.provider.getBotsettings('botconfs', 'bans')[index].discordserverid).fetchBans();
+						timeoutForBan(client.provider.getBotsettings('botconfs', 'bans')[index], newBanTime, fetchedbans);
+					}
+				}
+			}
+
+
+			if (typeof client.provider.getBotsettings('botconfs', 'mutes') !== 'undefined') {
+				if (Object.keys(client.provider.getBotsettings('botconfs', 'mutes')).length !== 0) {
+					for (const index2 in client.provider.getBotsettings('botconfs', 'mutes')) {
+						const newMuteTime = client.provider.getBotsettings('botconfs', 'mutes')[index2].muteEndDate - Date.now();
+						timeoutForMute(client.provider.getBotsettings('botconfs', 'mutes')[index2], newMuteTime);
+					}
+				}
+			}
+			setInterval(() => {
+				client.guilds.filter(g => client.provider.getGuild(g.id, 'prefix')).forEach(async g => {
+					if (client.provider.getGuild(g.id, 'premium')) {
+						if (client.provider.getGuild(g.id, 'premium').status === true) {
+							if (new Date().getTime() >= Date.parse(client.provider.get(g.id, 'premium').end)) {
+								const currentPremium = client.provider.getGuild(g.id, 'premium');
+								currentPremium.status = false;
+								currentPremium.bought = [];
+								currentPremium.end = '';
+								await client.provider.setGuild(g.id, 'premium', currentPremium);
+							}
+						}
+					}
+				});
+			}, 86400000);
+
+			setInterval(() => {
+				client.users.filter(g => client.provider.getUser(g.id, 'credits')).forEach(async g => {
+					if (client.provider.getUser(g.id, 'premium')) {
+						if (client.userdb.get(g.id).premium.status === true) {
+							if (new Date().getTime() >= Date.parse(client.provider.getUser(g.id, 'premium').end)) {
+								const currentPremium = client.provider.getUser(g.id, 'premium');
+								currentPremium.status = false;
+								currentPremium.bought = [];
+								currentPremium.end = '';
+								await client.provider.setUser(g.id, 'premium', currentPremium);
+							}
+						}
+					}
+				});
+			}, 86400000);
+
+			const embed = new Discord.RichEmbed()
+				.setTitle('Botrestart')
+				.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
+				.setColor('GREEN')
+				.setTimestamp()
+				.setAuthor(client.user.tag, client.user.displayAvatarURL);
+
+			if (client.user.id === '354712333853130752') {
+				client.channels.get('497400107109580801').send({
+					embed
+				});
+			}
+		});
+	}
 };
+

@@ -1,21 +1,24 @@
-exports.run = (client, msg) => {
-	const rf = require('random-facts');
-	msg.channel.send(rf.randomFact());
-};
+const LenoxCommand = require('../LenoxCommand.js');
+const rf = require('random-facts');
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'General',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'randomfact',
-	description: 'Random facts (in English only)',
-	usage: 'randomfact',
-	example: ['randomfact'],
-	category: 'searches',
-	botpermissions: ['SEND_MESSAGES']
+module.exports = class randomfactCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'randomfact',
+			group: 'searches',
+			memberName: 'randomfact',
+			description: 'Random facts (in English only)',
+			format: 'randomfact',
+			aliases: [],
+			examples: ['randomfact'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'General',
+			dashboardsettings: true
+		});
+	}
+
+	run(msg) {
+		msg.channel.send(rf.randomFact());
+	}
 };

@@ -1,29 +1,33 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const content = args.slice().join(' ');
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (!content) return msg.channel.send(lang.welcomemsg_error);
+module.exports = class welcomemsgCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'welcomemsg',
+			group: 'administration',
+			memberName: 'welcomemsg',
+			description: 'Sets a welcome message to greet your users',
+			format: 'welcomemsg {welcome msg}',
+			aliases: [],
+			examples: ['welcomemsg Hello $username$, welcome on the $servername$ discord-server!'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Welcome',
+			dashboardsettings: true
+		});
+	}
 
-	tableload.welcomemsg = content;
-	client.guildconfs.set(msg.guild.id, tableload);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	return msg.channel.send(lang.welcomemsg_set);
-};
+		const content = args.slice().join(' ');
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Welcome',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
+		if (!content) return msg.channel.send(lang.welcomemsg_error);
 
-exports.help = {
-	name: 'welcomemsg',
-	description: 'Sets a welcome message to greet your users',
-	usage: 'welcomemsg {welcome msg}',
-	example: ['welcomemsg Hello $username$, welcome on the $servername$ discord-server!'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
+		await msg.client.provider.setGuild(msg.message.guild.id, 'welcomemsg', content);
+
+		return msg.channel.send(lang.welcomemsg_set);
+	}
 };

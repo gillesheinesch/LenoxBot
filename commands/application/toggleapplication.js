@@ -1,32 +1,37 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (tableload.application.status === 'false') {
-		tableload.application.status = 'true';
-		client.guildconfs.set(msg.guild.id, tableload);
-
-		return msg.channel.send(lang.toggleapplication_activated);
+module.exports = class toggleapplicationCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'toggleapplication',
+			group: 'application',
+			memberName: 'toggleapplication',
+			description: 'Toggles the applications on or off',
+			format: 'toggleapplication',
+			aliases: [],
+			examples: ['toggleapplication'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Settings',
+			dashboardsettings: true
+		});
 	}
-	tableload.application.status = 'false';
-	client.guildconfs.set(msg.guild.id, tableload);
 
-	return msg.channel.send(lang.toggleapplication_disabled);
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Settings',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'application').status === 'false') {
+			const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+			currentApplication.status = 'true';
+			await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
 
-exports.help = {
-	name: 'toggleapplication',
-	description: 'Toggles the applications on or off',
-	usage: 'toggleapplication',
-	example: ['toggleapplication'],
-	category: 'application',
-	botpermissions: ['SEND_MESSAGES']
+			return msg.channel.send(lang.toggleapplication_activated);
+		}
+		const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+		currentApplication.status = 'false';
+		await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
+
+		return msg.channel.send(lang.toggleapplication_disabled);
+	}
 };

@@ -1,35 +1,13 @@
 const Discord = require('discord.js');
 exports.run = (client, oldMember, newMember) => {
-	const tableload = client.guildconfs.get(newMember.guild.id);
-	if (!tableload) return;
+	if (!client.provider.isReady) return;
+	if (!client.provider.getGuild(newMember.guild.id, 'prefix')) return;
 
-	if (tableload.presenceupdatelog === 'false') return;
+	if (client.provider.getGuild(newMember.guild.id, 'presenceupdatelog') === 'false') return;
 
-	if (tableload.language === '') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(newMember.guild.id, tableload);
-	}
+	const lang = require(`../languages/${client.provider.getGuild(newMember.guild.id, 'language')}.json`);
 
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-	if (tableload.language === 'en') {
-		tableload.language = 'en-US';
-		client.guildconfs.set(newMember.guild.id, tableload);
-	}
-
-	if (tableload.language === 'ge') {
-		tableload.language = 'de-DE';
-		client.guildconfs.set(newMember.guild.id, tableload);
-	}
-
-	if (tableload.language === 'fr') {
-		tableload.language = 'fr-FR';
-		client.guildconfs.set(newMember.guild.id, tableload);
-	}
-	// CHANGE TO THE NEW CROWDIN SYSTEM
-
-	const lang = require(`../languages/${tableload.language}.json`);
-
-	const messagechannel = client.channels.get(tableload.presenceupdatelogchannel);
+	const messagechannel = client.channels.get(client.provider.getGuild(newMember.guild.id, 'presenceupdatelogchannel'));
 	if (!messagechannel) return;
 
 	if (oldMember.presence.status !== newMember.presence.status) {

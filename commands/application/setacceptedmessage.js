@@ -1,28 +1,34 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const content = args.slice().join(' ');
-	if (!content) return msg.channel.send(lang.setacceptedmessage_noinput);
+const LenoxCommand = require('../LenoxCommand.js');
 
-	tableload.application.acceptedmessage = content;
-	client.guildconfs.set(msg.guild.id, tableload);
+module.exports = class setacceptedmessageCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'setacceptedmessage',
+			group: 'application',
+			memberName: 'setacceptedmessage',
+			description: 'Sets a custom message that receive the applicants who have been accepted',
+			format: 'setacceptedmessage {custom message}',
+			aliases: [],
+			examples: ['setacceptedmessage You have been accepted!'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Settings',
+			dashboardsettings: true
+		});
+	}
 
-	return msg.channel.send(lang.setacceptedmessage_set);
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Settings',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
+		const content = args.slice().join(' ');
+		if (!content) return msg.channel.send(lang.setacceptedmessage_noinput);
 
-exports.help = {
-	name: 'setacceptedmessage',
-	description: 'Sets a custom message that receive the applicants who have been accepted',
-	usage: 'setacceptedmessage {custom message}',
-	example: ['setacceptedmessage You have been accepted!'],
-	category: 'application',
-	botpermissions: ['SEND_MESSAGES']
+		const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+		currentApplication.acceptedmessage = content;
+		await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
+
+		return msg.channel.send(lang.setacceptedmessage_set);
+	}
 };

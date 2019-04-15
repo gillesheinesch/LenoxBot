@@ -1,33 +1,36 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	if (tableload.bye === 'false') {
-		tableload.bye = 'true';
-		const channelid = msg.channel.id;
-		tableload.byechannel = channelid;
+const LenoxCommand = require('../LenoxCommand.js');
 
-		const channelset = lang.togglebye_channelset.replace('%channelname', msg.channel.name);
-		msg.channel.send(channelset);
-	} else if (tableload.bye === 'true') {
-		tableload.bye = 'false';
-		msg.channel.send(lang.togglebye_channeldeleted);
+module.exports = class togglebyeCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'togglebye',
+			group: 'administration',
+			memberName: 'togglebye',
+			description: 'Disable the goodbye message',
+			format: 'togglebye',
+			aliases: [],
+			examples: ['togglebye'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Bye',
+			dashboardsettings: true
+		});
 	}
-	client.guildconfs.set(msg.guild.id, tableload);
-};
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'Bye',
-	aliases: [],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 
-exports.help = {
-	name: 'togglebye',
-	description: 'Disable the goodbye message',
-	usage: 'togglebye',
-	example: ['togglebye'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
+		if (msg.client.provider.getGuild(msg.message.guild.id, 'bye') === 'false') {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'bye', 'true');
+			const channelid = msg.channel.id;
+			await msg.client.provider.setGuild(msg.message.guild.id, 'byechannel', channelid);
+
+			const channelset = lang.togglebye_channelset.replace('%channelname', msg.channel.name);
+			msg.channel.send(channelset);
+		} else if (msg.client.provider.getGuild(msg.message.guild.id, 'bye') === 'true') {
+			await msg.client.provider.setGuild(msg.message.guild.id, 'bye', 'false');
+			msg.channel.send(lang.togglebye_channeldeleted);
+		}
+	}
 };

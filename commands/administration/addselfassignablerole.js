@@ -1,33 +1,40 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.guildconfs.get(msg.guild.id);
-	const addedrole = args.slice().join(' ');
-	const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (addedrole.length < 1) return msg.reply(lang.addselfassignablerole_norolename);
-	if (!foundRole) return msg.reply(lang.addselfassignablerole_rolenotexist);
-	for (let i = 0; i < tableload.selfassignableroles.length; i++) {
-		if (foundRole.id === tableload.selfassignableroles[i]) return msg.channel.send(lang.addselfassignablerole_alreadyadded);
+module.exports = class addselfassignableroleCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'addselfassignablerole',
+			group: 'administration',
+			memberName: 'addselfassignablerole',
+			description: 'Add a role that allows users to assign themselves',
+			format: 'addselfassignablerole {name of the role}',
+			aliases: ['asar'],
+			examples: ['addselfassignablerole Member'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: ['ADMINISTRATOR'],
+			shortDescription: 'Selfassignableroles',
+			dashboardsettings: true
+		});
 	}
-	const roleId = foundRole.id;
-	tableload.selfassignableroles.push(roleId);
-	client.guildconfs.set(msg.guild.id, tableload);
 
-	return msg.channel.send(lang.addselfassignablerole_roleset);
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Selfassignableroles',
-	aliases: ['asar'],
-	userpermissions: ['ADMINISTRATOR'],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'addselfassignablerole',
-	description: 'Add a role that allows users to assign themselves',
-	usage: 'addselfassignablerole {name of the role}',
-	example: ['addselfassignablerole Member'],
-	category: 'administration',
-	botpermissions: ['SEND_MESSAGES']
+		const addedrole = args.slice().join(' ');
+		const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
+
+		if (addedrole.length < 1) return msg.reply(lang.addselfassignablerole_norolename);
+		if (!foundRole) return msg.reply(lang.addselfassignablerole_rolenotexist);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles').length; i++) {
+			if (foundRole.id === msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles')[i]) return msg.channel.send(lang.addselfassignablerole_alreadyadded);
+		}
+		const roleId = foundRole.id;
+		const currentSelfassignableroles = msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles');
+		currentSelfassignableroles.push(roleId);
+		await msg.client.provider.setGuild(msg.message.guild.id, 'selfassignableroles', currentSelfassignableroles);
+
+		return msg.channel.send(lang.addselfassignablerole_roleset);
+	}
 };

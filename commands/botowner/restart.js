@@ -1,25 +1,55 @@
+const LenoxCommand = require('../LenoxCommand.js');
 const settings = require('../../settings.json');
-exports.run = async (client, msg, args, lang) => {
-	if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
+const Discord = require('discord.js');
 
-	await msg.channel.send(lang.restart_message);
+module.exports = class restartCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'restart',
+			group: 'botowner',
+			memberName: 'restart',
+			description: 'Restarts the bot',
+			format: 'restart {reason}',
+			aliases: ['reboot'],
+			examples: ['restart Lagging'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'General',
+			dashboardsettings: true,
+			cooldown: 900000
+		});
+	}
 
-	process.exit(42);
-};
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-exports.conf = {
-	enabled: true,
-	guildOnly: false,
-	shortDescription: 'General',
-	aliases: ['reboot'],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'restart',
-	description: 'Restarts the bot',
-	usage: 'restart',
-	example: ['restart'],
-	category: 'botowner',
-	botpermissions: ['SEND_MESSAGES']
+		if (!settings.owners.includes(msg.author.id) && !settings.administrators.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
+
+		if (!args || args.length === 0) {
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+			delete timestamps.restart[msg.author.id];
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+
+			return msg.reply(lang.restart_noreason);
+		}
+
+		await msg.channel.send(lang.restart_message);
+
+		const restartEmbed = new Discord.RichEmbed()
+			.setTitle(lang.restart_embedtitle)
+			.addField(lang.restart_embedfield, args.join(' '))
+			.setColor('RED')
+			.setTimestamp()
+			.setAuthor(msg.client.user.tag, msg.client.user.displayAvatarURL);
+
+		if (msg.client.user.id === '354712333853130752') {
+			await msg.client.channels.get('497400107109580801').send({
+				embed: restartEmbed
+			});
+		}
+
+		process.exit(42);
+	}
 };

@@ -1,31 +1,35 @@
-exports.run = (client, msg, args, lang) => {
-	const tableload = client.userdb.get(msg.author.id);
-	const userdb = client.userdb.get(msg.author.id);
-	const input = args.slice();
+const LenoxCommand = require('../LenoxCommand.js');
 
-	if (!input || input.length === 0) return msg.reply(lang.setprofiledescription_noinput);
-	if (input.join(' ').length > 100 && userdb.premium.status === false) return msg.reply(lang.setprofiledescription_error);
-	if (input.join(' ').length > 400) return msg.reply(lang.setprofiledescription_error2);
+module.exports = class setprofiledescriptionCommand extends LenoxCommand {
+	constructor(client) {
+		super(client, {
+			name: 'setprofiledescription',
+			group: 'utility',
+			memberName: 'setprofiledescription',
+			description: 'Sets a global profile description',
+			format: 'setprofiledescription {description}',
+			aliases: [],
+			examples: ['setprofiledescription 27y/o | Love Lenoxbot | pilot at American Airline'],
+			clientpermissions: ['SEND_MESSAGES'],
+			userpermissions: [],
+			shortDescription: 'Settings',
+			dashboardsettings: true
+		});
+	}
 
-	tableload.description = input.join(' ');
-	client.userdb.set(msg.author.id, tableload);
+	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
 
-	msg.channel.send(lang.setprofiledescription_set);
-};
+		const input = args.slice();
 
-exports.conf = {
-	enabled: true,
-	guildOnly: true,
-	shortDescription: 'Settings',
-	aliases: [],
-	userpermissions: [],
-	dashboardsettings: true
-};
-exports.help = {
-	name: 'setprofiledescription',
-	description: 'Sets a global profile description',
-	usage: 'setprofiledescription {description}',
-	example: ['setprofiledescription 27y/o | Love Lenoxbot | pilot at American Airline'],
-	category: 'utility',
-	botpermissions: ['SEND_MESSAGES']
+		if (!input || input.length === 0) return msg.reply(lang.setprofiledescription_noinput);
+		if (input.join(' ').length > 100 && msg.client.provider.getUser(msg.author.id, 'premium').status === false) return msg.reply(lang.setprofiledescription_error);
+		if (input.join(' ').length > 400) return msg.reply(lang.setprofiledescription_error2);
+
+		await msg.client.provider.setUser(msg.author.id, 'description', input.join(' '));
+
+		msg.channel.send(lang.setprofiledescription_set);
+	}
 };
