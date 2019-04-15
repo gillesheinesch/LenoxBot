@@ -34,7 +34,7 @@ async function run() {
 	const dbClient = await mongodb.MongoClient.connect(mongoUrl, { useNewUrlParser: true });
 	const db = dbClient.db('lenoxbot');
 	const guildSettingsCollection = db.collection('guildSettings');
-	const userSettingsCollection = db.collection('userSettings');
+	// const userSettingsCollection = db.collection('userSettings');
 	const botSettingsCollection = db.collection('botSettings');
 
 	app.use(bodyParser.json());
@@ -105,27 +105,6 @@ async function run() {
 		 * @argument type the type of reloadable element - "guild", "user" or "botsettings"
 		 * @argument id the id of the reloadable element, only usable on "guild" and "user"
 		 */
-	    function execReload(type, id) {
-		process.send({ cmd: 'reload', type: type, id: id });
-	}
-
-	function fetchUser(userId) {
-		const promise = new Promise(resolve => {
-			process.send({ cmd: 'fetchUser', userId: userId });
-
-			const messageHandler = message => {
-				if (message.userId === userId) {
-					process.removeListener('message', messageHandler);
-
-					resolve(message.user);
-				}
-			};
-
-			process.on('message', messageHandler);
-		});
-
-		return promise;
-	}
 
 	function islenoxboton(req) {
 		const islenoxbot = [];
@@ -230,7 +209,7 @@ async function run() {
 
 	// Temp get for test dynamic pages in static mode
 
-	app.get('/test', async (req, res) => {
+	app.get('/test', (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			return res.render('aatest', {
@@ -315,7 +294,7 @@ async function run() {
 	app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
 	// temporary!!!
 
-	app.get('/leaderboards', async (req, res) => {
+	/* app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await islenoxbotonNonPermission(req);
@@ -428,7 +407,7 @@ async function run() {
 		}
 	});
 
-	/* app.get('/leaderboards/server/:id', async (req, res) => {
+	app.get('/leaderboards/server/:id', async (req, res) => {
 			try {
 				const dashboardid = res.req.originalUrl.substr(21, 18);
 				const userData = {};
@@ -608,42 +587,56 @@ async function run() {
 		});
 
 
-		/*
-		app.get('/team', async (req, res) => {
-			try {
-				const islenoxbot = islenoxboton(req);
-				const team = [];
-				const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
-				const guild = await client.guilds.get('352896116812939264');
-				for (let i = 0; i < teamroles.length; i++) {
-					const teamSettings = {};
-					const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
-
-					teamSettings.roleName = role.name;
-					teamSettings.roleMembersSize = role.members.array().length;
-					teamSettings.roleMembers = [];
-
-					role.members.forEach(member => {
-						teamSettings.roleMembers.push(member.user);
-					});
-					team.push(teamSettings);
-				}
-
-				return res.render('team', {
-					user: req.user,
-					team: team,
-					islenoxbot: islenoxbot
-				});
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
+	app.get('/team', async (req, res) => {
+		try {
+			const islenoxbot = islenoxboton(req);
+			const team = [];
+			const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
+			await shardingManager.broadcastEval(`this.guilds.get('332612123492483094')`).then(guildResult => {
+				console.log(guildResult);
+				let guildCheck;
+				let guildCheckIndex;
+				if (guildResult) {
+					for (let index = 0; index < guildResult.length; index++) {
+						if (typeof guildResult[index] !== 'undefined') {
+							guildCheck = true;
+							guildCheckIndex = index;
+						}
 					}
-				}));
-			}
-		});
+				}
+				if (guildCheck) {
+					console.log(guildResult[guildCheckIndex]);
+					for (let i = 0; i < teamroles.length; i++) {
+						const teamSettings = {};
+						const role = guildResult[guildCheckIndex].roles.find(r => r.name.toLowerCase() === teamroles[i]);
+
+						teamSettings.roleName = role.name;
+						teamSettings.roleMembersSize = role.members.array().length;
+						teamSettings.roleMembers = [];
+
+						role.members.forEach(member => {
+							teamSettings.roleMembers.push(member.user);
+						});
+						team.push(teamSettings);
+					}
+				}
+			});
+
+			return res.render('team', {
+				user: req.user,
+				team: team,
+				islenoxbot: islenoxbot
+			});
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
 		app.get('/commands', (req, res) => {
 			try {
