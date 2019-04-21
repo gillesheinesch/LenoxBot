@@ -175,27 +175,9 @@ async function run() {
 
 	app.get('/home', async (req, res) => {
 		try {
-			const check = [];
-			if (req.user) {
-				for (let i = 0; i < req.user.guilds.length; i++) {
-					if (((req.user.guilds[i].permissions) & 8) === 8) {
-						check.push(req.user.guilds[i]);
-					}
-				}
-			}
-
-			const islenoxbot = islenoxboton(req);
-
-			const botConfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
-
-			return res.render('index', {
-				user: req.user,
-				guilds: check,
-				islenoxbot: islenoxbot,
-				botguildscount: botConfs.settings.botstats.botguildscount,
-				botmemberscount: botConfs.settings.botstats.botmemberscount,
-				botcommands: botConfs.settings.botstats.botcommands
-			});
+			return res.redirect(url.format({
+				pathname: `/`
+			}));
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -638,138 +620,135 @@ async function run() {
 		}
 	});
 
-		app.get('/commands', (req, res) => {
-			try {
-				const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'tickets'];
-
-				const commandlist = client.commands.filter(c => validation.includes(c.help.category) && c.conf.enabled === true).array();
-				const newcommandlist = [];
-				commandlist.map(cmd => {
-					const lang = require('./languages/en-US.json');
-					cmd.help.description = lang[`${cmd.help.name}_description`];
-					cmd.conf.newuserpermissions = cmd.conf.userpermissions.length > 0 ? cmd.conf.userpermissions.join(', ') : '';
-					cmd.conf.newaliases = cmd.conf.aliases.length > 0 ? cmd.conf.aliases.join(', ') : '';
-					newcommandlist.push(cmd);
-				});
-
-				const islenoxbot = islenoxboton(req);
-
-				return res.render('commands', {
-					user: req.user,
-					islenoxbot: islenoxbot,
-					commands: newcommandlist
-				});
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
+		*/
+	app.get('/commands', async (req, res) => {
+		try {
+			const commandlist = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+			const newcommandlist = [];
+			// eslint-disable-next-line guard-for-in
+			for (const key in commandlist.settings.commands) {
+				newcommandlist.push(commandlist.settings.commands[key]);
 			}
-		});
 
-		app.get('/donate', (req, res) => {
-			try {
-				const check = [];
-				if (req.user) {
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (((req.user.guilds[i].permissions) & 8) === 8) {
-							check.push(req.user.guilds[i]);
-						}
+			const islenoxbot = islenoxboton(req);
+
+			return res.render('commands', {
+				user: req.user,
+				islenoxbot: islenoxbot,
+				commands: newcommandlist
+			});
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.get('/donate', (req, res) => {
+		try {
+			const check = [];
+			if (req.user) {
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (((req.user.guilds[i].permissions) & 8) === 8) {
+						check.push(req.user.guilds[i]);
 					}
 				}
-				const islenoxbot = islenoxboton(req);
-				return res.render('donate', {
-					user: req.user,
-					guilds: check,
-					islenoxbot: islenoxbot
-				});
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
 			}
-		});
+			const islenoxbot = islenoxboton(req);
+			return res.render('donate', {
+				user: req.user,
+				guilds: check,
+				islenoxbot: islenoxbot
+			});
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
-		app.get('/donationsuccess', (req, res) => {
-			try {
-				const islenoxbot = islenoxboton(req);
-				return res.render('donationsuccess', {
-					user: req.user,
-					islenoxbot: islenoxbot
-				});
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
+	app.get('/donationsuccess', (req, res) => {
+		try {
+			const islenoxbot = islenoxboton(req);
+			return res.render('donationsuccess', {
+				user: req.user,
+				islenoxbot: islenoxbot
+			});
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
-		app.get('/documentation', (req, res) => res.redirect('https://docs.lenoxbot.com'));
+	app.get('/documentation', (req, res) => res.redirect('https://docs.lenoxbot.com'));
 
-		app.get('/nologin', (req, res) => {
-			try {
-				const check = [];
-				if (req.user) {
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (((req.user.guilds[i].permissions) & 8) === 8) {
-							check.push(req.user.guilds[i]);
-						}
+	app.get('/nologin', (req, res) => {
+		try {
+			const check = [];
+			if (req.user) {
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (((req.user.guilds[i].permissions) & 8) === 8) {
+						check.push(req.user.guilds[i]);
 					}
 				}
-
-				return res.render('index', {
-					notloggedin: true,
-					user: req.user,
-					guilds: check
-				});
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
 			}
-		});
 
-		app.get('/oauth2problem', (req, res) => {
-			try {
-				const check = [];
-				if (req.user) {
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (((req.user.guilds[i].permissions) & 8) === 8) {
-							req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
-							check.push(req.user.guilds[i]);
-						}
+			return res.render('index', {
+				notloggedin: true,
+				user: req.user,
+				guilds: check
+			});
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.get('/oauth2problem', (req, res) => {
+		try {
+			const check = [];
+			if (req.user) {
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (((req.user.guilds[i].permissions) & 8) === 8) {
+						req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
+						check.push(req.user.guilds[i]);
 					}
 				}
-
-				return res.render('oauth2problem', {
-					user: req.user,
-					guilds: check
-				});
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
 			}
-		}); */
+
+			return res.render('oauth2problem', {
+				user: req.user,
+				guilds: check
+			});
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+	/*
 
 	app.get('/servers', async (req, res) => {
 		try {

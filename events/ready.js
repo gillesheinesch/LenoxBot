@@ -233,6 +233,40 @@ exports.run = client => {
 				});
 			}, 86400000);
 
+			const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
+			const commandsArray = [];
+			const englishLang = require(`../languages/en-US.json`);
+			for (let i = 0; i < validation.length; i++) {
+				for (let index = 0; index < client.registry.commands.filter(c => c.groupID === validation[i]).array().length; index++) {
+					const commandObject = {};
+					commandObject.category = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].groupID;
+					commandObject.name = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name;
+					commandObject.description = englishLang[`${client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name}_description`] ? englishLang[`${client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name}_description`] : client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name.description;
+					commandObject.newaliases = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].aliases;
+					commandObject.newuserpermissions = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].userpermissions;
+					commandObject.usage = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].format;
+					commandsArray.push(commandObject);
+				}
+			}
+			await client.provider.setBotsettings('botconfs', 'commands', commandsArray);
+
+			setInterval(async () => {
+				const commandsArray2 = [];
+				for (let i = 0; i < validation.length; i++) {
+					for (let index = 0; index < client.registry.commands.filter(c => c.groupID === validation[i]).array().length; index++) {
+						const commandObject = {};
+						commandObject.category = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].groupID;
+						commandObject.name = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name;
+						commandObject.description = englishLang[`${client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name}_description`] ? englishLang[`${client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name}_description`] : client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name.description;
+						commandObject.newaliases = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].aliases;
+						commandObject.newuserpermissions = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].userpermissions;
+						commandObject.usage = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].format;
+						commandsArray2.push(commandObject);
+					}
+				}
+				await client.provider.setBotsettings('botconfs', 'commands', commandsArray2);
+			}, 86400000);
+
 			const embed = new Discord.RichEmbed()
 				.setTitle('Botrestart')
 				.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
