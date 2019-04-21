@@ -22,7 +22,7 @@ module.exports = class listmodulesCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('0066CC')
 			.setAuthor(lang.listmodules_embed);
 

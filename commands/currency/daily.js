@@ -73,11 +73,11 @@ module.exports = class dailyCommand extends LenoxCommand {
 			const author = lang.daily_author.replace('%amount', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? 200 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2) : 400 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2));
 			const streak = lang.daily_streak.replace('%streak', msg.client.provider.getUser(msg.author.id, 'dailystreak').streak);
 
-			const remindEmbed = new Discord.RichEmbed()
+			const remindEmbed = new Discord.MessageEmbed()
 				.setColor('RED')
 				.setAuthor(`🎁 ${author} 🎁`)
 				.setDescription(`${streak} \n\n${lang.daily_remindmsg}`);
-			const noRemindEmbed = new Discord.RichEmbed()
+			const noRemindEmbed = new Discord.MessageEmbed()
 				.setColor('RED')
 				.setAuthor(`🎁 ${author} 🎁`)
 				.setDescription(`${streak}`);
@@ -103,11 +103,11 @@ module.exports = class dailyCommand extends LenoxCommand {
 		const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? 200 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2) : 400 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2));
 		const streak = lang.daily_streak.replace('%streak', msg.client.provider.getUser(msg.author.id, 'dailystreak').streak);
 
-		const remindEmbed = new Discord.RichEmbed()
+		const remindEmbed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setAuthor(`🎁 ${mention} 🎁`)
 			.setDescription(`${streak} \n\n${lang.daily_remindmsg}`);
-		const noRemindEmbed = new Discord.RichEmbed()
+		const noRemindEmbed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setAuthor(`🎁 ${mention} 🎁`)
 			.setDescription(`${streak}`);

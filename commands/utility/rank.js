@@ -23,7 +23,7 @@ module.exports = class rankCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const user1 = msg.mentions.users.first() || msg.author;
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#A4F2DF')
 			.setThumbnail(user1.avatarURL)
 			.setAuthor(user1.tag, user1.avatarURL);

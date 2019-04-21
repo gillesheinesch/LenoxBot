@@ -43,7 +43,7 @@ module.exports = class warnlogCommand extends LenoxCommand {
 
 		if (array.length === 0) return msg.channel.send(lang.warnlog_notwarned);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#fff024')
 			.setAuthor(mention.tag, mention.displayAvatarURL);
 
@@ -76,7 +76,7 @@ module.exports = class warnlogCommand extends LenoxCommand {
 				first += 5;
 				second += 5;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#fff024')
 					.setAuthor(mention.tag, mention.displayAvatarURL);
 
@@ -94,7 +94,7 @@ module.exports = class warnlogCommand extends LenoxCommand {
 				first -= 5;
 				second -= 5;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#fff024')
 					.setAuthor(mention.tag, mention.displayAvatarURL);
 

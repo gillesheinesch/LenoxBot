@@ -9,7 +9,7 @@ exports.run = (client, role) => {
 	const messagechannel = client.channels.get(client.provider.getGuild(role.guild.id, 'rolecreatelogchannel'));
 	if (!messagechannel) return;
 
-	const embed = new Discord.RichEmbed()
+	const embed = new Discord.MessageEmbed()
 		.setColor('GREEN')
 		.setTimestamp()
 		.setAuthor(lang.rolecreateevent_created)

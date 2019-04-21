@@ -47,7 +47,7 @@ module.exports = class createuserkeyCommand extends LenoxCommand {
 		}
 
 		const embeddescription = lang.createuserkey_embeddescription.replace('%premiumcode', key);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(embeddescription)
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 			.setTimestamp()

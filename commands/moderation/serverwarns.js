@@ -34,7 +34,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 			firstfield.push(warnedbyandon);
 			secondfield.push(`${lang.serverwarns_reason} ${msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 2]}`);
 		}
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#fff024')
 			.setAuthor(msg.guild.name, msg.guild.iconURL);
 		const x = firstfield.slice(0, 5);
@@ -62,7 +62,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 				const thesecond = secondfield.slice(first + 5, second + 5);
 				first += 5;
 				second += 5;
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#fff024')
 					.setAuthor(msg.guild.name, msg.guild.iconURL);
 				for (let i = 0; i < thefirst.length; i++) {
@@ -77,7 +77,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 				const thesecond = secondfield.slice(first - 5, second - 5);
 				first -= 5;
 				second -= 5;
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#fff024')
 					.setAuthor(msg.guild.name, msg.guild.iconURL);
 				for (let i = 0; i < thefirst.length; i++) {

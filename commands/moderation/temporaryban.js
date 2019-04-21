@@ -56,7 +56,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 		if (typeof bantime === 'undefined') return msg.channel.send(lang.temporaryban_invalidtimeformat);
 
 		const banned = lang.temporaryban_banned.replace('%usertag', user.tag).replace('%bantime', ms(bantime));
-		const banembed = new Discord.RichEmbed()
+		const banembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${banned}`);
 		msg.channel.send({
@@ -65,7 +65,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 
 		const bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
 			.replace('%bantime', ms(bantime));
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)
 			.setColor('#FF0000')
@@ -73,7 +73,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 			.setDescription(bandescription);
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'tempbananonymous') === 'true') {
-			const ananonymousembed = new Discord.RichEmbed()
+			const ananonymousembed = new Discord.MessageEmbed()
 				.setThumbnail(user.displayAvatarURL)
 				.setColor('#FF0000')
 				.setTimestamp()
@@ -119,7 +119,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 
 				const unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.client.user.tag}`);
 				const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-				const unmutedembed = new Discord.RichEmbed()
+				const unmutedembed = new Discord.MessageEmbed()
 					.setAuthor(unbannedby, msg.client.user.displayAvatarURL)
 					.setThumbnail(user.displayAvatarURL)
 					.setColor('#FF0000')

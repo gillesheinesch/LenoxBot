@@ -29,7 +29,7 @@ module.exports = class randomnumberCommand extends LenoxCommand {
 		if (!input) return msg.reply(lang.randomnumber_number);
 
 		const randomnumber = lang.randomnumber_randomnumber.replace('%randomnumber', randomnumberfinished);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
 			.setColor('#0066CC')
 			.setDescription(randomnumber);

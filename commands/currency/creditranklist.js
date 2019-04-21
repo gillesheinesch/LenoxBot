@@ -61,7 +61,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 			embedCredits.push(obj[1].credits);
 		});
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setColor('BLUE')
 			.addField(lang.creditranklist_name, embedFinalName.join('\n'), true)

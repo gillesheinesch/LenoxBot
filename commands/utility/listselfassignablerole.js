@@ -26,7 +26,7 @@ module.exports = class listselfassignableroleCommand extends LenoxCommand {
 		const roles = [];
 
 		const help = lang.listselfassignablerole_help.replace('%prefix', prefix);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ABCDEF')
 			.setFooter(help);
 		try {

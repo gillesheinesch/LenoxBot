@@ -49,13 +49,13 @@ module.exports = class banCommand extends LenoxCommand {
 		msg.guild.ban(user);
 
 		const banned = lang.ban_banned.replace('%usertag', user.tag);
-		const banembed = new Discord.RichEmbed()
+		const banembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${banned}`);
 		msg.channel.send({ embed: banembed });
 
 		const bandescription = lang.ban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${lang.ban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)
 			.setColor('#FF0000')

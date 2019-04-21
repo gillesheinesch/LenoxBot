@@ -37,7 +37,7 @@ module.exports = class restartCommand extends LenoxCommand {
 
 		await msg.channel.send(lang.restart_message);
 
-		const restartEmbed = new Discord.RichEmbed()
+		const restartEmbed = new Discord.MessageEmbed()
 			.setTitle(lang.restart_embedtitle)
 			.addField(lang.restart_embedfield, args.join(' '))
 			.setColor('RED')

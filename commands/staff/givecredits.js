@@ -38,7 +38,7 @@ module.exports = class givecreditsCommand extends LenoxCommand {
 		await msg.client.provider.setUser(user, 'credits', currentCredits);
 
 		const embeddescription = lang.givecredits_embeddescription.replace('%credits', amountofcoins).replace('%user', msg.client.users.get(user) ? msg.client.users.get(user).tag : user);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 			.setDescription(embeddescription)
 			.setTimestamp()

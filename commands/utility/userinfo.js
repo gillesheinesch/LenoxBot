@@ -84,7 +84,7 @@ module.exports = class userinfoCommand extends LenoxCommand {
 			topBadges.push(badges[i].emoji);
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL)
 			.setColor('#0066CC')
 			.setThumbnail(user.displayAvatarURL)

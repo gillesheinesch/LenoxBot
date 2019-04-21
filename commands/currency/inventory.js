@@ -57,7 +57,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
 		}
 
 		const slots = lang.inventory_inventoryslots.replace('%slots', `**${inventoryslotcheck}/${msg.client.provider.getUser(msg.author.id, 'inventoryslots')}**`);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(slots)
 			.setAuthor(inventory, msg.author.displayAvatarURL)
 			.setColor('#009933');
@@ -121,7 +121,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
 				firsttext += 7;
 				secondtext += 7;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setDescription(slots)
 					.setAuthor(inventory, msg.author.displayAvatarURL)
 					.setColor('#009933');
@@ -141,7 +141,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
 				firsttext -= 7;
 				secondtext -= 7;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setDescription(slots)
 					.setAuthor(inventory, msg.author.displayAvatarURL)
 					.setColor('#009933');

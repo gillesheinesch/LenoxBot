@@ -57,7 +57,7 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 
 			if (!checkIfBanned) return msg.reply(lang.unban_notbanned);
 
-			const userembed = new Discord.RichEmbed()
+			const userembed = new Discord.MessageEmbed()
 				.setAuthor(lang.currentlybanned_embedauthor)
 				.setColor('#ff9900')
 				.setTimestamp();
@@ -71,7 +71,7 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 			});
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(lang.currentlybanned_embedauthor)
 			.setColor('#ff3300')
 			.setTimestamp();
@@ -118,7 +118,7 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 					first += 4;
 					second += 4;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setAuthor(lang.currentlybanned_embedauthor)
 						.setColor('#ff3300')
 						.setTimestamp();
@@ -146,7 +146,7 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 					first -= 4;
 					second -= 4;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setAuthor(lang.currentlybanned_embedauthor)
 						.setColor('#ff3300')
 						.setTimestamp();

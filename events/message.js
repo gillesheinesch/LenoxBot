@@ -156,7 +156,7 @@ exports.run = async (client, msg) => {
 					if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
 						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
 
-						const embed = new Discord.RichEmbed()
+						const embed = new Discord.MessageEmbed()
 							.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 							.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 							.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)

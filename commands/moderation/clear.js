@@ -38,7 +38,7 @@ module.exports = class clearCommand extends LenoxCommand {
 		await msg.channel.fetchMessages({ limit: messagecount }).then(messages => msg.channel.bulkDelete(messages));
 
 		const messagesdeleted = lang.clear_messagesdeleted.replace('%messagecount', messagecount);
-		const messageclearembed = new Discord.RichEmbed()
+		const messageclearembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${messagesdeleted}`);
 		return msg.channel.send({ embed: messageclearembed });

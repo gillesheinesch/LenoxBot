@@ -58,7 +58,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 
 			const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 			const unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(1).join(' '));
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setAuthor(unmutedby, msg.author.displayAvatarURL)
 				.setThumbnail(user.displayAvatarURL)
 				.setColor('#FF0000')
@@ -66,7 +66,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 				.setDescription(unmutedescription);
 
 			if (msg.client.provider.getGuild(msg.message.guild.id, 'muteanonymous') === 'true') {
-				const anonymousembed = new Discord.RichEmbed()
+				const anonymousembed = new Discord.MessageEmbed()
 					.setThumbnail(user.displayAvatarURL)
 					.setColor('#FF0000')
 					.setTimestamp()
@@ -86,7 +86,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 			}
 
 			const unmuted = lang.unmute_unmuted.replace('%username', user.username);
-			const unmuteembed = new Discord.RichEmbed()
+			const unmuteembed = new Discord.MessageEmbed()
 				.setColor('#99ff66')
 				.setDescription(`✅ ${unmuted}`);
 			msg.channel.send({

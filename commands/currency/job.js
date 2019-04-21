@@ -57,7 +57,7 @@ module.exports = class jobCommand extends LenoxCommand {
 
 		let index = 0;
 
-		const startEmbed = new Discord.RichEmbed()
+		const startEmbed = new Discord.MessageEmbed()
 			.setColor('BLUE')
 			.setFooter(lang.job_embed)
 			.setAuthor(lang.job_available);
@@ -96,7 +96,7 @@ module.exports = class jobCommand extends LenoxCommand {
 
 					const newJobs = arrayOfJobs.slice(firsttext, secondtext);
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setFooter(lang.job_embed)
 						.setAuthor(lang.job_available);
@@ -114,7 +114,7 @@ module.exports = class jobCommand extends LenoxCommand {
 
 					const newJobs = arrayOfJobs.slice(firsttext, secondtext);
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setFooter(lang.job_embed)
 						.setAuthor(lang.job_available);
@@ -168,7 +168,7 @@ module.exports = class jobCommand extends LenoxCommand {
 
 		const duration = lang.job_duration.replace('%duration', jobtime);
 
-		const embed2 = new Discord.RichEmbed()
+		const embed2 = new Discord.MessageEmbed()
 			.setColor('#66ff33')
 			.setTitle(job)
 			.setDescription(`${lang.job_sentmessage} \n\n${duration}`)
@@ -189,7 +189,7 @@ module.exports = class jobCommand extends LenoxCommand {
 		};
 		await msg.client.provider.setBotsettings('botconfs', 'jobreminder', currentJobreminder);
 
-		const activityEmbed = new Discord.RichEmbed()
+		const activityEmbed = new Discord.MessageEmbed()
 			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
 			.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
 			.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
@@ -220,7 +220,7 @@ module.exports = class jobCommand extends LenoxCommand {
 			const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${amount} credits`;
 			msg.member.send(jobfinish);
 
-			const activityEmbed2 = new Discord.RichEmbed()
+			const activityEmbed2 = new Discord.MessageEmbed()
 				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
 				.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
 				.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)

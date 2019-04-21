@@ -33,7 +33,7 @@ module.exports = class prefixfinderCommand extends LenoxCommand {
 
 		const guildload = msg.client.guilds.get(content);
 		const requestedby = lang.prefixfinder_requestedby.replace('%authortag', msg.author.tag);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('BLUE')
 			.setThumbnail(guildload.iconURL)
 			.addField(lang.prefixfinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)

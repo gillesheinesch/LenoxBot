@@ -11,7 +11,7 @@ exports.run = (client, oldMember, newMember) => {
 	if (!messagechannel) return;
 
 	if (oldMember.presence.status !== newMember.presence.status) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.presenceupdateevent_changed)

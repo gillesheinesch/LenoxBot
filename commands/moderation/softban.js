@@ -42,7 +42,7 @@ module.exports = class softbanCommand extends LenoxCommand {
 		await msg.guild.unban(user);
 
 		const softbanned = lang.softban_softbanned.replace('%usertag', user.tag).replace('%days', days[0]);
-		const softbanembed = new Discord.RichEmbed()
+		const softbanembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${softbanned}`);
 		msg.channel.send({ embed: softbanembed });
@@ -50,7 +50,7 @@ module.exports = class softbanCommand extends LenoxCommand {
 		const softbanby = lang.softban_softbanby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const softbandescription = lang.softban_softbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
 			.replace('%days', days[0]);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(softbanby, msg.author.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)
 			.setColor('#FF0000')

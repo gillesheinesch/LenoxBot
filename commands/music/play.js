@@ -71,7 +71,7 @@ module.exports = class playCommand extends LenoxCommand {
 
 			const duration = lang.play_duration.replace('%duration', song.duration);
 			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setAuthor(lang.play_startplaying)
 				.setDescription(duration)
 				.setThumbnail(song.thumbnail)
@@ -105,7 +105,7 @@ module.exports = class playCommand extends LenoxCommand {
 
 				const duration = lang.play_duration.replace('%duration', song.duration);
 				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setAuthor(lang.play_songadded)
 					.setDescription(duration)
 					.setThumbnail(song.thumbnail)
@@ -174,12 +174,12 @@ module.exports = class playCommand extends LenoxCommand {
 				if (videos.length === 0) return msg.channel.send(lang.play_noresult);
 
 				let index = 0;
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setColor('#7BB3FF')
 					.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
 					.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 
-				const embed2 = new Discord.RichEmbed()
+				const embed2 = new Discord.MessageEmbed()
 					.setColor('#0066CC')
 					.setDescription(lang.play_value);
 				msg.channel.send({

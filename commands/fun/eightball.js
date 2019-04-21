@@ -32,7 +32,7 @@ module.exports = class eightballCommand extends LenoxCommand {
 		}
 		const eightballAnswersIndex = Math.floor(Math.random() * eightballAnswers.length);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.addField(lang.eightball_question, args.join(' '))
 			.addField(lang.eightball_embedfield, eightballAnswers[eightballAnswersIndex])
 			.setColor('#ff6666')

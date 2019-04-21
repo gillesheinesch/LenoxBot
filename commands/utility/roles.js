@@ -24,7 +24,7 @@ module.exports = class rolesCommand extends LenoxCommand {
 
 		if (msg.guild.roles.filter(r => r.name !== '@everyone').array().length === 0) return msg.channel.send(lang.roles_error);
 
-		const textchannelsembed = new Discord.RichEmbed()
+		const textchannelsembed = new Discord.MessageEmbed()
 			.setDescription(`**📋 ${lang.roles_list}**\n${msg.guild.roles.filter(r => r.name !== '@everyone').array().slice(0, 15)
 				.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`)
 				.join('\n')}`)
@@ -52,7 +52,7 @@ module.exports = class rolesCommand extends LenoxCommand {
 					firsttext += 15;
 					secondtext += 15;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setColor(3447003)
 						.setDescription(`**📋 ${lang.roles_list}**\n${guildchannels.join('\n')}`);
 
@@ -65,7 +65,7 @@ module.exports = class rolesCommand extends LenoxCommand {
 					firsttext -= 15;
 					secondtext -= 15;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setColor(3447003)
 						.setDescription(`**📋 ${lang.roles_list}**\n${guildchannels.join('\n')}`);
 

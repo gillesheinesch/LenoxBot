@@ -24,7 +24,7 @@ module.exports = class msgoptionsCommand extends LenoxCommand {
 
 		const validation = ['$usertag$', '$usermention$', '$username$', '$userid$', '$guildname$', '$guildid$'];
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#7FFFD4')
 			.setAuthor(lang.msgoptions_embed);
 

@@ -57,7 +57,7 @@ module.exports = class serverinfoCommand extends LenoxCommand {
 			emojisembed.push(emojis.join(' '));
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
 			.setColor('#0066CC')
 			.setTimestamp()

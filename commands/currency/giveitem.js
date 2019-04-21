@@ -75,7 +75,7 @@ module.exports = class giveitemCommand extends LenoxCommand {
 			.replace('%amount', amount)
 			.replace('%emoji', emojiOfTheItems[index])
 			.replace('%mentionuser', mention.tag);
-		const successEmbed = new Discord.RichEmbed()
+		const successEmbed = new Discord.MessageEmbed()
 			.setTimestamp()
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
 			.setDescription(embeddescription)

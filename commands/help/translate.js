@@ -23,7 +23,7 @@ module.exports = class translateCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 
-		const translateEmbed = new Discord.RichEmbed()
+		const translateEmbed = new Discord.MessageEmbed()
 			.setTitle(lang.translate_embedtitle)
 			.setDescription(lang.translate_embeddescription)
 			.addField(lang.translate_embedfieldtitle, 'https://crowdin.com/project/lenoxbot')

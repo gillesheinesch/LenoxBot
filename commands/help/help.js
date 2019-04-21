@@ -26,7 +26,7 @@ module.exports = class helpCommand extends LenoxCommand {
 		let command = args[0];
 
 		if (!args[0]) {
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.addField(lang.help_addthebot, `https://lenoxbot.com/invite/`)
 				.addField(lang.help_discordserver, `https://lenoxbot.com/discord/`)
 				.addField(lang.help_modulecommand, `${prefix}modules`)
@@ -62,7 +62,7 @@ module.exports = class helpCommand extends LenoxCommand {
 			}
 
 			const category = lang.help_category.replace('%category', command.groupID);
-			const commandembed = new Discord.RichEmbed()
+			const commandembed = new Discord.MessageEmbed()
 				.setColor('BLUE')
 				.setAuthor(`${prefix}${command.aliases.length === 0 ? command.name : `${command.name} / `} ${aliases.join(' / ')}`)
 				.setDescription(lang[`${command.name}_description`])
@@ -97,7 +97,7 @@ module.exports = class helpCommand extends LenoxCommand {
 					}
 
 					const category = lang.help_category.replace('%category', command.groupID);
-					const aliasembed = new Discord.RichEmbed()
+					const aliasembed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setAuthor(`${prefix}${command.aliases.length === 0 ? command.name : `${command.name} / `} ${aliases.join(' / ')}`)
 						.setDescription(lang[`${command.name}_description`])

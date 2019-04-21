@@ -30,7 +30,7 @@ module.exports = class listentryCommand extends LenoxCommand {
 			templates.push(`\`${i + 1}.\` ${msg.client.provider.getGuild(msg.message.guild.id, 'application').template[i]}`);
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ABCDEF');
 		embed.addField(lang.listentry_current, templates.slice(0, 10).join('\n'), true);
 		const message = await msg.channel.send({
@@ -57,7 +57,7 @@ module.exports = class listentryCommand extends LenoxCommand {
 				first += 10;
 				second += 10;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#ABCDEF');
 
 				newembed.addField(lang.listentry_current, templates.slice(first, second).join('\n'), true);
@@ -71,7 +71,7 @@ module.exports = class listentryCommand extends LenoxCommand {
 				first -= 10;
 				second -= 10;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#ABCDEF');
 
 				newembed.addField(lang.listentry_current, templates.slice(first, second).join('\n'), true);

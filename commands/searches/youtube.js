@@ -42,7 +42,7 @@ module.exports = class youtubeCommand extends LenoxCommand {
 				const thumbnail = search.items[0].snippet.thumbnails.medium.url;
 				const description = search.items[0].snippet.description;
 				const newUrl = `https://www.youtube.com/watch?v=${search.items[0].id.videoId}`;
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setImage(thumbnail)
 					.setAuthor(title)
 					.setDescription(description)

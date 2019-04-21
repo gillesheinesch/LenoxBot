@@ -42,7 +42,7 @@ module.exports = class commandsCommand extends LenoxCommand {
 							}
 						}
 						const commandShortDescriptions = [];
-						const embed = new Discord.RichEmbed()
+						const embed = new Discord.MessageEmbed()
 							.setDescription(lang[`modules_${validation[index].toLowerCase()}`] ? lang[`modules_${validation[index].toLowerCase()}`] : 'No description')
 							.setColor('#009900');
 						const commands = msg.client.registry.commands.filter(c => c.groupID === validation[index]).array();
@@ -78,7 +78,7 @@ module.exports = class commandsCommand extends LenoxCommand {
 							if (r.emoji.name === '▶' && reactionadd !== 0) {
 								r.remove(msg.author.id);
 								const newCommandShortDescriptions = commandShortDescriptions.slice(first + 7, second + 7);
-								const newEmbed = new Discord.RichEmbed()
+								const newEmbed = new Discord.MessageEmbed()
 									.setColor('#009900');
 
 								for (let index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
@@ -95,7 +95,7 @@ module.exports = class commandsCommand extends LenoxCommand {
 							} else if (r.emoji.name === '◀' && reactionremove !== 0) {
 								r.remove(msg.author.id);
 								const newCommandShortDescriptions = commandShortDescriptions.slice(first - 7, second - 7);
-								const newEmbed = new Discord.RichEmbed()
+								const newEmbed = new Discord.MessageEmbed()
 									.setColor('#009900');
 
 								for (let index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {

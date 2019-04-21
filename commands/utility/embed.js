@@ -28,7 +28,7 @@ module.exports = class embedCommand extends LenoxCommand {
 		if (input.join(' ').length > 1000) return msg.reply(lang.embed_toobig);
 
 		const embedinput = input.join(' ').replace('//', '\n');
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(embedinput)
 			.setColor('#66ff66');
 

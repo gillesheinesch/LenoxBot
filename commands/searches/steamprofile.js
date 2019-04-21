@@ -32,7 +32,7 @@ module.exports = class steamprofileCommand extends LenoxCommand {
 		SteamRepAPI.timeout = 5000;
 		SteamRepAPI.getProfile(id[0], (error, result) => {
 			if (result.steamrep.flags.status !== 'notfound') {
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setImage(result.steamrep.avatar)
 					.setColor('#336600')
 					.addField('SteamID64', result.steamrep.steamID64, true)

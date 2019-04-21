@@ -26,7 +26,7 @@ module.exports = class eventsCommand extends LenoxCommand {
 
 		const commandinfo = lang.events_commandinfo.replace('%prefix', prefix);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('0066CC')
 			.setFooter(commandinfo)
 			.setAuthor(lang.events_events);

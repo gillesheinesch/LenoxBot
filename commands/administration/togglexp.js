@@ -90,7 +90,7 @@ module.exports = class togglexpCommand extends LenoxCommand {
 							await msg.client.provider.setGuild(msg.message.guild.id, 'togglexp', currentTogglexp);
 						}
 					}
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#ff9933')
 						.setDescription(array.join('\n'))
 						.setAuthor(lang.togglexp_embed);

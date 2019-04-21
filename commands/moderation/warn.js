@@ -41,14 +41,14 @@ module.exports = class warnCommand extends LenoxCommand {
 		if (!reason) return msg.reply(lang.warn_noinput);
 
 		const warned = lang.warn_warned.replace('%usertag', user.tag);
-		const warnembed = new Discord.RichEmbed()
+		const warnembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${warned}`);
 		msg.channel.send({ embed: warnembed });
 
 		const warnedby = lang.warn_warnedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const warndescription = lang.warn_warndescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(warnedby, msg.author.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)
 			.setColor('#fff024')

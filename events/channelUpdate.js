@@ -16,7 +16,7 @@ exports.run = (client, oldChannel, newChannel) => {
 	if (!messagechannel) return;
 
 	if (oldChannel.name !== newChannel.name) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_nameupdated)
@@ -28,7 +28,7 @@ exports.run = (client, oldChannel, newChannel) => {
 		});
 	}
 	if (oldChannel.topic !== newChannel.topic) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_topicupdated)
@@ -41,7 +41,7 @@ exports.run = (client, oldChannel, newChannel) => {
 		});
 	}
 	if (oldChannel.position !== newChannel.position) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_positionupdated)

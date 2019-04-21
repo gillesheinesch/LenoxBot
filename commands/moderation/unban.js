@@ -37,7 +37,7 @@ module.exports = class unbanCommand extends LenoxCommand {
 		await msg.guild.unban(user);
 
 		const unbanned = lang.unban_unbanned.replace('%userid', user);
-		const unbanembed = new Discord.RichEmbed()
+		const unbanembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${unbanned}`);
 		msg.channel.send({
@@ -46,7 +46,7 @@ module.exports = class unbanCommand extends LenoxCommand {
 
 		const unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const unbandescription = lang.unban_unbandescription.replace('%userid', user).replace('%reason', reason);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(unbannedby, msg.author.displayAvatarURL)
 			.setThumbnail(user.displayAvatarURL)
 			.setColor(0x00AE86)

@@ -33,7 +33,7 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length === 0) return msg.channel.send(lang.listchatfilter_error);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ABCDEF');
 
 		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length; i++) {
@@ -66,7 +66,7 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 					first += 15;
 					second += 15;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setColor('#ABCDEF');
 
 					newembed.addField(lang.listchatfilter_embed, array.slice(first, second).join('\n'), true);
@@ -80,7 +80,7 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 					first -= 15;
 					second -= 15;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setColor('#ABCDEF');
 
 					newembed.addField(lang.listchatfilter_embed, array.slice(first, second).join('\n'), true);

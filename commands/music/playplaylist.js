@@ -71,7 +71,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 
 			const duration = lang.play_duration.replace('%duration', song.duration);
 			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setAuthor(lang.play_startplaying)
 				.setDescription(duration)
 				.setThumbnail(song.thumbnail)
@@ -103,7 +103,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 
 				const duration = lang.play_duration.replace('%duration', song.duration);
 				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setAuthor(lang.play_songadded)
 					.setDescription(duration)
 					.setThumbnail(song.thumbnail)

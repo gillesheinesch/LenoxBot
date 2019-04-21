@@ -42,7 +42,7 @@ module.exports = class pornhubvideoCommand extends LenoxCommand {
 			const duration = videos[result - 1].duration;
 
 			const durationembed = lang.sexvideo_durationembed.replace('%duration', duration);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setImage(thumbnail)
 				.setURL(url)
 				.setDescription(durationembed)

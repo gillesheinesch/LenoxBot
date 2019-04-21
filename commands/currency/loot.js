@@ -86,7 +86,7 @@ module.exports = class lootCommand extends LenoxCommand {
 			}
 
 			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][2]})`).replace('%howmany', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? '1' : '2');
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(`🎉 ${lootmessage}`);
 			msg.channel.send({
@@ -112,7 +112,7 @@ module.exports = class lootCommand extends LenoxCommand {
 
 			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][2]})`).replace('%howmany', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? '1' : '2');
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(`🎉 ${lootmessage}`);
 			msg.channel.send({
@@ -138,7 +138,7 @@ module.exports = class lootCommand extends LenoxCommand {
 
 			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][2]})`).replace('%howmany', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? '1' : '2');
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(`🎉 ${lootmessage}`);
 			msg.channel.send({
@@ -164,7 +164,7 @@ module.exports = class lootCommand extends LenoxCommand {
 
 			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][2]})`).replace('%howmany', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? '1' : '2');
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(`🎉 ${lootmessage}`);
 			msg.channel.send({

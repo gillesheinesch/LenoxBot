@@ -11,7 +11,7 @@ exports.run = (client, oldRole, newRole) => {
 	if (!messagechannel) return;
 
 	if (oldRole.name !== newRole.name) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.roleupdateevent_nameupdated)
@@ -21,7 +21,7 @@ exports.run = (client, oldRole, newRole) => {
 		return messagechannel.send({ embed: embed });
 	}
 	if (oldRole.hexColor !== newRole.hexColor) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.roleupdateevent_rolecolorupdated)

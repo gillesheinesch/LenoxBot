@@ -41,7 +41,7 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 
 		if (array.length === 0) return msg.channel.send(lang.nicknamelog_nonicknamelog);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${mention.username}#${mention.discriminator}`)
 			.setColor('#ccff33')
 			.addField(lang.nicknamelog_old, oldnickname.slice(0, 20).join('\n'), true)
@@ -73,7 +73,7 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 				first += 20;
 				second += 20;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setAuthor(`${mention.username}#${mention.discriminator}`)
 					.setColor('#ccff33')
 					.addField(lang.nicknamelog_old, newOldNickname.join('\n'), true)
@@ -91,7 +91,7 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 				first -= 20;
 				second -= 20;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setAuthor(`${mention.username}#${mention.discriminator}`)
 					.setColor('#ccff33')
 					.addField(lang.nicknamelog_old, newOldNickname.join('\n'), true)

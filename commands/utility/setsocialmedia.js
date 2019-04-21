@@ -153,7 +153,7 @@ module.exports = class setsocialmediaCommand extends LenoxCommand {
 					}
 					return msg.reply(lang.setsocialmedia_error4);
 				} else if (margs[1].toLowerCase() === 'list') {
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setTimestamp()
 						.setColor('BLUE');
 

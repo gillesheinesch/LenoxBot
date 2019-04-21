@@ -27,7 +27,7 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length === 0) return msg.reply(lang.listcustomcommands_nocustommcommands);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ff9900');
 
 		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length; i++) {
@@ -61,7 +61,7 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 				first += 15;
 				second += 15;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#ff9900');
 
 				newembed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(first, second).join('\n'), true);
@@ -75,7 +75,7 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 				first -= 15;
 				second -= 15;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#ff9900');
 
 				newembed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(first, second).join('\n'), true);

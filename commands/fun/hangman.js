@@ -76,7 +76,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 
 					embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 					const embeddescription = lang.hangman_embeddescription.replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-					const firstEmbed = new Discord.RichEmbed()
+					const firstEmbed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setTitle(lang.hangman_embedtitlestart)
 						.setFooter(embedtitlechances)
@@ -288,7 +288,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 		} else {
 			embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 			const embeddescription = lang.hangman_embeddescription.replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-			const firstEmbed = new Discord.RichEmbed()
+			const firstEmbed = new Discord.MessageEmbed()
 				.setColor('BLUE')
 				.setTitle(lang.hangman_embedtitlestart)
 				.setFooter(embedtitlechances)

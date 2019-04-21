@@ -37,7 +37,7 @@ module.exports = class sexgifCommand extends LenoxCommand {
 
 			const url = gifs[result - 1].url;
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setImage(url)
 				.setColor('#ff0000')
 				.setURL(url)

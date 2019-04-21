@@ -70,7 +70,7 @@ module.exports = class ticketCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'tickets').status === true) {
 			const ticketembed = lang.mainfile_ticketembed.replace('%ticketid', ticket.ticketid);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${key}/overview`)
 				.setTimestamp()
 				.setColor('#66ff33')

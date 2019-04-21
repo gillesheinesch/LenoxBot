@@ -31,7 +31,7 @@ module.exports = class banserverlistCommand extends LenoxCommand {
 		if (msg.client.provider.getBotsettings('botconfs', 'banlist').length === 0) return msg.reply(lang.banserverlist_error);
 
 		const embedfooter = lang.banserverlist_embedfooter.replace('%prefix', prefix);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setTitle(lang.banserverlist_embedtitle)
 			.setFooter(embedfooter);

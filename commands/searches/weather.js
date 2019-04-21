@@ -43,7 +43,7 @@ module.exports = class weatherCommand extends LenoxCommand {
 		const current = lang.weather_current.replace('%location', weatherInfo.location.city).replace('%temperature', `${weatherInfo.item.condition.temp}°F/${celsius(weatherInfo.item.condition.temp)}°C`);
 		const temperature = lang.weather_temperature.replace('%highesttemperature', `${forecast.high}°F/${celsius(forecast.high)}°C`).replace('%lowesttemperature', `${forecast.low}°F/${celsius(forecast.low)}°C`);
 		const queryby = lang.weather_queryby.replace('%authortag', msg.author.tag);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.addField(`🏖 ${lang.weather_weather}`, weatherInfo.item.condition.text)
 			.addField(`💦 ${lang.weather_humidity}`, `${weatherInfo.atmosphere.humidity}%`)
 			.addField(`:wind_blowing_face: ${lang.weather_wind}`, `*${weatherInfo.wind.speed}mph* ; ${lang.weather_direction}: *${weatherInfo.wind.direction}°*`)

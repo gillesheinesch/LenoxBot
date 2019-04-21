@@ -24,7 +24,7 @@ module.exports = class voteCommand extends LenoxCommand {
 
 
 		const embeddescription = lang.vote_embeddescription.replace('%link', `https://discordbots.org/bot/lenoxbot/vote`);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(lang.vote_embedauthor)
 			.setColor('BLUE')
 			.setDescription(embeddescription);

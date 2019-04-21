@@ -90,12 +90,12 @@ module.exports = class playlistCommand extends LenoxCommand {
 										if (videos.length === 0) return msg.channel.send(lang.play_noresult);
 
 										let index = 0;
-										const embed = new Discord.RichEmbed()
+										const embed = new Discord.MessageEmbed()
 											.setColor('#7BB3FF')
 											.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
 											.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 
-										const embed2 = new Discord.RichEmbed()
+										const embed2 = new Discord.MessageEmbed()
 											.setColor('#0066CC')
 											.setDescription(lang.play_value);
 										const firstmessage = await msg.channel.send({
@@ -151,7 +151,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 
 						if (!msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[input.join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
-						const listsongplaylist = new Discord.RichEmbed()
+						const listsongplaylist = new Discord.MessageEmbed()
 							.setAuthor(lang.playlist_embedtitle)
 							.setColor('#66ff33');
 
@@ -168,7 +168,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 						});
 					}
 					const listplaylistobject = [];
-					const listplaylistembed = new Discord.RichEmbed()
+					const listplaylistembed = new Discord.MessageEmbed()
 						.setAuthor(lang.playlist_playlistserverembed)
 						.setColor('#66ff33');
 
@@ -227,12 +227,12 @@ module.exports = class playlistCommand extends LenoxCommand {
 								if (videos.length === 0) return msg.channel.send(lang.play_noresult);
 
 								let index = 0;
-								const embed = new Discord.RichEmbed()
+								const embed = new Discord.MessageEmbed()
 									.setColor('#7BB3FF')
 									.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
 									.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 
-								const embed2 = new Discord.RichEmbed()
+								const embed2 = new Discord.MessageEmbed()
 									.setColor('#0066CC')
 									.setDescription(lang.play_value);
 

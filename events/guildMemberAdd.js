@@ -56,7 +56,7 @@ exports.run = async (client, member) => {
 	// Logs:
 	if (client.provider.getGuild(member.guild.id, 'welcomelog') === 'true') {
 		const messagechannel = client.channels.get(client.provider.getGuild(member.guild.id, 'welcomelogchannel'));
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setFooter(lang.guildmemberaddevent_userjoined)
 			.setTimestamp()
 			.setColor('GREEN')
@@ -82,7 +82,7 @@ exports.run = async (client, member) => {
 			.replace('$embed$', '');
 
 		if (embed) {
-			const welcomeEmbed = new Discord.RichEmbed()
+			const welcomeEmbed = new Discord.MessageEmbed()
 				.setTimestamp()
 				.setDescription(newMessage)
 				.setColor('GREEN');

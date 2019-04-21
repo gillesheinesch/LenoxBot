@@ -28,7 +28,7 @@ module.exports = class queueCommand extends LenoxCommand {
 
 		const nowplaying = lang.queue_nowplaying.replace('%songtitle', serverQueue.songs[0].title);
 		const songqueue = lang.queue_songqueue.replace('%songtitle', serverQueue.songs[0].title);
-		const queueEmbed = new Discord.RichEmbed()
+		const queueEmbed = new Discord.MessageEmbed()
 			.setColor('#009696')
 			.setDescription(`${serverQueue.songs.slice(0, 15).map(song => `**-** ${song.title}`).join('\n')}
 		\n**${nowplaying}**`)
@@ -58,7 +58,7 @@ module.exports = class queueCommand extends LenoxCommand {
 					first += 15;
 					second += 15;
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('#009696')
 						.setAuthor(songqueue, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 
@@ -74,7 +74,7 @@ module.exports = class queueCommand extends LenoxCommand {
 					first -= 15;
 					second -= 15;
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('#009696')
 						.setAuthor(songqueue, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 

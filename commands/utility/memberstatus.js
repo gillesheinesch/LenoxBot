@@ -31,7 +31,7 @@ module.exports = class memberstatusCommand extends LenoxCommand {
 		const dnd = lang.memberstatus_dnd.replace('%memberscount', dndcount);
 		const afk = lang.memberstatus_afk.replace('%memberscount', afkcount);
 		const offline = lang.memberstatus_offline.replace('%memberscount', offlinecount);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(`📲 ${online}\
 	\n🔴 ${dnd}\
 	\n🕗 ${afk}\

@@ -24,7 +24,7 @@ module.exports = class listeventsCommand extends LenoxCommand {
 
 		const eventslist = ['Modlog', 'Messagedelete', 'Messageupdate', 'Channelupdate', 'Channelcreate', 'Channeldelete', 'Memberupdate', 'Presenceupdate', 'Rolecreate', 'Roledelete', 'Roleupdate', 'Userjoin', 'Userleft', 'Guildupdate', 'Chatfilter'];
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('0066CC')
 			.setAuthor(lang.listevents_embed);
 

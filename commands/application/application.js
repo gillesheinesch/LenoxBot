@@ -83,7 +83,7 @@ module.exports = class applicationCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.message.guild.id, 'application').notificationstatus === true) {
 			const applicationembedanswer = lang.mainfile_applicationembed.replace('%ticketid', msg.client.provider.getGuild(msg.message.guild.id, 'application').applicationid);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setURL(`https://lenoxbot.com/dashboard/${confs.guildid}/applications/${msg.client.provider.getGuild(msg.message.guild.id, 'application').applicationid}/overview`)
 				.setTimestamp()
 				.setColor('#ccffff')

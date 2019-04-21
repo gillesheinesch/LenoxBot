@@ -37,7 +37,7 @@ module.exports = class announceCommand extends LenoxCommand {
 		const announcement = lang.announce_announcement.replace('%authortag', msg.author.tag);
 		if (embedCheck) {
 			const newText = text.replace('-embed', '');
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#33cc33')
 				.setDescription(newText)
 				.setAuthor(announcement);

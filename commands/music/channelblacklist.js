@@ -37,7 +37,7 @@ module.exports = class channelblacklistCommand extends LenoxCommand {
 			}
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ff9933')
 			.setDescription(array.join('\n'))
 			.setAuthor(lang.channelblacklist_embed);

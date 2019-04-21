@@ -30,7 +30,7 @@ module.exports = class slotCommand extends LenoxCommand {
 		const slotTwo = slotThing[Math.floor(Math.random() * slotThing.length)];
 		const slotThree = slotThing[Math.floor(Math.random() * slotThing.length)];
 		if (slotOne === slotTwo && slotOne === slotThree) {
-			const embed1 = new Discord.RichEmbed()
+			const embed1 = new Discord.MessageEmbed()
 				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 				.setColor('GREEN')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_triple);
@@ -41,7 +41,7 @@ module.exports = class slotCommand extends LenoxCommand {
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 		} else
 		if (slotOne === slotTwo || slotTwo === slotThree) {
-			const embed3 = new Discord.RichEmbed()
+			const embed3 = new Discord.MessageEmbed()
 				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 				.setColor('GREEN')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_double);
@@ -51,7 +51,7 @@ module.exports = class slotCommand extends LenoxCommand {
 			currentCredits += 25;
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 		} else {
-			const embed2 = new Discord.RichEmbed()
+			const embed2 = new Discord.MessageEmbed()
 				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
 				.setColor('RED')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_nothing);

@@ -23,7 +23,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().length > 0) {
-			const textchannelsembed = new Discord.RichEmbed()
+			const textchannelsembed = new Discord.MessageEmbed()
 				.setDescription(`**📋 ${lang.channels_textchannels}**\n${msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().slice(0, 15)
 					.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`)
 					.join('\n')}`)
@@ -55,7 +55,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 						firsttext += 15;
 						secondtext += 15;
 
-						const newembed = new Discord.RichEmbed()
+						const newembed = new Discord.MessageEmbed()
 							.setColor(3447003)
 							.setDescription(`**📋 ${lang.channels_textchannels}**\n${guildchannels.join('\n')}`);
 
@@ -70,7 +70,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 						firsttext -= 15;
 						secondtext -= 15;
 
-						const newembed = new Discord.RichEmbed()
+						const newembed = new Discord.MessageEmbed()
 							.setColor(3447003)
 							.setDescription(`**📋 ${lang.channels_textchannels}**\n${guildchannels.join('\n')}`);
 
@@ -89,7 +89,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 		}
 
 		if (msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().length > 0) {
-			const voicechannelsembed = new Discord.RichEmbed()
+			const voicechannelsembed = new Discord.MessageEmbed()
 				.setDescription(`**📡 ${lang.channels_voicechannels}**\n${msg.guild.channels.filter(voiceChannel => voiceChannel.type === `voice`).array().slice(0, 15)
 					.map(voicechannel => `**${voicechannel.name}** (*${voicechannel.id}*)`)
 					.join('\n')}`)
@@ -121,7 +121,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 						firstvoice += 15;
 						secondvoice += 15;
 
-						const newembed = new Discord.RichEmbed()
+						const newembed = new Discord.MessageEmbed()
 							.setColor(3447003)
 							.setDescription(`**📋 ${lang.channels_voicechannels}**\n${guildchannels.join('\n')}`);
 
@@ -136,7 +136,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 						firstvoice -= 15;
 						secondvoice -= 15;
 
-						const newembed = new Discord.RichEmbed()
+						const newembed = new Discord.MessageEmbed()
 							.setColor(3447003)
 							.setDescription(`**📋 ${lang.channels_voicechannels}**\n${guildchannels.join('\n')}`);
 

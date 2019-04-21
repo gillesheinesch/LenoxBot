@@ -60,7 +60,7 @@ module.exports = class joinroleCommand extends LenoxCommand {
 				} else if (margs[1].toLowerCase() === 'list') {
 					if (msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').length === 0) return msg.reply(lang.joinrole_nojoinroles);
 
-					const joinroleEmbed = new Discord.RichEmbed()
+					const joinroleEmbed = new Discord.MessageEmbed()
 						.setTimestamp()
 						.setTitle(lang.joinrole_embedtitle)
 						.setColor('BLUE');

@@ -22,7 +22,7 @@ module.exports = class applicationsettingsCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(`${lang.applicationsettings_applicationstatus} \`${msg.client.provider.getGuild(msg.message.guild.id, 'application').status === 'false' ? lang.applicationsettings_deactivated : lang.applicationsettings_activated}\` \n\
 ${lang.applicationsettings_reactionnnumber} \`${msg.client.provider.getGuild(msg.message.guild.id, 'application').reactionnumber === '' ? lang.serverinfo_emojisnone : msg.client.provider.getGuild(msg.message.guild.id, 'application').reactionnumber}\`\n\
 ${lang.applicationsettings_approverole} \`${msg.client.provider.getGuild(msg.message.guild.id, 'application').role === '' ? lang.applicationsettings_norole : msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'application').role).name}\` \n\

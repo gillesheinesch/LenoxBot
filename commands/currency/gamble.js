@@ -45,7 +45,7 @@ module.exports = class gambleCommand extends LenoxCommand {
 			const newmsgauthortable = msg.client.provider.getUser(msg.author.id, 'credits');
 			const won = lang.gamble_won.replace('%amount', `**${finalresult}**`).replace('%currentcredits', `\`$${newmsgauthortable}\``);
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#44c94d')
 				.setDescription(`🎉 ${won}`);
 			return msg.channel.send({ embed });
@@ -57,7 +57,7 @@ module.exports = class gambleCommand extends LenoxCommand {
 
 		const newmsgauthortable = msg.client.provider.getUser(msg.author.id, 'credits');
 		const lost = lang.gamble_lost.replace('%amount', `**${result}**`).replace('%currentcredits', `\`$${newmsgauthortable}\``);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#f44242')
 			.setDescription(`😥 ${lost}`);
 		return msg.channel.send({ embed });

@@ -45,7 +45,7 @@ module.exports = class mineCommand extends LenoxCommand {
 			msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);
 
 			const dugup = lang.mine_dugup.replace('%amount', `**${validationfor10procent[result]}**`);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
 			return msg.channel.send({ embed });
@@ -63,7 +63,7 @@ module.exports = class mineCommand extends LenoxCommand {
 
 			const dugup = lang.mine_dugup.replace('%amount', `**${validationfor30procent[result]}**`);
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
 			return msg.channel.send({ embed });
@@ -80,7 +80,7 @@ module.exports = class mineCommand extends LenoxCommand {
 			msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);
 
 			const dugup = lang.mine_dugup.replace('%amount', `**${validationfor50procent[result]}**`);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
 			return msg.channel.send({ embed });
@@ -98,7 +98,7 @@ module.exports = class mineCommand extends LenoxCommand {
 
 
 		const dugup = lang.mine_dugup.replace('%amount', `**${validationforrest[result]}**`);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#66ff33')
 			.setDescription(dugup);
 		return msg.channel.send({ embed });

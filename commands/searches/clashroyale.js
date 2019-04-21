@@ -45,7 +45,7 @@ module.exports = class clashroyaleCommand extends LenoxCommand {
 							.replace('%loses', profileResult.games.losses)
 							.replace('%draw', profileResult.games.draws);
 						const clanstats = lang.clashroyale_clanstats.replace('%clanname', profileResult.clan.name).replace('%clanrole', profileResult.clan.role);
-						const embed = new Discord.RichEmbed()
+						const embed = new Discord.MessageEmbed()
 							.setAuthor(`${profileResult.name} (#${profileResult.tag})`)
 							.setFooter(lang.clashroyale_profilerequest)
 							.setThumbnail('https://cdn.discordapp.com/attachments/353085017687064576/375975148341166080/oBvObTIz.png')
@@ -70,7 +70,7 @@ module.exports = class clashroyaleCommand extends LenoxCommand {
 							.replace('%score', clanResult.score)
 							.replace('%donations', clanResult.donations);
 						const clanchestinfo = lang.clashroyale_clanchestinfo.replace('%crowns', clanResult.clanChest.clanChestCrowns).replace('%neededcrowns', clanResult.clanChest.clanChestCrownsRequired).replace('%crownspercent', clanResult.clanChest.clanChestCrownsPercent);
-						const embed = new Discord.RichEmbed()
+						const embed = new Discord.MessageEmbed()
 							.setAuthor(`${clanResult.name} (#${clanResult.tag})`)
 							.setFooter(lang.clashroyale_clanrequest)
 							.setThumbnail('https://cdn.discordapp.com/attachments/353085017687064576/375975148400017408/Clan-Battle.png')

@@ -22,7 +22,7 @@
     "create-file": "^1.0.1",
     "dblapi.js": "^2.3.0",
     "destiny2": "^1.1.1",
-    "discord.js": "^11.4.2",
+    "discord.js": "github:discordjs/discord.js",
     "discord.js-commando": "^0.10.0",
     "enmap": "^4.3.3",
     "express": "^4.16.3",

@@ -47,7 +47,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 			delete timestamps.useserverkey[msg.author.id];
 			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${msg.client.provider.getGuild(msg.message.guild.id, 'premium').end.toUTCString()}`)
 				.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
 				.setTimestamp()
@@ -70,7 +70,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 		delete timestamps.useserverkey[msg.author.id];
 		await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 2592000000).toUTCString()}`)
 			.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
 			.setTimestamp()

@@ -38,7 +38,7 @@ module.exports = class fortniteCommand extends LenoxCommand {
 			return msg.reply(lang.fortnite_playernotfound);
 		}
 
-		const statsEmbed = new Discord.RichEmbed()
+		const statsEmbed = new Discord.MessageEmbed()
 			.setColor('BLUE')
 			.setAuthor(`${stats.username} || ${stats.platformNameLong}`);
 

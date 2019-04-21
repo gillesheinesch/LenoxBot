@@ -33,7 +33,7 @@ module.exports = class inroleCommand extends LenoxCommand {
 				array.push(element.user.tag);
 			});
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setDescription(array.join(', '))
 				.setColor('#ABCDEF')
 				.setAuthor(`${role.name} (${lang.inrole_members} ${array.length})`);

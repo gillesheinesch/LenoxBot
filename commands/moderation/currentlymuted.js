@@ -56,7 +56,7 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 			const notownrole = lang.unmute_notownrole.replace('%username', user.tag);
 			if (!checkIfMuted) return msg.reply(notownrole);
 
-			const userembed = new Discord.RichEmbed()
+			const userembed = new Discord.MessageEmbed()
 				.setAuthor(lang.currentlymuted_embedauthor)
 				.setColor('#ff9900')
 				.setTimestamp();
@@ -70,7 +70,7 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 			});
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(lang.currentlymuted_embedauthor)
 			.setColor('#ff9900')
 			.setTimestamp();
@@ -113,7 +113,7 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 					first += 4;
 					second += 4;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setAuthor(lang.currentlymuted_embedauthor)
 						.setColor('#ff9900')
 						.setTimestamp();
@@ -141,7 +141,7 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 					first -= 4;
 					second -= 4;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setAuthor(lang.currentlymuted_embedauthor)
 						.setColor('#ff9900')
 						.setTimestamp();
