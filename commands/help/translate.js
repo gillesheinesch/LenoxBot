@@ -13,7 +13,7 @@ module.exports = class translateCommand extends LenoxCommand {
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Help',
-			dashboardsettings: false
+			dashboardsettings: true
 		});
 	}
 
