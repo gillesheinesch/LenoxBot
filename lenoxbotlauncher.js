@@ -142,17 +142,22 @@ async function run() {
 	}
 
 	// findGuild function for broadcasteval
-	function findGuild(id) {
-		const temp = this.guilds.get(id);
-		if (!temp) return null;
+	function permissionsCheck(guildconfs, guild, req, res, index) {
+		if (guildconfs.settings.dashboardpermissionroles.length !== 0 && guild.ownerID !== req.user.id) {
+			let allwhitelistedrolesoftheuser = 0;
 
-		const guild = Object.assign({}, temp);
-
-		if (guild.guild) guild.guild = guild.guild.id;
-
-		guild.require_colons = guild.requiresColons;
-
-		return guild;
+			for (let index2 = 0; index2 < guildconfs.settings.dashboardpermissionroles.length; index2++) {
+				if (!guild.members.find(r => r.userID === req.user.id)) return res.redirect('/servers');
+				if (!guild.members.find(r => r.userID === req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
+					allwhitelistedrolesoftheuser += 1;
+				}
+			}
+			if (allwhitelistedrolesoftheuser === guildconfs.settings.dashboardpermissionroles.length) {
+				return res.redirect('/servers');
+			}
+		} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
+			return res.redirect('/servers');
+		}
 	}
 
 	app.get('/', async (req, res) => {
@@ -772,64 +777,62 @@ async function run() {
 
 				for (let i = 0; i < req.user.guilds.length; i++) {
 					const dashboardid = req.user.guilds[i].id;
-					await guildSettingsCollection.findOne({ guildId: dashboardid }).then(async fetchedGuild => {
-						if (!fetchedGuild) return;
+					const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
 
-						await shardingManager.broadcastEval(`this.guilds.get('${req.user.guilds[i].id}')`).then(async guildResult => {
-							let guildCheck;
-							let guildCheckIndex;
-							if (guildResult) {
-								for (let index = 0; index < guildResult.length; index++) {
-									if (typeof guildResult[index] !== 'undefined') {
-										guildCheck = true;
-										guildCheckIndex = index;
-									}
+					let guild;
+					await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+						.then(guildArray => {
+							guild = guildArray.find(g => g);
+						});
+
+					let evaledMembers;
+					if (guild) {
+						evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+						guild.members = evaledMembers;
+					}
+
+
+					if (guildconfs && guild) {
+						if (!guildconfs.settings.dashboardpermissionroles) {
+							guildconfs.settings.dashboardpermissionroles = [];
+							await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+						}
+
+						if (guildconfs.settings.dashboardpermissionroles.length !== 0 && guild.ownerID !== req.user.id) {
+							let allwhitelistedrolesoftheuser = 0;
+
+							for (let index2 = 0; index2 < guildconfs.settings.dashboardpermissionroles.length; index2++) {
+								if (!guild.members.get(req.user.id)) return res.redirect('/servers');
+								if (!guild.members.get(req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
+									allwhitelistedrolesoftheuser += 1;
 								}
 							}
-
-							if (fetchedGuild && guildCheck) {
-								if (!fetchedGuild.settings.dashboardpermissionroles) {
-									fetchedGuild.settings.dashboardpermissionroles = [];
-									await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: fetchedGuild.settings } });
-								}
-
-								if (fetchedGuild.settings.dashboardpermissionroles.length !== 0 && guildResult[guildCheckIndex].ownerID !== req.user.id) {
-									let allwhitelistedrolesoftheuser = 0;
-
-									for (let index2 = 0; index2 < fetchedGuild.settings.dashboardpermissionroles.length; index2++) {
-										if (!guildResult[guildCheckIndex].members.get(req.user.id)) return res.redirect('/servers');
-										if (!guildResult[guildCheckIndex].members.get(req.user.id).roles.has(fetchedGuild.settings.dashboardpermissionroles[index2])) {
-											allwhitelistedrolesoftheuser += 1;
-										}
-									}
-									if (allwhitelistedrolesoftheuser !== fetchedGuild.settings.dashboardpermissionroles.length) {
-										req.user.guilds[i].lenoxbot = guildCheck ? true : false;
-
-										if (req.user.guilds[i].lenoxbot === true) {
-											req.user.guilds[i].memberscount = guildResult[guildCheckIndex].memberCount;
-										}
-										check.push(req.user.guilds[i]);
-									}
-								} else if (((req.user.guilds[i].permissions) & 8) === 8) {
-									req.user.guilds[i].lenoxbot = guildCheck ? true : false;
-
-									if (req.user.guilds[i].lenoxbot === true) {
-										req.user.guilds[i].memberscount = guildResult[guildCheckIndex].memberCount;
-									}
-
-									check.push(req.user.guilds[i]);
-								}
-							} else if (((req.user.guilds[i].permissions) & 8) === 8) {
-								req.user.guilds[i].lenoxbot = guildCheck ? true : false;
+							if (allwhitelistedrolesoftheuser !== guildconfs.settings.dashboardpermissionroles.length) {
+								req.user.guilds[i].lenoxbot = guild ? true : false;
 
 								if (req.user.guilds[i].lenoxbot === true) {
-									req.user.guilds[i].memberscount = guildResult[guildCheckIndex].memberCount;
+									req.user.guilds[i].memberscount = guild.memberCount;
 								}
-
 								check.push(req.user.guilds[i]);
 							}
-						});
-					});
+						} else if (((req.user.guilds[i].permissions) & 8) === 8) {
+							req.user.guilds[i].lenoxbot = guild ? true : false;
+
+							if (req.user.guilds[i].lenoxbot === true) {
+								req.user.guilds[i].memberscount = guild.memberCount;
+							}
+
+							check.push(req.user.guilds[i]);
+						}
+					} else if (((req.user.guilds[i].permissions) & 8) === 8) {
+						req.user.guilds[i].lenoxbot = guild ? true : false;
+
+						if (req.user.guilds[i].lenoxbot === true) {
+							req.user.guilds[i].memberscount = guild.memberCount;
+						}
+
+						check.push(req.user.guilds[i]);
+					}
 				}
 				const islenoxbot = islenoxboton(req);
 				return res.render('servers', {
@@ -5402,21 +5405,7 @@ async function run() {
 				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
-				if (guildconfs.settings.dashboardpermissionroles.length !== 0 && guild.ownerID !== req.user.id) {
-					let allwhitelistedrolesoftheuser = 0;
-
-					for (let index2 = 0; index2 < guildconfs.settings.dashboardpermissionroles.length; index2++) {
-						if (!guild.members.find(r => r.userID === req.user.id)) return res.redirect('/servers');
-						if (!guild.members.find(r => r.userID === req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
-							allwhitelistedrolesoftheuser += 1;
-						}
-					}
-					if (allwhitelistedrolesoftheuser === guildconfs.settings.dashboardpermissionroles.length) {
-						return res.redirect('/servers');
-					}
-				} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-					return res.redirect('/servers');
-				}
+				permissionsCheck(guildconfs, guild, req, res, index);
 
 				if (!guild) return res.redirect('/servers');
 
@@ -5475,21 +5464,7 @@ async function run() {
 				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
-				if (guildconfs.settings.dashboardpermissionroles.length !== 0 && guild.ownerID !== req.user.id) {
-					let allwhitelistedrolesoftheuser = 0;
-
-					for (let index2 = 0; index2 < guildconfs.settings.dashboardpermissionroles.length; index2++) {
-						if (!guild.members.find(r => r.userID === req.user.id)) return res.redirect('/servers');
-						if (!guild.members.find(r => r.userID === req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
-							allwhitelistedrolesoftheuser += 1;
-						}
-					}
-					if (allwhitelistedrolesoftheuser === guildconfs.settings.dashboardpermissionroles.length) {
-						return res.redirect('/servers');
-					}
-				} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-					return res.redirect('/servers');
-				}
+				permissionsCheck(guildconfs, guild, req, res, index);
 
 				if (!guild) return res.redirect('/servers');
 
