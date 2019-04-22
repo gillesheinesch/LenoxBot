@@ -95,21 +95,21 @@
                             </div>
                         </div>
                         <div class="btn-group float-right" role="group">
-                            <button type="button" class="btn lb-btn-blue" data-toggle="modal" data-target="#{{help.name}}modal">
+                            <button type="button" class="btn lb-btn-blue" data-toggle="modal" data-target="#{{name}}modal">
                                 Edit
                             </button>
-                            {{#if conf.enabled}}
-                            <form id="{{help.name}}form">
-                                <input type="hidden" value="false" name="statuschange" id="{{help.name}}status">
+                            {{#if enabled}}
+                            <form id="{{name}}form">
+                                <input type="hidden" value="false" name="statuschange" id="{{name}}status">
                             </form>
-                            <button type="submit" class="btn lb-btn-red" id="{{help.name}}b">
+                            <button type="submit" class="btn lb-btn-red" id="{{name}}b">
                                 Disable
                             </button>
                             {{else}}
-                            <form id="{{help.name}}form">
-                                <input type="hidden" value="true" name="statuschange" id="{{help.name}}status">
+                            <form id="{{name}}form">
+                                <input type="hidden" value="true" name="statuschange" id="{{name}}status">
                             </form>
-                            <button type="submit" class="btn lb-btn-green" id="{{help.name}}b">
+                            <button type="submit" class="btn lb-btn-green" id="{{name}}b">
                                 Enable
                             </button>
                             {{/if}}
