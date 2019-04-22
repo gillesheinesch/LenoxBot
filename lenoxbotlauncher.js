@@ -2990,102 +2990,88 @@ async function run() {
 					}
 				}));
 			}
-		});
+		}); */
 
-		app.get('/dashboard/:id/help', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
+	app.get('/dashboard/:id/help', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
 					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-					req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
-					req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
-					req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
-					req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
-
-					req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
-
-					req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
-
-					req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
-
-					req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
-
-					const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
-					const check = req.user.guilds[index];
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					const commands = client.commands.filter(r => r.help.category === 'help' && r.conf.dashboardsettings === true).array();
-					for (let i = 0; i < commands.length; i++) {
-						const englishstrings = require('./languages/en-US.json');
-						commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
-						if (tableload.commands[commands[i].help.name].status === 'true') {
-							commands[i].conf.enabled = true;
-						} else {
-							commands[i].conf.enabled = false;
-						}
-
-						commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels;
-						commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles;
-						commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles;
-						commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000;
-					}
-
-					const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
-
-					const islenoxbot = islenoxboton(req);
-
-					return res.render('dashboardhelp', {
-						user: req.user,
-						guilds: check,
-
-						islenoxbot: islenoxbot,
-						channels: channels,
-						roles: roles,
-						commands: commands,
-						submithelp: req.query.submithelp ? true : false
-					});
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
 
-		app.post('/dashboard/:id/music/submitchannelblacklist', (req, res) => {
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+				guild.members = evaledMembers;
+
+				const evaledChannels = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").channels.array()`);
+				guild.channels = evaledChannels;
+
+				const evaledRoles = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").roles.array()`);
+				guild.roles = evaledRoles;
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const channels = guild.channels.filter(textChannel => textChannel.type === `text`);
+				const check = req.user.guilds[index];
+
+				const commands = botconfs.settings.commands.filter(r => r.category === 'help' && r.dashboardsettings === true);
+				for (let i = 0; i < commands.length; i++) {
+					const englishstrings = require('./languages/en-US.json');
+					commands[i].description = englishstrings[`${commands[i].name}_description`];
+					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
+						commands[i].enabled = true;
+					} else {
+						commands[i].enabled = false;
+					}
+
+					commands[i].bannedchannels = guildconfs.settings.commands[commands[i].name].bannedchannels;
+					commands[i].bannedroles = guildconfs.settings.commands[commands[i].name].bannedroles;
+					commands[i].whitelistedroles = guildconfs.settings.commands[commands[i].name].whitelistedroles;
+					commands[i].cooldown = guildconfs.settings.commands[commands[i].name].cooldown / 1000;
+				}
+
+				const roles = guild.roles.filter(r => r.name !== '@everyone');
+
+				const islenoxbot = islenoxboton(req);
+
+				return res.render('dashboardhelp', {
+					user: req.user,
+					guilds: check,
+					islenoxbot: islenoxbot,
+					channels: channels,
+					roles: roles,
+					commands: commands,
+					submithelp: req.query.submithelp ? true : false
+				});
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	/* app.post('/dashboard/:id/music/submitchannelblacklist', (req, res) => {
 			try {
 				const dashboardid = res.req.originalUrl.substr(11, 18);
 				if (req.user) {
@@ -5401,13 +5387,12 @@ async function run() {
 					.then(guildArray => {
 						guild = guildArray.find(g => g);
 					});
+				if (!guild) return res.redirect('/servers');
 
 				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
 				permissionsCheck(guildconfs, guild, req, res, index);
-
-				if (!guild) return res.redirect('/servers');
 
 				const name = Object.keys(req.body)[0];
 				guildconfs.settings.modules[name.toLowerCase()] = req.body[name];
@@ -5460,13 +5445,12 @@ async function run() {
 					.then(guildArray => {
 						guild = guildArray.find(g => g);
 					});
+				if (!guild) return res.redirect('/servers');
 
 				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
 				permissionsCheck(guildconfs, guild, req, res, index);
-
-				if (!guild) return res.redirect('/servers');
 
 				const evaledChannels = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").channels.array()`);
 				guild.channels = evaledChannels;
@@ -5522,75 +5506,71 @@ async function run() {
 		}
 	});
 
-	/* app.get('/dashboard/:id/lastlogs', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
+	app.get('/dashboard/:id/lastlogs', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
 					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const check = req.user.guilds[index];
-					let logs;
-
-					if (client.guildconfs.get(dashboardid).globallogs) {
-						const thelogs = client.guildconfs.get(dashboardid).globallogs;
-						logs = thelogs.sort((a, b) => {
-							if (a.date < b.date) {
-								return 1;
-							}
-							if (a.date > b.date) {
-								return -1;
-							}
-							return 0;
-						});
-					} else {
-						logs = null;
-					}
-
-					const islenoxbot = islenoxboton(req);
-
-					return res.render('dashboardlastlogs', {
-						user: req.user,
-						guilds: check,
-						islenoxbot: islenoxbot,
-						logs: logs
-					});
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+				guild.members = evaledMembers;
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const check = req.user.guilds[index];
+				let logs;
+
+				if (guildconfs.settings.globallogs) {
+					const thelogs = guildconfs.settings.globallogs;
+					logs = thelogs.sort((a, b) => {
+						if (a.date < b.date) {
+							return 1;
+						}
+						if (a.date > b.date) {
+							return -1;
+						}
+						return 0;
+					});
+				} else {
+					logs = null;
+				}
+
+				const islenoxbot = islenoxboton(req);
+
+				return res.render('dashboardlastlogs', {
+					user: req.user,
+					guilds: check,
+					islenoxbot: islenoxbot,
+					logs: logs
+				});
 			}
-		}); */
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
 	app.get('/error', (req, res) => {
 		const check = [];
