@@ -245,6 +245,7 @@ exports.run = client => {
 					commandObject.newaliases = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].aliases;
 					commandObject.newuserpermissions = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].userpermissions;
 					commandObject.usage = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].format;
+					commandObject.dashboardsettings = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].dashboardsettings;
 					commandsArray.push(commandObject);
 				}
 			}
@@ -261,6 +262,7 @@ exports.run = client => {
 						commandObject.newaliases = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].aliases;
 						commandObject.newuserpermissions = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].userpermissions;
 						commandObject.usage = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].format;
+						commandObject.dashboardsettings = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].dashboardsettings;
 						commandsArray2.push(commandObject);
 					}
 				}
