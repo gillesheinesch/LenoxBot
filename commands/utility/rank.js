@@ -19,7 +19,7 @@ module.exports = class rankCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const user1 = msg.mentions.users.first() || msg.author;
@@ -31,7 +31,7 @@ module.exports = class rankCommand extends LenoxCommand {
 		let allMembersArray = [];
 		let rank = 0;
 
-		const scoresOfAllMembers = await msg.client.provider.getGuild(msg.message.guild.id, 'scores');
+		const scoresOfAllMembers = await msg.client.provider.getGuild(msg.guild.id, 'scores');
 		/* eslint guard-for-in: 0 */
 		for (const key in scoresOfAllMembers) {
 			const settings = {
@@ -58,7 +58,7 @@ module.exports = class rankCommand extends LenoxCommand {
 				rank = i + 1;
 			}
 		}
-		const row = await msg.client.provider.getGuild(msg.message.guild.id, 'scores')[user1.id];
+		const row = await msg.client.provider.getGuild(msg.guild.id, 'scores')[user1.id];
 		if (!row || row.points === 0) return msg.reply('This user has no scoreboard yet!');
 
 		embed.addField(lang.rank_points, row.points, true);

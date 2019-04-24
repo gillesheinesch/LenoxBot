@@ -18,7 +18,7 @@ module.exports = class joinCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const args = msg.content.split(' ').slice(1);
@@ -32,7 +32,7 @@ module.exports = class joinCommand extends LenoxCommand {
 		if (!foundRole) return msg.reply(lang.join_rolenotexist);
 		if (msg.member.roles.has(foundRole.id)) return msg.reply(lang.join_alreadyhave);
 
-		const selfAssignableRoles = msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles', '[]');
+		const selfAssignableRoles = msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles', '[]');
 		for (let i = 0; i < selfAssignableRoles.length; i++) {
 			if (foundRole.id === selfAssignableRoles[i]) {
 				try {

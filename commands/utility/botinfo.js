@@ -21,9 +21,9 @@ module.exports = class botinfoCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const momentlangSet = msg.client.provider.getGuild(msg.message.guild.id, 'momentLanguage');
+		const momentlangSet = msg.client.provider.getGuild(msg.guild.id, 'momentLanguage');
 		moment.locale(momentlangSet);
 
 		const uptimeserver = moment.duration(msg.client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);

@@ -18,18 +18,18 @@ module.exports = class toggleannounceCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const channelid = msg.channel.id;
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'announce') === 'false') {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'announce', 'true');
-			await msg.client.provider.setGuild(msg.message.guild.id, 'announcechannel', channelid);
+		if (msg.client.provider.getGuild(msg.guild.id, 'announce') === 'false') {
+			await msg.client.provider.setGuild(msg.guild.id, 'announce', 'true');
+			await msg.client.provider.setGuild(msg.guild.id, 'announcechannel', channelid);
 
 			const channelset = lang.toggleannounce_channelset.replace('%channelname', `**#${msg.channel.name}**`);
 			return msg.channel.send(channelset);
 		}
-		await msg.client.provider.setGuild(msg.message.guild.id, 'announce', 'false');
+		await msg.client.provider.setGuild(msg.guild.id, 'announce', 'false');
 
 		return msg.channel.send(lang.toggleannounce_channeldeleted);
 	}

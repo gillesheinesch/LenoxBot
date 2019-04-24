@@ -19,25 +19,25 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const array = [];
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', {
+		if (!msg.client.provider.getGuild(msg.guild.id, 'chatfilter')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'chatfilter', {
 				chatfilter: 'false',
 				array: []
 			});
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length === 0) return msg.channel.send(lang.listchatfilter_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length === 0) return msg.channel.send(lang.listchatfilter_error);
 
 		const embed = new Discord.MessageEmbed()
 			.setColor('#ABCDEF');
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length; i++) {
-			array.push(msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array[i]);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
+			array.push(msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i]);
 		}
 
 		embed.addField(lang.listchatfilter_embed, array.slice(0, 15).join('\n'), true);

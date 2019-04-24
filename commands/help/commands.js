@@ -20,9 +20,9 @@ module.exports = class commandsCommand extends LenoxCommand {
 
 	async run(msg) {
 		const Discord = require('discord.js');
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 		const margs = msg.content.split(' ');

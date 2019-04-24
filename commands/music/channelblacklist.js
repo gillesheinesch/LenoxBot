@@ -19,21 +19,21 @@ module.exports = class channelblacklistCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist').length === 0) return msg.reply(lang.channelblacklist_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length === 0) return msg.reply(lang.channelblacklist_error);
 
 		const array = [];
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist').length; i++) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
 			try {
-				const channelname = msg.guild.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist')[i]).name;
-				array.push(`${channelname} (${msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist')[i]})`);
+				const channelname = msg.guild.channels.get(msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]).name;
+				array.push(`${channelname} (${msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]})`);
 			} catch (error) {
-				const currentMusicchannelblacklist = msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist');
+				const currentMusicchannelblacklist = msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist');
 				currentMusicchannelblacklist.splice(i, 1);
-				await msg.client.provider.setGuild(msg.message.guild.id, 'musicchannelblacklist', currentMusicchannelblacklist);
+				await msg.client.provider.setGuild(msg.guild.id, 'musicchannelblacklist', currentMusicchannelblacklist);
 			}
 		}
 

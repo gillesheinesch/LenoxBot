@@ -20,10 +20,10 @@ module.exports = class joinroleCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const validation = ['add', 'list', 'remove'];
 		const margs = msg.content.split(' ');
@@ -35,12 +35,12 @@ module.exports = class joinroleCommand extends LenoxCommand {
 					const mentionedRole = args.slice(1).join(' ');
 					const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === mentionedRole.toLowerCase());
 					if (!foundRole) return msg.reply(lang.joinrole_rolenotexist);
-					if (msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').includes(foundRole.id)) return msg.reply(lang.joinrole_alreadyadded);
-					if (msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').length >= 5) return msg.reply(lang.joinrole_maximum);
+					if (msg.client.provider.getGuild(msg.guild.id, 'joinroles').includes(foundRole.id)) return msg.reply(lang.joinrole_alreadyadded);
+					if (msg.client.provider.getGuild(msg.guild.id, 'joinroles').length >= 5) return msg.reply(lang.joinrole_maximum);
 
-					const currentJoinroles = msg.client.provider.getGuild(msg.message.guild.id, 'joinroles');
+					const currentJoinroles = msg.client.provider.getGuild(msg.guild.id, 'joinroles');
 					currentJoinroles.push(foundRole.id);
-					await msg.client.provider.setGuild(msg.message.guild.id, 'joinroles', currentJoinroles);
+					await msg.client.provider.setGuild(msg.guild.id, 'joinroles', currentJoinroles);
 
 					return msg.reply(lang.joinrole_roleadded);
 				} else if (margs[1].toLowerCase() === 'remove') {
@@ -49,16 +49,16 @@ module.exports = class joinroleCommand extends LenoxCommand {
 					const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === mentionedRole.toLowerCase());
 					if (!foundRole) return msg.reply(lang.joinrole_rolenotexist);
 
-					if (!msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').includes(foundRole.id)) return msg.reply(lang.joinrole_notadded);
+					if (!msg.client.provider.getGuild(msg.guild.id, 'joinroles').includes(foundRole.id)) return msg.reply(lang.joinrole_notadded);
 
-					const indexOfTheRole = msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').indexOf(foundRole.id);
-					const currentJoinroles = msg.client.provider.getGuild(msg.message.guild.id, 'joinroles');
+					const indexOfTheRole = msg.client.provider.getGuild(msg.guild.id, 'joinroles').indexOf(foundRole.id);
+					const currentJoinroles = msg.client.provider.getGuild(msg.guild.id, 'joinroles');
 					currentJoinroles.splice(indexOfTheRole, 1);
-					await msg.client.provider.setGuild(msg.message.guild.id, 'joinroles', currentJoinroles);
+					await msg.client.provider.setGuild(msg.guild.id, 'joinroles', currentJoinroles);
 
 					return msg.reply(lang.joinrole_roleremoved);
 				} else if (margs[1].toLowerCase() === 'list') {
-					if (msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').length === 0) return msg.reply(lang.joinrole_nojoinroles);
+					if (msg.client.provider.getGuild(msg.guild.id, 'joinroles').length === 0) return msg.reply(lang.joinrole_nojoinroles);
 
 					const joinroleEmbed = new Discord.MessageEmbed()
 						.setTimestamp()
@@ -66,16 +66,16 @@ module.exports = class joinroleCommand extends LenoxCommand {
 						.setColor('BLUE');
 
 					const arrayForEmbedDescription = [];
-					for (let index = 0; index < msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').length; index++) {
-						if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'joinroles')[index])) {
-							const indexOfTheRole = msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').indexOf(msg.client.provider.getGuild(msg.message.guild.id, 'joinroles')[index]);
-							const currentJoinroles = msg.client.provider.getGuild(msg.message.guild.id, 'joinroles');
+					for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'joinroles').length; index++) {
+						if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'joinroles')[index])) {
+							const indexOfTheRole = msg.client.provider.getGuild(msg.guild.id, 'joinroles').indexOf(msg.client.provider.getGuild(msg.guild.id, 'joinroles')[index]);
+							const currentJoinroles = msg.client.provider.getGuild(msg.guild.id, 'joinroles');
 							currentJoinroles.splice(indexOfTheRole, 1);
-							await msg.client.provider.setGuild(msg.message.guild.id, 'joinroles', currentJoinroles);
+							await msg.client.provider.setGuild(msg.guild.id, 'joinroles', currentJoinroles);
 						}
 
-						if (msg.client.provider.getGuild(msg.message.guild.id, 'joinroles').length !== 0) {
-							const joinrole = msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'joinroles')[index]);
+						if (msg.client.provider.getGuild(msg.guild.id, 'joinroles').length !== 0) {
+							const joinrole = msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'joinroles')[index]);
 							arrayForEmbedDescription.push(`${joinrole.name} (${joinrole.id})`);
 						}
 					}

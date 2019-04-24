@@ -23,7 +23,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -31,20 +31,20 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 		const queue = msg.client.queue;
 		const serverQueue = await queue.get(msg.guild.id);
 		const voiceChannel = msg.member.voiceChannel;
-		moment.locale(msg.client.provider.getGuild(msg.message.guild.id, 'momentLanguage'));
+		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
+		if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
 		if (args.slice().length === 0 || !args) return msg.reply(lang.playplaylist_error);
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 		if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist').length; i++) {
-			if (voiceChannel.id === msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist')[i]) return msg.reply(lang.play_blacklistchannel);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
+			if (voiceChannel.id === msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]) return msg.reply(lang.play_blacklistchannel);
 		}
 
 		if (serverQueue) {
-			if ((serverQueue.songs.length + Object.keys(msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]).length) > 8 && msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
+			if ((serverQueue.songs.length + Object.keys(msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]).length) > 8 && msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
 		}
 
 		async function play(guild, song) {
@@ -147,8 +147,8 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 			}
 		}
 		/* eslint guard-for-in: 0 */
-		for (const song in msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) {
-			const video = msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()][song];
+		for (const song in msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) {
+			const video = msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()][song];
 			await handleVideo(video, msg, voiceChannel);
 		}
 	}

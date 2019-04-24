@@ -18,7 +18,7 @@ module.exports = class addselfassignableroleCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -27,13 +27,13 @@ module.exports = class addselfassignableroleCommand extends LenoxCommand {
 
 		if (addedrole.length < 1) return msg.reply(lang.addselfassignablerole_norolename);
 		if (!foundRole) return msg.reply(lang.addselfassignablerole_rolenotexist);
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles').length; i++) {
-			if (foundRole.id === msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles')[i]) return msg.channel.send(lang.addselfassignablerole_alreadyadded);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i++) {
+			if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[i]) return msg.channel.send(lang.addselfassignablerole_alreadyadded);
 		}
 		const roleId = foundRole.id;
-		const currentSelfassignableroles = msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles');
+		const currentSelfassignableroles = msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles');
 		currentSelfassignableroles.push(roleId);
-		await msg.client.provider.setGuild(msg.message.guild.id, 'selfassignableroles', currentSelfassignableroles);
+		await msg.client.provider.setGuild(msg.guild.id, 'selfassignableroles', currentSelfassignableroles);
 
 		return msg.channel.send(lang.addselfassignablerole_roleset);
 	}

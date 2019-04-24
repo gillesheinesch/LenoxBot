@@ -19,8 +19,8 @@ module.exports = class banserverlistCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;

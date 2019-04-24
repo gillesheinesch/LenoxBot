@@ -19,7 +19,7 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const mention = msg.mentions.users.first() || msg.author;
@@ -27,15 +27,15 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 		const oldnickname = [];
 		const newnickname = [];
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog').length === 0) return msg.channel.send(lang.nicknamelog_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'nicknamelog').length === 0) return msg.channel.send(lang.nicknamelog_error);
 
 		const array = [];
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog').length; i += 4) {
-			if (mention.id === msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i]) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'nicknamelog').length; i += 4) {
+			if (mention.id === msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i]) {
 				array.push(true);
-				oldnickname.push(msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 1].length > 17 ? `${msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 1].substring(0, 17)}...` : msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 1]);
-				newnickname.push(msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 2].length > 17 ? `${msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 2].substring(0, 17)}...` : msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 2]);
-				dateArray.push(new Date(msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 3]).toLocaleString());
+				oldnickname.push(msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 1].length > 17 ? `${msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 1].substring(0, 17)}...` : msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 1]);
+				newnickname.push(msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 2].length > 17 ? `${msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 2].substring(0, 17)}...` : msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 2]);
+				dateArray.push(new Date(msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 3]).toLocaleString());
 			}
 		}
 

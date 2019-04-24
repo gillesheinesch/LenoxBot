@@ -19,20 +19,20 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'warnlog').length === 0) return msg.channel.send(lang.warnlog_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'warnlog').length === 0) return msg.channel.send(lang.warnlog_error);
 		const firstfield = [];
 		const secondfield = [];
 		const array = [];
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'warnlog').length; i += 4) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'warnlog').length; i += 4) {
 			array.push(true);
-			const member = msg.guild.member(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 3]) ? msg.guild.member(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 3]).displayName : msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 3];
-			const member2 = msg.guild.member(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i]) ? msg.guild.member(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i]).displayName : msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i];
-			const warnedbyandon = lang.serverwarns_warnedbyandon.replace('%membername', member).replace('%date', new Date(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 1])).replace('%username', member2);
+			const member = msg.guild.member(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 3]) ? msg.guild.member(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 3]).displayName : msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 3];
+			const member2 = msg.guild.member(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i]) ? msg.guild.member(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i]).displayName : msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i];
+			const warnedbyandon = lang.serverwarns_warnedbyandon.replace('%membername', member).replace('%date', new Date(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 1])).replace('%username', member2);
 			firstfield.push(warnedbyandon);
-			secondfield.push(`${lang.serverwarns_reason} ${msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 2]}`);
+			secondfield.push(`${lang.serverwarns_reason} ${msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 2]}`);
 		}
 		const embed = new Discord.MessageEmbed()
 			.setColor('#fff024')
@@ -45,7 +45,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 		const message = await msg.channel.send({
 			embed
 		});
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'warnlog').length / 4 <= 5) return undefined;
+		if (msg.client.provider.getGuild(msg.guild.id, 'warnlog').length / 4 <= 5) return undefined;
 		const reaction1 = await message.react('◀');
 		const reaction2 = await message.react('▶');
 		let first = 0;

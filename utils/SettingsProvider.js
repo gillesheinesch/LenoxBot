@@ -430,7 +430,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				settings = result.settings;
 			}
 
-			await this.db.collection('guildSettings').set(id, settings);
+			await this.db.collection('guildSettings').updateOne({ guildId: id }, { $set: { settings: settings } });
 			this.guildSettings.set(id, settings);
 		} catch (err) {
 			console.warn(`Error while creating document of guild ${id}`);

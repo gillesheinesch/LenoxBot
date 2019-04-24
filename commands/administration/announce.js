@@ -20,20 +20,20 @@ module.exports = class announceCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		const text = args.slice().join(' ');
 		const embedCheck = text.toLowerCase().includes('-embed');
 
 		const announceactivated = lang.announce_announcedeactivated.replace('%prefix', prefix);
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'announce') === 'false') return msg.channel.send(announceactivated);
+		if (msg.client.provider.getGuild(msg.guild.id, 'announce') === 'false') return msg.channel.send(announceactivated);
 
 		if (!text) return msg.channel.send(lang.annnounce_noinput);
 
-		const announcechannel = msg.client.provider.getGuild(msg.message.guild.id, 'announcechannel');
+		const announcechannel = msg.client.provider.getGuild(msg.guild.id, 'announcechannel');
 		const announcement = lang.announce_announcement.replace('%authortag', msg.author.tag);
 		if (embedCheck) {
 			const newText = text.replace('-embed', '');

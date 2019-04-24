@@ -20,9 +20,9 @@ module.exports = class muteCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		let user = msg.mentions.users.first();
@@ -33,7 +33,7 @@ module.exports = class muteCommand extends LenoxCommand {
 		}
 
 		const muteroleundefined = lang.mute_muteroleundefined.replace('%prefix', prefix);
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'muterole') === '') return msg.channel.send(muteroleundefined);
+		if (msg.client.provider.getGuild(msg.guild.id, 'muterole') === '') return msg.channel.send(muteroleundefined);
 
 		if (!user) {
 			try {
@@ -51,16 +51,16 @@ module.exports = class muteCommand extends LenoxCommand {
 		if (!args.slice(2).join(' ')) return msg.channel.send(lang.mute_noinput);
 
 		const rolenotexist = lang.mute_rolenotexist.replace('%prefix', prefix);
-		if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(rolenotexist);
+		if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) return msg.channel.send(rolenotexist);
 
-		const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'));
+		const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'muterole'));
 
 		if (!args.slice(1, 2).join(' ') || args.slice(1, 2).join(' ').length === 0) return msg.channel.send(lang.mute_invalidtimeformat);
 		const mutetime = ms(args.slice(1, 2).join(' '));
 		if (typeof mutetime === 'undefined') return msg.channel.send(lang.mute_invalidtimeformat);
 
 		const alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
-		if (membermention.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(alreadymuted);
+		if (membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) return msg.channel.send(alreadymuted);
 
 		membermention.addRole(role);
 
@@ -74,7 +74,7 @@ module.exports = class muteCommand extends LenoxCommand {
 			.setTimestamp()
 			.setDescription(mutedescription);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'muteanonymous') === 'true') {
+		if (msg.client.provider.getGuild(msg.guild.id, 'muteanonymous') === 'true') {
 			const anonymousembed = new Discord.MessageEmbed()
 				.setThumbnail(user.displayAvatarURL)
 				.setColor('#FF0000')
@@ -89,8 +89,8 @@ module.exports = class muteCommand extends LenoxCommand {
 			});
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 			modlogchannel.send({ embed: embed });
 		}
 
@@ -125,7 +125,7 @@ module.exports = class muteCommand extends LenoxCommand {
 		});
 
 		setTimeout(async () => {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'muterole') !== '' && membermention.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'muterole') !== '' && membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) {
 				await membermention.removeRole(role);
 
 				const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.client.user.tag}`);
@@ -137,8 +137,8 @@ module.exports = class muteCommand extends LenoxCommand {
 					.setTimestamp()
 					.setDescription(automaticunmutedescription);
 
-				if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-					const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+				if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+					const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 					modlogchannel.send({ embed: unmutedembed });
 				}
 			}

@@ -19,7 +19,7 @@ module.exports = class partnerCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const fetchedMember = await msg.client.guilds.get('352896116812939264').fetchMember(msg.author.id);

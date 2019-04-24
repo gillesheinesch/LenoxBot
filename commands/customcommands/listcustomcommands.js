@@ -18,20 +18,20 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const Discord = require('discord.js');
 		const arrayOfCustomCommands = [];
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length === 0) return msg.reply(lang.listcustomcommands_nocustommcommands);
+		if (msg.client.provider.getGuild(msg.guild.id, 'customcommands').length === 0) return msg.reply(lang.listcustomcommands_nocustommcommands);
 
 		const embed = new Discord.MessageEmbed()
 			.setColor('#ff9900');
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length; i++) {
-			arrayOfCustomCommands.push(`${prefix}${msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[i].name}`);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i++) {
+			arrayOfCustomCommands.push(`${prefix}${msg.client.provider.getGuild(msg.guild.id, 'customcommands')[i].name}`);
 		}
 
 		embed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(0, 15).join('\n'));

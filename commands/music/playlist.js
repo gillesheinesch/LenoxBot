@@ -26,25 +26,25 @@ module.exports = class playlistCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		const margs = msg.content.split(' ');
 		let newplaylisttitle = '';
 		const newplaylistsongs = [];
-		moment.locale(msg.client.provider.getGuild(msg.message.guild.id, 'momentLanguage'));
+		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
+		if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
 
 		for (let i = 0; i < margs.length; i++) {
 			if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
 				if (margs[1].toLowerCase() === 'new') {
-					if (Object.keys(msg.client.provider.getGuild(msg.message.guild.id, 'playlist')).length >= 8) return msg.reply(lang.playlist_maxplaylist);
+					if (Object.keys(msg.client.provider.getGuild(msg.guild.id, 'playlist')).length >= 8) return msg.reply(lang.playlist_maxplaylist);
 					if (!args.slice(1) || args.slice(1).length === 0) return msg.reply(lang.playlist_errortitle);
 					if (args.slice(1).join(' ').length > 30) return msg.reply(lang.playlist_titlelengtherror);
-					if (msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_alreadyexists);
+					if (msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_alreadyexists);
 
 					newplaylisttitle = args.slice(1).join(' ').toLowerCase();
 
@@ -59,9 +59,9 @@ module.exports = class playlistCommand extends LenoxCommand {
 							});
 
 							if (responsesongs.first().content.toLowerCase() === 'finish') {
-								const currentPlaylist = msg.client.provider.getGuild(msg.message.guild.id, 'playlist');
+								const currentPlaylist = msg.client.provider.getGuild(msg.guild.id, 'playlist');
 								currentPlaylist[newplaylisttitle.toLowerCase()] = newplaylistsongs;
-								await msg.client.provider.setGuild(msg.message.guild.id, 'playlist', currentPlaylist);
+								await msg.client.provider.setGuild(msg.guild.id, 'playlist', currentPlaylist);
 								return msg.reply(lang.playlist_finish);
 							}
 
@@ -126,9 +126,9 @@ module.exports = class playlistCommand extends LenoxCommand {
 
 
 										if (newplaylistsongs.length === 12) {
-											const currentPlaylist = msg.client.provider.getGuild(msg.message.guild.id, 'playlist');
+											const currentPlaylist = msg.client.provider.getGuild(msg.guild.id, 'playlist');
 											currentPlaylist[newplaylisttitle.toLowerCase()] = newplaylistsongs;
-											await msg.client.provider.getGuild(msg.message.guild.id, 'playlist', currentPlaylist);
+											await msg.client.provider.getGuild(msg.guild.id, 'playlist', currentPlaylist);
 											return msg.reply(lang.playlist_finish);
 										}
 										const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', Util.escapeMarkdown(video.title));
@@ -144,12 +144,12 @@ module.exports = class playlistCommand extends LenoxCommand {
 					}
 				} else if (margs[1].toLowerCase() === 'list') {
 					const noplaylistaddedyet = lang.playlist_noplaylistaddedyet.replace('%prefix', prefix);
-					if (Object.keys(msg.client.provider.getGuild(msg.message.guild.id, 'playlist')).length === 0) return msg.reply(noplaylistaddedyet);
+					if (Object.keys(msg.client.provider.getGuild(msg.guild.id, 'playlist')).length === 0) return msg.reply(noplaylistaddedyet);
 
 					if (args.slice(1).length !== 0 && args.slice(1) !== '') {
 						const input = args.slice(1);
 
-						if (!msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[input.join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+						if (!msg.client.provider.getGuild(msg.guild.id, 'playlist')[input.join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 						const listsongplaylist = new Discord.MessageEmbed()
 							.setAuthor(lang.playlist_embedtitle)
@@ -157,8 +157,8 @@ module.exports = class playlistCommand extends LenoxCommand {
 
 						const songtitlearray = [];
 						/* eslint guard-for-in: 0 */
-						for (const x in msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[input.join(' ').toLowerCase()]) {
-							songtitlearray.push(msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[input.join(' ').toLowerCase()][x].title);
+						for (const x in msg.client.provider.getGuild(msg.guild.id, 'playlist')[input.join(' ').toLowerCase()]) {
+							songtitlearray.push(msg.client.provider.getGuild(msg.guild.id, 'playlist')[input.join(' ').toLowerCase()][x].title);
 						}
 
 						listsongplaylist.setDescription(`${songtitlearray.join('\n')}`);
@@ -172,7 +172,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 						.setAuthor(lang.playlist_playlistserverembed)
 						.setColor('#66ff33');
 
-					for (const x in msg.client.provider.getGuild(msg.message.guild.id, 'playlist')) {
+					for (const x in msg.client.provider.getGuild(msg.guild.id, 'playlist')) {
 						listplaylistobject.push(x);
 					}
 
@@ -182,18 +182,18 @@ module.exports = class playlistCommand extends LenoxCommand {
 						embed: listplaylistembed
 					});
 				} else if (margs[1].toLowerCase() === 'delete') {
-					if (!msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+					if (!msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
-					const currentPlaylist = msg.client.provider.getGuild(msg.message.guild.id, 'playlist');
+					const currentPlaylist = msg.client.provider.getGuild(msg.guild.id, 'playlist');
 					delete currentPlaylist[args.slice(1).join(' ').toLowerCase()];
-					await msg.client.provider.setGuild(msg.message.guild.id, 'playlist', currentPlaylist);
+					await msg.client.provider.setGuild(msg.guild.id, 'playlist', currentPlaylist);
 
 					return msg.reply(lang.playlist_deleted);
 				} else if (margs[1].toLowerCase() === 'addsong') {
-					if (!msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
-					if (msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()].length >= 12) return msg.reply(lang.playlist_max12songs);
+					if (!msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+					if (msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()].length >= 12) return msg.reply(lang.playlist_max12songs);
 
-					const selectedplaylist = msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()];
+					const selectedplaylist = msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()];
 
 					await msg.channel.send(lang.playlist_questionaddnewsong);
 					try {
@@ -271,7 +271,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 						return msg.channel.send(lang.playlist_timeerror);
 					}
 				} else if (margs[1].toLowerCase() === 'removesong') {
-					if (!msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+					if (!msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 					await msg.reply(lang.playlist_questionremovesong);
 					let removesong;
@@ -285,11 +285,11 @@ module.exports = class playlistCommand extends LenoxCommand {
 						return msg.channel.send(lang.playlist_timeerror);
 					}
 
-					for (const x in msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) {
-						if (msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()][x].title.toLowerCase() === removesong.first().content.toLowerCase()) {
-							const currentPlaylist = msg.client.provider.getGuild(msg.message.guild.id, 'playlist');
+					for (const x in msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()]) {
+						if (msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice(1).join(' ').toLowerCase()][x].title.toLowerCase() === removesong.first().content.toLowerCase()) {
+							const currentPlaylist = msg.client.provider.getGuild(msg.guild.id, 'playlist');
 							delete currentPlaylist[args.slice(1).join(' ').toLowerCase()][x];
-							await msg.client.provider.getGuild(msg.message.guild.id, 'playlist', currentPlaylist);
+							await msg.client.provider.getGuild(msg.guild.id, 'playlist', currentPlaylist);
 
 							const removedsong = lang.playlist_removedsong.replace('%songname', x.title);
 							return msg.reply(removedsong);

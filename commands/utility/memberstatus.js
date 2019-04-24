@@ -19,7 +19,7 @@ module.exports = class memberstatusCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const onlinecount = msg.guild.members.array().filter(m => m.presence.status === 'online').length;

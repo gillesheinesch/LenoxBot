@@ -19,7 +19,7 @@ module.exports = class languagefinderCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -29,7 +29,7 @@ module.exports = class languagefinderCommand extends LenoxCommand {
 		const content = args.slice().join(' ');
 		if (!content || isNaN(content)) return msg.reply(lang.languagefinder_noguildid);
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'language')) return msg.channel.send(lang.languagefinder_nofetch);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'language')) return msg.channel.send(lang.languagefinder_nofetch);
 
 		const guildload = msg.client.guilds.get(content);
 		const requestedby = lang.languagefinder_requestedby.replace('%authortag', msg.author.tag);
@@ -37,7 +37,7 @@ module.exports = class languagefinderCommand extends LenoxCommand {
 			.setColor('BLUE')
 			.setThumbnail(guildload.iconURL)
 			.addField(lang.languagefinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
-			.addField(lang.languagefinder_embedfield2, msg.client.provider.getGuild(msg.message.guild.id, 'language').toUpperCase())
+			.addField(lang.languagefinder_embedfield2, msg.client.provider.getGuild(msg.guild.id, 'language').toUpperCase())
 			.setFooter(requestedby)
 			.setAuthor(`${guildload.name} (${guildload.id})`);
 

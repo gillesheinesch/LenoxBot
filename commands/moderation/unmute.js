@@ -19,9 +19,9 @@ module.exports = class unmuteCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		let user = msg.mentions.users.first();
@@ -32,7 +32,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 		}
 
 		const muteroleundefined = lang.unmute_muteroleundefined.replace('%prefix', prefix);
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'muterole') === '') return msg.channel.send(muteroleundefined);
+		if (msg.client.provider.getGuild(msg.guild.id, 'muterole') === '') return msg.channel.send(muteroleundefined);
 
 		if (!user) {
 			try {
@@ -49,11 +49,11 @@ module.exports = class unmuteCommand extends LenoxCommand {
 		if (!args.slice(1).join(' ')) return msg.channel.send(lang.unmute_noinput);
 
 		const rolenotexist = lang.unmute_rolenotexist.replace('%prefix', prefix);
-		if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(rolenotexist);
+		if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) return msg.channel.send(rolenotexist);
 
-		const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'));
+		const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'muterole'));
 
-		if (membermention.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) {
+		if (membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) {
 			await membermention.removeRole(role);
 
 			const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
@@ -65,7 +65,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 				.setTimestamp()
 				.setDescription(unmutedescription);
 
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'muteanonymous') === 'true') {
+			if (msg.client.provider.getGuild(msg.guild.id, 'muteanonymous') === 'true') {
 				const anonymousembed = new Discord.MessageEmbed()
 					.setThumbnail(user.displayAvatarURL)
 					.setColor('#FF0000')
@@ -80,8 +80,8 @@ module.exports = class unmuteCommand extends LenoxCommand {
 				});
 			}
 
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-				const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+			if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+				const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 				modlogchannel.send({ embed: embed });
 			}
 

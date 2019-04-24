@@ -19,16 +19,16 @@ module.exports = class byemsgCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
 		const content = args.slice().join(' ');
 		if (!content) return msg.channel.send(lang.byemsg_noinput);
 
-		let currentByemsg = msg.client.provider.getGuild(msg.message.guild.id, 'byemsg');
+		let currentByemsg = msg.client.provider.getGuild(msg.guild.id, 'byemsg');
 		currentByemsg = content;
-		await msg.client.provider.setGuild(msg.message.guild.id, 'byemsg', currentByemsg);
+		await msg.client.provider.setGuild(msg.guild.id, 'byemsg', currentByemsg);
 
 		return msg.channel.send(lang.byemsg_goodbyemsgset);
 	}

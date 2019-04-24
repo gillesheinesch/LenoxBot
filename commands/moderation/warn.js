@@ -19,7 +19,7 @@ module.exports = class warnCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -57,19 +57,19 @@ module.exports = class warnCommand extends LenoxCommand {
 
 		user.send({ embed: embed });
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'warnlog', []);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'warnlog')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'warnlog', []);
 		}
 
-		const currentWarnlog = msg.client.provider.getGuild(msg.message.guild.id, 'warnlog');
+		const currentWarnlog = msg.client.provider.getGuild(msg.guild.id, 'warnlog');
 		await currentWarnlog.push(user.id);
 		await currentWarnlog.push(new Date().getTime());
 		await currentWarnlog.push(reason);
 		await currentWarnlog.push(msg.author.id);
-		await msg.client.provider.setGuild(msg.message.guild.id, 'warnlog', currentWarnlog);
+		await msg.client.provider.setGuild(msg.guild.id, 'warnlog', currentWarnlog);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 			return modlogchannel.send({ embed: embed });
 		}
 	}

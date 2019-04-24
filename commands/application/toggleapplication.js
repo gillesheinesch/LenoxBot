@@ -18,19 +18,19 @@ module.exports = class toggleapplicationCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'application').status === 'false') {
-			const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+		if (msg.client.provider.getGuild(msg.guild.id, 'application').status === 'false') {
+			const currentApplication = msg.client.provider.getGuild(msg.guild.id, 'application');
 			currentApplication.status = 'true';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
+			await msg.client.provider.setGuild(msg.guild.id, 'application', currentApplication);
 
 			return msg.channel.send(lang.toggleapplication_activated);
 		}
-		const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+		const currentApplication = msg.client.provider.getGuild(msg.guild.id, 'application');
 		currentApplication.status = 'false';
-		await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
+		await msg.client.provider.setGuild(msg.guild.id, 'application', currentApplication);
 
 		return msg.channel.send(lang.toggleapplication_disabled);
 	}

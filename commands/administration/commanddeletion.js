@@ -19,19 +19,19 @@ module.exports = class commanddeletionCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'false') {
-			let currentCommanddel = msg.client.provider.getGuild(msg.message.guild.id, 'commanddel');
+		if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'false') {
+			let currentCommanddel = msg.client.provider.getGuild(msg.guild.id, 'commanddel');
 			currentCommanddel = 'true';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'commanddel', currentCommanddel);
+			await msg.client.provider.setGuild(msg.guild.id, 'commanddel', currentCommanddel);
 
 			return msg.channel.send(lang.commanddeletion_deletionset);
 		}
-		let currentCommanddel = msg.client.provider.getGuild(msg.message.guild.id, 'commanddel');
+		let currentCommanddel = msg.client.provider.getGuild(msg.guild.id, 'commanddel');
 		currentCommanddel = 'false';
-		await msg.client.provider.setGuild(msg.message.guild.id, 'commanddel', currentCommanddel);
+		await msg.client.provider.setGuild(msg.guild.id, 'commanddel', currentCommanddel);
 
 		return msg.channel.send(lang.commanddeletion_nodeletionset);
 	}

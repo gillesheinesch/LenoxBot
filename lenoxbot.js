@@ -73,12 +73,12 @@ client.dispatcher.addInhibitor(msg => {
 	if (!client.provider.isReady) return 'notinitialized';
 
 	if (client.user.id === '353115097318555649') {
-		if (msg.message.guild.id !== '332612123492483094') return 'This is not the Test LenoxBot Server';
+		if (msg.guild.id !== '332612123492483094') return 'This is not the Test LenoxBot Server';
 	}
 
-	const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+	const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 	const lang = require(`./languages/${langSet}.json`);
-	const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+	const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 	const args = msg.content.split(' ').slice(1);
 	const command = msg.content.split(' ')[0].slice(prefix.length).toLowerCase();
@@ -86,10 +86,10 @@ client.dispatcher.addInhibitor(msg => {
 	let customcommand;
 
 	let customcommandstatus = false;
-	for (let index = 0; index < msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length; index++) {
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[index].name === command) {
+	for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; index++) {
+		if (msg.client.provider.getGuild(msg.guild.id, 'customcommands')[index].name === command) {
 			customcommandstatus = true;
-			customcommand = msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[index];
+			customcommand = msg.client.provider.getGuild(msg.guild.id, 'customcommands')[index];
 		}
 	}
 
@@ -120,7 +120,7 @@ client.dispatcher.addInhibitor(msg => {
 		.setDescription(lang.messageevent_banlist)
 		.addField(lang.messageevent_support, 'https://lenoxbot.com/discord')
 		.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
-		.setAuthor(`${msg.message.guild.name} (${msg.message.guild.id})`, msg.message.guild.iconURL);
+		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
 
 	const blacklistembed = new Discord.MessageEmbed()
 		.setColor('#FF0000')
@@ -134,7 +134,7 @@ client.dispatcher.addInhibitor(msg => {
 	const banlist = client.provider.getBotsettings('botconfs', 'banlist');
 	if (banlist.length !== 0) {
 		for (let i = 0; i < banlist.length; i++) {
-			if (msg.message.guild.id === banlist[i].discordServerID) {
+			if (msg.guild.id === banlist[i].discordServerID) {
 				banlistembed.addField(lang.messageevent_banlistreason, banlist[i].reason);
 				msg.channel.send({
 					embed: banlistembed
@@ -158,7 +158,7 @@ client.dispatcher.addInhibitor(msg => {
 	const activityembed = new Discord.MessageEmbed()
 		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
 		.addField('Command', `${prefix}${command} ${args.join(' ').substring(0, 980)}`)
-		.addField('Guild', `${msg.message.guild.name} (${msg.message.guild.id})`)
+		.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 		.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
 		.setColor('#ff99ff')
 		.setTimestamp();
@@ -173,28 +173,28 @@ client.dispatcher.addInhibitor(msg => {
 		const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientpermissions.join(', '));
 		const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userpermissions.join(', '));
 
-		if (cmd.clientpermissions.every(perm => msg.message.guild.me.hasPermission(perm)) === false) {
-			console.log(msg.message.guild.id, cmd.name);
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+		if (cmd.clientpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
+			console.log(msg.guild.id, cmd.name);
+			if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'true') {
 				msg.delete();
 			}
 			msg.channel.send(botnopermission);
 			return 'NoPermission';
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0 && cmd.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+		if (msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0 && cmd.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'true') {
 				msg.delete();
 			}
 			msg.channel.send(usernopermission);
 			return 'NoPermission';
 		}
 
-		for (const prop in msg.client.provider.getGuild(msg.message.guild.id, 'modules')) {
+		for (const prop in msg.client.provider.getGuild(msg.guild.id, 'modules')) {
 			if (prop === cmd.groupID) {
-				if (msg.client.provider.getGuild(msg.message.guild.id, 'modules')[prop] === 'false') {
+				if (msg.client.provider.getGuild(msg.guild.id, 'modules')[prop] === 'false') {
 					const moduledeactivated = lang.messageevent_moduledeactivated.replace('%modulename', prop).replace('%prefix', prefix);
-					if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+					if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'true') {
 						msg.delete();
 					}
 					msg.channel.send(moduledeactivated);
@@ -205,7 +205,7 @@ client.dispatcher.addInhibitor(msg => {
 	}
 
 	if (botCommandExists) {
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].status === 'false') {
+		if (msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].status === 'false') {
 			msg.reply(lang.messageevent_commanddeactivated);
 			return 'command deactivated';
 		}
@@ -215,26 +215,26 @@ client.dispatcher.addInhibitor(msg => {
 	}
 
 	if (botCommandExists) {
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedchannels.includes(msg.channel.id)) {
+		if (msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedchannels.includes(msg.channel.id)) {
 			msg.reply(lang.messageevent_bannedchannel);
 			return 'banned channel';
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0) {
-			for (let index = 0; index < msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedroles.length; index++) {
-				if (msg.member.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].bannedroles[index])) {
+		if (msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0) {
+			for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles.length; index++) {
+				if (msg.member.roles.has(msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles[index])) {
 					msg.reply(lang.messageevent_bannedrole);
 					return 'Banned role';
 				}
 			}
 		} else {
 			let allwhitelistedrolesoftheuser = 0;
-			for (let index2 = 0; index2 < msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length; index2++) {
-				if (!msg.member.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles[index2])) {
+			for (let index2 = 0; index2 < msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length; index2++) {
+				if (!msg.member.roles.has(msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles[index2])) {
 					allwhitelistedrolesoftheuser += 1;
 				}
 			}
-			if (allwhitelistedrolesoftheuser === msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].whitelistedroles.length) {
+			if (allwhitelistedrolesoftheuser === msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length) {
 				msg.reply(lang.messageevent_nowhitelistedroles);
 				return 'Not whitelisted role';
 			}
@@ -249,8 +249,8 @@ client.dispatcher.addInhibitor(msg => {
 		const now = Date.now();
 		const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 		let cooldownAmount;
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name]) {
-			cooldownAmount = cmd.cooldown || Number(msg.client.provider.getGuild(msg.message.guild.id, 'commands')[cmd.name].cooldown);
+		if (msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name]) {
+			cooldownAmount = cmd.cooldown || Number(msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].cooldown);
 		} else {
 			cooldownAmount = cmd.cooldown || 3 * 1000;
 		}
@@ -264,7 +264,7 @@ client.dispatcher.addInhibitor(msg => {
 
 				const time = moment.duration(parseInt(timeLeft.toFixed(2), 10), 'seconds').format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
 				const anticommandspam = lang.messageevent_anticommandspam.replace('%time', time).replace('%commandname', `\`${prefix}${cmd.name}\``);
-				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+				if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'true') {
 					msg.delete();
 				}
 				msg.reply(anticommandspam);
@@ -303,7 +303,7 @@ client.dispatcher.addInhibitor(msg => {
 	currentCommandsexecuted += 1;
 		 msg.client.provider.setBotsettings('botconfs', 'commandsexecuted', currentCommandsexecuted);
 
-	if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
+	if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'true') {
 		msg.delete();
 	}
 });

@@ -19,15 +19,15 @@ module.exports = class listentryCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'application').template.length === 0) return msg.reply(lang.listentry_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'application').template.length === 0) return msg.reply(lang.listentry_error);
 
 		const templates = [];
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'application').template.length; i++) {
-			templates.push(`\`${i + 1}.\` ${msg.client.provider.getGuild(msg.message.guild.id, 'application').template[i]}`);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i++) {
+			templates.push(`\`${i + 1}.\` ${msg.client.provider.getGuild(msg.guild.id, 'application').template[i]}`);
 		}
 
 		const embed = new Discord.MessageEmbed()

@@ -18,26 +18,26 @@ module.exports = class togglechatfilterCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', {
+		if (!msg.client.provider.getGuild(msg.guild.id, 'chatfilter')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'chatfilter', {
 				chatfilter: 'false',
 				array: []
 			});
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').chatfilter === 'false') {
-			const currentChatfilter = msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter');
+		if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').chatfilter === 'false') {
+			const currentChatfilter = msg.client.provider.getGuild(msg.guild.id, 'chatfilter');
 			currentChatfilter.chatfilter = 'true';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', currentChatfilter);
+			await msg.client.provider.setGuild(msg.guild.id, 'chatfilter', currentChatfilter);
 
 			return msg.channel.send(lang.togglechatfilter_activated);
 		}
-		const currentChatfilter = msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter');
+		const currentChatfilter = msg.client.provider.getGuild(msg.guild.id, 'chatfilter');
 		currentChatfilter.chatfilter = 'false';
-		await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', currentChatfilter);
+		await msg.client.provider.setGuild(msg.guild.id, 'chatfilter', currentChatfilter);
 
 		return msg.channel.send(lang.togglechatfilter_disabled);
 	}

@@ -18,19 +18,19 @@ module.exports = class togglewelcomeCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'welcome') === 'false') {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'welcome', 'true');
+		if (msg.client.provider.getGuild(msg.guild.id, 'welcome') === 'false') {
+			await msg.client.provider.setGuild(msg.guild.id, 'welcome', 'true');
 
 			const channelid = msg.channel.id;
-			await msg.client.provider.setGuild(msg.message.guild.id, 'welcomechannel', channelid);
+			await msg.client.provider.setGuild(msg.guild.id, 'welcomechannel', channelid);
 
 			const channelset = lang.togglewelcome_channelset.replace('%channelname', `#**${msg.channel.name}**`);
 			msg.channel.send(channelset);
-		} else if (msg.client.provider.getGuild(msg.message.guild.id, 'welcome') === 'true') {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'welcome', 'false');
+		} else if (msg.client.provider.getGuild(msg.guild.id, 'welcome') === 'true') {
+			await msg.client.provider.setGuild(msg.guild.id, 'welcome', 'false');
 			msg.channel.send(lang.togglewelcome_channeldeleted);
 		}
 	}

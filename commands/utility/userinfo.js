@@ -20,11 +20,11 @@ module.exports = class userinfoCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		moment.locale(msg.client.provider.getGuild(msg.message.guild.id, 'momentLanguage'));
+		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
 		let user = msg.mentions.users.first();
 

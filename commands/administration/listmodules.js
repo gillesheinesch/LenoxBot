@@ -19,7 +19,7 @@ module.exports = class listmodulesCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const embed = new Discord.MessageEmbed()
@@ -29,8 +29,8 @@ module.exports = class listmodulesCommand extends LenoxCommand {
 		const disabledmodules = [];
 		const activatedmodules = [];
 
-		for (const i in msg.client.provider.getGuild(msg.message.guild.id, 'modules')) {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'modules')[i] === 'false') {
+		for (const i in msg.client.provider.getGuild(msg.guild.id, 'modules')) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'modules')[i] === 'false') {
 				disabledmodules.push(i);
 			} else {
 				activatedmodules.push(i);

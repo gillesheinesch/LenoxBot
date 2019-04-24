@@ -3,20 +3,21 @@ const settings = require('./settings.json');
 const chalk = require('chalk');
 const moment = require('moment');
 require('moment-duration-format');
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+const readline = require('readline');
 
 const shardingManager = new Discord.ShardingManager('./lenoxbot.js',
 	{
 		token: settings.token
 	});
 
-shardingManager.spawn().then(() => {
+shardingManager.spawn('auto').then(() => {
 	console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
 }).catch(error => {
 	console.log(error);
 });
-
 // Website:
-
 async function run() {
 	const express = require('express');
 	const session = require('express-session');
@@ -99,7 +100,6 @@ async function run() {
 		if (err) return console.log(err);
 		console.log(chalk.green('Website running on https://lenoxbot.com'));
 	});
-
 	// Check all user guild where user are owner and lenoxbot is
 
 	// Script executes function on shard
@@ -464,7 +464,7 @@ async function run() {
 				let isstaff = false;
 				let ispremium = false;
 				const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
-				const guild = await exec(`client.guilds.get('352896116812939264')`);
+				const guild = await shardingManager.broadcastEval(`client.guilds.get('352896116812939264')`);
 				for (let i = 0; i < teamroles.length; i++) {
 					const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
 					role.members.forEach(member => {
@@ -882,7 +882,7 @@ async function run() {
 						const lang = require(`./languages/${tableload.language}.json`);
 
 						const ticketembedanswer = lang.mainfile_ticketembedanswer.replace('%ticketid', ticket.ticketid);
-						const embed = new Discord.MessageEmbed()
+						const embed =
 							.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${ticket.ticketid}/overview`)
 							.setTimestamp()
 							.setColor('#ccffff')
@@ -3627,7 +3627,7 @@ async function run() {
 
 					const tableload = client.guildconfs.get(dashboardid);
 
-					const embed = new Discord.MessageEmbed();
+					const embed = ;
 
 					embed.setTitle(req.body.embedtitle);
 
@@ -5611,7 +5611,6 @@ async function run() {
 	// Global post for commandstatuschange
 	app.post('/dashboard/:id/global/:command/submitcommandstatuschange', async (req, res) => {
 		try {
-			console.log(1);
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
@@ -5631,16 +5630,13 @@ async function run() {
 						guild = guildArray.find(g => g);
 					});
 				if (!guild) return res.redirect('/servers');
-				console.log('test2')
 
 				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
-				console.log('test3')
 
 				permissionsCheck(guildconfs, guild, req, res, index);
 
 				guildconfs.settings.commands[req.params.command].status = req.body.statuschange;
-				console.log('test4')
 
 				guildconfs.settings.globallogs.push({
 					action: `Activated/Deactivated the "${req.params.command}" command!`,
@@ -5650,6 +5646,16 @@ async function run() {
 				});
 
 				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+
+				await shardingManager.broadcastEval(`
+    (async () => {
+        if (this.guilds.get("${dashboardid}")) {
+        const x = await this.provider.reloadGuild("${dashboardid}");
+        return x;
+        }
+    })();
+`);
+
 				return res.redirect(url.format({
 					pathname: `/dashboard/${dashboardid}/modules`,
 					query: {
@@ -5800,4 +5806,3 @@ async function run() {
 run().catch(error => {
 	console.log(error);
 });
-

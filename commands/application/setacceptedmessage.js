@@ -18,16 +18,16 @@ module.exports = class setacceptedmessageCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
 		const content = args.slice().join(' ');
 		if (!content) return msg.channel.send(lang.setacceptedmessage_noinput);
 
-		const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+		const currentApplication = msg.client.provider.getGuild(msg.guild.id, 'application');
 		currentApplication.acceptedmessage = content;
-		await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
+		await msg.client.provider.setGuild(msg.guild.id, 'application', currentApplication);
 
 		return msg.channel.send(lang.setacceptedmessage_set);
 	}

@@ -21,10 +21,10 @@ module.exports = class serverinfoCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		moment.locale(msg.client.provider.getGuild(msg.message.guild.id, 'momentLanguage'));
+		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
 		const servercreated = moment(msg.guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 

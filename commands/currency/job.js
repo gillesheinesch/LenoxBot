@@ -22,7 +22,7 @@ module.exports = class jobCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (msg.client.provider.getUser(msg.author.id, 'jobstatus') === true) {
