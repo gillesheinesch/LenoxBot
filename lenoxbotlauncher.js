@@ -3,9 +3,6 @@ const settings = require('./settings.json');
 const chalk = require('chalk');
 const moment = require('moment');
 require('moment-duration-format');
-const cluster = require('cluster');
-const numCPUs = require('os').cpus().length;
-const readline = require('readline');
 
 const shardingManager = new Discord.ShardingManager('./lenoxbot.js',
 	{
@@ -3026,7 +3023,7 @@ async function run() {
 
 				permissionsCheck(guildconfs, guild, req, res, index);
 
-				const channels = guild.channels.filter(textChannel => textChannel.type === `text`);
+				const channels = [];
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'help' && r.dashboardsettings === true);
@@ -3048,7 +3045,6 @@ async function run() {
 				const roles = guild.roles.filter(r => r.name !== '@everyone');
 
 				const islenoxbot = islenoxboton(req);
-
 				return res.render('dashboardhelp', {
 					user: req.user,
 					guilds: check,
@@ -5447,15 +5443,11 @@ async function run() {
 					});
 				if (!guild) return res.redirect('/servers');
 
-				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
-				guild.members = evaledMembers;
-
 				permissionsCheck(guildconfs, guild, req, res, index);
 
 				const evaledChannels = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").channels.array()`);
 				guild.channels = evaledChannels;
 
-				const channels = guild.channels.filter(textChannel => textChannel.type === `text`);
 				const check = req.user.guilds[index];
 
 				const modules = {};
@@ -5489,7 +5481,6 @@ async function run() {
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
-					channels: channels,
 					modules: modules,
 					submitmodules: req.query.submitmodules ? true : false
 				});
@@ -5674,120 +5665,122 @@ async function run() {
 			}));
 		}
 	});
-	/*
-		// Global post for commandchange
 
-		app.post('/dashboard/:id/global/:command/submitcommandchange', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
+	// Global post for commandchange
+	app.post('/dashboard/:id/global/:command/submitcommandchange', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
 					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.commands[req.params.command].bannedchannels = req.body.newblacklistedchannels;
-
-					const channelsarray = [];
-					const rolesarray = [];
-					const whitelistedrolesarray = [];
-					let newcooldown = '';
-					if (req.body.newblacklistedchannels) {
-						if (Array.isArray(req.body.newblacklistedchannels)) {
-							for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
-								channelsarray.push(req.body.newblacklistedchannels[i]);
-							}
-							tableload.commands[req.params.command].bannedchannels = channelsarray;
-						} else {
-							channelsarray.push(req.body.newblacklistedchannels);
-							tableload.commands[req.params.command].bannedchannels = channelsarray;
-						}
-					} else {
-						tableload.commands[req.params.command].bannedchannels = [];
-					}
-
-					if (req.body.newblacklistedroles) {
-						if (Array.isArray(req.body.newblacklistedroles)) {
-							for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
-								rolesarray.push(req.body.newblacklistedroles[i]);
-							}
-							tableload.commands[req.params.command].bannedroles = rolesarray;
-						} else {
-							rolesarray.push(req.body.newblacklistedroles);
-							tableload.commands[req.params.command].bannedroles = rolesarray;
-						}
-					} else {
-						tableload.commands[req.params.command].bannedroles = [];
-					}
-
-					if (req.body.newwhitelistedroles) {
-						if (Array.isArray(req.body.newwhitelistedroles)) {
-							for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
-								whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
-							}
-							tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
-						} else {
-							whitelistedrolesarray.push(req.body.newwhitelistedroles);
-							tableload.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
-						}
-					} else {
-						tableload.commands[req.params.command].whitelistedroles = [];
-					}
-
-					newcooldown = Number(req.body.newcooldown) * 1000;
-					tableload.commands[req.params.command].cooldown = `${newcooldown}`;
-
-					tableload.globallogs.push({
-						action: `Changed the settings of the "${req.params.command}" command!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/modules`,
-						query: {
-							submit: true
-						}
-					}));
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+				guild.members = evaledMembers;
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				guildconfs.settings.commands[req.params.command].bannedchannels = req.body.newblacklistedchannels;
+
+				const channelsarray = [];
+				const rolesarray = [];
+				const whitelistedrolesarray = [];
+				let newcooldown = '';
+				if (req.body.newblacklistedchannels) {
+					if (Array.isArray(req.body.newblacklistedchannels)) {
+						for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
+							channelsarray.push(req.body.newblacklistedchannels[i]);
+						}
+						guildconfs.settings.commands[req.params.command].bannedchannels = channelsarray;
+					} else {
+						channelsarray.push(req.body.newblacklistedchannels);
+						guildconfs.settings.commands[req.params.command].bannedchannels = channelsarray;
+					}
+				} else {
+					guildconfs.settings.commands[req.params.command].bannedchannels = [];
+				}
+
+				if (req.body.newblacklistedroles) {
+					if (Array.isArray(req.body.newblacklistedroles)) {
+						for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
+							rolesarray.push(req.body.newblacklistedroles[i]);
+						}
+						guildconfs.settings.commands[req.params.command].bannedroles = rolesarray;
+					} else {
+						rolesarray.push(req.body.newblacklistedroles);
+						guildconfs.settings.commands[req.params.command].bannedroles = rolesarray;
+					}
+				} else {
+					guildconfs.settings.commands[req.params.command].bannedroles = [];
+				}
+
+				if (req.body.newwhitelistedroles) {
+					if (Array.isArray(req.body.newwhitelistedroles)) {
+						for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
+							whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
+						}
+						guildconfs.settings.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+					} else {
+						whitelistedrolesarray.push(req.body.newwhitelistedroles);
+						guildconfs.settings.commands[req.params.command].whitelistedroles = whitelistedrolesarray;
+					}
+				} else {
+					guildconfs.settings.commands[req.params.command].whitelistedroles = [];
+				}
+
+				newcooldown = Number(req.body.newcooldown) * 1000;
+				guildconfs.settings.commands[req.params.command].cooldown = `${newcooldown}`;
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the settings of the "${req.params.command}" command!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+
+				await shardingManager.broadcastEval(`
+    (async () => {
+        if (this.guilds.get("${dashboardid}")) {
+        const x = await this.provider.reloadGuild("${dashboardid}");
+        return x;
+        }
+    })();
+`);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/modules`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submit: true
 					}
 				}));
 			}
-		}); */
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
 	// catch error and forward to error handler
 	app.use((req, res) => {
