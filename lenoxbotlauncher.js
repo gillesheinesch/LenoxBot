@@ -160,6 +160,17 @@ async function run() {
 		}
 	}
 
+	async function reloadGuild(guild, dashboardid) {
+		await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+        if (this.guilds.get("${dashboardid}")) {
+        const x = await this.provider.reloadGuild("${dashboardid}");
+        return x;
+        }
+    })();
+`);
+	}
+
 	app.get('/', async (req, res) => {
 		try {
 			const check = [];
@@ -1058,7 +1069,7 @@ async function run() {
 						}
 					}
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 				} else {
 					for (let i = 0; i < client.commands.array().length; i++) {
 						if (!guildsettingskeys.commands[client.commands.array()[i].help.name]) {
@@ -1148,7 +1159,6 @@ async function run() {
 						return res.render('dashboard', {
 							user: req.user,
 							guilds: check,
-
 							islenoxbot: islenoxbot,
 							logs: logs
 						});
@@ -1167,1237 +1177,1109 @@ async function run() {
 		}
 	});
 
-	/* app.post('/dashboard/:id/administration/submitlogs', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
+	app.post('/dashboard/:id/administration/submitlogs', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
 					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					if (req.body[Object.keys(req.body)[0]] === 'false') {
-						tableload[Object.keys(req.body)[0]] = 'false';
-					} else {
-						tableload[Object.keys(req.body)[0]] = 'true';
-						tableload[`${[Object.keys(req.body)[0]]}channel`] = client.guilds.get(dashboardid).channels.find(c => c.name === `${req.body[Object.keys(req.body)[0]]}`).id;
-					}
-
-					tableload.globallogs.push({
-						action: `Changed the ${Object.keys(req.body)[0]} settings!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").channels.array()`);
+				guild.channels = evaledChannels;
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				if (req.body[Object.keys(req.body)[0]] === 'false') {
+					guildconfs.settings[Object.keys(req.body)[0]] = 'false';
+				} else {
+					guildconfs.settings[Object.keys(req.body)[0]] = 'true';
+					guildconfs.settings[`${[Object.keys(req.body)[0]]}channel`] = guild.channels.find(c => c.name === `${req.body[Object.keys(req.body)[0]]}`).id;
+				}
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the ${Object.keys(req.body)[0]} settings!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submitselfassignableroles', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					if (req.body.newselfassignableroles) {
-						const newselfassignableroles = req.body.newselfassignableroles;
-						const array = [];
-
-						if (Array.isArray(newselfassignableroles)) {
-							for (let i = 0; i < newselfassignableroles.length; i++) {
-								array.push(newselfassignableroles[i]);
-							}
-							tableload.selfassignableroles = array;
-						} else {
-							array.push(newselfassignableroles);
-							tableload.selfassignableroles = array;
-						}
-					} else {
-						tableload.selfassignableroles = [];
-					}
-
-					tableload.globallogs.push({
-						action: `Updated self-assignable roles!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitselfassignableroles', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
 					}
-				}));
-			}
-		});
+				}
 
-		app.post('/dashboard/:id/administration/submittogglexp', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
+				if (index === -1) return res.redirect('/servers');
 
-					if (index === -1) return res.redirect('/servers');
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
 
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
 
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
+				permissionsCheck(guildconfs, guild, req, res, index);
 
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newxpchannels = req.body.newxpchannels;
+				if (req.body.newselfassignableroles) {
+					const newselfassignableroles = req.body.newselfassignableroles;
 					const array = [];
-					const tableload = client.guildconfs.get(dashboardid);
 
-					if (Array.isArray(newxpchannels)) {
-						for (let i = 0; i < newxpchannels.length; i++) {
-							array.push(client.guilds.get(req.user.guilds[index].id).channels.find(c => c.name === newxpchannels[i]).id);
+					if (Array.isArray(newselfassignableroles)) {
+						for (let i = 0; i < newselfassignableroles.length; i++) {
+							array.push(newselfassignableroles[i]);
 						}
-						tableload.togglexp.channelids = array;
+						guildconfs.settings.selfassignableroles = array;
 					} else {
-						array.push(client.guilds.get(req.user.guilds[index].id).channels.find(c => c.name === newxpchannels).id);
-						tableload.togglexp.channelids = array;
+						array.push(newselfassignableroles);
+						guildconfs.settings.selfassignableroles = array;
 					}
-
-					tableload.globallogs.push({
-						action: `Updated togglexp-channels!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+				} else {
+					guildconfs.settings.selfassignableroles = [];
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+
+				guildconfs.settings.globallogs.push({
+					action: `Updated self-assignable roles!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submitbyemsg', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newbyemsg = req.body.newbyemsg;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.byemsg = newbyemsg;
-
-					tableload.globallogs.push({
-						action: `Changed the bye message!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submittogglexp', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").channels.array()`);
+				guild.channels = evaledChannels;
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newxpchannels = req.body.newxpchannels;
+				const array = [];
+
+				if (Array.isArray(newxpchannels)) {
+					for (let i = 0; i < newxpchannels.length; i++) {
+						array.push(guild.channels.find(c => c.name === newxpchannels[i]).id);
+					}
+					guildconfs.settings.togglexp.channelids = array;
+				} else {
+					array.push(guild.channels.find(c => c.name === newxpchannels).id);
+					guildconfs.settings.togglexp.channelids = array;
+				}
+
+				guildconfs.settings.globallogs.push({
+					action: `Updated togglexp-channels!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submitwelcomemsg', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newwelcomemsg = req.body.newwelcomemsg;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.welcomemsg = newwelcomemsg;
-
-					tableload.globallogs.push({
-						action: `Changed the welcome message!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitbyemsg', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newbyemsg = req.body.newbyemsg;
+
+				guildconfs.settings.byemsg = newbyemsg;
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the bye message!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submitprefix', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newprefix = req.body.newprefix;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.prefix = newprefix;
-
-					tableload.globallogs.push({
-						action: `Changed the prefix of the bot!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitwelcomemsg', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newwelcomemsg = req.body.newwelcomemsg;
+
+				guildconfs.settings.welcomemsg = newwelcomemsg;
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the welcome message!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submitlanguage', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newlanguage = req.body.newlanguage;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.language = newlanguage;
-
-					tableload.globallogs.push({
-						action: `Changed the language of the bot!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/modules`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitprefix', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newprefix = req.body.newprefix;
+
+				guildconfs.settings.prefix = newprefix;
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the prefix of the bot!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+        if (this.guilds.get("${dashboardid}")) {
+        const x = await this.provider.reloadGuild("${dashboardid}", "prefix", "${newprefix}");
+        return x;
+        }
+    })();
+`);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submitcommanddeletion', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newcommanddeletion = req.body.newcommanddeletion;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.commanddel = newcommanddeletion;
-
-					tableload.globallogs.push({
-						action: `Changed the commanddeletion settings!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitlanguage', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				console.log(111, req.body.newlanguage);
+				const newlanguage = JSON.parse(req.body.newlanguage);
+				console.log(newlanguage, newlanguage.alias);
+
+				// guildconfs.settings.language = newlanguage;
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the language of the bot!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/modules`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submitmuterole', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newmuterole = req.body.newmuterole;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.muterole = newmuterole;
-
-					tableload.globallogs.push({
-						action: `Changed the muterole!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitcommanddeletion', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newcommanddeletion = req.body.newcommanddeletion;
+
+				guildconfs.settings.commanddel = newcommanddeletion;
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the commanddeletion settings!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submittogglechatfilter', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newchatfilter = req.body.newchatfilter;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.chatfilter.chatfilter = newchatfilter;
-
-					tableload.globallogs.push({
-						action: `Toggled the chatfilter!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitmuterole', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newmuterole = req.body.newmuterole;
+
+				guildconfs.settings.muterole = newmuterole;
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the muterole!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submittogglexpmessages', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newxpmessages = req.body.newxpmessages;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.xpmessages = newxpmessages;
-
-					tableload.globallogs.push({
-						action: `Toggled the XP messages!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submittogglechatfilter', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newchatfilter = req.body.newchatfilter;
+
+				guildconfs.settings.chatfilter.chatfilter = newchatfilter;
+
+				guildconfs.settings.globallogs.push({
+					action: `Toggled the chatfilter!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submitchatfilterarray', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				let index;
-				if (req.user) {
-					index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					const newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
-
-					for (let i = 0; i < newchatfilterarray.length; i++) {
-						for (let index3 = 0; index3 < newchatfilterarray.length; index3++) {
-							if (newchatfilterarray[i].toLowerCase() === newchatfilterarray[index3].toLowerCase() && i !== index3) {
-								newchatfilterarray.splice(index3, 1);
-							}
-						}
-					}
-
-					tableload.chatfilter.array = newchatfilterarray;
-
-					tableload.globallogs.push({
-						action: `Updated the chatfilter entries!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submittogglexpmessages', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newxpmessages = req.body.newxpmessages;
+
+				guildconfs.settings.xpmessages = newxpmessages;
+
+				guildconfs.settings.globallogs.push({
+					action: `Toggled the XP messages!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
-		app.post('/dashboard/:id/administration/submittogglewelcome', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
+	app.post('/dashboard/:id/administration/submitchatfilterarray', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			let index;
+			if (req.user) {
+				index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
+
+				for (let i = 0; i < newchatfilterarray.length; i++) {
+					for (let index3 = 0; index3 < newchatfilterarray.length; index3++) {
+						if (newchatfilterarray[i].toLowerCase() === newchatfilterarray[index3].toLowerCase() && i !== index3) {
+							newchatfilterarray.splice(index3, 1);
 						}
 					}
+				}
 
-					if (index === -1) return res.redirect('/servers');
+				guildconfs.settings.chatfilter.array = newchatfilterarray;
 
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
+				guildconfs.settings.globallogs.push({
+					action: `Updated the chatfilter entries!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
 
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
+				return res.redirect(url.format({
+					pathname: `/dashboard/${dashboardid}/administration`,
+					query: {
+						submitadministration: true
 					}
+				}));
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
+	app.post('/dashboard/:id/administration/submittogglewelcome', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
 
-					const newwelcome = req.body.newwelcome;
+				if (index === -1) return res.redirect('/servers');
 
-					const tableload = client.guildconfs.get(dashboardid);
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
 
-					if (newwelcome === 'false') {
-						tableload.welcome = 'false';
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newwelcome = req.body.newwelcome;
+
+				if (newwelcome === 'false') {
+					guildconfs.settings.welcome = 'false';
+				} else {
+					guildconfs.settings.welcome = 'true';
+					guildconfs.settings.welcomechannel = newwelcome;
+				}
+
+				guildconfs.settings.globallogs.push({
+					action: `Toggled the welcome message!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
+				return res.redirect(url.format({
+					pathname: `/dashboard/${dashboardid}/administration`,
+					query: {
+						submitadministration: true
+					}
+				}));
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submittogglebye', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newbye = req.body.newbye;
+
+				if (newbye === 'false') {
+					guildconfs.settings.bye = 'false';
+				} else {
+					guildconfs.settings.bye = 'true';
+					guildconfs.settings.byechannel = newbye;
+				}
+
+				guildconfs.settings.globallogs.push({
+					action: `Toggled the bye message!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
+				return res.redirect(url.format({
+					pathname: `/dashboard/${dashboardid}/administration`,
+					query: {
+						submitadministration: true
+					}
+				}));
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submittoggleannounce', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				const newannounce = req.body.newannounce;
+
+				if (newannounce === 'false') {
+					guildconfs.settings.announce = 'false';
+					guildconfs.settings.announcechannel = '';
+				} else {
+					guildconfs.settings.announce = 'true';
+					guildconfs.settings.announcechannel = newannounce;
+				}
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the announce settings!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
+				return res.redirect(url.format({
+					pathname: `/dashboard/${dashboardid}/administration`,
+					query: {
+						submitadministration: true
+					}
+				}));
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitpermissionsticket', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				guildconfs.settings.dashboardticketpermissions = Number(req.body.newpermissionticket);
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the required permissions for the ticket panel!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
+				return res.redirect(url.format({
+					pathname: `/dashboard/${dashboardid}/administration`,
+					query: {
+						submitadministration: true
+					}
+				}));
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitpermissionsapplication', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				guildconfs.settings.dashboardapplicationpermissions = Number(req.body.newpermissionapplication);
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the required permissions for the applications panel!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
+				return res.redirect(url.format({
+					pathname: `/dashboard/${dashboardid}/administration`,
+					query: {
+						submitadministration: true
+					}
+				}));
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.post('/dashboard/:id/administration/submitpermissionsdashboard', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
+					}
+				}
+
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				if (!guildconfs.settings.dashboardpermissionroles) {
+					guildconfs.settings.dashboardpermissionroles = [];
+				}
+
+				if (req.body.newpermissiondashboard) {
+					const newpermissiondashboard = req.body.newpermissiondashboard;
+					const array = [];
+
+					if (Array.isArray(newpermissiondashboard)) {
+						for (let i = 0; i < newpermissiondashboard.length; i++) {
+							array.push(newpermissiondashboard[i]);
+						}
+						guildconfs.settings.dashboardpermissionroles = array;
 					} else {
-						tableload.welcome = 'true';
-						tableload.welcomechannel = newwelcome;
+						array.push(newpermissiondashboard);
+						guildconfs.settings.dashboardpermissionroles = array;
 					}
-
-					tableload.globallogs.push({
-						action: `Toggled the welcome message!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+				} else {
+					guildconfs.settings.dashboardpermissionroles = [];
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+
+				guildconfs.settings.globallogs.push({
+					action: `Changed the required permissions for the dashboard!`,
+					username: req.user.username,
+					date: Date.now(),
+					showeddate: new Date().toUTCString()
+				});
+
+				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await reloadGuild(guild, dashboardid);
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/dashboard/${dashboardid}/administration`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitadministration: true
 					}
 				}));
 			}
-		});
-
-		app.post('/dashboard/:id/administration/submittogglebye', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newbye = req.body.newbye;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					if (newbye === 'false') {
-						tableload.bye = 'false';
-					} else {
-						tableload.bye = 'true';
-						tableload.byechannel = newbye;
-					}
-
-					tableload.globallogs.push({
-						action: `Toggled the bye message!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
-
-		app.post('/dashboard/:id/administration/submittoggleannounce', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const newannounce = req.body.newannounce;
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					if (newannounce === 'false') {
-						tableload.announce = 'false';
-						tableload.announcechannel = '';
-					} else {
-						tableload.announce = 'true';
-						tableload.announcechannel = newannounce;
-					}
-
-					tableload.globallogs.push({
-						action: `Changed the announce settings!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
-				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
-
-		app.post('/dashboard/:id/administration/submitpermissionsticket', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.dashboardticketpermissions = Number(req.body.newpermissionticket);
-
-					tableload.globallogs.push({
-						action: `Changed the required permissions for the ticket panel!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
-				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
-
-		app.post('/dashboard/:id/administration/submitpermissionsapplication', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					tableload.dashboardapplicationpermissions = Number(req.body.newpermissionapplication);
-
-					tableload.globallogs.push({
-						action: `Changed the required permissions for the applications panel!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
-				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
-
-		app.post('/dashboard/:id/administration/submitpermissionsdashboard', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
-					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					const tableload = client.guildconfs.get(dashboardid);
-
-					if (!tableload.dashboardpermissionroles) {
-						tableload.dashboardpermissionroles = [];
-					}
-
-					if (req.body.newpermissiondashboard) {
-						const newpermissiondashboard = req.body.newpermissiondashboard;
-						const array = [];
-
-						if (Array.isArray(newpermissiondashboard)) {
-							for (let i = 0; i < newpermissiondashboard.length; i++) {
-								array.push(newpermissiondashboard[i]);
-							}
-							tableload.dashboardpermissionroles = array;
-						} else {
-							array.push(newpermissiondashboard);
-							tableload.dashboardpermissionroles = array;
-						}
-					} else {
-						tableload.dashboardpermissionroles = [];
-					}
-
-					tableload.globallogs.push({
-						action: `Changed the required permissions for the dashboard!`,
-						username: req.user.username,
-						date: Date.now(),
-						showeddate: new Date().toUTCString()
-					});
-
-					client.guildconfs.set(dashboardid, tableload);
-
-					return res.redirect(url.format({
-						pathname: `/dashboard/${dashboardid}/administration`,
-						query: {
-							submitadministration: true
-						}
-					}));
-				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		}); */
+			}));
+		}
+	});
 
 	app.get('/dashboard/:id/administration', async (req, res) => {
 		try {
@@ -2724,7 +2606,7 @@ async function run() {
 	/*
 		app.post('/dashboard/:id/moderation/submittempbananonymous', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -2757,12 +2639,12 @@ async function run() {
 
 					if (!tableload.muteanonymous) {
 						tableload.muteanonymous = 'false';
-						client.guildconfs.set(dashboardid, tableload);
+						await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 					}
 
 					if (!tableload.tempbananonymous) {
 						tableload.tempbananonymous = 'false';
-						client.guildconfs.set(dashboardid, tableload);
+						await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 					}
 
 					tableload.tempbananonymous = req.body.newtempbananonymous;
@@ -2774,7 +2656,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/moderation`,
@@ -2797,7 +2679,7 @@ async function run() {
 
 		app.post('/dashboard/:id/moderation/submitmuteanonymous', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -2830,12 +2712,12 @@ async function run() {
 
 					if (!tableload.muteanonymous) {
 						tableload.muteanonymous = 'false';
-						client.guildconfs.set(dashboardid, tableload);
+						await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 					}
 
 					if (!tableload.tempbananonymous) {
 						tableload.tempbananonymous = 'false';
-						client.guildconfs.set(dashboardid, tableload);
+						await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 					}
 
 					tableload.muteanonymous = req.body.newmuteanonymous;
@@ -2847,7 +2729,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/moderation`,
@@ -2870,7 +2752,7 @@ async function run() {
 
 		app.get('/dashboard/:id/moderation', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -2938,12 +2820,12 @@ async function run() {
 
 					if (!tableload.muteanonymous) {
 						tableload.muteanonymous = 'false';
-						client.guildconfs.set(dashboardid, tableload);
+						await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 					}
 
 					if (!tableload.tempbananonymous) {
 						tableload.tempbananonymous = 'false';
-						client.guildconfs.set(dashboardid, tableload);
+						await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 					}
 
 					const islenoxbot = islenoxboton(req);
@@ -3053,7 +2935,7 @@ async function run() {
 
 	/* app.post('/dashboard/:id/music/submitchannelblacklist', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3103,7 +2985,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/music`,
@@ -3126,7 +3008,7 @@ async function run() {
 
 		app.post('/dashboard/:id/music/submitnewmusicaction', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3193,7 +3075,7 @@ async function run() {
 
 		app.get('/dashboard/:id/music', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3297,7 +3179,7 @@ async function run() {
 
 		app.get('/dashboard/:id/fun', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3390,7 +3272,7 @@ async function run() {
 
 		app.get('/dashboard/:id/searches', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3483,7 +3365,7 @@ async function run() {
 
 		app.get('/dashboard/:id/nsfw', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3576,7 +3458,7 @@ async function run() {
 
 		app.post('/dashboard/:id/utility/submitsendembed', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3650,7 +3532,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/utility`,
@@ -3673,7 +3555,7 @@ async function run() {
 
 		app.get('/dashboard/:id/utility', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3766,7 +3648,7 @@ async function run() {
 
 		app.post('/dashboard/:id/applications/:applicationid/submitdeleteapplication', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3788,7 +3670,7 @@ async function run() {
 
 					delete tableload.application.applications[req.params.applicationid];
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/applications`,
@@ -3811,7 +3693,7 @@ async function run() {
 
 		app.post('/dashboard/:id/applications/:applicationid/submitnewvote', async (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3861,7 +3743,7 @@ async function run() {
 						'undefined';
 					}
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/applications/${req.params.applicationid}/overview`,
@@ -3884,7 +3766,7 @@ async function run() {
 
 		app.get('/dashboard/:id/applications/:applicationid/overview', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -3958,7 +3840,7 @@ async function run() {
 
 		app.get('/dashboard/:id/applications', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4037,7 +3919,7 @@ async function run() {
 
 		app.post('/dashboard/:id/application/submitnewacceptedmsg', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4079,7 +3961,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/application`,
@@ -4102,7 +3984,7 @@ async function run() {
 
 		app.post('/dashboard/:id/application/submitnewrejectedmsg', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4144,7 +4026,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/application`,
@@ -4167,7 +4049,7 @@ async function run() {
 
 		app.post('/dashboard/:id/application/submitdenyrole', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4212,7 +4094,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/application`,
@@ -4235,7 +4117,7 @@ async function run() {
 
 		app.post('/dashboard/:id/application/submitrole', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4280,7 +4162,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/application`,
@@ -4303,7 +4185,7 @@ async function run() {
 
 		app.post('/dashboard/:id/application/submitreactionnumber', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4346,7 +4228,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/application`,
@@ -4369,7 +4251,7 @@ async function run() {
 
 		app.post('/dashboard/:id/application/submitapplication', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4412,7 +4294,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/application`,
@@ -4435,7 +4317,7 @@ async function run() {
 
 		app.get('/dashboard/:id/application', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4553,7 +4435,7 @@ async function run() {
 
 		app.get('/dashboard/:id/currency', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4646,7 +4528,7 @@ async function run() {
 
 		app.post('/dashboard/:id/tickets/:ticketid/submitticketanswer', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4712,7 +4594,7 @@ async function run() {
 
 		app.post('/dashboard/:id/tickets/:ticketid/submitnewticketstatus', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4790,7 +4672,7 @@ async function run() {
 
 		app.get('/dashboard/:id/tickets/:ticketid/overview', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4872,7 +4754,7 @@ async function run() {
 
 		app.get('/dashboard/:id/tickets', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -4962,7 +4844,7 @@ async function run() {
 
 		app.post('/dashboard/:id/customcommands/customcommand/:command/submitdeletecommand', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -5006,7 +4888,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/customcommands`,
@@ -5029,7 +4911,7 @@ async function run() {
 
 		app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandstatuschange', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -5073,7 +4955,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/customcommands`,
@@ -5096,7 +4978,7 @@ async function run() {
 
 		app.post('/dashboard/:id/customcommands/customcommand/:command/submitcommandchange', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -5147,7 +5029,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/customcommands`,
@@ -5170,7 +5052,7 @@ async function run() {
 
 		app.post('/dashboard/:id/customcommands/submitnewcustomcommand', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -5239,7 +5121,7 @@ async function run() {
 						showeddate: new Date().toUTCString()
 					});
 
-					client.guildconfs.set(dashboardid, tableload);
+					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 
 					return res.redirect(url.format({
 						pathname: `/dashboard/${dashboardid}/customcommands`,
@@ -5262,7 +5144,7 @@ async function run() {
 
 		app.get('/dashboard/:id/customcommands', (req, res) => {
 			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
+				const dashboardid = req.params.id;
 				if (req.user) {
 					let index = -1;
 					for (let i = 0; i < req.user.guilds.length; i++) {
@@ -5305,7 +5187,7 @@ async function run() {
 
 					if (!tableload.customcommands) {
 						tableload.customcommands = [];
-						client.guildconfs.set(dashboardid, tableload);
+						await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 					}
 
 					const customcommands = tableload.customcommands;
