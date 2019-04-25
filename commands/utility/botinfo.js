@@ -20,7 +20,7 @@ module.exports = class botinfoCommand extends LenoxCommand {
 		});
 	}
 
-	run(msg) {
+	async run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const momentlangSet = msg.client.provider.getGuild(msg.guild.id, 'momentLanguage');
@@ -29,7 +29,19 @@ module.exports = class botinfoCommand extends LenoxCommand {
 		const uptimeserver = moment.duration(msg.client.uptime).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`);
 		const version = require('../../package.json').version;
 
-		const online = lang.botinfo_online.replace('%guilds', msg.client.guilds.size).replace('%users', msg.client.users.size);
+		let guildsCount;
+		await msg.client.shard.fetchClientValues('guilds.size')
+			.then(results => {
+				guildsCount = results.reduce((prev, guildCount) => prev + guildCount, 0);
+			});
+
+		let usersCount;
+		await msg.client.shard.fetchClientValues('users.size')
+			.then(results => {
+				usersCount = results.reduce((prev, userCount) => prev + userCount, 0);
+			});
+
+		const online = lang.botinfo_online.replace('%guilds', guildsCount).replace('%users', usersCount);
 		const embed = new Discord.MessageEmbed()
 			.setAuthor('LenoxBot', msg.client.user.avatarURL)
 			.setColor('#0066CC')
@@ -42,7 +54,7 @@ module.exports = class botinfoCommand extends LenoxCommand {
 			.addField(`📢 ${lang.botinfo_supportserver}`, 'https://lenoxbot.com/discord/')
 			.addField(`🔛 ${lang.botinfo_version}`, version);
 
-		msg.message.channel.send({
+		msg.channel.send({
 			embed
 		});
 	}
