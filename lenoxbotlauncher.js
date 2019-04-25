@@ -34,7 +34,7 @@ async function run() {
 	const dbClient = await mongodb.MongoClient.connect(mongoUrl, { useNewUrlParser: true });
 	const db = dbClient.db('lenoxbot');
 	const guildSettingsCollection = db.collection('guildSettings');
-	// const userSettingsCollection = db.collection('userSettings');
+	const userSettingsCollection = db.collection('userSettings');
 	const botSettingsCollection = db.collection('botSettings');
 
 	app.use(bodyParser.json());
@@ -293,11 +293,7 @@ async function run() {
 		}
 	});
 
-	// temporary!!!
-	// app.get('/servers', (req, res) => res.redirect('https://status.lenoxbot.com'));
-	// temporary!!!
-
-	/* app.get('/leaderboards', async (req, res) => {
+	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await islenoxbotonNonPermission(req);
@@ -308,36 +304,24 @@ async function run() {
 			let userArray = [];
 			const arrayofUsers = await userSettingsCollection.find().toArray();
 
-			for (const row of arrayofUsers) {
-				if (!isNaN(row.settings.credits)) {
-					await shardingManager.broadcastEval(`
-					const user = this.users.get('${row.userId}');
-					if (user) {
-						const newObject = {
-							id: user.id,
-							username: user.username,
-							discriminator: user.discriminator,
-							avatar: user.avatar,
-							bot: user.bot
-						};
-						newObject;
-					}
-					`).then(userResult => {
-						let userCheckIndex;
-						if (userResult) {
-							for (let index = 0; index < userResult.length; index++) {
-								if (typeof userResult[index] !== 'undefined') {
-									userCheckIndex = index;
-								}
-							}
-						}
-
+			for (let i = 0; i < arrayofUsers.length; i++) {
+				if (!isNaN(arrayofUsers[i].settings.credits)) {
+					await shardingManager.shards.get(0).eval(`
+					(async () => {
+						await this.users.fetch("${arrayofUsers[i].userId}").then(user => {
+							return user;
+						}).catch(err => {
+							return undefined;
+						})
+					})();
+				`).then(userResult => {
+						console.log(userResult);
 						const userCreditsSettings = {
-							userId: row.userId,
-							user: userResult[userCheckIndex] ? userResult[userCheckIndex] : row.userId,
-							credits: Number(row.settings.credits)
+							userId: arrayofUsers[i].userId,
+							user: userResult ? userResult : arrayofUsers[i].userId,
+							credits: Number(arrayofUsers[i].settings.credits)
 						};
-						if (row.userId !== 'global') {
+						if (arrayofUsers[i].userId !== 'global') {
 							userArray.push(userCreditsSettings);
 						}
 					});
@@ -355,32 +339,14 @@ async function run() {
 			});
 
 			for (let i = 0; i < userArray.length; i++) {
-				await shardingManager.broadcastEval(`
-					const user = this.users.get('${userArray[i].userId}');
-					if (user) {
-						const newObject = {
-							id: user.id,
-							username: user.username,
-							discriminator: user.discriminator,
-							avatar: user.avatar,
-							bot: user.bot
-						};
-						newObject;
-					}
-					`).then(userResult => {
-					let userCheck;
-					let userCheckIndex;
+				await shardingManager.shards.get(0).eval(`
+					(async () => {
+						const user = await this.users.fetch("${arrayofUsers[i].userId}")
+						if (user) return user;
+					})();
+				`).then(userResult => {
 					if (userResult) {
-						for (let index = 0; index < userResult.length; index++) {
-							if (typeof userResult[index] !== 'undefined') {
-								userCheck = true;
-								userCheckIndex = index;
-							}
-						}
-					}
-
-					if (userCheck) {
-						userArray[i].user = userResult[userCheckIndex];
+						userArray[i].user = userResult;
 					}
 					if (req.user) {
 						if (userArray[i].userId === req.user.id) {
@@ -400,6 +366,7 @@ async function run() {
 				islenoxbotnp: islenoxbotnp
 			});
 		} catch (error) {
+			console.log(error);
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
@@ -409,6 +376,7 @@ async function run() {
 			}));
 		}
 	});
+	/*
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 			try {
@@ -649,7 +617,6 @@ async function run() {
 		}
 	});
 
-	/*
 	app.get('/commands', async (req, res) => {
 		try {
 			const commandlist = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
@@ -777,7 +744,7 @@ async function run() {
 			}));
 		}
 	});
-*/
+
 	app.get('/servers', async (req, res) => {
 		try {
 			if (req.user) {
@@ -2430,325 +2397,331 @@ async function run() {
 					}
 				}));
 			}
-		});
+		}); */
 
-		app.get('/dashboard/:id/administration', (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(11, 18);
-				if (req.user) {
-					let index = -1;
-					for (let i = 0; i < req.user.guilds.length; i++) {
-						if (req.user.guilds[i].id === dashboardid) {
-							index = i;
-						}
+	app.get('/dashboard/:id/administration', async (req, res) => {
+		try {
+			const dashboardid = req.params.id;
+			if (req.user) {
+				let index = -1;
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (req.user.guilds[i].id === dashboardid) {
+						index = i;
 					}
-
-					if (index === -1) return res.redirect('/servers');
-
-					if (client.guildconfs.get(dashboardid).dashboardpermissionroles.length !== 0 && client.guilds.get(dashboardid).ownerID !== req.user.id) {
-						let allwhitelistedrolesoftheuser = 0;
-
-						for (let index2 = 0; index2 < client.guildconfs.get(dashboardid).dashboardpermissionroles.length; index2++) {
-							if (!client.guilds.get(dashboardid).members.get(req.user.id)) return res.redirect('/servers');
-							if (!client.guilds.get(dashboardid).members.get(req.user.id).roles.has(client.guildconfs.get(dashboardid).dashboardpermissionroles[index2])) {
-								allwhitelistedrolesoftheuser += 1;
-							}
-						}
-						if (allwhitelistedrolesoftheuser === client.guildconfs.get(dashboardid).dashboardpermissionroles.length) {
-							return res.redirect('/servers');
-						}
-					} else if (((req.user.guilds[index].permissions) & 8) !== 8) {
-						return res.redirect('/servers');
-					}
-
-					if (!client.guilds.get(req.user.guilds[index].id)) return res.redirect('/servers');
-
-					req.user.guilds[index].memberscount = client.guilds.get(req.user.guilds[index].id).memberCount;
-					req.user.guilds[index].membersonline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'online').length;
-					req.user.guilds[index].membersdnd = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'dnd').length;
-					req.user.guilds[index].membersidle = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'idle').length;
-					req.user.guilds[index].membersoffline = client.guilds.get(req.user.guilds[index].id).members.array().filter(m => m.presence.status === 'offline').length;
-
-					req.user.guilds[index].channelscount = client.guilds.get(req.user.guilds[index].id).channels.size;
-
-					req.user.guilds[index].rolescount = client.guilds.get(req.user.guilds[index].id).roles.size;
-
-					req.user.guilds[index].ownertag = client.guilds.get(req.user.guilds[index].id).owner.user.tag;
-
-					req.user.guilds[index].prefix = client.guildconfs.get(req.user.guilds[index].id).prefix;
-
-					req.user.guilds[index].welcomemsg = client.guildconfs.get(req.user.guilds[index].id).welcomemsg;
-					req.user.guilds[index].byemsg = client.guildconfs.get(req.user.guilds[index].id).byemsg;
-
-					const channels = client.guilds.get(req.user.guilds[index].id).channels.filter(textChannel => textChannel.type === `text`).array();
-
-					const tableload = client.guildconfs.get(dashboardid);
-					if (tableload.togglexp) {
-						for (let i = 0; i < channels.length; i++) {
-							if (tableload.togglexp.channelids.includes(channels[i].id)) {
-								channels[i].togglexpset = true;
-							}
-							if (tableload.welcomechannel === channels[i].id) {
-								channels[i].welcomeset = true;
-							}
-							if (tableload.byechannel === channels[i].id) {
-								channels[i].byeset = true;
-							}
-							if (tableload.announcechannel === channels[i].id) {
-								channels[i].announceset = true;
-							}
-						}
-					}
-					const roles = client.guilds.get(req.user.guilds[index].id).roles.filter(r => r.name !== '@everyone').array();
-
-					const check = req.user.guilds[index];
-					for (let index2 = 0; index2 < roles.length; index2++) {
-						if (tableload.selfassignableroles.includes(roles[index2].id)) {
-							roles[index2].selfassignablerolesset = true;
-						}
-						if (tableload.muterole === roles[index2].id) {
-							roles[index2].muteroleset = true;
-						}
-						if (tableload.dashboardpermissionroles.includes(roles[index2].id)) {
-							roles[index2].dashboardpermissionset = true;
-						}
-					}
-
-					const commands = client.commands.filter(r => r.help.category === 'administration' && r.conf.dashboardsettings === true).array();
-					for (let i = 0; i < commands.length; i++) {
-						const englishstrings = require('./languages/en-US.json');
-						commands[i].help.description = englishstrings[`${commands[i].help.name}_description`];
-						if (tableload.commands[commands[i].help.name].status === 'true') {
-							commands[i].conf.enabled = true;
-						} else {
-							commands[i].conf.enabled = false;
-						}
-						commands[i].bannedchannels = tableload.commands[commands[i].help.name].bannedchannels;
-						commands[i].bannedroles = tableload.commands[commands[i].help.name].bannedroles;
-						commands[i].whitelistedroles = tableload.commands[commands[i].help.name].whitelistedroles;
-						commands[i].cooldown = tableload.commands[commands[i].help.name].cooldown / 1000;
-					}
-
-					const languages = [{
-						name: 'english',
-						alias: 'en-US'
-					},
-					{
-						name: 'german',
-						alias: 'de-DE'
-					},
-					{
-						name: 'french',
-						alias: 'fr-FR'
-					}];
-
-					if (tableload.language) {
-						for (let index3 = 0; index3 < languages.length; index3++) {
-							if (tableload.language === languages[index3].alias) {
-								languages[index3].set = true;
-							}
-						}
-					}
-
-					const confs = {};
-					if (tableload) {
-						for (let i = 0; i < channels.length; i++) {
-							if (channels[i].id === tableload.modlogchannel) {
-								if (tableload.modlog === 'true') {
-									channels[i].modlogset = true;
-								} else {
-									confs.modlogdeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.chatfilterlogchannel) {
-								if (tableload.chatfilterlog === 'true') {
-									channels[i].chatfilterset = true;
-									confs.chatfilterset = true;
-								} else {
-									confs.chatfilterdeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.messagedeletelogchannel) {
-								if (tableload.messagedeletelog === 'true') {
-									channels[i].messagedeleteset = true;
-									confs.messagedeleteset = true;
-								} else {
-									confs.messagedeletedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.messageupdatelogchannel) {
-								if (tableload.messageupdatelog === 'true') {
-									channels[i].messageupdateset = true;
-									confs.messageupdateset = true;
-								} else {
-									confs.messageupdatedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.channelupdatelogchannel) {
-								if (tableload.channelupdatelog === 'true') {
-									channels[i].channelupdateset = true;
-									confs.channelupdateset = true;
-								} else {
-									confs.channelupdatedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.channelcreatelogchannel) {
-								if (tableload.channeldeletelog === 'true') {
-									channels[i].channelcreateset = true;
-									confs.channelcreateset = true;
-								} else {
-									confs.channelcreatedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.channeldeletelogchannel) {
-								if (tableload.channeldeletelog === 'true') {
-									channels[i].channeldeleteset = true;
-									confs.channeldeleteset = true;
-								} else {
-									confs.channeldeletedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.memberupdatelogchannel) {
-								if (tableload.memberupdatelog === 'true') {
-									channels[i].memberupdateset = true;
-									confs.memberupdateset = true;
-								} else {
-									confs.memberupdatedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.presenceupdatelogchannel) {
-								if (tableload.presenceupdatelog === 'true') {
-									channels[i].presenceupdateset = true;
-									confs.presenceupdateset = true;
-								} else {
-									confs.presenceupdatedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.welcomelogchannel) {
-								if (tableload.welcomelog === 'true') {
-									channels[i].welcomeset = true;
-									confs.welcomeset = true;
-								} else {
-									confs.welcomelogdeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.byelogchannel) {
-								if (tableload.byelog === 'true') {
-									channels[i].byeset = true;
-									confs.byeset = true;
-								} else {
-									confs.byelogdeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.rolecreatelogchannel) {
-								if (tableload.rolecreatelog === 'true') {
-									channels[i].rolecreateset = true;
-									confs.rolecreateset = true;
-								} else {
-									confs.rolecreatedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.roledeletelogchannel) {
-								if (tableload.roledeletelog === 'true') {
-									channels[i].roledeleteset = true;
-									confs.roledeleteset = true;
-								} else {
-									confs.roledeletedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.roleupdatelogchannel) {
-								if (tableload.roleupdatelog === 'true') {
-									channels[i].roleupdateset = true;
-									confs.roleupdateset = true;
-								} else {
-									confs.roleupdatedeactivated = true;
-								}
-							}
-
-							if (channels[i].id === tableload.guildupdatelogchannel) {
-								if (tableload.guildupdatelog === 'true') {
-									channels[i].guildupdateset = true;
-									confs.guildupdateset = true;
-								} else {
-									confs.guildupdatedeactivated = true;
-								}
-							}
-						}
-					}
-
-					const permissions = {
-						administrator: {
-							name: 'Administrator',
-							number: 8
-						},
-						kickmembersbanmembers: {
-							name: 'Kick Members & Ban Members (Standard)',
-							number: 6
-						},
-						manageserver: {
-							name: 'Manage Server',
-							number: 32
-						},
-						managemessages: {
-							name: 'Manage Messages',
-							number: 8192
-						}
-					};
-
-					for (const x in permissions) {
-						if (tableload.dashboardticketpermissions === permissions[x].number) {
-							permissions[x].ticketpermissionset = true;
-						}
-						if (tableload.dashboardapplicationpermissions === permissions[x].number) {
-							permissions[x].applicationpermissionset = true;
-						}
-					}
-					const islenoxbot = islenoxboton(req);
-					return res.render('dashboardadministration', {
-						user: req.user,
-						guilds: check,
-
-						channels: channels,
-						islenoxbot: islenoxbot,
-						roles: roles,
-						confs: confs,
-						announcedeactivated: client.guildconfs.get(dashboardid).announce === 'true' ? false : true,
-						muteroledeactivated: client.guildconfs.get(dashboardid).muterole === '' ? true : false,
-						commanddeletionset: client.guildconfs.get(dashboardid).commanddel === 'true' ? true : false,
-						chatfilterset: client.guildconfs.get(dashboardid).chatfilter.chatfilter === 'true' ? true : false,
-						xpmesssagesset: client.guildconfs.get(dashboardid).xpmessages === 'true' ? true : false,
-						languages: languages,
-						chatfilterarray: client.guildconfs.get(req.user.guilds[index].id).chatfilter ? client.guildconfs.get(req.user.guilds[index].id).chatfilter.array.join(',') : '',
-						commands: commands,
-						permissions: permissions,
-						submitadministration: req.query.submitadministration ? true : false
-					});
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
 
+				if (index === -1) return res.redirect('/servers');
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
+				if (!guild) return res.redirect('/servers');
+
+				const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
+				guild.members = evaledMembers;
+
+				const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").channels.array()`);
+				guild.channels = evaledChannels;
+
+				const evaledRoles = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").roles.array()`);
+				guild.roles = evaledRoles;
+
+				permissionsCheck(guildconfs, guild, req, res, index);
+
+				req.user.guilds[index].prefix = guildconfs.settings.prefix;
+
+				req.user.guilds[index].welcomemsg = guildconfs.settings.welcomemsg;
+				req.user.guilds[index].byemsg = guildconfs.settings.byemsg;
+
+				const channels = guild.channels.filter(textChannel => textChannel.type === `text`);
+
+				if (guildconfs.settings.togglexp) {
+					for (let i = 0; i < channels.length; i++) {
+						if (guildconfs.settings.togglexp.channelids.includes(channels[i].id)) {
+							channels[i].togglexpset = true;
+						}
+						if (guildconfs.settings.welcomechannel === channels[i].id) {
+							channels[i].welcomeset = true;
+						}
+						if (guildconfs.settings.byechannel === channels[i].id) {
+							channels[i].byeset = true;
+						}
+						if (guildconfs.settings.announcechannel === channels[i].id) {
+							channels[i].announceset = true;
+						}
+					}
+				}
+				const roles = guild.roles.filter(r => r.name !== '@everyone');
+
+				const check = req.user.guilds[index];
+				for (let index2 = 0; index2 < roles.length; index2++) {
+					if (guildconfs.settings.selfassignableroles.includes(roles[index2].id)) {
+						roles[index2].selfassignablerolesset = true;
+					}
+					if (guildconfs.settings.muterole === roles[index2].id) {
+						roles[index2].muteroleset = true;
+					}
+					if (guildconfs.settings.dashboardpermissionroles.includes(roles[index2].id)) {
+						roles[index2].dashboardpermissionset = true;
+					}
+				}
+
+				const commands = botconfs.settings.commands.filter(r => r.category === 'administration' && r.dashboardsettings === true);
+				for (let i = 0; i < commands.length; i++) {
+					const englishstrings = require('./languages/en-US.json');
+					commands[i].description = englishstrings[`${commands[i].name}_description`];
+					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
+						commands[i].enabled = true;
+					} else {
+						commands[i].enabled = false;
+					}
+					commands[i].bannedchannels = guildconfs.settings.commands[commands[i].name].bannedchannels;
+					commands[i].bannedroles = guildconfs.settings.commands[commands[i].name].bannedroles;
+					commands[i].whitelistedroles = guildconfs.settings.commands[commands[i].name].whitelistedroles;
+					commands[i].cooldown = guildconfs.settings.commands[commands[i].name].cooldown / 1000;
+				}
+
+				const languages = [{
+					name: 'english',
+					alias: 'en-US',
+					momentLanguage: 'en'
+				},
+				{
+					name: 'german',
+					alias: 'de-DE',
+					momentLanguage: 'de'
+				},
+				{
+					name: 'french',
+					alias: 'fr-FR',
+					momentLanguage: 'fr'
+				},
+				{
+					name: 'spanish',
+					alias: 'es-ES',
+					momentLanguage: 'es'
+				},
+				{
+					name: 'swiss',
+					alias: 'de-CH',
+					momentLanguage: 'de-CH'
+				}];
+
+				if (guildconfs.settings.language) {
+					for (let index3 = 0; index3 < languages.length; index3++) {
+						if (guildconfs.settings.language === languages[index3].alias) {
+							languages[index3].set = true;
+						}
+					}
+				}
+
+				const confs = {};
+				if (guildconfs.settings) {
+					for (let i = 0; i < channels.length; i++) {
+						if (channels[i].id === guildconfs.settings.modlogchannel) {
+							if (guildconfs.settings.modlog === 'true') {
+								channels[i].modlogset = true;
+								confs.modlogset = true;
+							} else {
+								confs.modlogdeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.chatfilterlogchannel) {
+							if (guildconfs.settings.chatfilterlog === 'true') {
+								channels[i].chatfilterset = true;
+								confs.chatfilterset = true;
+							} else {
+								confs.chatfilterdeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.messagedeletelogchannel) {
+							if (guildconfs.settings.messagedeletelog === 'true') {
+								channels[i].messagedeleteset = true;
+								confs.messagedeleteset = true;
+							} else {
+								confs.messagedeletedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.messageupdatelogchannel) {
+							if (guildconfs.settings.messageupdatelog === 'true') {
+								channels[i].messageupdateset = true;
+								confs.messageupdateset = true;
+							} else {
+								confs.messageupdatedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.channelupdatelogchannel) {
+							if (guildconfs.settings.channelupdatelog === 'true') {
+								channels[i].channelupdateset = true;
+								confs.channelupdateset = true;
+							} else {
+								confs.channelupdatedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.channelcreatelogchannel) {
+							if (guildconfs.settings.channeldeletelog === 'true') {
+								channels[i].channelcreateset = true;
+								confs.channelcreateset = true;
+							} else {
+								confs.channelcreatedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.channeldeletelogchannel) {
+							if (guildconfs.settings.channeldeletelog === 'true') {
+								channels[i].channeldeleteset = true;
+								confs.channeldeleteset = true;
+							} else {
+								confs.channeldeletedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.memberupdatelogchannel) {
+							if (guildconfs.settings.memberupdatelog === 'true') {
+								channels[i].memberupdateset = true;
+								confs.memberupdateset = true;
+							} else {
+								confs.memberupdatedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.presenceupdatelogchannel) {
+							if (guildconfs.settings.presenceupdatelog === 'true') {
+								channels[i].presenceupdateset = true;
+								confs.presenceupdateset = true;
+							} else {
+								confs.presenceupdatedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.welcomelogchannel) {
+							if (guildconfs.settings.welcomelog === 'true') {
+								channels[i].welcomeset = true;
+								confs.welcomeset = true;
+							} else {
+								confs.welcomelogdeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.byelogchannel) {
+							if (guildconfs.settings.byelog === 'true') {
+								channels[i].byeset = true;
+								confs.byeset = true;
+							} else {
+								confs.byelogdeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.rolecreatelogchannel) {
+							if (guildconfs.settings.rolecreatelog === 'true') {
+								channels[i].rolecreateset = true;
+								confs.rolecreateset = true;
+							} else {
+								confs.rolecreatedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.roledeletelogchannel) {
+							if (guildconfs.settings.roledeletelog === 'true') {
+								channels[i].roledeleteset = true;
+								confs.roledeleteset = true;
+							} else {
+								confs.roledeletedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.roleupdatelogchannel) {
+							if (guildconfs.settings.roleupdatelog === 'true') {
+								channels[i].roleupdateset = true;
+								confs.roleupdateset = true;
+							} else {
+								confs.roleupdatedeactivated = true;
+							}
+						}
+
+						if (channels[i].id === guildconfs.settings.guildupdatelogchannel) {
+							if (guildconfs.settings.guildupdatelog === 'true') {
+								channels[i].guildupdateset = true;
+								confs.guildupdateset = true;
+							} else {
+								confs.guildupdatedeactivated = true;
+							}
+						}
+					}
+				}
+
+				const permissions = {
+					administrator: {
+						name: 'Administrator',
+						number: 8
+					},
+					kickmembersbanmembers: {
+						name: 'Kick Members & Ban Members (Standard)',
+						number: 6
+					},
+					manageserver: {
+						name: 'Manage Server',
+						number: 32
+					},
+					managemessages: {
+						name: 'Manage Messages',
+						number: 8192
+					}
+				};
+
+				// eslint-disable-next-line guard-for-in
+				for (const x in permissions) {
+					if (guildconfs.settings.dashboardticketpermissions === permissions[x].number) {
+						permissions[x].ticketpermissionset = true;
+					}
+					if (guildconfs.settings.dashboardapplicationpermissions === permissions[x].number) {
+						permissions[x].applicationpermissionset = true;
+					}
+				}
+				const islenoxbot = islenoxboton(req);
+				return res.render('dashboardadministration', {
+					user: req.user,
+					guilds: check,
+					channels: channels,
+					islenoxbot: islenoxbot,
+					roles: roles,
+					confs: confs,
+					announcedeactivated: guildconfs.settings.announce === 'true' ? false : true,
+					muteroledeactivated: guildconfs.settings.muterole === '' ? true : false,
+					commanddeletionset: guildconfs.settings.commanddel === 'true' ? true : false,
+					chatfilterset: guildconfs.settings.chatfilter.chatfilter === 'true' ? true : false,
+					xpmesssagesset: guildconfs.settings.xpmessages === 'true' ? true : false,
+					languages: languages,
+					chatfilterarray: guildconfs.settings.chatfilter ? guildconfs.settings.chatfilter.array.join(',') : '',
+					commands: commands,
+					permissions: permissions,
+					submitadministration: req.query.submitadministration ? true : false
+				});
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			console.log(error);
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	/*
 		app.post('/dashboard/:id/moderation/submittempbananonymous', (req, res) => {
 			try {
 				const dashboardid = res.req.originalUrl.substr(11, 18);
