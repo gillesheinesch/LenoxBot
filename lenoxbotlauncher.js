@@ -584,43 +584,52 @@ async function run() {
 					}
 				}));
 			}
-		});
-
+		}); */
 
 	app.get('/team', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const team = [];
 			const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
-			await shardingManager.broadcastEval(`this.guilds.get('332612123492483094')`).then(guildResult => {
-				console.log(guildResult);
-				let guildCheck;
-				let guildCheckIndex;
-				if (guildResult) {
-					for (let index = 0; index < guildResult.length; index++) {
-						if (typeof guildResult[index] !== 'undefined') {
-							guildCheck = true;
-							guildCheckIndex = index;
-						}
-					}
-				}
-				if (guildCheck) {
-					console.log(guildResult[guildCheckIndex]);
-					for (let i = 0; i < teamroles.length; i++) {
-						const teamSettings = {};
-						const role = guildResult[guildCheckIndex].roles.find(r => r.name.toLowerCase() === teamroles[i]);
 
-						teamSettings.roleName = role.name;
-						teamSettings.roleMembersSize = role.members.array().length;
-						teamSettings.roleMembers = [];
+			let guild;
+			await shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
+				.then(guildArray => {
+					guild = guildArray.find(g => g);
+				});
+			if (!guild) return res.redirect('/servers');
 
-						role.members.forEach(member => {
-							teamSettings.roleMembers.push(member.user);
-						});
-						team.push(teamSettings);
+			const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("352896116812939264").members.array()`);
+			guild.members = evaledMembers;
+
+			const evaledRoles = await shardingManager.broadcastEval(`this.guilds.get("352896116812939264").roles.array()`);
+			guild.roles = evaledRoles;
+
+			const userAdded = [];
+			for (let i = 0; i < teamroles.length; i++) {
+				const teamSettings = {};
+				const role = guild.roles[0].find(r => r.name.toLowerCase() === teamroles[i]);
+
+				const evaledMembersFromRole = await shardingManager.broadcastEval(`this.guilds.get("352896116812939264").roles.get("${role.id}").members.array()`);
+
+				teamSettings.roleName = role.name;
+				teamSettings.roleMembersSize = evaledMembersFromRole[0].length;
+				teamSettings.roleMembers = [];
+
+				evaledMembersFromRole[0].forEach(async member => {
+					const evaledUser = await shardingManager.broadcastEval(`
+					(async () => {
+						const user = await this.users.fetch("${member.userID}")
+						if (user) return user;
+					})();
+				`);
+					if (!userAdded.includes(member.userID)) {
+						teamSettings.roleMembers.push(evaledUser[0]);
+						userAdded.push(member.userID);
 					}
-				}
-			});
+				});
+				team.push(teamSettings);
+			}
 
 			return res.render('team', {
 				user: req.user,
@@ -638,7 +647,7 @@ async function run() {
 		}
 	});
 
-		*/
+	/*
 	app.get('/commands', async (req, res) => {
 		try {
 			const commandlist = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
