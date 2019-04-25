@@ -9,7 +9,7 @@ const shardingManager = new Discord.ShardingManager('./lenoxbot.js',
 		token: settings.token
 	});
 
-shardingManager.spawn('auto').then(() => {
+shardingManager.spawn().then(() => {
 	console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
 }).catch(error => {
 	console.log(error);
@@ -122,9 +122,12 @@ async function run() {
 		const islenoxbotNonPerm = [];
 		if (req.user) {
 			for (let i = 0; i < req.user.guilds.length; i++) {
-				const result = await shardingManager.broadcastEval(`this.guilds.get('${req.params.guildid}')`);
+				let result;
+				await shardingManager.broadcastEval(`this.guilds.get('${req.params.guildid}')`).then(guildArray => {
+					result = guildArray.find(g => g);
+				});
 
-				if (result && typeof result[0] !== 'undefined') {
+				if (result && typeof result !== 'undefined') {
 					req.user.guilds[i].lenoxbot = true;
 				} else {
 					req.user.guilds[i].lenoxbot = false;
@@ -191,7 +194,7 @@ async function run() {
 		}
 	});
 
-	app.get('/home', async (req, res) => {
+	app.get('/home', (req, res) => {
 		try {
 			return res.redirect(url.format({
 				pathname: `/`
@@ -599,32 +602,31 @@ async function run() {
 				});
 			if (!guild) return res.redirect('/servers');
 
-			const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("352896116812939264").members.array()`);
+			const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("352896116812939264").members.array()`);
 			guild.members = evaledMembers;
 
-			const evaledRoles = await shardingManager.broadcastEval(`this.guilds.get("352896116812939264").roles.array()`);
+			const evaledRoles = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("352896116812939264").roles.array()`);
 			guild.roles = evaledRoles;
 
 			const userAdded = [];
 			for (let i = 0; i < teamroles.length; i++) {
 				const teamSettings = {};
-				const role = guild.roles[0].find(r => r.name.toLowerCase() === teamroles[i]);
+				const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
 
-				const evaledMembersFromRole = await shardingManager.broadcastEval(`this.guilds.get("352896116812939264").roles.get("${role.id}").members.array()`);
+				const evaledMembersFromRole = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("352896116812939264").roles.get("${role.id}").members.array()`);
 
 				teamSettings.roleName = role.name;
-				teamSettings.roleMembersSize = evaledMembersFromRole[0].length;
 				teamSettings.roleMembers = [];
 
-				evaledMembersFromRole[0].forEach(async member => {
-					const evaledUser = await shardingManager.broadcastEval(`
+				evaledMembersFromRole.forEach(async member => {
+					const evaledUser = await shardingManager.shards.get(guild.shardID).eval(`
 					(async () => {
 						const user = await this.users.fetch("${member.userID}")
 						if (user) return user;
 					})();
 				`);
 					if (!userAdded.includes(member.userID)) {
-						teamSettings.roleMembers.push(evaledUser[0]);
+						teamSettings.roleMembers.push(evaledUser);
 						userAdded.push(member.userID);
 					}
 				});
@@ -775,7 +777,7 @@ async function run() {
 			}));
 		}
 	});
-
+*/
 	app.get('/servers', async (req, res) => {
 		try {
 			if (req.user) {
@@ -793,7 +795,7 @@ async function run() {
 
 					let evaledMembers;
 					if (guild) {
-						evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+						evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
 						guild.members = evaledMembers;
 					}
 
@@ -1127,7 +1129,7 @@ async function run() {
 						guild = guildArray.find(g => g);
 						if (!guild) return undefined;
 
-						const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+						const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
 						guild.members = evaledMembers;
 
 						if (guildconfs.settings.dashboardpermissionroles.length !== 0 && guild.ownerID !== req.user.id) {
@@ -3021,13 +3023,13 @@ async function run() {
 					});
 				if (!guild) return res.redirect('/servers');
 
-				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+				const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
-				const evaledChannels = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").channels.array()`);
+				const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").channels.array()`);
 				guild.channels = evaledChannels;
 
-				const evaledRoles = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").roles.array()`);
+				const evaledRoles = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").roles.array()`);
 				guild.roles = evaledRoles;
 
 				permissionsCheck(guildconfs, guild, req, res, index);
@@ -5394,7 +5396,7 @@ async function run() {
 					});
 				if (!guild) return res.redirect('/servers');
 
-				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+				const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
 				permissionsCheck(guildconfs, guild, req, res, index);
@@ -5454,7 +5456,7 @@ async function run() {
 
 				permissionsCheck(guildconfs, guild, req, res, index);
 
-				const evaledChannels = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").channels.array()`);
+				const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").channels.array()`);
 				guild.channels = evaledChannels;
 
 				const check = req.user.guilds[index];
@@ -5528,7 +5530,7 @@ async function run() {
 					});
 				if (!guild) return res.redirect('/servers');
 
-				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+				const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
 				permissionsCheck(guildconfs, guild, req, res, index);
@@ -5631,7 +5633,7 @@ async function run() {
 					});
 				if (!guild) return res.redirect('/servers');
 
-				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+				const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
 				permissionsCheck(guildconfs, guild, req, res, index);
@@ -5647,7 +5649,7 @@ async function run() {
 
 				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
 
-				await shardingManager.broadcastEval(`
+				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
         if (this.guilds.get("${dashboardid}")) {
         const x = await this.provider.reloadGuild("${dashboardid}");
@@ -5698,7 +5700,7 @@ async function run() {
 					});
 				if (!guild) return res.redirect('/servers');
 
-				const evaledMembers = await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}").members.array()`);
+				const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
 				guild.members = evaledMembers;
 
 				permissionsCheck(guildconfs, guild, req, res, index);
@@ -5763,7 +5765,7 @@ async function run() {
 
 				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
 
-				await shardingManager.broadcastEval(`
+				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
         if (this.guilds.get("${dashboardid}")) {
         const x = await this.provider.reloadGuild("${dashboardid}");
