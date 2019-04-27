@@ -43,7 +43,7 @@ module.exports = class applicationCommand extends LenoxCommand {
 			try {
 				await msg.channel.send(`${msg.author}, ${msg.client.provider.getGuild(msg.guild.id, 'application').template[i]}`);
 				const response = await msg.channel.awaitMessages(msg2 => msg2.attachments.size === 0 && msg.author.id === msg2.author.id && !msg2.author.bot, {
-					maxMatches: 1,
+					max: 1,
 					time: 300000,
 					errors: ['time']
 				});
