@@ -175,7 +175,6 @@ if (process.env.SHARD_COUNT) {
 			const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userpermissions.join(', '));
 
 			if (cmd.clientpermissions.every(perm => msg.message.guild.me.hasPermission(perm)) === false) {
-				console.log(msg.message.guild.id, cmd.name);
 				if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'true') {
 					msg.delete();
 				}
