@@ -36,7 +36,7 @@ module.exports = class playCommand extends LenoxCommand {
 		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
 
-		const voiceChannel = msg.member.voiceChannel;
+		const voiceChannel = msg.member.voice.channel;
 		if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
 
 		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
@@ -55,7 +55,7 @@ module.exports = class playCommand extends LenoxCommand {
 			const stream = await ytdl(song.url, {
 				filter: 'audioonly'
 			});
-			const dispatcher = await serverQueue.connection.playStream(stream)
+			const dispatcher = await serverQueue.connection.play(stream)
 				.on('end', async reason => {
 					if (reason === 'Stream is not generating quickly enough.');
 					serverQueue.songs.shift('Stream is not generating quickly enough');
@@ -192,7 +192,7 @@ module.exports = class playCommand extends LenoxCommand {
 				let response;
 				try {
 					response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
-						maxMatches: 1,
+						max: 1,
 						time: 20000,
 						errors: ['time']
 					});

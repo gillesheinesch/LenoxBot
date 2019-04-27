@@ -29,7 +29,7 @@ module.exports = class muteCommand extends LenoxCommand {
 
 		let membermention;
 		if (user) {
-			membermention = await msg.guild.fetchMember(user);
+			membermention = await msg.guild.members.fetch(user);
 		}
 
 		const muteroleundefined = lang.mute_muteroleundefined.replace('%prefix', prefix);
@@ -37,7 +37,7 @@ module.exports = class muteCommand extends LenoxCommand {
 
 		if (!user) {
 			try {
-				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
 				user = fetchedMember;
 				membermention = fetchedMember;
@@ -62,7 +62,7 @@ module.exports = class muteCommand extends LenoxCommand {
 		const alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
 		if (membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) return msg.channel.send(alreadymuted);
 
-		membermention.addRole(role);
+		membermention.roles.add(role);
 
 		const mutedby = lang.mute_mutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(' '))
@@ -126,7 +126,7 @@ module.exports = class muteCommand extends LenoxCommand {
 
 		setTimeout(async () => {
 			if (msg.client.provider.getGuild(msg.guild.id, 'muterole') !== '' && membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) {
-				await membermention.removeRole(role);
+				await membermention.roles.remove(role);
 
 				const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.client.user.tag}`);
 				const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
