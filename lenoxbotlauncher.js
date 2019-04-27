@@ -1581,11 +1581,10 @@ async function run() {
 
 				permissionsCheck(guildconfs, guild, req, res, index);
 
-				console.log(111, req.body.newlanguage);
 				const newlanguage = JSON.parse(req.body.newlanguage);
-				console.log(newlanguage, newlanguage.alias);
 
-				// guildconfs.settings.language = newlanguage;
+				guildconfs.settings.language = newlanguage.alias;
+				guildconfs.settings.momentLanguage = newlanguage.momentLanguage;
 
 				guildconfs.settings.globallogs.push({
 					action: `Changed the language of the bot!`,

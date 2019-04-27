@@ -269,6 +269,58 @@ exports.run = client => {
 				await client.provider.setBotsettings('botconfs', 'commands', commandsArray2);
 			}, 86400000);
 
+			/* if (client.shard.ids[0] === 0) {
+				const userData = {};
+				userData.loaded = false;
+				let userArray = [];
+				const arrayOfUsers = await client.provider.userSettings;
+				for (let i = 0; i < Object.keys(arrayOfUsers).length; i++) {
+					if (!isNaN(arrayOfUsers[key].credits)) {
+						await client.users.fetch(arrayOfUsers[key].userId).then(userResult => {
+							console.log(userResult);
+							const userCreditsSettings = {
+								userId: key.userId,
+								user: userResult ? userResult : arrayOfUsers[key].userId,
+								credits: Number(arrayOfUsers[key].credits)
+							};
+							if (Object.keys(arrayOfUsers[key])[0].userId !== 'global') {
+								userArray.push(userCreditsSettings);
+							}
+						});
+					}
+				}
+
+				userArray = userArray.sort((a, b) => {
+					if (a.credits < b.credits) {
+						return 1;
+					}
+					if (a.credits > b.credits) {
+						return -1;
+					}
+					return 0;
+				});
+
+				for (let i = 0; i < userArray.length; i++) {
+					await shardingManager.shards.get(0).eval(`
+					(async () => {
+						const user = await this.users.fetch("${arrayofUsers[i].userId}")
+						if (user) return user;
+					})();
+				`).then(userResult => {
+						if (userResult) {
+							userArray[i].user = userResult;
+						}
+						if (req.user) {
+							if (userArray[i].userId === req.user.id) {
+								userData.place = i + 1;
+								userData.credits = userArray[i].credits;
+								userData.loaded = true;
+							}
+						}
+					});
+				}
+			}*/
+
 			const embed = new Discord.MessageEmbed()
 				.setTitle('Botrestart')
 				.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')

@@ -415,7 +415,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
-	async reloadGuild(id) {
+	async reloadGuild(id, type, value) {
 		try {
 			const result = await this.db.collection('guildSettings').findOne({ guildId: id });
 			let settings = undefined;
@@ -431,6 +431,12 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			}
 
 			await this.db.collection('guildSettings').updateOne({ guildId: id }, { $set: { settings: settings } });
+
+			if (type === 'prefix') {
+				const guild = this.client.guilds.get(id) || null;
+				guild._commandPrefix = value;
+			}
+
 			this.guildSettings.set(id, settings);
 		} catch (err) {
 			console.warn(`Error while creating document of guild ${id}`);
