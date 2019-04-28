@@ -118,12 +118,12 @@ async function run() {
 	}
 
 	// Check all user guilds where lenoxbot is
-	async function islenoxbotonNonPermission(req) {
+	async function isLenoxBotAndUserOn(req) {
 		const islenoxbotNonPerm = [];
 		if (req.user) {
 			for (let i = 0; i < req.user.guilds.length; i++) {
 				let result;
-				await shardingManager.broadcastEval(`this.guilds.get('${req.params.guildid}')`).then(guildArray => {
+				await shardingManager.broadcastEval(`this.guilds.get('${req.user.guilds[i].id}')`).then(guildArray => {
 					result = guildArray.find(g => g);
 				});
 
@@ -325,7 +325,7 @@ async function run() {
 	/* app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
-			const islenoxbotnp = await islenoxbotonNonPermission(req);
+			const islenoxbotnp = await isLenoxBotAndUserOn(req);
 
 			const userData = {};
 			userData.loaded = false;
@@ -415,7 +415,8 @@ async function run() {
 			userData.loaded = false;
 
 			const islenoxbot = islenoxboton(req);
-			const islenoxbotnp = await islenoxbotonNonPermission(req);
+			const islenoxbotnp = await isLenoxBotAndUserOn(req);
+			console.log(islenoxbotnp)
 
 			let guild;
 			await shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
