@@ -172,12 +172,21 @@ async function run() {
 	}
 
 	async function reloadBotSettings(guild) {
-		await shardingManager.shards.get(guild.shardID).eval(`
+		if (guild) {
+			await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
         const x = await this.provider.reloadBotSettings();
         return x;
     })();
 `);
+		} else {
+			await shardingManager.broadcastEval(`
+    (async () => {
+        const x = await this.provider.reloadBotSettings();
+        return x;
+    })();
+`);
+		}
 	}
 
 	app.get('/', async (req, res) => {
@@ -847,191 +856,230 @@ async function run() {
 			}));
 		}
 	});
-	/*
 
-		app.post('/tickets/:ticketid/submitticketanswer', (req, res) => {
-			try {
-				if (req.user) {
-					const botconfs = client.botconfs.get('botconfs');
-					if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
-					if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
+	app.post('/tickets/:ticketid/submitticketanswer', async (req, res) => {
+		try {
+			if (req.user) {
+				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
 
-					const ticket = botconfs.tickets[req.params.ticketid];
+				if (botconfs.settings.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
+				if (botconfs.settings.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 
-					const length = Object.keys(ticket.answers).length + 1;
+				const ticket = botconfs.settings.tickets[req.params.ticketid];
 
-					req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, '<br>');
+				const length = Object.keys(ticket.answers).length + 1;
 
+				req.body.newticketanswer = req.body.newticketanswer.replace(/(?:\r\n|\r|\n)/g, '<br>');
+
+				ticket.answers[length] = {
+					authorid: req.user.id,
+					guildid: ticket.guildid,
+					date: Date.now(),
+					content: req.body.newticketanswer,
+					timelineconf: ''
+				};
+
+				await botSettingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: botconfs.settings } });
+				await reloadBotSettings();
+
+				const guildconfs = await guildSettingsCollection.findOne({ guildId: ticket.guildid });
+
+				if (guildconfs && guildconfs.settings.tickets.status === true) {
+					const lang = require(`./languages/${guildconfs.settings.language}.json`);
+
+					const ticketembedanswer = lang.mainfile_ticketembedanswer.replace('%ticketid', ticket.ticketid);
+					const embed = new Discord.MessageEmbed()
+						.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${ticket.ticketid}/overview`)
+						.setTimestamp()
+						.setColor('#ccffff')
+						.setTitle(lang.mainfile_ticketembedtitle)
+						.setDescription(ticketembedanswer);
+
+					let guild;
+					shardingManager.broadcastEval(`this.guilds.get("${ticket.guildid}")`)
+						.then(guildArray => {
+							guild = guildArray.find(g => g);
+						});
+
+					try {
+						if (guild) {
+							await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+		const fetchedChannel = await this.channels.get("${guildconfs.settings.tickets.notificationchannel}");
+		if (fetchedChannel) {
+			await fetchedChannel.send({ embed: ${JSON.stringify(embed)} });
+			return fetchedChannel;
+		}
+    })();
+`).catch(err => console.log(err));
+						}
+					} catch (error) {
+						console.log(error);
+						'undefined';
+					}
+				}
+
+				return res.redirect(url.format({
+					pathname: `/tickets/${ticket.ticketid}/overview`,
+					query: {
+						submitticketanswer: true
+					}
+				}));
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.post('/tickets/:ticketid/submitnewticketstatus', async (req, res) => {
+		try {
+			if (req.user) {
+				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				if (botconfs.settings.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
+				if (botconfs.settings.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
+				if (botconfs.settings.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
+
+				const ticket = botconfs.settings.tickets[req.params.ticketid];
+
+				if (ticket.status === req.body.newstatus) return res.redirect(`/tickets/${ticket.ticketid}/overview`);
+
+				ticket.status = req.body.newstatus;
+
+				const length = Object.keys(ticket.answers).length + 1;
+
+				if (ticket.status === 'closed') {
 					ticket.answers[length] = {
 						authorid: req.user.id,
 						guildid: req.params.id,
 						date: Date.now(),
-						content: req.body.newticketanswer,
-						timelineconf: ''
+						content: `closed the ticket!`,
+						timelineconf: '',
+						toStatus: 'closed'
 					};
-
-					client.botconfs.set('botconfs', botconfs);
-
-					if (client.guildconfs.get(ticket.guildid) && client.guildconfs.get(ticket.guildid).tickets.status === true) {
-						const tableload = client.guildconfs.get(ticket.guildid);
-						const lang = require(`./languages/${tableload.language}.json`);
-
-						const ticketembedanswer = lang.mainfile_ticketembedanswer.replace('%ticketid', ticket.ticketid);
-						const embed =
-							.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${ticket.ticketid}/overview`)
-							.setTimestamp()
-							.setColor('#ccffff')
-							.setTitle(lang.mainfile_ticketembedtitle)
-							.setDescription(ticketembedanswer);
-
-						try {
-							client.channels.get(client.guildconfs.get(ticket.guildid).tickets.notificationchannel).send({
-								embed
-							});
-						} catch (error) {
-							'undefined';
-						}
-					}
-
-					return res.redirect(url.format({
-						pathname: `/tickets/${ticket.ticketid}/overview`,
-						query: {
-							submitticketanswer: true
-						}
-					}));
+				} else if (ticket.status === 'open') {
+					ticket.answers[length] = {
+						authorid: req.user.id,
+						guildid: req.params.id,
+						date: Date.now(),
+						content: `opened the ticket!`,
+						timelineconf: '',
+						toStatus: 'open'
+					};
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
+
+				await botSettingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: botconfs.settings } });
+				await reloadBotSettings();
+
 				return res.redirect(url.format({
-					pathname: `/error`,
+					pathname: `/tickets/${ticket.ticketid}/overview`,
 					query: {
-						statuscode: 500,
-						message: error.message
+						submitnewticketstatus: true
 					}
 				}));
 			}
-		});
-
-		app.post('/tickets/:ticketid/submitnewticketstatus', (req, res) => {
-			try {
-				if (req.user) {
-					const botconfs = client.botconfs.get('botconfs');
-					if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
-					if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
-					if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
-
-					const ticket = botconfs.tickets[req.params.ticketid];
-
-					if (ticket.status === req.body.newstatus) return res.redirect(`/tickets/${ticket.ticketid}/overview`);
-
-					ticket.status = req.body.newstatus;
-
-					const length = Object.keys(ticket.answers).length + 1;
-
-					if (ticket.status === 'closed') {
-						ticket.answers[length] = {
-							authorid: req.user.id,
-							guildid: req.params.id,
-							date: Date.now(),
-							content: `closed the ticket!`,
-							timelineconf: '',
-							toStatus: 'closed'
-						};
-					} else if (ticket.status === 'open') {
-						ticket.answers[length] = {
-							authorid: req.user.id,
-							guildid: req.params.id,
-							date: Date.now(),
-							content: `opened the ticket!`,
-							timelineconf: '',
-							toStatus: 'open'
-						};
-					}
-
-					client.botconfs.set('botconfs', botconfs);
-
-					return res.redirect(url.format({
-						pathname: `/tickets/${ticket.ticketid}/overview`,
-						query: {
-							submitnewticketstatus: true
-						}
-					}));
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
+			}));
+		}
+	});
 
-		app.get('/tickets/:ticketid/overview', (req, res) => {
-			try {
-				if (req.user) {
-					const botconfs = client.botconfs.get('botconfs');
-					if (botconfs.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
-					if (botconfs.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
+	app.get('/tickets/:ticketid/overview', async (req, res) => {
+		try {
+			if (req.user) {
+				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				if (botconfs.settings.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
+				if (botconfs.settings.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 
-					const ticket = botconfs.tickets[req.params.ticketid];
+				const ticket = botconfs.settings.tickets[req.params.ticketid];
+				console.log(ticket);
 
-					botconfs.tickets[req.params.ticketid].newdate = moment(botconfs.tickets[req.params.ticketid].date).format('MMMM Do YYYY, h:mm:ss a');
+				botconfs.settings.tickets[req.params.ticketid].newdate = moment(botconfs.settings.tickets[req.params.ticketid].date).format('MMMM Do YYYY, h:mm:ss a');
 
-					botconfs.tickets[req.params.ticketid].author = client.users.get(botconfs.tickets[req.params.ticketid].authorid).tag;
+				let guild;
+				await shardingManager.broadcastEval(`this.guilds.get("${ticket.guildid}")`)
+					.then(guildArray => {
+						guild = guildArray.find(g => g);
+					});
 
-					for (const index in ticket.answers) {
-						ticket.answers[index].author = client.users.get(ticket.answers[index].authorid) ? client.users.get(ticket.answers[index].authorid).tag : ticket.answers[index].authorid;
-						ticket.answers[index].newdate = moment(ticket.answers[index].date).format('MMMM Do YYYY, h:mm:ss a');
-					}
-					const islenoxbot = islenoxboton(req);
+				const author = await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+		const fetchedUser = await this.users.fetch("${botconfs.settings.tickets[req.params.ticketid].authorid}")
+		if (fetchedUser) {
+			return fetchedUser;
+		}
+    })();
+`);
+				botconfs.settings.tickets[req.params.ticketid].author = author.tag;
 
-					const sortableAnswers = [];
-					for (const key in botconfs.tickets[req.params.ticketid].answers) {
-						sortableAnswers.push(botconfs.tickets[req.params.ticketid].answers[key]);
-					}
+				for (const index in ticket.answers) {
+					const author2 = await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+		const fetchedUser = await this.users.fetch("${ticket.answers[index].authorid}")
+		if (fetchedUser) {
+			return fetchedUser;
+		}
+    })();
+`);
+					ticket.answers[index].author = author2 ? author2.tag : ticket.answers[index].authorid;
+					ticket.answers[index].newdate = moment(ticket.answers[index].date).format('MMMM Do YYYY, h:mm:ss a');
+				}
+				const islenoxbot = islenoxboton(req);
 
-					let answers;
-					if (Object.keys(botconfs.tickets[req.params.ticketid].answers).length === 0) {
-						answers = false;
-					} else {
-						const answersOnTicket = sortableAnswers;
-						answers = answersOnTicket.sort((a, b) => {
-							if (a.date < b.date) {
-								return 1;
-							}
-							if (a.date > b.date) {
-								return -1;
-							}
-							return 0;
-						});
-					}
+				const sortableAnswers = [];
+				for (const key in botconfs.settings.tickets[req.params.ticketid].answers) {
+					sortableAnswers.push(botconfs.settings.tickets[req.params.ticketid].answers[key]);
+				}
 
-					return res.render('ticket', {
-						user: req.user,
-
-						islenoxbot: islenoxbot,
-						ticket: ticket,
-						answers: answers,
-						status: botconfs.tickets[req.params.ticketid].status === 'open' ? true : false
+				let answers;
+				if (Object.keys(botconfs.settings.tickets[req.params.ticketid].answers).length === 0) {
+					answers = false;
+				} else {
+					const answersOnTicket = sortableAnswers;
+					answers = answersOnTicket.sort((a, b) => {
+						if (a.date < b.date) {
+							return 1;
+						}
+						if (a.date > b.date) {
+							return -1;
+						}
+						return 0;
 					});
 				}
-				return res.redirect('/nologin');
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
-			}
-		});
 
-		// ADMIN PANEL
-		*/
+				return res.render('ticket', {
+					user: req.user,
+					islenoxbot: islenoxbot,
+					ticket: ticket,
+					answers: answers,
+					status: botconfs.settings.tickets[req.params.ticketid].status === 'open' ? true : false
+				});
+			}
+			return res.redirect('/nologin');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	// ADMIN PANEL:
 	app.get('/dashboard/:id/overview', async (req, res) => {
 		let guildconfs;
 		try {
