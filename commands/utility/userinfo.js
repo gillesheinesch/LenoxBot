@@ -95,7 +95,7 @@ module.exports = class userinfoCommand extends LenoxCommand {
 			.addField(`📌 ${lang.userinfo_joined}`, useronserver)
 			.addField(`🏷 ${lang.userinfo_roles}`, member.roles.filter(r => r.name !== '@everyone').map(role => role.name).join(', ') || lang.userinfo_noroles)
 			.addField(`⌚ ${lang.userinfo_status}`, user.presence.status)
-			.addField(`🎮 ${lang.userinfo_playing}`, user.presence.game ? user.presence.game.name : lang.userinfo_nothing);
+			.addField(`🎮 ${lang.userinfo_playing}`, user.presence.activity ? user.presence.activity.name : lang.userinfo_nothing);
 
 		msg.channel.send({
 			embed: embed
