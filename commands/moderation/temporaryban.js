@@ -66,15 +66,15 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 		const bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
 			.replace('%bantime', ms(bantime));
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+			.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#FF0000')
 			.setTimestamp()
 			.setDescription(bandescription);
 
 		if (msg.client.provider.getGuild(msg.guild.id, 'tempbananonymous') === 'true') {
 			const ananonymousembed = new Discord.MessageEmbed()
-				.setThumbnail(user.displayAvatarURL)
+				.setThumbnail(user.displayAvatarURL())
 				.setColor('#FF0000')
 				.setTimestamp()
 				.setDescription(bandescription);
@@ -120,8 +120,8 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 				const unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.client.user.tag}`);
 				const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 				const unmutedembed = new Discord.MessageEmbed()
-					.setAuthor(unbannedby, msg.client.user.displayAvatarURL)
-					.setThumbnail(user.displayAvatarURL)
+					.setAuthor(unbannedby, msg.client.user.displayAvatarURL())
+					.setThumbnail(user.displayAvatarURL())
 					.setColor('#FF0000')
 					.setTimestamp()
 					.setDescription(automaticbandescription);

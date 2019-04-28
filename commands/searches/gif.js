@@ -39,7 +39,7 @@ module.exports = class gifCommand extends LenoxCommand {
 
 		const embed = new Discord.MessageEmbed()
 			.setImage(`${res.body.data.image_url}`)
-			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL())
 			.setColor('#0066CC');
 		msg.channel.send({
 			embed

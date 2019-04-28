@@ -59,7 +59,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
 		const slots = lang.inventory_inventoryslots.replace('%slots', `**${inventoryslotcheck}/${msg.client.provider.getUser(msg.author.id, 'inventoryslots')}**`);
 		const embed = new Discord.MessageEmbed()
 			.setDescription(slots)
-			.setAuthor(inventory, msg.author.displayAvatarURL)
+			.setAuthor(inventory, msg.author.displayAvatarURL())
 			.setColor('#009933');
 
 		const array1 = [];
@@ -123,7 +123,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
 
 				const newembed = new Discord.MessageEmbed()
 					.setDescription(slots)
-					.setAuthor(inventory, msg.author.displayAvatarURL)
+					.setAuthor(inventory, msg.author.displayAvatarURL())
 					.setColor('#009933');
 
 				for (let i = 0; i < embedaddfield1.length; i++) {
@@ -143,7 +143,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
 
 				const newembed = new Discord.MessageEmbed()
 					.setDescription(slots)
-					.setAuthor(inventory, msg.author.displayAvatarURL)
+					.setAuthor(inventory, msg.author.displayAvatarURL())
 					.setColor('#009933');
 
 				for (let i = 0; i < embedaddfield1.length; i++) {

@@ -31,7 +31,7 @@ module.exports = class slotCommand extends LenoxCommand {
 		const slotThree = slotThing[Math.floor(Math.random() * slotThing.length)];
 		if (slotOne === slotTwo && slotOne === slotThree) {
 			const embed1 = new Discord.MessageEmbed()
-				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 				.setColor('GREEN')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_triple);
 			msg.channel.send({ embed: embed1 });
@@ -42,7 +42,7 @@ module.exports = class slotCommand extends LenoxCommand {
 		} else
 		if (slotOne === slotTwo || slotTwo === slotThree) {
 			const embed3 = new Discord.MessageEmbed()
-				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 				.setColor('GREEN')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_double);
 			msg.channel.send({ embed: embed3 });
@@ -52,7 +52,7 @@ module.exports = class slotCommand extends LenoxCommand {
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 		} else {
 			const embed2 = new Discord.MessageEmbed()
-				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 				.setColor('RED')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_nothing);
 			msg.channel.send({ embed: embed2 });

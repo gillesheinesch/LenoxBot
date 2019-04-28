@@ -57,8 +57,8 @@ module.exports = class kickCommand extends LenoxCommand {
 		const kickedby = lang.kick_kickedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const kickdescription = lang.kick_kickdescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(kickedby, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+			.setAuthor(kickedby, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#FF0000')
 			.setTimestamp()
 			.setDescription(kickdescription);

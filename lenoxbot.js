@@ -127,7 +127,7 @@ client.dispatcher.addInhibitor(msg => {
 		.setDescription(lang.messageevent_blacklist)
 		.addField(lang.messageevent_support, 'https://lenoxbot.com/discord')
 		.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
-		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL);
+		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL());
 
 
 	const blackbanlist = client.provider.getBotsettings('botconfs', 'blacklist');
@@ -156,7 +156,7 @@ client.dispatcher.addInhibitor(msg => {
 	}
 
 	const activityembed = new Discord.MessageEmbed()
-		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+		.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 		.addField('Command', `${prefix}${command} ${args.join(' ').substring(0, 980)}`)
 		.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 		.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)

@@ -30,7 +30,7 @@ module.exports = class randomnumberCommand extends LenoxCommand {
 
 		const randomnumber = lang.randomnumber_randomnumber.replace('%randomnumber', randomnumberfinished);
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL())
 			.setColor('#0066CC')
 			.setDescription(randomnumber);
 		msg.channel.send({ embed: embed });

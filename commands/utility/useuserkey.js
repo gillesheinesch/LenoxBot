@@ -53,7 +53,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 
 			const embed = new Discord.MessageEmbed()
 				.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}`)
-				.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+				.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 				.setTimestamp()
 				.setColor('#66ff33')
 				.setTitle('New Userkey used!');
@@ -81,7 +81,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 
 		const embed = new Discord.MessageEmbed()
 			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end + 2592000000)).toUTCString()}`)
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setTimestamp()
 			.setColor('#66ff33')
 			.setTitle('Userkey used!');

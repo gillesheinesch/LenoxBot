@@ -190,7 +190,7 @@ module.exports = class jobCommand extends LenoxCommand {
 		await msg.client.provider.setBotsettings('botconfs', 'jobreminder', currentJobreminder);
 
 		const activityEmbed = new Discord.MessageEmbed()
-			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 			.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
 			.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 			.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
@@ -221,7 +221,7 @@ module.exports = class jobCommand extends LenoxCommand {
 			msg.member.send(jobfinish);
 
 			const activityEmbed2 = new Discord.MessageEmbed()
-				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 				.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
 				.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 				.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)

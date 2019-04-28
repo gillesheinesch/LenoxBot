@@ -39,7 +39,7 @@ module.exports = class calculatorCommand extends LenoxCommand {
 
 		const embed = new Discord.MessageEmbed()
 			.setDescription(`**${lang.calculator_calculation}**\n\`\`\`\n${mathEquation}\n\`\`\` **${lang.calculator_result}**\n\`\`\`\n${answer}\n\`\`\``)
-			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL())
 			.setColor('#0066CC');
 		msg.channel.send({ embed });
 	}

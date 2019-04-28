@@ -36,7 +36,7 @@ module.exports = class eightballCommand extends LenoxCommand {
 			.addField(lang.eightball_question, args.join(' '))
 			.addField(lang.eightball_embedfield, eightballAnswers[eightballAnswersIndex])
 			.setColor('#ff6666')
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL);
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL());
 
 		return msg.channel.send({ embed });
 	}

@@ -50,7 +50,7 @@ module.exports = class shopCommand extends LenoxCommand {
 				.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 				.setColor('#009933')
 				.setThumbnail('https://imgur.com/7qLINgn.png')
-				.setAuthor(shop, msg.client.user.displayAvatarURL);
+				.setAuthor(shop, msg.client.user.displayAvatarURL());
 
 			/* eslint guard-for-in: 0 */
 			for (const i in msg.client.provider.getBotsettings('botconfs', 'market')) {
@@ -94,7 +94,7 @@ module.exports = class shopCommand extends LenoxCommand {
 						.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 						.setColor('#009933')
 						.setThumbnail('https://imgur.com/7qLINgn.png')
-						.setAuthor(shop, msg.client.user.displayAvatarURL);
+						.setAuthor(shop, msg.client.user.displayAvatarURL());
 
 					for (let i = 0; i < embedaddfield1.length; i++) {
 						newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
@@ -115,7 +115,7 @@ module.exports = class shopCommand extends LenoxCommand {
 						.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 						.setColor('#009933')
 						.setThumbnail('https://imgur.com/7qLINgn.png')
-						.setAuthor(shop, msg.client.user.displayAvatarURL);
+						.setAuthor(shop, msg.client.user.displayAvatarURL());
 
 					for (let i = 0; i < embedaddfield1.length; i++) {
 						newembed.addField(embedaddfield1[i], embedaddfield2[i], true);

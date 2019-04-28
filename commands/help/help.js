@@ -36,7 +36,7 @@ module.exports = class helpCommand extends LenoxCommand {
 				.addField(lang.help_translation, 'https://crowdin.com/project/lenoxbot')
 				.addField(lang.help_status, 'https://status.lenoxbot.com/')
 				.setColor('#ff3300')
-				.setAuthor(msg.client.user.username, msg.client.user.displayAvatarURL);
+				.setAuthor(msg.client.user.username, msg.client.user.displayAvatarURL());
 
 			return msg.channel.send({ embed });
 		}

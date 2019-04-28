@@ -85,9 +85,9 @@ module.exports = class userinfoCommand extends LenoxCommand {
 		}
 
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL)
+			.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL())
 			.setColor('#0066CC')
-			.setThumbnail(user.displayAvatarURL)
+			.setThumbnail(user.displayAvatarURL())
 			.setDescription(description)
 			.addField(`${lenoxbotcoin} ${lang.credits_credits}`, `$${credits}`)
 			.addField(`💗 ${lang.userinfo_badges}`, topBadges.length > 0 ? topBadges.slice(0, 5).join(' ') : lang.userinfo_nobadges)

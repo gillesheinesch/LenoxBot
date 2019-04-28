@@ -45,7 +45,7 @@ module.exports = class warnlogCommand extends LenoxCommand {
 
 		const embed = new Discord.MessageEmbed()
 			.setColor('#fff024')
-			.setAuthor(mention.tag, mention.displayAvatarURL);
+			.setAuthor(mention.tag, mention.displayAvatarURL());
 
 		const x = firstfield.slice(0, 5);
 		const xx = secondfield.slice(0, 5);
@@ -78,7 +78,7 @@ module.exports = class warnlogCommand extends LenoxCommand {
 
 				const newembed = new Discord.MessageEmbed()
 					.setColor('#fff024')
-					.setAuthor(mention.tag, mention.displayAvatarURL);
+					.setAuthor(mention.tag, mention.displayAvatarURL());
 
 				for (let i = 0; i < thefirst.length; i++) {
 					newembed.addField(thefirst[i], thesecond[i]);
@@ -96,7 +96,7 @@ module.exports = class warnlogCommand extends LenoxCommand {
 
 				const newembed = new Discord.MessageEmbed()
 					.setColor('#fff024')
-					.setAuthor(mention.tag, mention.displayAvatarURL);
+					.setAuthor(mention.tag, mention.displayAvatarURL());
 
 				for (let i = 0; i < thefirst.length; i++) {
 					newembed.addField(thefirst[i], thesecond[i]);

@@ -34,7 +34,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 				if (margs[1].toLowerCase() === 'rock') {
 					if (randomofvalidation === 'rock') {
 						const embed1 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('BLUE')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)
@@ -44,7 +44,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 						});
 					} else if (randomofvalidation === 'scissors') {
 						const embed2 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('GREEN')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)
@@ -54,7 +54,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 						});
 					} else if (randomofvalidation === 'paper') {
 						const embed3 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('RED')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)
@@ -66,7 +66,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 				} else if (margs[1].toLowerCase() === 'scissors') {
 					if (randomofvalidation === 'paper') {
 						const embed4 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('GREEN')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)
@@ -76,7 +76,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 						});
 					} else if (randomofvalidation === 'rock') {
 						const embed5 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('RED')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)
@@ -86,7 +86,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 						});
 					} else if (randomofvalidation === 'scissors') {
 						const embed6 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('BLUE')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)
@@ -98,7 +98,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 				} else if (margs[1].toLowerCase() === 'paper') {
 					if (randomofvalidation === 'scissors') {
 						const embed7 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('RED')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)
@@ -108,7 +108,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 						});
 					} else if (randomofvalidation === 'paper') {
 						const embed8 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('BLUE')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)
@@ -118,7 +118,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 						});
 					} else if (randomofvalidation === 'rock') {
 						const embed9 = new Discord.MessageEmbed()
-							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+							.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 							.setColor('GREEN')
 							.setThumbnail('https://cdn.discordapp.com/attachments/339131858283528192/341322660397056003/spieltipp-schere-stein-papier.png')
 							.setFooter(lang.rockpaperscissors_embedfooter)

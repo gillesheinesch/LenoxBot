@@ -42,7 +42,7 @@ module.exports = class restartCommand extends LenoxCommand {
 			.addField(lang.restart_embedfield, args.join(' '))
 			.setColor('RED')
 			.setTimestamp()
-			.setAuthor(msg.client.user.tag, msg.client.user.displayAvatarURL);
+			.setAuthor(msg.client.user.tag, msg.client.user.displayAvatarURL());
 
 		if (msg.client.user.id === '354712333853130752') {
 			await msg.client.channels.get('497400107109580801').send({

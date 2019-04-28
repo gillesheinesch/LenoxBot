@@ -62,7 +62,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 		});
 
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 			.setColor('BLUE')
 			.addField(lang.creditranklist_name, embedFinalName.join('\n'), true)
 			.addField(lang.creditranklist_credits, embedCredits.join('\n'), true);

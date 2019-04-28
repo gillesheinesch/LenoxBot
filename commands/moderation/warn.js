@@ -49,8 +49,8 @@ module.exports = class warnCommand extends LenoxCommand {
 		const warnedby = lang.warn_warnedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const warndescription = lang.warn_warndescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(warnedby, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+			.setAuthor(warnedby, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#fff024')
 			.setTimestamp()
 			.setDescription(warndescription);

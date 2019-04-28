@@ -59,15 +59,15 @@ module.exports = class unmuteCommand extends LenoxCommand {
 			const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 			const unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(1).join(' '));
 			const embed = new Discord.MessageEmbed()
-				.setAuthor(unmutedby, msg.author.displayAvatarURL)
-				.setThumbnail(user.displayAvatarURL)
+				.setAuthor(unmutedby, msg.author.displayAvatarURL())
+				.setThumbnail(user.displayAvatarURL())
 				.setColor('#FF0000')
 				.setTimestamp()
 				.setDescription(unmutedescription);
 
 			if (msg.client.provider.getGuild(msg.guild.id, 'muteanonymous') === 'true') {
 				const anonymousembed = new Discord.MessageEmbed()
-					.setThumbnail(user.displayAvatarURL)
+					.setThumbnail(user.displayAvatarURL())
 					.setColor('#FF0000')
 					.setTimestamp()
 					.setDescription(unmutedescription);

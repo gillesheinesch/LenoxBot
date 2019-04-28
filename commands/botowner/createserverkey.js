@@ -49,7 +49,7 @@ module.exports = class createserverkeyCommand extends LenoxCommand {
 		const embeddescription = lang.createserverkey_embeddescription.replace('%premiumcode', key);
 		const embed = new Discord.MessageEmbed()
 			.setDescription(embeddescription)
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setTimestamp()
 			.setColor('#cc99ff')
 			.setTitle(lang.createserverkey_embedtitle);

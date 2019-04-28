@@ -51,8 +51,8 @@ module.exports = class softbanCommand extends LenoxCommand {
 		const softbandescription = lang.softban_softbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
 			.replace('%days', days[0]);
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(softbanby, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+			.setAuthor(softbanby, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#FF0000')
 			.setTimestamp()
 			.setDescription(softbandescription);

@@ -77,7 +77,7 @@ module.exports = class giveitemCommand extends LenoxCommand {
 			.replace('%mentionuser', mention.tag);
 		const successEmbed = new Discord.MessageEmbed()
 			.setTimestamp()
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setDescription(embeddescription)
 			.setColor('GREEN');
 

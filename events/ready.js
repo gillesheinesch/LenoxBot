@@ -77,7 +77,7 @@ exports.run = client => {
 					client.users.get(jobreminder.userID).send(jobfinish);
 
 					const activityEmbed2 = new Discord.MessageEmbed()
-						.setAuthor(`${client.users.get(jobreminder.userID).tag} (${jobreminder.userID})`, client.users.get(jobreminder.userID).displayAvatarURL)
+						.setAuthor(`${client.users.get(jobreminder.userID).tag} (${jobreminder.userID})`, client.users.get(jobreminder.userID).displayAvatarURL())
 						.setDescription(`**Job:** ${jobreminder.job} \n**Duration:** ${jobreminder.jobtime} minutes \n**Amount:** ${jobreminder.amount} credits`)
 						.addField('Guild', `${client.guilds.get(jobreminder.discordServerID).name} (${jobreminder.discordServerID})`)
 						.addField('Channel', `${client.channels.get(jobreminder.channelID).name} (${jobreminder.channelID})`)
@@ -117,8 +117,8 @@ exports.run = client => {
 						const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
 						const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 						const unmutedembed = new Discord.MessageEmbed()
-							.setAuthor(unbannedby, client.user.displayAvatarURL)
-							.setThumbnail(user.displayAvatarURL)
+							.setAuthor(unbannedby, client.user.displayAvatarURL())
+							.setThumbnail(user.displayAvatarURL())
 							.setColor('#FF0000')
 							.setTimestamp()
 							.setDescription(automaticbandescription);
@@ -159,8 +159,8 @@ exports.run = client => {
 						const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
 						const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
 						const unmutedembed = new Discord.MessageEmbed()
-							.setAuthor(unmutedby, client.user.displayAvatarURL)
-							.setThumbnail(user.displayAvatarURL)
+							.setAuthor(unmutedby, client.user.displayAvatarURL())
+							.setThumbnail(user.displayAvatarURL())
 							.setColor('#FF0000')
 							.setTimestamp()
 							.setDescription(automaticunmutedescription);
@@ -326,7 +326,7 @@ exports.run = client => {
 				.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
 				.setColor('GREEN')
 				.setTimestamp()
-				.setAuthor(client.user.tag, client.user.displayAvatarURL);
+				.setAuthor(client.user.tag, client.user.displayAvatarURL());
 
 			if (client.user.id === '354712333853130752') {
 				client.channels.get('497400107109580801').send({

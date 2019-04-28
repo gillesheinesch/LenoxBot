@@ -39,7 +39,7 @@ module.exports = class removecreditsCommand extends LenoxCommand {
 
 		const embeddescription = lang.removecredits_embeddescription.replace('%credits', amountofcoins).replace('%user', msg.client.users.get(user) ? msg.client.users.get(user).tag : user);
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setDescription(embeddescription)
 			.setTimestamp()
 			.setColor('RED');
