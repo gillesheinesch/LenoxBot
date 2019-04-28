@@ -37,7 +37,7 @@ module.exports = class memberstatusCommand extends LenoxCommand {
 	\n🕗 ${afk}\
 	\n📵 ${offline}`)
 			.setColor('#99cc00')
-			.setAuthor(msg.guild.name, msg.guild.iconURL);
+			.setAuthor(msg.guild.name, msg.guild.iconURL());
 
 		msg.channel.send({ embed });
 	}

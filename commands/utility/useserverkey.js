@@ -49,7 +49,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 
 			const embed = new Discord.MessageEmbed()
 				.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${msg.client.provider.getGuild(msg.guild.id, 'premium').end.toUTCString()}`)
-				.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
+				.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL())
 				.setTimestamp()
 				.setColor('#ff0000')
 				.setTitle('New Serverkey used!');
@@ -72,7 +72,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 
 		const embed = new Discord.MessageEmbed()
 			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(msg.client.provider.getGuild(msg.guild.id, 'premium').end) + 2592000000).toUTCString()}`)
-			.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
+			.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL())
 			.setTimestamp()
 			.setColor('#ff0000')
 			.setTitle('New Serverkey used!');

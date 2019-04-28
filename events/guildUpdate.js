@@ -40,13 +40,13 @@ exports.run = (client, oldGuild, newGuild) => {
 		messagechannel.send({ embed: embed });
 	}
 
-	if (oldGuild.iconURL !== newGuild.iconURL) {
+	if (oldGuild.iconURL() !== newGuild.iconURL()) {
 		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_servericonchanged)
-			.addField(`📤 ${lang.guildupdateevent_oldservericon}`, oldGuild.iconURL === null ? lang.guildupdateevent_noservericon : oldGuild.iconURL)
-			.addField(`📥 ${lang.guildupdateevent_newservericon}`, newGuild.iconURL === null ? lang.guildupdateevent_noservericonnow : newGuild.iconURL);
+			.addField(`📤 ${lang.guildupdateevent_oldservericon}`, oldGuild.iconURL() === null ? lang.guildupdateevent_noservericon : oldGuild.iconURL())
+			.addField(`📥 ${lang.guildupdateevent_newservericon}`, newGuild.iconURL() === null ? lang.guildupdateevent_noservericonnow : newGuild.iconURL());
 		messagechannel.send({ embed: embed });
 	}
 

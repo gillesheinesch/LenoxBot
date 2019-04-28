@@ -120,7 +120,7 @@ client.dispatcher.addInhibitor(msg => {
 		.setDescription(lang.messageevent_banlist)
 		.addField(lang.messageevent_support, 'https://lenoxbot.com/discord')
 		.addField(lang.messageevent_banappeal, 'https://lenoxbot.com/ban')
-		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL);
+		.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL());
 
 	const blacklistembed = new Discord.MessageEmbed()
 		.setColor('#FF0000')
