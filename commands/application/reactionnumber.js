@@ -28,11 +28,11 @@ module.exports = class reactionnumberCommand extends LenoxCommand {
 		if (number.length === 0 && msg.client.provider.getGuild(msg.guild.id, 'application').reactionnumber !== '') return msg.channel.send(current);
 
 		if (number.length > 1) return msg.channel.send(lang.reactionnumber_error);
-		if (isNaN(number)) return msg.channel.send(lang.reactionnumber_noinput);
-		if (number < 2) return msg.channel.send(lang.reactionnumber_cannotbe0orless);
+		if (isNaN(number.join(' '))) return msg.channel.send(lang.reactionnumber_noinput);
+		if (number.join(' ') < 2) return msg.channel.send(lang.reactionnumber_cannotbe0orless);
 
 		const currentApplication = msg.client.provider.getGuild(msg.guild.id, 'application');
-		currentApplication.reactionnumber = number;
+		currentApplication.reactionnumber = number.join(' ');
 		await msg.client.provider.setGuild(msg.guild.id, 'application', currentApplication);
 
 		const changed = lang.reactionnumber_changed.replace('%newreactionnumber', number);
