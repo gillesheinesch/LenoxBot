@@ -56,7 +56,7 @@ module.exports = class googleCommand extends LenoxCommand {
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('#0066CC')
-				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.avatarURL)
+				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.avatarURL())
 				.setURL(link)
 				.setTitle(result.title)
 				.setDescription(result.snippet)

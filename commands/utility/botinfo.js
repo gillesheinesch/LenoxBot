@@ -43,9 +43,9 @@ module.exports = class botinfoCommand extends LenoxCommand {
 
 		const online = lang.botinfo_online.replace('%guilds', guildsCount).replace('%users', usersCount);
 		const embed = new Discord.MessageEmbed()
-			.setAuthor('LenoxBot', msg.client.user.avatarURL)
+			.setAuthor('LenoxBot', msg.client.user.avatarURL())
 			.setColor('#0066CC')
-			.setThumbnail(msg.client.user.avatarURL)
+			.setThumbnail(msg.client.user.avatarURL())
 			.addField(`⏳ ${lang.botinfo_runtime}`, `${uptimeserver}`)
 			.addField(`📡 ${lang.botinfo_stats}`, online)
 			.addField(`💻 ${lang.botinfo_website}`, `http://www.lenoxbot.com/`)

@@ -76,7 +76,7 @@ module.exports = class creditsCommand extends LenoxCommand {
 		}*/
 
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(`${user1.tag}`, user1.avatarURL)
+			.setAuthor(`${user1.tag}`, user1.avatarURL())
 			.setDescription(`**${lang.credits_credits}** ${msg.client.provider.getUser(user1.id, 'credits')} ${lenoxbotcoin} `)
 			.setColor('GREEN');
 

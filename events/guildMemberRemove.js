@@ -13,7 +13,7 @@ exports.run = (client, member) => {
 			.setFooter(lang.guildmemberremoveevent_userleft)
 			.setTimestamp()
 			.setColor('RED')
-			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
+			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL());
 		messagechannel.send({
 			embed: embed
 		});

@@ -60,7 +60,7 @@ exports.run = async (client, member) => {
 			.setFooter(lang.guildmemberaddevent_userjoined)
 			.setTimestamp()
 			.setColor('GREEN')
-			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
+			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL());
 		messagechannel.send({
 			embed: embed
 		});

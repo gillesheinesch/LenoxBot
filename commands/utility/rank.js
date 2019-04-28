@@ -25,8 +25,8 @@ module.exports = class rankCommand extends LenoxCommand {
 		const user1 = msg.mentions.users.first() || msg.author;
 		const embed = new Discord.MessageEmbed()
 			.setColor('#A4F2DF')
-			.setThumbnail(user1.avatarURL)
-			.setAuthor(user1.tag, user1.avatarURL);
+			.setThumbnail(user1.avatarURL())
+			.setAuthor(user1.tag, user1.avatarURL());
 
 		let allMembersArray = [];
 		let rank = 0;
