@@ -31,15 +31,15 @@ exports.run = (client, oldRole, newRole) => {
 			.addField(`📥 ${lang.roleupdateevent_newcolor}:`, newRole.hexColor);
 		return messagechannel.send({ embed: embed });
 	}
-	if (oldRole.position !== newRole.position) {
+	if (oldRole.rawPosition !== newRole.rawPosition) {
 		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.roleupdateevent_positionupdated)
 			.addField(`⚙ ${lang.rolecreateevent_rolename}:`, oldRole.name)
 			.addField(`📎 ${lang.rolecreateevent_id}:`, oldRole.id)
-			.addField(`📤 ${lang.roleupdateevent_old}:`, oldRole.position)
-			.addField(`📥 ${lang.roleupdateevent_new}:`, newRole.position);
+			.addField(`📤 ${lang.roleupdateevent_old}:`, oldRole.rawPosition)
+			.addField(`📥 ${lang.roleupdateevent_new}:`, newRole.rawPosition);
 		return messagechannel.send({ embed: embed });
 	}
 };
