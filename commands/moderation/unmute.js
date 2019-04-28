@@ -28,7 +28,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 
 		let membermention;
 		if (user) {
-			membermention = await msg.guild.fetchMember(user);
+			membermention = await msg.guild.members.fetch(user);
 		}
 
 		const muteroleundefined = lang.unmute_muteroleundefined.replace('%prefix', prefix);
@@ -36,7 +36,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 
 		if (!user) {
 			try {
-				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
 				user = fetchedMember;
 				membermention = fetchedMember;

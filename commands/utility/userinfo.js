@@ -35,7 +35,7 @@ module.exports = class userinfoCommand extends LenoxCommand {
 			if (user.bot) return msg.reply(lang.userinfo_botinfo);
 		} else {
 			try {
-				const fetchedMember = await msg.guild.fetchMember(args.slice().join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice().join(' '));
 				if (!fetchedMember) new Error('User not found!');
 				user = fetchedMember;
 				user = user.user;
@@ -46,7 +46,7 @@ module.exports = class userinfoCommand extends LenoxCommand {
 			}
 		}
 
-		const member = msg.guild.member(user) || await msg.guild.fetchMember(user);
+		const member = msg.guild.member(user) || await msg.guild.members.fetch(user);
 		const userondiscord = moment(user.createdTimestamp).format('MMMM Do YYYY, h:mm:ss a');
 		const useronserver = moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss a');
 

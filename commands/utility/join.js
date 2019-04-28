@@ -25,7 +25,7 @@ module.exports = class joinCommand extends LenoxCommand {
 
 		const addedrole = args.slice().join(' ');
 		const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
-		const author = await msg.guild.fetchMember(msg.author.id);
+		const author = await msg.guild.members.fetch(msg.author.id);
 		const channelID = msg.channel.id;
 
 		if (addedrole.length < 1) return msg.reply(lang.join_noinput);

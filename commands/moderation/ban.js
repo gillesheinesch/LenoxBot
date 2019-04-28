@@ -28,12 +28,12 @@ module.exports = class banCommand extends LenoxCommand {
 
 		let member;
 		if (user) {
-			member = await msg.guild.fetchMember(user);
+			member = await msg.guild.members.fetch(user);
 		}
 
 		if (!user) {
 			try {
-				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
 				user = fetchedMember;
 				user = user.user;
