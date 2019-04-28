@@ -22,7 +22,7 @@ module.exports = class pingCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const message = await msg.channel.send('Ping?');
-		const newmsg = lang.ping_ping.replace('%latency', message.createdTimestamp - msg.createdTimestamp).replace('%latencyapi', Math.round(msg.client.ping));
+		const newmsg = lang.ping_ping.replace('%latency', message.createdTimestamp - msg.createdTimestamp).replace('%latencyapi', Math.round(msg.client.ws.ping));
 		message.edit(newmsg);
 	}
 };
