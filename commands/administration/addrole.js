@@ -31,7 +31,7 @@ module.exports = class addroleCommand extends LenoxCommand {
 		if (!foundRole) return msg.reply(lang.addrole_rolenotexist);
 		if (user.roles.has(foundRole.id)) return msg.reply(lang.addrole_memberalreadyhasrole);
 
-		user.addRole(foundRole).then(() => msg.reply(lang.addrole_roleassigned)).catch(() =>
+		user.roles.add(foundRole).then(() => msg.reply(lang.addrole_roleassigned)).catch(() =>
 			msg.reply(lang.addrole_norights));
 	}
 };

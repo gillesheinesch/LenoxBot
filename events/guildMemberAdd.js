@@ -16,7 +16,7 @@ exports.run = async (client, member) => {
 		if ((muteOfThisUser.muteEndDate - Date.now()) > 0) {
 			if (member.guild.roles.get(muteOfThisUser.roleid)) {
 				const mutedRole = member.guild.roles.get(muteOfThisUser.roleid);
-				await member.addRole(mutedRole);
+				await member.roles.add(mutedRole);
 			}
 		} else {
 			const currentMutes = client.provider.getBotsettings('botconfs', 'mutes');
@@ -40,7 +40,7 @@ exports.run = async (client, member) => {
 			if (client.provider.getGuild(member.guild.id, 'joinroles').length !== 0) {
 				const roleToAssign = member.guild.roles.get(client.provider.getGuild(member.guild.id, 'joinroles')[i]);
 				try {
-					await member.addRole(roleToAssign);
+					await member.roles.add(roleToAssign);
 					rolesGiven.push(roleToAssign.name);
 				} catch (error) {
 					rolesNotGiven.push(roleToAssign.name);

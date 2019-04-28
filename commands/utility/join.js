@@ -36,7 +36,7 @@ module.exports = class joinCommand extends LenoxCommand {
 		for (let i = 0; i < selfAssignableRoles.length; i++) {
 			if (foundRole.id === selfAssignableRoles[i]) {
 				try {
-					return author.addRole(foundRole).then(m => m.guild.channels.get(channelID).send(lang.join_roleassigned));
+					return author.roles.add(foundRole).then(m => m.guild.channels.get(channelID).send(lang.join_roleassigned));
 				} catch (error) {
 					return msg.channel.send(lang.join_nopermission);
 				}
