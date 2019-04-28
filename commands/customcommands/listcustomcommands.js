@@ -56,7 +56,7 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 			const reactionremove = arrayOfCustomCommands.slice(first - 15, second - 15).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 
 				first += 15;
 				second += 15;
@@ -70,7 +70,7 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 
 				first -= 15;
 				second -= 15;
@@ -86,8 +86,8 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 			}
 		});
 		collector.on('end', () => {
-			reaction1.remove();
-			reaction2.remove();
+			reaction1.users.remove();
+			reaction2.users.remove();
 		});
 	}
 };

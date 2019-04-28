@@ -76,7 +76,7 @@ module.exports = class commandsCommand extends LenoxCommand {
 							const reactionremove = commandShortDescriptions.slice(first - 7, second - 7).length;
 
 							if (r.emoji.name === '▶' && reactionadd !== 0) {
-								r.remove(msg.author.id);
+								r.users.remove(msg.author.id);
 								const newCommandShortDescriptions = commandShortDescriptions.slice(first + 7, second + 7);
 								const newEmbed = new Discord.MessageEmbed()
 									.setColor('#009900');
@@ -93,7 +93,7 @@ module.exports = class commandsCommand extends LenoxCommand {
 									embed: newEmbed
 								});
 							} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-								r.remove(msg.author.id);
+								r.users.remove(msg.author.id);
 								const newCommandShortDescriptions = commandShortDescriptions.slice(first - 7, second - 7);
 								const newEmbed = new Discord.MessageEmbed()
 									.setColor('#009900');
@@ -112,8 +112,8 @@ module.exports = class commandsCommand extends LenoxCommand {
 							}
 						});
 						collector.on('end', () => {
-							reaction1.remove();
-							reaction2.remove();
+							reaction1.users.remove();
+							reaction2.users.remove();
 						});
 						return;
 					}

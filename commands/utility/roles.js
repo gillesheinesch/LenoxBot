@@ -45,7 +45,7 @@ module.exports = class rolesCommand extends LenoxCommand {
 				const reactionremove = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext - 15, secondtext - 15).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 					const guildchannels = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext + 15, secondtext + 15)
 						.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
@@ -58,7 +58,7 @@ module.exports = class rolesCommand extends LenoxCommand {
 
 					textchannels.edit({ embed: newembed });
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 					const guildchannels = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext - 15, secondtext - 15)
 						.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
@@ -73,8 +73,8 @@ module.exports = class rolesCommand extends LenoxCommand {
 				}
 			});
 			collector.on('end', () => {
-				reaction1.remove();
-				reaction2.remove();
+				reaction1.users.remove();
+				reaction2.users.remove();
 			});
 		}
 	}

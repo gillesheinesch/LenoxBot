@@ -108,7 +108,7 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 				const reactionremove = mutesOfThisServer.slice(first - 4, second - 4).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					first += 4;
 					second += 4;
@@ -136,7 +136,7 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 						embed: newembed
 					});
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					first -= 4;
 					second -= 4;
@@ -166,8 +166,8 @@ module.exports = class currentlymutedCommand extends LenoxCommand {
 				}
 			});
 			collector.on('end', () => {
-				reaction1.remove();
-				reaction2.remove();
+				reaction1.users.remove();
+				reaction2.users.remove();
 			});
 		}
 	}

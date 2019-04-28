@@ -57,7 +57,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 			const reactionadd = firstfield.slice(first + 5, second + 5).length;
 			const reactionremove = firstfield.slice(first - 5, second - 5).length;
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 				const thefirst = firstfield.slice(first + 5, second + 5);
 				const thesecond = secondfield.slice(first + 5, second + 5);
 				first += 5;
@@ -72,7 +72,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 				const thefirst = firstfield.slice(first - 5, second - 5);
 				const thesecond = secondfield.slice(first - 5, second - 5);
 				first -= 5;
@@ -89,8 +89,8 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 			}
 		});
 		collector.on('end', () => {
-			reaction1.remove();
-			reaction2.remove();
+			reaction1.users.remove();
+			reaction2.users.remove();
 		});
 	}
 };

@@ -83,7 +83,7 @@ module.exports = class shopCommand extends LenoxCommand {
 				const reactionremove = array1.slice(firsttext - 14, secondtext - 14).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 					const embedaddfield1 = array1.slice(firsttext + 14, secondtext + 14);
 					const embedaddfield2 = array2.slice(firsttext + 14, secondtext + 14);
 
@@ -104,7 +104,7 @@ module.exports = class shopCommand extends LenoxCommand {
 						embed: newembed
 					});
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 					const embedaddfield1 = array1.slice(firsttext - 14, secondtext - 14);
 					const embedaddfield2 = array2.slice(firsttext - 14, secondtext - 14);
 

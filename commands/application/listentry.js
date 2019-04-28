@@ -52,7 +52,7 @@ module.exports = class listentryCommand extends LenoxCommand {
 			const reactionremove = templates.slice(first - 10, second - 10).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 
 				first += 10;
 				second += 10;
@@ -66,7 +66,7 @@ module.exports = class listentryCommand extends LenoxCommand {
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 
 				first -= 10;
 				second -= 10;
@@ -82,8 +82,8 @@ module.exports = class listentryCommand extends LenoxCommand {
 			}
 		});
 		collector.on('end', () => {
-			reaction1.remove();
-			reaction2.remove();
+			reaction1.users.remove();
+			reaction2.users.remove();
 		});
 	}
 };

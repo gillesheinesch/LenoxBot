@@ -48,7 +48,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 					const reactionremove = msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().slice(firsttext - 15, secondtext - 15).length;
 
 					if (r.emoji.name === '▶' && reactionadd !== 0) {
-						r.remove(msg.author.id);
+						r.users.remove(msg.author.id);
 						const guildchannels = msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().slice(firsttext + 15, secondtext + 15)
 							.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
@@ -63,7 +63,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 							embed: newembed
 						});
 					} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-						r.remove(msg.author.id);
+						r.users.remove(msg.author.id);
 						const guildchannels = msg.guild.channels.filter(textChannel => textChannel.type === `text`).array().slice(firsttext - 15, secondtext - 15)
 							.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
@@ -80,8 +80,8 @@ module.exports = class channelsCommand extends LenoxCommand {
 					}
 				});
 				collector.on('end', () => {
-					reaction1.remove();
-					reaction2.remove();
+					reaction1.users.remove();
+					reaction2.users.remove();
 				});
 			}
 		} else {
@@ -90,7 +90,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 
 		if (msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().length > 0) {
 			const voicechannelsembed = new Discord.MessageEmbed()
-				.setDescription(`**📡 ${lang.channels_voicechannels}**\n${msg.guild.channels.filter(voice.channel => voice.channel.type === `voice`).array().slice(0, 15)
+				.setDescription(`**📡 ${lang.channels_voicechannels}**\n${msg.guild.channels.filter(voice => voice.channel.type === `voice`).array().slice(0, 15)
 					.map(voicechannel => `**${voicechannel.name}** (*${voicechannel.id}*)`)
 					.join('\n')}`)
 				.setColor(3447003);
@@ -114,7 +114,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 					const reactionremove = msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().slice(firstvoice - 15, secondvoice - 15).length;
 
 					if (r.emoji.name === '▶' && reactionadd !== 0) {
-						r.remove(msg.author.id);
+						r.users.remove(msg.author.id);
 						const guildchannels = msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().slice(firstvoice + 15, secondvoice + 15)
 							.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
@@ -129,7 +129,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 							embed: newembed
 						});
 					} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-						r.remove(msg.author.id);
+						r.users.remove(msg.author.id);
 						const guildchannels = msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().slice(firstvoice - 15, secondvoice - 15)
 							.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
@@ -146,8 +146,8 @@ module.exports = class channelsCommand extends LenoxCommand {
 					}
 				});
 				collector.on('end', () => {
-					reaction1.remove();
-					reaction2.remove();
+					reaction1.users.remove();
+					reaction2.users.remove();
 				});
 			}
 		} else {
