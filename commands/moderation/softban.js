@@ -38,7 +38,7 @@ module.exports = class softbanCommand extends LenoxCommand {
 		if (!reason) return msg.reply(lang.softban_noinput);
 
 		if (!msg.guild.member(user).bannable) return msg.reply(lang.softban_nopermission);
-		await msg.guild.ban(user, { days: days[0] });
+		await msg.guild.members.ban(user, { days: days[0] });
 		await msg.guild.unban(user);
 
 		const softbanned = lang.softban_softbanned.replace('%usertag', user.tag).replace('%days', days[0]);

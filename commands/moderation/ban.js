@@ -46,7 +46,7 @@ module.exports = class banCommand extends LenoxCommand {
 		if (!reason) return msg.reply(lang.ban_noinput);
 
 		if (!member.bannable) return msg.reply(lang.ban_nopermission);
-		msg.guild.ban(user);
+		msg.guild.members.ban(user);
 
 		const banned = lang.ban_banned.replace('%usertag', user.tag);
 		const banembed = new Discord.MessageEmbed()
