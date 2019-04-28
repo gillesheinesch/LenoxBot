@@ -22,9 +22,9 @@ module.exports = class ticketnotificationCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const channelid = msg.channel.id;
-		if (msg.client.provider.getGuild(msg.guild.id, 'tickets').status === false) {
+		if (msg.client.provider.getGuild(msg.guild.id, 'tickets').notificationstatus === false) {
 			const currentTickets = msg.client.provider.getGuild(msg.guild.id, 'tickets');
-			currentTickets.status = true;
+			currentTickets.notificationstatus = true;
 			currentTickets.notificationchannel = channelid;
 			await msg.client.provider.setGuild(msg.guild.id, 'tickets', currentTickets);
 
@@ -32,7 +32,7 @@ module.exports = class ticketnotificationCommand extends LenoxCommand {
 			return msg.channel.send(channelset);
 		}
 		const currentTickets = msg.client.provider.getGuild(msg.guild.id, 'tickets');
-		currentTickets.status = false;
+		currentTickets.notificationstatus = false;
 		await msg.client.provider.setGuild(msg.guild.id, 'tickets', currentTickets);
 
 		return msg.channel.send(lang.ticketnotification_channeldeleted);
