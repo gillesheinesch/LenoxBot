@@ -54,7 +54,7 @@ module.exports = class unmuteCommand extends LenoxCommand {
 		const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'muterole'));
 
 		if (membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) {
-			await membermention.removeRole(role);
+			await membermention.roles.remove(role);
 
 			const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 			const unmutedescription = lang.unmute_unmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(1).join(' '));

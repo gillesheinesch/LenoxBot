@@ -35,7 +35,7 @@ module.exports = class leaveCommand extends LenoxCommand {
 		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i++) {
 			if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[i]) {
 				try {
-					return author.removeRole(foundRole).then(m => m.guild.channels.get(channelID).send(lang.leave_roleremoved));
+					return author.roles.remove(foundRole).then(m => m.guild.channels.get(channelID).send(lang.leave_roleremoved));
 				} catch (error) {
 					return msg.channel.send(lang.leave_nopermission);
 				}

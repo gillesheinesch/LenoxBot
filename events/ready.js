@@ -154,7 +154,7 @@ exports.run = client => {
 					const lang = require(`../languages/${langSet}.json`);
 
 					if (client.provider.getGuild(muteconf.discordserverid, 'muterole') !== '' && membermention.roles.has(client.provider.getGuild(muteconf.discordserverid, 'muterole'))) {
-						membermention.removeRole(role);
+						membermention.roles.remove(role);
 
 						const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
 						const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
