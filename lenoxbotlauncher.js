@@ -871,10 +871,8 @@ async function run() {
 
 					let evaledMembers;
 					if (guild) {
-						console.log('Executed!');
 						evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").members.array()`);
 						guild.members = evaledMembers;
-						console.log(guild.members)
 					}
 
 
@@ -929,7 +927,6 @@ async function run() {
 			}
 			return res.redirect('nologin');
 		} catch (error) {
-			console.log(error);
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
