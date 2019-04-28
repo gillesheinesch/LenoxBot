@@ -174,7 +174,6 @@ client.dispatcher.addInhibitor(msg => {
 		const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userpermissions.join(', '));
 
 		if (cmd.clientpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
-			console.log(msg.guild.id, cmd.name);
 			if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'true') {
 				msg.delete();
 			}
