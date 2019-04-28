@@ -103,7 +103,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 								const letterorwordmessage = lang.hangman_letterorwordmessage.replace('%author', msg.author);
 								message = await msg.channel.send(letterorwordmessage);
 								response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-									maxMatches: 1,
+									max: 1,
 									time: 180000,
 									errors: ['time']
 								});
@@ -111,7 +111,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 								const letterorwordmessage = lang.hangman_letterorwordmessage.replace('%author', mention);
 								message = await msg.channel.send(letterorwordmessage);
 								response = await msg.channel.awaitMessages(msg2 => mention.id === msg2.author.id, {
-									maxMatches: 1,
+									max: 1,
 									time: 180000,
 									errors: ['time']
 								});
@@ -310,7 +310,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 					}
 					message = await msg.reply(lang.hangman_letterorwordmessagenomention);
 					response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-						maxMatches: 1,
+						max: 1,
 						time: 180000,
 						errors: ['time']
 					});

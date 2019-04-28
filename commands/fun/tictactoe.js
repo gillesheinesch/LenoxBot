@@ -36,7 +36,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			const wannaplay = lang.tictactoe_wannaplay.replace('%mention', mention).replace('%author', msg.author);
 			wantToPlayMessage = await msg.channel.send(wannaplay);
 			wantToPlay = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id, {
-				maxMatches: 1,
+				max: 1,
 				time: 60000,
 				errors: ['time']
 			});
@@ -65,7 +65,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -99,7 +99,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${mention}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -133,7 +133,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -167,7 +167,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${mention}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -201,7 +201,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -235,7 +235,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${mention}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -372,7 +372,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -504,7 +504,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${mention}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -636,7 +636,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});

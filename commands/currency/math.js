@@ -54,7 +54,7 @@ module.exports = class mathCommand extends LenoxCommand {
 		let response;
 		try {
 			response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-				maxMatches: 1,
+				max: 1,
 				time: 7000,
 				errors: ['time']
 			});

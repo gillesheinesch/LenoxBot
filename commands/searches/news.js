@@ -49,7 +49,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -83,7 +83,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -117,7 +117,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -151,7 +151,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -185,7 +185,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -219,7 +219,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -253,7 +253,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -287,7 +287,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -321,7 +321,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -355,7 +355,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -389,7 +389,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -423,7 +423,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -457,7 +457,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -491,7 +491,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -525,7 +525,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -559,7 +559,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -593,7 +593,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
@@ -627,7 +627,7 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});

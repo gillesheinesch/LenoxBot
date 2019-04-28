@@ -135,7 +135,7 @@ module.exports = class jobCommand extends LenoxCommand {
 		let response;
 		try {
 			response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-				maxMatches: 1,
+				max: 1,
 				time: 60000,
 				errors: ['time']
 			});

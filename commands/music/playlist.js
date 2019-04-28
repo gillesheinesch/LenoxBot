@@ -53,7 +53,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 					for (let index2 = 0; index2 < 100; index2++) {
 						try {
 							const responsesongs = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-								maxMatches: 1,
+								max: 1,
 								time: 60000,
 								errors: ['time']
 							});
@@ -107,7 +107,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 										let response;
 										try {
 											response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
-												maxMatches: 1,
+												max: 1,
 												time: 60000,
 												errors: ['time']
 											});
@@ -198,7 +198,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 					await msg.channel.send(lang.playlist_questionaddnewsong);
 					try {
 						const newsongaddtoplaylist = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 60000,
 							errors: ['time']
 						});
@@ -246,7 +246,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 								let response;
 								try {
 									response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
-										maxMatches: 1,
+										max: 1,
 										time: 60000,
 										errors: ['time']
 									});
@@ -277,7 +277,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 					let removesong;
 					try {
 						removesong = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 60000,
 							errors: ['time']
 						});
