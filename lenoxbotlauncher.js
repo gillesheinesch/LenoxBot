@@ -416,7 +416,6 @@ async function run() {
 
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
-			console.log(islenoxbotnp)
 
 			let guild;
 			await shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
