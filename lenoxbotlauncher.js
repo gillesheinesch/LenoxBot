@@ -886,8 +886,8 @@ async function run() {
 							let allwhitelistedrolesoftheuser = 0;
 
 							for (let index2 = 0; index2 < guildconfs.settings.dashboardpermissionroles.length; index2++) {
-								if (!guild.members.get(req.user.id)) return res.redirect('/servers');
-								if (!guild.members.get(req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
+								if (!guild.members.find(r => r.userID === req.user.id)) return res.redirect('/servers');
+								if (!guild.members.find(r => r.userID === req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
 									allwhitelistedrolesoftheuser += 1;
 								}
 							}
