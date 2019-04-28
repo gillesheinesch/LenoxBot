@@ -28,7 +28,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 
 		for (const row of array) {
 			if (!isNaN(row.settings.credits)) {
-				const member = await msg.client.fetchUser(row.userId);
+				const member = await msg.client.users.fetch(row.userId);
 				const settings = {
 					userId: row.userId,
 					user: member ? member.tag : row.userId,
