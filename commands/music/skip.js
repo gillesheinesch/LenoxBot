@@ -25,10 +25,10 @@ module.exports = class skipCommand extends LenoxCommand {
 		const serverQueue = queue.get(msg.guild.id);
 
 		if (msg.client.provider.getGuild(msg.guild.id, 'skipvote') === 'false') return msg.channel.send(lang.skip_skipvotedeativated);
-		if (!msg.member.voiceChannel) return msg.channel.send(lang.skip_notvoicechannel);
+		if (!msg.member.voice.channel) return msg.channel.send(lang.skip_notvoicechannel);
 		if (!serverQueue) return msg.channel.send(lang.skip_nothing);
 
-		if (msg.member.voiceChannel.members.size === 2) {
+		if (msg.member.voice.channel.members.size === 2) {
 			msg.channel.send(lang.skip_skippedalone);
 			await serverQueue.connection.dispatcher.destroy();
 			return;

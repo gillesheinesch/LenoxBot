@@ -30,7 +30,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 		const skipvote = msg.client.skipvote;
 		const queue = msg.client.queue;
 		const serverQueue = await queue.get(msg.guild.id);
-		const voiceChannel = msg.member.voiceChannel;
+		const voiceChannel = msg.member.voice.channel;
 		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
 		if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);

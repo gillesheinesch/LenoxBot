@@ -90,7 +90,7 @@ module.exports = class channelsCommand extends LenoxCommand {
 
 		if (msg.guild.channels.filter(textChannel => textChannel.type === `voice`).array().length > 0) {
 			const voicechannelsembed = new Discord.MessageEmbed()
-				.setDescription(`**📡 ${lang.channels_voicechannels}**\n${msg.guild.channels.filter(voiceChannel => voiceChannel.type === `voice`).array().slice(0, 15)
+				.setDescription(`**📡 ${lang.channels_voicechannels}**\n${msg.guild.channels.filter(voice.channel => voice.channel.type === `voice`).array().slice(0, 15)
 					.map(voicechannel => `**${voicechannel.name}** (*${voicechannel.id}*)`)
 					.join('\n')}`)
 				.setColor(3447003);
