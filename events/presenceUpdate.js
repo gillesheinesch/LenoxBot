@@ -10,7 +10,7 @@ exports.run = (client, oldMember, newMember) => {
 	const messagechannel = client.channels.get(client.provider.getGuild(newMember.guild.id, 'presenceupdatelogchannel'));
 	if (!messagechannel) return;
 
-	if (oldMember.presence.status !== newMember.presence.status) {
+	/* if (oldMember.presence.status !== newMember.presence.status) {
 		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
@@ -19,5 +19,5 @@ exports.run = (client, oldMember, newMember) => {
 			.addField(`📤 ${lang.presenceupdateevent_old}:`, oldMember.presence.status)
 			.addField(`📥 ${lang.presenceupdateevent_new}:`, newMember.presence.status);
 		messagechannel.send({ embed: embed });
-	}
+	}*/
 };
