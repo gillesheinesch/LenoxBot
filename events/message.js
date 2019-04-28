@@ -12,8 +12,6 @@ exports.run = async (client, msg) => {
 		const settings = client.provider.guildSettings.get(msg.guild.id);
 		for (const key in guildsettingskeys) {
 			if (!settings[key] && typeof settings[key] === 'undefined') {
-				console.log(settings);
-				console.log(settings[key]);
 				settings[key] = guildsettingskeys[key];
 			}
 		}
