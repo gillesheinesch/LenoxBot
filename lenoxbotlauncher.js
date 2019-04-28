@@ -3629,11 +3629,16 @@ async function run() {
 					if (application.yes.length >= guildconfs.settings.application.reactionnumber) {
 						await shardingManager.broadcastEval(`
     (async () => {
-		if (await this.guilds.get("${dashboardid})) {
-		await this.users.fetch("${application.authorid}").send("${guildconfs.settings.application.acceptedmessage}");
+		if (this.guilds.get("${dashboardid}")) {
+		const user = await this.users.fetch("${application.authorid}");
+
+		if (user) {
+			user.send("${guildconfs.settings.application.acceptedmessage}")
+		}
+
 		const role = this.guilds.get("${dashboardid}").roles.get("${guildconfs.settings.application.role}");
 		if (role) {
-			await this.guilds.get("${dashboardid}).members.get("${application.authorid}").roles.add(role);
+			await this.guilds.get("${dashboardid}").members.get("${application.authorid}").roles.add(role);
 			return role
 		}
 	}
@@ -3644,11 +3649,16 @@ async function run() {
 					} else if (application.no.length >= guildconfs.settings.application.reactionnumber) {
 						await shardingManager.broadcastEval(`
     (async () => {
-		if (await this.guilds.get("${dashboardid})) {
-		await this.users.fetch("${application.authorid}").send("${guildconfs.settings.application.rejectedmessage}");
+		if (this.guilds.get("${dashboardid}")) {
+		const user = await this.users.fetch("${application.authorid}");
+
+		if (user) {
+			user.send("${guildconfs.settings.application.rejectedmessage}");
+		}
+
 		const role = this.guilds.get("${dashboardid}").roles.get("${guildconfs.settings.application.denyrole}");
 		if (role) {
-			await this.guilds.get("${dashboardid}).members.get("${application.authorid}").roles.add(role);
+			await this.guilds.get("${dashboardid}").members.get("${application.authorid}").roles.add(role);
 			return role
 		}
 	}
