@@ -775,13 +775,18 @@ async function run() {
 		}
 	});
 
-	app.get('/oauth2problem', (req, res) => {
+	app.get('/oauth2problem', async (req, res) => {
 		try {
 			const check = [];
 			if (req.user) {
 				for (let i = 0; i < req.user.guilds.length; i++) {
 					if (((req.user.guilds[i].permissions) & 8) === 8) {
-						req.user.guilds[i].lenoxbot = client.guilds.get(req.user.guilds[i].id) ? true : false;
+						let guild;
+						await shardingManager.broadcastEval(`this.guilds.get("${req.user.guilds[i].id}")`)
+							.then(guildArray => {
+								guild = guildArray.find(g => g);
+							});
+						req.user.guilds[i].lenoxbot = guild ? true : false;
 						check.push(req.user.guilds[i]);
 					}
 				}
