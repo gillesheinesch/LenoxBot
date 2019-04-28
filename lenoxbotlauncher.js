@@ -405,50 +405,97 @@ async function run() {
 		}
 	});
 
+	*/
 	app.get('/leaderboards/server/:id', async (req, res) => {
-			try {
-				const dashboardid = res.req.originalUrl.substr(21, 18);
-				const userData = {};
-				userData.loaded = false;
+		try {
+			const dashboardid = req.params.id;
+			const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
 
-				const islenoxbot = islenoxboton(req);
-				const islenoxbotnp = await islenoxbotonNonPermission(req);
+			const userData = {};
+			userData.loaded = false;
 
-				sql.open(`../${settings.sqlitefilename}.sqlite`);
-				const scores = await sql.all(`SELECT * FROM scores WHERE guildId = "${dashboardid}" GROUP BY userId ORDER BY points DESC`);
+			const islenoxbot = islenoxboton(req);
+			const islenoxbotnp = await islenoxbotonNonPermission(req);
 
-				for (let i = 0; i < scores.length; i++) {
-					if (client.users.get(scores[i].userId)) {
-						scores[i].user = client.users.get(scores[i].userId);
-					}
-					if (req.user) {
-						if (scores[i].userId === req.user.id) {
-							userData.place = i + 1;
-							userData.points = scores[i].points;
-							userData.level = scores[i].level;
-							userData.loaded = true;
-						}
+			let guild;
+			await shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
+				.then(guildArray => {
+					guild = guildArray.find(g => g);
+				});
+			if (!guild) return res.redirect('/');
+
+			let scores = [];
+
+			for (const row in guildconfs.settings.scores) {
+				const member = await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+		const fetchedUser = await this.users.fetch("${row}")
+		if (fetchedUser) {
+			return fetchedUser;
+		}
+    })();
+`);
+				const guildPointSettings = {
+					userId: row,
+					user: member ? member.tag : row,
+					points: Number(guildconfs.settings.scores[row].points),
+					level: Number(guildconfs.settings.scores[row].level)
+				};
+				if (row !== 'global') {
+					scores.push(guildPointSettings);
+				}
+			}
+
+			scores = scores.sort((a, b) => {
+				if (a.points < b.points) {
+					return 1;
+				}
+				if (a.points > b.points) {
+					return -1;
+				}
+				return 0;
+			});
+
+			for (let i = 0; i < scores.length; i++) {
+				const user = await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+		const fetchedUser = await this.users.fetch("${scores[i].userId}")
+		if (fetchedUser) {
+			return fetchedUser;
+		}
+    })();
+`);
+				if (user) {
+					scores[i].user = user;
+				}
+				if (req.user) {
+					if (scores[i].userId === req.user.id) {
+						userData.place = i + 1;
+						userData.points = scores[i].points;
+						userData.level = scores[i].level;
+						userData.loaded = true;
 					}
 				}
-
-				return res.render('leaderboard-guild', {
-					user: req.user,
-					scores: scores.length === 0 ? null : scores.slice(0, 100),
-					guild: client.guilds.get(dashboardid) ? client.guilds.get(dashboardid) : null,
-					userData: userData,
-					islenoxbot: islenoxbot,
-					islenoxbotnp: islenoxbotnp
-				});
-			} catch (error) {
-				return res.redirect(url.format({
-					pathname: `/error`,
-					query: {
-						statuscode: 500,
-						message: error.message
-					}
-				}));
 			}
-		}); */
+
+			return res.render('leaderboard-guild', {
+				user: req.user,
+				scores: scores.length === 0 ? null : scores.slice(0, 100),
+				guild: guild ? guild : null,
+				userData: userData,
+				islenoxbot: islenoxbot,
+				islenoxbotnp: islenoxbotnp
+			});
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
 
 	app.get('/profile/:id', async (req, res) => {
 		try {
