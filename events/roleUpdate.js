@@ -32,7 +32,7 @@ exports.run = (client, oldRole, newRole) => {
 		return messagechannel.send({ embed: embed });
 	}
 	if (oldRole.position !== newRole.position) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.roleupdateevent_positionupdated)
