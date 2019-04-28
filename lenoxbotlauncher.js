@@ -148,7 +148,7 @@ async function run() {
 
 			for (let index2 = 0; index2 < guildconfs.settings.dashboardpermissionroles.length; index2++) {
 				if (!guild.members.find(r => r.userID === req.user.id)) return res.redirect('/servers');
-				if (!guild.members.find(r => r.userID === req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
+				if (!guild.members.find(r => r.userID === req.user.id).roles.includes(guildconfs.settings.dashboardpermissionroles[index2])) {
 					allwhitelistedrolesoftheuser += 1;
 				}
 			}
@@ -889,7 +889,7 @@ async function run() {
 
 							for (let index2 = 0; index2 < guildconfs.settings.dashboardpermissionroles.length; index2++) {
 								if (!guild.members.find(r => r.userID === req.user.id)) return res.redirect('/servers');
-								if (!guild.members.find(r => r.userID === req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
+								if (!guild.members.find(r => r.userID === req.user.id).roles.includes(guildconfs.settings.dashboardpermissionroles[index2])) {
 									allwhitelistedrolesoftheuser += 1;
 								}
 							}
@@ -1253,7 +1253,7 @@ async function run() {
 
 							for (let index2 = 0; index2 < guildconfs.settings.dashboardpermissionroles.length; index2++) {
 								if (!guild.members.find(r => r.userID === req.user.id)) return res.redirect('/servers');
-								if (!guild.members.find(r => r.userID === req.user.id).roles.has(guildconfs.settings.dashboardpermissionroles[index2])) {
+								if (!guild.members.find(r => r.userID === req.user.id).roles.includes(guildconfs.settings.dashboardpermissionroles[index2])) {
 									allwhitelistedrolesoftheuser += 1;
 								}
 							}
