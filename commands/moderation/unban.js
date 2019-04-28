@@ -34,7 +34,7 @@ module.exports = class unbanCommand extends LenoxCommand {
 		const bans = await msg.guild.fetchBans();
 		if (!bans.get(user)) return msg.reply(lang.unban_notbanned);
 
-		await msg.guild.unban(user);
+		await msg.guild.members.unban(user);
 
 		const unbanned = lang.unban_unbanned.replace('%userid', user);
 		const unbanembed = new Discord.MessageEmbed()

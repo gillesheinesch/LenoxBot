@@ -112,7 +112,7 @@ exports.run = client => {
 					if (fetchedbans.has(bansconf.memberid)) {
 						const user = fetchedbans.get(bansconf.memberid);
 
-						client.guilds.get(bansconf.discordserverid).unban(user);
+						client.guilds.get(bansconf.discordserverid).members.unban(user);
 
 						const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
 						const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);

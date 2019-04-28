@@ -115,7 +115,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 		setTimeout(async () => {
 			const fetchedbans = await msg.guild.fetchBans();
 			if (fetchedbans.has(user.id)) {
-				await msg.guild.unban(user);
+				await msg.guild.members.unban(user);
 
 				const unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.client.user.tag}`);
 				const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
