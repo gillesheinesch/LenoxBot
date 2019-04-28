@@ -19,7 +19,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const mention = msg.mentions.members.first();
@@ -36,7 +36,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			const wannaplay = lang.tictactoe_wannaplay.replace('%mention', mention).replace('%author', msg.author);
 			wantToPlayMessage = await msg.channel.send(wannaplay);
 			wantToPlay = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id, {
-				maxMatches: 1,
+				max: 1,
 				time: 60000,
 				errors: ['time']
 			});
@@ -53,7 +53,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		await wantToPlay.first().delete();
 
 		await msg.channel.send(`${lang.tictactoe_gamecreated} 😼`);
-		let gameEmbed = new Discord.RichEmbed()
+		let gameEmbed = new Discord.MessageEmbed()
 			.setTitle(lang.tictactoe_title)
 			.setDescription('``` 1 | 2 | 3 \n---|---|--  \n 4 | 5 | 6 \n---|---|--  \n 7 | 8 | 9```')
 			.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -65,7 +65,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -74,7 +74,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -86,7 +86,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 1;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', mention).replace('%author', msg.author);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -99,7 +99,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${mention}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -108,7 +108,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -120,7 +120,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 2;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author).replace('%author', mention);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -133,7 +133,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -142,7 +142,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -154,7 +154,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 1;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', mention).replace('%author', msg.author);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -167,7 +167,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${mention}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -176,7 +176,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -188,7 +188,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 2;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author).replace('%author', mention);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -201,7 +201,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -210,7 +210,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -222,7 +222,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 1;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', mention).replace('%author', msg.author);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -235,7 +235,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${mention}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -244,7 +244,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -256,7 +256,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 2;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author).replace('%author', mention);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -266,7 +266,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			});
 		}
 
-		const winnerEmbed = new Discord.RichEmbed()
+		const winnerEmbed = new Discord.MessageEmbed()
 			.setTitle(lang.tictactoe_gameend)
 			.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
 			.setColor('GREEN');
@@ -372,7 +372,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -381,7 +381,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -393,7 +393,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 1;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', mention).replace('%author', msg.author);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -504,7 +504,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${mention}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg2.author.id === mention.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -513,7 +513,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -525,7 +525,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 2;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', msg.author).replace('%author', mention);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -636,7 +636,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 		try {
 			const yourTurnMessage = await msg.channel.send(`${msg.author}, ${lang.tictactoe_turn} ‼`);
 			const response1 = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id && msg2.content > 0 && msg2.content < 10 && validation[msg2.content - 1] === 0, {
-				maxMatches: 1,
+				max: 1,
 				time: 15000,
 				errors: ['time']
 			});
@@ -645,7 +645,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			await response1.first().delete();
 
 			const editedDescription = gameEmbed.description.replace(response1.first().content, response1.first().author.id === msg.author.id ? 'X' : 'O');
-			gameEmbed = new Discord.RichEmbed()
+			gameEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_title)
 				.setDescription(editedDescription)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -657,7 +657,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			validation[response1.first().content - 1] = 1;
 		} catch (error) {
 			const noanswer = lang.tictactoe_noanswer.replace('%user', mention).replace('%author', msg.author);
-			const noAnswerEmbed = new Discord.RichEmbed()
+			const noAnswerEmbed = new Discord.MessageEmbed()
 				.setTitle(lang.tictactoe_noanswertitle)
 				.setDescription(noanswer)
 				.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)
@@ -764,7 +764,7 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 				embed: winnerEmbed
 			});
 		}
-		const drawEmbed = new Discord.RichEmbed()
+		const drawEmbed = new Discord.MessageEmbed()
 			.setTitle(lang.tictactoe_gameend)
 			.setDescription(lang.tictactoe_draw)
 			.setFooter(`${msg.author.tag} vs ${mention.user.tag}`)

@@ -21,7 +21,7 @@ module.exports = class restartCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -37,12 +37,12 @@ module.exports = class restartCommand extends LenoxCommand {
 
 		await msg.channel.send(lang.restart_message);
 
-		const restartEmbed = new Discord.RichEmbed()
+		const restartEmbed = new Discord.MessageEmbed()
 			.setTitle(lang.restart_embedtitle)
 			.addField(lang.restart_embedfield, args.join(' '))
 			.setColor('RED')
 			.setTimestamp()
-			.setAuthor(msg.client.user.tag, msg.client.user.displayAvatarURL);
+			.setAuthor(msg.client.user.tag, msg.client.user.displayAvatarURL());
 
 		if (msg.client.user.id === '354712333853130752') {
 			await msg.client.channels.get('497400107109580801').send({

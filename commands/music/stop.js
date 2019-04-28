@@ -18,12 +18,12 @@ module.exports = class stopCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const queue = msg.client.queue;
 		const serverQueue = queue.get(msg.guild.id);
-		if (!msg.member.voiceChannel) return msg.channel.send(lang.stop_notvoicechannel);
+		if (!msg.member.voice.channel) return msg.channel.send(lang.stop_notvoicechannel);
 		if (!serverQueue) return msg.channel.send(lang.stop_notvoicechannel);
 		serverQueue.songs = [];
 		serverQueue.connection.dispatcher.destroy();

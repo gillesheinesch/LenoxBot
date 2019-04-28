@@ -20,7 +20,7 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -57,7 +57,7 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 
 			if (!checkIfBanned) return msg.reply(lang.unban_notbanned);
 
-			const userembed = new Discord.RichEmbed()
+			const userembed = new Discord.MessageEmbed()
 				.setAuthor(lang.currentlybanned_embedauthor)
 				.setColor('#ff9900')
 				.setTimestamp();
@@ -71,7 +71,7 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 			});
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(lang.currentlybanned_embedauthor)
 			.setColor('#ff3300')
 			.setTimestamp();
@@ -113,12 +113,12 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 				const reactionremove = bansOfThisServer.slice(first - 4, second - 4).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					first += 4;
 					second += 4;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setAuthor(lang.currentlybanned_embedauthor)
 						.setColor('#ff3300')
 						.setTimestamp();
@@ -141,12 +141,12 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 						embed: newembed
 					});
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					first -= 4;
 					second -= 4;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setAuthor(lang.currentlybanned_embedauthor)
 						.setColor('#ff3300')
 						.setTimestamp();
@@ -171,8 +171,8 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
 				}
 			});
 			collector.on('end', () => {
-				reaction1.remove();
-				reaction2.remove();
+				reaction1.users.remove();
+				reaction2.users.remove();
 			});
 		}
 	}

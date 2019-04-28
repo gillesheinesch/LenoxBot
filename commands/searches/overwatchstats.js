@@ -20,7 +20,7 @@ module.exports = class overwatchstatsCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const arg = msg.content.split(' ').slice(2).join(' ');
@@ -46,7 +46,7 @@ module.exports = class overwatchstatsCommand extends LenoxCommand {
 							const profile = lang.overwatchstats_profile.replace('%user', arg);
 							const profilestats = lang.overwatchstats_profilestats.replace('%stars', data.body.eu.stats.competitive.overall_stats.prestige).replace('%level', data.body.eu.stats.competitive.overall_stats.level).replace('%rank', data.body.eu.stats.competitive.overall_stats.comprank);
 
-							const embed = new Discord.RichEmbed()
+							const embed = new Discord.MessageEmbed()
 								.setAuthor(profile, data.body.eu.stats.competitive.overall_stats.avatar)
 								.setDescription(profilestats)
 								.setThumbnail(data.body.eu.stats.competitive.overall_stats.avatar)
@@ -67,7 +67,7 @@ module.exports = class overwatchstatsCommand extends LenoxCommand {
 							const quickplaystats = lang.overwatchstats_quickplaystats.replace('%winrate', data.body.eu.stats.quickplay.overall_stats.win_rate).replace('%gamestotal', data.body.eu.stats.quickplay.overall_stats.games).replace('%wins', data.body.eu.stats.quickplay.overall_stats.wins)
 								.replace('%losses', data.body.eu.stats.quickplay.overall_stats.losses);
 
-							const embed = new Discord.RichEmbed()
+							const embed = new Discord.MessageEmbed()
 								.setAuthor(quickplay, data.body.eu.stats.competitive.overall_stats.avatar)
 								.setDescription(quickplaystats)
 								.setThumbnail(data.body.eu.stats.competitive.overall_stats.avatar)
@@ -88,7 +88,7 @@ module.exports = class overwatchstatsCommand extends LenoxCommand {
 							const competitivestats = lang.overwatchstats_competitivestats.replace('%winrate', data.body.eu.stats.competitive.overall_stats.win_rate).replace('%gamestotal', data.body.eu.stats.competitive.overall_stats.games).replace('%wins', data.body.eu.stats.competitive.overall_stats.wins)
 								.replace('%losses', data.body.eu.stats.competitive.overall_stats.losses);
 
-							const embed = new Discord.RichEmbed()
+							const embed = new Discord.MessageEmbed()
 								.setAuthor(competitive, data.body.eu.stats.competitive.overall_stats.avatar)
 								.setDescription(competitivestats)
 								.setThumbnail(data.body.eu.stats.competitive.overall_stats.avatar)

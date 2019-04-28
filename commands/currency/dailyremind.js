@@ -18,9 +18,9 @@ module.exports = class dailyremindCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		if (msg.client.provider.getUser(msg.author.id, 'dailyremind') === false) {
 			await msg.client.provider.setUser(msg.author.id, 'dailyremind', true);

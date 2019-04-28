@@ -19,7 +19,7 @@ module.exports = class banuserCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -46,7 +46,7 @@ module.exports = class banuserCommand extends LenoxCommand {
 
 		const embedtitle = lang.banuser_embedtitle.replace('%userid', userId).replace('%username', discordUserName === 'undefined' ? lang.banuser_usernamenotknown : discordUserName);
 		const embeddescription = lang.banuser_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setTimestamp()
 			.setTitle(embedtitle)

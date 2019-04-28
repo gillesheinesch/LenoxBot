@@ -12,7 +12,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 		const messagechannel = client.channels.get(client.provider.getGuild(newMsg.guild.id, 'messageupdatelogchannel'));
 		if (!messagechannel) return;
 		if (oldMsg.cleanContent !== newMsg.cleanContent) {
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('ORANGE')
 				.setTimestamp()
 				.setAuthor(lang.messageupdateevent_updated)
@@ -34,7 +34,7 @@ exports.run = async (client, oldMsg, newMsg) => {
 					if (client.provider.getGuild(newMsg.guild.id, 'chatfilterlog') === 'true') {
 						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', newMsg.author.tag);
 
-						const embed = new Discord.RichEmbed()
+						const embed = new Discord.MessageEmbed()
 							.addField(`🗣 ${lang.messagedeleteevent_author}:`, newMsg.author.tag)
 							.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${newMsg.channel.name} (${newMsg.channel.id})`)
 							.addField(`📥 ${lang.messagereactionaddevent_message}:`, newMsg.cleanContent)

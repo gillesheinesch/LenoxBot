@@ -18,18 +18,18 @@ module.exports = class togglebyeCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'bye') === 'false') {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'bye', 'true');
+		if (msg.client.provider.getGuild(msg.guild.id, 'bye') === 'false') {
+			await msg.client.provider.setGuild(msg.guild.id, 'bye', 'true');
 			const channelid = msg.channel.id;
-			await msg.client.provider.setGuild(msg.message.guild.id, 'byechannel', channelid);
+			await msg.client.provider.setGuild(msg.guild.id, 'byechannel', channelid);
 
 			const channelset = lang.togglebye_channelset.replace('%channelname', msg.channel.name);
 			msg.channel.send(channelset);
-		} else if (msg.client.provider.getGuild(msg.message.guild.id, 'bye') === 'true') {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'bye', 'false');
+		} else if (msg.client.provider.getGuild(msg.guild.id, 'bye') === 'true') {
+			await msg.client.provider.setGuild(msg.guild.id, 'bye', 'false');
 			msg.channel.send(lang.togglebye_channeldeleted);
 		}
 	}

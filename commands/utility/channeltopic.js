@@ -19,12 +19,12 @@ module.exports = class channeltopicCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (msg.channel.topic === null || msg.channel.topic === '') return msg.channel.send(lang.channeltopic_error);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#99ff99')
 			.setDescription(`${lang.channeltopic_embed} \n\n${msg.channel.topic}`)
 			.setAuthor(`${msg.channel.name} (${msg.channel.id})`);

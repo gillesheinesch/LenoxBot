@@ -20,7 +20,7 @@ module.exports = class giveitemCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -75,9 +75,9 @@ module.exports = class giveitemCommand extends LenoxCommand {
 			.replace('%amount', amount)
 			.replace('%emoji', emojiOfTheItems[index])
 			.replace('%mentionuser', mention.tag);
-		const successEmbed = new Discord.RichEmbed()
+		const successEmbed = new Discord.MessageEmbed()
 			.setTimestamp()
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setDescription(embeddescription)
 			.setColor('GREEN');
 

@@ -19,7 +19,7 @@ module.exports = class sexvideoCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -43,7 +43,7 @@ module.exports = class sexvideoCommand extends LenoxCommand {
 			const duration = videos[result - 1].duration;
 
 			const durationembed = lang.sexvideo_durationembed.replace('%duration', duration);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setImage(thumbnail)
 				.setURL(url)
 				.setDescription(durationembed)

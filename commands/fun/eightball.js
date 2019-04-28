@@ -19,7 +19,7 @@ module.exports = class eightballCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -32,11 +32,11 @@ module.exports = class eightballCommand extends LenoxCommand {
 		}
 		const eightballAnswersIndex = Math.floor(Math.random() * eightballAnswers.length);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.addField(lang.eightball_question, args.join(' '))
 			.addField(lang.eightball_embedfield, eightballAnswers[eightballAnswersIndex])
 			.setColor('#ff6666')
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL);
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL());
 
 		return msg.channel.send({ embed });
 	}

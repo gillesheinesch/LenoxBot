@@ -20,7 +20,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -30,12 +30,12 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 
 		let membermention;
 		if (user) {
-			membermention = await msg.guild.fetchMember(user);
+			membermention = await msg.guild.members.fetch(user);
 		}
 
 		if (!user) {
 			try {
-				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
 				user = fetchedMember;
 				user = user.user;
@@ -56,7 +56,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 		if (typeof bantime === 'undefined') return msg.channel.send(lang.temporaryban_invalidtimeformat);
 
 		const banned = lang.temporaryban_banned.replace('%usertag', user.tag).replace('%bantime', ms(bantime));
-		const banembed = new Discord.RichEmbed()
+		const banembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${banned}`);
 		msg.channel.send({
@@ -65,16 +65,16 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 
 		const bandescription = lang.temporaryban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
 			.replace('%bantime', ms(bantime));
-		const embed = new Discord.RichEmbed()
-			.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(`${lang.temporaryban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#FF0000')
 			.setTimestamp()
 			.setDescription(bandescription);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'tempbananonymous') === 'true') {
-			const ananonymousembed = new Discord.RichEmbed()
-				.setThumbnail(user.displayAvatarURL)
+		if (msg.client.provider.getGuild(msg.guild.id, 'tempbananonymous') === 'true') {
+			const ananonymousembed = new Discord.MessageEmbed()
+				.setThumbnail(user.displayAvatarURL())
 				.setColor('#FF0000')
 				.setTimestamp()
 				.setDescription(bandescription);
@@ -88,8 +88,8 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 			});
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 			modlogchannel.send({ embed: embed });
 		}
 
@@ -115,19 +115,19 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 		setTimeout(async () => {
 			const fetchedbans = await msg.guild.fetchBans();
 			if (fetchedbans.has(user.id)) {
-				await msg.guild.unban(user);
+				await msg.guild.members.unban(user);
 
 				const unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.client.user.tag}`);
 				const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-				const unmutedembed = new Discord.RichEmbed()
-					.setAuthor(unbannedby, msg.client.user.displayAvatarURL)
-					.setThumbnail(user.displayAvatarURL)
+				const unmutedembed = new Discord.MessageEmbed()
+					.setAuthor(unbannedby, msg.client.user.displayAvatarURL())
+					.setThumbnail(user.displayAvatarURL())
 					.setColor('#FF0000')
 					.setTimestamp()
 					.setDescription(automaticbandescription);
 
-				if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-					const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+				if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+					const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 					modlogchannel.send({ embed: unmutedembed });
 				}
 			}

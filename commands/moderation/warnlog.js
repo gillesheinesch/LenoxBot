@@ -19,33 +19,33 @@ module.exports = class warnlogCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const mention = msg.mentions.users.first() || msg.author;
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'warnlog').length === 0) return msg.channel.send(lang.warnlog_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'warnlog').length === 0) return msg.channel.send(lang.warnlog_error);
 
 		const firstfield = [];
 		const secondfield = [];
 
 		const array = [];
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'warnlog').length; i += 4) {
-			if (mention.id === msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i]) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'warnlog').length; i += 4) {
+			if (mention.id === msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i]) {
 				array.push(true);
-				const member = msg.guild.member(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 3]) ? msg.guild.member(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 3]).user.tag : msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 3];
+				const member = msg.guild.member(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 3]) ? msg.guild.member(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 3]).user.tag : msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 3];
 
-				const warnedbyandon = lang.warnlog_warnedbyandon.replace('%membername', member).replace('%date', new Date(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 1]).toUTCString());
+				const warnedbyandon = lang.warnlog_warnedbyandon.replace('%membername', member).replace('%date', new Date(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 1]).toUTCString());
 				firstfield.push(warnedbyandon);
-				secondfield.push(msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')[i + 2]);
+				secondfield.push(msg.client.provider.getGuild(msg.guild.id, 'warnlog')[i + 2]);
 			}
 		}
 
 		if (array.length === 0) return msg.channel.send(lang.warnlog_notwarned);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#fff024')
-			.setAuthor(mention.tag, mention.displayAvatarURL);
+			.setAuthor(mention.tag, mention.displayAvatarURL());
 
 		const x = firstfield.slice(0, 5);
 		const xx = secondfield.slice(0, 5);
@@ -76,9 +76,9 @@ module.exports = class warnlogCommand extends LenoxCommand {
 				first += 5;
 				second += 5;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#fff024')
-					.setAuthor(mention.tag, mention.displayAvatarURL);
+					.setAuthor(mention.tag, mention.displayAvatarURL());
 
 				for (let i = 0; i < thefirst.length; i++) {
 					newembed.addField(thefirst[i], thesecond[i]);
@@ -94,9 +94,9 @@ module.exports = class warnlogCommand extends LenoxCommand {
 				first -= 5;
 				second -= 5;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#fff024')
-					.setAuthor(mention.tag, mention.displayAvatarURL);
+					.setAuthor(mention.tag, mention.displayAvatarURL());
 
 				for (let i = 0; i < thefirst.length; i++) {
 					newembed.addField(thefirst[i], thesecond[i]);

@@ -19,12 +19,12 @@ module.exports = class voteCommand extends LenoxCommand {
 
 	run(msg) {
 		const Discord = require('discord.js');
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 
 		const embeddescription = lang.vote_embeddescription.replace('%link', `https://discordbots.org/bot/lenoxbot/vote`);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(lang.vote_embedauthor)
 			.setColor('BLUE')
 			.setDescription(embeddescription);

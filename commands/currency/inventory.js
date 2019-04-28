@@ -20,9 +20,9 @@ module.exports = class inventoryCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		const inventory = lang.inventory_inventory.replace('%authortag', msg.author.tag);
@@ -57,9 +57,9 @@ module.exports = class inventoryCommand extends LenoxCommand {
 		}
 
 		const slots = lang.inventory_inventoryslots.replace('%slots', `**${inventoryslotcheck}/${msg.client.provider.getUser(msg.author.id, 'inventoryslots')}**`);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(slots)
-			.setAuthor(inventory, msg.author.displayAvatarURL)
+			.setAuthor(inventory, msg.author.displayAvatarURL())
 			.setColor('#009933');
 
 		const array1 = [];
@@ -114,16 +114,16 @@ module.exports = class inventoryCommand extends LenoxCommand {
 			const reactionremove = array1.slice(firsttext - 7, secondtext - 7).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 				const embedaddfield1 = array1.slice(firsttext + 7, secondtext + 7);
 				const embedaddfield2 = array2.slice(firsttext + 7, secondtext + 7);
 
 				firsttext += 7;
 				secondtext += 7;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setDescription(slots)
-					.setAuthor(inventory, msg.author.displayAvatarURL)
+					.setAuthor(inventory, msg.author.displayAvatarURL())
 					.setColor('#009933');
 
 				for (let i = 0; i < embedaddfield1.length; i++) {
@@ -134,16 +134,16 @@ module.exports = class inventoryCommand extends LenoxCommand {
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 				const embedaddfield1 = array1.slice(firsttext - 7, secondtext - 7);
 				const embedaddfield2 = array2.slice(firsttext - 7, secondtext - 7);
 
 				firsttext -= 7;
 				secondtext -= 7;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setDescription(slots)
-					.setAuthor(inventory, msg.author.displayAvatarURL)
+					.setAuthor(inventory, msg.author.displayAvatarURL())
 					.setColor('#009933');
 
 				for (let i = 0; i < embedaddfield1.length; i++) {

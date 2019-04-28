@@ -21,7 +21,7 @@ module.exports = class gifCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -37,9 +37,9 @@ module.exports = class gifCommand extends LenoxCommand {
 			return msg.channel.send(lang.gif_error);
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setImage(`${res.body.data.image_url}`)
-			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL())
 			.setColor('#0066CC');
 		msg.channel.send({
 			embed

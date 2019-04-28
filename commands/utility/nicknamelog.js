@@ -19,7 +19,7 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const mention = msg.mentions.users.first() || msg.author;
@@ -27,21 +27,21 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 		const oldnickname = [];
 		const newnickname = [];
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog').length === 0) return msg.channel.send(lang.nicknamelog_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'nicknamelog').length === 0) return msg.channel.send(lang.nicknamelog_error);
 
 		const array = [];
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog').length; i += 4) {
-			if (mention.id === msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i]) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'nicknamelog').length; i += 4) {
+			if (mention.id === msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i]) {
 				array.push(true);
-				oldnickname.push(msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 1].length > 17 ? `${msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 1].substring(0, 17)}...` : msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 1]);
-				newnickname.push(msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 2].length > 17 ? `${msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 2].substring(0, 17)}...` : msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 2]);
-				dateArray.push(new Date(msg.client.provider.getGuild(msg.message.guild.id, 'nicknamelog')[i + 3]).toLocaleString());
+				oldnickname.push(msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 1].length > 17 ? `${msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 1].substring(0, 17)}...` : msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 1]);
+				newnickname.push(msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 2].length > 17 ? `${msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 2].substring(0, 17)}...` : msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 2]);
+				dateArray.push(new Date(msg.client.provider.getGuild(msg.guild.id, 'nicknamelog')[i + 3]).toLocaleString());
 			}
 		}
 
 		if (array.length === 0) return msg.channel.send(lang.nicknamelog_nonicknamelog);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${mention.username}#${mention.discriminator}`)
 			.setColor('#ccff33')
 			.addField(lang.nicknamelog_old, oldnickname.slice(0, 20).join('\n'), true)
@@ -73,7 +73,7 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 				first += 20;
 				second += 20;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setAuthor(`${mention.username}#${mention.discriminator}`)
 					.setColor('#ccff33')
 					.addField(lang.nicknamelog_old, newOldNickname.join('\n'), true)
@@ -91,7 +91,7 @@ module.exports = class nicknamelogCommand extends LenoxCommand {
 				first -= 20;
 				second -= 20;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setAuthor(`${mention.username}#${mention.discriminator}`)
 					.setColor('#ccff33')
 					.addField(lang.nicknamelog_old, newOldNickname.join('\n'), true)

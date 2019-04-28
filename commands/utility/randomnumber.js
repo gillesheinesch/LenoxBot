@@ -19,7 +19,7 @@ module.exports = class randomnumberCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -29,8 +29,8 @@ module.exports = class randomnumberCommand extends LenoxCommand {
 		if (!input) return msg.reply(lang.randomnumber_number);
 
 		const randomnumber = lang.randomnumber_randomnumber.replace('%randomnumber', randomnumberfinished);
-		const embed = new Discord.RichEmbed()
-			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL())
 			.setColor('#0066CC')
 			.setDescription(randomnumber);
 		msg.channel.send({ embed: embed });

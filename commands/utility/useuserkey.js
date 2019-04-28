@@ -21,7 +21,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -51,9 +51,9 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 			currentCredits += 5000;
 			await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}`)
-				.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+				.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 				.setTimestamp()
 				.setColor('#66ff33')
 				.setTitle('New Userkey used!');
@@ -79,9 +79,9 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 		currentCredits += 5000;
 		await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end + 2592000000)).toUTCString()}`)
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setTimestamp()
 			.setColor('#66ff33')
 			.setTitle('Userkey used!');

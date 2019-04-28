@@ -20,7 +20,7 @@ module.exports = class googleCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -54,9 +54,9 @@ module.exports = class googleCommand extends LenoxCommand {
 			const result = response.items[0];
 			const link = decodeURIComponent(result.link);
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#0066CC')
-				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.avatarURL)
+				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.avatarURL())
 				.setURL(link)
 				.setTitle(result.title)
 				.setDescription(result.snippet)

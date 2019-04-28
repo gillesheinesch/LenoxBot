@@ -22,7 +22,7 @@ module.exports = class jobCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (msg.client.provider.getUser(msg.author.id, 'jobstatus') === true) {
@@ -57,7 +57,7 @@ module.exports = class jobCommand extends LenoxCommand {
 
 		let index = 0;
 
-		const startEmbed = new Discord.RichEmbed()
+		const startEmbed = new Discord.MessageEmbed()
 			.setColor('BLUE')
 			.setFooter(lang.job_embed)
 			.setAuthor(lang.job_available);
@@ -89,14 +89,14 @@ module.exports = class jobCommand extends LenoxCommand {
 				const reactionremove = arrayOfJobs.slice(firsttext - 10, secondtext - 10).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					firsttext += 10;
 					secondtext += 10;
 
 					const newJobs = arrayOfJobs.slice(firsttext, secondtext);
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setFooter(lang.job_embed)
 						.setAuthor(lang.job_available);
@@ -107,14 +107,14 @@ module.exports = class jobCommand extends LenoxCommand {
 
 					jobsMessage.edit({ embed: newEmbed });
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					firsttext -= 10;
 					secondtext -= 10;
 
 					const newJobs = arrayOfJobs.slice(firsttext, secondtext);
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setFooter(lang.job_embed)
 						.setAuthor(lang.job_available);
@@ -127,15 +127,15 @@ module.exports = class jobCommand extends LenoxCommand {
 				}
 			});
 			collector.on('end', () => {
-				reaction1.remove();
-				reaction2.remove();
+				reaction1.users.remove();
+				reaction2.users.remove();
 			});
 		}
 
 		let response;
 		try {
 			response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-				maxMatches: 1,
+				max: 1,
 				time: 60000,
 				errors: ['time']
 			});
@@ -168,7 +168,7 @@ module.exports = class jobCommand extends LenoxCommand {
 
 		const duration = lang.job_duration.replace('%duration', jobtime);
 
-		const embed2 = new Discord.RichEmbed()
+		const embed2 = new Discord.MessageEmbed()
 			.setColor('#66ff33')
 			.setTitle(job)
 			.setDescription(`${lang.job_sentmessage} \n\n${duration}`)
@@ -189,8 +189,8 @@ module.exports = class jobCommand extends LenoxCommand {
 		};
 		await msg.client.provider.setBotsettings('botconfs', 'jobreminder', currentJobreminder);
 
-		const activityEmbed = new Discord.RichEmbed()
-			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+		const activityEmbed = new Discord.MessageEmbed()
+			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 			.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
 			.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 			.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
@@ -220,8 +220,8 @@ module.exports = class jobCommand extends LenoxCommand {
 			const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${amount} credits`;
 			msg.member.send(jobfinish);
 
-			const activityEmbed2 = new Discord.RichEmbed()
-				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+			const activityEmbed2 = new Discord.MessageEmbed()
+				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 				.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
 				.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 				.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)

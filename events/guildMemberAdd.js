@@ -16,7 +16,7 @@ exports.run = async (client, member) => {
 		if ((muteOfThisUser.muteEndDate - Date.now()) > 0) {
 			if (member.guild.roles.get(muteOfThisUser.roleid)) {
 				const mutedRole = member.guild.roles.get(muteOfThisUser.roleid);
-				await member.addRole(mutedRole);
+				await member.roles.add(mutedRole);
 			}
 		} else {
 			const currentMutes = client.provider.getBotsettings('botconfs', 'mutes');
@@ -40,7 +40,7 @@ exports.run = async (client, member) => {
 			if (client.provider.getGuild(member.guild.id, 'joinroles').length !== 0) {
 				const roleToAssign = member.guild.roles.get(client.provider.getGuild(member.guild.id, 'joinroles')[i]);
 				try {
-					await member.addRole(roleToAssign);
+					await member.roles.add(roleToAssign);
 					rolesGiven.push(roleToAssign.name);
 				} catch (error) {
 					rolesNotGiven.push(roleToAssign.name);
@@ -56,11 +56,11 @@ exports.run = async (client, member) => {
 	// Logs:
 	if (client.provider.getGuild(member.guild.id, 'welcomelog') === 'true') {
 		const messagechannel = client.channels.get(client.provider.getGuild(member.guild.id, 'welcomelogchannel'));
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setFooter(lang.guildmemberaddevent_userjoined)
 			.setTimestamp()
 			.setColor('GREEN')
-			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
+			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL());
 		messagechannel.send({
 			embed: embed
 		});
@@ -82,7 +82,7 @@ exports.run = async (client, member) => {
 			.replace('$embed$', '');
 
 		if (embed) {
-			const welcomeEmbed = new Discord.RichEmbed()
+			const welcomeEmbed = new Discord.MessageEmbed()
 				.setTimestamp()
 				.setDescription(newMessage)
 				.setColor('GREEN');

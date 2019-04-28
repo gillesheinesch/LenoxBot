@@ -21,9 +21,9 @@ module.exports = class youtubeCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		if (!args[0]) {
@@ -42,7 +42,7 @@ module.exports = class youtubeCommand extends LenoxCommand {
 				const thumbnail = search.items[0].snippet.thumbnails.medium.url;
 				const description = search.items[0].snippet.description;
 				const newUrl = `https://www.youtube.com/watch?v=${search.items[0].id.videoId}`;
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setImage(thumbnail)
 					.setAuthor(title)
 					.setDescription(description)

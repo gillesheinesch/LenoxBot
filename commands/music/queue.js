@@ -19,7 +19,7 @@ module.exports = class queueCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const queue = msg.client.queue;
@@ -28,7 +28,7 @@ module.exports = class queueCommand extends LenoxCommand {
 
 		const nowplaying = lang.queue_nowplaying.replace('%songtitle', serverQueue.songs[0].title);
 		const songqueue = lang.queue_songqueue.replace('%songtitle', serverQueue.songs[0].title);
-		const queueEmbed = new Discord.RichEmbed()
+		const queueEmbed = new Discord.MessageEmbed()
 			.setColor('#009696')
 			.setDescription(`${serverQueue.songs.slice(0, 15).map(song => `**-** ${song.title}`).join('\n')}
 		\n**${nowplaying}**`)
@@ -53,12 +53,12 @@ module.exports = class queueCommand extends LenoxCommand {
 				const reactionremove = serverQueue.songs.slice(first - 15, second - 15).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					first += 15;
 					second += 15;
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('#009696')
 						.setAuthor(songqueue, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 
@@ -69,12 +69,12 @@ module.exports = class queueCommand extends LenoxCommand {
 						embed: newEmbed
 					});
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					first -= 15;
 					second -= 15;
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('#009696')
 						.setAuthor(songqueue, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 
@@ -87,8 +87,8 @@ module.exports = class queueCommand extends LenoxCommand {
 				}
 			});
 			collector.on('end', () => {
-				reaction1.remove();
-				reaction2.remove();
+				reaction1.users.remove();
+				reaction2.users.remove();
 			});
 		}
 	}

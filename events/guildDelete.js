@@ -3,7 +3,7 @@ exports.run = async (client, guild) => {
 	if (!client.provider.isReady) return;
 	console.log(`${guild} kicked LenoxBot!`);
 
-	const embed = new Discord.RichEmbed()
+	const embed = new Discord.MessageEmbed()
 		.setTimestamp()
 		.setAuthor(`${guild.name} (${guild.id})`)
 		.addField(`Owner`, `${guild.owner.user.tag} (${guild.ownerID})`)

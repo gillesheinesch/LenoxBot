@@ -20,7 +20,7 @@ module.exports = class slotCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const msgauthortable = msg.client.provider.getUser(msg.author.id, 'credits');
@@ -30,8 +30,8 @@ module.exports = class slotCommand extends LenoxCommand {
 		const slotTwo = slotThing[Math.floor(Math.random() * slotThing.length)];
 		const slotThree = slotThing[Math.floor(Math.random() * slotThing.length)];
 		if (slotOne === slotTwo && slotOne === slotThree) {
-			const embed1 = new Discord.RichEmbed()
-				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+			const embed1 = new Discord.MessageEmbed()
+				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 				.setColor('GREEN')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_triple);
 			msg.channel.send({ embed: embed1 });
@@ -41,8 +41,8 @@ module.exports = class slotCommand extends LenoxCommand {
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 		} else
 		if (slotOne === slotTwo || slotTwo === slotThree) {
-			const embed3 = new Discord.RichEmbed()
-				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+			const embed3 = new Discord.MessageEmbed()
+				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 				.setColor('GREEN')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_double);
 			msg.channel.send({ embed: embed3 });
@@ -51,8 +51,8 @@ module.exports = class slotCommand extends LenoxCommand {
 			currentCredits += 25;
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 		} else {
-			const embed2 = new Discord.RichEmbed()
-				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+			const embed2 = new Discord.MessageEmbed()
+				.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 				.setColor('RED')
 				.addField(`${slotOne}|${slotTwo}|${slotThree}`, lang.slot_nothing);
 			msg.channel.send({ embed: embed2 });

@@ -18,17 +18,17 @@ module.exports = class skipCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const queue = msg.client.queue;
 		const serverQueue = queue.get(msg.guild.id);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'skipvote') === 'false') return msg.channel.send(lang.skip_skipvotedeativated);
-		if (!msg.member.voiceChannel) return msg.channel.send(lang.skip_notvoicechannel);
+		if (msg.client.provider.getGuild(msg.guild.id, 'skipvote') === 'false') return msg.channel.send(lang.skip_skipvotedeativated);
+		if (!msg.member.voice.channel) return msg.channel.send(lang.skip_notvoicechannel);
 		if (!serverQueue) return msg.channel.send(lang.skip_nothing);
 
-		if (msg.member.voiceChannel.members.size === 2) {
+		if (msg.member.voice.channel.members.size === 2) {
 			msg.channel.send(lang.skip_skippedalone);
 			await serverQueue.connection.dispatcher.destroy();
 			return;
@@ -42,21 +42,21 @@ module.exports = class skipCommand extends LenoxCommand {
 		mapload.users.push(msg.author.id);
 		await map.set(msg.guild.id, mapload);
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'skipvote')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'skipvote', 1);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'skipvote')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'skipvote', 1);
 		}
 
 		if (mapload.users.length === 1) {
-			const newvote = lang.skip_newvote.replace('%author', msg.author).replace('%skipnumber', msg.client.provider.getGuild(msg.message.guild.id, 'skipnumber'));
+			const newvote = lang.skip_newvote.replace('%author', msg.author).replace('%skipnumber', msg.client.provider.getGuild(msg.guild.id, 'skipnumber'));
 			msg.channel.send(newvote);
 		}
 
 		if (mapload.users.length > 1) {
-			const vote = lang.skip_vote.replace('%author', msg.author).replace('%currentvotes', mapload.users.length).replace('%skipnumber', msg.client.provider.getGuild(msg.message.guild.id, 'skipnumber'));
+			const vote = lang.skip_vote.replace('%author', msg.author).replace('%currentvotes', mapload.users.length).replace('%skipnumber', msg.client.provider.getGuild(msg.guild.id, 'skipnumber'));
 			msg.channel.send(vote);
 		}
 
-		const number = parseInt(msg.client.provider.getGuild(msg.message.guild.id, 'skipnumber'), 10);
+		const number = parseInt(msg.client.provider.getGuild(msg.guild.id, 'skipnumber'), 10);
 
 		if (mapload.users.length !== number) return;
 

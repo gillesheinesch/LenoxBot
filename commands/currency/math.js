@@ -20,7 +20,7 @@ module.exports = class mathCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const randomForNumbers = Math.random();
@@ -41,7 +41,7 @@ module.exports = class mathCommand extends LenoxCommand {
 		const signs = ['+', '-', '*'];
 		const sign = Math.floor(Math.random() * signs.length);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setFooter(msg.author.tag)
 			.setTitle(lang.math_embedauthor)
 			.setColor('#3399ff')
@@ -54,7 +54,7 @@ module.exports = class mathCommand extends LenoxCommand {
 		let response;
 		try {
 			response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-				maxMatches: 1,
+				max: 1,
 				time: 7000,
 				errors: ['time']
 			});
@@ -86,7 +86,7 @@ module.exports = class mathCommand extends LenoxCommand {
 
 			const winauthor = lang.math_winauthor.replace('%amount', 15 + Math.floor(msg.client.provider.getUser(msg.author.id, 'mathematics').level / 5));
 			const embeddescription = lang.math_embeddescription.replace('%points', msg.client.provider.getUser(msg.author.id, 'mathematics').points).replace('%level', msg.client.provider.getUser(msg.author.id, 'mathematics').level);
-			const winnerEmbed = new Discord.RichEmbed()
+			const winnerEmbed = new Discord.MessageEmbed()
 				.setColor('#00ff00')
 				.setFooter(msg.author.tag)
 				.setTitle(winauthor)
@@ -102,7 +102,7 @@ module.exports = class mathCommand extends LenoxCommand {
 
 			const embeddescription = lang.math_embeddescription.replace('%points', msg.client.provider.getUser(msg.author.id, 'mathematics').points).replace('%level', msg.client.provider.getUser(msg.author.id, 'mathematics').level);
 			const loseauthor = lang.math_loseauthor.replace('%correct', mathCalculation);
-			const loserEmbed = new Discord.RichEmbed()
+			const loserEmbed = new Discord.MessageEmbed()
 				.setColor('#ff0000')
 				.setFooter(msg.author.tag)
 				.setTitle(loseauthor)

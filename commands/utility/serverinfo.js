@@ -21,10 +21,10 @@ module.exports = class serverinfoCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		moment.locale(msg.client.provider.getGuild(msg.message.guild.id, 'momentLanguage'));
+		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
 		const servercreated = moment(msg.guild.createdAt).format('MMMM Do YYYY, h:mm:ss a');
 
@@ -57,11 +57,11 @@ module.exports = class serverinfoCommand extends LenoxCommand {
 			emojisembed.push(emojis.join(' '));
 		}
 
-		const embed = new Discord.RichEmbed()
-			.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(`${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL())
 			.setColor('#0066CC')
 			.setTimestamp()
-			.setThumbnail(msg.guild.iconURL)
+			.setThumbnail(msg.guild.iconURL())
 			.addField(`🤵 ${lang.serverinfo_members}`, msg.guild.memberCount)
 			.addField(`🗻 ${lang.serverinfo_region}`, msg.guild.region)
 			.addField(`📲 ${lang.serverinfo_channels}`, msg.guild.channels.size)

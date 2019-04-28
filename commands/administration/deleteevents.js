@@ -19,91 +19,91 @@ module.exports = class deleteeventsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'modlog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'modlog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'modlog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'modlog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'messagedeletelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'messagedeletelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'messagedeletelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'messagedeletelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'messagedeletelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'messagedeletelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'messageupdatelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'messageupdatelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'messageupdatelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'messageupdatelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'messageupdatelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'messageupdatelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'channelupdatelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'channelupdatelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'channelupdatelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'channelupdatelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'channelupdatelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'channelupdatelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'channelcreatelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'channelcreatelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'channelcreatelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'channelcreatelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'channelcreatelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'channelcreatelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'channeldeletelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'channeldeletelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'channeldeletelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'channeldeletelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'channeldeletelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'channeldeletelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'guildmemberupdatelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'guildmemberupdatelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'guildmemberupdatelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'guildmemberupdatelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'guildmemberupdatelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'guildmemberupdatelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'presenceupdatelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'presenceupdatelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'presenceupdatelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'presenceupdatelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'presenceupdatelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'presenceupdatelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'welcomelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'welcomelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'welcomelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'welcomelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'welcomelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'welcomelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'byelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'byelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'byelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'byelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'byelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'byelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'rolecreatelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'rolecreatelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'rolecreatelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'rolecreatelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'rolecreatelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'rolecreatelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'roledeletelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'roledeletelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'roledeletelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'roledeletelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'roledeletelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'roledeletelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'roleupdatelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'roleupdatelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'roleupdatelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'roleupdatelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'roleupdatelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'roleupdatelog', currentLog);
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'guildupdatelog') === 'true') {
-			let currentLog = msg.client.provider.getGuild(msg.message.guild.id, 'guildupdatelog');
+		if (msg.client.provider.getGuild(msg.guild.id, 'guildupdatelog') === 'true') {
+			let currentLog = msg.client.provider.getGuild(msg.guild.id, 'guildupdatelog');
 			currentLog = 'false';
-			await msg.client.provider.setGuild(msg.message.guild.id, 'guildupdatelog', currentLog);
+			await msg.client.provider.setGuild(msg.guild.id, 'guildupdatelog', currentLog);
 		}
 
 		return msg.channel.send(lang.deleteevents_eventsdisabled);

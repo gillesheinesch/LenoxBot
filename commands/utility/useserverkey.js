@@ -21,7 +21,7 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -31,13 +31,13 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 		if (!msg.client.provider.getBotsettings('botconfs', 'premium').keys.guildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_notexist);
 		if (msg.client.provider.getBotsettings('botconfs', 'premium').keys.redeemedguildkeys.includes(input.join(' '))) return msg.reply(lang.useserverkey_already);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) {
-			const currentPremium = msg.client.provider.getGuild(msg.message.guild.id, 'premium');
+		if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) {
+			const currentPremium = msg.client.provider.getGuild(msg.guild.id, 'premium');
 			currentPremium.status = true;
 			currentPremium.bought.push(new Date().getTime);
 			const now = new Date().getTime();
 			currentPremium.end = new Date(now + 2592000000);
-			await msg.client.provider.setGuild(msg.message.guild.id, 'premium', currentPremium);
+			await msg.client.provider.setGuild(msg.guild.id, 'premium', currentPremium);
 
 			const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
 			newCurrentPremium.keys.redeemedguildkeys.push(input.join(' '));
@@ -47,20 +47,20 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 			delete timestamps.useserverkey[msg.author.id];
 			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 
-			const embed = new Discord.RichEmbed()
-				.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${msg.client.provider.getGuild(msg.message.guild.id, 'premium').end.toUTCString()}`)
-				.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
+			const embed = new Discord.MessageEmbed()
+				.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${msg.client.provider.getGuild(msg.guild.id, 'premium').end.toUTCString()}`)
+				.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL())
 				.setTimestamp()
 				.setColor('#ff0000')
 				.setTitle('New Serverkey used!');
 			await msg.client.channels.get(settings.keychannel).send({ embed });
-			const redeemed = lang.useserverkey_redeemed.replace('%date', `\`${msg.client.provider.getGuild(msg.message.guild.id, 'premium').end.toUTCString()}\``);
+			const redeemed = lang.useserverkey_redeemed.replace('%date', `\`${msg.client.provider.getGuild(msg.guild.id, 'premium').end.toUTCString()}\``);
 			return msg.reply(redeemed);
 		}
-		const currentPremium = msg.client.provider.getGuild(msg.message.guild.id, 'premium');
+		const currentPremium = msg.client.provider.getGuild(msg.guild.id, 'premium');
 		currentPremium.bought.push(new Date().getTime);
-		currentPremium.end = new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 2592000000);
-		await msg.client.provider.setGuild(msg.message.guild.id, 'premium', currentPremium);
+		currentPremium.end = new Date(Date.parse(msg.client.provider.getGuild(msg.guild.id, 'premium').end) + 2592000000);
+		await msg.client.provider.setGuild(msg.guild.id, 'premium', currentPremium);
 
 		const newCurrentPremium = msg.client.provider.getBotsettings('botconfs', 'premium');
 		newCurrentPremium.keys.redeemedguildkeys.push(input.join(' '));
@@ -70,15 +70,15 @@ module.exports = class useserverkeyCommand extends LenoxCommand {
 		delete timestamps.useserverkey[msg.author.id];
 		await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 
-		const embed = new Discord.RichEmbed()
-			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 2592000000).toUTCString()}`)
-			.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL)
+		const embed = new Discord.MessageEmbed()
+			.setDescription(`This discord server used a premium serverkey (Code: ${input.join(' ')})! \n\nThis discord server has premium until ${new Date(Date.parse(msg.client.provider.getGuild(msg.guild.id, 'premium').end) + 2592000000).toUTCString()}`)
+			.setAuthor(`Serverkey used by ${msg.author.tag} for ${msg.guild.name} (${msg.guild.id})`, msg.guild.iconURL())
 			.setTimestamp()
 			.setColor('#ff0000')
 			.setTitle('New Serverkey used!');
 		await msg.client.channels.get(settings.keychannel).send({ embed });
 
-		const extended = lang.useserverkey_extended.replace('%date', `\`${new Date(Date.parse(msg.client.provider.getGuild(msg.message.guild.id, 'premium').end) + 2592000000).toUTCString()}\``);
+		const extended = lang.useserverkey_extended.replace('%date', `\`${new Date(Date.parse(msg.client.provider.getGuild(msg.guild.id, 'premium').end) + 2592000000).toUTCString()}\``);
 		return msg.reply(extended);
 	}
 };

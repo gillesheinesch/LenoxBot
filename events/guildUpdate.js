@@ -11,7 +11,7 @@ exports.run = (client, oldGuild, newGuild) => {
 	if (!messagechannel) return;
 
 	if (oldGuild.name !== newGuild.name) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_namechanged)
@@ -21,7 +21,7 @@ exports.run = (client, oldGuild, newGuild) => {
 	}
 
 	if (oldGuild.afkChannelID !== newGuild.afkChannelID) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_afkchanged)
@@ -31,7 +31,7 @@ exports.run = (client, oldGuild, newGuild) => {
 	}
 
 	if (oldGuild.afkTimeout !== newGuild.afkTimeout) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_afktimeoutchanged)
@@ -40,18 +40,18 @@ exports.run = (client, oldGuild, newGuild) => {
 		messagechannel.send({ embed: embed });
 	}
 
-	if (oldGuild.iconURL !== newGuild.iconURL) {
-		const embed = new Discord.RichEmbed()
+	if (oldGuild.iconURL() !== newGuild.iconURL()) {
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_servericonchanged)
-			.addField(`📤 ${lang.guildupdateevent_oldservericon}`, oldGuild.iconURL === null ? lang.guildupdateevent_noservericon : oldGuild.iconURL)
-			.addField(`📥 ${lang.guildupdateevent_newservericon}`, newGuild.iconURL === null ? lang.guildupdateevent_noservericonnow : newGuild.iconURL);
+			.addField(`📤 ${lang.guildupdateevent_oldservericon}`, oldGuild.iconURL() === null ? lang.guildupdateevent_noservericon : oldGuild.iconURL())
+			.addField(`📥 ${lang.guildupdateevent_newservericon}`, newGuild.iconURL() === null ? lang.guildupdateevent_noservericonnow : newGuild.iconURL());
 		messagechannel.send({ embed: embed });
 	}
 
 	if (oldGuild.owner.id !== newGuild.owner.id) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildupdateevent_ownerchanged)

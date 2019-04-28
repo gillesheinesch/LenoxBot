@@ -19,19 +19,19 @@ module.exports = class listselfassignableroleCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const roles = [];
 
 		const help = lang.listselfassignablerole_help.replace('%prefix', prefix);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ABCDEF')
 			.setFooter(help);
 		try {
-			for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles').length; i++) {
-				roles.push(msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles')[i]).name);
+			for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i++) {
+				roles.push(msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[i]).name);
 			}
 			embed.addField(lang.listselfassignablerole_embed, roles.join('\n'), true);
 			return msg.channel.send({ embed: embed });

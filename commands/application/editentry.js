@@ -18,7 +18,7 @@ module.exports = class editentryCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -28,11 +28,11 @@ module.exports = class editentryCommand extends LenoxCommand {
 		if (firstNumber.length === 0) return msg.reply(lang.editentry_noid);
 		if (newEntryText.length === 0) return msg.reply(lang.editentry_noentrytext);
 		if (isNaN(firstNumber)) return msg.reply(lang.editentry_noid);
-		if (typeof msg.client.provider.getGuild(msg.message.guild.id, 'application').template[Number(firstNumber) - 1] === 'undefined') return msg.reply(lang.editentry_undefined);
+		if (typeof msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(firstNumber) - 1] === 'undefined') return msg.reply(lang.editentry_undefined);
 
-		const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+		const currentApplication = msg.client.provider.getGuild(msg.guild.id, 'application');
 		currentApplication.template[Number(firstNumber) - 1] = newEntryText.join(' ');
-		await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
+		await msg.client.provider.setGuild(msg.guild.id, 'application', currentApplication);
 
 		const set = lang.editentry_set.replace('%id', firstNumber);
 		msg.reply(set);

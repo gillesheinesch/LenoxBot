@@ -19,27 +19,27 @@ module.exports = class listautomaticroleCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const roles = [];
 		const points = [];
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'ara')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'ara', []);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'ara')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'ara', []);
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ABCDEF');
 
 		try {
-			for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'ara').length; i += 2) {
-				roles.push(msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'ara')[i]).name);
+			for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
+				roles.push(msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i]).name);
 			}
 			embed.addField(lang.listautomaticrole_embed, roles.join('\n'), true);
 
-			for (let i = 1; i < msg.client.provider.getGuild(msg.message.guild.id, 'ara').length; i += 2) {
-				points.push(msg.client.provider.getGuild(msg.message.guild.id, 'ara')[i]);
+			for (let i = 1; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
+				points.push(msg.client.provider.getGuild(msg.guild.id, 'ara')[i]);
 			}
 			embed.addField(lang.listautomaticrole_points, points.join('\n'), true);
 			return msg.channel.send({ embed: embed });

@@ -19,7 +19,7 @@ module.exports = class clearCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -31,14 +31,14 @@ module.exports = class clearCommand extends LenoxCommand {
 		if (messagecount > 100) return msg.reply(lang.clear_max100);
 		if (messagecount < 2) return msg.reply(lang.clear_min2);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'commanddel') === 'false') {
+		if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'false') {
 			await msg.delete();
 		}
 
 		await msg.channel.fetchMessages({ limit: messagecount }).then(messages => msg.channel.bulkDelete(messages));
 
 		const messagesdeleted = lang.clear_messagesdeleted.replace('%messagecount', messagecount);
-		const messageclearembed = new Discord.RichEmbed()
+		const messageclearembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${messagesdeleted}`);
 		return msg.channel.send({ embed: messageclearembed });
