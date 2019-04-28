@@ -31,15 +31,14 @@ module.exports = class pornhubvideoCommand extends LenoxCommand {
 
 		try {
 			/* eslint no-undef: 0 */
-			const Searcher = new Pornsearch(args.slice().join(' '), driver = 'pornhub');
-			const videos = await Searcher.videos();
+			const Searcher = await Pornsearch.search(args.slice().join(' ')).videos();
 
-			const result = Math.floor(Math.random() * videos.length);
+			const result = Math.floor(Math.random() * Searcher.length);
 
-			const url = videos[result - 1].url;
-			const thumbnail = videos[result - 1].thumb;
-			const title = videos[result - 1].title;
-			const duration = videos[result - 1].duration;
+			const url = Searcher[result - 1].url;
+			const thumbnail = Searcher[result - 1].thumb;
+			const title = Searcher[result - 1].title;
+			const duration = Searcher[result - 1].duration;
 
 			const durationembed = lang.sexvideo_durationembed.replace('%duration', duration);
 			const embed = new Discord.MessageEmbed()
