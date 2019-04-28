@@ -24,9 +24,9 @@ module.exports = class joinCommand extends LenoxCommand {
 		const args = msg.content.split(' ').slice(1);
 
 		const addedrole = args.slice().join(' ');
-		const foundRole = msg.message.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
-		const author = await msg.message.guild.fetchMember(msg.author.id);
-		const channelID = msg.message.channel.id;
+		const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
+		const author = await msg.guild.fetchMember(msg.author.id);
+		const channelID = msg.channel.id;
 
 		if (addedrole.length < 1) return msg.reply(lang.join_noinput);
 		if (!foundRole) return msg.reply(lang.join_rolenotexist);
