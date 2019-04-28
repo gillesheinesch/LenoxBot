@@ -405,7 +405,6 @@ async function run() {
 		}
 	});
 
-	*/
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
 			const dashboardid = req.params.id;
@@ -495,7 +494,7 @@ async function run() {
 				}
 			}));
 		}
-	});
+	}); */
 
 	app.get('/profile/:id', async (req, res) => {
 		try {
