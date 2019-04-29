@@ -15,7 +15,7 @@ module.exports = class lootCommand extends LenoxCommand {
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Games',
-			dashboardsettings: true,
+			dashboardsettings: false,
 			cooldown: 600000
 		});
 	}
