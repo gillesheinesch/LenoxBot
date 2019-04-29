@@ -35,7 +35,7 @@ module.exports = class clearCommand extends LenoxCommand {
 			await msg.delete();
 		}
 
-		await msg.channel.fetchMessages({ limit: messagecount }).then(messages => msg.channel.bulkDelete(messages));
+		await msg.channel.messages.fetch({ limit: messagecount }).then(messages => msg.channel.bulkDelete(messages));
 
 		const messagesdeleted = lang.clear_messagesdeleted.replace('%messagecount', messagecount);
 		const messageclearembed = new Discord.MessageEmbed()
