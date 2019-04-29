@@ -35,7 +35,7 @@ module.exports = class removeautomaticroleCommand extends LenoxCommand {
 		if (!foundRole) return msg.reply(lang.removeautomaticrole_rolenotexist);
 
 		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
-			if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'ara').ara[i]) {
+			if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'ara')[i]) {
 				const roleId = foundRole.id;
 				for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'ara').length; index += 2) {
 					if (roleId === msg.client.provider.getGuild(msg.guild.id, 'ara')[index]) {
