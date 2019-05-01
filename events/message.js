@@ -68,31 +68,37 @@ exports.run = async (client, msg) => {
 	}
 
 	if (client.provider.getUser(msg.author.id, 'credits')) {
+		const settings = client.provider.userSettings.get(msg.author.id);
 		// eslint-disable-next-line guard-for-in
 		for (const key in usersettingskeys) {
-			if (!client.provider.getUser(msg.author.id, key)) {
-				await client.provider.setUser(msg.author.id, key, usersettingskeys[key]);
+			if (settings[key] && typeof settings[key] === 'undefined') {
+				settings[key] = usersettingskeys[key];
 			}
 
 			if (typeof usersettingskeys[key] === 'object') {
 				for (const key2 in usersettingskeys[key]) {
-					if (!client.provider.getUser(msg.author.id, key[key2])) {
-						await client.provider.setUser(msg.author.id, key[key2], usersettingskeys[key][key2]);
+					if (!settings[key][key2]) {
+						settings[key][key2] = usersettingskeys[key][key2];
 					}
 				}
 			}
 		}
+		await msg.client.provider.setUserComplete(msg.author.id, settings);
 	} else {
 		await msg.client.provider.setUserComplete(msg.author.id, usersettingskeys);
 	}
 
 	if (client.provider.getBotsettings('botconfs', 'premium')) {
+		const settings = client.provider.botSettings.get('botconfs');
 		// eslint-disable-next-line guard-for-in
 		for (const key in botsettingskeys) {
-			if (!client.provider.getBotsettings('botconfs', key)) {
-				await client.provider.setBotsettings('botconfs', key, botsettingskeys[key]);
+			if (!settings[key]) {
+				settings[key] = botsettingskeys[key];
 			}
 		}
+		await msg.client.provider.setBotconfsComplete('botconfs', settings);
+	} else {
+		await msg.client.provider.setBotconfsComplete('botconfs', botsettingskeys);
 	}
 
 	const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
