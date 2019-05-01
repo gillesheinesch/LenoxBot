@@ -66,7 +66,7 @@
     "stringstream": "^1.0.0",
     "underscore.string": "^3.3.5",
     "url": "^0.11.0",
-    "util": "^0.11.1",
+    "util": "^0.12.0",
     "util.js": "^0.0.0",
     "ytdl-core": "^0.29.1"
   },
