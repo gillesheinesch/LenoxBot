@@ -97,7 +97,22 @@ async function run() {
 		if (err) return console.log(err);
 		console.log(chalk.green('Website running on https://lenoxbot.com'));
 	});
-	// Check all user guild where user are owner and lenoxbot is
+
+	const mcache = require('memory-cache');
+	const cache = duration => (req, res, next) => {
+		  const key = `__express__${req.originalUrl}` || req.url;
+		  const cachedBody = mcache.get(key);
+		  if (cachedBody) {
+			res.send(cachedBody);
+			return;
+		  }
+		res.sendResponse = res.send;
+		res.send = body => {
+			  mcache.put(key, body, duration * 1000);
+			  res.sendResponse(body);
+		};
+		next();
+	};
 
 	// Script executes function on shard
 	/** Executes a reload on the shards for synchronization
@@ -162,29 +177,29 @@ async function run() {
 
 	async function reloadGuild(guild, dashboardid) {
 		await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
-        if (this.guilds.get("${dashboardid}")) {
-        const x = await this.provider.reloadGuild("${dashboardid}");
-        return x;
-        }
-    })();
+		(async () => {
+				if (this.guilds.get("${dashboardid}")) {
+				const x = await this.provider.reloadGuild("${dashboardid}");
+				return x;
+				}
+		})();
 `);
 	}
 
 	async function reloadBotSettings(guild) {
 		if (guild) {
 			await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
-        const x = await this.provider.reloadBotSettings();
-        return x;
-    })();
+		(async () => {
+				const x = await this.provider.reloadBotSettings();
+				return x;
+		})();
 `);
 		} else {
 			await shardingManager.broadcastEval(`
-    (async () => {
-        const x = await this.provider.reloadBotSettings();
-        return x;
-    })();
+		(async () => {
+				const x = await this.provider.reloadBotSettings();
+				return x;
+		})();
 `);
 		}
 	}
@@ -403,9 +418,9 @@ async function run() {
 				}
 			}));
 		}
-	});
+	}); */
 
-	app.get('/leaderboards/server/:id', async (req, res) => {
+	app.get('/leaderboards/server/:id',cache(10), async (req, res) => {
 		try {
 			const dashboardid = req.params.id;
 			const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
@@ -427,12 +442,12 @@ async function run() {
 
 			for (const row in guildconfs.settings.scores) {
 				const member = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${row}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 				const guildPointSettings = {
 					userId: row,
@@ -457,12 +472,12 @@ async function run() {
 
 			for (let i = 0; i < scores.length; i++) {
 				const user = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${scores[i].userId}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 				if (user) {
 					scores[i].user = user;
@@ -494,7 +509,7 @@ async function run() {
 				}
 			}));
 		}
-	}); */
+	});
 
 	app.get('/profile/:id', async (req, res) => {
 		try {
@@ -983,13 +998,13 @@ async function run() {
 					try {
 						if (guild) {
 							await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedChannel = await this.channels.get("${guildconfs.settings.tickets.notificationchannel}");
 		if (fetchedChannel) {
 			await fetchedChannel.send({ embed: ${JSON.stringify(embed)} });
 			return fetchedChannel;
 		}
-    })();
+		})();
 `);
 						}
 					} catch (error) {
@@ -1092,23 +1107,23 @@ async function run() {
 					});
 
 				const author = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${botconfs.settings.tickets[req.params.ticketid].authorid}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 				botconfs.settings.tickets[req.params.ticketid].author = author.tag;
 
 				for (const index in ticket.answers) {
 					const author2 = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${ticket.answers[index].authorid}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 					ticket.answers[index].author = author2 ? author2.tag : ticket.answers[index].authorid;
 					ticket.answers[index].newdate = moment(ticket.answers[index].date).format('MMMM Do YYYY, h:mm:ss a');
@@ -1664,12 +1679,12 @@ async function run() {
 
 				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
 				await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
-        if (this.guilds.get("${dashboardid}")) {
-        const x = await this.provider.reloadGuild("${dashboardid}", "prefix", "${newprefix}");
-        return x;
-        }
-    })();
+		(async () => {
+				if (this.guilds.get("${dashboardid}")) {
+				const x = await this.provider.reloadGuild("${dashboardid}", "prefix", "${newprefix}");
+				return x;
+				}
+		})();
 `);
 
 				return res.redirect(url.format({
@@ -3762,7 +3777,7 @@ async function run() {
 				try {
 					if (application.yes.length >= guildconfs.settings.application.reactionnumber) {
 						await shardingManager.broadcastEval(`
-    (async () => {
+		(async () => {
 		if (this.guilds.get("${dashboardid}")) {
 		const user = await this.users.fetch("${application.authorid}");
 
@@ -3776,13 +3791,13 @@ async function run() {
 			return role
 		}
 	}
-    })();
+		})();
 `);
 						application.status = 'closed';
 						application.acceptedorrejected = 'accepted';
 					} else if (application.no.length >= guildconfs.settings.application.reactionnumber) {
 						await shardingManager.broadcastEval(`
-    (async () => {
+		(async () => {
 		if (this.guilds.get("${dashboardid}")) {
 		const user = await this.users.fetch("${application.authorid}");
 
@@ -3796,7 +3811,7 @@ async function run() {
 			return role
 		}
 	}
-    })();
+		})();
 `);
 						application.status = 'closed';
 						application.acceptedorrejected = 'rejected';
@@ -3864,12 +3879,12 @@ async function run() {
 				// eslint-disable-next-line guard-for-in
 				for (const index2 in guildconfs.settings.application.applications) {
 					const author = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${guildconfs.settings.application.applications[index2].authorid}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 					guildconfs.settings.application.applications[index2].author = author ? author.tag : guildconfs.settings.application.applications[index2].authorid;
 					guildconfs.settings.application.applications[index2].newdate = moment(guildconfs.settings.application.applications[index2].date).format('MMMM Do YYYY, h:mm:ss a');
@@ -3942,12 +3957,12 @@ async function run() {
 				// eslint-disable-next-line guard-for-in
 				for (const index2 in guildconfs.settings.application.applications) {
 					const author = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${guildconfs.settings.application.applications[index2].authorid}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 					if (guildconfs.settings.application.applications[index2].guildid === dashboardid && guildconfs.settings.application.applications[index2].status === 'open') {
 						newobject[index2] = guildconfs.settings.application.applications[index2];
@@ -4567,13 +4582,13 @@ async function run() {
 					const lang = require(`./languages/${guildconfs.settings.language}.json`);
 					const newanswer = lang.mainfile_newanswer.replace('%link', `https://lenoxbot.com/tickets/${ticket.ticketid}/overview`);
 					await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${ticket.authorid}")
 		if (fetchedUser) {
 			await fetchedUser.send("${newanswer}")
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 				} catch (error) {
 					'undefined';
@@ -4664,13 +4679,13 @@ async function run() {
 					const lang = require(`./languages/${guildconfs.settings.language}.json`);
 					const statuschange = lang.mainfile_statuschange.replace('%status', ticket.status).replace('%link', `https://lenoxbot.com/tickets/${ticket.ticketid}/overview`);
 					await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${ticket.authorid}");
 		if (fetchedUser) {
 			await fetchedUser.send("${statuschange}")
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 				} catch (error) {
 					'undefined';
@@ -4736,12 +4751,12 @@ async function run() {
 				botconfs.settings.tickets[req.params.ticketid].newdate = moment(botconfs.settings.tickets[req.params.ticketid].date).format('MMMM Do YYYY, h:mm:ss a');
 
 				const author = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${botconfs.settings.tickets[req.params.ticketid].authorid}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 
 				botconfs.settings.tickets[req.params.ticketid].author = author ? author.tag : botconfs.settings.tickets[req.params.ticketid].authorid;
@@ -4749,12 +4764,12 @@ async function run() {
 				/* eslint guard-for-in: 0 */
 				for (const index2 in ticket.answers) {
 					const author2 = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${ticket.answers[index2].authorid}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 					ticket.answers[index2].author = author2 ? author2.tag : ticket.answers[index2].authorid;
 					ticket.answers[index2].newdate = moment(ticket.answers[index2].date).format('MMMM Do YYYY, h:mm:ss a');
@@ -4854,12 +4869,12 @@ async function run() {
 
 				for (const index2 in botconfs.settings.tickets) {
 					const author = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${botconfs.settings.tickets[index2].authorid}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 					if (botconfs.settings.tickets[index2].guildid === dashboardid && botconfs.settings.tickets[index2].status === 'open') {
 						newobject[index2] = botconfs.settings.tickets[index2];
@@ -5247,12 +5262,12 @@ async function run() {
 
 				for (let index2 = 0; index2 < guildconfs.settings.customcommands.length; index2++) {
 					const author = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
+		(async () => {
 		const fetchedUser = await this.users.fetch("${guildconfs.settings.customcommands[index2].creator}")
 		if (fetchedUser) {
 			return fetchedUser;
 		}
-    })();
+		})();
 `);
 					if (author) {
 						customcommands[index2].newcreator = author.tag;
