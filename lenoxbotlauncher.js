@@ -321,7 +321,7 @@ async function run() {
 		}
 	});
 
-	/* app.get('/leaderboards', async (req, res) => {
+	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -332,26 +332,20 @@ async function run() {
 			let userArray = [];
 			const arrayofUsers = await userSettingsCollection.find().toArray();
 
+			let userResult;
 			for (let i = 0; i < arrayofUsers.length; i++) {
 				if (!isNaN(arrayofUsers[i].settings.credits)) {
-					await shardingManager.shards.get(0).eval(`
-					(async () => {
-						await this.users.fetch("${arrayofUsers[i].userId}").then(user => {
-							return user;
-						}).catch(err => {
-							return undefined;
-						})
-					})();
-				`).then(userResult => {
-						const userCreditsSettings = {
-							userId: arrayofUsers[i].userId,
-							user: userResult ? userResult : arrayofUsers[i].userId,
-							credits: Number(arrayofUsers[i].settings.credits)
-						};
-						if (arrayofUsers[i].userId !== 'global') {
-							userArray.push(userCreditsSettings);
-						}
+					await shardingManager.broadcastEval(`this.users.get("${arrayofUsers[i].userId}")`).then(userA => {
+						userResult = userA.find(u => u);
 					});
+					const userCreditsSettings = {
+						userId: arrayofUsers[i].userId,
+						user: userResult ? userResult : arrayofUsers[i].userId,
+						credits: Number(arrayofUsers[i].settings.credits)
+					};
+					if (arrayofUsers[i].userId !== 'global') {
+						userArray.push(userCreditsSettings);
+					}
 				}
 			}
 
@@ -365,24 +359,21 @@ async function run() {
 				return 0;
 			});
 
+			let userResult2;
 			for (let i = 0; i < userArray.length; i++) {
-				await shardingManager.shards.get(0).eval(`
-					(async () => {
-						const user = await this.users.fetch("${arrayofUsers[i].userId}")
-						if (user) return user;
-					})();
-				`).then(userResult => {
-					if (userResult) {
-						userArray[i].user = userResult;
-					}
-					if (req.user) {
-						if (userArray[i].userId === req.user.id) {
-							userData.place = i + 1;
-							userData.credits = userArray[i].credits;
-							userData.loaded = true;
-						}
-					}
+				await shardingManager.broadcastEval(`this.users.get("${arrayofUsers[i].userId}")`).then(userA => {
+					userResult2 = userA.find(u => u);
 				});
+				if (userResult2) {
+					userArray[i].user = userResult2;
+				}
+				if (req.user) {
+					if (userArray[i].userId === req.user.id) {
+						userData.place = i + 1;
+						userData.credits = userArray[i].credits;
+						userData.loaded = true;
+					}
+				}
 			}
 
 			return res.render('leaderboard', {
@@ -393,7 +384,6 @@ async function run() {
 				islenoxbotnp: islenoxbotnp
 			});
 		} catch (error) {
-			console.log(error);
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
@@ -402,7 +392,7 @@ async function run() {
 				}
 			}));
 		}
-	}); */
+	});
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
