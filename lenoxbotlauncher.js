@@ -321,7 +321,7 @@ async function run() {
 		}
 	});
 
-	app.get('/leaderboards', async (req, res) => {
+	/* app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -391,7 +391,7 @@ async function run() {
 				}
 			}));
 		}
-	});
+	}); */
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
