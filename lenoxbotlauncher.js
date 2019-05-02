@@ -413,12 +413,9 @@ async function run() {
 
 			let scores = [];
 
-			let member;
 			for (const row in guildconfs.settings.scores) {
-				member = await shardingManager.shards.get(0).eval(`this.users.get("${row}")`);
 				const guildPointSettings = {
 					userId: row,
-					user: member ? member.tag : row,
 					points: Number(guildconfs.settings.scores[row].points),
 					level: Number(guildconfs.settings.scores[row].level)
 				};
@@ -436,6 +433,8 @@ async function run() {
 				}
 				return 0;
 			});
+
+			scores = scores.slice(0, 100);
 
 			let user;
 			for (let i = 0; i < scores.length; i++) {
@@ -456,7 +455,7 @@ async function run() {
 
 			return res.render('leaderboard-guild', {
 				user: req.user,
-				scores: scores.length === 0 ? null : scores.slice(0, 100),
+				scores: scores.length === 0 ? null : scores,
 				guild: guild ? guild : null,
 				userData: userData,
 				islenoxbot: islenoxbot,
