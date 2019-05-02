@@ -355,14 +355,16 @@ async function run() {
 			});
 
 			userArray = userArray.slice(0, 100);
+			console.log(userArray.length)
 
 			let userResult2;
 			for (let i = 0; i < userArray.length; i++) {
-				await shardingManager.broadcastEval(`this.users.get("${arrayofUsers[i].userId}")`).then(userA => {
+				await shardingManager.broadcastEval(`this.users.get("${userArray[i].userId}")`).then(userA => {
 					userResult2 = userA.find(u => u);
 				});
 				if (userResult2) {
 					userArray[i].user = userResult2;
+					console.log(i)
 				}
 				if (req.user) {
 					if (userArray[i].userId === req.user.id) {
