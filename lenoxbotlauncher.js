@@ -332,15 +332,10 @@ async function run() {
 			let userArray = [];
 			const arrayofUsers = await userSettingsCollection.find().toArray();
 
-			let userResult;
 			for (let i = 0; i < arrayofUsers.length; i++) {
 				if (!isNaN(arrayofUsers[i].settings.credits)) {
-					await shardingManager.broadcastEval(`this.users.get("${arrayofUsers[i].userId}")`).then(userA => {
-						userResult = userA.find(u => u);
-					});
 					const userCreditsSettings = {
 						userId: arrayofUsers[i].userId,
-						user: userResult ? userResult : arrayofUsers[i].userId,
 						credits: Number(arrayofUsers[i].settings.credits)
 					};
 					if (arrayofUsers[i].userId !== 'global') {
@@ -358,6 +353,8 @@ async function run() {
 				}
 				return 0;
 			});
+
+			userArray = userArray.slice(0, 100);
 
 			let userResult2;
 			for (let i = 0; i < userArray.length; i++) {
@@ -378,7 +375,7 @@ async function run() {
 
 			return res.render('leaderboard', {
 				user: req.user,
-				credits: userArray.slice(0, 100),
+				credits: userArray,
 				userData: userData,
 				islenoxbot: islenoxbot,
 				islenoxbotnp: islenoxbotnp
