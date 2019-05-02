@@ -405,7 +405,7 @@ async function run() {
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
 
 			let guild;
-			await shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
+			await shardingManager.broadcastEval(`this.guilds.get("${req.params.id}")`)
 				.then(guildArray => {
 					guild = guildArray.find(g => g);
 				});
@@ -415,9 +415,7 @@ async function run() {
 
 			let member;
 			for (const row in guildconfs.settings.scores) {
-				await shardingManager.broadcastEval(`this.users.get("${row}")`).then(userArray => {
-					member = userArray.find(u => u);
-				});
+				member = await shardingManager.shards.get(0).eval(`this.users.get("${row}")`);
 				const guildPointSettings = {
 					userId: row,
 					user: member ? member.tag : row,
@@ -441,9 +439,7 @@ async function run() {
 
 			let user;
 			for (let i = 0; i < scores.length; i++) {
-				await shardingManager.broadcastEval(`this.users.get("${scores[i].userId}")`).then(userArray => {
-					user = userArray.find(u => u);
-				});
+				user = await shardingManager.shards.get(0).eval(`this.users.get("${scores[i].userId}")`);
 
 				if (user) {
 					scores[i].user = user;
