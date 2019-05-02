@@ -402,7 +402,7 @@ async function run() {
 				}
 			}));
 		}
-	});
+	}); */
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
@@ -424,15 +424,11 @@ async function run() {
 
 			let scores = [];
 
+			let member;
 			for (const row in guildconfs.settings.scores) {
-				const member = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
-		const fetchedUser = await this.users.fetch("${row}")
-		if (fetchedUser) {
-			return fetchedUser;
-		}
-    })();
-`);
+				await shardingManager.broadcastEval(`this.users.get("${row}")`).then(userArray => {
+					member = userArray.find(u => u);
+				});
 				const guildPointSettings = {
 					userId: row,
 					user: member ? member.tag : row,
@@ -454,15 +450,12 @@ async function run() {
 				return 0;
 			});
 
+			let user;
 			for (let i = 0; i < scores.length; i++) {
-				const user = await shardingManager.shards.get(guild.shardID).eval(`
-    (async () => {
-		const fetchedUser = await this.users.fetch("${scores[i].userId}")
-		if (fetchedUser) {
-			return fetchedUser;
-		}
-    })();
-`);
+				await shardingManager.broadcastEval(`this.users.get("${scores[i].userId}")`).then(userArray => {
+					user = userArray.find(u => u);
+				});
+
 				if (user) {
 					scores[i].user = user;
 				}
@@ -493,7 +486,7 @@ async function run() {
 				}
 			}));
 		}
-	}); */
+	});
 
 	app.get('/profile/:id', async (req, res) => {
 		try {
