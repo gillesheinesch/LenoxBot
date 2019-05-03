@@ -18,26 +18,26 @@ module.exports = class togglecommandCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
 		if (args.slice().length === 0) return msg.reply(lang.togglecommand_noinput);
 
 		/* eslint no-else-return: 0 */
-		for (const x in msg.client.provider.getGuild(msg.message.guild.id, 'commands')) {
+		for (const x in msg.client.provider.getGuild(msg.guild.id, 'commands')) {
 			if (x.toLowerCase() === args.slice().join(' ').toLowerCase()) {
 				if (msg.client.registry.commands.get(x.toLowerCase()).dashboardsettings === false) return msg.reply(lang.togglecommand_notchangeable);
-				if (msg.client.provider.getGuild(msg.message.guild.id, 'commands')[x.toLowerCase()].status === 'true') {
-					const currentCommands = await msg.client.provider.getGuild(msg.message.guild.id, 'commands');
+				if (msg.client.provider.getGuild(msg.guild.id, 'commands')[x.toLowerCase()].status === 'true') {
+					const currentCommands = await msg.client.provider.getGuild(msg.guild.id, 'commands');
 					currentCommands[x.toLowerCase()].status = 'false';
-					await msg.client.provider.setGuild(msg.message.guild.id, 'commands', currentCommands);
+					await msg.client.provider.setGuild(msg.guild.id, 'commands', currentCommands);
 
 					return msg.reply(lang.togglecommand_settofalse);
 				} else {
-					const currentCommands = await msg.client.provider.getGuild(msg.message.guild.id, 'commands');
+					const currentCommands = await msg.client.provider.getGuild(msg.guild.id, 'commands');
 					currentCommands[x.toLowerCase()].status = 'true';
-					await msg.client.provider.setGuild(msg.message.guild.id, 'commands', currentCommands);
+					await msg.client.provider.setGuild(msg.guild.id, 'commands', currentCommands);
 					return msg.reply(lang.togglecommand_settotrue);
 				}
 			}

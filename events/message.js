@@ -12,8 +12,6 @@ exports.run = async (client, msg) => {
 		const settings = client.provider.guildSettings.get(msg.guild.id);
 		for (const key in guildsettingskeys) {
 			if (!settings[key] && typeof settings[key] === 'undefined') {
-				console.log(settings);
-				console.log(settings[key]);
 				settings[key] = guildsettingskeys[key];
 			}
 		}
@@ -70,31 +68,37 @@ exports.run = async (client, msg) => {
 	}
 
 	if (client.provider.getUser(msg.author.id, 'credits')) {
+		const settings = client.provider.userSettings.get(msg.author.id);
 		// eslint-disable-next-line guard-for-in
 		for (const key in usersettingskeys) {
-			if (!client.provider.getUser(msg.author.id, key)) {
-				await client.provider.setUser(msg.author.id, key, usersettingskeys[key]);
+			if (settings[key] && typeof settings[key] === 'undefined') {
+				settings[key] = usersettingskeys[key];
 			}
 
 			if (typeof usersettingskeys[key] === 'object') {
 				for (const key2 in usersettingskeys[key]) {
-					if (!client.provider.getUser(msg.author.id, key[key2])) {
-						await client.provider.setUser(msg.author.id, key[key2], usersettingskeys[key][key2]);
+					if (!settings[key][key2]) {
+						settings[key][key2] = usersettingskeys[key][key2];
 					}
 				}
 			}
 		}
+		await msg.client.provider.setUserComplete(msg.author.id, settings);
 	} else {
 		await msg.client.provider.setUserComplete(msg.author.id, usersettingskeys);
 	}
 
 	if (client.provider.getBotsettings('botconfs', 'premium')) {
+		const settings = client.provider.botSettings.get('botconfs');
 		// eslint-disable-next-line guard-for-in
 		for (const key in botsettingskeys) {
-			if (!client.provider.getBotsettings('botconfs', key)) {
-				await client.provider.setBotsettings('botconfs', key, botsettingskeys[key]);
+			if (!settings[key]) {
+				settings[key] = botsettingskeys[key];
 			}
 		}
+		await msg.client.provider.setBotconfsComplete('botconfs', settings);
+	} else {
+		await msg.client.provider.setBotconfsComplete('botconfs', botsettingskeys);
 	}
 
 	const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
@@ -133,8 +137,8 @@ exports.run = async (client, msg) => {
 
 			/* for (let i = 1; i < client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
 				if (client.provider.getGuild(msg.guild.id, 'ara').ara[i] < currentScores[msg.author.id].points && !msg.member.roles.get(client.provider.getGuild(msg.guild.id, 'ara')[i - 1])) {
-					const role = msg.message.guild.roles.get(client.provider.getGuild(msg.guild.id, 'ara')[i - 1]);
-					msg.member.addRole(role);
+					const role = msg.guild.roles.get(client.provider.getGuild(msg.guild.id, 'ara')[i - 1]);
+					msg.member.roles.add(role);
 
 					const automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
 					msg.channel.send(automaticrolegotten);
@@ -156,7 +160,7 @@ exports.run = async (client, msg) => {
 					if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
 						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
 
-						const embed = new Discord.RichEmbed()
+						const embed = new Discord.MessageEmbed()
 							.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 							.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 							.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)

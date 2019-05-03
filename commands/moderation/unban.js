@@ -19,7 +19,7 @@ module.exports = class unbanCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -34,10 +34,10 @@ module.exports = class unbanCommand extends LenoxCommand {
 		const bans = await msg.guild.fetchBans();
 		if (!bans.get(user)) return msg.reply(lang.unban_notbanned);
 
-		await msg.guild.unban(user);
+		await msg.guild.members.unban(user);
 
 		const unbanned = lang.unban_unbanned.replace('%userid', user);
-		const unbanembed = new Discord.RichEmbed()
+		const unbanembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${unbanned}`);
 		msg.channel.send({
@@ -46,15 +46,15 @@ module.exports = class unbanCommand extends LenoxCommand {
 
 		const unbannedby = lang.unban_unbannedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const unbandescription = lang.unban_unbandescription.replace('%userid', user).replace('%reason', reason);
-		const embed = new Discord.RichEmbed()
-			.setAuthor(unbannedby, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(unbannedby, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor(0x00AE86)
 			.setTimestamp()
 			.setDescription(unbandescription);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 			modlogchannel.send({ embed: embed });
 		}
 

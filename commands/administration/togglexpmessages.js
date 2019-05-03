@@ -18,19 +18,19 @@ module.exports = class togglexpmessagesCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'xpmessages')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'xpmessages', 'false');
+		if (!msg.client.provider.getGuild(msg.guild.id, 'xpmessages')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'xpmessages', 'false');
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'xpmessages')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'xpmessages', 'true');
+		if (msg.client.provider.getGuild(msg.guild.id, 'xpmessages')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'xpmessages', 'true');
 
 			return msg.channel.send(lang.togglexpmessages_set);
 		}
-		await msg.client.provider.setGuild(msg.message.guild.id, 'xpmessages', 'false');
+		await msg.client.provider.setGuild(msg.guild.id, 'xpmessages', 'false');
 
 		return msg.channel.send(lang.togglexpmessages_deleted);
 	}

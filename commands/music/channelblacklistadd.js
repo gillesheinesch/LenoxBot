@@ -18,7 +18,7 @@ module.exports = class channelblacklistaddCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -35,14 +35,14 @@ module.exports = class channelblacklistaddCommand extends LenoxCommand {
 
 		if (channel.type !== 'voice') return msg.reply(lang.channelblacklistadd_wrongtype);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist').length; i++) {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist')[i] === channel.id) return msg.reply(lang.channelblacklistadd_already);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i] === channel.id) return msg.reply(lang.channelblacklistadd_already);
 		}
 
 		const channelid = channel.id;
 
-		const currentMusicchannelblacklist = msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist');
+		const currentMusicchannelblacklist = msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist');
 		currentMusicchannelblacklist.push(channelid);
-		await msg.client.provider.setGuild(msg.message.guild.id, 'musicchannelblacklist', currentMusicchannelblacklist);
+		await msg.client.provider.setGuild(msg.guild.id, 'musicchannelblacklist', currentMusicchannelblacklist);
 	}
 };

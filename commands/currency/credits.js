@@ -19,13 +19,13 @@ module.exports = class creditsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const user1 = msg.mentions.users.first() || msg.author;
 		const lenoxbotcoin = msg.client.emojis.get('412952854354067456');
 
 		if (msg.client.provider.getUser(msg.author.id, 'creditsmessage') === false) {
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#3399ff')
 				.setDescription(lang.credits_hintembed)
 				.setAuthor(lang.credits_hint);
@@ -75,8 +75,8 @@ module.exports = class creditsCommand extends LenoxCommand {
 			}
 		}*/
 
-		const embed = new Discord.RichEmbed()
-			.setAuthor(`${user1.tag}`, user1.avatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(`${user1.tag}`, user1.avatarURL())
 			.setDescription(`**${lang.credits_credits}** ${msg.client.provider.getUser(user1.id, 'credits')} ${lenoxbotcoin} `)
 			.setColor('GREEN');
 

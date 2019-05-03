@@ -19,7 +19,7 @@ module.exports = class softbanCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -38,11 +38,11 @@ module.exports = class softbanCommand extends LenoxCommand {
 		if (!reason) return msg.reply(lang.softban_noinput);
 
 		if (!msg.guild.member(user).bannable) return msg.reply(lang.softban_nopermission);
-		await msg.guild.ban(user, { days: days[0] });
-		await msg.guild.unban(user);
+		await msg.guild.members.ban(user, { days: days[0] });
+		await msg.guild.members.unban(user);
 
 		const softbanned = lang.softban_softbanned.replace('%usertag', user.tag).replace('%days', days[0]);
-		const softbanembed = new Discord.RichEmbed()
+		const softbanembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${softbanned}`);
 		msg.channel.send({ embed: softbanembed });
@@ -50,15 +50,15 @@ module.exports = class softbanCommand extends LenoxCommand {
 		const softbanby = lang.softban_softbanby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const softbandescription = lang.softban_softbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason)
 			.replace('%days', days[0]);
-		const embed = new Discord.RichEmbed()
-			.setAuthor(softbanby, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(softbanby, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#FF0000')
 			.setTimestamp()
 			.setDescription(softbandescription);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 			return modlogchannel.send({ embed: embed });
 		}
 	}

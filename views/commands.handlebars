@@ -46,11 +46,11 @@
                                     </thead>
                                     <tbody>
                                         {{#each commands}}
-                                        <tr class="command {{help.category}}">
-                                            <td>{{help.usage}}</td>
-                                            <td>{{help.description}}</td>
-                                            <td>{{conf.newuserpermissions}}</td>
-                                            <td>{{conf.newaliases}}</td>
+                                        <tr class="command {{category}}">
+                                            <td>{{usage}}</td>
+                                            <td>{{description}}</td>
+                                            <td>{{newuserpermissions}}</td>
+                                            <td>{{newaliases}}</td>
                                         </tr>
                                         {{/each}}
                                         <tr id="notfound"  style="display: none;">

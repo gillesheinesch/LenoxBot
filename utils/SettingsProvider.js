@@ -316,6 +316,19 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
+	async setBotconfsComplete(botconfs, val) {
+		let settings = this.botSettings.get('botconfs');
+		if (!settings) {
+			settings = {};
+			this.botSettings.set('botconfs', settings);
+		}
+
+		const settingsCollection = this.db.collection('botSettings');
+
+		await settingsCollection.updateOne({ botconfs: botconfs }, { $set: { settings: val } });
+		return val;
+	}
+
 	async setUserComplete(user, val) {
 		let settings = this.userSettings.get(user);
 		if (!settings) {
@@ -415,7 +428,31 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 		return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
 	}
 
-	async reloadGuild(id) {
+	async reloadBotSettings() {
+		try {
+			const result = await this.db.collection('botSettings').findOne({ botconfs: 'botconfs' });
+			let settings = undefined;
+
+			if (!result) {
+				// Can't find DB make new one.
+				settings = botsettingskeys;
+				await this.db.collection('botSettings').insertOne({ botconfs: 'botconfs', settings: settings });
+			}
+
+			if (result && result.settings) {
+				settings = result.settings;
+			}
+
+			await this.db.collection('botSettings').updateOne({ botconfs: 'botconfs' }, { $set: { settings: settings } });
+
+			this.botSettings.set('botconfs', settings);
+		} catch (err) {
+			console.warn(`Error while creating document of bot settings`);
+			console.warn(err);
+		}
+	}
+
+	async reloadGuild(id, type, value) {
 		try {
 			const result = await this.db.collection('guildSettings').findOne({ guildId: id });
 			let settings = undefined;
@@ -430,7 +467,13 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				settings = result.settings;
 			}
 
-			await this.db.collection('guildSettings').set(id, settings);
+			await this.db.collection('guildSettings').updateOne({ guildId: id }, { $set: { settings: settings } });
+
+			if (type === 'prefix') {
+				const guild = this.client.guilds.get(id) || null;
+				guild._commandPrefix = value;
+			}
+
 			this.guildSettings.set(id, settings);
 		} catch (err) {
 			console.warn(`Error while creating document of guild ${id}`);

@@ -18,17 +18,17 @@ module.exports = class deletecustomcommandCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
 		if (args.slice(0).length === 0) return msg.reply(lang.deletecustomcommand_noinput);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length; i++) {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[i].name.toLowerCase() === args.slice(0).join(' ').toLowerCase()) {
-				const currentCustomcommands = msg.client.provider.getGuild(msg.message.guild.id, 'customcommands');
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i++) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'customcommands')[i].name.toLowerCase() === args.slice(0).join(' ').toLowerCase()) {
+				const currentCustomcommands = msg.client.provider.getGuild(msg.guild.id, 'customcommands');
 				currentCustomcommands.splice(i, 1);
-				await msg.client.provider.setGuild(msg.message.guild.id, 'customcommands', currentCustomcommands);
+				await msg.client.provider.setGuild(msg.guild.id, 'customcommands', currentCustomcommands);
 
 				return msg.reply(lang.deletecustomcommand_deleted);
 			}

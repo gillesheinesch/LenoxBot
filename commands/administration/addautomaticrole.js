@@ -18,12 +18,12 @@ module.exports = class addautomaticroleCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'ara')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'ara', []);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'ara')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'ara', []);
 		}
 
 		const input = args.slice();
@@ -36,14 +36,14 @@ module.exports = class addautomaticroleCommand extends LenoxCommand {
 		const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === roleinput.toLowerCase());
 		if (!foundRole) return msg.reply(lang.addautomaticrole_rolenotexist);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'ara').length; i += 2) {
-			if (foundRole.id === msg.client.provider.getGuild(msg.message.guild.id, 'ara')[i]) return msg.channel.send(lang.addautomaticrole_alreadyadded);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
+			if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'ara')[i]) return msg.channel.send(lang.addautomaticrole_alreadyadded);
 		}
 		const roleId = foundRole.id;
-		const currentAra = msg.client.provider.getGuild(msg.message.guild.id, 'ara');
+		const currentAra = msg.client.provider.getGuild(msg.guild.id, 'ara');
 		currentAra.push(roleId);
 		currentAra.push(input[0]);
-		await msg.client.provider.setGuild(msg.message.guild.id, 'ara', currentAra);
+		await msg.client.provider.setGuild(msg.guild.id, 'ara', currentAra);
 
 		return msg.channel.send(lang.addautomaticrole_added);
 	}

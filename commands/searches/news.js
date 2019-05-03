@@ -19,7 +19,7 @@ module.exports = class newsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const api = msg.client.newsapi;
 
@@ -29,7 +29,7 @@ module.exports = class newsCommand extends LenoxCommand {
 		const validationofnewspaper = ['abc-news-au', 'al-jazeera-english', 'ars-technica', 'associated-press', 'bbc-news', 'bbc-sport', 'bild', 'bloomberg', 'breitbart-news', 'business-insider', 'business-insider-uk', 'buzzfeed', 'cnbc', 'cnn', 'daily-mail', 'der-tagesspiegel', 'die-zeit', 'engadget'];
 
 		const newsnotexist = lang.news_newsnotexist.replace('%newslist', validationofnewspaper.join(', '));
-		const newspaper = new Discord.RichEmbed()
+		const newspaper = new Discord.MessageEmbed()
 			.setDescription(newsnotexist)
 			.setColor('#76c65d');
 
@@ -41,7 +41,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -49,12 +49,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -75,7 +75,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -83,12 +83,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -109,7 +109,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -117,12 +117,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -143,7 +143,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -151,12 +151,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -177,7 +177,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -185,12 +185,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -211,7 +211,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -219,12 +219,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -245,7 +245,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -253,12 +253,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -279,7 +279,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -287,12 +287,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -313,7 +313,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -321,12 +321,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -347,7 +347,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -355,12 +355,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -381,7 +381,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -389,12 +389,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -415,7 +415,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -423,12 +423,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -449,7 +449,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -457,12 +457,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -483,7 +483,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -491,12 +491,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -517,7 +517,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -525,12 +525,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -551,7 +551,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -559,12 +559,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -585,7 +585,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'latest'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -593,12 +593,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -619,7 +619,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'latest'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -627,12 +627,12 @@ module.exports = class newsCommand extends LenoxCommand {
 					});
 					try {
 						const response1 = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg.author.id === msg2.author.id, {
-							maxMatches: 1,
+							max: 1,
 							time: 20000,
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')
@@ -653,7 +653,7 @@ module.exports = class newsCommand extends LenoxCommand {
 						source: margs[1],
 						sortBy: 'top'
 					});
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setColor('#76c65d')
 						.setDescription(r.articles.map(article => `**${++index} -** ${article.title}`).join('\n'));
 					msg.channel.send({
@@ -666,7 +666,7 @@ module.exports = class newsCommand extends LenoxCommand {
 							errors: ['time']
 						});
 						try {
-							const embed2 = new Discord.RichEmbed()
+							const embed2 = new Discord.MessageEmbed()
 								.setAuthor(r.articles[response1.first().content - 1].author ? r.articles[response1.first().content - 1].author : lang.news_noauthor)
 								.setURL(r.articles[response1.first().content - 1].url)
 								.setColor('#76c65d')

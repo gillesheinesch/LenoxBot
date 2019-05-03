@@ -20,7 +20,7 @@ module.exports = class calculatorCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const args = msg.content.split(' ').slice(1);
@@ -37,9 +37,9 @@ module.exports = class calculatorCommand extends LenoxCommand {
 			return msg.channel.send(lang.calculator_invalid);
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(`**${lang.calculator_calculation}**\n\`\`\`\n${mathEquation}\n\`\`\` **${lang.calculator_result}**\n\`\`\`\n${answer}\n\`\`\``)
-			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL())
 			.setColor('#0066CC');
 		msg.channel.send({ embed });
 	}

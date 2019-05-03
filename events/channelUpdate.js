@@ -16,7 +16,7 @@ exports.run = (client, oldChannel, newChannel) => {
 	if (!messagechannel) return;
 
 	if (oldChannel.name !== newChannel.name) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_nameupdated)
@@ -28,7 +28,7 @@ exports.run = (client, oldChannel, newChannel) => {
 		});
 	}
 	if (oldChannel.topic !== newChannel.topic) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_topicupdated)
@@ -40,15 +40,15 @@ exports.run = (client, oldChannel, newChannel) => {
 			embed: embed
 		});
 	}
-	if (oldChannel.position !== newChannel.position) {
-		const embed = new Discord.RichEmbed()
+	if (oldChannel.rawPosition !== newChannel.rawPosition) {
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.channelupdateevent_positionupdated)
 			.addField(`⚙ ${lang.channelcreateevent_channelname}:`, oldChannel.name)
 			.addField(`📎 ${lang.channelcreateevent_channelid}`, oldChannel.id)
-			.addField(`📤 ${lang.channelupdateevent_oldposition}`, oldChannel.position)
-			.addField(`📥 ${lang.channelupdateevent_newposition}`, newChannel.position);
+			.addField(`📤 ${lang.channelupdateevent_oldposition}`, oldChannel.rawPosition)
+			.addField(`📥 ${lang.channelupdateevent_newposition}`, newChannel.rawPosition);
 		return messagechannel.send({
 			embed: embed
 		});

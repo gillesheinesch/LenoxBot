@@ -20,7 +20,7 @@ module.exports = class bitcoinCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const value = await btcValue();
@@ -28,7 +28,7 @@ module.exports = class bitcoinCommand extends LenoxCommand {
 
 		const descriptionembed = lang.bitcoin_descriptionembed.replace('%value', value).replace('%percentage', percentage);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(descriptionembed)
 			.setColor('#ff6600')
 			.setAuthor(lang.bitcoin_authorembed);

@@ -19,7 +19,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		let embedtitlechances;
@@ -76,7 +76,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 
 					embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 					const embeddescription = lang.hangman_embeddescription.replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-					const firstEmbed = new Discord.RichEmbed()
+					const firstEmbed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setTitle(lang.hangman_embedtitlestart)
 						.setFooter(embedtitlechances)
@@ -103,7 +103,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 								const letterorwordmessage = lang.hangman_letterorwordmessage.replace('%author', msg.author);
 								message = await msg.channel.send(letterorwordmessage);
 								response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-									maxMatches: 1,
+									max: 1,
 									time: 180000,
 									errors: ['time']
 								});
@@ -111,7 +111,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 								const letterorwordmessage = lang.hangman_letterorwordmessage.replace('%author', mention);
 								message = await msg.channel.send(letterorwordmessage);
 								response = await msg.channel.awaitMessages(msg2 => mention.id === msg2.author.id, {
-									maxMatches: 1,
+									max: 1,
 									time: 180000,
 									errors: ['time']
 								});
@@ -288,7 +288,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 		} else {
 			embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 			const embeddescription = lang.hangman_embeddescription.replace('%word', `\`\`${newWordString.join(' ')}\`\``);
-			const firstEmbed = new Discord.RichEmbed()
+			const firstEmbed = new Discord.MessageEmbed()
 				.setColor('BLUE')
 				.setTitle(lang.hangman_embedtitlestart)
 				.setFooter(embedtitlechances)
@@ -310,7 +310,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 					}
 					message = await msg.reply(lang.hangman_letterorwordmessagenomention);
 					response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-						maxMatches: 1,
+						max: 1,
 						time: 180000,
 						errors: ['time']
 					});

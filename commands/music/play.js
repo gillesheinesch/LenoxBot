@@ -26,21 +26,21 @@ module.exports = class playCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const queue = msg.client.queue;
 		const skipvote = msg.client.skipvote;
 		const input = msg.content.split(' ');
 		const searchString = input.slice(1).join(' ');
 		const url = input[1] ? input[1].replace(/<(.+)>/g, '$1') : '';
-		moment.locale(msg.client.provider.getGuild(msg.message.guild.id, 'momentLanguage'));
+		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
 
-		const voiceChannel = msg.member.voiceChannel;
+		const voiceChannel = msg.member.voice.channel;
 		if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist').length; i++) {
-			if (voiceChannel.id === msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist')[i]) return msg.reply(lang.play_blacklistchannel);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
+			if (voiceChannel.id === msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]) return msg.reply(lang.play_blacklistchannel);
 		}
 
 		async function play(guild, song) {
@@ -55,7 +55,7 @@ module.exports = class playCommand extends LenoxCommand {
 			const stream = await ytdl(song.url, {
 				filter: 'audioonly'
 			});
-			const dispatcher = await serverQueue.connection.playStream(stream)
+			const dispatcher = await serverQueue.connection.play(stream)
 				.on('end', async reason => {
 					if (reason === 'Stream is not generating quickly enough.');
 					serverQueue.songs.shift('Stream is not generating quickly enough');
@@ -71,7 +71,7 @@ module.exports = class playCommand extends LenoxCommand {
 
 			const duration = lang.play_duration.replace('%duration', song.duration);
 			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setAuthor(lang.play_startplaying)
 				.setDescription(duration)
 				.setThumbnail(song.thumbnail)
@@ -99,13 +99,13 @@ module.exports = class playCommand extends LenoxCommand {
 			if (moment.duration(video.duration).format('m') > 30 && msg.client.provider.getUser(msg.author.id, 'premium').status === false) return msg.reply(lang.play_songlengthlimit);
 
 			if (serverQueue) {
-				if (serverQueue.songs.length > 8 && msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
+				if (serverQueue.songs.length > 8 && msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
 				await serverQueue.songs.push(song);
 				if (playlist) return;
 
 				const duration = lang.play_duration.replace('%duration', song.duration);
 				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setAuthor(lang.play_songadded)
 					.setDescription(duration)
 					.setThumbnail(song.thumbnail)
@@ -155,7 +155,7 @@ module.exports = class playCommand extends LenoxCommand {
 			const videos = await playlist.getVideos();
 			const serverQueue = queue.get(msg.guild.id);
 
-			if ((Object.keys(videos).length + (serverQueue ? serverQueue.songs.length : 0)) > 8 && msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
+			if ((Object.keys(videos).length + (serverQueue ? serverQueue.songs.length : 0)) > 8 && msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
 
 			for (const video of Object.values(videos)) {
 				const video2 = await youtube.getVideoByID(video.id);
@@ -174,12 +174,12 @@ module.exports = class playCommand extends LenoxCommand {
 				if (videos.length === 0) return msg.channel.send(lang.play_noresult);
 
 				let index = 0;
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setColor('#7BB3FF')
 					.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title}`).join('\n')}`)
 					.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
 
-				const embed2 = new Discord.RichEmbed()
+				const embed2 = new Discord.MessageEmbed()
 					.setColor('#0066CC')
 					.setDescription(lang.play_value);
 				msg.channel.send({
@@ -192,7 +192,7 @@ module.exports = class playCommand extends LenoxCommand {
 				let response;
 				try {
 					response = await msg.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && msg.author.id === msg2.author.id, {
-						maxMatches: 1,
+						max: 1,
 						time: 20000,
 						errors: ['time']
 					});

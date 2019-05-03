@@ -18,7 +18,7 @@ module.exports = class changeorderCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -28,15 +28,15 @@ module.exports = class changeorderCommand extends LenoxCommand {
 		if (firstNumber.length === 0 || secondNumber.length === 0) return msg.reply(lang.entrychangeorder_error);
 		if (isNaN(firstNumber) || isNaN(secondNumber)) return msg.reply(lang.entrychangeorder_notcorrectused);
 		if (firstNumber === secondNumber) return msg.reply(lang.entrychangeorder_same);
-		if (typeof msg.client.provider.getGuild(msg.message.guild.id, 'application').template[Number(firstNumber) - 1] === 'undefined' || typeof msg.client.provider.getGuild(msg.message.guild.id, 'application').template[Number(secondNumber) - 1] === 'undefined') return msg.reply(lang.entrychangeorder_undefined);
+		if (typeof msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(firstNumber) - 1] === 'undefined' || typeof msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(secondNumber) - 1] === 'undefined') return msg.reply(lang.entrychangeorder_undefined);
 
-		const firstEntry = msg.client.provider.getGuild(msg.message.guild.id, 'application').template[Number(firstNumber) - 1];
-		const secondEntry = msg.client.provider.getGuild(msg.message.guild.id, 'application').template[Number(secondNumber) - 1];
+		const firstEntry = msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(firstNumber) - 1];
+		const secondEntry = msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(secondNumber) - 1];
 
-		const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+		const currentApplication = msg.client.provider.getGuild(msg.guild.id, 'application');
 		currentApplication.template[Number(secondNumber) - 1] = firstEntry;
 		currentApplication.template[Number(firstNumber) - 1] = secondEntry;
-		await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
+		await msg.client.provider.setGuild(msg.guild.id, 'application', currentApplication);
 
 		msg.reply(lang.entrychangeorder_set);
 	}

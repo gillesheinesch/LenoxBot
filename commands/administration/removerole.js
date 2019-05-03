@@ -18,7 +18,7 @@ module.exports = class removeroleCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -31,7 +31,7 @@ module.exports = class removeroleCommand extends LenoxCommand {
 		if (!foundRole) return msg.reply(lang.removerole_rolenotexist);
 		if (!user.roles.has(foundRole.id)) return msg.reply(lang.removerole_error);
 
-		user.removeRole(foundRole).then(() => msg.reply(lang.removerole_roleremoved)).catch(() =>
+		user.roles.remove(foundRole).then(() => msg.reply(lang.removerole_roleremoved)).catch(() =>
 			msg.reply(lang.removerole_missingpermission));
 	}
 };

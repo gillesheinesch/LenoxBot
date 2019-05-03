@@ -20,24 +20,24 @@ module.exports = class muteCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		let user = msg.mentions.users.first();
 
 		let membermention;
 		if (user) {
-			membermention = await msg.guild.fetchMember(user);
+			membermention = await msg.guild.members.fetch(user);
 		}
 
 		const muteroleundefined = lang.mute_muteroleundefined.replace('%prefix', prefix);
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'muterole') === '') return msg.channel.send(muteroleundefined);
+		if (msg.client.provider.getGuild(msg.guild.id, 'muterole') === '') return msg.channel.send(muteroleundefined);
 
 		if (!user) {
 			try {
-				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
 				user = fetchedMember;
 				membermention = fetchedMember;
@@ -51,32 +51,32 @@ module.exports = class muteCommand extends LenoxCommand {
 		if (!args.slice(2).join(' ')) return msg.channel.send(lang.mute_noinput);
 
 		const rolenotexist = lang.mute_rolenotexist.replace('%prefix', prefix);
-		if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(rolenotexist);
+		if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) return msg.channel.send(rolenotexist);
 
-		const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'));
+		const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'muterole'));
 
 		if (!args.slice(1, 2).join(' ') || args.slice(1, 2).join(' ').length === 0) return msg.channel.send(lang.mute_invalidtimeformat);
 		const mutetime = ms(args.slice(1, 2).join(' '));
 		if (typeof mutetime === 'undefined') return msg.channel.send(lang.mute_invalidtimeformat);
 
 		const alreadymuted = lang.mute_alreadymuted.replace('%username', user.username);
-		if (membermention.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) return msg.channel.send(alreadymuted);
+		if (membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) return msg.channel.send(alreadymuted);
 
-		membermention.addRole(role);
+		membermention.roles.add(role);
 
 		const mutedby = lang.mute_mutedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const mutedescription = lang.mute_mutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', args.slice(2).join(' '))
 			.replace('%mutetime', ms(mutetime));
-		const embed = new Discord.RichEmbed()
-			.setAuthor(mutedby, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(mutedby, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#FF0000')
 			.setTimestamp()
 			.setDescription(mutedescription);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'muteanonymous') === 'true') {
-			const anonymousembed = new Discord.RichEmbed()
-				.setThumbnail(user.displayAvatarURL)
+		if (msg.client.provider.getGuild(msg.guild.id, 'muteanonymous') === 'true') {
+			const anonymousembed = new Discord.MessageEmbed()
+				.setThumbnail(user.displayAvatarURL())
 				.setColor('#FF0000')
 				.setTimestamp()
 				.setDescription(mutedescription);
@@ -89,8 +89,8 @@ module.exports = class muteCommand extends LenoxCommand {
 			});
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 			modlogchannel.send({ embed: embed });
 		}
 
@@ -117,7 +117,7 @@ module.exports = class muteCommand extends LenoxCommand {
 		await msg.client.provider.setBotsettings('botconfs', 'mutes', currentMutes);
 
 		const muted = lang.mute_muted.replace('%username', user.username).replace('%mutetime', ms(mutetime));
-		const muteembed = new Discord.RichEmbed()
+		const muteembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${muted}`);
 		msg.channel.send({
@@ -125,20 +125,20 @@ module.exports = class muteCommand extends LenoxCommand {
 		});
 
 		setTimeout(async () => {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'muterole') !== '' && membermention.roles.has(msg.client.provider.getGuild(msg.message.guild.id, 'muterole'))) {
-				await membermention.removeRole(role);
+			if (msg.client.provider.getGuild(msg.guild.id, 'muterole') !== '' && membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) {
+				await membermention.roles.remove(role);
 
 				const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${msg.client.user.tag}`);
 				const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-				const unmutedembed = new Discord.RichEmbed()
-					.setAuthor(unmutedby, msg.client.user.displayAvatarURL)
-					.setThumbnail(user.displayAvatarURL)
+				const unmutedembed = new Discord.MessageEmbed()
+					.setAuthor(unmutedby, msg.client.user.displayAvatarURL())
+					.setThumbnail(user.displayAvatarURL())
 					.setColor('#FF0000')
 					.setTimestamp()
 					.setDescription(automaticunmutedescription);
 
-				if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-					const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
+				if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+					const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
 					modlogchannel.send({ embed: unmutedembed });
 				}
 			}

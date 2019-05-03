@@ -19,7 +19,7 @@ module.exports = class prefixfinderCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -29,15 +29,15 @@ module.exports = class prefixfinderCommand extends LenoxCommand {
 		const content = args.slice().join(' ');
 		if (!content || isNaN(content)) return msg.reply(lang.prefixfinder_noguildid);
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'language')) return msg.channel.send(lang.prefixfinder_nofetch);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'language')) return msg.channel.send(lang.prefixfinder_nofetch);
 
 		const guildload = msg.client.guilds.get(content);
 		const requestedby = lang.prefixfinder_requestedby.replace('%authortag', msg.author.tag);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('BLUE')
-			.setThumbnail(guildload.iconURL)
+			.setThumbnail(guildload.iconURL())
 			.addField(lang.prefixfinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
-			.addField(lang.prefixfinder_embedfield2, msg.client.provider.getGuild(msg.message.guild.id, 'prefix'))
+			.addField(lang.prefixfinder_embedfield2, msg.client.provider.getGuild(msg.guild.id, 'prefix'))
 			.setFooter(requestedby)
 			.setAuthor(`${guildload.name} (${guildload.id})`);
 

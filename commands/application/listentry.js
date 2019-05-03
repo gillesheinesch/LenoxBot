@@ -19,18 +19,18 @@ module.exports = class listentryCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'application').template.length === 0) return msg.reply(lang.listentry_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'application').template.length === 0) return msg.reply(lang.listentry_error);
 
 		const templates = [];
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'application').template.length; i++) {
-			templates.push(`\`${i + 1}.\` ${msg.client.provider.getGuild(msg.message.guild.id, 'application').template[i]}`);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i++) {
+			templates.push(`\`${i + 1}.\` ${msg.client.provider.getGuild(msg.guild.id, 'application').template[i]}`);
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ABCDEF');
 		embed.addField(lang.listentry_current, templates.slice(0, 10).join('\n'), true);
 		const message = await msg.channel.send({
@@ -52,12 +52,12 @@ module.exports = class listentryCommand extends LenoxCommand {
 			const reactionremove = templates.slice(first - 10, second - 10).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 
 				first += 10;
 				second += 10;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#ABCDEF');
 
 				newembed.addField(lang.listentry_current, templates.slice(first, second).join('\n'), true);
@@ -66,12 +66,12 @@ module.exports = class listentryCommand extends LenoxCommand {
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 
 				first -= 10;
 				second -= 10;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#ABCDEF');
 
 				newembed.addField(lang.listentry_current, templates.slice(first, second).join('\n'), true);
@@ -82,8 +82,8 @@ module.exports = class listentryCommand extends LenoxCommand {
 			}
 		});
 		collector.on('end', () => {
-			reaction1.remove();
-			reaction2.remove();
+			reaction1.users.remove();
+			reaction2.users.remove();
 		});
 	}
 };

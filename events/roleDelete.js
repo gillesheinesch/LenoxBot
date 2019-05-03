@@ -18,7 +18,7 @@ exports.run = (client, role) => {
 	const messagechannel = client.channels.get(client.provider.getGuild(role.guild.id, 'roledeletelogchannel'));
 	if (!messagechannel) return;
 
-	const embed = new Discord.RichEmbed()
+	const embed = new Discord.MessageEmbed()
 		.setColor('RED')
 		.setTimestamp()
 		.setAuthor(lang.roledeleteevent_deleted)

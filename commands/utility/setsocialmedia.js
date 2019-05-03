@@ -19,7 +19,7 @@ module.exports = class setsocialmediaCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -153,7 +153,7 @@ module.exports = class setsocialmediaCommand extends LenoxCommand {
 					}
 					return msg.reply(lang.setsocialmedia_error4);
 				} else if (margs[1].toLowerCase() === 'list') {
-					const embed = new Discord.RichEmbed()
+					const embed = new Discord.MessageEmbed()
 						.setTimestamp()
 						.setColor('BLUE');
 

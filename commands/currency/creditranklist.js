@@ -19,7 +19,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		let userArray = [];
@@ -28,7 +28,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 
 		for (const row of array) {
 			if (!isNaN(row.settings.credits)) {
-				const member = await msg.client.fetchUser(row.userId);
+				const member = await msg.client.users.fetch(row.userId);
 				const settings = {
 					userId: row.userId,
 					user: member ? member.tag : row.userId,
@@ -61,8 +61,8 @@ module.exports = class creditranklistCommand extends LenoxCommand {
 			embedCredits.push(obj[1].credits);
 		});
 
-		const embed = new Discord.RichEmbed()
-			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
 			.setColor('BLUE')
 			.addField(lang.creditranklist_name, embedFinalName.join('\n'), true)
 			.addField(lang.creditranklist_credits, embedCredits.join('\n'), true);

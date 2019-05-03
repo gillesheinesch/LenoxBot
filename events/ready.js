@@ -76,8 +76,8 @@ exports.run = client => {
 					const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${jobreminder.amount} credits`;
 					client.users.get(jobreminder.userID).send(jobfinish);
 
-					const activityEmbed2 = new Discord.RichEmbed()
-						.setAuthor(`${client.users.get(jobreminder.userID).tag} (${jobreminder.userID})`, client.users.get(jobreminder.userID).displayAvatarURL)
+					const activityEmbed2 = new Discord.MessageEmbed()
+						.setAuthor(`${client.users.get(jobreminder.userID).tag} (${jobreminder.userID})`, client.users.get(jobreminder.userID).displayAvatarURL())
 						.setDescription(`**Job:** ${jobreminder.job} \n**Duration:** ${jobreminder.jobtime} minutes \n**Amount:** ${jobreminder.amount} credits`)
 						.addField('Guild', `${client.guilds.get(jobreminder.discordServerID).name} (${jobreminder.discordServerID})`)
 						.addField('Channel', `${client.channels.get(jobreminder.channelID).name} (${jobreminder.channelID})`)
@@ -112,13 +112,13 @@ exports.run = client => {
 					if (fetchedbans.has(bansconf.memberid)) {
 						const user = fetchedbans.get(bansconf.memberid);
 
-						client.guilds.get(bansconf.discordserverid).unban(user);
+						client.guilds.get(bansconf.discordserverid).members.unban(user);
 
 						const unbannedby = lang.unban_unbannedby.replace('%authortag', `${client.user.tag}`);
 						const automaticbandescription = lang.temporaryban_automaticbandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-						const unmutedembed = new Discord.RichEmbed()
-							.setAuthor(unbannedby, client.user.displayAvatarURL)
-							.setThumbnail(user.displayAvatarURL)
+						const unmutedembed = new Discord.MessageEmbed()
+							.setAuthor(unbannedby, client.user.displayAvatarURL())
+							.setThumbnail(user.displayAvatarURL())
 							.setColor('#FF0000')
 							.setTimestamp()
 							.setDescription(automaticbandescription);
@@ -141,7 +141,7 @@ exports.run = client => {
 					const guild = client.guilds.get(muteconf.discordserverid);
 					if (!guild) return;
 
-					const membermention = await guild.fetchMember(muteconf.memberid).catch(() => undefined);
+					const membermention = await guild.members.fetch(muteconf.memberid).catch(() => undefined);
 					if (!membermention) return undefined;
 
 					const role = client.guilds.get(muteconf.discordserverid).roles.get(muteconf.roleid);
@@ -154,13 +154,13 @@ exports.run = client => {
 					const lang = require(`../languages/${langSet}.json`);
 
 					if (client.provider.getGuild(muteconf.discordserverid, 'muterole') !== '' && membermention.roles.has(client.provider.getGuild(muteconf.discordserverid, 'muterole'))) {
-						membermention.removeRole(role);
+						membermention.roles.remove(role);
 
 						const unmutedby = lang.unmute_unmutedby.replace('%authortag', `${client.user.tag}`);
 						const automaticunmutedescription = lang.unmute_automaticunmutedescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id);
-						const unmutedembed = new Discord.RichEmbed()
-							.setAuthor(unmutedby, client.user.displayAvatarURL)
-							.setThumbnail(user.displayAvatarURL)
+						const unmutedembed = new Discord.MessageEmbed()
+							.setAuthor(unmutedby, client.user.displayAvatarURL())
+							.setThumbnail(user.displayAvatarURL())
 							.setColor('#FF0000')
 							.setTimestamp()
 							.setDescription(automaticunmutedescription);
@@ -233,12 +233,100 @@ exports.run = client => {
 				});
 			}, 86400000);
 
-			const embed = new Discord.RichEmbed()
+			const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
+			const commandsArray = [];
+			const englishLang = require(`../languages/en-US.json`);
+			for (let i = 0; i < validation.length; i++) {
+				for (let index = 0; index < client.registry.commands.filter(c => c.groupID === validation[i]).array().length; index++) {
+					const commandObject = {};
+					commandObject.category = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].groupID;
+					commandObject.name = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name;
+					commandObject.description = englishLang[`${client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name}_description`] ? englishLang[`${client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name}_description`] : client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name.description;
+					commandObject.newaliases = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].aliases;
+					commandObject.newuserpermissions = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].userpermissions;
+					commandObject.usage = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].format;
+					commandObject.dashboardsettings = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].dashboardsettings;
+					commandsArray.push(commandObject);
+				}
+			}
+			await client.provider.setBotsettings('botconfs', 'commands', commandsArray);
+
+			setInterval(async () => {
+				const commandsArray2 = [];
+				for (let i = 0; i < validation.length; i++) {
+					for (let index = 0; index < client.registry.commands.filter(c => c.groupID === validation[i]).array().length; index++) {
+						const commandObject = {};
+						commandObject.category = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].groupID;
+						commandObject.name = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name;
+						commandObject.description = englishLang[`${client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name}_description`] ? englishLang[`${client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name}_description`] : client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name.description;
+						commandObject.newaliases = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].aliases;
+						commandObject.newuserpermissions = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].userpermissions;
+						commandObject.usage = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].format;
+						commandObject.dashboardsettings = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].dashboardsettings;
+						commandsArray2.push(commandObject);
+					}
+				}
+				await client.provider.setBotsettings('botconfs', 'commands', commandsArray2);
+			}, 86400000);
+
+			/* if (client.shard.ids[0] === 0) {
+				const userData = {};
+				userData.loaded = false;
+				let userArray = [];
+				const arrayOfUsers = await client.provider.userSettings;
+				for (let i = 0; i < Object.keys(arrayOfUsers).length; i++) {
+					if (!isNaN(arrayOfUsers[key].credits)) {
+						await client.users.fetch(arrayOfUsers[key].userId).then(userResult => {
+							console.log(userResult);
+							const userCreditsSettings = {
+								userId: key.userId,
+								user: userResult ? userResult : arrayOfUsers[key].userId,
+								credits: Number(arrayOfUsers[key].credits)
+							};
+							if (Object.keys(arrayOfUsers[key])[0].userId !== 'global') {
+								userArray.push(userCreditsSettings);
+							}
+						});
+					}
+				}
+
+				userArray = userArray.sort((a, b) => {
+					if (a.credits < b.credits) {
+						return 1;
+					}
+					if (a.credits > b.credits) {
+						return -1;
+					}
+					return 0;
+				});
+
+				for (let i = 0; i < userArray.length; i++) {
+					await shardingManager.shards.get(0).eval(`
+					(async () => {
+						const user = await this.users.fetch("${arrayofUsers[i].userId}")
+						if (user) return user;
+					})();
+				`).then(userResult => {
+						if (userResult) {
+							userArray[i].user = userResult;
+						}
+						if (req.user) {
+							if (userArray[i].userId === req.user.id) {
+								userData.place = i + 1;
+								userData.credits = userArray[i].credits;
+								userData.loaded = true;
+							}
+						}
+					});
+				}
+			}*/
+
+			const embed = new Discord.MessageEmbed()
 				.setTitle('Botrestart')
 				.setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
 				.setColor('GREEN')
 				.setTimestamp()
-				.setAuthor(client.user.tag, client.user.displayAvatarURL);
+				.setAuthor(client.user.tag, client.user.displayAvatarURL());
 
 			if (client.user.id === '354712333853130752') {
 				client.channels.get('497400107109580801').send({

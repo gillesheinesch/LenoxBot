@@ -18,7 +18,7 @@ module.exports = class addentryCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -26,13 +26,13 @@ module.exports = class addentryCommand extends LenoxCommand {
 
 		if (input.length < 1) return msg.reply(lang.addentry_noinput);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'application').template.length; i++) {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'application').template[i].toLowerCase() === input.toLowerCase()) return msg.channel.send(lang.addentry_alreadyexists);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i++) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'application').template[i].toLowerCase() === input.toLowerCase()) return msg.channel.send(lang.addentry_alreadyexists);
 		}
 
-		const currentApplication = msg.client.provider.getGuild(msg.message.guild.id, 'application');
+		const currentApplication = msg.client.provider.getGuild(msg.guild.id, 'application');
 		currentApplication.template.push(input);
-		await msg.client.provider.setGuild(msg.message.guild.id, 'application', currentApplication);
+		await msg.client.provider.setGuild(msg.guild.id, 'application', currentApplication);
 
 		const added = lang.addentry_added.replace('%entry', `\`${input}\``);
 		return msg.channel.send(added);
