@@ -309,7 +309,7 @@
     "setgame_done": "The new game status has been set successfully!",
     "setgame_description": "Sets a new game status for the bot",
 
-    "restart_message": "LenoxBot will restart now! See you later! 👋",
+    "restart_message": "The bot will restart now! See you later! 👋",
     "restart_noreason": "You forgot to enter a reason for the restart!",
     "restart_embedtitle": "LenoxBot will now have a restart! We will inform you as soon as LenoxBot is back!",
     "restart_embedfield": "Reason:",
@@ -1304,7 +1304,7 @@
     "steamprofile_vban": "VAC ban(s)",
     "steamprofile_membersince": "Member since",
     "steamprofile_error": "That Steam profile could not be found. Please make sure, that you have insert a valid SteamID64.",
-    "steamprofile_description": "Requests Steam profile information of a Steamuser",
+    "steamprofile_description": "Requests Steam profile information of a Steam user",
 
     "steamscammercheck_validsteamid": "Please make sure that you have inserted a valid SteamID64! Here you can get your Steam64ID: https://steamid.io/",
     "steamscammercheck_nosteamid": "This isn't a Steam64ID. Here you can get your Steam64ID: https://steamid.io/",
