@@ -69,5 +69,18 @@ module.exports = class unbanCommand extends LenoxCommand {
 			delete currentBans[banOfThisUser.banscount];
 			await msg.client.provider.setBotsettings('botconfs', 'bans', currentBans);
 		}
+
+		const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+		const punishmentConfig = {
+			id: currentPunishments.length + 1,
+			userId: user.id,
+			reason: reason,
+			date: Date.now(),
+			moderatorId: msg.author.id,
+			type: 'unban'
+		};
+
+		currentPunishments.push(punishmentConfig);
+		await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
 	}
 };

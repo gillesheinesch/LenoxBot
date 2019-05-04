@@ -102,6 +102,19 @@ module.exports = class unmuteCommand extends LenoxCommand {
 					await msg.client.provider.setBotsettings('botconfs', 'mutes', currentMutes);
 				}
 			}
+
+			const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+			const punishmentConfig = {
+				id: currentPunishments.length + 1,
+				userId: user.id,
+				reason: args.slice(1).join(' '),
+				date: Date.now(),
+				moderatorId: msg.author.id,
+				type: 'unmute'
+			};
+
+			currentPunishments.push(punishmentConfig);
+			await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
 		} else {
 			const notownrole = lang.unmute_notownrole.replace('%username', user.username);
 			msg.reply(notownrole);

@@ -57,20 +57,22 @@ module.exports = class warnCommand extends LenoxCommand {
 
 		user.send({ embed: embed });
 
-		if (!msg.client.provider.getGuild(msg.guild.id, 'warnlog')) {
-			await msg.client.provider.setGuild(msg.guild.id, 'warnlog', []);
-		}
-
-		const currentWarnlog = msg.client.provider.getGuild(msg.guild.id, 'warnlog');
-		await currentWarnlog.push(user.id);
-		await currentWarnlog.push(new Date().getTime());
-		await currentWarnlog.push(reason);
-		await currentWarnlog.push(msg.author.id);
-		await msg.client.provider.setGuild(msg.guild.id, 'warnlog', currentWarnlog);
-
 		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
 			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
-			return modlogchannel.send({ embed: embed });
+			modlogchannel.send({ embed: embed });
 		}
+
+		const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+		const punishmentConfig = {
+			id: currentPunishments.length + 1,
+			userId: user.id,
+			reason: reason,
+			date: Date.now(),
+			moderatorId: msg.author.id,
+			type: 'warn'
+		};
+
+		currentPunishments.push(punishmentConfig);
+		await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
 	}
 };

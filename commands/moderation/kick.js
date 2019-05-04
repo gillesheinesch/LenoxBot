@@ -65,7 +65,20 @@ module.exports = class kickCommand extends LenoxCommand {
 
 		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
 			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
-			return modlogchannel.send({ embed: embed });
+			modlogchannel.send({ embed: embed });
 		}
+
+		const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+		const punishmentConfig = {
+			id: currentPunishments.length + 1,
+			userId: user.id,
+			reason: reason,
+			date: Date.now(),
+			moderatorId: msg.author.id,
+			type: 'kick'
+		};
+
+		currentPunishments.push(punishmentConfig);
+		await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
 	}
 };

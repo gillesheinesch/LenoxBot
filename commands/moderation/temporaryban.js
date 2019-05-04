@@ -112,6 +112,20 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 		currentBans[msg.client.provider.getBotsettings('botconfs', 'banscount')] = bansettings;
 		await msg.client.provider.setBotsettings('botconfs', 'bans', currentBans);
 
+		const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+		const punishmentConfig = {
+			id: currentPunishments.length + 1,
+			userId: user.id,
+			reason: reason,
+			date: Date.now(),
+			moderatorId: msg.author.id,
+			bantime: bantime,
+			type: 'temporaryban'
+		};
+
+		currentPunishments.push(punishmentConfig);
+		await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
+
 		setTimeout(async () => {
 			const fetchedbans = await msg.guild.fetchBans();
 			if (fetchedbans.has(user.id)) {
@@ -135,6 +149,19 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 			const newCurrentBans = msg.client.provider.getBotsettings('botconfs', 'bans');
 			delete newCurrentBans[msg.client.provider.getBotsettings('botconfs', 'banscount')];
 			await msg.client.provider.setBotsettings('botconfs', 'bans', newCurrentBans);
+
+			const currentPunishments2 = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+			const punishmentConfig2 = {
+				id: currentPunishments2.length + 1,
+				userId: user.id,
+				reason: 1,
+				date: Date.now(),
+				moderatorId: msg.client.user.id,
+				type: 'unban'
+			};
+
+			currentPunishments2.push(punishmentConfig2);
+			await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments2);
 		}, bantime);
 	}
 };
