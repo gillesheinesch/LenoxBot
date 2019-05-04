@@ -473,6 +473,25 @@
                                 </div>
                                 <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs14">Save</button>
                             </form>
+                            <form class="form-inline" name="submitlogs15">
+                                <div class="form-group mb-2 col-sm-3">
+                                    <label for="guildupdatelog">Guildupdate:</label>
+                                </div>
+                                <div class="form-group mx-sm-3 mb-2 col-sm-4 col-lg-3">
+                                    <select required class="selectpicker" data-live-search="true" data-size="7" name="guildupdatelog">
+                                        {{#if confs.guildupdatedeactivated}}
+                                        <option selected value="false">Deactivated</option>
+                                        {{else}}
+                                        <option value="false">Deactivated</option>
+                                        {{/if}} {{#each channels}} {{#if guildupdateset}}
+                                        <option selected value="{{name}}">#{{name}}</option>
+                                        {{/if}}
+                                        <option value="{{name}}">#{{name}}</option>
+                                        {{/each}}
+                                    </select>
+                                </div>
+                                <button type="submit" class="btn lb-btn-green mb-2 ml-3" id="submitlogs15">Save</button>
+                            </form>
                         </div>
                     </div>
                     <div class="card mt-3 shadow-sm">
