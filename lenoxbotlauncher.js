@@ -337,7 +337,7 @@ async function run() {
 		}
 	});
 
-	/* app.get('/leaderboards', async (req, res) => {
+	app.get('/leaderboards', cache(120), async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -373,13 +373,13 @@ async function run() {
 			userArray = userArray.slice(0, 100);
 			console.log(userArray.length)
 
-			let userResult2;
+			let userResult;
 			for (let i = 0; i < userArray.length; i++) {
 				await shardingManager.broadcastEval(`this.users.get("${userArray[i].userId}")`).then(userA => {
-					userResult2 = userA.find(u => u);
+					userResult = userA.find(u => u);
 				});
-				if (userResult2) {
-					userArray[i].user = userResult2;
+				if (userResult) {
+					userArray[i].user = userResult;
 					console.log(i)
 				}
 				if (req.user) {
@@ -407,7 +407,7 @@ async function run() {
 				}
 			}));
 		}
-	}); */
+	});
 
 	app.get('/leaderboards/server/:id', cache(120), async (req, res) => {
 		try {
