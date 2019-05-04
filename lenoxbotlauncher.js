@@ -337,7 +337,7 @@ async function run() {
 		}
 	});
 
-	app.get('/leaderboards', cache(120), async (req, res) => {
+	app.get('/leaderboards', cache(1440), async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -371,7 +371,6 @@ async function run() {
 			});
 
 			userArray = userArray.slice(0, 100);
-			console.log(userArray.length)
 
 			let userResult;
 			for (let i = 0; i < userArray.length; i++) {
@@ -380,7 +379,6 @@ async function run() {
 				});
 				if (userResult) {
 					userArray[i].user = userResult;
-					console.log(i)
 				}
 				if (req.user) {
 					if (userArray[i].userId === req.user.id) {
