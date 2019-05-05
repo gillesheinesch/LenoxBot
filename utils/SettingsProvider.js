@@ -82,7 +82,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			console.warn(err);
 		}
 
-		/* for (const user in client.users.array()) {
+		for (const user in client.users.array()) {
 			try {
 				const result = await userSettingsCollection.findOne({ userId: client.users.array()[user].id });
 				let settings = undefined;
@@ -102,7 +102,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				console.warn(`Error while creating document of user ${client.users.array()[user].id}`);
 				console.warn(err);
 			}
-		}*/
+		}
 
 		try {
 			const result = await userSettingsCollection.findOne({ userId: 'global' });
