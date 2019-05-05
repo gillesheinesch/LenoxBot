@@ -497,7 +497,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 					settings = result.settings;
 				}
 
-				await this.db.collection('userSettings').set(id, settings);
+				this.userSettings.set(id, settings);
 			} catch (err) {
 				console.warn(`Error while creating document of user ${id}`);
 				console.warn(err);
