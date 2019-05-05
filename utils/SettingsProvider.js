@@ -82,7 +82,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 			console.warn(err);
 		}
 
-		for (const user in client.users.array()) {
+		/* for (const user in client.users.array()) {
 			try {
 				const result = await userSettingsCollection.findOne({ userId: client.users.array()[user].id });
 				let settings = undefined;
@@ -102,7 +102,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 				console.warn(`Error while creating document of user ${client.users.array()[user].id}`);
 				console.warn(err);
 			}
-		}
+		}*/
 
 		try {
 			const result = await userSettingsCollection.findOne({ userId: 'global' });
@@ -482,26 +482,26 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 	}
 
 	async reloadUser(id) {
-		if (this.client.users[id] !== undefined) {
-			try {
-				const result = await this.db.collection('userSettings').findOne({ userId: id });
-				let settings = undefined;
+		try {
+			const result = await this.db.collection('userSettings').findOne({ userId: id });
+			let settings = undefined;
 
-				if (!result) {
-					// Can't find DB make new one.
-					settings = usersettingskeys;
-					await this.db.collection('userSettings').insertOne({ userId: id, settings: settings });
-				}
-
-				if (result && result.settings) {
-					settings = result.settings;
-				}
-
-				this.userSettings.set(id, settings);
-			} catch (err) {
-				console.warn(`Error while creating document of user ${id}`);
-				console.warn(err);
+			if (!result) {
+				// Can't find DB make new one.
+				settings = usersettingskeys;
+				await this.db.collection('userSettings').insertOne({ userId: id, settings: settings });
 			}
+
+			if (result && result.settings) {
+				settings = result.settings;
+			}
+
+			await this.db.collection('userSettings').updateOne({ userId: id }, { $set: { settings: settings } });
+
+			this.userSettings.set(id, settings);
+		} catch (err) {
+			console.warn(`Error while creating document of user ${id}`);
+			console.warn(err);
 		}
 	}
 
