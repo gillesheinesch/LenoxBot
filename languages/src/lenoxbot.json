@@ -1458,9 +1458,9 @@
     "punishments_kick": "Kicked by %moderator on %date",
     "punishments_unban": "Unbanned by %moderator on %date",
     "punishments_unmute": "Unmuted by %moderator on %date",
-    "punishments_mute": "Muted for %time by %moderator on %date",
-    "punishments_temporaryban": "Temporary banned for %time by %moderator on %date",
-    "punishments_reason": "Reason:",
+    "punishments_mute": "Muted for %mutetime by %moderator on %date",
+    "punishments_temporaryban": "Temporary banned for %bantime by %moderator on %date",
+    "punishments_reason": "Reason: %reason",
     "punishments_notpunished": "You or the mentioned user has not been punished yet.",
     "punishments_description": "Shows you the punishments of a user",
 
