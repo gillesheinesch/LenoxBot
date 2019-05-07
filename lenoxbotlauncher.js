@@ -55,22 +55,6 @@ async function run() {
 
 	app.use(express.static('public'));
 
-	const mcache = require('memory-cache');
-	const cache = duration => (req, res, next) => {
-		const key = `__express__${req.originalUrl}` || req.url;
-		const cachedBody = mcache.get(key);
-		if (cachedBody) {
-			res.send(cachedBody);
-			return;
-		}
-		res.sendResponse = res.send;
-		res.send = body => {
-			mcache.put(key, body, duration * 1000 * 60);
-			res.sendResponse(body);
-		};
-		next();
-	};
-
 	passport.serializeUser((user, done) => {
 		done(null, user);
 	});
@@ -337,7 +321,7 @@ async function run() {
 		}
 	});
 
-	app.get('/leaderboards', cache(1440), async (req, res) => {
+	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -407,7 +391,7 @@ async function run() {
 		}
 	});
 
-	app.get('/leaderboards/server/:id', cache(120), async (req, res) => {
+	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
 			const dashboardid = req.params.id;
 			const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
