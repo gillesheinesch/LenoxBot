@@ -32,7 +32,7 @@ module.exports = class sexvideoCommand extends LenoxCommand {
 
 		try {
 		/* eslint no-undef: 0 */
-			const Searcher = new Pornsearch(args.slice().join(' '), driver = 'sex');
+			const Searcher = new Pornsearch(args.slice().join(' '), 'sex');
 			const videos = await Searcher.videos();
 
 			const result = Math.floor(Math.random() * videos.length);

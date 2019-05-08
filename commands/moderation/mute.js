@@ -124,6 +124,20 @@ module.exports = class muteCommand extends LenoxCommand {
 			embed: muteembed
 		});
 
+		const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+		const punishmentConfig = {
+			id: currentPunishments.length + 1,
+			userId: user.id,
+			reason: args.slice(2).join(' '),
+			date: Date.now(),
+			mutetime: mutetime,
+			moderatorId: msg.author.id,
+			type: 'mute'
+		};
+
+		currentPunishments.push(punishmentConfig);
+		await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
+
 		setTimeout(async () => {
 			if (msg.client.provider.getGuild(msg.guild.id, 'muterole') !== '' && membermention.roles.has(msg.client.provider.getGuild(msg.guild.id, 'muterole'))) {
 				await membermention.roles.remove(role);
@@ -145,6 +159,19 @@ module.exports = class muteCommand extends LenoxCommand {
 			const newCurrentMutes = msg.client.provider.getBotsettings('botconfs', 'mutes');
 			delete newCurrentMutes[currentMutescount2];
 			await msg.client.provider.setBotsettings('botconfs', 'mutes', newCurrentMutes);
+
+			const currentPunishments2 = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+			const punishmentConfig2 = {
+				id: currentPunishments2.length + 1,
+				userId: user.id,
+				reason: 1,
+				date: Date.now(),
+				moderatorId: msg.client.user.id,
+				type: 'unmute'
+			};
+
+			currentPunishments2.push(punishmentConfig2);
+			await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments2);
 		}, mutetime);
 	}
 };

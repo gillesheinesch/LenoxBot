@@ -23,10 +23,13 @@ module.exports = class bitcoinCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		const value = await btcValue();
-		const percentage = await btcValue.getPercentageChangeLastDay();
+		const value = await btcValue({ isDecimal: true });
+		const hourPercentage = await btcValue.getPercentageChangeLastHour();
+		const dayPercentage = await btcValue.getPercentageChangeLastDay();
+		const weekPercentage = await btcValue.getPercentageChangeLastWeek();
 
-		const descriptionembed = lang.bitcoin_descriptionembed.replace('%value', value).replace('%percentage', percentage);
+		const descriptionembed = lang.bitcoin_descriptionembed.replace('%value', value).replace('%daypercentage', dayPercentage).replace('%hourpercentage', hourPercentage)
+			.replace('%weekpercentage', weekPercentage);
 
 		const embed = new Discord.MessageEmbed()
 			.setDescription(descriptionembed)

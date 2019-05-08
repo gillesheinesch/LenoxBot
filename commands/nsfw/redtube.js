@@ -32,7 +32,7 @@ module.exports = class redtubeCommand extends LenoxCommand {
 
 		try {
 		/* eslint no-undef: 0 */
-			const Searcher = new Pornsearch(args.slice().join(' '), driver = 'redtube');
+			const Searcher = new Pornsearch(args.slice().join(' '), 'redtube');
 			const videos = await Searcher.videos();
 
 			const result = Math.floor(Math.random() * videos.length);

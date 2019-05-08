@@ -54,7 +54,6 @@
         "denyrole": ""
     },
     "nicknamelog": [],
-    "warnlog": [],
     "language": "en-US",
     "premium": {
         "status": false,
@@ -100,5 +99,6 @@
     },
     "ara": [],
     "momentLanguage": "en",
-    "joinroles": []
+    "joinroles": [],
+    "punishments": []
 }

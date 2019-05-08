@@ -309,7 +309,7 @@
     "setgame_done": "The new game status has been set successfully!",
     "setgame_description": "Sets a new game status for the bot",
 
-    "restart_message": "LenoxBot will restart now! See you later! 👋",
+    "restart_message": "The bot will restart now! See you later! 👋",
     "restart_noreason": "You forgot to enter a reason for the restart!",
     "restart_embedtitle": "LenoxBot will now have a restart! We will inform you as soon as LenoxBot is back!",
     "restart_embedfield": "Reason:",
@@ -731,7 +731,7 @@
     "toggleapplication_disabled": "The application system was successfully deactivated!",
     "toggleapplication_description": "Toggles the applications",
 
-    "bitcoin_descriptionembed": "Bitcoin Value ($): **%value** \nBitcoin Percentage of changes in the last day: **%percentage** %",
+    "bitcoin_descriptionembed": "Bitcoin Value: **$%value** \n\nBitcoin Percentage of changes in the last hour: **%hourpercentage**% \nBitcoin Percentage of changes in the last day: **%daypercentage**% \nBitcoin Percentage of changes in the last week: **%weekpercentage**%",
     "bitcoin_authorembed": "Bitcoin information",
     "bitcoin_description": "Shows you information from Bitcoin (value and percentage of changes from the last day)",
 
@@ -1304,7 +1304,7 @@
     "steamprofile_vban": "VAC ban(s)",
     "steamprofile_membersince": "Member since",
     "steamprofile_error": "That Steam profile could not be found. Please make sure, that you have insert a valid SteamID64.",
-    "steamprofile_description": "Requests Steam profile information of a Steamuser",
+    "steamprofile_description": "Requests Steam profile information of a Steam user",
 
     "steamscammercheck_validsteamid": "Please make sure that you have inserted a valid SteamID64! Here you can get your Steam64ID: https://steamid.io/",
     "steamscammercheck_nosteamid": "This isn't a Steam64ID. Here you can get your Steam64ID: https://steamid.io/",
@@ -1422,7 +1422,7 @@
     "rank_rank": "Rank",
     "rank_description": "Displays the points of you or another user",
 
-    "ranks_message": "Check out %guildname's leaderboard: https://lenoxbot.com/leaderboards/guild/%id",
+    "ranks_message": "Check out %guildname's leaderboard: https://lenoxbot.com/leaderboards/server/%id",
     "ranks_description": "Gives you the link for the leaderboard",
 
     "serverinfo_members": "Members",
@@ -1451,10 +1451,23 @@
     "userinfo_nobadges": "No badges",
     "userinfo_description": "Gives you information about you or another user",
 
-    "warnlog_error": "No user has been warned on this server until now!",
-    "warnlog_warnedbyandon": "Warned by %membername on %date",
-    "warnlog_notwarned": "You or the mentioned user has not been warned yet.",
-    "warnlog_description": "Shows you the warnlog from you or another user",
+    "punishments_noinput": "You forgot to mention a user or to enter a userID.",
+    "punishments_error": "No user has been punished on this server until now!",
+    "punishments_warn": "%id ⚠Warned by %moderator on %date",
+    "punishments_ban": "%id ❌Banned by %moderator on %date",
+    "punishments_softban": "%id ‼Softbanned by %moderator on %date",
+    "punishments_kick": "%id ❗Kicked by %moderator on %date",
+    "punishments_unban": "%id ✅Unbanned by %moderator on %date",
+    "punishments_unmute": "%id 🔉Unmuted by %moderator on %date",
+    "punishments_mute": "%id 🔇Muted for %mutetime by %moderator on %date",
+    "punishments_temporaryban": "%id ❌Temporary banned for %bantime by %moderator on %date",
+    "punishments_reason": "**Reason:** %reason",
+    "punishments_notpunished": "You or the mentioned user has not been punished yet.",
+    "punishments_noreportid": "You forgot to enter the ID of the punishment that you want to delete!",
+    "punishments_nonumber": "Your punishment ID has to be a number!",
+    "punishments_punishmentremoved": "Punishment has been successfully deleted!",
+    "punishments_nopunishmentwithid": "We're sorry... We couldn't find a punishment with this ID, please check again if entered the correct punishment ID!",
+    "punishments_description": "Shows you the punishments of a user",
 
     "serverwarns_error": "No user has been warned on this server until now!",
     "serverwarns_reason": "**Reason:**",

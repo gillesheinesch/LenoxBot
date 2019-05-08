@@ -39,7 +39,31 @@ exports.run = async (client, guild) => {
 
 		await client.provider.setGuild(guild.id, 'commands', currentCommands);
 	} else {
-		await client.provider.setGuildComplete(guild.id, guildsettingskeys);
+		const commandsObject = {};
+		for (let i = 0; i < client.registry.commands.array().length; i++) {
+			if (!commandsObject[client.registry.commands.array()[i].name]) {
+				commandsObject[client.registry.commands.array()[i].name] = {
+					name: client.registry.commands.array()[i].name,
+					status: 'true',
+					bannedroles: [],
+					bannedchannels: [],
+					cooldown: '3000',
+					ifBlacklistForRoles: 'true',
+					ifBlacklistForChannels: 'true',
+					whitelistedroles: [],
+					whitelistedchannels: []
+				};
+			}
+			if (!commandsObject[client.registry.commands.array()[i].name].ifBlacklistForRoles) {
+				commandsObject[client.registry.commands.array()[i].name].ifBlacklistForRoles = 'true';
+				commandsObject[client.registry.commands.array()[i].name].ifBlacklistForChannels = 'true';
+				commandsObject[client.registry.commands.array()[i].name].whitelistedroles = [];
+				commandsObject[client.registry.commands.array()[i].name].whitelistedchannels = [];
+			}
+		}
+
+		await client.provider.reloadGuild(guild.id);
+		await client.provider.setGuild(guild.id, 'commands', commandsObject);
 	}
 
 
