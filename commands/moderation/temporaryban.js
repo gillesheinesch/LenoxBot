@@ -37,6 +37,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 			try {
 				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
+				membermention = fetchedMember;
 				user = fetchedMember;
 				user = user.user;
 			} catch (error) {

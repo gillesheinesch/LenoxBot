@@ -35,6 +35,7 @@ module.exports = class kickCommand extends LenoxCommand {
 			try {
 				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
+				member = fetchedMember;
 				user = fetchedMember;
 				user = user.user;
 			} catch (error) {
