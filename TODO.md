@@ -1,4 +1,5 @@
-**TODO for the LenoxBot Recode:**
+# TODO for the LenoxBot
+
 - [ ] Remove untranslated strings from the ?rank command
 - [ ] Do the setGuild() method without the get and rewriting the variable. (makes much less code) for ?deleteevents-
 - [ ] Check when you add a new key to the botsettingskeys, if it will be added in the DB
