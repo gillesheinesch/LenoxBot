@@ -30,7 +30,7 @@ module.exports = class sexgifCommand extends LenoxCommand {
 
 		try {
 		/* eslint no-undef: 0 */
-			const Searcher = new Pornsearch(args.slice().join(' '), driver = 'sex');
+			const Searcher = new Pornsearch(args.slice().join(' '), 'sex');
 			const gifs = await Searcher.gifs();
 
 			const result = Math.floor(Math.random() * gifs.length);

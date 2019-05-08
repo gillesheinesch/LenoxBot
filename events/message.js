@@ -42,9 +42,10 @@ exports.run = async (client, msg) => {
 
 		await msg.client.provider.setGuild(msg.guild.id, 'commands', currentCommands);
 	} else {
+		const commandsObject = {};
 		for (let i = 0; i < client.registry.commands.array().length; i++) {
-			if (!guildsettingskeys.commands[client.registry.commands.array()[i].name]) {
-				guildsettingskeys.commands[client.registry.commands.array()[i].name] = {
+			if (!commandsObject[client.registry.commands.array()[i].name]) {
+				commandsObject[client.registry.commands.array()[i].name] = {
 					name: client.registry.commands.array()[i].name,
 					status: 'true',
 					bannedroles: [],
@@ -56,15 +57,15 @@ exports.run = async (client, msg) => {
 					whitelistedchannels: []
 				};
 			}
-			if (!guildsettingskeys.commands[client.registry.commands.array()[i].name].ifBlacklistForRoles) {
-				guildsettingskeys.commands[client.registry.commands.array()[i].name].ifBlacklistForRoles = 'true';
-				guildsettingskeys.commands[client.registry.commands.array()[i].name].ifBlacklistForChannels = 'true';
-				guildsettingskeys.commands[client.registry.commands.array()[i].name].whitelistedroles = [];
-				guildsettingskeys.commands[client.registry.commands.array()[i].name].whitelistedchannels = [];
+			if (!commandsObject[client.registry.commands.array()[i].name].ifBlacklistForRoles) {
+				commandsObject[client.registry.commands.array()[i].name].ifBlacklistForRoles = 'true';
+				commandsObject[client.registry.commands.array()[i].name].ifBlacklistForChannels = 'true';
+				commandsObject[client.registry.commands.array()[i].name].whitelistedroles = [];
+				commandsObject[client.registry.commands.array()[i].name].whitelistedchannels = [];
 			}
 		}
-
-		await msg.client.provider.setGuildComplete(msg.guild.id, guildsettingskeys);
+		await msg.client.provider.reloadGuild(msg.guild.id);
+		await msg.client.provider.setGuild(msg.guild.id, 'commands', commandsObject);
 	}
 
 	if (client.provider.getUser(msg.author.id, 'credits')) {
@@ -85,7 +86,7 @@ exports.run = async (client, msg) => {
 		}
 		await msg.client.provider.setUserComplete(msg.author.id, settings);
 	} else {
-		await msg.client.provider.setUserComplete(msg.author.id, usersettingskeys);
+		await msg.client.provider.reloadUser(msg.author.id);
 	}
 
 	if (client.provider.getBotsettings('botconfs', 'premium')) {

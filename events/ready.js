@@ -129,6 +129,19 @@ exports.run = client => {
 								embed: unmutedembed
 							});
 						}
+
+						const currentPunishments = client.provider.getGuild(bansconf.discordserverid, 'punishments');
+						const punishmentConfig = {
+							id: currentPunishments.length + 1,
+							userId: user.id,
+							reason: 1,
+							date: Date.now(),
+							moderatorId: client.user.id,
+							type: 'unban'
+						};
+
+						currentPunishments.push(punishmentConfig);
+						await client.provider.setGuild(bansconf.discordserverid, 'punishments', currentPunishments);
 					}
 					const newbansconf = client.provider.getBotsettings('botconfs', 'bans');
 					delete newbansconf[client.provider.getBotsettings('botconfs', 'banscount')];
@@ -175,6 +188,19 @@ exports.run = client => {
 								embed: unmutedembed
 							});
 						}
+
+						const currentPunishments = client.provider.getGuild(muteconf.discordserverid, 'punishments');
+						const punishmentConfig = {
+							id: currentPunishments.length + 1,
+							userId: user.id,
+							reason: 1,
+							date: Date.now(),
+							moderatorId: client.user.id,
+							type: 'unmute'
+						};
+
+						currentPunishments.push(punishmentConfig);
+						await client.provider.setGuild(muteconf.discordserverid, 'punishments', currentPunishments);
 					}
 					const newmuteconf = client.provider.getBotsettings('botconfs', 'mutes');
 					delete newmuteconf[muteconf.mutescount];

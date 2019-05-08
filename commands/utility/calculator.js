@@ -2,16 +2,16 @@ const Discord = require('discord.js');
 const LenoxCommand = require('../LenoxCommand.js');
 const math = require('math-expression-evaluator');
 
-module.exports = class calculatorCommand extends LenoxCommand {
+module.exports = class calculateCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
-			name: 'calculator',
+			name: 'calculate',
 			group: 'utility',
-			memberName: 'calculator',
+			memberName: 'calculate',
 			description: 'Calculates for you an calculation',
-			format: 'calculator {math equation}',
-			aliases: ['cal'],
-			examples: ['calculator 1*20', 'calculator 100/10', 'calculator 100+10', 'calculator 100-10'],
+			format: 'calculate {math equation}',
+			aliases: ['calc'],
+			examples: ['calculate 1*20', 'calculate 100/10', 'calculate 100+10', 'calculate 100-10'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',

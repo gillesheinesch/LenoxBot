@@ -321,7 +321,7 @@ async function run() {
 		}
 	});
 
-	/* app.get('/leaderboards', async (req, res) => {
+	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -355,16 +355,14 @@ async function run() {
 			});
 
 			userArray = userArray.slice(0, 100);
-			console.log(userArray.length)
 
-			let userResult2;
+			let userResult;
 			for (let i = 0; i < userArray.length; i++) {
 				await shardingManager.broadcastEval(`this.users.get("${userArray[i].userId}")`).then(userA => {
-					userResult2 = userA.find(u => u);
+					userResult = userA.find(u => u);
 				});
-				if (userResult2) {
-					userArray[i].user = userResult2;
-					console.log(i)
+				if (userResult) {
+					userArray[i].user = userResult;
 				}
 				if (req.user) {
 					if (userArray[i].userId === req.user.id) {
@@ -391,7 +389,7 @@ async function run() {
 				}
 			}));
 		}
-	}); */
+	});
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
@@ -770,33 +768,6 @@ async function run() {
 
 	app.get('/documentation', (req, res) => res.redirect('https://docs.lenoxbot.com'));
 
-	app.get('/nologin', (req, res) => {
-		try {
-			const check = [];
-			if (req.user) {
-				for (let i = 0; i < req.user.guilds.length; i++) {
-					if (((req.user.guilds[i].permissions) & 8) === 8) {
-						check.push(req.user.guilds[i]);
-					}
-				}
-			}
-
-			return res.render('index', {
-				notloggedin: true,
-				user: req.user,
-				guilds: check
-			});
-		} catch (error) {
-			return res.redirect(url.format({
-				pathname: `/error`,
-				query: {
-					statuscode: 500,
-					message: error.message
-				}
-			}));
-		}
-	});
-
 	app.get('/oauth2problem', async (req, res) => {
 		try {
 			const check = [];
@@ -980,7 +951,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1038,7 +1009,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1120,7 +1091,7 @@ async function run() {
 					status: botconfs.settings.tickets[req.params.ticketid].status === 'open' ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1274,7 +1245,7 @@ async function run() {
 						});
 					});
 			} else {
-				return res.redirect('/nologin');
+				return res.redirect('/loginpressedbutton');
 			}
 		} catch (error) {
 			return res.redirect(url.format({
@@ -1338,7 +1309,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1408,7 +1379,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1477,7 +1448,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1534,7 +1505,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1591,7 +1562,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1655,7 +1626,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1713,7 +1684,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1770,7 +1741,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1827,7 +1798,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1884,7 +1855,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -1941,7 +1912,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2007,7 +1978,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2069,7 +2040,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2131,7 +2102,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2194,7 +2165,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2249,7 +2220,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2304,7 +2275,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2378,7 +2349,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2699,7 +2670,7 @@ async function run() {
 					submitadministration: req.query.submitadministration ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2764,7 +2735,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2829,7 +2800,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2920,7 +2891,7 @@ async function run() {
 					submitmoderation: req.query.submitmoderation ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -2998,7 +2969,7 @@ async function run() {
 					submithelp: req.query.submithelp ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3067,7 +3038,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3134,7 +3105,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3226,7 +3197,7 @@ async function run() {
 					submitmusic: req.query.submitmusic ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3304,7 +3275,7 @@ async function run() {
 					submitfun: req.query.submitfun ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3382,7 +3353,7 @@ async function run() {
 					submitsearches: req.query.submitsearches ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3460,7 +3431,7 @@ async function run() {
 					submitnsfw: req.query.submitnsfw ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3549,7 +3520,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3627,7 +3598,7 @@ async function run() {
 					submitutility: req.query.submitutility ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3683,7 +3654,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3791,7 +3762,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3868,7 +3839,7 @@ async function run() {
 					vote: votecheck
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -3948,7 +3919,7 @@ async function run() {
 					oldapplications: oldobject
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4005,7 +3976,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4062,7 +4033,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4122,7 +4093,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4182,7 +4153,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4239,7 +4210,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4296,7 +4267,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4399,7 +4370,7 @@ async function run() {
 					submitapplication: req.query.submitapplication ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4477,7 +4448,7 @@ async function run() {
 					submitcurrency: req.query.submitcurrency ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4562,7 +4533,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4659,7 +4630,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4768,7 +4739,7 @@ async function run() {
 					status: botconfs.settings.tickets[req.params.ticketid].status === 'open' ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4882,7 +4853,7 @@ async function run() {
 					submittickets: req.query.submittickets ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -4941,7 +4912,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5000,7 +4971,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5066,7 +5037,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5150,7 +5121,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5251,7 +5222,7 @@ async function run() {
 					submitcustomcommands: req.query.submitcustomcommands ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5310,7 +5281,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5386,7 +5357,7 @@ async function run() {
 					submitmodules: req.query.submitmodules ? true : false
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5452,7 +5423,7 @@ async function run() {
 					logs: logs
 				});
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5547,7 +5518,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -5655,7 +5626,7 @@ async function run() {
 					}
 				}));
 			}
-			return res.redirect('/nologin');
+			return res.redirect('/loginpressedbutton');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,

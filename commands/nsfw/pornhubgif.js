@@ -45,7 +45,6 @@ module.exports = class pornhubgifCommand extends LenoxCommand {
 				embed: embed
 			});
 		} catch (error) {
-			console.log(error)
 			return msg.reply(lang.pornhubgif_couldfindnothing);
 		}
 	}
