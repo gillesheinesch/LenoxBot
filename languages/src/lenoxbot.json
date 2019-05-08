@@ -731,7 +731,7 @@
     "toggleapplication_disabled": "The application system was successfully deactivated!",
     "toggleapplication_description": "Toggles the applications",
 
-    "bitcoin_descriptionembed": "Bitcoin Value ($): **%value** \nBitcoin Percentage of changes in the last day: **%percentage** %",
+    "bitcoin_descriptionembed": "Bitcoin Value: **$%value** \n\nBitcoin Percentage of changes in the last hour: **%hourpercentage**% \nBitcoin Percentage of changes in the last day: **%daypercentage**% \nBitcoin Percentage of changes in the last week: **%weekpercentage**%",
     "bitcoin_authorembed": "Bitcoin information",
     "bitcoin_description": "Shows you information from Bitcoin (value and percentage of changes from the last day)",
 
