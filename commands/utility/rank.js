@@ -59,7 +59,7 @@ module.exports = class rankCommand extends LenoxCommand {
 			}
 		}
 		const row = await msg.client.provider.getGuild(msg.guild.id, 'scores')[user1.id];
-		if (!row || row.points === 0) return msg.reply('This user has no scoreboard yet!');
+		if (!row || row.points === 0) return msg.reply(lang.rank_noleaderboard);
 
 		embed.addField(lang.rank_points, row.points, true);
 		embed.addField(lang.rank_level, row.level, true);

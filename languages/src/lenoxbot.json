@@ -1420,6 +1420,7 @@
     "rank_points": "Points",
     "rank_level": "Level",
     "rank_rank": "Rank",
+    "rank_noleaderboard": "This user has no leaderboard yet!",
     "rank_description": "Displays the points of you or another user",
 
     "ranks_message": "Check out %guildname's leaderboard: https://lenoxbot.com/leaderboards/server/%id",
