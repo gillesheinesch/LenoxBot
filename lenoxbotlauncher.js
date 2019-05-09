@@ -663,12 +663,29 @@ async function run() {
 				teamSettings.roleMembers = [];
 
 				evaledMembersFromRole.forEach(async member => {
+					const userconfs = await userSettingsCollection.findOne({ userId: member.userID });
 					const evaledUser = await shardingManager.shards.get(guild.shardID).eval(`
 					(async () => {
 						const user = await this.users.fetch("${member.userID}")
 						if (user) return user;
 					})();
 				`);
+					if (userconfs.settings.socialmedia) {
+						let socialmediaCheck = 0;
+						for (const x in userconfs.settings.socialmedia) {
+							if (userconfs.settings.socialmedia[x] === '') socialmediaCheck++;
+						}
+
+						if (socialmediaCheck !== Object.keys(userconfs.settings.socialmedia).length) {
+							evaledUser.socialmedia = {};
+							for (const index in userconfs.settings.socialmedia) {
+								if (userconfs.settings.socialmedia[index] !== '') {
+									evaledUser.socialmedia[index] = userconfs.settings.socialmedia[index];
+								}
+							}
+						}
+					}
+
 					teamSettings.roleMembers.push(evaledUser);
 				});
 				team.push(teamSettings);

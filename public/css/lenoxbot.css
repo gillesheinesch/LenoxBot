@@ -618,6 +618,12 @@ body {
     left: 0;
 }
 
+.lb-team-social {
+    font-size: 1.5em;
+    color: #263238;
+    transition: .2s;
+}
+
 .lb-profile-social {
     font-size: 4.5em;
     color: #263238;
