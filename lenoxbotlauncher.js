@@ -653,7 +653,6 @@ async function run() {
 			const evaledRoles = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("352896116812939264").roles.array()`);
 			guild.roles = evaledRoles;
 
-			const userAdded = [];
 			for (let i = 0; i < teamroles.length; i++) {
 				const teamSettings = {};
 				const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
@@ -670,10 +669,7 @@ async function run() {
 						if (user) return user;
 					})();
 				`);
-					if (!userAdded.includes(member.userID)) {
-						teamSettings.roleMembers.push(evaledUser);
-						userAdded.push(member.userID);
-					}
+					teamSettings.roleMembers.push(evaledUser);
 				});
 				team.push(teamSettings);
 			}
