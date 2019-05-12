@@ -1461,7 +1461,7 @@
     "punishments_unban": "%id ✅Unbanned by %moderator on %date",
     "punishments_unmute": "%id 🔉Unmuted by %moderator on %date",
     "punishments_mute": "%id 🔇Muted for %mutetime by %moderator on %date",
-    "punishments_temporaryban": "%id ❌Temporary banned for %bantime by %moderator on %date",
+    "punishments_temporaryban": "%id ❌Temporarily banned for %bantime by %moderator on %date",
     "punishments_reason": "**Reason:** %reason",
     "punishments_notpunished": "You or the mentioned user has not been punished yet.",
     "punishments_noreportid": "You forgot to enter the ID of the punishment that you want to delete!",
