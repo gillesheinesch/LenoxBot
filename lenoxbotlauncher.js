@@ -170,6 +170,17 @@ async function run() {
 `);
 	}
 
+	async function reloadUser(userId) {
+		await shardingManager.broadcastEval(`
+    (async () => {
+        if (this.users.get("${userId}")) {
+        const x = await this.provider.reloadUser("${userId}");
+        return x;
+        }
+    })();
+`);
+	}
+
 	async function reloadBotSettings(guild) {
 		if (guild) {
 			await shardingManager.shards.get(guild.shardID).eval(`
@@ -321,7 +332,7 @@ async function run() {
 		}
 	});
 
-	app.get('/leaderboards', async (req, res) => {
+	/*app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -389,7 +400,7 @@ async function run() {
 				}
 			}));
 		}
-	});
+	}); */
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
@@ -5640,6 +5651,43 @@ async function run() {
 				}));
 			}
 			return res.redirect('/loginpressedbutton');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	// API:
+	// TODO: Fix newupvote api
+	app.post('/api/newupvote', async (req, res) => {
+		try {
+			const authorization = req.body.authorization;
+			const userId = req.body.userId;
+			const credits = Number(req.body.credits);
+
+			if (authorization !== settings.dblAuthorization) return res.send(401, 'Invalid token');
+
+			await shardingManager.shards.get(0).eval(`
+			(async () => {
+			const fetchedUser = await this.users.fetch("${userId}")
+			if (fetchedUser) {
+				fetchedUser.send('Thanks for upvoting LenoxBot on discordbots.org. As a thank you, you got ${credits} credits!')
+				return fetchedUser;
+			}
+			})();
+	`);
+			const userconfs = await userSettingsCollection.findOne({ userId: userId });
+			userconfs.settings.credits += credits;
+			await userSettingsCollection.updateOne({ userId: userId }, { $set: { settings: userconfs.settings } });
+
+			await reloadUser(userId);
+
+			return res.status(200).send('Request successfully accepted!');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
