@@ -72,7 +72,7 @@ exports.run = async (client, msg) => {
 		const settings = client.provider.userSettings.get(msg.author.id);
 		// eslint-disable-next-line guard-for-in
 		for (const key in usersettingskeys) {
-			if (settings[key] && typeof settings[key] === 'undefined') {
+			if (!settings[key] && typeof settings[key] === 'undefined') {
 				settings[key] = usersettingskeys[key];
 			}
 
