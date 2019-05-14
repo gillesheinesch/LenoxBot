@@ -128,7 +128,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 										if (newplaylistsongs.length === 12) {
 											const currentPlaylist = msg.client.provider.getGuild(msg.guild.id, 'playlist');
 											currentPlaylist[newplaylisttitle.toLowerCase()] = newplaylistsongs;
-											await msg.client.provider.getGuild(msg.guild.id, 'playlist', currentPlaylist);
+											await msg.client.provider.setGuild(msg.guild.id, 'playlist', currentPlaylist);
 											return msg.reply(lang.playlist_finish);
 										}
 										const newsongaddedtoplaylist = lang.playlist_newsongaddedtoplaylist.replace('%songname', Util.escapeMarkdown(video.title));
