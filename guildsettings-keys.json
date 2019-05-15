@@ -75,7 +75,7 @@
     },
     "commands": {},
     "customcommands": [],
-    "playlist": [],
+    "playlist": {},
     "tickets": {
 		"notificationstatus": false,
 		"notficationchannel": ""
