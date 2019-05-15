@@ -7,6 +7,7 @@ about: Request a feature for LenoxBot
 
 
 **Is it a suggestion for the website or for the bot?**
+
 - [ ] Bot
 - [ ] Website
 
