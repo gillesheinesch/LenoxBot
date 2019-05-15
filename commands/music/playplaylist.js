@@ -33,6 +33,12 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 		const voiceChannel = msg.member.voice.channel;
 		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
+		const value = msg.client.provider.getGuild(msg.guild.id, 'playlist');
+		if (typeof value === 'object' && value instanceof Array) {
+			const newPlaylist = {};
+			await msg.client.provider.setGuild(msg.guild.id, 'playlist', newPlaylist);
+		}
+
 		if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
 		if (args.slice().length === 0 || !args) return msg.reply(lang.playplaylist_error);
 		if (!msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);

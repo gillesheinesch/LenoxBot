@@ -1,3 +1,4 @@
+// TODO !IMPORTANT! change playlist in the guildconfs to Object because the bot doesn't save it
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
 const config = require('../../settings.json');
@@ -35,6 +36,12 @@ module.exports = class playlistCommand extends LenoxCommand {
 		let newplaylisttitle = '';
 		const newplaylistsongs = [];
 		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
+
+		const value = msg.client.provider.getGuild(msg.guild.id, 'playlist');
+		if (typeof value === 'object' && value instanceof Array) {
+			const newPlaylist = {};
+			await msg.client.provider.setGuild(msg.guild.id, 'playlist', newPlaylist);
+		}
 
 		if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
 
