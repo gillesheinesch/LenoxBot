@@ -309,8 +309,6 @@ async function run() {
 		}
 	});
 
-	app.get('/blog', (req, res) => res.redirect('https://medium.com/lenoxbot'));
-
 	app.get('/ban', (req, res) => res.redirect('https://goo.gl/forms/NKoVsl8y5wOePCYT2'));
 
 	app.get('/apply', (req, res) => res.redirect('https://goo.gl/forms/jOyjxAheOHaDYyoF2'));
@@ -320,7 +318,7 @@ async function run() {
 	app.get('/logout', (req, res) => {
 		try {
 			req.logOut();
-			return res.redirect('home');
+			return res.redirect('/');
 		} catch (error) {
 			return res.redirect(url.format({
 				pathname: `/error`,
@@ -332,7 +330,7 @@ async function run() {
 		}
 	});
 
-	/*app.get('/leaderboards', async (req, res) => {
+	/* app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -724,6 +722,7 @@ async function run() {
 			const newcommandlist = [];
 			// eslint-disable-next-line guard-for-in
 			for (const key in commandlist.settings.commands) {
+				commandlist.settings.commands[key].usage = `?${commandlist.settings.commands[key].usage}`;
 				newcommandlist.push(commandlist.settings.commands[key]);
 			}
 
@@ -3207,6 +3206,17 @@ async function run() {
 
 				// const guildQueue = await shardingManager.shards.get(guild.shardID).eval(`this.queue.get("${dashboardid}")`);
 
+				const discordServerPlaylists = [];
+				if (Object.keys(guildconfs.settings.playlist).length !== 0) {
+					for (const index2 in guildconfs.settings.playlist) {
+						const objectToPush = {};
+
+						objectToPush.name = index2;
+						objectToPush.howManyVideos = guildconfs.settings.playlist[index2].length;
+						discordServerPlaylists.push(objectToPush);
+					}
+				}
+
 				const islenoxbot = islenoxboton(req);
 				return res.render('dashboardmusic', {
 					user: req.user,
@@ -3217,6 +3227,8 @@ async function run() {
 					roles: roles,
 					// musiccurrentlyplaying: guildQueue ? true : false,
 					// song: guildQueue ? guildQueue.songs[0].title : false,
+					discordServerPremium: guildconfs.settings.premium.status,
+					discordServerPlaylists: discordServerPlaylists,
 					commands: commands,
 					submitmusic: req.query.submitmusic ? true : false
 				});
@@ -5676,11 +5688,34 @@ async function run() {
 			(async () => {
 			const fetchedUser = await this.users.fetch("${userId}")
 			if (fetchedUser) {
-				fetchedUser.send('Thanks for upvoting LenoxBot on discordbots.org. As a thank you, you got ${credits} credits!')
+				fetchedUser.send('Thanks for upvoting LenoxBot on discordbots.org. As a thank you, you got ${credits} credits! :)')
 				return fetchedUser;
 			}
 			})();
 	`);
+
+			let guild;
+			shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
+				.then(guildArray => {
+					guild = guildArray.find(g => g);
+				});
+
+			try {
+				if (guild) {
+					await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+		const fetchedChannel = await this.channels.get("578207982677131265");
+		if (fetchedChannel) {
+			await fetchedChannel.send("${userId} votes on discordbots.org and received ${credits} credits");
+			return fetchedChannel;
+		}
+    })();
+`);
+				}
+			} catch (error) {
+				'undefined';
+			}
+
 			const userconfs = await userSettingsCollection.findOne({ userId: userId });
 			userconfs.settings.credits += credits;
 			await userSettingsCollection.updateOne({ userId: userId }, { $set: { settings: userconfs.settings } });
