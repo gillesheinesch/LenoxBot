@@ -5361,12 +5361,14 @@ async function run() {
 				const modules = {};
 
 				const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets', 'Customcommands'];
+				const modulesIconsList = ['gavel', 'help', 'music', 'gamepad', 'magnify', 'alert', 'lightbulb-on', 'file-document-box-outline', 'currency-usd', 'ticket-account', 'console'];
 
 				for (let i = 0; i < moduleslist.length; i++) {
 					const config = {
 						name: '',
 						description: '',
-						status: ''
+						status: '',
+						icon: ''
 					};
 
 					config.name = moduleslist[i];
@@ -5379,6 +5381,8 @@ async function run() {
 					} else {
 						config.status = false;
 					}
+
+					config.icon = modulesIconsList[i];
 
 					modules[moduleslist[i].toLowerCase()] = config;
 				}

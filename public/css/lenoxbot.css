@@ -40,6 +40,10 @@ body {
     font-size: 1.2rem;
 }
 
+.lb-dashboard-modules-icon {
+    font-size: 4rem;
+}
+
 .lb-hr-dashboard {
     border-top: 1px solid #e8f5e9;
     width: 100%;
