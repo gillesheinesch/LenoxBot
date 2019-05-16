@@ -866,6 +866,13 @@ async function run() {
 								if (req.user.guilds[i].lenoxbot === true) {
 									req.user.guilds[i].memberscount = guild.memberCount;
 								}
+
+								if (guildconfs && guildconfs.settings.premium.status === true) {
+									req.user.guilds[i].premium = true;
+								} else {
+									req.user.guilds[i].premium = false;
+								}
+
 								check.push(req.user.guilds[i]);
 							}
 						} else if (((req.user.guilds[i].permissions) & 8) === 8) {
@@ -875,6 +882,12 @@ async function run() {
 								req.user.guilds[i].memberscount = guild.memberCount;
 							}
 
+							if (guildconfs && guildconfs.settings.premium.status === true) {
+								req.user.guilds[i].premium = true;
+							} else {
+								req.user.guilds[i].premium = false;
+							}
+
 							check.push(req.user.guilds[i]);
 						}
 					} else if (((req.user.guilds[i].permissions) & 8) === 8) {
@@ -882,6 +895,12 @@ async function run() {
 
 						if (req.user.guilds[i].lenoxbot === true) {
 							req.user.guilds[i].memberscount = guild.memberCount;
+						}
+
+						if (guildconfs && guildconfs.settings.premium.status === true) {
+							req.user.guilds[i].premium = true;
+						} else {
+							req.user.guilds[i].premium = false;
 						}
 
 						check.push(req.user.guilds[i]);
@@ -896,6 +915,7 @@ async function run() {
 			}
 			return res.redirect('nologin');
 		} catch (error) {
+			console.log(error)
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
