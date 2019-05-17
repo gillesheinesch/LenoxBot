@@ -10,10 +10,18 @@ exports.run = client => {
 
 	const users = [];
 	for (const discordUser of client.users.array()) {
-		const user = { id: discordUser.id, username: discordUser.username, discriminator: discordUser.discriminator, avatar: discordUser.avatar };
+		const user = {
+			id: discordUser.id,
+			username: discordUser.username,
+			discriminator: discordUser.discriminator,
+			avatar: discordUser.avatar
+		};
 		users.push(user);
 	}
-	const bulkMessage = { type: 'bulk', data: users };
+	const bulkMessage = {
+		type: 'bulk',
+		data: users
+	};
 	process.send(bulkMessage);
 
 	if (client.provider.isReady) {
@@ -295,57 +303,36 @@ exports.run = client => {
 				await client.provider.setBotsettings('botconfs', 'commands', commandsArray2);
 			}, 86400000);
 
-			/* if (client.shard.ids[0] === 0) {
-				const userData = {};
-				userData.loaded = false;
-				let userArray = [];
-				const arrayOfUsers = await client.provider.userSettings;
-				for (let i = 0; i < Object.keys(arrayOfUsers).length; i++) {
-					if (!isNaN(arrayOfUsers[key].credits)) {
-						await client.users.fetch(arrayOfUsers[key].userId).then(userResult => {
-							console.log(userResult);
-							const userCreditsSettings = {
-								userId: key.userId,
-								user: userResult ? userResult : arrayOfUsers[key].userId,
-								credits: Number(arrayOfUsers[key].credits)
-							};
-							if (Object.keys(arrayOfUsers[key])[0].userId !== 'global') {
-								userArray.push(userCreditsSettings);
-							}
-						});
+			// Creditsranklist leaderboard
+			let userInfo = [];
+			const userSettingsList = await client.provider.userSettings;
+			for (const key of userSettingsList) {
+				if (!isNaN(key[1].credits) && client.users.get(key[0])) {
+					const userResult = client.users.get(key[0]);
+					const userCreditsSettings = {
+						userId: key[0],
+						user: userResult ? userResult : key[0],
+						credits: Number(key[1].credits),
+						rank: 0
+					};
+					if (key[0] !== 'global') {
+						userInfo.push(userCreditsSettings);
 					}
 				}
-
-				userArray = userArray.sort((a, b) => {
-					if (a.credits < b.credits) {
-						return 1;
-					}
-					if (a.credits > b.credits) {
-						return -1;
-					}
-					return 0;
-				});
-
-				for (let i = 0; i < userArray.length; i++) {
-					await shardingManager.shards.get(0).eval(`
-					(async () => {
-						const user = await this.users.fetch("${arrayofUsers[i].userId}")
-						if (user) return user;
-					})();
-				`).then(userResult => {
-						if (userResult) {
-							userArray[i].user = userResult;
-						}
-						if (req.user) {
-							if (userArray[i].userId === req.user.id) {
-								userData.place = i + 1;
-								userData.credits = userArray[i].credits;
-								userData.loaded = true;
-							}
-						}
-					});
+			}
+			userInfo = userInfo.sort((a, b) => {
+				if (a.credits < b.credits) {
+					return 1;
 				}
-			}*/
+				if (a.credits > b.credits) {
+					return -1;
+				}
+				return 0;
+			});
+			for (let i = 0; i < userInfo.length; i++) {
+				userInfo[i].rank = (i + 1);
+			}
+			await client.provider.setBotsettings('botconfs', 'top100credits', userInfo);
 
 			const embed = new Discord.MessageEmbed()
 				.setTitle('Botrestart')
@@ -362,4 +349,3 @@ exports.run = client => {
 		});
 	}
 };
-

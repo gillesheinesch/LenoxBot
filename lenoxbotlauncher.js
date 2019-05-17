@@ -330,7 +330,7 @@ async function run() {
 		}
 	});
 
-	/* app.get('/leaderboards', async (req, res) => {
+	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
@@ -338,41 +338,9 @@ async function run() {
 			const userData = {};
 			userData.loaded = false;
 
-			let userArray = [];
-			const arrayofUsers = await userSettingsCollection.find().toArray();
-
-			for (let i = 0; i < arrayofUsers.length; i++) {
-				if (!isNaN(arrayofUsers[i].settings.credits)) {
-					const userCreditsSettings = {
-						userId: arrayofUsers[i].userId,
-						credits: Number(arrayofUsers[i].settings.credits)
-					};
-					if (arrayofUsers[i].userId !== 'global') {
-						userArray.push(userCreditsSettings);
-					}
-				}
-			}
-
-			userArray = userArray.sort((a, b) => {
-				if (a.credits < b.credits) {
-					return 1;
-				}
-				if (a.credits > b.credits) {
-					return -1;
-				}
-				return 0;
-			});
-
-			userArray = userArray.slice(0, 100);
-
-			let userResult;
+			const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+			const userArray = botconfs.settings.top100credits;
 			for (let i = 0; i < userArray.length; i++) {
-				await shardingManager.broadcastEval(`this.users.get("${userArray[i].userId}")`).then(userA => {
-					userResult = userA.find(u => u);
-				});
-				if (userResult) {
-					userArray[i].user = userResult;
-				}
 				if (req.user) {
 					if (userArray[i].userId === req.user.id) {
 						userData.place = i + 1;
@@ -384,7 +352,7 @@ async function run() {
 
 			return res.render('leaderboard', {
 				user: req.user,
-				credits: userArray,
+				credits: userArray.slice(0, 100),
 				userData: userData,
 				islenoxbot: islenoxbot,
 				islenoxbotnp: islenoxbotnp
@@ -398,7 +366,7 @@ async function run() {
 				}
 			}));
 		}
-	}); */
+	});
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
