@@ -85,7 +85,8 @@ module.exports = class userinfoCommand extends LenoxCommand {
 		}
 
 		const embed = new Discord.MessageEmbed()
-			.setAuthor(`${user.tag} (${user.id})`, user.displayAvatarURL())
+			.setURL(`https://lenoxbot.com/profile/${user.id}`)
+			.setTitle(`${user.tag} (${user.id})`, user.displayAvatarURL())
 			.setColor('#0066CC')
 			.setThumbnail(user.displayAvatarURL())
 			.setDescription(description)
