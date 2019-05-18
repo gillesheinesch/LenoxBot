@@ -1,4 +1,9 @@
 {
+    "currentjob_nojob": "You currently have no active job!",
+    "currentjob_embedtitle": "Current job: %title",
+    "currentjob_embeddescription": "**Remaining duration of the job:** %time",
+    "currentjob_description": "Allows you to see your current job",
+
     "joinrole_noinput": "You forgot to enter the name of the role you want to add to the list of the joinroles!",
     "joinrole_rolenotexist": "This role doesn't exist. Please check if you entered the right name of the role!",
     "joinrole_alreadyadded": "You have already added this role to the joinroles of this Discord server!",
