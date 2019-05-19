@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-12 mt-4">
 					<div class="alert alert-warning alert-dismissible fade show" role="alert">
-						<strong>Warning!</strong> If you cannot find your server in the list, log in again!
+						{{lang.website_servers_warning}}
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -49,18 +49,17 @@
 							{{/if}}
 							<hr>
 							{{#if lenoxbot}}
-							<p class="card-text">{{memberscount}} members</p>
+							<p class="card-text">{{memberscount}} {{lang.website_servers_members}}</p>
 							<div class="btn-group" role="group">
 								<a href="/dashboard/{{id}}/overview" class="btn lb-btn-green"><i
-										class="mdi mdi-chart-line"></i> Dashboard</a>
+										class="mdi mdi-chart-line"></i> {{lang.website_servers_dashboard}}</a>
 								<a href="/leaderboards/server/{{id}}" class="btn lb-btn-blue"><i
-										class="mdi mdi-trophy-award"></i> Leaderboards</a>
+										class="mdi mdi-trophy-award"></i> {{lang.website_servers_leaderboards}}</a>
 							</div>
 							{{else}}
-							<p class="card-text lb-text-red">Not using LenoxBot :(</p>
+							<p class="card-text lb-text-red">{{lang.website_servers_hasnotlenoxbot}}</p>
 							<a href="https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8&guild_id={{id}}"
-								class="btn lb-btn-invite" target="blanc"><i class="mdi mdi-discord"></i> Get
-								LenoxBot</a>
+								class="btn lb-btn-invite" target="blanc"><i class="mdi mdi-discord"></i> {{lang.website_servers_getlenoxbot}}</a>
 							{{/if}}
 						</div>
 					</div>
