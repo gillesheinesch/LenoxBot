@@ -1609,5 +1609,10 @@
     "roleupdateevent_newcolor": "New hexcolor",
     "roleupdateevent_positionupdated": "Roleposition updated!",
     "roleupdateevent_old": "Old position",
-    "roleupdateevent_new": "New position"
+    "roleupdateevent_new": "New position",
+
+    "webite_index_features": "Features",
+    "webite_index_commandscard": "Commands",
+    "webite_index_commandstext": "LenoxBot offers you a large number of commands so that you and your \nDiscordServer \nusers can have fun together!",
+    "webite_index_commandsfooter": "See commands list"
 }
