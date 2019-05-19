@@ -1,4 +1,3 @@
-// TODO !IMPORTANT! change playlist in the guildconfs to Object because the bot doesn't save it
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
 const config = require('../../settings.json');
