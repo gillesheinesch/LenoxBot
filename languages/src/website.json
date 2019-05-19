@@ -80,5 +80,16 @@
     "website_profile_inv": "Inventory",
     "website_profile_noitems": "No items",
     "website_profile_socialmedia": "Socialmedia",
-    "website_profile_nosocialmedia": "No social media accounts linked to this account"
+    "website_profile_nosocialmedia": "No social media accounts linked to this account",
+
+    "website_dashboard_members": "Members",
+    "website_dashboard_channels": "Channels",
+    "website_dashboard_roles": "Roles",
+    "website_dashboard_prefix": "Prefix",
+    "website_dashboard_lastlogs": "Last logs:",
+    "website_dashboard_action": "Action",
+    "website_dashboard_executor": "Executor",
+    "website_dashboard_date": "Date",
+    "website_dashboard_none": "None",
+    "website_dashboard_showall": "Show all"
 }

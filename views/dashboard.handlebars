@@ -12,40 +12,40 @@
 						<div class="card">
 							<div class="card-body text-center">
 								<h1 class="card-title mb-0">{{guilds.memberscount}}</h1>
-								<h5 class="text-muted font-weight-light">Members</h5>
+								<h5 class="text-muted font-weight-light">{{lang.website_dashboard_members}}</h5>
 
 							</div>
 						</div>
 						<div class="card">
 							<div class="card-body text-center">
 								<h1 class="card-title mb-0">{{guilds.channelscount}}</h1>
-								<h5 class="text-muted font-weight-light">Channels</h5>
+								<h5 class="text-muted font-weight-light">{{lang.website_dashboard_channels}}</h5>
 							</div>
 						</div>
 						<div class="card">
 							<div class="card-body text-center">
 								<h1 class="card-title mb-0">{{guilds.rolescount}}</h1>
-								<h5 class="text-muted font-weight-light">Roles</h5>
+								<h5 class="text-muted font-weight-light">{{lang.website_dashboard_roles}}</h5>
 							</div>
 						</div>
 						<div class="card">
 							<div class="card-body text-center">
 								<h1 class="card-title mb-0">{{guilds.prefix}}</h1>
-								<h5 class="text-muted font-weight-light">Prefix</h5>
+								<h5 class="text-muted font-weight-light">{{lang.website_dashboard_prefix}}</h5>
 							</div>
 						</div>
 					</div>
 					<div class="card my-3 shadow-sm">
 						<div class="card-header">
-							<h5>Last logs:</h5>
+							<h5>{{lang.website_dashboard_lastlogs}}</h5>
 						</div>
 						<div class="card-body">
 							<table class="table table-bordered table-responsive-sm table-striped">
 								<!-- Header of logs -->
 								<tr>
-									<th>Action</th>
-									<th>Executor</th>
-									<th>Date</th>
+									<th>{{lang.website_dashboard_action}}</th>
+									<th>{{lang.website_dashboard_executor}}</th>
+									<th>{{lang.website_dashboard_date}}</th>
 								</tr>
 								<!-- Header of logs -->
 								{{#if logs}} {{#each logs}}
@@ -56,14 +56,14 @@
 								</tr>
 								{{/each}} {{else}}
 								<tr>
-									<td>None</td>
-									<td>None</td>
-									<td>None</td>
+									<td>{{lang.website_dashboard_none}}</td>
+									<td>{{lang.website_dashboard_none}}</td>
+									<td>{{lang.website_dashboard_none}}</td>
 								</tr>
 								{{/if}}
 							</table>
 							<a href="/dashboard/{{guilds.id}}/lastlogs">
-								<button role="button" class="btn btn-lg lb-btn-green">Show all</button>
+								<button role="button" class="btn btn-lg lb-btn-green">{{lang.website_dashboard_showall}}</button>
 							</a>
 						</div>
 					</div>
