@@ -2762,7 +2762,7 @@ async function run() {
 					commands[i].cooldown = guildconfs.settings.commands[commands[i].name].cooldown / 1000;
 				}
 
-				const languages = [{
+				const languagesList = [{
 					name: 'english',
 					alias: 'en-US',
 					momentLanguage: 'en'
@@ -2980,7 +2980,7 @@ async function run() {
 					commanddeletionset: guildconfs.settings.commanddel === 'true' ? true : false,
 					chatfilterset: guildconfs.settings.chatfilter.chatfilter === 'true' ? true : false,
 					xpmesssagesset: guildconfs.settings.xpmessages === 'true' ? true : false,
-					languagesList: languages,
+					languagesList: languagesList,
 					chatfilterarray: guildconfs.settings.chatfilter ? guildconfs.settings.chatfilter.array.join(',') : '',
 					commands: commands,
 					permissions: permissions,
