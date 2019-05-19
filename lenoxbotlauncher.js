@@ -4,10 +4,9 @@ const chalk = require('chalk');
 const moment = require('moment');
 require('moment-duration-format');
 
-const shardingManager = new Discord.ShardingManager('./lenoxbot.js',
-	{
-		token: settings.token
-	});
+const shardingManager = new Discord.ShardingManager('./lenoxbot.js', {
+	token: settings.token
+});
 
 shardingManager.spawn().then(() => {
 	console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
@@ -23,6 +22,14 @@ async function run() {
 	const handlebars = require('express-handlebars');
 	const handlebarshelpers = require('handlebars-helpers')();
 
+	const i18n = require('i18n');
+	i18n.configure({
+		locales: ['en-US', 'de-DE', 'fr-FR', 'es-ES', 'de-CH'],
+		directory: `${__dirname}/languages`,
+		defaultLocale: 'en-US',
+		cookie: 'ulang'
+	});
+
 	const app = express();
 	const path = require('path');
 	const cookieParser = require('cookie-parser');
@@ -31,7 +38,9 @@ async function run() {
 	const mongodb = require('mongodb');
 
 	const mongoUrl = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT&authSource=admin`;
-	const dbClient = await mongodb.MongoClient.connect(mongoUrl, { useNewUrlParser: true });
+	const dbClient = await mongodb.MongoClient.connect(mongoUrl, {
+		useNewUrlParser: true
+	});
 	const db = dbClient.db('lenoxbot');
 	const guildSettingsCollection = db.collection('guildSettings');
 	const userSettingsCollection = db.collection('userSettings');
@@ -54,6 +63,8 @@ async function run() {
 	app.set('view engine', 'handlebars');
 
 	app.use(express.static('public'));
+
+	app.use(i18n.init);
 
 	passport.serializeUser((user, done) => {
 		done(null, user);
@@ -100,9 +111,9 @@ async function run() {
 
 	// Script executes function on shard
 	/** Executes a reload on the shards for synchronization
-		 * @argument type the type of reloadable element - "guild", "user" or "botsettings"
-		 * @argument id the id of the reloadable element, only usable on "guild" and "user"
-		 */
+	 * @argument type the type of reloadable element - "guild", "user" or "botsettings"
+	 * @argument id the id of the reloadable element, only usable on "guild" and "user"
+	 */
 
 	function islenoxboton(req) {
 		const islenoxbot = [];
@@ -199,6 +210,47 @@ async function run() {
 		}
 	}
 
+	function languages(req) {
+		const languagesList = [{
+			fileName: 'en-US',
+			name: 'English',
+			icon: 'us',
+			status: false
+		},
+		{
+			fileName: 'de-DE',
+			name: 'German',
+			icon: 'de',
+			status: false
+		},
+		{
+			fileName: 'fr-FR',
+			name: 'French',
+			icon: 'fr',
+			status: false
+		},
+		{
+			fileName: 'es-ES',
+			name: 'Spanish',
+			icon: 'es',
+			status: false
+		},
+		{
+			fileName: 'de-CH',
+			name: 'Swiss',
+			icon: 'ch',
+			status: false
+		}];
+
+		const currentLanguage = req.getLocale();
+		for (let i = 0; i < languagesList.length; i++) {
+			if (languagesList[i].fileName === currentLanguage) {
+				languagesList[i].status = true;
+			}
+		}
+		return languagesList;
+	}
+
 	app.get('/', async (req, res) => {
 		try {
 			const check = [];
@@ -212,9 +264,14 @@ async function run() {
 
 			const islenoxbot = islenoxboton(req);
 
-			const botConfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+			const botConfs = await botSettingsCollection.findOne({
+				botconfs: 'botconfs'
+			});
 
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('index', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				guilds: check,
 				islenoxbot: islenoxbot,
@@ -249,12 +306,33 @@ async function run() {
 		}
 	});
 
+	app.post('/submitnewwebsitelanguage', async (req, res) => {
+		try {
+			res.cookie('ulang', req.body.newlanguage, {
+				maxAge: 900000,
+				httpOnly: true
+			});
+			return res.redirect(req.get('referer'));
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
 	// Temp get for test dynamic pages in static mode
 
 	app.get('/test', (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('aatest', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				islenoxbot: islenoxbot
 			});
@@ -277,7 +355,10 @@ async function run() {
 
 	app.get('/policy', (req, res) => {
 		try {
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('policy', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user
 
 			});
@@ -294,7 +375,10 @@ async function run() {
 
 	app.get('/dataprotection', (req, res) => {
 		try {
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('dataprotection', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user
 
 			});
@@ -350,7 +434,10 @@ async function run() {
 				}
 			}
 
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('leaderboard', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				credits: userArray.slice(0, 100),
 				userData: userData,
@@ -371,7 +458,9 @@ async function run() {
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
 			const dashboardid = req.params.id;
-			const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+			const guildconfs = await guildSettingsCollection.findOne({
+				guildId: dashboardid
+			});
 
 			const userData = {};
 			userData.loaded = false;
@@ -428,7 +517,10 @@ async function run() {
 				}
 			}
 
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('leaderboard-guild', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				scores: scores.length === 0 ? null : scores,
 				guild: guild ? guild : null,
@@ -450,7 +542,9 @@ async function run() {
 	app.get('/profile/:id', async (req, res) => {
 		try {
 			const profileId = req.params.id;
-			const userconfs = await userSettingsCollection.findOne({ userId: profileId });
+			const userconfs = await userSettingsCollection.findOne({
+				userId: profileId
+			});
 			const profileUser = await shardingManager.shards.get(0).eval(`
 			(async () => {
 			const fetchedUser = await this.users.fetch("${profileId}")
@@ -554,9 +648,11 @@ async function run() {
 
 			const rowCredits = userconfs.settings.credits;
 
-			const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+			const botconfs = await botSettingsCollection.findOne({
+				botconfs: 'botconfs'
+			});
 			const marketconfs = botconfs.settings.market;
-			const lang = require('./languages/en-US.json');
+			const englishLang = require('./languages/en-US.json');
 			let check = 0;
 			const array1 = [];
 			// eslint-disable-next-line guard-for-in
@@ -568,7 +664,7 @@ async function run() {
 					const itemSettings = {
 						emoji: marketconfs[i][0],
 						amount: userconfs.settings.inventory[i],
-						name: lang[`loot_${i}`]
+						name: englishLang[`loot_${i}`]
 					};
 					array1.push(itemSettings);
 				}
@@ -578,8 +674,12 @@ async function run() {
 			for (const x in userconfs.settings.socialmedia) {
 				if (userconfs.settings.socialmedia[x] === '') socialmediaCheck++;
 			}
+
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			const islenoxbot = islenoxboton(req);
 			return res.render('profile', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				profileUser: profileUser,
 				userDescription: userconfs.settings.description.length === 0 ? null : userconfs.settings.description,
@@ -640,7 +740,9 @@ async function run() {
 				teamSettings.roleMembers = [];
 
 				evaledMembersFromRole.forEach(async member => {
-					const userconfs = await userSettingsCollection.findOne({ userId: member.userID });
+					const userconfs = await userSettingsCollection.findOne({
+						userId: member.userID
+					});
 					const evaledUser = await shardingManager.shards.get(guild.shardID).eval(`
 					(async () => {
 						const user = await this.users.fetch("${member.userID}")
@@ -668,7 +770,10 @@ async function run() {
 				team.push(teamSettings);
 			}
 
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('team', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				team: team,
 				islenoxbot: islenoxbot
@@ -686,7 +791,9 @@ async function run() {
 
 	app.get('/commands', async (req, res) => {
 		try {
-			const commandlist = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+			const commandlist = await botSettingsCollection.findOne({
+				botconfs: 'botconfs'
+			});
 			const newcommandlist = [];
 			// eslint-disable-next-line guard-for-in
 			for (const key in commandlist.settings.commands) {
@@ -696,7 +803,10 @@ async function run() {
 
 			const islenoxbot = islenoxboton(req);
 
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('commands', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				islenoxbot: islenoxbot,
 				commands: newcommandlist
@@ -723,7 +833,10 @@ async function run() {
 				}
 			}
 			const islenoxbot = islenoxboton(req);
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('donate', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				guilds: check,
 				islenoxbot: islenoxbot
@@ -742,7 +855,10 @@ async function run() {
 	app.get('/donationsuccess', (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('donationsuccess', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				islenoxbot: islenoxbot
 			});
@@ -776,7 +892,10 @@ async function run() {
 				}
 			}
 
+			const lang = require(`./languages/website_${req.getLocale()}`);
 			return res.render('oauth2problem', {
+				languages: languages(req),
+				lang: lang,
 				user: req.user,
 				guilds: check
 			});
@@ -798,7 +917,9 @@ async function run() {
 
 				for (let i = 0; i < req.user.guilds.length; i++) {
 					const dashboardid = req.user.guilds[i].id;
-					const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+					const guildconfs = await guildSettingsCollection.findOne({
+						guildId: dashboardid
+					});
 
 					let guild;
 					await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -816,7 +937,13 @@ async function run() {
 					if (guildconfs && guild) {
 						if (!guildconfs.settings.dashboardpermissionroles) {
 							guildconfs.settings.dashboardpermissionroles = [];
-							await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+							await guildSettingsCollection.updateOne({
+								guildId: dashboardid
+							}, {
+								$set: {
+									settings: guildconfs.settings
+								}
+							});
 						}
 
 						if (guildconfs.settings.dashboardpermissionroles.length !== 0 && guild.ownerID !== req.user.id) {
@@ -875,7 +1002,10 @@ async function run() {
 					}
 				}
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('servers', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot
@@ -883,7 +1013,6 @@ async function run() {
 			}
 			return res.redirect('nologin');
 		} catch (error) {
-			console.log(error);
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
@@ -897,7 +1026,9 @@ async function run() {
 	app.post('/tickets/:ticketid/submitticketanswer', async (req, res) => {
 		try {
 			if (req.user) {
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				if (botconfs.settings.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 				if (botconfs.settings.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
@@ -916,10 +1047,18 @@ async function run() {
 					timelineconf: ''
 				};
 
-				await botSettingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: botconfs.settings } });
+				await botSettingsCollection.updateOne({
+					botconfs: 'botconfs'
+				}, {
+					$set: {
+						settings: botconfs.settings
+					}
+				});
 				await reloadBotSettings();
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: ticket.guildid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: ticket.guildid
+				});
 
 				if (guildconfs && guildconfs.settings.tickets.status === true) {
 					const lang = require(`./languages/${guildconfs.settings.language}.json`);
@@ -977,7 +1116,9 @@ async function run() {
 	app.post('/tickets/:ticketid/submitnewticketstatus', async (req, res) => {
 		try {
 			if (req.user) {
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 				if (botconfs.settings.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 				if (botconfs.settings.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 				if (botconfs.settings.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
@@ -1010,7 +1151,13 @@ async function run() {
 					};
 				}
 
-				await botSettingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: botconfs.settings } });
+				await botSettingsCollection.updateOne({
+					botconfs: 'botconfs'
+				}, {
+					$set: {
+						settings: botconfs.settings
+					}
+				});
 				await reloadBotSettings();
 
 				return res.redirect(url.format({
@@ -1035,7 +1182,9 @@ async function run() {
 	app.get('/tickets/:ticketid/overview', async (req, res) => {
 		try {
 			if (req.user) {
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 				if (botconfs.settings.tickets[req.params.ticketid] === 'undefined') return res.redirect('../error');
 				if (botconfs.settings.tickets[req.params.ticketid].authorid !== req.user.id) return res.redirect('../error');
 
@@ -1093,8 +1242,10 @@ async function run() {
 						return 0;
 					});
 				}
-
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('ticket', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					islenoxbot: islenoxbot,
 					ticket: ticket,
@@ -1189,7 +1340,9 @@ async function run() {
 				}
 				*/
 
-				guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				let check;
@@ -1247,8 +1400,10 @@ async function run() {
 						}
 
 						const islenoxbot = islenoxboton(req);
-
+						const lang = require(`./languages/website_${req.getLocale()}`);
 						return res.render('dashboard', {
+							languages: languages(req),
+							lang: lang,
 							user: req.user,
 							guilds: check,
 							islenoxbot: islenoxbot,
@@ -1282,7 +1437,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1310,7 +1467,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1345,7 +1508,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1380,7 +1545,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1415,7 +1586,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1449,7 +1622,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1484,7 +1663,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1506,7 +1687,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1541,7 +1728,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1563,7 +1752,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1598,7 +1793,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1620,7 +1817,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
         if (this.guilds.get("${dashboardid}")) {
@@ -1662,7 +1865,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1685,7 +1890,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1720,7 +1931,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1742,7 +1955,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1777,7 +1996,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1799,7 +2020,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1834,7 +2061,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1856,7 +2085,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1891,7 +2126,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1913,7 +2150,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -1949,7 +2192,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -1979,7 +2224,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2014,7 +2265,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2041,7 +2294,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2076,7 +2335,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2103,7 +2364,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2138,7 +2405,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2166,7 +2435,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2201,7 +2476,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2221,7 +2498,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2256,7 +2539,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2276,7 +2561,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2311,7 +2602,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2350,7 +2643,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2385,8 +2684,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2662,7 +2965,10 @@ async function run() {
 					}
 				}
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardadministration', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					channels: channels,
@@ -2674,7 +2980,7 @@ async function run() {
 					commanddeletionset: guildconfs.settings.commanddel === 'true' ? true : false,
 					chatfilterset: guildconfs.settings.chatfilter.chatfilter === 'true' ? true : false,
 					xpmesssagesset: guildconfs.settings.xpmessages === 'true' ? true : false,
-					languages: languages,
+					languagesList: languages,
 					chatfilterarray: guildconfs.settings.chatfilter ? guildconfs.settings.chatfilter.array.join(',') : '',
 					commands: commands,
 					permissions: permissions,
@@ -2706,7 +3012,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2719,12 +3027,24 @@ async function run() {
 
 				if (!guildconfs.settings.muteanonymous) {
 					guildconfs.settings.muteanonymous = 'false';
-					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+					await guildSettingsCollection.updateOne({
+						guildId: dashboardid
+					}, {
+						$set: {
+							settings: guildconfs.settings
+						}
+					});
 				}
 
 				if (!guildconfs.settings.tempbananonymous) {
 					guildconfs.settings.tempbananonymous = 'false';
-					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+					await guildSettingsCollection.updateOne({
+						guildId: dashboardid
+					}, {
+						$set: {
+							settings: guildconfs.settings
+						}
+					});
 				}
 
 				guildconfs.settings.tempbananonymous = req.body.newtempbananonymous;
@@ -2736,7 +3056,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2771,7 +3097,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2784,12 +3112,24 @@ async function run() {
 
 				if (!guildconfs.settings.muteanonymous) {
 					guildconfs.settings.muteanonymous = 'false';
-					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+					await guildSettingsCollection.updateOne({
+						guildId: dashboardid
+					}, {
+						$set: {
+							settings: guildconfs.settings
+						}
+					});
 				}
 
 				if (!guildconfs.settings.tempbananonymous) {
 					guildconfs.settings.tempbananonymous = 'false';
-					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+					await guildSettingsCollection.updateOne({
+						guildId: dashboardid
+					}, {
+						$set: {
+							settings: guildconfs.settings
+						}
+					});
 				}
 
 				guildconfs.settings.muteanonymous = req.body.newmuteanonymous;
@@ -2801,7 +3141,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -2836,8 +3182,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2880,17 +3230,31 @@ async function run() {
 
 				if (!guildconfs.settings.muteanonymous) {
 					guildconfs.settings.muteanonymous = 'false';
-					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+					await guildSettingsCollection.updateOne({
+						guildId: dashboardid
+					}, {
+						$set: {
+							settings: guildconfs.settings
+						}
+					});
 				}
 
 				if (!guildconfs.settings.tempbananonymous) {
 					guildconfs.settings.tempbananonymous = 'false';
-					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+					await guildSettingsCollection.updateOne({
+						guildId: dashboardid
+					}, {
+						$set: {
+							settings: guildconfs.settings
+						}
+					});
 				}
 
 				const islenoxbot = islenoxboton(req);
-
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardmoderation', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					muteanonymous: guildconfs.settings.muteanonymous === 'true' ? true : false,
 					tempbananonymous: guildconfs.settings.tempbananonymous === 'true' ? true : false,
@@ -2927,8 +3291,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -2970,7 +3338,10 @@ async function run() {
 				const roles = guild.roles.filter(r => r.name !== '@everyone');
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardhelp', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -3005,7 +3376,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3039,7 +3412,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -3141,8 +3520,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3206,7 +3589,10 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardmusic', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -3246,8 +3632,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3289,7 +3679,10 @@ async function run() {
 				const roles = guild.roles.filter(r => r.name !== '@everyone');
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardfun', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -3324,8 +3717,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3367,7 +3764,10 @@ async function run() {
 				const roles = guild.roles.filter(r => r.name !== '@everyone');
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardsearches', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -3402,8 +3802,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3445,7 +3849,10 @@ async function run() {
 				const roles = guild.roles.filter(r => r.name !== '@everyone');
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardnsfw', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -3480,7 +3887,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3534,7 +3943,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -3569,8 +3984,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3612,7 +4031,10 @@ async function run() {
 				const roles = guild.roles.filter(r => r.name !== '@everyone');
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardutility', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -3647,7 +4069,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3668,7 +4092,13 @@ async function run() {
 
 				delete guildconfs.settings.application.applications[req.params.applicationid];
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -3703,7 +4133,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3776,7 +4208,13 @@ async function run() {
 					'undefined';
 				}
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -3811,7 +4249,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3852,7 +4292,10 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('application', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -3888,7 +4331,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3933,7 +4378,10 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardapplications', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -3968,7 +4416,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -3990,7 +4440,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -4025,7 +4481,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4047,7 +4505,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -4082,7 +4546,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4107,7 +4573,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -4142,7 +4614,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4167,7 +4641,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -4202,7 +4682,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4224,7 +4706,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -4259,7 +4747,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4281,7 +4771,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -4316,8 +4812,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4384,7 +4884,10 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardapplication', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -4419,8 +4922,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4462,7 +4969,10 @@ async function run() {
 				const roles = guild.roles.filter(r => r.name !== '@everyone');
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardcurrency', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -4497,8 +5007,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4531,7 +5045,13 @@ async function run() {
 					timelineconf: 'timeline-inverted'
 				};
 
-				await botSettingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: botconfs.settings } });
+				await botSettingsCollection.updateOne({
+					botconfs: 'botconfs'
+				}, {
+					$set: {
+						settings: botconfs.settings
+					}
+				});
 				await reloadBotSettings(guild);
 
 				try {
@@ -4582,8 +5102,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4628,7 +5152,13 @@ async function run() {
 					};
 				}
 
-				await botSettingsCollection.updateOne({ botconfs: 'botconfs' }, { $set: { settings: botconfs.settings } });
+				await botSettingsCollection.updateOne({
+					botconfs: 'botconfs'
+				}, {
+					$set: {
+						settings: botconfs.settings
+					}
+				});
 				await reloadBotSettings(guild);
 
 				try {
@@ -4679,8 +5209,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4754,7 +5288,10 @@ async function run() {
 					});
 				}
 
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardticket', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -4788,8 +5325,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4863,7 +5404,10 @@ async function run() {
 				const roles = guild.roles.filter(r => r.name !== '@everyone');
 
 				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardtickets', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -4902,7 +5446,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4926,7 +5472,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -4961,7 +5513,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -4985,7 +5539,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -5020,7 +5580,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -5051,7 +5613,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -5086,7 +5654,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -5135,7 +5705,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -5170,8 +5746,12 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
-				const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
+				const botconfs = await botSettingsCollection.findOne({
+					botconfs: 'botconfs'
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -5211,7 +5791,13 @@ async function run() {
 
 				if (!guildconfs.settings.customcommands) {
 					guildconfs.settings.customcommands = [];
-					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+					await guildSettingsCollection.updateOne({
+						guildId: dashboardid
+					}, {
+						$set: {
+							settings: guildconfs.settings
+						}
+					});
 				}
 
 				const customcommands = guildconfs.settings.customcommands;
@@ -5233,8 +5819,10 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
-
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardcustomcommands', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -5271,7 +5859,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -5295,7 +5885,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -5330,7 +5926,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -5376,8 +5974,10 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
-
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardmodules', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -5410,7 +6010,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -5443,8 +6045,10 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
-
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardlastlogs', {
+					languages: languages(req),
+					lang: lang,
 					user: req.user,
 					guilds: check,
 					islenoxbot: islenoxbot,
@@ -5489,6 +6093,7 @@ async function run() {
 
 		res.status(404)
 			.render('error', {
+				languages: languages(req),
 				user: req.user,
 				guilds: check,
 				islenoxbot: islenoxbot,
@@ -5513,7 +6118,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -5536,7 +6143,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -5572,7 +6185,9 @@ async function run() {
 
 				if (index === -1) return res.redirect('/servers');
 
-				const guildconfs = await guildSettingsCollection.findOne({ guildId: dashboardid });
+				const guildconfs = await guildSettingsCollection.findOne({
+					guildId: dashboardid
+				});
 
 				let guild;
 				await shardingManager.broadcastEval(`this.guilds.get("${dashboardid}")`)
@@ -5644,7 +6259,13 @@ async function run() {
 					showeddate: new Date().toUTCString()
 				});
 
-				await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });
+				await guildSettingsCollection.updateOne({
+					guildId: dashboardid
+				}, {
+					$set: {
+						settings: guildconfs.settings
+					}
+				});
 				await reloadGuild(guild, dashboardid);
 
 				return res.redirect(url.format({
@@ -5708,9 +6329,17 @@ async function run() {
 				'undefined';
 			}
 
-			const userconfs = await userSettingsCollection.findOne({ userId: userId });
+			const userconfs = await userSettingsCollection.findOne({
+				userId: userId
+			});
 			userconfs.settings.credits += credits;
-			await userSettingsCollection.updateOne({ userId: userId }, { $set: { settings: userconfs.settings } });
+			await userSettingsCollection.updateOne({
+				userId: userId
+			}, {
+				$set: {
+					settings: userconfs.settings
+				}
+			});
 
 			await reloadUser(userId);
 
