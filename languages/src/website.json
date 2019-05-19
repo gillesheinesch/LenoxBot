@@ -68,5 +68,17 @@
     "website_servers_getlenoxbot": "Get LenoxBot",
     "website_servers_hasnotlenoxbot": "Not using LenoxBot (yet) :(",
     "website_servers_dashboard": "Dashboard",
-    "website_servers_leaderboards": "Leaderboards"
+    "website_servers_leaderboards": "Leaderboards",
+
+    "website_profile_stats": "Stats",
+    "website_profile_credits": "CREDITS",
+    "website_profile_rank": "GLOBAL RANK",
+    "website_profile_badges": "Badges",
+    "website_profile_nobadges": "No badges",
+    "website_profile_titles": "Titles",
+    "website_profile_notitles": "No titles",
+    "website_profile_inv": "Inventory",
+    "website_profile_noitems": "No items",
+    "website_profile_socialmedia": "Socialmedia",
+    "website_profile_nosocialmedia": "No social media accounts linked to this account"
 }
