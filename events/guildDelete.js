@@ -1,7 +1,6 @@
 const Discord = require('discord.js');
 exports.run = async (client, guild) => {
 	if (!client.provider.isReady) return;
-	console.log(`${guild} kicked LenoxBot!`);
 
 	const embed = new Discord.MessageEmbed()
 		.setTimestamp()
