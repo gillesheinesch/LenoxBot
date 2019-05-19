@@ -63,7 +63,8 @@
     "website_commands_aliases": "Aliases",
     "website_commands_cmdnotfound": "Command not found",
 
-    "website_servers_warning": "Warning! If you cannot find your server in the list, log in again!",
+    "website_servers_warning": "**Warning!** If you cannot find your server in the list, log in again!",
+    "website_servers_members": "members",
     "website_servers_getlenoxbot": "Get LenoxBot",
     "website_servers_hasnotlenoxbot": "Not using LenoxBot (yet) :(",
     "website_servers_dashboard": "Dashboard",
