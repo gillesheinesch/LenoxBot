@@ -333,7 +333,6 @@ exports.run = client => {
 				userInfo[i].rank = (i + 1);
 			}
 			await client.provider.setBotsettings('botconfs', 'top100credits', userInfo);*/
-			await client.provider.setBotsettings('botconfs', 'top100credits', []);
 
 			const embed = new Discord.MessageEmbed()
 				.setTitle('Botrestart')
