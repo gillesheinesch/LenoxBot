@@ -105,7 +105,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
 					let first = 0;
 					let second = 5;
 
-					const collector = message.createReactionCollector((reaction, user) => user.id === msg.author.id, {
+					const collector = message.createReactionCollector((reaction, user1) => user1.id === msg.author.id, {
 						time: 60000
 					});
 					collector.on('collect', r => {
