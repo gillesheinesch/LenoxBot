@@ -1,4 +1,8 @@
 {
+    "website_global_activated": "Activated",
+    "website_global_deactivated": "Deactivated",
+    "website_global_save": "Save",
+
     "website_navigation_home": "Home",
     "website_navigation_commands": "Commands",
     "website_navigation_documentation": "Documentation",
@@ -91,5 +95,29 @@
     "website_dashboard_executor": "Executor",
     "website_dashboard_date": "Date",
     "website_dashboard_none": "None",
-    "website_dashboard_showall": "Show all"
+    "website_dashboard_showall": "Show all",
+
+    "website_dashboardadministration_generalsettings": "General Settings",
+    "website_dashboardadministration_prefix": "Prefix:",
+    "website_dashboardadministration_language": "Language:",
+    "website_dashboardadministration_cmddeletion": "Commanddeletion:",
+    "website_dashboardadministration_muterole": "Muterole:",
+    "website_dashboardadministration_none": "None",
+    "website_dashboardadministration_xpmsg": "Toggle XP Messages:",
+    "website_dashboardadministration_channelsxpmsg": "Channels where XP doesn't count:",
+    "website_dashboardadministration_sar": "Self assignable roles:",
+    "website_dashboardadministration_toggleannounce": "Toggle announce:",
+    "website_dashboardadministration_permdashboard": "Permissions Dashboard:",
+    "website_dashboardadministration_permticket": "Permissions Tickets Panel:",
+    "website_dashboardadministration_permapplication": "Permission Applications Panel:",
+    "website_dashboardadministration_logs": "Logs",
+    "website_dashboardadministration_welcomesettings": "Welcome Settings",
+    "website_dashboardadministration_welcome": "Welcome:",
+    "website_dashboardadministration_setnewwelcome": "Set a new welcome message:",
+    "website_dashboardadministration_showmsgoptions": "Show all message options",
+    "website_dashboardadministration_byesettings": "Bye Settings",
+    "website_dashboardadministration_bye": "Bye:",
+    "website_dashboardadministration_setnewbye": "Set a new bye message:",
+    "website_dashboardadministration_chatfilter": "Chatfilter",
+    "website_dashboardadministration_chatfilterinfo": "Update chatfilter entries (Each entry must be separated by a comma):"
 }
