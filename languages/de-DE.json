@@ -1,4 +1,8 @@
 {
+    "currentjob_nojob": "Du hast zurzeit keinen aktiven Job!",
+    "currentjob_embedtitle": "Aktueller Job: %title",
+    "currentjob_embeddescription": "**Verbleibende Dauer des Jobs:** %time",
+    "currentjob_description": "Ermöglicht dir, deinen aktuellen Job zu sehen",
     "joinrole_noinput": "Du hast vergessen den Namen der Rolle, die du zu der Liste der Beitrittsrollen hinzufügen wolltest, anzugeben!",
     "joinrole_rolenotexist": "Diese Rolle existiert nicht. Bitte überprüfe, ob du den korrekten Namen der Rolle angegeben hast!",
     "joinrole_alreadyadded": "Du hast diese Rolle bereits zu den Beitrittsrollen dieses Discord-Servers hinzugefügt!",
@@ -1250,7 +1254,7 @@
     "rank_points": "Punkte",
     "rank_level": "Level",
     "rank_rank": "Rang",
-    "rank_noleaderboard": "This user has no leaderboard yet!",
+    "rank_noleaderboard": "Dieser Benutzer hat derzeit keine Rangliste!",
     "rank_description": "Zeigt dir die Punkte von dir, oder einem anderen Benutzer an",
     "ranks_message": "Sieh dir die Rangliste von %guildname an: https://lenoxbot.com/leaderboards/server/%id\"",
     "ranks_description": "Gibt dir den Link für die Rangliste",
@@ -1287,7 +1291,7 @@
     "punishments_unban": "%id ✅Entbannt von %moderator am %date",
     "punishments_unmute": "%id 🔉Entmutet von %moderator am %date",
     "punishments_mute": "%id 🔇Gemutet für %mutetime von %moderator am %date",
-    "punishments_temporaryban": "%id ❌Temporarily banned for %bantime by %moderator on %date",
+    "punishments_temporaryban": "%id ❌Temporär gebannt für %bantime von %moderator am %date",
     "punishments_reason": "**Grund:** %reason",
     "punishments_notpunished": "Du oder der markierte Benutzer wurden bisher nicht bestraft.",
     "punishments_noreportid": "You forgot to enter the ID of the punishment that you want to delete!",
@@ -1413,5 +1417,9 @@
     "roleupdateevent_newcolor": "Neue Hex-Farbe",
     "roleupdateevent_positionupdated": "Rollenposition aktualisiert!",
     "roleupdateevent_old": "Alte Position",
-    "roleupdateevent_new": "Neue Position"
+    "roleupdateevent_new": "Neue Position",
+    "webite_index_features": "Features",
+    "webite_index_commandscard": "Commands",
+    "webite_index_commandstext": "LenoxBot offers you a large number of commands so that you and your \nDiscordServer \nusers can have fun together!",
+    "webite_index_commandsfooter": "See commands list"
 }
