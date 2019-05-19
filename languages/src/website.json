@@ -13,7 +13,7 @@
     "website_navigation_servers": "My servers",
     "website_navigation_dashboards": "Dashboards:",
     "website_navigation_logout": "Log out",
-    "website_navigation_login": "Login",
+    "website_navigation_login": "Log in",
 
     "website_home_title": "LenoxBot offers many cool new features to your Discord server!",
     "website_home_title_invite": "Invite me to your server",
@@ -67,7 +67,7 @@
     "website_commands_aliases": "Aliases",
     "website_commands_cmdnotfound": "Command not found",
 
-    "website_servers_warning": "**Warning!** If you cannot find your server in the list, log in again!",
+    "website_servers_warning": "Please note: if you cannot find your server in the list, log in again!",
     "website_servers_members": "members",
     "website_servers_getlenoxbot": "Get LenoxBot",
     "website_servers_hasnotlenoxbot": "Not using LenoxBot (yet) :(",
@@ -93,7 +93,7 @@
     "website_dashboard_lastlogs": "Last logs:",
     "website_dashboard_action": "Action",
     "website_dashboard_executor": "Executor",
-    "website_dashboard_date": "Date",
+    "website_dashboard_date": "Time",
     "website_dashboard_none": "None",
     "website_dashboard_showall": "Show all",
 
@@ -101,7 +101,7 @@
     "website_dashboardadministration_prefix": "Prefix:",
     "website_dashboardadministration_language": "Language:",
     "website_dashboardadministration_cmddeletion": "Commanddeletion:",
-    "website_dashboardadministration_muterole": "Muterole:",
+    "website_dashboardadministration_muterole": "Mute role:",
     "website_dashboardadministration_none": "None",
     "website_dashboardadministration_xpmsg": "Toggle XP Messages:",
     "website_dashboardadministration_channelsxpmsg": "Channels where XP doesn't count:",
@@ -119,5 +119,5 @@
     "website_dashboardadministration_bye": "Bye:",
     "website_dashboardadministration_setnewbye": "Set a new bye message:",
     "website_dashboardadministration_chatfilter": "Chatfilter",
-    "website_dashboardadministration_chatfilterinfo": "Update chatfilter entries (Each entry must be separated by a comma):"
+    "website_dashboardadministration_chatfilterinfo": "Update chatfilter entries (separate entries with a comma):"
 }
