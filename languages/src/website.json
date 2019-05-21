@@ -2,6 +2,8 @@
     "website_global_activated": "Activated",
     "website_global_deactivated": "Deactivated",
     "website_global_save": "Save",
+    "website_global_send": "Send",
+    "website_global_close": "Close",
 
     "website_navigation_home": "Home",
     "website_navigation_commands": "Commands",
@@ -119,5 +121,11 @@
     "website_dashboardadministration_bye": "Bye:",
     "website_dashboardadministration_setnewbye": "Set a new bye message:",
     "website_dashboardadministration_chatfilter": "Chatfilter",
-    "website_dashboardadministration_chatfilterinfo": "Update chatfilter entries (separate entries with a comma):"
+    "website_dashboardadministration_chatfilterinfo": "Update chatfilter entries (separate entries with a comma):",
+
+    "website_team_team": "LenoxBot Team",
+
+    "website_ticket_ticket": "Ticket",
+    "website_ticket_status": "Status:",
+    "website_ticket_answer": "Answer"
 }
