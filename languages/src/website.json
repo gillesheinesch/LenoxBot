@@ -4,6 +4,7 @@
     "website_global_save": "Save",
     "website_global_send": "Send",
     "website_global_close": "Close",
+    "website_global_back": "Back",
 
     "website_navigation_home": "Home",
     "website_navigation_commands": "Commands",
@@ -127,5 +128,26 @@
 
     "website_ticket_ticket": "Ticket",
     "website_ticket_status": "Status:",
-    "website_ticket_answer": "Answer"
+    "website_ticket_answer": "Answer",
+
+    "website_error_error": "Error",
+    "website_error_fix": "How to fix?",
+
+    "website_donationsuccess_thanks": "Thank you so much for your donation!",
+    "website_donationsuccess_thanks2": "We really appreciate your support! We hope you will have fun with your premium features!",
+
+    "website_dashboardutility_embed": "Send an embed",
+    "website_dashboardutility_selectchannel": "Select a textchannel in which to send the embed:",
+    "website_dashboardutility_title": "Title:",
+    "website_dashboardutility_link": "Link:",
+    "website_dashboardutility_color": "Color:",
+    "website_dashboardutility_thumbnail": "Thumbnail URL:",
+    "website_dashboardutility_description": "Description:",
+    "website_dashboardutility_footer": "Footer:",
+    "website_dashboardutility_timestamp": "Timestamp",
+
+    "website_dashboardtickets_allopen": "All opened tickets",
+    "website_dashboardtickets_noopen": "No opened tickets!",
+    "website_dashboardtickets_allclose": "All closed tickets",
+    "website_dashboardtickets_noclose": "No closed tickets!"
 }
