@@ -4271,6 +4271,7 @@ async function run() {
 
 				const check = req.user.guilds[index];
 
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				// eslint-disable-next-line guard-for-in
 				for (const index2 in guildconfs.settings.application.applications) {
 					const author = await shardingManager.shards.get(guild.shardID).eval(`
@@ -4283,6 +4284,7 @@ async function run() {
 `);
 					guildconfs.settings.application.applications[index2].author = author ? author.tag : guildconfs.settings.application.applications[index2].authorid;
 					guildconfs.settings.application.applications[index2].newdate = moment(guildconfs.settings.application.applications[index2].date).format('MMMM Do YYYY, h:mm:ss a');
+					guildconfs.settings.application.applications[index2].website_application_info = lang.website_application_info.replace('%author', author ? author.tag : guildconfs.settings.application.applications[index2].authorid).replace('%date', moment(guildconfs.settings.application.applications[index2].date).format('MMMM Do YYYY, h:mm:ss a'));
 				}
 
 				let votecheck = true;
@@ -4291,7 +4293,7 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
-				const lang = require(`./languages/website_${req.getLocale()}`);
+
 				return res.render('application', {
 					languages: languages(req),
 					lang: lang,
@@ -5800,7 +5802,7 @@ async function run() {
 				}
 
 				const customcommands = guildconfs.settings.customcommands;
-
+				const lang = require(`./languages/website_${req.getLocale()}`);
 				for (let index2 = 0; index2 < guildconfs.settings.customcommands.length; index2++) {
 					const author = await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
@@ -5810,15 +5812,14 @@ async function run() {
 		}
     })();
 `);
-					if (author) {
-						customcommands[index2].newcreator = author.tag;
-					}
-					customcommands[index2].newcommandCreatedAt = new Date(guildconfs.settings.customcommands[index2].commandCreatedAt).toUTCString();
 					customcommands[index2].newstatus = guildconfs.settings.customcommands[index2].enabled === 'true' ? true : false;
+
+					customcommands[index2].website_dashboardcustomcommands_settings = lang.website_dashboardcustomcommands_settings.replace('%cmdname', customcommands[index2].name);
+					customcommands[index2].website_dashboardcustomcommands_suretodelete = lang.website_dashboardcustomcommands_suretodelete.replace('%name', customcommands[index2].name);
+					customcommands[index2].website_dashboardcustomcommands_created = lang.website_dashboardcustomcommands_created.replace('%creator', author ? author.tag : 'undefined').replace('%createdate', new Date(guildconfs.settings.customcommands[index2].commandCreatedAt).toUTCString());
 				}
 
 				const islenoxbot = islenoxboton(req);
-				const lang = require(`./languages/website_${req.getLocale()}`);
 				return res.render('dashboardcustomcommands', {
 					languages: languages(req),
 					lang: lang,
@@ -5958,7 +5959,7 @@ async function run() {
 
 					config.name = moduleslist[i];
 
-					const lang = require('./languages/en-US.json');
+					const lang = require(`./languages/${req.getLocale()}.json`);
 					config.description = lang[`modules_${moduleslist[i].toLowerCase()}`];
 
 					if (guildconfs.settings.modules[moduleslist[i].toLowerCase()] === 'true') {
