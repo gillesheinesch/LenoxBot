@@ -14,7 +14,7 @@
 				<div class="lb-bg-white rounded p-3">
 					<div class="card shadow-sm">
 						<div class="card-header">
-							<p class="h5">All logs:</p>
+							<p class="h5">{{lang.website_dashboardlastlogs_alllogs}}</p>
 						</div>
 						<div class="card-body">
 							<div class="form-group">
@@ -24,9 +24,9 @@
 								<!-- Header of logs -->
 								<thead>
 									<tr>
-										<th>Action</th>
-										<th>Executor</th>
-										<th>Date</th>
+										<th>{{lang.website_dashboard_action}}</th>
+										<th>{{lang.website_dashboard_executor}}</th>
+										<th>{{lang.website_dashboard_date}}</th>
 									</tr>
 								</thead>
 								<!-- Body of logs -->
@@ -39,9 +39,9 @@
 									</tr>
 									{{/each}} {{else}}
 									<tr>
-										<td>None</td>
-										<td>None</td>
-										<td>None</td>
+										<td>{{lang.website_dashboard_none}}</td>
+										<td>{{lang.website_dashboard_none}}</td>
+										<td>{{lang.website_dashboard_none}}</td>
 									</tr>
 									{{/if}}
 								</tbody>

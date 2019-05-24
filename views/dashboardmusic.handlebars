@@ -12,10 +12,10 @@
                     {{#if musiccurrentlyplaying}}
                     <div class="card shadow-sm">
                         <div class="card-header">
-                            <p class="h5">Music Player</p>
+                            <p class="h5">{{lang.website_dashboardmusic_musicplayer}}</p>
                         </div>
                         <div class="card-body">
-                            <p>Currently playing:
+                            <p>{{lang.website_dashboardmusic_currentmusic}}
                                 <strong>{{song}}</strong>
                             </p>
                             <div class="btn-group" role="group" aria-label="musicinteraction">
@@ -48,13 +48,12 @@
                         <div class="card shadow-sm">
                             {{/if}}
                             <div class="card-header">
-                                <p class="h5">Music Channelblacklist</p>
+                                <p class="h5">{{lang.website_dashboardmusic_musicblacklist}}</p>
                             </div>
                             <div class="card-body">
                                 <form class="form-vertical" name="submitchannelblacklist">
                                     <div class="form-group">
-                                        <label class="control-label col-sm" for="newchannelblacklist">Set channels
-                                            where LenoxBot doesn't play music:</label>
+                                        <label class="control-label col-sm" for="newchannelblacklist">{{lang.website_dashboardmusic_musicblacklistinfo}}</label>
                                         <div class="col-sm-4">
                                             <select required
                                                 class="form-control custom-select custom-select-lg mb-3 selectpicker"
@@ -71,7 +70,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-offset-3 col-sm-10">
                                             <button type="submit" class="btn lb-btn-green"
-                                                id="submitchannelblacklist">Save</button>
+                                                id="submitchannelblacklist">{{lang.website_global_save}}</button>
                                         </div>
                                     </div>
                                 </form>
@@ -80,7 +79,7 @@
                         {{#if discordServerPremium}}
                         <div class="card mt-3 shadow-sm">
                             <div class="card-header">
-                                <p class="h5">Playlists</p>
+                                <p class="h5">{{lang.website_dashboardmusic_playlists}}</p>
                             </div>
                             <div class="card-body">
                                 {{#each discordServerPlaylists}}

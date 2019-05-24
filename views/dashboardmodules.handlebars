@@ -24,15 +24,13 @@
                                             <a href="/dashboard/{{guilds.id}}/administration">
                                                 <h5 class="card-title">Administration</h5>
                                             </a>
-                                            <p class="card-text">Commands to set up the entire Discord server and
-                                                customize
-                                                special bot features</p>
+                                            <p class="card-text">{{lang.website_dashboardmodules_administration}}s</p>
                                         </div>
                                         <div class="card-footer lb-card-footer pb-3">
                                             <div class="btn-group" role="group" aria-label="Status">
                                                 <button type="submit" class="btn lb-btn-green disabled" value="false"
                                                     name="newmodulestatus">
-                                                    Always enabled
+                                                    {{lang.website_dashboardmodules_alwaysenabled}}
                                                 </button>
                                             </div>
 
@@ -62,7 +60,7 @@
                                                 </form>
                                                 <button type="submit" class="btn lb-btn-red align-text-bottom"
                                                     id="{{name}}b">
-                                                    Disable
+                                                    {{lang.website_global_disable}}
                                                 </button>
                                             </div>
                                             {{else}}
@@ -72,7 +70,7 @@
                                                         name="{{name}}">
                                                 </form>
                                                 <button type="submit" class="btn lb-btn-green" id="{{name}}b">
-                                                    Enable
+                                                    {{lang.website_global_enable}}
                                                 </button>
                                             </div>
                                             {{/if}}
