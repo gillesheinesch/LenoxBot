@@ -309,7 +309,6 @@ async function run() {
 	app.post('/submitnewwebsitelanguage', async (req, res) => {
 		try {
 			res.cookie('ulang', req.body.newlanguage, {
-				maxAge: 900000,
 				httpOnly: true
 			});
 			return res.redirect(req.get('referer'));
