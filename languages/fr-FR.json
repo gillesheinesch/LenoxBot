@@ -1297,7 +1297,7 @@
     "punishments_noreportid": "Tu as oublié de saisir l'ID de la punition que tu voulais effacer !",
     "punishments_nonumber": "Ton ID punition doit être un numéro !",
     "punishments_punishmentremoved": "La punition a été effacée avec succès !",
-    "punishments_nopunishmentwithid": "We're sorry... We couldn't find a punishment with this ID, please check again if you entered the correct punishment ID!",
+    "punishments_nopunishmentwithid": "Désolé... Nous n'avons pas pu trouver de punition avec cet ID, merci de revérifier si tu as saisi l'ID punition correcte !",
     "punishments_description": "Affiche les punitions d'un utilisateur",
     "serverwarns_error": "Aucun utilisateur n'a été averti sur ce serveur jusqu'à présent !",
     "serverwarns_reason": "**Raison :**",
