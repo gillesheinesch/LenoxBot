@@ -49,17 +49,17 @@
 							{{/if}}
 							<hr>
 							{{#if lenoxbot}}
-							<p class="card-text">{{memberscount}} {{lang.website_servers_members}}</p>
+							<p class="card-text">{{memberscount}} {{../lang.website_servers_members}}</p>
 							<div class="btn-group" role="group">
 								<a href="/dashboard/{{id}}/overview" class="btn lb-btn-green"><i
-										class="mdi mdi-chart-line"></i> {{lang.website_servers_dashboard}}</a>
+										class="mdi mdi-chart-line"></i> {{../lang.website_servers_dashboard}}</a>
 								<a href="/leaderboards/server/{{id}}" class="btn lb-btn-blue"><i
-										class="mdi mdi-trophy-award"></i> {{lang.website_servers_leaderboards}}</a>
+										class="mdi mdi-trophy-award"></i> {{../lang.website_servers_leaderboards}}</a>
 							</div>
 							{{else}}
-							<p class="card-text lb-text-red">{{lang.website_servers_hasnotlenoxbot}}</p>
+							<p class="card-text lb-text-red">{{../lang.website_servers_hasnotlenoxbot}}</p>
 							<a href="https://discordapp.com/oauth2/authorize?client_id=354712333853130752&scope=bot&permissions=8&guild_id={{id}}"
-								class="btn lb-btn-invite" target="blanc"><i class="mdi mdi-discord"></i> {{lang.website_servers_getlenoxbot}}</a>
+								class="btn lb-btn-invite" target="blanc"><i class="mdi mdi-discord"></i> {{../lang.website_servers_getlenoxbot}}</a>
 							{{/if}}
 						</div>
 					</div>
