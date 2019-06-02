@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 exports.run = client => {
 	const chalk = require('chalk');
 	client.user.setPresence({
-		game: {
+		activity: {
 			name: `?help | www.lenoxbot.com`,
 			type: 0
 		}
