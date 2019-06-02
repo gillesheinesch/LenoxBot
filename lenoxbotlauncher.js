@@ -6098,9 +6098,10 @@ async function run() {
 		}
 
 		const islenoxbot = islenoxboton(req);
-
+		const lang = require(`./languages/website_${req.getLocale()}`);
 		res.status(404)
 			.render('error', {
+				lang: lang,
 				languages: languages(req),
 				user: req.user,
 				guilds: check,
