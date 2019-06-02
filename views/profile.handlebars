@@ -38,7 +38,7 @@
                                     height="120" width="120">
                                 {{/if}}
                             </figure>
-                            {{#if ispremium}}<h1 class="mt-5 lb-profile-premiumuser">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small>{{else}}<h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small>{{/if}} {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-primary mdi mdi-security-account"></small>{{/if}} {{#if ispremium}}<small data-toggle="tooltip" data-placement="right" title="Premium User" class="mdi mdi-heart lb-profile-premiumuser"></small>{{/if}}</h1>
+                            {{#if ispremium}}<h1 class="mt-5 lb-profile-premiumuser"><span data-toggle="tooltip" data-placement="left" title="{{profileUser.id}}">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small></span>{{else}}<h1 class="mt-5"><span data-toggle="tooltip" data-placement="left" title="{{profileUser.id}}">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small></span>{{/if}} {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-primary mdi mdi-security-account"></small>{{/if}} {{#if ispremium}}<small data-toggle="tooltip" data-placement="right" title="Premium User" class="mdi mdi-heart lb-profile-premiumuser"></small>{{/if}}</h1>
                             <p class="h4 font-weight-light text-center">{{userDescription}}</p>
                         </div>
                     </div>
