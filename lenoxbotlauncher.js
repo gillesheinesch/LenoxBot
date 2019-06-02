@@ -6067,6 +6067,38 @@ async function run() {
 		}
 	});
 
+	app.get('/moderation', async (req, res) => {
+		try {
+			if (req.user) {
+				const check = [];
+				for (let i = 0; i < req.user.guilds.length; i++) {
+					if (((req.user.guilds[i].permissions) & 8) === 8) {
+						check.push(req.user.guilds[i]);
+					}
+				}
+
+				const islenoxbot = islenoxboton(req);
+				const lang = require(`./languages/website_${req.getLocale()}`);
+				return res.render('lenoxbot-moderation', {
+					languages: languages(req),
+					lang: lang,
+					user: req.user,
+					guilds: check,
+					islenoxbot: islenoxbot
+				});
+			}
+			return res.redirect('/loginpressedbutton');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
 	app.get('/error', (req, res) => {
 		const check = [];
 		if (req.user) {
@@ -6288,7 +6320,6 @@ async function run() {
 	});
 
 	// API:
-	// TODO: Fix newupvote api
 	app.post('/api/newupvote', async (req, res) => {
 		try {
 			const authorization = req.body.authorization;

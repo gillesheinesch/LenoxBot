@@ -504,6 +504,11 @@ body {
     overflow-y: auto;
 }
 
+.lb-moderation {
+    height: calc(100vh - 152px);
+    overflow-y: auto;
+}
+
 .lb-btn-list-focus {
     outline: 0;
     background-color: #4caf50;
