@@ -553,6 +553,14 @@ async function run() {
 			})();
 	`);
 
+			if (!userconfs || profileUser) return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 204,
+					message: 'This user could not be found by the bot or in the database. To fix this, try to write a message on any server where LenoxBot is on and can read your message!'
+				}
+			}));
+
 			let isstaff = false;
 			let ispremium = false;
 			const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation-leader', 'translation-proofreader'];
