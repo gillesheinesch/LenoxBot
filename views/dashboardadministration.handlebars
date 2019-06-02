@@ -30,7 +30,7 @@
                                 </div>
                                 <div class="form-group mx-sm-3 mb-2 col-sm-4 col-lg-3">
                                     <select required class="selectpicker" name="newlanguage">
-                                        {{#each languagesList}} {{#if set}}
+                                        {{#each languages}} {{#if set}}
                                         <option value='{"alias": "{{alias}}", "momentLanguage": "{{momentLanguage}}" }' selected>{{name}}</option>
                                         {{else}}
                                         <option value='{"alias": "{{alias}}", "momentLanguage": "{{momentLanguage}}" }'>{{name}}</option>
