@@ -1,0 +1,12 @@
+{
+    "physics1": {
+        "correct": 3,
+        "source": "www.kahoot.it",
+        "image": "physics1.gif"
+    },
+    "physics2": {
+        "correct": 1,
+        "source": "www.kahoot.it",
+        "image": "physics2.gif"
+    }
+}
