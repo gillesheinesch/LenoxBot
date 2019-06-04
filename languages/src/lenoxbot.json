@@ -227,14 +227,14 @@
 
     "languagefinder_noguildid": "You didn't enter a Discord server ID!",
     "languagefinder_nofetch": "Couldn't find this server in the database!",
-    "languagefinder_embedfield1": "Serverowner:",
+    "languagefinder_embedfield1": "Server owner:",
     "languagefinder_embedfield2": "Language:",
     "languagefinder_requestedby": "Requested by %authortag",
     "languagefinder_description": "Allows the staffs of the bot to find out the language of a Discord server",
 
     "prefixfinder_noguildid": "You didn't enter a Discord server ID!",
     "prefixfinder_nofetch": "Couldn't find this server in the database!",
-    "prefixfinder_embedfield1": "Serverowner:",
+    "prefixfinder_embedfield1": "Server owner:",
     "prefixfinder_embedfield2": "Prefix:",
     "prefixfinder_requestedby": "Requested by %authortag",
     "prefixfinder_description": "Allows the staffs of the bot to find out the prefix of a Discord server",
