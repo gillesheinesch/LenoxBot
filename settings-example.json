@@ -1,21 +1,20 @@
 {
-    "owners": ["UserID", "UserID", "UserID"],
+    "owners": ["Required", "UserID", "UserID"],
     "administrators": ["UserID", "UserID", "UserID"],
-	"token": "Your Super Secret Token",
-    "prefix": "Standard Prefix",
-    "sqlitefilename": "",
+	"token": "Required. Your Super Secret Token",
+    "prefix": "Required. Standard Prefix",
     "googleKey": "Google Custom Search API Key",
     "googlekey": "Youtube API key",
     "clientID_Auth": "Client ID Auth",
     "clientSecret_Auth": "Client Secret Auth",
     "callbackURL_Auth": "Callback URL Auth",
     "dbl_apikey": "Your Discord Bot List API Token",
-    "websiteport": "Port of the website",
-    "keychannel": "Channelid where all premium keys should be posted in",
+    "websiteport": "Required. Port of the website (For HTTPS use port 80)",
+    "keychannel": "Required. Discord Textchannel ID where all premium keys should be posted in",
     "db": {
-        "user": "db user",
-		"password": "db password",
-		"host": "db host",
-		"port": "db port"
+        "user": "Required. db user",
+		"password": "Required. db password",
+		"host": "Required. db host (Example: localhost for local mongoDB)",
+		"port": "Required. db port (Example: 27017)"
     }
 }
