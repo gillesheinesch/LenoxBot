@@ -2796,9 +2796,9 @@ async function run() {
 				}];
 
 				if (guildconfs.settings.language) {
-					for (let index3 = 0; index3 < languages.length; index3++) {
-						if (guildconfs.settings.language === languages[index3].alias) {
-							languages[index3].set = true;
+					for (let index3 = 0; index3 < languagesList.length; index3++) {
+						if (guildconfs.settings.language === languagesList[index3].alias) {
+							languagesList[index3].set = true;
 						}
 					}
 				}
