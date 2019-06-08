@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 exports.run = (client, oldPresence, newPresence) => {
 	if (!client.provider.isReady) return;
-	if (!client.provider.getGuild(newPresence.guild.id, 'prefix')) return;
+	/* if (!client.provider.getGuild(newPresence.guild.id, 'prefix')) return;
 
 	if (client.provider.getGuild(newPresence.guild.id, 'presenceupdatelog') === 'false') return;
 
@@ -19,5 +19,5 @@ exports.run = (client, oldPresence, newPresence) => {
 			.addField(`📤 ${lang.presenceupdateevent_old}:`, oldPresence.status)
 			.addField(`📥 ${lang.presenceupdateevent_new}:`, newPresence.status);
 		messagechannel.send({ embed: embed });
-	}
+	}*/
 };
