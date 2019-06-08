@@ -309,7 +309,8 @@ async function run() {
 	app.post('/submitnewwebsitelanguage', async (req, res) => {
 		try {
 			res.cookie('ulang', req.body.newlanguage, {
-				httpOnly: true
+				httpOnly: true,
+				expires: new Date(Date.now() + 3.154e+10)
 			});
 			return res.redirect(req.get('referer'));
 		} catch (error) {
