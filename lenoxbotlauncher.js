@@ -553,7 +553,7 @@ async function run() {
 			})();
 	`);
 
-			if (!userconfs || profileUser) return res.redirect(url.format({
+			if (!userconfs || !profileUser) return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
 					statuscode: 204,
