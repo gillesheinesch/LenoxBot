@@ -27,6 +27,17 @@ module.exports = class jobCommand extends LenoxCommand {
 		const args = msg.content.split(' ').slice(1);
 
 		if (msg.client.provider.getUser(msg.author.id, 'jobstatus') === true) {
+			const currentJobreminder = msg.client.provider.getBotsettings('botconfs', 'jobreminder');
+			const currentUserJob = currentJobreminder[msg.author.id];
+
+			if (!currentUserJob) {
+				let newCurrentjobstatus = msg.client.provider.getUser(msg.author.id, 'jobstatus');
+				newCurrentjobstatus = false;
+				await msg.client.provider.setUser(msg.author.id, 'jobstatus', newCurrentjobstatus);
+			}
+		}
+
+		if (msg.client.provider.getUser(msg.author.id, 'jobstatus') === true) {
 			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 			delete timestamps.job[msg.author.id];
 			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
