@@ -34,7 +34,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
 
 		if (!user) {
 			try {
-				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice(1, 2).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
 				user = fetchedMember;
 				user = user.user;
