@@ -63,7 +63,7 @@ module.exports = class userinfoCommand extends LenoxCommand {
 
 		let badges;
 
-		if (msg.client.provider.getUser(user.id, 'badges').length === 0) {
+		if (msg.client.provider.getUser(user.id, 'badges') && msg.client.provider.getUser(user.id, 'badges').length === 0) {
 			badges = [];
 		} else {
 			const userBadges = msg.client.provider.getUser(user.id, 'badges');
