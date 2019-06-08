@@ -31,7 +31,6 @@ module.exports = class userinfoCommand extends LenoxCommand {
 		if (!user && args.slice().length === 0) {
 			user = msg.author;
 		} else if (user) {
-			user = msg.mentions.users.first();
 			if (user.bot) return msg.reply(lang.userinfo_botinfo);
 		} else {
 			try {
