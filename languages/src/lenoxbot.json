@@ -907,7 +907,7 @@
     "log_chatfilterset": "All messages deleted by the chatfilter are now logged in %channelname",
     "log_chatfilterdeleted": "All messages deleted by the chatfilter will no longer be logged!",
     "log_error": "That event doesn't exist. You can check all events that you can log with %prefixlistevents",
-    "log_description": "Allows you to log for different channels, different events. The command ?listevents will give you a list of all events",
+    "log_description": "Allows you to log for different channels, different events. The command %prefixlistevents will give you a list of all events",
 
     "msgoptions_$usertag$": "Usertag of the new member \n**Example:** __Monkeyyy11#0001__ joined the server!",
     "msgoptions_$usermention$": "Mention of the new member (Just available for the welcome message) \n**Example:** __@Monkeyyy11#0001__ joined the server!",
@@ -926,7 +926,7 @@
     "prefix_currentprefix": "The prefix of this server is %prefix",
     "prefix_error": "Your new prefix cannot have spaces!",
     "prefix_newprefixset": "The prefix has been changed to %newprefix",
-    "prefix_description": "Changes the prefix of the server or shows you the current prefix if you just use ?prefix",
+    "prefix_description": "Changes the prefix of the server or shows you the current prefix if you just use %prefixprefix",
 
     "removeautomaticrole_noinput": "You have to insert the name of the role.",
     "removeautomaticrole_rolenotexist": "This role does not exist at all!",
@@ -1404,7 +1404,7 @@
     "credits_credits": "Credits:",
     "credits_globalrank": "Global rank",
     "credits_hint": "Hint how to earn credits quickly:",
-    "credits_hintembed": "You ran the command **?credits** for the first time, so let's give you a little hint on how to earn 30,000 credits within 30 days. \n\nEvery day you have the opportunity to upvote the LenoxBot here: https://discordbots.org/bot/354712333853130752/vote \nEach upvote gives you between 100-1000 credits (In the weekend you can get up to 200-2000). \nAfter 12 hours you can then vote again...",
+    "credits_hintembed": "You ran the command **%prefixcredits** for the first time, so let's give you a little hint on how to earn 30,000 credits within 30 days. \n\nEvery day you have the opportunity to upvote the LenoxBot here: https://discordbots.org/bot/354712333853130752/vote \nEach upvote gives you between 100-1000 credits (In the weekend you can get up to 200-2000). \nAfter 12 hours you can then vote again...",
     "credits_description": "Shows you the credits of you or another user",
 
     "creditranklist_name": "Name",
