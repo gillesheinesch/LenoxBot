@@ -969,7 +969,7 @@ async function run() {
 									req.user.guilds[i].memberscount = guild.memberCount;
 								}
 
-								if (guildconfs && guildconfs.settings.premium.status === true) {
+								if (guildconfs.settings && guildconfs.settings.premium.status === true) {
 									req.user.guilds[i].premium = true;
 								} else {
 									req.user.guilds[i].premium = false;
@@ -984,7 +984,7 @@ async function run() {
 								req.user.guilds[i].memberscount = guild.memberCount;
 							}
 
-							if (guildconfs && guildconfs.settings.premium.status === true) {
+							if (guildconfs.settings && guildconfs.settings.premium.status === true) {
 								req.user.guilds[i].premium = true;
 							} else {
 								req.user.guilds[i].premium = false;
