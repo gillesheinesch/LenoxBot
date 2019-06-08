@@ -1578,7 +1578,6 @@
     "messagedeleteevent_mid": "MessageID",
     "messagedeleteevent_message": "Message",
 
-    "messagereactionaddevent_error": "You cannot give a star on your own message:",
     "messagereactionaddevent_message": "Message",
 
     "messageupdateevent_updated": "Message updated!",
