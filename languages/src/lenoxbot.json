@@ -888,7 +888,7 @@
     "log_chatfilterset": "All messages deleted by the chatfilter are now logged in %channelname",
     "log_chatfilterdeleted": "All messages deleted by the chatfilter will no longer be logged!",
     "log_error": "That event doesn't exist. You can check all events that you can log with %prefixlistevents",
-    "log_description": "Allows you to log for different channels, different events. The command 'listevents' will give you a list of all events",
+    "log_description": "Allows you to log for different channels, different events. The command ?listevents will give you a list of all events",
 
     "msgoptions_$usertag$": "Usertag of the new member \n**Example:** __Monkeyyy11#0001__ joined the server!",
     "msgoptions_$usermention$": "Mention of the new member (Just available for the welcome message) \n**Example:** __@Monkeyyy11#0001__ joined the server!",
