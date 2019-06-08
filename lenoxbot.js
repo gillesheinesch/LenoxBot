@@ -21,7 +21,7 @@ if (!settings.token || settings.token === '' || !settings.prefix || settings.pre
 
 
 const client = new Commando.Client({
-	commandPrefix: '?',
+	commandPrefix: settings.prefix,
 	invite: 'discord.gg/jmZZQja',
 	unknownCommandResponse: false,
 	nonCommandEditable: false
