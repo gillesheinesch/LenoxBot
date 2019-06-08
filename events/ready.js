@@ -1,12 +1,6 @@
 const Discord = require('discord.js');
 exports.run = client => {
 	const chalk = require('chalk');
-	client.user.setPresence({
-		activity: {
-			name: `?help | www.lenoxbot.com`,
-			type: 0
-		}
-	});
 
 	const users = [];
 	for (const discordUser of client.users.array()) {

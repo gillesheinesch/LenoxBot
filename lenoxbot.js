@@ -24,7 +24,13 @@ const client = new Commando.Client({
 	commandPrefix: settings.prefix,
 	invite: 'discord.gg/jmZZQja',
 	unknownCommandResponse: false,
-	nonCommandEditable: false
+	nonCommandEditable: false,
+	presence: {
+		activity: {
+			name: `?help | www.lenoxbot.com`,
+			type: 0
+		}
+	}
 });
 
 client.queue = new Map();
