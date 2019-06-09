@@ -61,10 +61,10 @@ module.exports = class userinfoCommand extends LenoxCommand {
 		}
 
 		let badges;
-
+		const topBadges = [];
 		if (msg.client.provider.getUser(user.id, 'badges') && msg.client.provider.getUser(user.id, 'badges').length === 0) {
 			badges = [];
-		} else {
+		} else if (msg.client.provider.getUser(user.id, 'badges')) {
 			const userBadges = msg.client.provider.getUser(user.id, 'badges');
 			badges = userBadges.sort((a, b) => {
 				if (a.rarity < b.rarity) {
@@ -75,12 +75,10 @@ module.exports = class userinfoCommand extends LenoxCommand {
 				}
 				return 0;
 			});
-		}
 
-		const topBadges = [];
-
-		for (let i = 0; i < badges.length; i++) {
-			topBadges.push(badges[i].emoji);
+			for (let i = 0; i < badges.length; i++) {
+				topBadges.push(badges[i].emoji);
+			}
 		}
 
 		const embed = new Discord.MessageEmbed()
