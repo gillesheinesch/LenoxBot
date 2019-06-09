@@ -27,7 +27,7 @@ const client = new Commando.Client({
 	nonCommandEditable: false,
 	presence: {
 		activity: {
-			name: `?help | www.lenoxbot.com`,
+			name: `${settings.prefix}help | www.lenoxbot.com`,
 			type: 0
 		}
 	}
