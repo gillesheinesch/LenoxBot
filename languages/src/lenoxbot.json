@@ -839,7 +839,7 @@
     "deleteevents_eventsdisabled": "All **active** events are now disabled!",
     "deleteevents_description": "Deletes all active events on this Discord server",
 
-    "events_commandinfo": "You can get a list of all available events with %prefixlistevents",
+    "events_commandinfo": "You can get a list of all available events with ?listevents",
     "events_events": "All active/disabled events!",
     "events_active": "active",
     "events_disabled": "disabled",
@@ -926,7 +926,7 @@
     "prefix_currentprefix": "The prefix of this server is %prefix",
     "prefix_error": "Your new prefix cannot have spaces!",
     "prefix_newprefixset": "The prefix has been changed to %newprefix",
-    "prefix_description": "Changes the prefix of the server or shows you the current prefix if you just use %prefixprefix",
+    "prefix_description": "Changes the prefix of the server or shows you the current prefix if you just use ?prefix",
 
     "removeautomaticrole_noinput": "You have to insert the name of the role.",
     "removeautomaticrole_rolenotexist": "This role does not exist at all!",
