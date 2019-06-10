@@ -26,9 +26,9 @@ module.exports = class givecreditsCommand extends LenoxCommand {
 		const args = msg.content.split(' ').slice(1);
 
 		if (settings.owners.includes(msg.author.id) || settings.administrators.includes(msg.author.id)) {
-			const timestamps = msg.client.provider.getBotsettings('botconfs', 'givecredits');
+			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 			delete timestamps.givecredits[msg.author.id];
-			await msg.client.provider.setBotsettings('botconfs', 'givecredits', timestamps);
+			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 		}
 
 		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
