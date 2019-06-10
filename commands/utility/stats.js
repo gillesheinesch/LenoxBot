@@ -14,7 +14,7 @@ module.exports = class statsCommand extends LenoxCommand {
 			examples: ['stats @Monkeyyy11#0001', 'stats 246708789930229761'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
-			shortDescription: '',
+			shortDescription: 'Information',
 			dashboardsettings: true
 		});
 	}
