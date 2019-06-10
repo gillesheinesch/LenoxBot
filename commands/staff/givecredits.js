@@ -27,7 +27,7 @@ module.exports = class givecreditsCommand extends LenoxCommand {
 
 		if (settings.owners.includes(msg.author.id) || settings.administrators.includes(msg.author.id)) {
 			const timestamps = msg.client.provider.getBotsettings('botconfs', 'givecredits');
-			delete timestamps.ticket[msg.author.id];
+			delete timestamps.givecredits[msg.author.id];
 			await msg.client.provider.setBotsettings('botconfs', 'givecredits', timestamps);
 		}
 
