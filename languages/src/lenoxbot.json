@@ -1404,7 +1404,7 @@
     "credits_credits": "Credits:",
     "credits_globalrank": "Global rank",
     "credits_hint": "Hint how to earn credits quickly:",
-    "credits_hintembed": "You ran the command **?credits** for the first time, so let's give you a little hint on how to earn 30,000 credits within 30 days. \n\nEvery day you have the opportunity to upvote the LenoxBot here: https://discordbots.org/bot/354712333853130752/vote \nEach upvote gives you between 100-1000 credits (In the weekend you can get up to 200-2000). \nAfter 12 hours you can then vote again...",
+    "credits_hintembed": "You ran the command **%prefixcredits** for the first time, so let's give you a little hint on how to earn 30,000 credits within 30 days. \n\nEvery day you have the opportunity to upvote the LenoxBot here: https://discordbots.org/bot/354712333853130752/vote \nEach upvote gives you between 100-1000 credits (In the weekend you can get up to 200-2000). \nAfter 12 hours you can then vote again...",
     "credits_description": "Shows you the credits of you or another user",
 
     "creditranklist_name": "Name",
