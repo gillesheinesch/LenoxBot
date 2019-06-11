@@ -16,8 +16,8 @@
 
     "github_embedtitle": "LenoxBot's GitHub Repository:",
     "github_embeddescription": "Our source code of LenoxBot (including the website) is available in our GitHub Repository. \n\nThe branch **master** is the branch which is currently online on LenoxBot. \nThe branch **testing** is the branch where we push all new updates and test it before realising them.",
-    "github_fieldtitlecontribute": "How to contribute?",
-    "github_fielddescriptioncontribute": "We would be super happy to receive help from developers who are able to help us out to fix bugs or add new features. Currently we are only 2 developers who can work on LenoxBot. If you're intersted in helping us out, you can read the following document: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
+    "github_fieldtitlecontribute": "How do you contribute?",
+    "github_fielddescriptioncontribute": "We would be very happy to receive help from developers who are able to help us out to fix bugs or add new features. Currently we are only 2 developers who can work on LenoxBot. If you're interested in helping us out, you can read the following document: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
     "github_fieldtitlelink": "LenoxBot's GitHub Repository link:",
     "github_description": "All details about our GitHub Repository of LenoxBot",
 
@@ -907,7 +907,7 @@
     "log_chatfilterset": "All messages deleted by the chatfilter are now logged in %channelname",
     "log_chatfilterdeleted": "All messages deleted by the chatfilter will no longer be logged!",
     "log_error": "That event doesn't exist. You can check all events that you can log with %prefixlistevents",
-    "log_description": "Allows you to log for different channels, different events. The command ?listevents will give you a list of all events",
+    "log_description": "Allows you to log for different channels, different events. The command %prefixlistevents will give you a list of all events",
 
     "msgoptions_$usertag$": "Usertag of the new member \n**Example:** __Monkeyyy11#0001__ joined the server!",
     "msgoptions_$usermention$": "Mention of the new member (Just available for the welcome message) \n**Example:** __@Monkeyyy11#0001__ joined the server!",
@@ -1327,7 +1327,7 @@
     "steamprofile_tban": "Trade ban(s)",
     "steamprofile_vban": "VAC ban(s)",
     "steamprofile_membersince": "Member since",
-    "steamprofile_error": "That Steam profile could not be found. Please make sure, that you have insert a valid SteamID64.",
+    "steamprofile_error": "That Steam profile could not be found. Please make sure that you have insert a valid SteamID64.",
     "steamprofile_description": "Requests Steam profile information of a Steam user",
 
     "steamscammercheck_validsteamid": "Please make sure that you have inserted a valid SteamID64! Here you can get your Steam64ID: https://steamid.io/",
