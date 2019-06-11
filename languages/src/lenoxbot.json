@@ -1465,6 +1465,7 @@
     "userinfo_botinfo": "You cannot get information about bots!",
     "userinfo_usernotfound": "This UserID does not match any user on this Discord server",
     "userinfo_descriptioninfo": "No description set!",
+    "userinfo_credits": "credits",
     "userinfo_created": "Discord account created",
     "userinfo_joined": "Joined this Discord server",
     "userinfo_roles": "Roles",

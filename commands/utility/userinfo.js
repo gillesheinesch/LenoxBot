@@ -50,7 +50,6 @@ module.exports = class userinfoCommand extends LenoxCommand {
 		const useronserver = moment(member.joinedAt).format('MMMM Do YYYY, h:mm:ss a');
 
 		const credits = msg.client.provider.getUser(user.id, 'credits');
-		const lenoxbotcoin = msg.client.emojis.get('412952854354067456');
 
 		let description = '';
 
@@ -87,7 +86,7 @@ module.exports = class userinfoCommand extends LenoxCommand {
 			.setColor('#0066CC')
 			.setThumbnail(user.displayAvatarURL())
 			.setDescription(description)
-			.addField(`${lenoxbotcoin} ${lang.credits_credits}`, `$${credits}`)
+			.addField(`💸 ${lang.credits_credits}`, `${credits} ${lang.userinfo_credits}`)
 			.addField(`💗 ${lang.userinfo_badges}`, topBadges.length > 0 ? topBadges.slice(0, 5).join(' ') : lang.userinfo_nobadges)
 			.addField(`📥 ${lang.userinfo_created}`, userondiscord)
 			.addField(`📌 ${lang.userinfo_joined}`, useronserver)
