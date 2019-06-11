@@ -64,7 +64,7 @@ module.exports = class creditstoxpCommand extends LenoxCommand {
 		}
 
 		for (let i = 1; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
-			if (msg.client.provider.getGuild(msg.guild.id, 'ara').ara[i] < currentScores[msg.author.id].points && !msg.member.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i - 1])) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'ara')[i] < currentScores[msg.author.id].points && !msg.member.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i - 1])) {
 				const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i - 1]);
 				msg.member.roles.add(role);
 
