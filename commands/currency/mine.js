@@ -48,6 +48,11 @@ module.exports = class mineCommand extends LenoxCommand {
 			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.mine += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 			return msg.channel.send({ embed });
 		} else if (d < 0.1) {
 			const validationfor30procent = ['439', '323', '356'];
@@ -66,6 +71,11 @@ module.exports = class mineCommand extends LenoxCommand {
 			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.mine += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 			return msg.channel.send({ embed });
 		} else if (d < 0.3) {
 			const validationfor50procent = ['201', '178', '238', '199', '168', '101', '130', '135', '176'];
@@ -83,6 +93,11 @@ module.exports = class mineCommand extends LenoxCommand {
 			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.mine += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 			return msg.channel.send({ embed });
 		}
 		const validationforrest = ['2', '98', '32', '72', '91', '85', '7', '15', '20', '28', '37'];
@@ -101,6 +116,11 @@ module.exports = class mineCommand extends LenoxCommand {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#66ff33')
 			.setDescription(dugup);
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.mine += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 		return msg.channel.send({ embed });
 	}
 };

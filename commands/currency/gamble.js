@@ -48,6 +48,17 @@ module.exports = class gambleCommand extends LenoxCommand {
 			const embed = new Discord.MessageEmbed()
 				.setColor('#44c94d')
 				.setDescription(`🎉 ${won}`);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.gamble += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
+			const currentGambleRecord = msg.client.provider.getUser(msg.author.id, 'stats');
+			if (currentGambleRecord.gamblehighestwin < finalresult) {
+				currentGambleRecord.gamblehighestwin = finalresult;
+				await msg.client.provider.setUser(msg.author.id, 'stats', currentGambleRecord);
+			}
+
 			return msg.channel.send({ embed });
 		}
 		const result = parseInt(input.join(' '), 10);
@@ -60,6 +71,11 @@ module.exports = class gambleCommand extends LenoxCommand {
 		const embed = new Discord.MessageEmbed()
 			.setColor('#f44242')
 			.setDescription(`😥 ${lost}`);
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.gamble += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 		return msg.channel.send({ embed });
 	}
 };

@@ -161,6 +161,11 @@ module.exports = class jobCommand extends LenoxCommand {
 					});
 				}
 			}, ms(`${jobtime}m`));
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.job += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 			return undefined;
 		}
 
@@ -344,5 +349,9 @@ module.exports = class jobCommand extends LenoxCommand {
 				});
 			}
 		}, ms(`${jobtime}m`));
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.job += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 	}
 };

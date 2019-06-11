@@ -171,5 +171,8 @@ module.exports = class lootCommand extends LenoxCommand {
 				embed
 			});
 		}
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.loot += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 	}
 };

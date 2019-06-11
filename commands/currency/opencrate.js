@@ -84,5 +84,9 @@ module.exports = class opencrateCommand extends LenoxCommand {
 			.replace('%item3', `${msg.client.provider.getBotsettings('botconfs', 'market')[validation[2]][0]} ${lang[`loot_${validation[2]}`]}`)
 			.replace('%amount3', msg.client.provider.getBotsettings('botconfs', 'market')[validation[2]][1]);
 		msg.reply(`📁 ${won}`);
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.openedcrates += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 	}
 };

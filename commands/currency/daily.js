@@ -60,6 +60,12 @@ module.exports = class dailyCommand extends LenoxCommand {
 		newDailystreakSettings.deadline = Date.now() + 172800000;
 		await msg.client.provider.setUser(msg.author.id, 'dailystreak', newDailystreakSettings);
 
+		const currentStatsDailyRecord = msg.client.provider.getUser(msg.author.id, 'stats');
+		if (currentStatsDailyRecord.dailystreakhighest < newDailystreakSettings.streak) {
+			currentStatsDailyRecord.dailystreakhighest = newDailystreakSettings.streak;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStatsDailyRecord);
+		}
+
 
 		if (!mentioncheck) {
 			let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
@@ -81,6 +87,10 @@ module.exports = class dailyCommand extends LenoxCommand {
 				.setColor('RED')
 				.setAuthor(`🎁 ${author} 🎁`)
 				.setDescription(`${streak}`);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.daily += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 
 			if (msg.client.provider.getUser(msg.author.id, 'dailyremind') === true) {
 				return msg.channel.send({
@@ -111,6 +121,10 @@ module.exports = class dailyCommand extends LenoxCommand {
 			.setColor('RED')
 			.setAuthor(`🎁 ${mention} 🎁`)
 			.setDescription(`${streak}`);
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.daily += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 
 		if (msg.client.provider.getUser(msg.author.id, 'dailyremind') === true) {
 			return msg.channel.send({
