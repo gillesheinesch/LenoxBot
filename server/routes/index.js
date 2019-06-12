@@ -8,7 +8,6 @@ function init(app) {
 
 	app.use('/', homeRoute);
 	app.use('/error', errorRoute);
-	app.use('submitnewwebsitelanguage', homeRoute.)
 }
 
 module.exports = {
