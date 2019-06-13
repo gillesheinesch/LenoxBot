@@ -6329,7 +6329,63 @@ async function run() {
     (async () => {
 		const fetchedChannel = await this.channels.get("578207982677131265");
 		if (fetchedChannel) {
-			await fetchedChannel.send("${userId} votes on discordbots.org and received ${credits} credits");
+			fetchedChannel.send('${userId} voted on discordbots.org and received ${credits} credits');
+			return fetchedChannel;
+		}
+    })();
+`);
+				}
+			} catch (error) {
+				'undefined';
+			}
+
+			const userconfs = await userSettingsCollection.findOne({
+				userId: userId
+			});
+			userconfs.settings.credits += credits;
+			await userSettingsCollection.updateOne({
+				userId: userId
+			}, {
+				$set: {
+					settings: userconfs.settings
+				}
+			});
+
+			await reloadUser(userId);
+
+			return res.status(200).send('Request successfully accepted!');
+		} catch (error) {
+			return res.redirect(url.format({
+				pathname: `/error`,
+				query: {
+					statuscode: 500,
+					message: error.message
+				}
+			}));
+		}
+	});
+
+	app.post('/api/newacceptedissue', async (req, res) => {
+		try {
+			const authorization = req.body.authorization;
+			const userId = req.body.userId;
+			const credits = Number(req.body.credits);
+
+			if (authorization !== settings.dblAuthorization) return res.send(401, 'Invalid token');
+
+			let guild;
+			shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
+				.then(guildArray => {
+					guild = guildArray.find(g => g);
+				});
+
+			try {
+				if (guild) {
+					await shardingManager.shards.get(guild.shardID).eval(`
+    (async () => {
+		const fetchedChannel = await this.channels.get("578207982677131265");
+		if (fetchedChannel) {
+			await fetchedChannel.send('${userId} created an accepted issue and received ${credits} credits');
 			return fetchedChannel;
 		}
     })();
