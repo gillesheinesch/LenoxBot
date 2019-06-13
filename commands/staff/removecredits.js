@@ -1,5 +1,6 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
+const settings = require('../../settings.json');
 
 module.exports = class removecreditsCommand extends LenoxCommand {
 	constructor(client) {
