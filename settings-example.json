@@ -17,5 +17,7 @@
 		"password": "Required. db password",
 		"host": "Required. db host (Example: localhost for local mongoDB)",
 		"port": "Required. db port (Example: 27017)"
-    }
+    },
+    "dblAuthorization": "Autorization Code for API verification",
+    "botMainDiscordServer": "Required. The main/support Discord Server ID of this bot"
 }

@@ -35,8 +35,8 @@ module.exports = class commandsCommand extends LenoxCommand {
 							return msg.channel.send(lang.botownercommands_error);
 						}
 
-						if (typeof msg.client.guilds.get('352896116812939264') !== 'undefined') {
-							const moderatorRole = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+						if (typeof msg.client.guilds.get(settings.botMainDiscordServer) !== 'undefined') {
+							const moderatorRole = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
 							if (validation[index] === 'staff' && !msg.member.roles.get(moderatorRole)) {
 								return msg.channel.send(lang.botownercommands_error);
 							}

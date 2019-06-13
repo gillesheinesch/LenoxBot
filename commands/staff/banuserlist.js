@@ -23,7 +23,7 @@ module.exports = class banuserlistCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
-		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 		const blacklist = [];
