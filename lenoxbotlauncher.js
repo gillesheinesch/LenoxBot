@@ -414,21 +414,26 @@ async function run() {
 		}
 	});
 
-	/* app.get('/leaderboards', async (req, res) => {
+	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
 
 			const userData = {};
+			const userArray = [];
 			userData.loaded = false;
 
-			const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
-			const userArray = botconfs.settings.top100credits;
-			for (let i = 0; i < userArray.length; i++) {
+			const users = await userSettingsCollection.find().sort({"credits": +1}).limit(100).toArray();
+			for (let i = 0; i < users.length; i++) {
+				let user = {};
+				user.userId = users[i].userId;
+				user.credits = users[i].credits;
+				userArray[i] = user;
+
 				if (req.user) {
-					if (userArray[i].userId === req.user.id) {
+					if (userArray[i]['userId'] === req.user.id) {
 						userData.place = i + 1;
-						userData.credits = userArray[i].credits;
+						userData.credits = userArray[i]['credits'];
 						userData.loaded = true;
 					}
 				}
@@ -439,7 +444,7 @@ async function run() {
 				languages: languages(req),
 				lang: lang,
 				user: req.user,
-				credits: userArray.slice(0, 100),
+				credits: userArray,
 				userData: userData,
 				islenoxbot: islenoxbot,
 				islenoxbotnp: islenoxbotnp
@@ -453,7 +458,7 @@ async function run() {
 				}
 			}));
 		}
-	}); */
+	});
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
