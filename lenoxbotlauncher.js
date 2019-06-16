@@ -6400,6 +6400,7 @@ async function run() {
 					guild = guildArray.find(g => g);
 				});
 
+				console.log(guild);
 			if (guild) {
 				console.log('passed');
 				await shardingManager.shards.get(guild.shardID).eval(`
