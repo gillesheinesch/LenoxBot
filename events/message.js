@@ -187,8 +187,10 @@ exports.run = async (client, msg) => {
 
 	const currentStatsCreditsRecord = msg.client.provider.getUser(msg.author.id, 'stats');
 	const currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
-	if (currentStatsCreditsRecord.creditshighestcredits < currentCredits) {
-		currentStatsCreditsRecord.creditshighestcredits = currentCredits;
-		await msg.client.provider.setUser(msg.author.id, 'stats', currentStatsCreditsRecord);
+	if (currentStatsCreditsRecord) {
+		if (currentStatsCreditsRecord.creditshighestcredits < currentCredits) {
+			currentStatsCreditsRecord.creditshighestcredits = currentCredits;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStatsCreditsRecord);
+		}
 	}
 };
