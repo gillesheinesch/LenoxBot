@@ -6343,7 +6343,7 @@ async function run() {
 	`);
 
 			let guild;
-			shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
+			shardingManager.broadcastEval(`this.guilds.get("${settings.botMainDiscordServer}")`)
 				.then(guildArray => {
 					guild = guildArray.find(g => g);
 				});
@@ -6351,7 +6351,7 @@ async function run() {
 			if (guild) {
 				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
-		const fetchedChannel = await this.channels.get("578207982677131265");
+		const fetchedChannel = await this.channels.get('578207982677131265');
 		if (fetchedChannel) {
 			await fetchedChannel.send('${userId} voted on discordbots.org and received ${credits} credits');
 			return fetchedChannel;
@@ -6395,17 +6395,17 @@ async function run() {
 			if (authorization !== settings.dblAuthorization) return res.send(401, 'Invalid token');
 
 			let guild;
-			shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
+			shardingManager.broadcastEval(`this.guilds.get("${settings.botMainDiscordServer}")`)
 				.then(guildArray => {
 					guild = guildArray.find(g => g);
 				});
 
-				console.log(guild);
+			console.log(guild);
 			if (guild) {
 				console.log('passed');
 				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
-		const fetchedChannel = await this.channels.get("578207982677131265");
+		const fetchedChannel = await this.channels.get('578207982677131265');
 		if (fetchedChannel) {
 			await fetchedChannel.send('${userId} created an accepted issue and received ${credits} credits');
 			return fetchedChannel;
