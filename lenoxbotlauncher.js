@@ -414,37 +414,60 @@ async function run() {
 		}
 	});
 
-	/* app.get('/leaderboards', async (req, res) => {
+	app.get('/leaderboards', async (req, res) => {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const islenoxbotnp = await isLenoxBotAndUserOn(req);
 
 			const userData = {};
+			const userArray = [];
 			userData.loaded = false;
 
-			const botconfs = await botSettingsCollection.findOne({ botconfs: 'botconfs' });
-			const userArray = botconfs.settings.top100credits;
-			for (let i = 0; i < userArray.length; i++) {
+			const users = await userSettingsCollection.find().sort({
+				'settings.credits': -1
+			}).limit(100)
+				.toArray();
+
+			for (let i = 0; i < users.length; i++) {
+				const user = {};
+				user.userId = users[i].userId;
+				user.credits = users[i].settings.credits;
+
+				const userCheck = await shardingManager.shards.get(0).eval(`this.users.get("${users[i].userId}")`);
+
+				if (userCheck) {
+					user.user = userCheck;
+				}
+
+				userArray[i] = user;
+
 				if (req.user) {
 					if (userArray[i].userId === req.user.id) {
 						userData.place = i + 1;
 						userData.credits = userArray[i].credits;
 						userData.loaded = true;
+
+						if (userCheck) {
+							userData.user = userCheck;
+						}
 					}
 				}
 			}
 
 			const lang = require(`./languages/website_${req.getLocale()}`);
+
+			// console.log(userArray);
 			return res.render('leaderboard', {
 				languages: languages(req),
 				lang: lang,
 				user: req.user,
-				credits: userArray.slice(0, 100),
+				credits: userArray,
 				userData: userData,
 				islenoxbot: islenoxbot,
 				islenoxbotnp: islenoxbotnp
 			});
 		} catch (error) {
+			console.log(error);
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
@@ -453,7 +476,7 @@ async function run() {
 				}
 			}));
 		}
-	}); */
+	});
 
 	app.get('/leaderboards/server/:id', async (req, res) => {
 		try {
@@ -554,13 +577,15 @@ async function run() {
 			})();
 	`);
 
-			if (!userconfs || !profileUser) return res.redirect(url.format({
-				pathname: `/error`,
-				query: {
-					statuscode: 204,
-					message: 'This user could not be found by the bot or in the database. To fix this, try to write a message on any server where LenoxBot is on and can read your message!'
-				}
-			}));
+			if (!userconfs || !profileUser) {
+				return res.redirect(url.format({
+					pathname: `/error`,
+					query: {
+						statuscode: 204,
+						message: 'This user could not be found by the bot or in the database. To fix this, try to write a message on any server where LenoxBot is on and can read your message!'
+					}
+				}));
+			}
 
 			let isstaff = false;
 			let ispremium = false;
