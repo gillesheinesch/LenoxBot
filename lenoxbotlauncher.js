@@ -6348,20 +6348,16 @@ async function run() {
 					guild = guildArray.find(g => g);
 				});
 
-			try {
-				if (guild) {
-					await shardingManager.shards.get(guild.shardID).eval(`
+			if (guild) {
+				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
 		const fetchedChannel = await this.channels.get("578207982677131265");
 		if (fetchedChannel) {
-			fetchedChannel.send('${userId} voted on discordbots.org and received ${credits} credits');
+			await fetchedChannel.send('${userId} voted on discordbots.org and received ${credits} credits');
 			return fetchedChannel;
 		}
     })();
 `);
-				}
-			} catch (error) {
-				'undefined';
 			}
 
 			const userconfs = await userSettingsCollection.findOne({
@@ -6404,9 +6400,9 @@ async function run() {
 					guild = guildArray.find(g => g);
 				});
 
-			try {
-				if (guild) {
-					await shardingManager.shards.get(guild.shardID).eval(`
+			if (guild) {
+				console.log('passed');
+				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
 		const fetchedChannel = await this.channels.get("578207982677131265");
 		if (fetchedChannel) {
@@ -6415,10 +6411,6 @@ async function run() {
 		}
     })();
 `);
-				}
-			} catch (error) {
-				console.log(error);
-				'undefined';
 			}
 
 			const userconfs = await userSettingsCollection.findOne({
