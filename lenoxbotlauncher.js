@@ -6353,7 +6353,7 @@ async function run() {
     (async () => {
 		const fetchedChannel = await this.channels.get('578207982677131265');
 		if (fetchedChannel) {
-			await fetchedChannel.send('${userId} voted on discordbots.org and received ${credits} credits');
+			await fetchedChannel.send('<@${userId}> voted on discordbots.org and received ${credits} credits');
 			return fetchedChannel;
 		}
     })();
