@@ -14,7 +14,7 @@ require('moment-duration-format');
 const token = process.env.CLIENT_TOKEN;
 
 
-if (!settings.token || settings.token === '' || !settings.prefix || settings.prefix === '' || !settings.owners || settings.owners.length === 0 || !settings.keychannel || settings.keychannel === '' || !settings.websiteport || isNaN(settings.websiteport)) {
+if (!settings.token || !settings.prefix || !settings.owners || !settings.owners.length || !settings.keychannel || !settings.websiteport || isNaN(settings.websiteport)) {
 	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
 	return process.exit(42);
 }
@@ -112,7 +112,7 @@ client.dispatcher.addInhibitor(msg => {
 	if (client.registry.commands.has(command)) {
 		botCommandExists = true;
 		cmd = client.registry.commands.get(command);
-	} else if (alias === true) {
+	} else if (alias) {
 		botCommandExists = true;
 		cmd = aliasCommand;
 	} else if (customcommandstatus && customcommand.enabled) {
@@ -138,7 +138,7 @@ client.dispatcher.addInhibitor(msg => {
 
 	const blackbanlist = client.provider.getBotsettings('botconfs', 'blacklist');
 	const banlist = client.provider.getBotsettings('botconfs', 'banlist');
-	if (banlist.length !== 0) {
+	if (banlist.length) {
 		for (let i = 0; i < banlist.length; i++) {
 			if (msg.guild.id === banlist[i].discordServerID) {
 				banlistembed.addField(lang.messageevent_banlistreason, banlist[i].reason);
@@ -149,7 +149,7 @@ client.dispatcher.addInhibitor(msg => {
 			}
 		}
 	}
-	if (blackbanlist.length !== 0) {
+	if (blackbanlist.length) {
 		for (let i = 0; i < blackbanlist.length; i++) {
 			if (msg.author.id === blackbanlist[i].userID) {
 				blacklistembed.addField(lang.messageevent_blacklistreason, blackbanlist[i].reason);
@@ -168,7 +168,7 @@ client.dispatcher.addInhibitor(msg => {
 		.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
 		.setColor('#ff99ff')
 		.setTimestamp();
-	if (client.provider.getBotsettings('botconfs', 'activity') === true) {
+	if (client.provider.getBotsettings('botconfs', 'activity')) {
 		const messagechannel = client.channels.get(client.provider.getBotsettings('botconfs', 'activitychannel'));
 		messagechannel.send({
 			embed: activityembed
@@ -179,7 +179,7 @@ client.dispatcher.addInhibitor(msg => {
 		const botnopermission = lang.messageevent_botnopermission.replace('%missingpermissions', cmd.clientpermissions.join(', '));
 		const usernopermission = lang.messageevent_usernopermission.replace('%missingpermissions', cmd.userpermissions.join(', '));
 
-		if (cmd.clientpermissions.every(perm => msg.guild.me.hasPermission(perm)) === false) {
+		if (!cmd.clientpermissions.every(perm => msg.guild.me.hasPermission(perm))) {
 			if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'true') {
 				msg.delete();
 			}
@@ -187,7 +187,7 @@ client.dispatcher.addInhibitor(msg => {
 			return 'NoPermission';
 		}
 
-		if (msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0 && cmd.userpermissions.every(perm => msg.member.hasPermission(perm)) === false) {
+		if (!msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length && !cmd.userpermissions.every(perm => msg.member.hasPermission(perm))) {
 			if (msg.client.provider.getGuild(msg.guild.id, 'commanddel') === 'true') {
 				msg.delete();
 			}
@@ -225,7 +225,7 @@ client.dispatcher.addInhibitor(msg => {
 			return 'banned channel';
 		}
 
-		if (msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length === 0) {
+		if (!msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length) {
 			for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles.length; index++) {
 				if (msg.member.roles.has(msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles[index])) {
 					msg.reply(lang.messageevent_bannedrole);
