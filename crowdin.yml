@@ -1,0 +1,5 @@
+files:
+  - source: /languages/src/lenoxbot.json
+    translation: /languages/%locale%.json
+  - source: /languages/src/website.json
+    translation: /languages/website_%locale%.json
