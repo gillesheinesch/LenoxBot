@@ -48,7 +48,6 @@ module.exports = class unbanCommand extends LenoxCommand {
 		const unbandescription = lang.unban_unbandescription.replace('%userid', user).replace('%reason', reason);
 		const embed = new Discord.MessageEmbed()
 			.setAuthor(unbannedby, msg.author.displayAvatarURL())
-			.setThumbnail(user.displayAvatarURL())
 			.setColor(0x00AE86)
 			.setTimestamp()
 			.setDescription(unbandescription);
