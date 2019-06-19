@@ -225,6 +225,7 @@ client.dispatcher.addInhibitor(msg => {
 			return 'banned channel';
 		}
 
+		// eslint-disable-next-line no-negated-condition
 		if (!msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length) {
 			for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles.length; index++) {
 				if (msg.member.roles.has(msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles[index])) {

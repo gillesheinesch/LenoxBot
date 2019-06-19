@@ -1,6 +1,7 @@
-const Discord = require('discord.js');
-exports.run = (client, oldPresence, newPresence) => {
-	if (!client.provider.isReady) return;
+// const Discord = require('discord.js');
+// exports.run = (client, oldPresence, newPresence) => {
+exports.run = client => {
+	if (!client.provider.isReady); // return
 	/* if (!client.provider.getGuild(newPresence.guild.id, 'prefix')) return;
 
 	if (client.provider.getGuild(newPresence.guild.id, 'presenceupdatelog') === 'false') return;
