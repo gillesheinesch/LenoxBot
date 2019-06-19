@@ -1,6 +1,9 @@
 ---
 name: Support
 about: Ask questions on our Discord Server please - https://lenoxbot.com/discord
+title: ''
+labels: help wanted
+assignees: ''
 
 ---
 

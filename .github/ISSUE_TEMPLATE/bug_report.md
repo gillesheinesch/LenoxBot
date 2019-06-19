@@ -1,8 +1,12 @@
 ---
 name: Bug report
 about: Create a report to help us improve
+title: ''
+labels: 't: bugreport'
+assignees: ''
 
 ---
+
 **What is the title of your bugreport?**
 
 
@@ -26,4 +30,3 @@ Steps to reproduce the behavior:
 
 
 **Additional context**
-
