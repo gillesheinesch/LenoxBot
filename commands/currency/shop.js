@@ -9,7 +9,7 @@ module.exports = class shopCommand extends LenoxCommand {
 			group: 'currency',
 			memberName: 'shop',
 			description: 'You can view the list of all purchasable items and sell or buy items',
-			format: 'shop [buy/sell] [amount/all (just works for sell)] [emoji or name of the item]',
+			format: 'shop [buy/sell] [amount/all (only works for sell)] [emoji or name of the item]',
 			aliases: ['market'],
 			examples: ['shop', 'shop buy 1 dog', 'shop sell 3 🐶', 'shop sell all'],
 			clientpermissions: ['SEND_MESSAGES'],
