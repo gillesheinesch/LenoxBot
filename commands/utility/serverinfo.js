@@ -31,7 +31,7 @@ module.exports = class serverinfoCommand extends LenoxCommand {
 		const emojis = [];
 		if (msg.guild.emojis.size !== 0) {
 			msg.guild.emojis.forEach(r => {
-				const emoji = msg.client.emojis.get(r.id);
+				const emoji = msg.client.emojis.resolve(r.id);
 				emojis.push(emoji);
 			});
 		}

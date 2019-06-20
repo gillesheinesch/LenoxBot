@@ -153,8 +153,11 @@ exports.run = async (client, msg) => {
 	}
 
 	// Chatfilter:
+	const prefix = client.provider.getGuild(msg.guild.id, 'prefix');
 	const input = msg.content.split(' ').slice();
-	if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length !== 0) {
+	const command = msg.content.split(' ').slice(0, 1).join(' ')
+		.replace(prefix, '');
+	if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length !== 0 && !client.registry.commands.get(command)) {
 		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
 			for (let index = 0; index < input.length; index++) {
 				if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase()) {
