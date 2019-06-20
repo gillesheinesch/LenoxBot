@@ -160,7 +160,7 @@ exports.run = async (client, msg) => {
 	if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length !== 0 && !client.registry.commands.get(command)) {
 		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
 			for (let index = 0; index < input.length; index++) {
-				if (input[index].toLowerCase().split('') === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase().split('')) {
+				if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase()) {
 					if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
 						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
 
