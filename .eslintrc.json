@@ -6,7 +6,7 @@
         "es6": true,
         "node": true
     },
-    "extends": "eslint-config-aqua",
+    "extends": "eslint:recommended",
     "rules": {
         "capitalized-comments": "off",
         "no-console": "off",
