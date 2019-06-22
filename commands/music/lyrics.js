@@ -1,6 +1,6 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const config = require('../../settings.json');
-const axios = require('axios')
+const axios = require('axios');
 
 module.exports = class lyricsCommand extends LenoxCommand {
 	constructor(client) {
