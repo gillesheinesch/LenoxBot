@@ -1083,6 +1083,7 @@
     "warn_warnedby": "Warned by %authortag",
     "warn_warndescription": "**Action**: Warning \n**User**: %usertag (%userid) \n**Reason**: %reason",
     "warn_description": "Warns a user on the Discord server with a certain reason",
+    "shuffle_shuffled": "The queue has been shuffled.",
     "shuffle_nothing": "I cannot shuffle the queue because it is empty!",
     "shuffle_notvoicechannel": "You are not in a voice channel, please join a voice channel to shuffle music!",
     "forceskip_notvoicechannel": "You are not in a voice channel, please join a voice channel to play music!",
