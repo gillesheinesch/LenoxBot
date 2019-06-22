@@ -1335,6 +1335,7 @@
     "punishments_nopunishmentwithid": "We're sorry... We couldn't find a punishment with this ID, please check again if you entered the correct punishment ID!",
     "punishments_description": "Shows you the punishments of a user",
     "serverwarns_error": "No user has been warned on this server until now!",
+    "warnlog_error": "No user has been warned on this server!",
     "serverwarns_reason": "**Reason:**",
     "serverwarns_warnedbyandon": "%username was warned by %membername on %date",
     "serverwarns_description": "Shows you all given warns on this Discord server",
