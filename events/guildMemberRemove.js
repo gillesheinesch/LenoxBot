@@ -9,11 +9,11 @@ exports.run = (client, member) => {
 
 	if (client.provider.getGuild(member.guild.id, 'byelog') === 'true') {
 		const messagechannel = client.channels.get(client.provider.getGuild(member.guild.id, 'byelogchannel'));
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setFooter(lang.guildmemberremoveevent_userleft)
 			.setTimestamp()
 			.setColor('RED')
-			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL);
+			.setAuthor(`${member.user.tag} (${member.user.id})`, member.user.avatarURL());
 		messagechannel.send({
 			embed: embed
 		});
@@ -34,7 +34,7 @@ exports.run = (client, member) => {
 			.replace('$embed$', '');
 
 		if (embed) {
-			const byeEmbed = new Discord.RichEmbed()
+			const byeEmbed = new Discord.MessageEmbed()
 				.setTimestamp()
 				.setDescription(newMessage)
 				.setColor('RED');

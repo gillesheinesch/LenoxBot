@@ -19,12 +19,12 @@ module.exports = class modulesCommand extends LenoxCommand {
 
 	run(msg) {
 		const Discord = require('discord.js');
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const commandscommand = lang.modules_commandscommand.replace('%prefix', prefix);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setFooter(commandscommand)
 			.setColor('0066CC')
 			.addField('Administration', lang.modules_administration)

@@ -14,15 +14,15 @@
                 <div class="lb-bg-white rounded p-3">
                     <div class="card shadow-sm">
                         <div class="card-header">
-                            <p class="h5">Ticket #{{ticket.ticketid}} | Status: {{ticket.status}}</p>
+                            <p class="h5">{{lang.website_ticket_ticket}} #{{ticket.ticketid}} | {{lang.website_ticket_status}}: {{ticket.status}}</p>
                             <div class="btn-group" role="group" aria-label="Status">
                                 <form action="/dashboard/{{guilds.id}}/tickets/{{ticket.ticketid}}/submitnewticketstatus"
                                     method="POST">
-                                    <button type="submit" class="btn lb-btn-green mr-1" value="open" name="newstatus">Open</button>
+                                    <button type="submit" class="btn lb-btn-green mr-1" value="open" name="newstatus">{{lang.website_global_open}}</button>
                                 </form>
                                 <form action="/dashboard/{{guilds.id}}/tickets/{{ticket.ticketid}}/submitnewticketstatus"
                                     method="POST">
-                                    <button type="submit" class="btn lb-btn-red" value="closed" name="newstatus">Close</button>
+                                    <button type="submit" class="btn lb-btn-red" value="closed" name="newstatus">{{lang.website_global_close}}</button>
                                 </form>
                             </div>
                         </div>
@@ -31,14 +31,14 @@
                             <form class="form-horizontal" action="/dashboard/{{guilds.id}}/tickets/{{ticket.ticketid}}/submitticketanswer"
                                 method="POST">
                                 <div class="form-group">
-                                    <label class="control-label col-sm-3" for="newticketanswer">New answer:</label>
+                                    <label class="control-label col-sm-3" for="newticketanswer">{{lang.website_dashboardticket_newanswer}}</label>
                                     <div class="col-lg-10">
                                         <textarea class="form-control" name="newticketanswer" rows="5"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <div class="col-lg-10">
-                                        <button type="submit" class="btn lb-btn-green">Send</button>
+                                        <button type="submit" class="btn lb-btn-green">{{lang.website_global_send}}</button>
                                     </div>
                                 </div>
                             </form>

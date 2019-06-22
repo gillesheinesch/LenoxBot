@@ -2,16 +2,16 @@ const Discord = require('discord.js');
 const LenoxCommand = require('../LenoxCommand.js');
 const math = require('math-expression-evaluator');
 
-module.exports = class calculatorCommand extends LenoxCommand {
+module.exports = class calculateCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
-			name: 'calculator',
+			name: 'calculate',
 			group: 'utility',
-			memberName: 'calculator',
+			memberName: 'calculate',
 			description: 'Calculates for you an calculation',
-			format: 'calculator {math equation}',
-			aliases: ['cal'],
-			examples: ['calculator 1*20', 'calculator 100/10', 'calculator 100+10', 'calculator 100-10'],
+			format: 'calculate {math equation}',
+			aliases: ['calc'],
+			examples: ['calculate 1*20', 'calculate 100/10', 'calculate 100+10', 'calculate 100-10'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
@@ -20,7 +20,7 @@ module.exports = class calculatorCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const args = msg.content.split(' ').slice(1);
@@ -37,9 +37,9 @@ module.exports = class calculatorCommand extends LenoxCommand {
 			return msg.channel.send(lang.calculator_invalid);
 		}
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(`**${lang.calculator_calculation}**\n\`\`\`\n${mathEquation}\n\`\`\` **${lang.calculator_result}**\n\`\`\`\n${answer}\n\`\`\``)
-			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL)
+			.setAuthor(`${msg.author.tag}`, msg.author.displayAvatarURL())
 			.setColor('#0066CC');
 		msg.channel.send({ embed });
 	}

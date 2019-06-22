@@ -19,12 +19,12 @@ module.exports = class rolesCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (msg.guild.roles.filter(r => r.name !== '@everyone').array().length === 0) return msg.channel.send(lang.roles_error);
 
-		const textchannelsembed = new Discord.RichEmbed()
+		const textchannelsembed = new Discord.MessageEmbed()
 			.setDescription(`**📋 ${lang.roles_list}**\n${msg.guild.roles.filter(r => r.name !== '@everyone').array().slice(0, 15)
 				.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`)
 				.join('\n')}`)
@@ -45,27 +45,27 @@ module.exports = class rolesCommand extends LenoxCommand {
 				const reactionremove = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext - 15, secondtext - 15).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 					const guildchannels = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext + 15, secondtext + 15)
 						.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
 					firsttext += 15;
 					secondtext += 15;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setColor(3447003)
 						.setDescription(`**📋 ${lang.roles_list}**\n${guildchannels.join('\n')}`);
 
 					textchannels.edit({ embed: newembed });
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 					const guildchannels = msg.guild.roles.filter(role => role.name !== '@everyone').array().slice(firsttext - 15, secondtext - 15)
 						.map(textchannel => `**#${textchannel.name}** (*${textchannel.id}*)`);
 
 					firsttext -= 15;
 					secondtext -= 15;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setColor(3447003)
 						.setDescription(`**📋 ${lang.roles_list}**\n${guildchannels.join('\n')}`);
 
@@ -73,8 +73,8 @@ module.exports = class rolesCommand extends LenoxCommand {
 				}
 			});
 			collector.on('end', () => {
-				reaction1.remove();
-				reaction2.remove();
+				reaction1.users.remove();
+				reaction2.users.remove();
 			});
 		}
 	}

@@ -13,7 +13,7 @@ exports.run = (client, channel) => {
 	const messagechannel = client.channels.get(client.provider.getGuild(channel.guild.id, 'channelcreatelogchannel'));
 	if (!messagechannel) return;
 
-	const embed = new Discord.RichEmbed()
+	const embed = new Discord.MessageEmbed()
 		.setColor('GREEN')
 		.setTimestamp()
 		.setAuthor(lang.channelcreateevent_channelcreated)

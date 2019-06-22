@@ -21,7 +21,7 @@ module.exports = class fortniteCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -38,7 +38,7 @@ module.exports = class fortniteCommand extends LenoxCommand {
 			return msg.reply(lang.fortnite_playernotfound);
 		}
 
-		const statsEmbed = new Discord.RichEmbed()
+		const statsEmbed = new Discord.MessageEmbed()
 			.setColor('BLUE')
 			.setAuthor(`${stats.username} || ${stats.platformNameLong}`);
 

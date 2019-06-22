@@ -18,20 +18,20 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const Discord = require('discord.js');
 		const arrayOfCustomCommands = [];
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length === 0) return msg.reply(lang.listcustomcommands_nocustommcommands);
+		if (msg.client.provider.getGuild(msg.guild.id, 'customcommands').length === 0) return msg.reply(lang.listcustomcommands_nocustommcommands);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ff9900');
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length; i++) {
-			arrayOfCustomCommands.push(`${prefix}${msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[i].name}`);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i++) {
+			arrayOfCustomCommands.push(`${prefix}${msg.client.provider.getGuild(msg.guild.id, 'customcommands')[i].name}`);
 		}
 
 		embed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(0, 15).join('\n'));
@@ -56,12 +56,12 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 			const reactionremove = arrayOfCustomCommands.slice(first - 15, second - 15).length;
 
 			if (r.emoji.name === '▶' && reactionadd !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 
 				first += 15;
 				second += 15;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#ff9900');
 
 				newembed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(first, second).join('\n'), true);
@@ -70,12 +70,12 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 					embed: newembed
 				});
 			} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-				r.remove(msg.author.id);
+				r.users.remove(msg.author.id);
 
 				first -= 15;
 				second -= 15;
 
-				const newembed = new Discord.RichEmbed()
+				const newembed = new Discord.MessageEmbed()
 					.setColor('#ff9900');
 
 				newembed.addField(lang.listcustomcommands_embedtitle, arrayOfCustomCommands.slice(first, second).join('\n'), true);
@@ -86,8 +86,8 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
 			}
 		});
 		collector.on('end', () => {
-			reaction1.remove();
-			reaction2.remove();
+			reaction1.users.remove();
+			reaction2.users.remove();
 		});
 	}
 };

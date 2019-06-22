@@ -5,6 +5,6 @@ package-lock.json
 data
 lenoxbotscore.sqlite
 enmap.sqlite
-crowdin.yml
+crowdin-copy.yml
 test.js
 db.sqlite

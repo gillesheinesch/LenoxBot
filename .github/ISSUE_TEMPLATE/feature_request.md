@@ -1,12 +1,17 @@
 ---
 name: Feature request
 about: Request a feature for LenoxBot
+title: ''
+labels: 't: enhancement'
+assignees: ''
 
 ---
+
 **What is the title of your proposal?**
 
 
 **Is it a suggestion for the website or for the bot?**
+
 - [ ] Bot
 - [ ] Website
 
@@ -14,5 +19,3 @@ about: Request a feature for LenoxBot
 
 
 **Why should we add this feature?**
-
- 

@@ -19,25 +19,25 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const array = [];
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'chatfilter', {
+		if (!msg.client.provider.getGuild(msg.guild.id, 'chatfilter')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'chatfilter', {
 				chatfilter: 'false',
 				array: []
 			});
 		}
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length === 0) return msg.channel.send(lang.listchatfilter_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length === 0) return msg.channel.send(lang.listchatfilter_error);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#ABCDEF');
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array.length; i++) {
-			array.push(msg.client.provider.getGuild(msg.message.guild.id, 'chatfilter').array[i]);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
+			array.push(msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i]);
 		}
 
 		embed.addField(lang.listchatfilter_embed, array.slice(0, 15).join('\n'), true);
@@ -61,12 +61,12 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 				const reactionremove = array.slice(first - 15, second - 15).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					first += 15;
 					second += 15;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setColor('#ABCDEF');
 
 					newembed.addField(lang.listchatfilter_embed, array.slice(first, second).join('\n'), true);
@@ -75,12 +75,12 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 						embed: newembed
 					});
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					first -= 15;
 					second -= 15;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setColor('#ABCDEF');
 
 					newembed.addField(lang.listchatfilter_embed, array.slice(first, second).join('\n'), true);
@@ -91,8 +91,8 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
 				}
 			});
 			collector.on('end', () => {
-				reaction1.remove();
-				reaction2.remove();
+				reaction1.users.remove();
+				reaction2.users.remove();
 			});
 		}
 	}

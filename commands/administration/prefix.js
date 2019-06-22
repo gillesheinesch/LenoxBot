@@ -18,9 +18,9 @@ module.exports = class prefixCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		const newprefix = args.slice();
@@ -30,9 +30,9 @@ module.exports = class prefixCommand extends LenoxCommand {
 		if (newprefix.length === 0) return msg.channel.send(currentprefix);
 		if (newprefix.length > 1) return msg.channel.send(lang.prefix_error);
 
-		let currentPrefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		let currentPrefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		currentPrefix = newprefix.join(' ');
-		await msg.client.provider.setGuild(msg.message.guild.id, 'prefix', currentPrefix);
+		await msg.client.provider.setGuild(msg.guild.id, 'prefix', currentPrefix);
 
 		msg.guild._commandPrefix = newprefix.join(' ');
 

@@ -1,5 +1,6 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
+const settings = require('../../settings.json');
 
 module.exports = class languagefinderCommand extends LenoxCommand {
 	constructor(client) {
@@ -19,25 +20,25 @@ module.exports = class languagefinderCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 		const content = args.slice().join(' ');
 		if (!content || isNaN(content)) return msg.reply(lang.languagefinder_noguildid);
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'language')) return msg.channel.send(lang.languagefinder_nofetch);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'language')) return msg.channel.send(lang.languagefinder_nofetch);
 
 		const guildload = msg.client.guilds.get(content);
 		const requestedby = lang.languagefinder_requestedby.replace('%authortag', msg.author.tag);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('BLUE')
-			.setThumbnail(guildload.iconURL)
+			.setThumbnail(guildload.iconURL())
 			.addField(lang.languagefinder_embedfield1, `${guildload.owner.user.tag} (${guildload.owner.id})`)
-			.addField(lang.languagefinder_embedfield2, msg.client.provider.getGuild(msg.message.guild.id, 'language').toUpperCase())
+			.addField(lang.languagefinder_embedfield2, msg.client.provider.getGuild(msg.guild.id, 'language').toUpperCase())
 			.setFooter(requestedby)
 			.setAuthor(`${guildload.name} (${guildload.id})`);
 

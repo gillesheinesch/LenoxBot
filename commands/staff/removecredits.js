@@ -1,5 +1,6 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
+const settings = require('../../settings.json');
 
 module.exports = class removecreditsCommand extends LenoxCommand {
 	constructor(client) {
@@ -20,11 +21,11 @@ module.exports = class removecreditsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 		const user = msg.mentions.users.first() ? msg.mentions.users.first().id : args.slice(0, 1).join(' ');
@@ -38,8 +39,8 @@ module.exports = class removecreditsCommand extends LenoxCommand {
 		await msg.client.provider.setUser(user, 'credits', currentCredits);
 
 		const embeddescription = lang.removecredits_embeddescription.replace('%credits', amountofcoins).replace('%user', msg.client.users.get(user) ? msg.client.users.get(user).tag : user);
-		const embed = new Discord.RichEmbed()
-			.setAuthor(msg.author.tag, msg.author.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setDescription(embeddescription)
 			.setTimestamp()
 			.setColor('RED');

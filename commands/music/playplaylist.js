@@ -23,28 +23,34 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
 		const skipvote = msg.client.skipvote;
 		const queue = msg.client.queue;
 		const serverQueue = await queue.get(msg.guild.id);
-		const voiceChannel = msg.member.voiceChannel;
-		moment.locale(msg.client.provider.getGuild(msg.message.guild.id, 'momentLanguage'));
+		const voiceChannel = msg.member.voice.channel;
+		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
+		const value = msg.client.provider.getGuild(msg.guild.id, 'playlist');
+		if (typeof value === 'object' && value instanceof Array) {
+			const newPlaylist = {};
+			await msg.client.provider.setGuild(msg.guild.id, 'playlist', newPlaylist);
+		}
+
+		if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
 		if (args.slice().length === 0 || !args) return msg.reply(lang.playplaylist_error);
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) return msg.reply(lang.playlist_playlistnotexist);
 
 		if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist').length; i++) {
-			if (voiceChannel.id === msg.client.provider.getGuild(msg.message.guild.id, 'musicchannelblacklist')[i]) return msg.reply(lang.play_blacklistchannel);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
+			if (voiceChannel.id === msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]) return msg.reply(lang.play_blacklistchannel);
 		}
 
 		if (serverQueue) {
-			if ((serverQueue.songs.length + Object.keys(msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]).length) > 8 && msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
+			if ((serverQueue.songs.length + Object.keys(msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]).length) > 8 && msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.play_limitreached);
 		}
 
 		async function play(guild, song) {
@@ -71,7 +77,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 
 			const duration = lang.play_duration.replace('%duration', song.duration);
 			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setAuthor(lang.play_startplaying)
 				.setDescription(duration)
 				.setThumbnail(song.thumbnail)
@@ -103,7 +109,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 
 				const duration = lang.play_duration.replace('%duration', song.duration);
 				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setAuthor(lang.play_songadded)
 					.setDescription(duration)
 					.setThumbnail(song.thumbnail)
@@ -147,8 +153,8 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 			}
 		}
 		/* eslint guard-for-in: 0 */
-		for (const song in msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) {
-			const video = msg.client.provider.getGuild(msg.message.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()][song];
+		for (const song in msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()]) {
+			const video = msg.client.provider.getGuild(msg.guild.id, 'playlist')[args.slice().join(' ').toLowerCase()][song];
 			await handleVideo(video, msg, voiceChannel);
 		}
 	}

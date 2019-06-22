@@ -19,7 +19,7 @@ module.exports = class sexgifCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -30,14 +30,14 @@ module.exports = class sexgifCommand extends LenoxCommand {
 
 		try {
 		/* eslint no-undef: 0 */
-			const Searcher = new Pornsearch(args.slice().join(' '), driver = 'sex');
+			const Searcher = new Pornsearch(args.slice().join(' '), 'sex');
 			const gifs = await Searcher.gifs();
 
 			const result = Math.floor(Math.random() * gifs.length);
 
 			const url = gifs[result - 1].url;
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setImage(url)
 				.setColor('#ff0000')
 				.setURL(url)

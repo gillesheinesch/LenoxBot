@@ -11,26 +11,26 @@
             <div class="col-lg-10 lb-dashboard lb-mcsp">
                 <div class="lb-bg-white rounded p-3">
                     <div class="card shadow-sm">
-                        <div class="card-header">
-                            <p class="h5">All modules</p>
-                        </div>
                         <div class="card-body px-3 py-0">
                             <div class="row">
                                 <div class="col-sm-6 col-lg-4 my-3">
-                                    <div class="card" style="height: 100%;">
+                                    <div class="card text-center" style="height: 100%;">
                                         <div class="card-body">
+                                            <figure>
+                                                <a href="/dashboard/{{../guilds.id}}/administration" target="blank">
+                                                    <i class="mdi mdi-account-alert lb-dashboard-modules-icon"></i>
+                                                </a>
+                                            </figure>
                                             <a href="/dashboard/{{guilds.id}}/administration">
                                                 <h5 class="card-title">Administration</h5>
                                             </a>
-                                            <p class="card-text">Commands to set up the entire Discord server and
-                                                customize
-                                                special bot features</p>
+                                            <p class="card-text">{{lang.website_dashboardmodules_administration}}s</p>
                                         </div>
                                         <div class="card-footer lb-card-footer pb-3">
                                             <div class="btn-group" role="group" aria-label="Status">
                                                 <button type="submit" class="btn lb-btn-green disabled" value="false"
                                                     name="newmodulestatus">
-                                                    Always enabled
+                                                    {{lang.website_dashboardmodules_alwaysenabled}}
                                                 </button>
                                             </div>
 
@@ -39,8 +39,13 @@
                                 </div>
                                 {{#each modules}}
                                 <div class="col-sm-6 col-lg-4 my-3">
-                                    <div class="card" style="height: 100%;">
+                                    <div class="card text-center" style="height: 100%;">
                                         <div class="card-body">
+                                            <figure>
+                                                <a href="/dashboard/{{../guilds.id}}/{{name}}" target="blank">
+                                                    <i class="mdi mdi-{{icon}} lb-dashboard-modules-icon"></i>
+                                                </a>
+                                            </figure>
                                             <a href="/dashboard/{{../guilds.id}}/{{name}}">
                                                 <h5 class="card-title">{{name}}</h5>
                                             </a>
@@ -50,19 +55,22 @@
                                             {{#if status}}
                                             <div aria-label="Status">
                                                 <form id="{{name}}form">
-                                                    <input type="hidden" value="false" id="{{name}}status" name="{{name}}">
+                                                    <input type="hidden" value="false" id="{{name}}status"
+                                                        name="{{name}}">
                                                 </form>
-                                                <button type="submit" class="btn lb-btn-red align-text-bottom" id="{{name}}b">
-                                                    Disable
+                                                <button type="submit" class="btn lb-btn-red align-text-bottom"
+                                                    id="{{name}}b">
+                                                    {{../lang.website_global_disable}}
                                                 </button>
                                             </div>
                                             {{else}}
                                             <div aria-label="Status">
                                                 <form id="{{name}}form">
-                                                    <input type="hidden" value="true" id="{{name}}status" name="{{name}}">
+                                                    <input type="hidden" value="true" id="{{name}}status"
+                                                        name="{{name}}">
                                                 </form>
                                                 <button type="submit" class="btn lb-btn-green" id="{{name}}b">
-                                                    Enable
+                                                    {{../lang.website_global_enable}}
                                                 </button>
                                             </div>
                                             {{/if}}
@@ -78,16 +86,23 @@
                                                             data: $(this).serialize(),
                                                             success: function (data, textStatus, jQxhr) {
                                                                 notifySuccess();
-                                                                if ($('#{{name}}b').hasClass('lb-btn-green')) {
+                                                                if ($('#{{name}}b').hasClass(
+                                                                        'lb-btn-green')) {
                                                                     $('#{{name}}status').val('false');
-                                                                    $('#{{name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text('Disable');
+                                                                    $('#{{name}}b').addClass(
+                                                                        'lb-btn-red').removeClass(
+                                                                        'lb-btn-green').text(
+                                                                        'Disable');
                                                                 } else {
                                                                     $('#{{name}}status').val('true');
-                                                                    $('#{{name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text('Enable');
+                                                                    $('#{{name}}b').addClass(
+                                                                        'lb-btn-green').removeClass(
+                                                                        'lb-btn-red').text('Enable');
                                                                 }
                                                                 $('#{{name}}b').removeAttr("disabled");
                                                             },
-                                                            error: function (jqXhr, textStatus, errorThrown) {
+                                                            error: function (jqXhr, textStatus,
+                                                            errorThrown) {
                                                                 console.log(errorThrown);
                                                                 notifyError();
                                                             }

@@ -18,7 +18,7 @@ module.exports = class removeselfassignableroleCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -28,14 +28,14 @@ module.exports = class removeselfassignableroleCommand extends LenoxCommand {
 		if (addedrole.length < 1) return msg.reply(lang.removeselfassignablerole_noinput);
 		if (!foundRole) return msg.reply(lang.removeselfassignablerole_rolenotexist);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles').length; i++) {
-			if (foundRole.id === msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles')[i]) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i++) {
+			if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[i]) {
 				const roleId = foundRole.id;
-				for (let index = 0; index < msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles').length; index++) {
-					if (roleId === msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles')[index]) {
-						const currentSelfassignableroles = msg.client.provider.getGuild(msg.message.guild.id, 'selfassignableroles');
+				for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; index++) {
+					if (roleId === msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[index]) {
+						const currentSelfassignableroles = msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles');
 						currentSelfassignableroles.splice(index, 1);
-						await msg.client.provider.setGuild(msg.message.guild.id, 'selfassignableroles', currentSelfassignableroles);
+						await msg.client.provider.setGuild(msg.guild.id, 'selfassignableroles', currentSelfassignableroles);
 					}
 				}
 

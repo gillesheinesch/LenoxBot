@@ -13,17 +13,17 @@ module.exports = class translateCommand extends LenoxCommand {
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Help',
-			dashboardsettings: false
+			dashboardsettings: true
 		});
 	}
 
 	run(msg) {
 		const Discord = require('discord.js');
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 
-		const translateEmbed = new Discord.RichEmbed()
+		const translateEmbed = new Discord.MessageEmbed()
 			.setTitle(lang.translate_embedtitle)
 			.setDescription(lang.translate_embeddescription)
 			.addField(lang.translate_embedfieldtitle, 'https://crowdin.com/project/lenoxbot')

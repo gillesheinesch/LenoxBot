@@ -12,7 +12,7 @@
                     <div class="lb-bg-white rounded p-3">
                             <div class="card mt-3 shadow-sm">
                                 <div class="card-header">
-                                    <p class="h5">All opened applications</p>
+                                    <p class="h5">{{lang.website_dashboardapplications_allopen}}</p>
                                 </div>
                                 <div class="card-body">
                                     {{#if applicationscheck}}
@@ -23,13 +23,13 @@
                                         </div>
                                         {{/each}}
                                     {{else}}
-                                    <p>No opened applications!</p>
+                                    <p>{{lang.website_dashboardapplications_noopen}}</p>
                                     {{/if}}
                                 </div>
                             </div>
                             <div class="card mt-3 shadow-sm">
                                 <div class="card-header">
-                                    <p class="h5">All closed applications</p>
+                                    <p class="h5">{{lang.website_dashboardapplications_allclose}}</p>
                                 </div>
                                 <div class="card-body">
                                     {{#if oldapplicationscheck}}
@@ -41,7 +41,7 @@
                                         </div>
                                         {{/each}}
                                     {{else}}
-                                    <p>No closed applications!</p>
+                                    <p>{{lang.website_dashboardapplications_noclose}}</p>
                                     {{/if}}
                                 </div>
                             </div>

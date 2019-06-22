@@ -19,7 +19,7 @@ module.exports = class warnCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -28,7 +28,7 @@ module.exports = class warnCommand extends LenoxCommand {
 
 		if (!user) {
 			try {
-				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
 				user = fetchedMember;
 				user = user.user;
@@ -41,36 +41,38 @@ module.exports = class warnCommand extends LenoxCommand {
 		if (!reason) return msg.reply(lang.warn_noinput);
 
 		const warned = lang.warn_warned.replace('%usertag', user.tag);
-		const warnembed = new Discord.RichEmbed()
+		const warnembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${warned}`);
 		msg.channel.send({ embed: warnembed });
 
 		const warnedby = lang.warn_warnedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const warndescription = lang.warn_warndescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
-		const embed = new Discord.RichEmbed()
-			.setAuthor(warnedby, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(warnedby, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#fff024')
 			.setTimestamp()
 			.setDescription(warndescription);
 
 		user.send({ embed: embed });
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'warnlog')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'warnlog', []);
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
+			modlogchannel.send({ embed: embed });
 		}
 
-		const currentWarnlog = msg.client.provider.getGuild(msg.message.guild.id, 'warnlog');
-		await currentWarnlog.push(user.id);
-		await currentWarnlog.push(new Date().getTime());
-		await currentWarnlog.push(reason);
-		await currentWarnlog.push(msg.author.id);
-		await msg.client.provider.setGuild(msg.message.guild.id, 'warnlog', currentWarnlog);
+		const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+		const punishmentConfig = {
+			id: currentPunishments.length + 1,
+			userId: user.id,
+			reason: reason,
+			date: Date.now(),
+			moderatorId: msg.author.id,
+			type: 'warn'
+		};
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
-			return modlogchannel.send({ embed: embed });
-		}
+		currentPunishments.push(punishmentConfig);
+		await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
 	}
 };

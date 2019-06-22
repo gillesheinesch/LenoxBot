@@ -19,7 +19,7 @@ module.exports = class toggleactivityCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);

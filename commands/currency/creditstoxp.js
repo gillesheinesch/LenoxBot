@@ -18,7 +18,7 @@ module.exports = class creditstoxpCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -64,9 +64,9 @@ module.exports = class creditstoxpCommand extends LenoxCommand {
 		}
 
 		for (let i = 1; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
-			if (msg.client.provider.getGuild(msg.guild.id, 'ara').ara[i] < currentScores[msg.author.id].points && !msg.member.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i - 1])) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'ara')[i] < currentScores[msg.author.id].points && !msg.member.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i - 1])) {
 				const role = msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i - 1]);
-				msg.member.addRole(role);
+				msg.member.roles.add(role);
 
 				const automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
 				msg.channel.send(automaticrolegotten);

@@ -17,7 +17,7 @@ exports.run = (client, messages) => {
 
 		const lang = require(`../languages/${client.provider.getGuild(msg.guild.id, 'language')}.json`);
 
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setTimestamp()
 			.setAuthor(lang.messagedeleteevent_deleted)

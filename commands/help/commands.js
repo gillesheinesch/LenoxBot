@@ -20,9 +20,9 @@ module.exports = class commandsCommand extends LenoxCommand {
 
 	async run(msg) {
 		const Discord = require('discord.js');
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 		const margs = msg.content.split(' ');
@@ -35,14 +35,14 @@ module.exports = class commandsCommand extends LenoxCommand {
 							return msg.channel.send(lang.botownercommands_error);
 						}
 
-						if (typeof msg.client.guilds.get('352896116812939264') !== 'undefined') {
-							const moderatorRole = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+						if (typeof msg.client.guilds.get(settings.botMainDiscordServer) !== 'undefined') {
+							const moderatorRole = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
 							if (validation[index] === 'staff' && !msg.member.roles.get(moderatorRole)) {
 								return msg.channel.send(lang.botownercommands_error);
 							}
 						}
 						const commandShortDescriptions = [];
-						const embed = new Discord.RichEmbed()
+						const embed = new Discord.MessageEmbed()
 							.setDescription(lang[`modules_${validation[index].toLowerCase()}`] ? lang[`modules_${validation[index].toLowerCase()}`] : 'No description')
 							.setColor('#009900');
 						const commands = msg.client.registry.commands.filter(c => c.groupID === validation[index]).array();
@@ -76,9 +76,9 @@ module.exports = class commandsCommand extends LenoxCommand {
 							const reactionremove = commandShortDescriptions.slice(first - 7, second - 7).length;
 
 							if (r.emoji.name === '▶' && reactionadd !== 0) {
-								r.remove(msg.author.id);
+								r.users.remove(msg.author.id);
 								const newCommandShortDescriptions = commandShortDescriptions.slice(first + 7, second + 7);
-								const newEmbed = new Discord.RichEmbed()
+								const newEmbed = new Discord.MessageEmbed()
 									.setColor('#009900');
 
 								for (let index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
@@ -93,9 +93,9 @@ module.exports = class commandsCommand extends LenoxCommand {
 									embed: newEmbed
 								});
 							} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-								r.remove(msg.author.id);
+								r.users.remove(msg.author.id);
 								const newCommandShortDescriptions = commandShortDescriptions.slice(first - 7, second - 7);
-								const newEmbed = new Discord.RichEmbed()
+								const newEmbed = new Discord.MessageEmbed()
 									.setColor('#009900');
 
 								for (let index2 = 0; index2 < newCommandShortDescriptions.length; index2++) {
@@ -112,8 +112,8 @@ module.exports = class commandsCommand extends LenoxCommand {
 							}
 						});
 						collector.on('end', () => {
-							reaction1.remove();
-							reaction2.remove();
+							reaction1.users.remove();
+							reaction2.users.remove();
 						});
 						return;
 					}

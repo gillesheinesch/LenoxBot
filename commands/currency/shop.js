@@ -9,7 +9,7 @@ module.exports = class shopCommand extends LenoxCommand {
 			group: 'currency',
 			memberName: 'shop',
 			description: 'You can view the list of all purchasable items and sell or buy items',
-			format: 'shop [buy/sell] [amount/all (just works for sell)] [emoji or name of the item]',
+			format: 'shop [buy/sell] [amount/all (only works for sell)] [emoji or name of the item]',
 			aliases: ['market'],
 			examples: ['shop', 'shop buy 1 dog', 'shop sell 3 🐶', 'shop sell all'],
 			clientpermissions: ['SEND_MESSAGES'],
@@ -20,9 +20,9 @@ module.exports = class shopCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const args = msg.content.split(' ').slice(1);
 
 		const validationForBuySell = ['sell', 'buy'];
@@ -46,11 +46,11 @@ module.exports = class shopCommand extends LenoxCommand {
 			const array2 = [];
 
 			const shop = lang.shop_shop.replace('%lenoxbot', msg.client.user.username);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 				.setColor('#009933')
 				.setThumbnail('https://imgur.com/7qLINgn.png')
-				.setAuthor(shop, msg.client.user.displayAvatarURL);
+				.setAuthor(shop, msg.client.user.displayAvatarURL());
 
 			/* eslint guard-for-in: 0 */
 			for (const i in msg.client.provider.getBotsettings('botconfs', 'market')) {
@@ -83,18 +83,18 @@ module.exports = class shopCommand extends LenoxCommand {
 				const reactionremove = array1.slice(firsttext - 14, secondtext - 14).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 					const embedaddfield1 = array1.slice(firsttext + 14, secondtext + 14);
 					const embedaddfield2 = array2.slice(firsttext + 14, secondtext + 14);
 
 					firsttext += 14;
 					secondtext += 14;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 						.setColor('#009933')
 						.setThumbnail('https://imgur.com/7qLINgn.png')
-						.setAuthor(shop, msg.client.user.displayAvatarURL);
+						.setAuthor(shop, msg.client.user.displayAvatarURL());
 
 					for (let i = 0; i < embedaddfield1.length; i++) {
 						newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
@@ -104,18 +104,18 @@ module.exports = class shopCommand extends LenoxCommand {
 						embed: newembed
 					});
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 					const embedaddfield1 = array1.slice(firsttext - 14, secondtext - 14);
 					const embedaddfield2 = array2.slice(firsttext - 14, secondtext - 14);
 
 					firsttext -= 14;
 					secondtext -= 14;
 
-					const newembed = new Discord.RichEmbed()
+					const newembed = new Discord.MessageEmbed()
 						.setDescription(`📥= ${lang.shop_buy} 📤= ${lang.shop_sell}`)
 						.setColor('#009933')
 						.setThumbnail('https://imgur.com/7qLINgn.png')
-						.setAuthor(shop, msg.client.user.displayAvatarURL);
+						.setAuthor(shop, msg.client.user.displayAvatarURL());
 
 					for (let i = 0; i < embedaddfield1.length; i++) {
 						newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
@@ -174,7 +174,7 @@ module.exports = class shopCommand extends LenoxCommand {
 						await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 
 						const sellall = lang.shop_sellall.replace('%items', messageedit.join(', ')).replace('%amount', `**${amounttoreceive}**`);
-						const soldallEmbed = new Discord.RichEmbed()
+						const soldallEmbed = new Discord.MessageEmbed()
 							.setDescription(sellall)
 							.setColor('ORANGE');
 						return msg.channel.send({
@@ -184,7 +184,7 @@ module.exports = class shopCommand extends LenoxCommand {
 
 					if (isNaN(howmanycheck[0]) || !howmanycheck[0]) {
 						const commanderror = lang.shop_commanderror.replace('%prefix', prefix);
-						const commanderrorEmbed = new Discord.RichEmbed()
+						const commanderrorEmbed = new Discord.MessageEmbed()
 							.setDescription(commanderror)
 							.setColor('RED');
 						return msg.channel.send({
@@ -209,7 +209,7 @@ module.exports = class shopCommand extends LenoxCommand {
 								await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 
 								const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${nameOfTheItems[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
-								const soldEmbed = new Discord.RichEmbed()
+								const soldEmbed = new Discord.MessageEmbed()
 									.setDescription(sold)
 									.setColor('ORANGE');
 								return msg.channel.send({
@@ -233,7 +233,7 @@ module.exports = class shopCommand extends LenoxCommand {
 								await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 
 								const sold = lang.shop_sold.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${nameOfTheItems[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
-								const soldEmbed = new Discord.RichEmbed()
+								const soldEmbed = new Discord.MessageEmbed()
 									.setDescription(sold)
 									.setColor('ORANGE');
 								return msg.channel.send({
@@ -245,7 +245,7 @@ module.exports = class shopCommand extends LenoxCommand {
 				} else if (sellorbuycheck[0].toLowerCase() === 'buy') {
 					if (isNaN(howmanycheck[0]) || !howmanycheck[0]) {
 						const commanderror = lang.shop_commanderror.replace('%prefix', prefix);
-						const commanderrorEmbed = new Discord.RichEmbed()
+						const commanderrorEmbed = new Discord.MessageEmbed()
 							.setDescription(commanderror)
 							.setColor('RED');
 						return msg.channel.send({
@@ -278,7 +278,7 @@ module.exports = class shopCommand extends LenoxCommand {
 								await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 
 								const bought = lang.shop_bought.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${nameOfTheItems[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
-								const boughtEmbed = new Discord.RichEmbed()
+								const boughtEmbed = new Discord.MessageEmbed()
 									.setDescription(bought)
 									.setColor('GREEN');
 								return msg.channel.send({
@@ -310,7 +310,7 @@ module.exports = class shopCommand extends LenoxCommand {
 								await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 
 								const bought = lang.shop_bought.replace('%item', `${validationforitemsbuysell[i]} **${lang[`loot_${nameOfTheItems[i]}`]}**`).replace('%amount', amount).replace('%howmany', howmanycheck[0]);
-								const boughtEmbed = new Discord.RichEmbed()
+								const boughtEmbed = new Discord.MessageEmbed()
 									.setDescription(bought)
 									.setColor('GREEN');
 								return msg.channel.send({
@@ -323,7 +323,7 @@ module.exports = class shopCommand extends LenoxCommand {
 			}
 		}
 		const commanderror = lang.shop_commanderror.replace('%prefix', prefix);
-		const commanderrorEmbed = new Discord.RichEmbed()
+		const commanderrorEmbed = new Discord.MessageEmbed()
 			.setDescription(commanderror)
 			.setColor('RED');
 		return msg.channel.send({

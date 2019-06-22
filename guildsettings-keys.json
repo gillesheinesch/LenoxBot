@@ -54,7 +54,6 @@
         "denyrole": ""
     },
     "nicknamelog": [],
-    "warnlog": [],
     "language": "en-US",
     "premium": {
         "status": false,
@@ -76,7 +75,7 @@
     },
     "commands": {},
     "customcommands": [],
-    "playlist": [],
+    "playlist": {},
     "tickets": {
 		"notificationstatus": false,
 		"notficationchannel": ""
@@ -100,5 +99,6 @@
     },
     "ara": [],
     "momentLanguage": "en",
-    "joinroles": []
+    "joinroles": [],
+    "punishments": []
 }

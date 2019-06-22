@@ -19,9 +19,9 @@ module.exports = class opencrateCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const validationOfItems = [];
 		for (const x in marketitemskeys) {
@@ -84,5 +84,9 @@ module.exports = class opencrateCommand extends LenoxCommand {
 			.replace('%item3', `${msg.client.provider.getBotsettings('botconfs', 'market')[validation[2]][0]} ${lang[`loot_${validation[2]}`]}`)
 			.replace('%amount3', msg.client.provider.getBotsettings('botconfs', 'market')[validation[2]][1]);
 		msg.reply(`📁 ${won}`);
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.openedcrates += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 	}
 };

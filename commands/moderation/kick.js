@@ -19,7 +19,7 @@ module.exports = class kickCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -28,13 +28,14 @@ module.exports = class kickCommand extends LenoxCommand {
 
 		let member;
 		if (user) {
-			member = await msg.guild.fetchMember(user);
+			member = await msg.guild.members.fetch(user);
 		}
 
 		if (!user) {
 			try {
-				const fetchedMember = await msg.guild.fetchMember(args.slice(0, 1).join(' '));
+				const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
 				if (!fetchedMember) throw new Error('User not found!');
+				member = fetchedMember;
 				user = fetchedMember;
 				user = user.user;
 			} catch (error) {
@@ -49,23 +50,36 @@ module.exports = class kickCommand extends LenoxCommand {
 		await member.kick();
 
 		const kicked = lang.kick_kicked.replace('%usertag', user.tag);
-		const kickembed = new Discord.RichEmbed()
+		const kickembed = new Discord.MessageEmbed()
 			.setColor('#99ff66')
 			.setDescription(`✅ ${kicked}`);
 		msg.channel.send({ embed: kickembed });
 
 		const kickedby = lang.kick_kickedby.replace('%authortag', `${msg.author.username}#${msg.author.discriminator}`);
 		const kickdescription = lang.kick_kickdescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
-		const embed = new Discord.RichEmbed()
-			.setAuthor(kickedby, msg.author.displayAvatarURL)
-			.setThumbnail(user.displayAvatarURL)
+		const embed = new Discord.MessageEmbed()
+			.setAuthor(kickedby, msg.author.displayAvatarURL())
+			.setThumbnail(user.displayAvatarURL())
 			.setColor('#FF0000')
 			.setTimestamp()
 			.setDescription(kickdescription);
 
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'modlog') === 'true') {
-			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.message.guild.id, 'modlogchannel'));
-			return modlogchannel.send({ embed: embed });
+		if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+			const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
+			modlogchannel.send({ embed: embed });
 		}
+
+		const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+		const punishmentConfig = {
+			id: currentPunishments.length + 1,
+			userId: user.id,
+			reason: reason,
+			date: Date.now(),
+			moderatorId: msg.author.id,
+			type: 'kick'
+		};
+
+		currentPunishments.push(punishmentConfig);
+		await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
 	}
 };

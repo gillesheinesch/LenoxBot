@@ -22,8 +22,20 @@ module.exports = class jobCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
+		const args = msg.content.split(' ').slice(1);
+
+		if (msg.client.provider.getUser(msg.author.id, 'jobstatus') === true) {
+			const currentJobreminder = msg.client.provider.getBotsettings('botconfs', 'jobreminder');
+			const currentUserJob = currentJobreminder[msg.author.id];
+
+			if (!currentUserJob) {
+				let newCurrentjobstatus = msg.client.provider.getUser(msg.author.id, 'jobstatus');
+				newCurrentjobstatus = false;
+				await msg.client.provider.setUser(msg.author.id, 'jobstatus', newCurrentjobstatus);
+			}
+		}
 
 		if (msg.client.provider.getUser(msg.author.id, 'jobstatus') === true) {
 			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
@@ -31,6 +43,8 @@ module.exports = class jobCommand extends LenoxCommand {
 			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(lang.job_error);
 		}
+
+		if (args.length !== 0 && isNaN(args.join(' '))) return msg.reply(lang.job_nonumberror);
 
 		const jobslist = [
 			['farmer', 240, Math.floor(Math.random() * 400) + 100, 'tractor', 'https://imgur.com/1PVI8hM.png'],
@@ -55,9 +69,109 @@ module.exports = class jobCommand extends LenoxCommand {
 			['programmer', 240, Math.floor(Math.random() * 200) + 200, 'computer', 'https://imgur.com/qJyC8Y7.png']
 		];
 
+		if (args.length !== 0) {
+			if (args.join(' ') >= (jobslist.length + 1)) return msg.reply(lang.job_wrongnumber);
+			if (args.join(' ') <= 0) return msg.reply(lang.job_wrongnumber);
+
+			if (jobslist[args.join(' ') - 1][3] !== 'undefined') {
+				const notenough = lang.job_notenough.replace('%item', `\`${jobslist[args.join(' ') - 1][3]}\``);
+				if (!msg.client.provider.getUser(msg.author.id, 'inventory')[jobslist[args.join(' ') - 1][3]] >= 1) {
+					const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
+					delete timestamps.job[msg.author.id];
+					await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
+					return msg.reply(notenough);
+				}
+			}
+
+			const job = lang[`job_${jobslist[args.join(' ') - 1][0]}title`];
+			const jobtime = jobslist[args.join(' ') - 1][1];
+			const amount = jobslist[args.join(' ') - 1][2];
+			const jobpicture = jobslist[args.join(' ') - 1][4];
+
+			let currentjobstatus = msg.client.provider.getUser(msg.author.id, 'jobstatus');
+			currentjobstatus = true;
+			await msg.client.provider.setUser(msg.author.id, 'jobstatus', currentjobstatus);
+
+			const duration = lang.job_duration.replace('%duration', jobtime);
+
+			const embed2 = new Discord.MessageEmbed()
+				.setColor('#66ff33')
+				.setTitle(job)
+				.setDescription(`${lang.job_sentmessage} \n\n${duration}`)
+				.setThumbnail(jobpicture);
+			await msg.channel.send({
+				embed: embed2
+			});
+
+			const currentJobreminder = msg.client.provider.getBotsettings('botconfs', 'jobreminder');
+			currentJobreminder[msg.author.id] = {
+				userID: msg.author.id,
+				remind: Date.now() + ms(`${jobtime}m`),
+				amount: amount,
+				job: job,
+				jobtime: jobtime,
+				discordServerID: msg.guild.id,
+				channelID: msg.channel.id
+			};
+			await msg.client.provider.setBotsettings('botconfs', 'jobreminder', currentJobreminder);
+
+			const activityEmbed = new Discord.MessageEmbed()
+				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
+				.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
+				.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
+				.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
+				.setColor('AQUA')
+				.setFooter('JOB STARTED')
+				.setTimestamp();
+			if (msg.client.provider.getBotsettings('botconfs', 'activity') === true) {
+				const messagechannel = msg.client.channels.get(msg.client.provider.getBotsettings('botconfs', 'activitychannel'));
+				messagechannel.send({
+					embed: activityEmbed
+				});
+			}
+
+			setTimeout(async () => {
+				let newCurrentjobstatus = msg.client.provider.getUser(msg.author.id, 'jobstatus');
+				newCurrentjobstatus = false;
+				await msg.client.provider.setUser(msg.author.id, 'jobstatus', newCurrentjobstatus);
+
+				const newCurrentJobreminder = msg.client.provider.getBotsettings('botconfs', 'jobreminder');
+				delete newCurrentJobreminder[msg.author.id];
+				await msg.client.provider.setBotsettings('botconfs', 'jobreminder', newCurrentJobreminder);
+
+				let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
+				currentCredits += amount;
+				await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
+
+				const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${amount} credits`;
+				msg.member.send(jobfinish);
+
+				const activityEmbed2 = new Discord.MessageEmbed()
+					.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
+					.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
+					.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
+					.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
+					.setColor('AQUA')
+					.setFooter('JOB FINISHED')
+					.setTimestamp();
+				if (msg.client.provider.getBotsettings('botconfs', 'activity') === true) {
+					const messagechannel = msg.client.channels.get(msg.client.provider.getBotsettings('botconfs', 'activitychannel'));
+					messagechannel.send({
+						embed: activityEmbed2
+					});
+				}
+			}, ms(`${jobtime}m`));
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.job += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
+			return undefined;
+		}
+
 		let index = 0;
 
-		const startEmbed = new Discord.RichEmbed()
+		const startEmbed = new Discord.MessageEmbed()
 			.setColor('BLUE')
 			.setFooter(lang.job_embed)
 			.setAuthor(lang.job_available);
@@ -89,53 +203,53 @@ module.exports = class jobCommand extends LenoxCommand {
 				const reactionremove = arrayOfJobs.slice(firsttext - 10, secondtext - 10).length;
 
 				if (r.emoji.name === '▶' && reactionadd !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					firsttext += 10;
 					secondtext += 10;
 
 					const newJobs = arrayOfJobs.slice(firsttext, secondtext);
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setFooter(lang.job_embed)
 						.setAuthor(lang.job_available);
 
-					newJobs.forEach(r => {
-						newEmbed.addField(r[0], r[1]);
+					newJobs.forEach(rr => {
+						newEmbed.addField(rr[0], rr[1]);
 					});
 
 					jobsMessage.edit({ embed: newEmbed });
 				} else if (r.emoji.name === '◀' && reactionremove !== 0) {
-					r.remove(msg.author.id);
+					r.users.remove(msg.author.id);
 
 					firsttext -= 10;
 					secondtext -= 10;
 
 					const newJobs = arrayOfJobs.slice(firsttext, secondtext);
 
-					const newEmbed = new Discord.RichEmbed()
+					const newEmbed = new Discord.MessageEmbed()
 						.setColor('BLUE')
 						.setFooter(lang.job_embed)
 						.setAuthor(lang.job_available);
 
-					newJobs.forEach(r => {
-						newEmbed.addField(r[0], r[1]);
+					newJobs.forEach(rrr => {
+						newEmbed.addField(rrr[0], rrr[1]);
 					});
 
 					jobsMessage.edit({ embed: newEmbed });
 				}
 			});
 			collector.on('end', () => {
-				reaction1.remove();
-				reaction2.remove();
+				reaction1.users.remove();
+				reaction2.users.remove();
 			});
 		}
 
 		let response;
 		try {
 			response = await msg.channel.awaitMessages(msg2 => msg.author.id === msg2.author.id, {
-				maxMatches: 1,
+				max: 1,
 				time: 60000,
 				errors: ['time']
 			});
@@ -168,7 +282,7 @@ module.exports = class jobCommand extends LenoxCommand {
 
 		const duration = lang.job_duration.replace('%duration', jobtime);
 
-		const embed2 = new Discord.RichEmbed()
+		const embed2 = new Discord.MessageEmbed()
 			.setColor('#66ff33')
 			.setTitle(job)
 			.setDescription(`${lang.job_sentmessage} \n\n${duration}`)
@@ -189,8 +303,8 @@ module.exports = class jobCommand extends LenoxCommand {
 		};
 		await msg.client.provider.setBotsettings('botconfs', 'jobreminder', currentJobreminder);
 
-		const activityEmbed = new Discord.RichEmbed()
-			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+		const activityEmbed = new Discord.MessageEmbed()
+			.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 			.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
 			.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 			.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
@@ -220,8 +334,8 @@ module.exports = class jobCommand extends LenoxCommand {
 			const jobfinish = `Congratulations! You have successfully completed your job. You earned a total of ${amount} credits`;
 			msg.member.send(jobfinish);
 
-			const activityEmbed2 = new Discord.RichEmbed()
-				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL)
+			const activityEmbed2 = new Discord.MessageEmbed()
+				.setAuthor(`${msg.author.tag} (${msg.author.id})`, msg.author.displayAvatarURL())
 				.setDescription(`**Job:** ${job} \n**Duration:** ${jobtime} minutes \n**Amount:** ${amount} credits`)
 				.addField('Guild', `${msg.guild.name} (${msg.guild.id})`)
 				.addField('Channel', `${msg.channel.name} (${msg.channel.id})`)
@@ -235,5 +349,9 @@ module.exports = class jobCommand extends LenoxCommand {
 				});
 			}
 		}, ms(`${jobtime}m`));
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.job += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 	}
 };

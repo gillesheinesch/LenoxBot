@@ -1,5 +1,6 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
+const settings = require('../../settings.json');
 
 module.exports = class banuserlistCommand extends LenoxCommand {
 	constructor(client) {
@@ -19,11 +20,11 @@ module.exports = class banuserlistCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const prefix = msg.client.provider.getGuild(msg.message.guild.id, 'prefix');
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
-		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 		const blacklist = [];
@@ -31,7 +32,7 @@ module.exports = class banuserlistCommand extends LenoxCommand {
 		if (msg.client.provider.getBotsettings('botconfs', 'blacklist').length === 0) return msg.reply(lang.banuserlist_error);
 
 		const embedfooter = lang.banuserlist_embedfooter.replace('%prefix', prefix).replace('%prefix', prefix);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setTitle(lang.banuserlist_embedtitle)
 			.setFooter(embedfooter);

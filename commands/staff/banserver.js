@@ -1,5 +1,6 @@
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
+const settings = require('../../settings.json');
 
 module.exports = class banserverCommand extends LenoxCommand {
 	constructor(client) {
@@ -19,11 +20,11 @@ module.exports = class banserverCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const guild = msg.client.guilds.get('352896116812939264').roles.find(r => r.name.toLowerCase() === 'moderator').id;
+		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
 		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
 
 		const guildId = args.slice(0, 1).join(' ');
@@ -46,7 +47,7 @@ module.exports = class banserverCommand extends LenoxCommand {
 
 		const embedtitle = lang.banserver_embedtitle.replace('%guildid', guildId).replace('%guildname', discordServerName === 'undefined' ? lang.banserver_guildnamenotknown : discordServerName);
 		const embeddescription = lang.banserver_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setTimestamp()
 			.setTitle(embedtitle)

@@ -20,7 +20,7 @@ module.exports = class urbanCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
@@ -31,7 +31,7 @@ module.exports = class urbanCommand extends LenoxCommand {
 				const def = r.body.list[0];
 
 				const definition = lang.urban_definition.replace('%word', def.word);
-				const embed = new Discord.RichEmbed()
+				const embed = new Discord.MessageEmbed()
 					.setTitle(`📚 Urban ${lang.urban_embed}`)
 					.setThumbnail('https://everythingfat.files.wordpress.com/2013/01/ud-logo.jpg')
 					.setColor('#ABCDEF')

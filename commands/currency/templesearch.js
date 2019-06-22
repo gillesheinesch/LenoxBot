@@ -18,7 +18,7 @@ module.exports = class templesearchCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const random = Math.random();
@@ -42,11 +42,20 @@ module.exports = class templesearchCommand extends LenoxCommand {
 			await msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);
 
 			const received = lang.templesearch_received.replace('%amount', `\`$${result}\``);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.templesearch += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 			return msg.reply(received);
 		}
 		const currentInventory = msg.client.provider.getUser(msg.author.id, 'inventory');
 		currentInventory.flashlight -= 1;
 		await msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.templesearch += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 
 		return msg.reply(lang.templesearch_dust);
 	}

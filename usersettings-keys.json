@@ -72,7 +72,6 @@
         "pinterest": "",
         "reddit": ""
     },
-    "badges": [],
     "lenoxbotranks": {
         "administrator": false,
         "developer": false,
@@ -102,5 +101,21 @@
     "jobstatus": false,
     "creditsmessage": false,
     "firstBuy": false,
-    "firstSell": false
+    "firstSell": false,
+    "stats": {
+        "loot": 0,
+        "daily": 0,
+        "dailystreakhighest": 0,
+        "mine": 0,
+        "creditshighestcredits": 0,
+        "creditshighestrank": 0,
+        "slot": 0,
+        "gamble": 0,
+        "gamblehighestwin": 0,
+        "job": 0,
+        "openedcrates": 0,
+        "templesearch": 0
+    },
+    "badgeslist": [],
+    "description": ""
 }

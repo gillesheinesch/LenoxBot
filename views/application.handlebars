@@ -11,7 +11,7 @@
                 <div class="lb-bg-white rounded p-3">
                     <div class="card shadow-sm">
                         <div class="card-header">
-                            <p class="h5">Application Overview</p>
+                            <p class="h5">{{lang.website_application_overview}}</p>
                             <div class="btn-group" role="group" aria-label="Status">
                                 <form name="submitdeleteapplication">
                                     <input type="hidden" value="closed" name="newstatus">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="card-body">
                             <div>
-                                <p class="h5">Application by {{application.author}} on {{application.newdate}}</p>
+                                <p class="h5">{{application.website_application_info}}</p>
                             </div>
                             <span style="white-space: pre-line">
                                 <p>{{application.content}}</p>

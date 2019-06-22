@@ -19,7 +19,7 @@ module.exports = class memberstatusCommand extends LenoxCommand {
 	}
 
 	run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const onlinecount = msg.guild.members.array().filter(m => m.presence.status === 'online').length;
@@ -31,13 +31,13 @@ module.exports = class memberstatusCommand extends LenoxCommand {
 		const dnd = lang.memberstatus_dnd.replace('%memberscount', dndcount);
 		const afk = lang.memberstatus_afk.replace('%memberscount', afkcount);
 		const offline = lang.memberstatus_offline.replace('%memberscount', offlinecount);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setDescription(`📲 ${online}\
 	\n🔴 ${dnd}\
 	\n🕗 ${afk}\
 	\n📵 ${offline}`)
 			.setColor('#99cc00')
-			.setAuthor(msg.guild.name, msg.guild.iconURL);
+			.setAuthor(msg.guild.name, msg.guild.iconURL());
 
 		msg.channel.send({ embed });
 	}

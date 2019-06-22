@@ -4,11 +4,11 @@
         <div class="container">
             <div class="row">
                 <div class="col-12 my-3">
-                    <p class="h3 font-weight-light">LenoxBot Team</p>
+                    <p class="h3 font-weight-light">{{lang.website_team_team}}</p>
                 </div>
                 {{#each team}}
                 <div class="col-12">
-                <p class="h4 font-weight-light text-center">{{#if roleMembers}}{{roleName}}{{/if}}</p>
+                <p class="h4 font-weight-light text-center">{{#if roleMembers}}{{roleName}} ({{length roleMembers}}){{/if}}</p>
                 </div>
                 <div class="col-12 d-flex justify-content-center align-items-center flex-wrap">
                 {{#each roleMembers}}
@@ -20,6 +20,40 @@
 									 height="120" width="120">
                             </figure>
                             <h5 class="card-title">{{username}}<small class="text-muted">#{{discriminator}}</small> </h5>
+                            <div class="d-flex flex-wrap justify-content-center align-items-center">
+                                    {{#if socialmedia.twitch}}
+                                    <a href="https://www.twitch.tv/{{socialmedia.twitch}}" class="lb-team-social lb-profile-social-twitch"><i
+                                            class="mdi mdi-twitch"></i></a>
+                                    {{/if}}
+                                    {{#if socialmedia.youtube}}
+                                    <a href="https://www.youtube.com/channel/{{socialmedia.youtube}}" class="lb-team-social lb-profile-social-youtube"><i
+                                            class="mdi mdi-youtube"></i></a>
+                                    {{/if}}
+                                    {{#if socialmedia.twitter}}
+                                    <a href="https://twitter.com/{{socialmedia.twitter}}" class="lb-team-social lb-profile-social-twitter"><i
+                                            class="mdi mdi-twitter"></i></a>
+                                    {{/if}}
+                                    {{#if socialmedia.instagram}}
+                                    <a href="https://www.instagram.com/{{socialmedia.instagram}}" class="lb-team-social lb-profile-social-instagram"><i
+                                            class="mdi mdi-instagram"></i></a>
+                                    {{/if}}
+                                    {{#if socialmedia.facebook}}
+                                    <a href="https://www.facebook.com/{{socialmedia.facebook}}" class="lb-team-social lb-profile-social-facebook"><i
+                                            class="mdi mdi-facebook-box"></i></a>
+                                    {{/if}}
+                                    {{#if socialmedia.github}}
+                                    <a href="https://www.github.com/{{socialmedia.github}}" class="lb-team-social lb-profile-social-github"><i
+                                            class="mdi mdi-github-circle"></i></a>
+                                    {{/if}}
+                                    {{#if socialmedia.pinterest}}
+                                    <a href="https://www.pinterest.com/{{socialmedia.pinterest}}" class="lb-team-social lb-profile-social-pinterest"><i
+                                            class="mdi mdi-pinterest-box"></i></a>
+                                    {{/if}}
+                                    {{#if socialmedia.reddit}}
+                                    <a href="https://www.reddit.com/user/{{socialmedia.reddit}}" class="lb-team-social lb-profile-social-reddit"><i
+                                            class="mdi mdi-reddit"></i></a>
+                                    {{/if}}
+                                </div>
                         </div>
                     </div>
                 </div>

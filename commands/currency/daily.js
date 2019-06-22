@@ -20,7 +20,7 @@ module.exports = class dailyCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const mentioncheck = msg.mentions.users.first();
 
@@ -60,6 +60,12 @@ module.exports = class dailyCommand extends LenoxCommand {
 		newDailystreakSettings.deadline = Date.now() + 172800000;
 		await msg.client.provider.setUser(msg.author.id, 'dailystreak', newDailystreakSettings);
 
+		const currentStatsDailyRecord = msg.client.provider.getUser(msg.author.id, 'stats');
+		if (currentStatsDailyRecord.dailystreakhighest < newDailystreakSettings.streak) {
+			currentStatsDailyRecord.dailystreakhighest = newDailystreakSettings.streak;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStatsDailyRecord);
+		}
+
 
 		if (!mentioncheck) {
 			let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
@@ -73,14 +79,18 @@ module.exports = class dailyCommand extends LenoxCommand {
 			const author = lang.daily_author.replace('%amount', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? 200 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2) : 400 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2));
 			const streak = lang.daily_streak.replace('%streak', msg.client.provider.getUser(msg.author.id, 'dailystreak').streak);
 
-			const remindEmbed = new Discord.RichEmbed()
+			const remindEmbed = new Discord.MessageEmbed()
 				.setColor('RED')
 				.setAuthor(`🎁 ${author} 🎁`)
 				.setDescription(`${streak} \n\n${lang.daily_remindmsg}`);
-			const noRemindEmbed = new Discord.RichEmbed()
+			const noRemindEmbed = new Discord.MessageEmbed()
 				.setColor('RED')
 				.setAuthor(`🎁 ${author} 🎁`)
 				.setDescription(`${streak}`);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.daily += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 
 			if (msg.client.provider.getUser(msg.author.id, 'dailyremind') === true) {
 				return msg.channel.send({
@@ -103,14 +113,18 @@ module.exports = class dailyCommand extends LenoxCommand {
 		const mention = lang.daily_mention.replace('%mentiontag', mentioncheck.tag).replace('%amount', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? 200 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2) : 400 + (msg.client.provider.getUser(msg.author.id, 'dailystreak').streak * 2));
 		const streak = lang.daily_streak.replace('%streak', msg.client.provider.getUser(msg.author.id, 'dailystreak').streak);
 
-		const remindEmbed = new Discord.RichEmbed()
+		const remindEmbed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setAuthor(`🎁 ${mention} 🎁`)
 			.setDescription(`${streak} \n\n${lang.daily_remindmsg}`);
-		const noRemindEmbed = new Discord.RichEmbed()
+		const noRemindEmbed = new Discord.MessageEmbed()
 			.setColor('RED')
 			.setAuthor(`🎁 ${mention} 🎁`)
 			.setDescription(`${streak}`);
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.daily += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
 
 		if (msg.client.provider.getUser(msg.author.id, 'dailyremind') === true) {
 			return msg.channel.send({

@@ -1,4 +1,5 @@
 <title>Command list - LenoxBot</title>
+<meta name="description" content="A list of all commands that LenoxBot offers your Discord server...">
 <script>
     var currentPageId = "#commands";
 </script>
@@ -8,9 +9,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-3 my-4">
-                    <h3 class="font-weight-light">Categories <button class="btn lb-btn-trans-black d-lg-none float-right" id="toggle-menu"><i class="mdi mdi-menu"></i></button></h3>
+                    <h3 class="font-weight-light">{{lang.website_commands_modules}} <button class="btn lb-btn-trans-black d-lg-none float-right" id="toggle-menu"><i class="mdi mdi-menu"></i></button></h3>
                     <div id="list-modules" class="list-group menu">
-                        <button class="list-group-item list-group-item-action lb-btn-list" id="command">All</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list lb-btn-list-focus" id="command">All</button>
                         <button class="list-group-item list-group-item-action lb-btn-list" id="administration">Administration</button>
                         <button class="list-group-item list-group-item-action lb-btn-list" id="moderation">Moderation</button>
                         <button class="list-group-item list-group-item-action lb-btn-list" id="help">Help</button>
@@ -27,7 +28,7 @@
                 <div class="col-lg-9">
                     <div class="row">
                         <div class="col-12 pr-0 mt-4">
-                            <h3 class="font-weight-light">Commands</h3>
+                            <h3 class="font-weight-light">{{lang.website_commands_title}}</h3>
                             <div class="form-group">
                                 <input class="form-control lb-input" id="search-input" type="text" placeholder="Search...">
                             </div>
@@ -38,23 +39,23 @@
                                 <table id="table" class="table table-hover mb-0">
                                     <thead>
                                         <tr>
-                                            <th>Command name</th>
-                                            <th>Description</th>
-                                            <th>Permissions</th>
-                                            <th>Aliases</th>
+                                            <th>{{lang.website_commands_commandname}}</th>
+                                            <th>{{lang.website_commands_description}}</th>
+                                            <th>{{lang.website_commands_permissions}}</th>
+                                            <th>{{lang.website_commands_aliases}}</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {{#each commands}}
-                                        <tr class="command {{help.category}}">
-                                            <td>{{help.usage}}</td>
-                                            <td>{{help.description}}</td>
-                                            <td>{{conf.newuserpermissions}}</td>
-                                            <td>{{conf.newaliases}}</td>
+                                        <tr class="command {{category}}">
+                                            <td>{{usage}}</td>
+                                            <td>{{description}}</td>
+                                            <td>{{newuserpermissions}}</td>
+                                            <td>{{newaliases}}</td>
                                         </tr>
                                         {{/each}}
                                         <tr id="notfound"  style="display: none;">
-                                            <td align="center" colspan="4">Command not found</td>
+                                            <td align="center" colspan="4">{{lang.website_commands_cmdnotfound}}</td>
                                         </tr>
                                     </tbody>
                                 </table>

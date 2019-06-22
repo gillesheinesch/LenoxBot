@@ -18,16 +18,16 @@ module.exports = class createcustomcommandCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
 		if (!args || args.slice().length === 0) return msg.reply(lang.createcustomcommand_noinput);
 		if (args.slice(1).length === 0) return msg.reply(lang.createcustomcommand_nocommandanswer);
-		if (msg.client.provider.getGuild(msg.message.guild.id, 'premium').status === false && msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length >= 5) return msg.reply(lang.createcustomcommand_premiumneeded);
+		if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false && msg.client.provider.getGuild(msg.guild.id, 'customcommands').length >= 5) return msg.reply(lang.createcustomcommand_premiumneeded);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'customcommands').length; i++) {
-			if (msg.client.provider.getGuild(msg.message.guild.id, 'customcommands')[i].name.toLowerCase() === args.slice(0, 1).join(' ').toLowerCase()) return msg.reply(lang.createcustomcommand_already);
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i++) {
+			if (msg.client.provider.getGuild(msg.guild.id, 'customcommands')[i].name.toLowerCase() === args.slice(0, 1).join(' ').toLowerCase()) return msg.reply(lang.createcustomcommand_already);
 		}
 
 		const newcommandsettings = {
@@ -40,9 +40,9 @@ module.exports = class createcustomcommandCommand extends LenoxCommand {
 			enabled: 'true'
 		};
 
-		const currentCustomcommands = msg.client.provider.getGuild(msg.message.guild.id, 'customcommands');
+		const currentCustomcommands = msg.client.provider.getGuild(msg.guild.id, 'customcommands');
 		currentCustomcommands.push(newcommandsettings);
-		await msg.client.provider.setGuild(msg.message.guild.id, 'customcommands', currentCustomcommands);
+		await msg.client.provider.setGuild(msg.guild.id, 'customcommands', currentCustomcommands);
 
 		return msg.reply(lang.createcustomcommand_created);
 	}

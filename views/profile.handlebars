@@ -38,30 +38,31 @@
                                     height="120" width="120">
                                 {{/if}}
                             </figure>
-                            {{#if ispremium}}<h1 class="mt-5 lb-profile-premiumuser">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small>{{else}}<h1 class="mt-5">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small>{{/if}} {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-primary mdi mdi-security-account"></small>{{/if}} {{#if ispremium}}<small data-toggle="tooltip" data-placement="right" title="Premium User" class="mdi mdi-heart lb-profile-premiumuser"></small>{{/if}}</h1>
+                            {{#if ispremium}}<h1 class="mt-5 lb-profile-premiumuser"><span data-toggle="tooltip" data-placement="left" title="{{profileUser.id}}">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small></span>{{else}}<h1 class="mt-5"><span data-toggle="tooltip" data-placement="left" title="{{profileUser.id}}">{{profileUser.username}}<small class="text-muted">#{{profileUser.discriminator}}</small></span>{{/if}} {{#if isstaff}}<small data-toggle="tooltip" data-placement="right" title="Staff Member" class="text-primary mdi mdi-security-account"></small>{{/if}} {{#if ispremium}}<small data-toggle="tooltip" data-placement="right" title="Premium User" class="mdi mdi-heart lb-profile-premiumuser"></small>{{/if}}</h1>
                             <p class="h4 font-weight-light text-center">{{userDescription}}</p>
                         </div>
                     </div>
                     <div class="card-columns">
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h3 class="card-title">Stats</h3>
+                                <h3 class="card-title">{{lang.website_profile_stats}}</h3>
                                 <div class="row">
-                                    <div class="col-6 p-0"><small>CREDITS</small>
+                                    <div class="col-6 p-0"><small>{{lang.website_profile_credits}}</small>
                                         <p class="h1">
                                             <span data-toggle="tooltip" data-placement="left" title="{{addCommas userCredits}}">
                                                 <script>document.write(numeral({{ userCredits }}).format('0.0a'))</script></span>
                                         </p>
                                     </div>
-                                    <div class="col-6 p-0"><small>GLOBAL RANK</small>
-                                        <p class="h1">#{{userCreditsGlobalRank}}</p>
+                                    <div class="col-6 p-0"><small>{{lang.website_profile_rank}}</small>
+                                    <p class="h1">Disabled</p>
+                                        <!-- <p class="h1">#{{userCreditsGlobalRank}}</p>-->
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h3 class="card-title">Badges</h3>
+                                <h3 class="card-title">{{lang.website_profile_badges}}</h3>
                                 {{#if badgesAndTitles}}
                                 <div class="row">
                                     {{#each badgesAndTitles}}
@@ -69,13 +70,13 @@
                                     {{/each}}
                                 </div>
                                 {{else}}
-                                <p>No badges 😢</p>
+                                <p>{{lang.website_profile_nobadges}} 😢</p>
                                 {{/if}}
                             </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h3 class="card-title">Titles</h3>
+                                <h3 class="card-title">{{lang.website_profile_titles}}</h3>
                                 {{#if badgesAndTitles}}
                                 <ul class="text-left">
                                     {{#each badgesAndTitles}}
@@ -83,13 +84,13 @@
                                     {{/each}}
                                 </ul>
                                 {{else}}
-                                <p>No titles 😢</p>
+                                <p>{{lang.website_profile_notitles}} 😢</p>
                                 {{/if}}
                             </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h3 class="card-title">Inventory</h3>
+                                <h3 class="card-title">{{lang.website_profile_inv}}</h3>
                                 {{#if inventoryItems}}
                                 <div class="row">
                                     {{#each inventoryItems}}
@@ -97,13 +98,13 @@
                                     {{/each}}
                                 </div>
                                 {{else}}
-                                <p>No items 😢</p>
+                                <p>{{lang.website_profile_noitems}} 😢</p>
                                 {{/if}}
                             </div>
                         </div>
                         <div class="card mb-3">
                             <div class="card-body">
-                                <h3 class="card-title">Socialmedia</h3>
+                                <h3 class="card-title">{{lang.website_profile_socialmedia}}</h3>
                                 <div class="d-flex flex-wrap justify-content-center align-items-center">
                                     {{#if userSocialmediaCheck}}
                                     {{#if userSocialmediaTwitch}}
@@ -139,7 +140,7 @@
                                             class="mdi mdi-reddit"></i></a>
                                     {{/if}}
                                     {{else}}
-                                    <p>No social media accounts linked to this account 😢</p>
+                                    <p>{{lang.website_profile_nosocialmedia}} 😢</p>
                                     {{/if}}
                                 </div>
                             </div>

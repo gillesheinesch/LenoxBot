@@ -18,12 +18,12 @@ module.exports = class removeautomaticroleCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		if (!msg.client.provider.getGuild(msg.message.guild.id, 'ara')) {
-			await msg.client.provider.setGuild(msg.message.guild.id, 'ara', []);
+		if (!msg.client.provider.getGuild(msg.guild.id, 'ara')) {
+			await msg.client.provider.setGuild(msg.guild.id, 'ara', []);
 		}
 
 		const addedrole = args.slice().join(' ');
@@ -34,14 +34,14 @@ module.exports = class removeautomaticroleCommand extends LenoxCommand {
 		const foundRole = msg.guild.roles.find(role => role.name.toLowerCase() === roleinput.toLowerCase());
 		if (!foundRole) return msg.reply(lang.removeautomaticrole_rolenotexist);
 
-		for (let i = 0; i < msg.client.provider.getGuild(msg.message.guild.id, 'ara').length; i += 2) {
-			if (foundRole.id === msg.client.provider.getGuild(msg.message.guild.id, 'ara').ara[i]) {
+		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
+			if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'ara')[i]) {
 				const roleId = foundRole.id;
-				for (let index = 0; index < msg.client.provider.getGuild(msg.message.guild.id, 'ara').length; index += 2) {
-					if (roleId === msg.client.provider.getGuild(msg.message.guild.id, 'ara')[index]) {
-						const currentAra = msg.client.provider.getGuild(msg.message.guild.id, 'ara');
+				for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'ara').length; index += 2) {
+					if (roleId === msg.client.provider.getGuild(msg.guild.id, 'ara')[index]) {
+						const currentAra = msg.client.provider.getGuild(msg.guild.id, 'ara');
 						currentAra.splice(index, 2);
-						await msg.client.provider.setGuild(msg.message.guild.id, 'ara', currentAra);
+						await msg.client.provider.setGuild(msg.guild.id, 'ara', currentAra);
 					}
 				}
 				return msg.channel.send(lang.removeautomaticrole_roleremoved);

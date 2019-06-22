@@ -13,9 +13,9 @@ exports.run = async (client, oldMember, newMember) => {
 		await client.provider.setGuild(newMember.guild.id, 'nicknamelog', currentNicknamelog);
 	}
 
-	//SEND SINGLE MESSAGE
-	let user = {id: newMember.user.id, username: newMember.user.username, discriminator: newMember.user.discriminator, avatar: newMember.user.avatar};
-	let singleMessage = {type: 'single', data: user};
+	// SEND SINGLE MESSAGE
+	const user = { id: newMember.user.id, username: newMember.user.username, discriminator: newMember.user.discriminator, avatar: newMember.user.avatar };
+	const singleMessage = { type: 'single', data: user };
 	process.send(singleMessage);
 
 	if (client.provider.getGuild(newMember.guild.id, 'guildmemberupdatelog') === 'false') return;
@@ -23,7 +23,7 @@ exports.run = async (client, oldMember, newMember) => {
 	const messagechannel = client.channels.get(client.provider.getGuild(newMember.guild.id, 'guildmemberupdatelogchannel'));
 
 	if (oldMember.nickname !== newMember.nickname) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildmemberupdateevent_nicknamechanged)
@@ -37,7 +37,7 @@ exports.run = async (client, oldMember, newMember) => {
 
 
 	if (oldMember.roles.size < newMember.roles.size) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildmemberupdateevent_roleassigned)
@@ -53,7 +53,7 @@ exports.run = async (client, oldMember, newMember) => {
 	}
 
 	if (oldMember.roles.size > newMember.roles.size) {
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('ORANGE')
 			.setTimestamp()
 			.setAuthor(lang.guildmemberupdateevent_roleremoved)

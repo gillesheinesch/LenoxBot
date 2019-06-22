@@ -20,7 +20,7 @@ module.exports = class mineCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
-		const langSet = msg.client.provider.getGuild(msg.message.guild.id, 'language');
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
 		const d = Math.random();
@@ -45,9 +45,14 @@ module.exports = class mineCommand extends LenoxCommand {
 			msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);
 
 			const dugup = lang.mine_dugup.replace('%amount', `**${validationfor10procent[result]}**`);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.mine += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 			return msg.channel.send({ embed });
 		} else if (d < 0.1) {
 			const validationfor30procent = ['439', '323', '356'];
@@ -63,9 +68,14 @@ module.exports = class mineCommand extends LenoxCommand {
 
 			const dugup = lang.mine_dugup.replace('%amount', `**${validationfor30procent[result]}**`);
 
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.mine += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 			return msg.channel.send({ embed });
 		} else if (d < 0.3) {
 			const validationfor50procent = ['201', '178', '238', '199', '168', '101', '130', '135', '176'];
@@ -80,9 +90,14 @@ module.exports = class mineCommand extends LenoxCommand {
 			msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);
 
 			const dugup = lang.mine_dugup.replace('%amount', `**${validationfor50procent[result]}**`);
-			const embed = new Discord.RichEmbed()
+			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(dugup);
+
+			const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+			currentStats.mine += 1;
+			await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 			return msg.channel.send({ embed });
 		}
 		const validationforrest = ['2', '98', '32', '72', '91', '85', '7', '15', '20', '28', '37'];
@@ -98,9 +113,14 @@ module.exports = class mineCommand extends LenoxCommand {
 
 
 		const dugup = lang.mine_dugup.replace('%amount', `**${validationforrest[result]}**`);
-		const embed = new Discord.RichEmbed()
+		const embed = new Discord.MessageEmbed()
 			.setColor('#66ff33')
 			.setDescription(dugup);
+
+		const currentStats = msg.client.provider.getUser(msg.author.id, 'stats');
+		currentStats.mine += 1;
+		await msg.client.provider.setUser(msg.author.id, 'stats', currentStats);
+
 		return msg.channel.send({ embed });
 	}
 };
