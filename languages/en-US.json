@@ -857,6 +857,7 @@
     "removeselfassignablerole_roleremoved": "Role has been successfully removed from self-assignable roles!",
     "removeselfassignablerole_error": "You did not add this role to the self-assignable roles",
     "removeselfassignablerole_description": "Remove a role that allows users to assign themselves",
+    "shuffle_notvoicechannel": "You are not in a voice channel, please join a voice channel to shuffle music!",
     "skipnumber_currentvotenumber": "The current vote number to skip music is %skipnumber",
     "skipnumber_error": "Your new number of votes to skip music cannot have spaces!",
     "skipnumber_noinput": "You must enter a number",
