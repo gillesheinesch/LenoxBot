@@ -1331,7 +1331,7 @@
     "punishments_notpunished": "You or the mentioned user has not been punished yet.",
     "punishments_noreportid": "You forgot to enter the ID of the punishment that you want to delete!",
     "punishments_nonumber": "Your punishment ID has to be a number!",
-    "punishments_punishmentremoved": "Punishment has been successfully deleted!",
+    "punishments_punishmentremoved": "Entry has been successfully deleted!",
     "punishments_nopunishmentwithid": "We're sorry... We couldn't find a punishment with this ID, please check again if you entered the correct punishment ID!",
     "punishments_description": "Shows you the punishments of a user",
     "serverwarns_error": "No user has been warned on this server until now!",
