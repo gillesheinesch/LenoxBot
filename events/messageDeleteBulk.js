@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	run: (client, messages) => {
+	run: (messages) => {
 		if (!client.provider.isReady) return;
 		if (messages.size === 0) return;
 
