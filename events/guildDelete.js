@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	run: async (client, guild) => {
+	run: async (guild) => {
 		if (!client.provider.isReady) return;
 
 		const embed = new Discord.MessageEmbed()
