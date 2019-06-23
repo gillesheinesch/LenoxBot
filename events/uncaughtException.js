@@ -1,7 +1,7 @@
 module.exports = {
 	emitter: process,
-	run: (client, error) => {
-		if (!client.settings || !client.settings.log_channels || !client.settings.log_channels.errors || !error) return;
+	run: (error) => {
+		if (!client.ready || !client.settings || !client.settings.log_channels || !client.settings.log_channels.errors || !error) return;
 		let errorMsg = (error ? error.stack || error : '').toString().replace(new RegExp(`${__dirname}\/`, 'g'), './');
 		if (client.channels.has(client.settings.log_channels.errors)) client.channels.get(client.settings.log_channels.errors).send(null, {
 			embed: {
