@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	run: (client) => {
+	run: () => {
 		const chalk = require('chalk');
 
 		const users = [];
@@ -19,6 +19,7 @@ module.exports = {
 		};
 		process.send(bulkMessage);
 
+		client.ready = true;
 		if (client.provider.isReady) {
 			console.log(chalk.green('LenoxBot is ready!'));
 		} else {
