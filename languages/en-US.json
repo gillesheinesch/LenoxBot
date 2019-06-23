@@ -1202,7 +1202,7 @@
     "steamprofile_description": "Requests Steam profile information of a Steam user",
     "steamscammercheck_validsteamid": "Please make sure that you have inserted a valid SteamID64! Here you can get your Steam64ID: https://steamid.io/",
     "steamscammercheck_nosteamid": "This isn't a Steam64ID. Here you can get your Steam64ID: https://steamid.io/",
-    "steamscammercheck_error": "That Steam profile could not be found. Please make sure that you have insert a valid SteamID64.",
+    "steamscammercheck_error": "That Steam profile could not be found. Please make sure that you have inserted a valid SteamID64.",
     "steamscammercheck_scammer": "%author, this user was marked as **scammer**!",
     "steamscammercheck_notscammer": "%author, this user wasn't marked as **scammer**!",
     "steamscammercheck_description": "Checks whether a Steam user was marked as scammer",
