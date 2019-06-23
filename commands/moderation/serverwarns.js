@@ -22,7 +22,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		if (msg.client.provider.getGuild(msg.guild.id, 'warnlog').length === 0) return msg.channel.send(lang.warnlog_error);
+		if (msg.client.provider.getGuild(msg.guild.id, 'warnlog').length === 0) return msg.channel.send(lang.serverwarns_error);
 		const firstfield = [];
 		const secondfield = [];
 		const array = [];
