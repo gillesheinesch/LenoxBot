@@ -13,12 +13,10 @@ require('moment-duration-format');
 // const shardId = process.env.SHARD_COUNT;
 const token = process.env.CLIENT_TOKEN;
 
-
 if (!settings.token || !settings.prefix || !settings.owners || !settings.owners.length || !settings.keychannel || !settings.websiteport || isNaN(settings.websiteport)) {
 	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
 	return process.exit(42);
 }
-
 
 const client = new Commando.Client({
 	commandPrefix: settings.prefix,
@@ -33,6 +31,7 @@ const client = new Commando.Client({
 	}
 });
 
+client.ready = false;
 client.settings = settings;
 
 client.queue = new Map();
