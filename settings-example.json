@@ -3,6 +3,7 @@
     "administrators": ["UserID", "UserID", "UserID"],
 	"token": "Required. Your Super Secret Token",
     "prefix": "Required. Standard Prefix",
+    "auddKey": "Audd Lyrics API Key",
     "googleKey": "Google Custom Search API Key",
     "googlekey": "Youtube API key",
     "clientID_Auth": "Client ID Auth",

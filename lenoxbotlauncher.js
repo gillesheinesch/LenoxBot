@@ -6352,8 +6352,14 @@ async function run() {
 				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
 		const fetchedChannel = await this.channels.get('578207982677131265');
+		let fetchedUser = {};
+		try {
+			fetchedUser = await this.users.fetch("${userId}");
+		} catch (e) {
+			fetchedUser.tag = userId;
+		}
 		if (fetchedChannel) {
-			await fetchedChannel.send('${userId} voted on discordbots.org and received ${credits} credits');
+			await fetchedChannel.send('${fetchedUser.tag} voted on discordbots.org and received ${credits} credits');
 			return fetchedChannel;
 		}
     })();
