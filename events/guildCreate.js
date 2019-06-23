@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const settings = require('../settings.json');
 const guildsettingskeys = require('../guildsettings-keys.json');
 module.exports = {
-	run: async (client, guild) => {
+	run: async (guild) => {
 		if (!client.provider.isReady) return;
 		guildsettingskeys.prefix = settings.prefix;
 
