@@ -20,7 +20,7 @@
     "remind_reminderdeleted": "Reminder successfully deleted!",
     "remind_remindnoexist": "This reminder doesn't exist!",
     "remind_noreminder": "No reminder found in the database.",
-    "remind_embedreminder": "Reminder",
+    "remind_embedreminder": "Erinnerung",
     "remind_duration": "**Remaining time:**",
     "remind_invalid": "You used the command incorrectly! For more information how to use the command, please check out the command **%prefixhelp remind**",
     "remind_description": "Sets a reminder",
