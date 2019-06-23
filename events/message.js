@@ -4,7 +4,7 @@ const usersettingskeys = require('../usersettings-keys.json');
 const botsettingskeys = require('../botsettings-keys.json');
 const Discord = require('discord.js');
 module.exports = {
-	run: async (client, msg) => {
+	run: async (msg) => {
 		if (msg.author.bot) return;
 		if (msg.channel.type !== 'text') return msg.reply(englishLang.messageevent_error);
 		if (!client.provider.isReady) return;
