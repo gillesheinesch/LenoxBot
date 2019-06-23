@@ -4,7 +4,7 @@
     "shuffle_notvoicechannel": "You are not in a voice channel, please join a voice channel to shuffle music!",
     "shuffle_description": "Shuffle the queue",
     "lyrics_nosongname": "You must provide a song name. Example: `parkway drive - boneyards`.",
-    "lyrics_page": "Page:",
+    "lyrics_page": "Página:",
     "lyrics_description": "Fetch lyrics for a given artist and song",
     "remind_maxreachednopremium": "Has alcanzado el máximo de 5 recordatorios. Para conseguir más ranuras de recordatorios, haz una donación a LenoxBot en https://lenoxbot.com/donate",
     "remind_maxwithpremium": "Has alcanzado el máximo de 25 recordatorios.",
