@@ -1,6 +1,6 @@
 module.exports = {
-	run: (client, data) => {
-		if (!client.settings || !client.settings.log_channels || !client.settings.log_channels.logs || !error) return;
+	run: (data) => {
+		if (!client.ready || !client.settings || !client.settings.log_channels || !client.settings.log_channels.logs || !error) return;
 		try {
 			if (client.channels.has(client.settings.log_channels.logs)) client.channels.get(client.settings.log_channels.logs).send(null, {
 				embed: {
