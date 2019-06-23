@@ -33,6 +33,8 @@ const client = new Commando.Client({
 	}
 });
 
+client.settings = settings;
+
 client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
