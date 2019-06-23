@@ -1,4 +1,13 @@
 {
+    "shuffle_shuffled": "The queue has been shuffled.",
+    "shuffle_nothing": "I cannot shuffle the queue because it is empty!",
+    "shuffle_notvoicechannel": "You are not in a voice channel, please join a voice channel to shuffle music!",
+    "shuffle_description": "Shuffle the queue",
+
+    "lyrics_nosongname": "You must provide a song name. Example: `parkway drive - boneyards`.",
+    "lyrics_page": "Page:",
+    "lyrics_description": "Fetch lyrics for a given artist and song",
+
     "remind_maxreachednopremium": "You reached the maximum of 5 reminder. To get more reminder slots, you have to donate to LenoxBot under https://lenoxbot.com/donate",
     "remind_maxwithpremium": "You reached the maximum of 25 reminder.",
     "remind_notime": "You forgot to enter the duration of the reminder",
