@@ -20,12 +20,14 @@ module.exports = class lyricsCommand extends LenoxCommand {
 	}
 
 	async run(msg) {
+		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
+		const lang = require(`../../languages/${langSet}.json`);
 		const text_truncate = (str, length, ending) => {
-			if (length == null) length = 100;
-			if (ending == null) ending = '...';
+			if (length === null) length = 100;
+			if (ending === null) ending = '...';
 			if (str.length > length) return str.substring(0, length - ending.length) + ending;
-			else return str;
-		}
+			return str;
+		};
 		const MESSAGE_CHAR_LIMIT = 2000;
 		const splitString = (string, prepend = '', append = '') => {
 			if (string.length <= MESSAGE_CHAR_LIMIT) return [string];
@@ -33,12 +35,12 @@ module.exports = class lyricsCommand extends LenoxCommand {
 			const sliceEnd = splitIndex > 0 ? splitIndex : MESSAGE_CHAR_LIMIT - prepend.length - append.length;
 			const rest = splitString(string.slice(sliceEnd), prepend, append);
 			return [`${string.slice(0, sliceEnd)}${append}`, `${prepend}${rest[0]}`, ...rest.slice(1)];
-		}
-		
+		};
+
 		const input = msg.content.split(' ');
 		const searchString = input.slice(1).join(' ');
-		if (!searchString) return msg.channel.send('You must provide a song name. Example: `parkway drive - boneyards`.');
-		
+		if (!searchString) return msg.channel.send(lang.lyrics_nosongname);
+
 		await axios({
 			method: 'GET',
 			url: `https://api.audd.io/findLyrics/?itunes_country=us&api_token=${config.auddKey}&q=${encodeURIComponent(searchString)}`,
@@ -46,17 +48,17 @@ module.exports = class lyricsCommand extends LenoxCommand {
 				'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
 				'Content-Type': 'application/json; charset=utf-8'
 			}
-		}).then(async(res) => {
+		}).then(async res => {
 			if (!res.data.result.length) return msg.channel.send(`Couldn't find lyrics for the song \`${searchString}\`.`);
-			let audd_song = res.data.result[0];
-			let ksoft_res = await axios.get('https://ksoft.derpyenterprises.org/lyrics?input=' + encodeURIComponent(`${audd_song.artist} - ${audd_song.title}`));
+			const audd_song = res.data.result[0];
+			const ksoft_res = await axios.get(`https://ksoft.derpyenterprises.org/lyrics?input=${encodeURIComponent(`${audd_song.artist} - ${audd_song.title}`)}`);
 			if (ksoft_res.data.data.length) { // check to make sure ksoft returned a response (this response is used to add properties from ksoft to audd)
-				let ksoft_song = ksoft_res.data.data[0];
+				const ksoft_song = ksoft_res.data.data[0];
 				if (!audd_song.lyrics && ksoft_song.lyrics) { // make sure audd and ksoft returned lyrics
 					audd_song.lyrics = ksoft_song.lyrics;
 				} else if (!audd_song.lyrics && !ksoft_song.lyrics) { // if audd and ksoft didn't return lyrics then try to get them from makeitpersonal as a last resort
 					try {
-						let mip_lyrics = await axios.get(`https://makeitpersonal.co/lyrics?artist=${encodeURIComponent(audd_song.artist)}&title=${encodeURIComponent(audd_song.title)}`); // use this api if audd is down or can't find lyrics for a song. (it is rare for audd not to find lyrics for a song but just as a safety precaution.)
+						const mip_lyrics = await axios.get(`https://makeitpersonal.co/lyrics?artist=${encodeURIComponent(audd_song.artist)}&title=${encodeURIComponent(audd_song.title)}`); // use this api if audd is down or can't find lyrics for a song. (it is rare for audd not to find lyrics for a song but just as a safety precaution.)
 						audd_song.lyrics = mip_lyrics.data; // add the lyrics to the audd api (I like doing it this way so I won't have to check the api if it didn't find lyrics before having them sent.)
 					} catch (e) { }
 				}
@@ -71,10 +73,38 @@ module.exports = class lyricsCommand extends LenoxCommand {
 				audd_song.id = ksoft_song.id;
 				audd_song.search_score = ksoft_song.search_score;
 			}
-			audd_song.lyrics = audd_song.lyrics.replace(/^\n+/, '').replace(/\n{3,}/g, '\n\n').replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ');
+			audd_song.lyrics = audd_song.lyrics.replace(/^\n+/, '').replace(/\n{3,}/g, '\n\n').replace(/&amp;/g, '&')
+				.replace(/&gt;/g, '>')
+				.replace(/&lt;/g, '<')
+				.replace(/&quot;/g, '"')
+				.replace(/&OElig;/g, 'Œ')
+				.replace(/&oelig;/g, 'œ')
+				.replace(/&Scaron;/g, 'Š')
+				.replace(/&scaron;/g, 'š')
+				.replace(/&Yuml;/g, 'Ÿ')
+				.replace(/&circ;/g, 'ˆ')
+				.replace(/&tilde;/g, '˜')
+				.replace(/&ndash;/g, '–')
+				.replace(/&mdash;/g, '—')
+				.replace(/&lsquo;/g, '‘')
+				.replace(/&rsquo;/g, '’')
+				.replace(/&sbquo;/g, '‚')
+				.replace(/&ldquo;/g, '“')
+				.replace(/&rdquo;/g, '”')
+				.replace(/&bdquo;/g, '„')
+				.replace(/&dagger;/g, '†')
+				.replace(/&Dagger;/g, '‡')
+				.replace(/&permil;/g, '‰')
+				.replace(/&lsaquo;/g, '‹')
+				.replace(/&rsaquo;/g, '›')
+				.replace(/&euro;/g, '€')
+				.replace(/&copy;/g, '©')
+				.replace(/&trade;/g, '™')
+				.replace(/&reg;/g, '®')
+				.replace(/&nbsp;/g, ' ');
 			audd_song.lyrics = splitString(audd_song.lyrics);
 			let pagenum = 1;
-			audd_song.lyrics.forEach((page) => { // iterate through the pages
+			audd_song.lyrics.forEach(page => { // iterate through the pages
 				msg.channel.send({
 					embed: {
 						description: page.toString() || 'N/A',
@@ -83,16 +113,16 @@ module.exports = class lyricsCommand extends LenoxCommand {
 						},
 						timestamp: new Date(),
 						color: 3447003,
-						title: text_truncate(`${audd_song.album ? '[' + audd_song.album + '] ' : ''}${audd_song.artist} - ${audd_song.title}${audd_song.album_year ? ' (' + audd_song.album_year + ')' : ''}`, 256),
+						title: text_truncate(`${audd_song.album ? `[${audd_song.album}] ` : ''}${audd_song.artist} - ${audd_song.title}${audd_song.album_year ? ` (${audd_song.album_year})` : ''}`, 256),
 						author: {
 							name: text_truncate(audd_song.artist, 256) || 'N/A'
 						},
 						footer: {
-							text: `Page: ${pagenum++ || 'N/A'}`
+							text: `${lang.lyrics_page} ${pagenum++ || 'N/A'}`
 						}
 					}
 				});
 			});
-		}).catch((e) => console.error(e));
+		}).catch(e => console.error(e));
 	}
 };
