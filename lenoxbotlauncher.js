@@ -3,6 +3,7 @@ const settings = require('./settings.json');
 const chalk = require('chalk');
 const moment = require('moment');
 require('moment-duration-format');
+const marketitemskeys = require('./marketitems-keys.json');
 
 const shardingManager = new Discord.ShardingManager('./lenoxbot.js', {
 	token: settings.token
@@ -455,8 +456,6 @@ async function run() {
 			}
 
 			const lang = require(`./languages/website_${req.getLocale()}`);
-
-			// console.log(userArray);
 			return res.render('leaderboard', {
 				languages: languages(req),
 				lang: lang,
@@ -467,7 +466,6 @@ async function run() {
 				islenoxbotnp: islenoxbotnp
 			});
 		} catch (error) {
-			console.log(error);
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
@@ -708,6 +706,17 @@ async function run() {
 				if (userconfs.settings.socialmedia[x] === '') socialmediaCheck++;
 			}
 
+			const itemsnames = [];
+			for (const x in marketitemskeys) {
+				itemsnames.push(x);
+			}
+
+			let inventoryslotcheck = 0;
+			for (let x = 0; x < itemsnames.length; x++) {
+				inventoryslotcheck += parseInt(userconfs.settings.inventory[itemsnames[x]], 10);
+			}
+
+
 			const lang = require(`./languages/website_${req.getLocale()}`);
 			const islenoxbot = islenoxboton(req);
 			return res.render('profile', {
@@ -720,6 +729,8 @@ async function run() {
 				userCredits: rowCredits,
 				// userCreditsGlobalRank: globalrank,
 				inventoryItems: check === Object.keys(userconfs.settings.inventory).length ? null : array1,
+				inventoryItemsUsed: inventoryslotcheck,
+				inventoryItemsSpace: userconfs.settings.inventoryslots,
 				userSocialmediaCheck: socialmediaCheck === Object.keys(userconfs.settings.socialmedia).length ? null : true,
 				userSocialmediaTwitch: userconfs.settings.socialmedia.twitch === '' ? null : userconfs.settings.socialmedia.twitch,
 				userSocialmediaYoutube: userconfs.settings.socialmedia.youtube === '' ? null : userconfs.settings.socialmedia.youtube,
@@ -6352,14 +6363,8 @@ async function run() {
 				await shardingManager.shards.get(guild.shardID).eval(`
     (async () => {
 		const fetchedChannel = await this.channels.get('578207982677131265');
-		let fetchedUser = {};
-		try {
-			fetchedUser = await this.users.fetch("${userId}");
-		} catch (e) {
-			fetchedUser.tag = userId;
-		}
 		if (fetchedChannel) {
-			await fetchedChannel.send('${fetchedUser.tag} voted on discordbots.org and received ${credits} credits');
+			await fetchedChannel.send('<@${userId}> voted on discordbots.org and received ${credits} credits');
 			return fetchedChannel;
 		}
     })();

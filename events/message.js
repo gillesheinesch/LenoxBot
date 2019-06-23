@@ -159,8 +159,53 @@ exports.run = async (client, msg) => {
 		.replace(prefix, '');
 	if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length !== 0 && !client.registry.commands.get(command)) {
 		for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
-			for (let index = 0; index < input.length; index++) {
-				if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase()) {
+			const splittedInput = input.join(' ').toLowerCase().split('');
+			const splittedChatfilterentry = msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase().split('');
+			const newSplittedInput = [];
+
+			for (let index = 0; index < splittedInput.length; index++) {
+				if (!/^\s*$/.test(splittedInput[index])) {
+					newSplittedInput.push(splittedInput[index]);
+				}
+			}
+
+			let chatfiltercheck = 0;
+			let splittedchatfilterentryindex = 0;
+			for (let i = 0; i < newSplittedInput.length; i++) {
+				if (newSplittedInput[i] === splittedChatfilterentry[splittedchatfilterentryindex]) {
+					chatfiltercheck++;
+					splittedchatfilterentryindex++;
+				} else {
+					chatfiltercheck = 0;
+					splittedchatfilterentryindex = 0;
+				}
+				if (chatfiltercheck === splittedChatfilterentry.length) {
+					if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
+						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
+
+						const embed = new Discord.MessageEmbed()
+							.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
+							.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
+							.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
+							.setColor('RED')
+							.setAuthor(chatfilterembed);
+
+						try {
+							await msg.guild.channels.get(msg.client.provider.getGuild(msg.guild.id, 'chatfilterlogchannel')).send({
+								embed
+							});
+						} catch (error) {
+							return;
+						}
+					}
+					await msg.delete();
+
+					const messagedeleted = lang.messageevent_messagedeleted.replace('%author', msg.author);
+					return msg.channel.send(messagedeleted);
+				}
+			}
+			// Old chatfilter:
+			/* if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase()) {
 					if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
 						const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
 
@@ -183,8 +228,7 @@ exports.run = async (client, msg) => {
 
 					const messagedeleted = lang.messageevent_messagedeleted.replace('%author', msg.author);
 					msg.channel.send(messagedeleted);
-				}
-			}
+				} */
 		}
 	}
 
