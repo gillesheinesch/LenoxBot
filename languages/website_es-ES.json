@@ -198,5 +198,7 @@
     "website_leaderboard_guild_globalleaderboard": "Tabla de posiciones global",
     "website_leaderboard_guild_points": "puntos",
     "website_leaderboard_guild_level": "nivel",
-    "website_leaderboard_credits": "créditos"
+    "website_leaderboard_credits": "créditos",
+    "website_nav_dashboard_welcome": "Welcome",
+    "website_nav_dashboard_overview": "Overview"
 }
