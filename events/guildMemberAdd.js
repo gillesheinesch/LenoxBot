@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	run: async (client, member) => {
+	run: async (member) => {
 		if (!client.provider.isReady) return;
 		if (!client.provider.getGuild(member.guild.id, 'prefix')) return;
 
