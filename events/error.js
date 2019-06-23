@@ -1,3 +1,5 @@
-exports.run = (client, error) => {
-	console.log(error);
+module.exports = {
+	run: (client, error) => {
+		console.log(error);
+	}
 };
