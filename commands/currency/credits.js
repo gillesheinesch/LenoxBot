@@ -22,7 +22,6 @@ module.exports = class creditsCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const user1 = msg.mentions.users.first() || msg.author;
-		const lenoxbotcoin = msg.client.emojis.get('412952854354067456');
 		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		if (msg.client.provider.getUser(msg.author.id, 'creditsmessage') === false) {
@@ -79,7 +78,7 @@ module.exports = class creditsCommand extends LenoxCommand {
 
 		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${user1.tag}`, user1.avatarURL())
-			.setDescription(`**${lang.credits_credits}** ${msg.client.provider.getUser(user1.id, 'credits')} ${lenoxbotcoin} `)
+			.setDescription(`**${lang.credits_credits}** ${msg.client.provider.getUser(user1.id, 'credits')} 💸`)
 			.setColor('GREEN');
 
 		msg.channel.send({
