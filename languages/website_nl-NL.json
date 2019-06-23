@@ -198,5 +198,7 @@
     "website_leaderboard_guild_globalleaderboard": "Globale Ranglijstjes",
     "website_leaderboard_guild_points": "punten",
     "website_leaderboard_guild_level": "level",
-    "website_leaderboard_credits": "credits"
+    "website_leaderboard_credits": "credits",
+    "website_nav_dashboard_welcome": "Welcome",
+    "website_nav_dashboard_overview": "Overview"
 }
