@@ -1,7 +1,7 @@
 module.exports = {
 	emitter: process,
-	run: (client, error) => {
-		if (!client.settings || !client.settings.log_channels || !client.settings.log_channels.errors || !error || error.name === 'DiscordAPIError') return;
+	run: (error) => {
+		if (!client.ready || !client.settings || !client.settings.log_channels || !client.settings.log_channels.errors || !error || error.name === 'DiscordAPIError') return;
 		if (client.channels.has(client.settings.log_channels.errors)) client.channels.get(client.settings.log_channels.errors).send(null, {
 			embed: {
 				color: 15684432,
