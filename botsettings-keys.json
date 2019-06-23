@@ -25,5 +25,7 @@
     "commandsexecuted": 0,
     "cooldowns": {},
     "commands": [],
-    "top100credits": {}
+    "top100credits": {},
+    "reminderCount": 0,
+    "reminder": {}
   }
