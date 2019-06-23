@@ -1,5 +1,5 @@
 module.exports = {
-	run: async (client, oldMember, newMember) => {
+	run: async (oldMember, newMember) => {
 		if (!client.provider.isReady) return;
 		const queue = client.queue;
 		const serverQueue = queue.get(newMember.guild.id);
