@@ -455,8 +455,6 @@ async function run() {
 			}
 
 			const lang = require(`./languages/website_${req.getLocale()}`);
-
-			// console.log(userArray);
 			return res.render('leaderboard', {
 				languages: languages(req),
 				lang: lang,
@@ -467,7 +465,6 @@ async function run() {
 				islenoxbotnp: islenoxbotnp
 			});
 		} catch (error) {
-			console.log(error);
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
