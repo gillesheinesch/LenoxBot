@@ -542,7 +542,7 @@
     "shop_notown": "Du besitzt dieses Item nicht so oft, wie du es verkaufen willst! Du kannst ein Item im Shop mit dem folgendem Befehl kaufen: %prefixshop",
     "shop_sold": "Du hast %howmanyx %item für $%amount verkauft",
     "shop_notenoughcredits": "Du hast nicht genug Credits, um dieses Item zu kaufen",
-    "shop_inventoryfull": "Deine Inventarslots sind voll! Du kannst dein Inventar mit ***%prefixinventory upgrade** verbessern, oder es mit **%prefixshop sell all** verkaufen",
+    "shop_inventoryfull": "Deine Inventarslots sind voll! Du kannst dein Inventar mit **%prefixinventory upgrade** verbessern, oder es mit **%prefixshop sell all** verkaufen",
     "shop_bought": "Du hast %howmanyx %item für $%amount gekauft",
     "shop_itemnotexist": "Dieses Item existiert nicht! Bitte überprüfe, ob du das richtige Emoji verwendet hast",
     "shop_commanderror": "Du hast den Befehl falsch genutzt. Schau bitte mit %prefixhelp shop nach, wie man den Befehl richtig nutzt!",
