@@ -42,7 +42,7 @@
     "website_home_features_free": "Free",
     "website_home_features_free_description": "We want to offer the Discord users a bot where you do not have to pay anything and have a lot of functions. There is, of course, the opportunity to donate and get some extra features but otherwise the bot is free!",
     "website_home_features_dashboard": "Dashboard",
-    "website_home_features_dashboard_description": "Some quick example text to build on the card title and make up the bulk of card’s content.",
+    "website_home_features_dashboard_description": "A well structured online dashboard makes it easy for you to manage all the settings of your Discord server.",
     "website_home_features_dashboard_link": "My servers",
     "website_home_features_uptime": "99.99% Uptime",
     "website_home_features_uptime_description": "We carry out maintenance times of a maximum of 1 day 1-3 times a year, otherwise the bot is always online! We want to offer the users a bot to rely on.",
@@ -104,7 +104,7 @@
     "website_dashboardadministration_generalsettings": "General Settings",
     "website_dashboardadministration_prefix": "Prefix:",
     "website_dashboardadministration_language": "Language:",
-    "website_dashboardadministration_cmddeletion": "Commanddeletion:",
+    "website_dashboardadministration_cmddeletion": "Command deletion:",
     "website_dashboardadministration_muterole": "Mute role:",
     "website_dashboardadministration_none": "None",
     "website_dashboardadministration_xpmsg": "Toggle XP Messages:",
@@ -198,5 +198,7 @@
     "website_leaderboard_guild_globalleaderboard": "Global Leaderboards",
     "website_leaderboard_guild_points": "points",
     "website_leaderboard_guild_level": "level",
-    "website_leaderboard_credits": "credits"
+    "website_leaderboard_credits": "credits",
+    "website_nav_dashboard_welcome": "Welcome",
+    "website_nav_dashboard_overview": "Overview"
 }
