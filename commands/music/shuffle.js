@@ -25,14 +25,14 @@ module.exports = class shuffleCommand extends LenoxCommand {
 		}, a);
 		const fixedAllDifferentShuffle = (a, f) => {
 			// memorize position of fixed elements
-			fixed = a.reduce((acc, e, i) => {
+			let fixed = a.reduce((acc, e, i) => {
 				if (f[i]) acc.push([e, i]);
 				return acc;
 			}, []);
 			a = shuffle(a);
 			// swap fixed elements back to their original position
 			fixed.forEach(([item, initialIndex]) => {
-				currentIndex = a.indexOf(item);
+				let currentIndex = a.indexOf(item);
 				[a[initialIndex], a[currentIndex]] = [a[currentIndex], a[initialIndex]];
 			});
 			return a;
