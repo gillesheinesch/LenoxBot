@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	run: (client, msg) => {
+	run: (msg) => {
 		if (!client.provider.isReady) return;
 		if (msg.author.bot) return;
 		if (msg.channel.type !== 'text') return;
