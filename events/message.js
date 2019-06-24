@@ -165,7 +165,7 @@ module.exports = {
 				const newSplittedInput = [];
 
 				for (let index = 0; index < splittedInput.length; index++) {
-					if (!/^\s*$/.test(splittedInput[index])) {
+					if (splittedInput[index].match(/[a-z]/i)) {
 						newSplittedInput.push(splittedInput[index]);
 					}
 				}
