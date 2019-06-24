@@ -13,14 +13,12 @@ require('moment-duration-format');
 // const shardId = process.env.SHARD_COUNT;
 const token = process.env.CLIENT_TOKEN;
 
-
 if (!settings.token || !settings.prefix || !settings.owners || !settings.owners.length || !settings.keychannel || !settings.websiteport || isNaN(settings.websiteport)) {
 	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
 	return process.exit(42);
 }
 
-
-const client = new Commando.Client({
+const client = global.client = new Commando.Client({
 	commandPrefix: settings.prefix,
 	invite: 'discord.gg/jmZZQja',
 	unknownCommandResponse: false,
@@ -33,16 +31,27 @@ const client = new Commando.Client({
 	}
 });
 
+/* Custom Client Properties */
+client.ready = false;
+client.settings = settings;
 client.queue = new Map();
 client.skipvote = new Map();
 client.newsapi = new NewsAPI('351893454fd1480ea4fe2f0eac0307c2');
+/* End Custom Client Properties */
 
 fs.readdir('./events/', (err, files) => {
 	if (err) return console.error(err);
 	files.forEach(file => {
 		const eventFunction = require(`./events/${file}`);
-		const eventName = file.split('.')[0];
-		client.on(eventName, (...args) => eventFunction.run(client, ...args));
+		if (eventFunction.disabled) return;
+		const event = eventFunction.event || file.split('.')[0];
+		const emitter = (typeof eventFunction.emitter === 'string' ? client[eventFunction.emitter] : eventFunction.emitter) || client;
+		const once = eventFunction.once;
+		try {
+			emitter[once ? 'once' : 'on'](event, (...args) => eventFunction.run(...args));
+		} catch (error) {
+			console.error(error.stack);
+		}
 	});
 });
 

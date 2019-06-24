@@ -1,7 +1,7 @@
 {
     "owners": ["Required", "UserID", "UserID"],
     "administrators": ["UserID", "UserID", "UserID"],
-	"token": "Required. Your Super Secret Token",
+    "token": "Required. Your Super Secret Token",
     "prefix": "Required. Standard Prefix",
     "auddKey": "Audd Lyrics API Key",
     "googleKey": "Google Custom Search API Key",
@@ -20,5 +20,10 @@
 		"port": "Required. db port (Example: 27017)"
     },
     "dblAuthorization": "Autorization Code for API verification",
-    "botMainDiscordServer": "Required. The main/support Discord Server ID of this bot"
+    "botMainDiscordServer": "Required. The main/support Discord Server ID of this bot",
+    "log_channels": {
+	    "logs": "channel id to log console logs to",
+	    "warnings": "channel id to log console warnings to",
+	    "errors": "channel id to log console errors to"
+    }
 }

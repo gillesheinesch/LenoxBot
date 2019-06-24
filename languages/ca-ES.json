@@ -10,7 +10,7 @@
     "remind_maxwithpremium": "You reached the maximum of 25 reminders.",
     "remind_notime": "You forgot to enter the duration of the reminder",
     "remind_invalidtime": "Invalid format of duration. Please use **s** for seconds, **m** for minutes, **h** for hours, **d** for days. For more information how to use the command, please check out the command **%prefixhelp remind**",
-    "remind_notext": "You have to specify what this reminder is.",
+    "remind_notext": "You forgot to insert your reminder text!",
     "remind_textmax": "Your reminder text cannot exceed 300 characters!",
     "remind_addembedtitle": "Reminder successfully added!",
     "remind_addembedduration": "**Duration of the reminder:**",
