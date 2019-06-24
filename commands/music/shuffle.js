@@ -25,14 +25,14 @@ module.exports = class shuffleCommand extends LenoxCommand {
 		}, a);
 		const fixedAllDifferentShuffle = (a, f) => {
 			// memorize position of fixed elements
-			let fixed = a.reduce((acc, e, i) => {
+			const fixed = a.reduce((acc, e, i) => {
 				if (f[i]) acc.push([e, i]);
 				return acc;
 			}, []);
 			a = shuffle(a);
 			// swap fixed elements back to their original position
 			fixed.forEach(([item, initialIndex]) => {
-				let currentIndex = a.indexOf(item);
+				const currentIndex = a.indexOf(item);
 				[a[initialIndex], a[currentIndex]] = [a[currentIndex], a[initialIndex]];
 			});
 			return a;
@@ -45,7 +45,7 @@ module.exports = class shuffleCommand extends LenoxCommand {
 
 		if (!msg.member.voice.channel) return msg.channel.send(lang.shuffle_notvoicechannel);
 		if (!serverQueue || !serverQueue.songs.length) return msg.channel.send(lang.shuffle_nothing);
-   
+
 		serverQueue.songs = fixedAllDifferentShuffle(serverQueue.songs, [true]);
 
 		msg.channel.send(lang.shuffle_shuffled);
