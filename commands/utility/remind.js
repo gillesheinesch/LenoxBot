@@ -58,6 +58,7 @@ module.exports = class remindCommand extends LenoxCommand {
 						id: currentReminderCount,
 						userId: msg.author.id,
 						channelId: msg.channel.id,
+						guildId: msg.guild.id,
 						time: msTime,
 						remindCreatedAt: Date.now(),
 						remindEndDate: Date.now() + msTime,
