@@ -4,7 +4,7 @@ const usersettingskeys = require('../usersettings-keys.json');
 const botsettingskeys = require('../botsettings-keys.json');
 const Discord = require('discord.js');
 module.exports = {
-	run: async (msg) => {
+	run: async msg => {
 		if (msg.author.bot) return;
 		if (msg.channel.type !== 'text') return msg.reply(englishLang.messageevent_error);
 		if (!client.provider.isReady) return;
@@ -141,7 +141,7 @@ module.exports = {
 					if (client.provider.getGuild(msg.guild.id, 'ara').ara[i] < currentScores[msg.author.id].points && !msg.member.roles.get(client.provider.getGuild(msg.guild.id, 'ara')[i - 1])) {
 						const role = msg.guild.roles.get(client.provider.getGuild(msg.guild.id, 'ara')[i - 1]);
 						msg.member.roles.add(role);
-	
+
 						const automaticrolegotten = lang.messageevent_automaticrolegotten.replace('%rolename', role.name);
 						msg.channel.send(automaticrolegotten);
 					}
@@ -209,14 +209,14 @@ module.exports = {
 				/* if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase()) {
 						if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
 							const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
-	
+
 							const embed = new Discord.MessageEmbed()
 								.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
 								.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
 								.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
 								.setColor('RED')
 								.setAuthor(chatfilterembed);
-	
+
 							try {
 								await msg.guild.channels.get(msg.client.provider.getGuild(msg.guild.id, 'chatfilterlogchannel')).send({
 									embed
@@ -226,7 +226,7 @@ module.exports = {
 							}
 						}
 						await msg.delete();
-	
+
 						const messagedeleted = lang.messageevent_messagedeleted.replace('%author', msg.author);
 						msg.channel.send(messagedeleted);
 					} */

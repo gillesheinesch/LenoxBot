@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	run: async (member) => {
+	run: async member => {
 		if (!client.provider.isReady) return;
 		if (!client.provider.getGuild(member.guild.id, 'prefix')) return;
 
@@ -84,9 +84,9 @@ module.exports = {
 
 			if (embed) {
 				const welcomeEmbed = new Discord.MessageEmbed()
-				.setTimestamp()
-				.setDescription(newMessage)
-				.setColor('GREEN');
+					.setTimestamp()
+					.setDescription(newMessage)
+					.setColor('GREEN');
 				messagechannel.send({
 					embed: welcomeEmbed
 				});

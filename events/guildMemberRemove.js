@@ -1,6 +1,6 @@
 const Discord = require('discord.js');
 module.exports = {
-	run: (member) => {
+	run: member => {
 		if (!client.provider.isReady) return;
 		if (client.user.id === member.id) return;
 
