@@ -205,31 +205,6 @@ module.exports = {
 						return msg.channel.send(messagedeleted);
 					}
 				}
-				// Old chatfilter:
-				/* if (input[index].toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase()) {
-						if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
-							const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', msg.author.tag);
-
-							const embed = new Discord.MessageEmbed()
-								.addField(`🗣 ${lang.messagedeleteevent_author}:`, msg.author.tag)
-								.addField(`📲 ${lang.messagedeleteevent_channel}:`, `#${msg.channel.name} (${msg.channel.id})`)
-								.addField(`📥 ${lang.messagereactionaddevent_message}:`, msg.cleanContent)
-								.setColor('RED')
-								.setAuthor(chatfilterembed);
-
-							try {
-								await msg.guild.channels.get(msg.client.provider.getGuild(msg.guild.id, 'chatfilterlogchannel')).send({
-									embed
-								});
-							} catch (error) {
-								return;
-							}
-						}
-						await msg.delete();
-
-						const messagedeleted = lang.messageevent_messagedeleted.replace('%author', msg.author);
-						msg.channel.send(messagedeleted);
-					} */
 			}
 		}
 
