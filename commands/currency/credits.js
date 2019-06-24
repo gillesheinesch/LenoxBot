@@ -21,8 +21,24 @@ module.exports = class creditsCommand extends LenoxCommand {
 	async run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
-		const user1 = msg.mentions.users.first() || msg.author;
+		const args = msg.content.split(' ').slice(1);
+
+		let user1 = msg.mentions.users.first();
 		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
+
+		// eslint-disable-next-line no-negated-condition
+		if (!user1) {
+			// eslint-disable-next-line no-negated-condition
+			if (args.length !== 0) {
+				try {
+					user1 = msg.client.users.get(args.join(' '));
+				} catch (error) {
+					user1 = msg.author;
+				}
+			} else {
+				user1 = msg.author;
+			}
+		}
 
 		if (msg.client.provider.getUser(msg.author.id, 'creditsmessage') === false) {
 			const hintembed = lang.credits_hintembed.replace('%prefix', prefix);

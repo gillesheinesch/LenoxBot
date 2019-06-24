@@ -46,6 +46,42 @@ module.exports = {
 					botguildscountincrement: Math.floor(client.guilds.size / 170) + 1
 				});
 
+				function timeoutForReminder(reminder, timeoutTime) {
+					setTimeout(async () => {
+						const currentReminder2 = client.provider.getUser(reminder.userId, 'currentReminder');
+						const indexOfRemind = currentReminder2.indexOf(reminder.id);
+						currentReminder2.splice(indexOfRemind, 1);
+						await client.provider.setUser(reminder.userId, 'currentReminder', currentReminder2);
+
+						const currentReminders2 = client.provider.getBotsettings('botconfs', 'reminder');
+						delete currentReminders2[reminder.id];
+						await client.provider.setBotsettings('botconfs', 'reminder', currentReminders2);
+
+						const langSet = client.provider.getGuild(reminder.guildId, 'language');
+						const lang = require(`../languages/${langSet}.json`);
+						const remindPassedEmbed = new Discord.MessageEmbed()
+							.setColor('BLUE')
+							.setTimestamp()
+							.setTitle(lang.remind_embedremindpassed)
+							.setDescription(`${lang.remind_addembedtext}: ${reminder.text}`);
+
+						client.channels.get(reminder.channelId).send({
+							reply: reminder.userId,
+							embed: remindPassedEmbed
+						});
+					}, timeoutTime);
+				}
+
+				if (typeof client.provider.getBotsettings('botconfs', 'reminder') !== 'undefined') {
+					if (Object.keys(client.provider.getBotsettings('botconfs', 'reminder')).length !== 0) {
+						/* eslint guard-for-in: 0 */
+						for (const index in client.provider.getBotsettings('botconfs', 'reminder')) {
+							const timeoutTime = client.provider.getBotsettings('botconfs', 'reminder')[index].remindEndDate - Date.now();
+							timeoutForReminder(client.provider.getBotsettings('botconfs', 'reminder')[index], timeoutTime);
+						}
+					}
+				}
+
 				function timeoutForDaily(dailyreminder, timeoutTime) {
 					setTimeout(async () => {
 						client.users.get(dailyreminder.userID).send('Don\'t forget to pick up your daily reward');
