@@ -41,7 +41,7 @@ module.exports = class hentaihavenCommand extends LenoxCommand {
 					const thumbnail_url = document.getElementsByClassName('hidden animate_image')[video_selection].attributes[1].value || document.getElementsByClassName('hidden solid_image')[video_selection].attributes[1].value || document.getElementsByClassName('lazy attachment-medium post-image')[video_selection].attributes[4].value;
 					const embed = new Discord.MessageEmbed()
 						.setImage(thumbnail_url)
-						.setURL(url)
+						.setURL(video_url)
 						.setDescription(`[Video URL](${video_url})`)
 						.setColor('#ff0000')
 						.setURL(video_url)
@@ -61,12 +61,3 @@ module.exports = class hentaihavenCommand extends LenoxCommand {
 		}
 	}
 };
-
-
-
-
-    
-    
-    
-       
-   
