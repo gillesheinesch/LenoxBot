@@ -2,7 +2,7 @@
   "name": "lenoxbot",
   "version": "1.12.11",
   "description": "",
-  "main": "lenoxbotapp.js",
+  "main": "src/bot.js",
   "directories": {
     "doc": "docs"
   },
@@ -14,9 +14,11 @@
   "author": "Gilles Heinesch",
   "license": "MIT",
   "dependencies": {
+    "chalk": "^2.4.2",
     "discord.js": "github:discordjs/discord.js#master",
     "klasa": "github:dirigeants/klasa#settings",
     "klasa-member-gateway": "github:dirigeants/klasa-member-gateway#settings",
-    "axios": "^0.19.0"
+    "axios": "^0.19.0",
+    "dotenv": "^8.0.0"
   }
 }
