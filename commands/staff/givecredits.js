@@ -31,13 +31,13 @@ module.exports = class givecreditsCommand extends LenoxCommand {
 			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 		}
 
-		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
-		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
+		const role = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator');
+		if (!role || !msg.member.roles.has(role.id)) return msg.reply(lang.botownercommands_error);
 
 		const user = msg.mentions.users.first() ? msg.mentions.users.first().id : args.slice(0, 1).join(' ');
 		const amountofcoins = parseInt(args.slice(1).join(' '), 10);
 
-		if (!msg.client.users.get(user)) return msg.reply(lang.givecredits_nomention);
+		if (!msg.client.users.has(user)) return msg.reply(lang.givecredits_nomention);
 		if (!amountofcoins) return msg.reply(lang.givecredits_novalue);
 
 		let currentCredits = msg.client.provider.getUser(user, 'credits');
