@@ -24,8 +24,8 @@ module.exports = class languagefinderCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
-		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
+		const role = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator');
+		if (!role || !msg.member.roles.has(role.id)) return msg.reply(lang.botownercommands_error);
 
 		const content = args.slice().join(' ');
 		if (!content || isNaN(content)) return msg.reply(lang.languagefinder_noguildid);
