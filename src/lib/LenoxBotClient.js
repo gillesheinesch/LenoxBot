@@ -11,7 +11,7 @@ module.exports = class LenoxBotClient extends Client {
 
 	start() {
 		if (!this.config) return false;
-		this.login(process.env.CLIENT_TOKEN)
+		this.login(process.env.BOT_TOKEN)
 			.then(console.log)
 			.catch(console.error);
 		return true;
