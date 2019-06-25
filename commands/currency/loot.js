@@ -28,19 +28,19 @@ module.exports = class lootCommand extends LenoxCommand {
 		const d = Math.random();
 		const marketconfs = msg.client.provider.getBotsettings('botconfs', 'market');
 
-		const validationfor10procent = [];
-		const validationfor30procent = [];
-		const validationfor50procent = [];
+		const validationfor10percent = [];
+		const validationfor30percent = [];
+		const validationfor50percent = [];
 		const validationforrest = [];
 		for (const x in marketitemskeys) {
 			if (Number(marketitemskeys[x][2]) >= 1000) { // Between 1000-unlimited
-				validationfor10procent.push(x);
+				validationfor10percent.push(x);
 			}
 			if (Number(marketitemskeys[x][2]) >= 500 && Number(marketitemskeys[x][2]) < 1000) { // Between 500-999
-				validationfor30procent.push(x);
+				validationfor30percent.push(x);
 			}
 			if (Number(marketitemskeys[x][2]) >= 100 && Number(marketitemskeys[x][2]) < 500) { // Between 200-499
-				validationfor50procent.push(x);
+				validationfor50percent.push(x);
 			}
 			if (Number(marketitemskeys[x][2]) < 100) { // Between 0-199
 				validationforrest.push(x);
@@ -53,12 +53,12 @@ module.exports = class lootCommand extends LenoxCommand {
 			inventoryslotcheck += parseInt(msg.client.provider.getUser(msg.author.id, 'inventory')[index], 10);
 		}
 		const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix);
-		if (inventoryslotcheck >= msg.client.provider.getUser(msg.author.id, 'inventoryslots') && msg.client.provider.getUser(msg.author.id, 'premium').status === false) {
+		if (inventoryslotcheck >= msg.client.provider.getUser(msg.author.id, 'inventoryslots') && !msg.client.provider.getUser(msg.author.id, 'premium').status) {
 			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 			delete timestamps.loot[msg.author.id];
 			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 			return msg.reply(inventoryfull);
-		} else if (inventoryslotcheck + 1 >= msg.client.provider.getUser(msg.author.id, 'inventoryslots') && msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
+		} else if (inventoryslotcheck + 1 >= msg.client.provider.getUser(msg.author.id, 'inventoryslots') && msg.client.provider.getUser(msg.author.id, 'premium').status) {
 			const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
 			delete timestamps.loot[msg.author.id];
 			await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
@@ -66,26 +66,19 @@ module.exports = class lootCommand extends LenoxCommand {
 		}
 
 
-		const creditsloot = msg.client.provider.getUser(msg.author.id, 'premium').status === false ? Math.floor(Math.random() * 70) + 1 : (Math.floor(Math.random() * 70) + 1) * 2;
+		const creditsloot = !msg.client.provider.getUser(msg.author.id, 'premium').status ? Math.floor(Math.random() * 70) + 1 : (Math.floor(Math.random() * 70) + 1) * 2;
 
 		if (d < 0.001) {
-			const result = Math.floor(Math.random() * validationfor10procent.length);
+			const result = Math.floor(Math.random() * validationfor10percent.length);
 
 			let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
 			currentCredits += creditsloot;
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
+			const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
+			currentItems[validationfor10percent[result]] += msg.client.provider.getUser(msg.author.id, 'premium').status ? 2 : 1;
+			await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
 
-			if (msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
-				const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
-				currentItems[validationfor10procent[result]] += 2;
-				await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
-			} else {
-				const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
-				currentItems[validationfor10procent[result]] += 1;
-				await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
-			}
-
-			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor10procent[result]][0]} ${lang[`loot_${validationfor10procent[result]}`]} ($${marketconfs[validationfor10procent[result]][2]})`).replace('%howmany', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? '1' : '2');
+			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor10percent[result]][0]} ${lang[`loot_${validationfor10percent[result]}`]} ($${marketconfs[validationfor10percent[result]][2]})`).replace('%howmany', !msg.client.provider.getUser(msg.author.id, 'premium').status ? '1' : '2');
 			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
 				.setDescription(`🎉 ${lootmessage}`);
@@ -93,24 +86,16 @@ module.exports = class lootCommand extends LenoxCommand {
 				embed
 			});
 		} else if (d < 0.05) {
-			const result = Math.floor(Math.random() * validationfor30procent.length);
+			const result = Math.floor(Math.random() * validationfor30percent.length);
 
 			let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
 			currentCredits += creditsloot;
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
+			const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
+			currentItems[validationfor30percent[result]] += msg.client.provider.getUser(msg.author.id, 'premium').status ? 2 : 1;
+			await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
 
-
-			if (msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
-				const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
-				currentItems[validationfor30procent[result]] += 2;
-				await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
-			} else {
-				const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
-				currentItems[validationfor30procent[result]] += 1;
-				await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
-			}
-
-			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor30procent[result]][0]} ${lang[`loot_${validationfor30procent[result]}`]} ($${marketconfs[validationfor30procent[result]][2]})`).replace('%howmany', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? '1' : '2');
+			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor30percent[result]][0]} ${lang[`loot_${validationfor30percent[result]}`]} ($${marketconfs[validationfor30percent[result]][2]})`).replace('%howmany', !msg.client.provider.getUser(msg.author.id, 'premium').status ? '1' : '2');
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
@@ -119,24 +104,16 @@ module.exports = class lootCommand extends LenoxCommand {
 				embed
 			});
 		} else if (d < 0.2) {
-			const result = Math.floor(Math.random() * validationfor50procent.length);
+			const result = Math.floor(Math.random() * validationfor50percent.length);
 
 			let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
 			currentCredits += creditsloot;
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
+			const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
+			currentItems[validationfor50percent[result]] += msg.client.provider.getUser(msg.author.id, 'premium').status ? 2 : 1;
+			await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
 
-
-			if (msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
-				const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
-				currentItems[validationfor50procent[result]] += 2;
-				await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
-			} else {
-				const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
-				currentItems[validationfor50procent[result]] += 1;
-				await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
-			}
-
-			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor50procent[result]][0]} ${lang[`loot_${validationfor50procent[result]}`]} ($${marketconfs[validationfor50procent[result]][2]})`).replace('%howmany', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? '1' : '2');
+			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationfor50percent[result]][0]} ${lang[`loot_${validationfor50percent[result]}`]} ($${marketconfs[validationfor50percent[result]][2]})`).replace('%howmany', !msg.client.provider.getUser(msg.author.id, 'premium').status ? '1' : '2');
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
@@ -150,19 +127,11 @@ module.exports = class lootCommand extends LenoxCommand {
 			let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
 			currentCredits += creditsloot;
 			await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
+			const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
+			currentItems[validationforrest[result]] += msg.client.provider.getUser(msg.author.id, 'premium').status ? 2 : 1;
+			await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
 
-
-			if (msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
-				const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
-				currentItems[validationforrest[result]] += 2;
-				await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
-			} else {
-				const currentItems = msg.client.provider.getUser(msg.author.id, 'inventory');
-				currentItems[validationforrest[result]] += 1;
-				await msg.client.provider.setUser(msg.author.id, 'inventory', currentItems);
-			}
-
-			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][2]})`).replace('%howmany', msg.client.provider.getUser(msg.author.id, 'premium').status === false ? '1' : '2');
+			const lootmessage = lang.loot_lootmessage.replace('%amount', `**$${creditsloot}**`).replace('%item', `${marketconfs[validationforrest[result]][0]} ${lang[`loot_${validationforrest[result]}`]} ($${marketconfs[validationforrest[result]][2]})`).replace('%howmany', !msg.client.provider.getUser(msg.author.id, 'premium').status ? '1' : '2');
 
 			const embed = new Discord.MessageEmbed()
 				.setColor('#66ff33')
