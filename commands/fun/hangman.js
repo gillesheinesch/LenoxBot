@@ -122,13 +122,8 @@ module.exports = class hangmanCommand extends LenoxCommand {
 								if (!triedLetters.includes(response.first().content.toLowerCase())) {
 									if (response.first().content.length === 1) {
 										if (wordToGuessInArray.includes(response.first().content.toLowerCase())) {
-											if (turn === 1) {
-												const embedtitlecorrect = lang.hangman_embedtitlecorrect.replace('%author', msg.author.tag).replace('%letter', response.first().content.toLowerCase());
-												firstEmbed.setTitle(embedtitlecorrect);
-											} else {
-												const embedtitlecorrect = lang.hangman_embedtitlecorrect.replace('%author', mention.tag).replace('%letter', response.first().content.toLowerCase());
-												firstEmbed.setTitle(embedtitlecorrect);
-											}
+											const embedtitlecorrect = lang.hangman_embedtitlecorrect.replace('%author', turn === 1 ? msg.author.tag : mention.tag).replace('%letter', response.first().content.toLowerCase());
+											firstEmbed.setTitle(embedtitlecorrect);
 
 											for (let index2 = 0; index2 < wordToGuess.length; index2++) {
 												if (wordToGuess[index2] === response.first().content.toLowerCase()) {
@@ -141,12 +136,8 @@ module.exports = class hangmanCommand extends LenoxCommand {
 											hangmanEmbed.edit({
 												embed: firstEmbed
 											});
-
-											if (turn === 1) {
-												turn = 2;
-											} else {
-												turn = 1;
-											}
+											
+											turn = turn === 1 ? 2 : 1;
 
 											if (!newWordString.includes('_') && turn === 1) {
 												const mentiongamewon = lang.hangman_mentiongamewon.replace('%author', msg.author).replace('%word', wordToGuess);
@@ -161,12 +152,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 												triedLetters.push(response.first().content.toLowerCase());
 											}
 
-											let embedtitlewrong;
-											if (turn === 1) {
-												embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', msg.author.tag);
-											} else {
-												embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', mention.tag);
-											}
+											let embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', turn === 1 ? msg.author.tag : mention.tag).replace('%letter', response.first().content.toLowerCase());;
 
 											const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 											embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
@@ -176,11 +162,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 												firstEmbed.setDescription(embeddescriptionwithtried);
 												firstEmbed.setImage(hangmanPictures[15 - chances]);
 
-												if (turn === 1) {
-													turn = 2;
-												} else {
-													turn = 1;
-												}
+												turn = turn === 1 ? 2 : 1;
 
 												hangmanEmbed.edit({
 													embed: firstEmbed
@@ -210,14 +192,8 @@ module.exports = class hangmanCommand extends LenoxCommand {
 											if (wordToGuess === response.first().content.toLowerCase()) {
 												const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 
-												if (turn === 1) {
-													const embedtitlecorrect = lang.hangman_embedtitlecorrectword.replace('%author', msg.author.tag).replace('%word', response.first().content.toLowerCase());
-													firstEmbed.setTitle(embedtitlecorrect);
-												} else {
-													const embedtitlecorrect = lang.hangman_embedtitlecorrectword.replace('%author', mention.tag).replace('%word', response.first().content.toLowerCase());
-													firstEmbed.setTitle(embedtitlecorrect);
-												}
-
+												const embedtitlecorrect = lang.hangman_embedtitlecorrectword.replace('%author', turn === 1 ? msg.author.tag : mention.tag).replace('%word', response.first().content.toLowerCase());
+												firstEmbed.setTitle(embedtitlecorrect);
 												firstEmbed.setFooter(embedtitlechances);
 												firstEmbed.setDescription(embeddescriptionwithtried);
 
@@ -237,13 +213,8 @@ module.exports = class hangmanCommand extends LenoxCommand {
 
 											chances -= 1;
 
-											if (turn === 1) {
-												const embedtitlewrong = lang.hangman_embedtitlewrongword.replace('%author', msg.author.tag).replace('%word', response.first().content.toLowerCase());
-												firstEmbed.setTitle(embedtitlewrong);
-											} else {
-												const embedtitlewrong = lang.hangman_embedtitlewrongword.replace('%author', mention.tag).replace('%word', response.first().content.toLowerCase());
-												firstEmbed.setTitle(embedtitlewrong);
-											}
+											const embedtitlewrong = lang.hangman_embedtitlewrongword.replace('%author', turn === 1 ? msg.author.tag : mention.tag).replace('%word', response.first().content.toLowerCase());
+											firstEmbed.setTitle(embedtitlewrong);
 
 											embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
 											const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
@@ -251,11 +222,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 											firstEmbed.setDescription(embeddescriptionwithtried);
 											firstEmbed.setImage(hangmanPictures[15 - chances]);
 
-											if (turn === 1) {
-												turn = 2;
-											} else {
-												turn = 1;
-											}
+											turn = turn === 1 ? 2 : 1;
 
 											hangmanEmbed.edit({
 												embed: firstEmbed
@@ -272,11 +239,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 								msg.channel.send(lang.hangman_noletter);
 							}
 						} catch (error) {
-							if (turn === 1) {
-								const noanswermention = lang.hangman_noanswermention.replace('%author', msg.author).replace('%mention', mention);
-								return msg.channel.send(noanswermention);
-							}
-							const noanswermention = lang.hangman_noanswermention.replace('%author', mention).replace('%mention', msg.author);
+							const noanswermention = lang.hangman_noanswermention.replace('%author', turn === 1 ? msg.author : mention).replace('%mention', turn === 1 ? mention : msg.author);
 							return msg.channel.send(noanswermention);
 						}
 					}
