@@ -133,7 +133,7 @@
     "website_donationsuccess_thanks": "Merci beaucoup pour ton don !",
     "website_donationsuccess_thanks2": "Nous apprécions ton soutien ! Nous espérons que tu t'amuseras avec tes accessoires premium !",
     "website_dashboardutility_embed": "Envoyer un embed",
-    "website_dashboardutility_selectchannel": "Select a textchannel in which the embed should be sent:",
+    "website_dashboardutility_selectchannel": "Choisi un salon textuel dans lequel l'embed doit être envoyé :",
     "website_dashboardutility_title": "Titre :",
     "website_dashboardutility_link": "Lien :",
     "website_dashboardutility_color": "Couleur :",
@@ -199,6 +199,6 @@
     "website_leaderboard_guild_points": "points",
     "website_leaderboard_guild_level": "niveau",
     "website_leaderboard_credits": "crédits",
-    "website_nav_dashboard_welcome": "Welcome",
-    "website_nav_dashboard_overview": "Overview"
+    "website_nav_dashboard_welcome": "Bienvenue",
+    "website_nav_dashboard_overview": "Vue d'ensemble"
 }
