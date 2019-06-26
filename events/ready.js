@@ -174,7 +174,7 @@ module.exports = {
 							const punishmentConfig = {
 								id: currentPunishments.length + 1,
 								userId: user.id,
-								reason: 1,
+								reason: lang.temporaryban_automaticunban,
 								date: Date.now(),
 								moderatorId: client.user.id,
 								type: 'unban'
@@ -233,7 +233,7 @@ module.exports = {
 							const punishmentConfig = {
 								id: currentPunishments.length + 1,
 								userId: user.id,
-								reason: 1,
+								reason: lang.mute_automaticunmute,
 								date: Date.now(),
 								moderatorId: client.user.id,
 								type: 'unmute'

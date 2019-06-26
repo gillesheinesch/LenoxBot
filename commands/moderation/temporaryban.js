@@ -155,7 +155,7 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 			const punishmentConfig2 = {
 				id: currentPunishments2.length + 1,
 				userId: user.id,
-				reason: 1,
+				reason: lang.temporaryban_automaticunban,
 				date: Date.now(),
 				moderatorId: msg.client.user.id,
 				type: 'unban'

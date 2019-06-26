@@ -443,6 +443,7 @@
     "temporaryban_bannedby": "Temporarily banned by",
     "temporaryban_bandescription": "**Action**: Temporary ban \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Banned for**: %bantime",
     "temporaryban_automaticbandescription": "**Action**: Automatic unban \n**User**: %usertag (%userid) \n**Reason**: The bantime has expired",
+    "temporaryban_automaticunban": "The ban has expired",
     "temporaryban_description": "Bans a user temporarily",
 
     "playplaylist_error": "You forgot to enter the name of the playlist!",
@@ -1188,6 +1189,7 @@
     "mute_mutedby": "Muted by %authortag",
     "mute_mutedescription": "**Action**: Mute \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Muted for**: %mutetime",
     "mute_muted": "%username was muted successfully for %mutetime",
+    "mute_automaticunmute": "The mutetime has expired",
     "mute_description": "Mutes a user for a certain time",
 
     "softban_nomention": "You must mention a user to softban!",
