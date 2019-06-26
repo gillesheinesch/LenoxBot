@@ -77,12 +77,28 @@ module.exports = class extends Language {
 			COMMAND_EIGHTBALL_ANSWERS: ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely on it", "As I see it, yes", "Most likely", "Outlook good", "Yes!", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Don't count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful", "No!", "Your questions are weird", "I think so", "Stop!", "What?"],
 			COMMAND_EIGHTBALL_QUESTION: "Your question:",
 			COMMAND_EIGHTBALL_EMBEDFIELD: "Answer:",
+			COMMAND_ROCKPAPERSCISSORS_NOINPUT: "You forgot to specify whether you take rock, paper or scissors",
+			COMMAND_ROCKPAPERSCISSORS_EMBEDFOOTER: "Rock-paper-scissors minigame",
+			COMMAND_ROCKPAPERSCISSORS_ROCKDRAW: "I've chosen rock! ✊ \nDraw!",
+			COMMAND_ROCKPAPERSCISSORS_SCISSORSWIN: "I've chosen scissors! ✌ \nYou won!",
+			COMMAND_ROCKPAPERSCISSORS_PAPERLOST: "I've chosen paper! ✋ \nYou lost!",
+			COMMAND_ROCKPAPERSCISSORS_PAPERWIN: "I've chosen paper! ✋ \nYou won!",
+			COMMAND_ROCKPAPERSCISSORS_ROCKLOST: "I've chosen rock! ✊ \nYou lost!",
+			COMMAND_ROCKPAPERSCISSORS_SCISSORSDRAW: "I've chosen scissors! ✌ \nDraw!",
+			COMMAND_ROCKPAPERSCISSORS_SCISSORSLOST: "I've chosen scissors! ✌ \nYou lost!",
+			COMMAND_ROCKPAPERSCISSORS_PAPERDRAW: "I've chosen paper! ✋ \nDraw!",
+			COMMAND_ROCKPAPERSCISSORS_ROCKWIN: "I've chosen rock! ✊ \nYou won!",
+			COMMAND_ROCKPAPERSCISSORS_ERROR: "You didn't specify correctly if you want to take rock, paper or scissors!",
+			COMMAND_ROCKPAPERSCISSORS_VALIDATION: ['rock', 'paper', 'scissors'],
+			COMMAND_ROCKPAPERSCISSORS_ROCK: "rock",
+			COMMAND_ROCKPAPERSCISSORS_PAPER: "paper",
+			COMMAND_ROCKPAPERSCISSORS_SCISSORS: "scissors",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
-			COMMAND_TRANSLATE_DESCRIPTION: "Gives you informations about our translation project",
-			COMMAND_VOTE_DESCRIPTION: "All details about voting for LenoxBot",
-			COMMAND_GITHUB_DESCRIPTION: "All details about our GitHub Repository of LenoxBot",
+			COMMAND_TRANSLATE_DESCRIPTION: "Gives you informations about our translation project.",
+			COMMAND_VOTE_DESCRIPTION: "All details about voting for LenoxBot.",
+			COMMAND_GITHUB_DESCRIPTION: "All details about our GitHub Repository of LenoxBot.",
 			COMMAND_EVAL_DESCRIPTION: "Evaluates arbitrary Javascript. Reserved for bot owner.",
 			COMMAND_EVAL_EXTENDEDHELP: [
 				"The eval command evaluates code as-in, any error thrown from it will be handled.",
@@ -114,9 +130,11 @@ module.exports = class extends Language {
 				'heapsnapshot files are as big as the amount of RAM you use, in big bots, the snapshots can freeze the bot',
 				'much longer and the files can be much heavier.'
 			].join(' '),
-			COMMAND_HANGMAN_DESCRIPTION: "Play hangman alone or with your Discord friends",
+			COMMAND_HANGMAN_DESCRIPTION: "Play hangman alone or with your Discord friends.",
 			COMMAND_EIGHTBALL_DESCRIPTION: "Ask the bot a question.",
 			COMMAND_EIGHTBALL_EXTENDEDHELP: "eightball Am I pretty?",
+			COMMAND_ROCKPAPERSCISSORS_DESCRIPTION: "Play a round of rock–paper–scissors with the bot.",
+			COMMAND_ROCKPAPERSCISSORS_EXTENDEDHELP: "rockpaperscissors scissors",
 		}
 	}
 
