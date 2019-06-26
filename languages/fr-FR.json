@@ -1,5 +1,5 @@
 {
-    "shuffle_shuffled": "The queue has been shuffled.",
+    "shuffle_shuffled": "La queue a été mélangée.",
     "shuffle_nothing": "I cannot shuffle the queue because it is empty!",
     "shuffle_notvoicechannel": "You are not in a voice channel, please join a voice channel to shuffle music!",
     "shuffle_description": "Shuffles the queue",
@@ -178,7 +178,7 @@
     "giveitem_description": "Gives items from your inventory to other Discord users",
     "togglecommand_noinput": "Tu as oublié de saisir le nom de la commande !",
     "togglecommand_notchangeable": "Désolé, mais tu ne peux pas changer le statut de cette commande",
-    "togglecommand_settofalse": "You successfully disabled the command!",
+    "togglecommand_settofalse": "Tu as désactivé la commande avec succès !",
     "togglecommand_settotrue": "You successfully activated the command!",
     "togglecommand_nocommand": "Impossible de trouver cette commande. Vérifie si tu as mal saisi le nom de la commande !",
     "togglecommand_description": "Bascule le statut de la commande",
