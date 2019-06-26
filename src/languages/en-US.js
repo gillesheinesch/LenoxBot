@@ -5,6 +5,12 @@ module.exports = class extends Language {
 	constructor(...args) {
 		super(...args);
 		this.language = {
+			/**
+			 * @Defaults
+			 */
+			DEFAULT: (key) => `${key} has not been localized for en-US yet.`,
+			DEFAULT_LANGUAGE: "Default Language",
+
 			// Prompts
 			MESSAGE_PROMPT_TIMEOUT: "The prompt has timed out.",
 			MESSAGE_PROMPT_CANCELED: "Canceled command.",
