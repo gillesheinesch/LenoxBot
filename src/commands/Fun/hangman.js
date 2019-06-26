@@ -39,7 +39,6 @@ module.exports = class extends Command {
 			'https://imgur.com/vWoekpB.png'
 		];
 
-		//
 		const wordToGuess = (await JSDOM.fromURL('https://randomword.com')).window.document.getElementById('random_word').textContent;
 		const wordToGuessInArray = wordToGuess.split('');
 
