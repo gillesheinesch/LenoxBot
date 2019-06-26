@@ -47,6 +47,32 @@ module.exports = class extends Language {
 			COMMAND_EVAL_OUTPUT_MYSTBIN: (time, url, type) => `Sent the result to mystbin: ${url}\n**Type**:${type}\n${time}\n`,
 			COMMAND_HEAPSNAPSHOT_CAPTURING: "Capturing HEAP Snapshot. This may take a while...",
 			COMMAND_HEAPSNAPSHOT_CAPTURED_DONE: (path) => `Captured in \`${path}\`, check! Remember, do NOT share this with anybody, it may contain a lot of sensitive data.`,
+			COMMAND_HANGMAN_MENTIONPLAYQUESTION: (mention, author) => `${mention}, do you want to play hangman against ${author}?`,
+			COMMAND_HANGMAN_EMBEDTITLESTART: "Hangman game has been started!",
+			COMMAND_HANGMAN_EMBEDTITLECHANCES: (chances) => `${chances}/15 chances left`,
+			COMMAND_HANGMAN_EMBEDDESCRIPTION: (word) => `**Word to guess:**\n${word}`,
+			COMMAND_HANGMAN_LETTERORWORDMESSAGE: (author) => `${author}, please send a letter (A-Z) or guess the word!`,
+			COMMAND_HANGMAN_EMBEDTITLECORRECT: (author, letter) => `${author} guessed the letter "**${letter}**" correctly! 😄`,
+			COMMAND_HANGMAN_EMBEDTITLECORRECTWORD: (author, word) => `${author} guessed the word "**${word}**" correctly! 😄`,
+			COMMAND_HANGMAN_EMBEDDESCRIPTIONWITHTRIED: (triedletters, word) `**Wrong letters used:** ${triedletters} \n\n**Word to guess:**\n${word}`,
+			COMMAND_HANGMAN_MENTIONGAMEWON: (author, word) => `${author} won this game! The word to guess was: "**${word}**"`,
+			COMMAND_HANGMAN_EMBEDTITLEWRONG: (author, letter) => `${author} guessed the letter "**${letter}**" wrong! 😢`,
+			COMMAND_HANGMAN_EMBEDTITLEWRONGWORD: (author, word) => `${author} guessed the word "**${word}**" wrong! 😢`,
+			COMMAND_HANGMAN_MENTIONNOWIN: (word) => `Nobody won! The word to guess was: "**${word}**"`,
+			COMMAND_HANGMAN_MENTIONCORRECTWORD: (author, word) => `${author} won this game! The word to guess was: "**${word}**"`,
+			COMMAND_HANGMAN_NOTWORDCHARACTERS: (letterscount) => `The word must have ${letterscount} letters!`,
+			COMMAND_HANGMAN_NOLETTER: "You entered an invalid character!",
+			COMMAND_HANGMAN_NOANSWERMENTION: (author, mention, word) => `${author} didn't give an answer! ${mention} won this game! The word to guess was: "**${word}**"`,
+			COMMAND_HANGMAN_DONTWANTTOPLAY: "We are sorry but the mentioned Discord user doesn't want to play hangman against you!",
+			COMMAND_HANGMAN_LETTERORWORDMESSAGENOMENTION: "Please send a letter (A-Z) or guess the word!",
+			COMMAND_HANGMAN_EMBEDTITLECORRECTNOMENTION: (letter) => `You guessed the letter "**${letter}**" correctly! 😄`,
+			COMMAND_HANGMAN_EMBEDTITLECORRECTNOMENTIONWORD: (word) => `You guessed the word "**${word}**" correctly! 😄`,
+			COMMAND_HANGMAN_GAMELOST: (word) => `You lost this game! The word to guess was: "**${word}**"`,
+			COMMAND_HANGMAN_GAMEWON: (word) => `You won this game! The word to guess was: "**${word}**"`,
+			COMMAND_HANGMAN_EMBEDTITLEWRONGNOMENTION: (letter) `You guessed the letter "**${letter}**" wrong! 😢`,
+			COMMAND_HANGMAN_EMBEDTITLEWRONGNOMENTIONWORD: (word) => `You guessed the word "**${word}**" wrong! 😢`,
+			COMMAND_HANGMAN_NOANSWER: (word) => `You didn't give an answer! The word to guess was "**${word}**"`,
+			COMMAND_HANGMAN_GUESSEDLETTERALREADY: "You guessed this letter already!",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -84,6 +110,7 @@ module.exports = class extends Language {
 				'heapsnapshot files are as big as the amount of RAM you use, in big bots, the snapshots can freeze the bot',
 				'much longer and the files can be much heavier.'
 			].join(' '),
+			COMMAND_HANGMAN_DESCRIPTION: "Play hangman alone or with your Discord friends",
 		}
 	}
 
