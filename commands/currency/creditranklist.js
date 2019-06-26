@@ -1,3 +1,4 @@
+// TODO reduce loading speed to load the ranklist. Takes currently over 5 seconds
 const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
 
