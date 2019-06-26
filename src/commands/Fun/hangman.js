@@ -39,7 +39,14 @@ module.exports = class extends Command {
 			'https://imgur.com/vWoekpB.png'
 		];
 
-		const wordToGuess = (await JSDOM.fromURL('https://randomword.com')).window.document.getElementById('random_word').textContent;
+		let wordToGuess = "";
+		if (message.language.name !== 'en-US') {
+			const hangmanWords = message.language.get('COMMAND_HANGMAN_WORDSTOGUESS')
+			const hangmanIndex = Math.floor(Math.random() * hangmanWords.length);
+			wordToGuess = hangmanWords[hangmanIndex].toLowerCase();
+		} else {
+			wordToGuess = (await JSDOM.fromURL('https://randomword.com')).window.document.getElementById('random_word').textContent; // for english only
+		}
 		const wordToGuessInArray = wordToGuess.split('');
 
 		const newWordString = [];

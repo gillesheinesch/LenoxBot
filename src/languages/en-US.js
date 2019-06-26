@@ -73,6 +73,10 @@ module.exports = class extends Language {
 			COMMAND_HANGMAN_EMBEDTITLEWRONGNOMENTIONWORD: (word) => `You guessed the word "**${word}**" wrong! 😢`,
 			COMMAND_HANGMAN_NOANSWER: (word) => `You didn't give an answer! The word to guess was "**${word}**"`,
 			COMMAND_HANGMAN_GUESSEDLETTERALREADY: "You guessed this letter already!",
+			COMMAND_EIGHTBALL_NOINPUT: "You have to specify what you want to ask the bot!",
+			COMMAND_EIGHTBALL_ANSWERS: ["It is certain", "It is decidedly so", "Without a doubt", "Yes definitely", "You may rely on it", "As I see it, yes", "Most likely", "Outlook good", "Yes!", "Signs point to yes", "Reply hazy try again", "Ask again later", "Better not tell you now", "Cannot predict now", "Concentrate and ask again", "Don't count on it", "My reply is no", "My sources say no", "Outlook not so good", "Very doubtful", "No!", "Your questions are weird", "I think so", "Stop!", "What?"],
+			COMMAND_EIGHTBALL_QUESTION: "Your question:",
+			COMMAND_EIGHTBALL_EMBEDFIELD: "Answer:",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -111,6 +115,8 @@ module.exports = class extends Language {
 				'much longer and the files can be much heavier.'
 			].join(' '),
 			COMMAND_HANGMAN_DESCRIPTION: "Play hangman alone or with your Discord friends",
+			COMMAND_EIGHTBALL_DESCRIPTION: "Ask the bot a question.",
+			COMMAND_EIGHTBALL_EXTENDEDHELP: "eightball Am I pretty?",
 		}
 	}
 
