@@ -11,7 +11,7 @@ module.exports = class hentaihavenCommand extends LenoxCommand {
 			description: 'Random HentaiHaven videos',
 			format: 'hentaihaven',
 			aliases: ['hentai-haven'],
-			examples: [],
+			examples: ['hentaihaven'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'Videos',
@@ -41,9 +41,9 @@ module.exports = class hentaihavenCommand extends LenoxCommand {
 					const embed = new Discord.MessageEmbed()
 						.setImage(thumbnail_url)
 						.setURL(video_url)
-						.setDescription(`[Video URL](${video_url})`)
-						.setColor('#ff0000')
-						.setAuthor(title);
+						.setFooter(video_url)
+						.setColor('BLUE')
+						.setTitle(title);
 
 					return msg.channel.send({
 						embed: embed
@@ -55,7 +55,7 @@ module.exports = class hentaihavenCommand extends LenoxCommand {
 				throw e;
 			});
 		} catch (error) {
-			return msg.reply(lang.pornhubgif_couldfindnothing);
+			return msg.reply(lang.hentaihaven_notfind);
 		}
 	}
 };

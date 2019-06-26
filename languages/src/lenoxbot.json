@@ -1,4 +1,7 @@
 {
+    "hentaihaven_notfind": "Could not find any videos to your request",
+    "hentaihaven_description": "Random HentaiHaven videos",
+
     "shuffle_shuffled": "The queue has been shuffled.",
     "shuffle_nothing": "I cannot shuffle the queue because it is empty!",
     "shuffle_notvoicechannel": "You are not in a voice channel, please join a voice channel to shuffle music!",
