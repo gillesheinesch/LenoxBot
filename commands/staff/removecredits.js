@@ -25,20 +25,20 @@ module.exports = class removecreditsCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
-		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
+		const role = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator');
+		if (!role || !msg.member.roles.has(role.id)) return msg.reply(lang.botownercommands_error);
 
 		const user = msg.mentions.users.first() ? msg.mentions.users.first().id : args.slice(0, 1).join(' ');
 		const amountofcoins = parseInt(args.slice(1).join(' '), 10);
 
-		if (!msg.client.users.get(user)) return msg.reply(lang.removecredits_nomention);
+		if (!msg.client.users.has(user)) return msg.reply(lang.removecredits_nomention);
 		if (!amountofcoins) return msg.reply(lang.removecredits_novalue);
 
 		let currentCredits = msg.client.provider.getUser(user, 'credits');
 		currentCredits -= amountofcoins;
 		await msg.client.provider.setUser(user, 'credits', currentCredits);
 
-		const embeddescription = lang.removecredits_embeddescription.replace('%credits', amountofcoins).replace('%user', msg.client.users.get(user) ? msg.client.users.get(user).tag : user);
+		const embeddescription = lang.removecredits_embeddescription.replace('%credits', amountofcoins).replace('%user', msg.client.users.has(user) ? msg.client.users.get(user).tag : user);
 		const embed = new Discord.MessageEmbed()
 			.setAuthor(msg.author.tag, msg.author.displayAvatarURL())
 			.setDescription(embeddescription)

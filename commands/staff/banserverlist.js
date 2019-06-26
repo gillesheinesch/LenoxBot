@@ -24,8 +24,8 @@ module.exports = class banserverlistCommand extends LenoxCommand {
 		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 		const lang = require(`../../languages/${langSet}.json`);
 
-		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
-		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
+		const role = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator');
+		if (!role || !msg.member.roles.has(role.id)) return msg.reply(lang.botownercommands_error);
 
 		const banlist = [];
 
@@ -40,7 +40,7 @@ module.exports = class banserverlistCommand extends LenoxCommand {
 		for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'banlist').length; i++) {
 			banlist.push(msg.client.provider.getBotsettings('botconfs', 'banlist')[i]);
 		}
-		banlist.forEach(r => embed.addField(`${r.discordServerID}`, lang.banserverlist_embedfield.replace('%moderatortag', msg.client.users.get(r.moderator) ? msg.client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));
+		banlist.forEach(r => embed.addField(`${r.discordServerID}`, lang.banserverlist_embedfield.replace('%moderatortag', msg.client.users.has(r.moderator) ? msg.client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));
 
 		await msg.channel.send({
 			embed

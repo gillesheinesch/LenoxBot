@@ -24,8 +24,8 @@ module.exports = class banuserCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const guild = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator').id;
-		if (!msg.member.roles.get(guild)) return msg.reply(lang.botownercommands_error);
+		const role = msg.client.guilds.get(settings.botMainDiscordServer).roles.find(r => r.name.toLowerCase() === 'moderator');
+		if (!role || !msg.member.roles.has(role.id)) return msg.reply(lang.botownercommands_error);
 
 		const userId = args.slice(0, 1).join(' ');
 
@@ -43,7 +43,7 @@ module.exports = class banuserCommand extends LenoxCommand {
 			createdAt: Date.now()
 		};
 
-		const discordUserName = msg.client.users.get(userId) ? msg.client.users.get(userId).tag : 'undefined';
+		const discordUserName = msg.client.users.has(userId) ? msg.client.users.get(userId).tag : 'undefined';
 
 		const embedtitle = lang.banuser_embedtitle.replace('%userid', userId).replace('%username', discordUserName === 'undefined' ? lang.banuser_usernamenotknown : discordUserName);
 		const embeddescription = lang.banuser_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
