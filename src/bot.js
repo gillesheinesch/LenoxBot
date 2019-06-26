@@ -6,6 +6,11 @@ global.startTime = new Date(); // start recording time of boot
 
 Client.use(require("klasa-member-gateway"));
 
+lient.defaultGuildSchema
+	.add("bot", (folder) => folder
+		.add("channel", "textchannel")
+		.add("redirect", "boolean"))
+
 const client = global.client = new Client({
 	autoReconnect: true,
 	commandEditing: true,
@@ -24,7 +29,8 @@ const client = global.client = new Client({
 	restTimeOffset: 0,
 	regexPrefix: /^(?:hey |hi )?lenoxbot[,!\w]?/i,
 	providers: {
-		default: config.provider
+		default: config.provider,
+		mongodb: config.mongodb
 	},
 	gateways: {
 		clientStorage: { provider: config.provider },
