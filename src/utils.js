@@ -1,5 +1,5 @@
 const { Type, util: { isFunction } } = require('klasa');
-const { Collection, RoleStore } = require('discord.js');
+const { RoleStore } = require('discord.js');
 
 const get_instances = async (message, search, { show_hidden, get_types, guild_only, channel_types } = { show_hidden: true, get_types: [], guild_only: [], channel_types: [] }) => {
 	/**

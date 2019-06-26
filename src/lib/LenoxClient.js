@@ -1,7 +1,7 @@
 const { Client, util: { sleep } } = require("klasa");
 const os = require("os");
 
-module.exports = class LenoxBotClient extends Client {
+module.exports = class LenoxClient extends Client {
 	async getCPUUsage() {
 		const { idle: startIdle, total: startTotal } = getCPUInfo();
 		await sleep(1000);
