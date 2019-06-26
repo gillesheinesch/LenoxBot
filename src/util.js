@@ -1,7 +1,13 @@
 const { Type, util: { isFunction } } = require('klasa');
 const { Collection, RoleStore } = require('discord.js');
 
-const get_instances = async (message, search, { search_blocked, show_hidden, get_types, guild_only, channel_types } = { search_blocked: false, show_hidden: true, get_types: [], guild_only: [], channel_types: [] }) => {
+const get_instances = async (message, search, { show_hidden, get_types, guild_only, channel_types } = { show_hidden: true, get_types: [], guild_only: [], channel_types: [] }) => {
+	/**
+	 * show_hidden: Boolean - Includes hidden channels
+	 * get_types: Array - The type of classes to fetch example 'Users','Channels','Roles'
+	 * guild_only: Array - The types that should be fetched only from the current guild
+	 * channel_types: Array - The channel types to include in the search (Defaults to all)
+	 */
 	try {
 		let backup_get_types = get_types;
 		if (RegExp(/(<@!?(\d{17,19})>)/g).test(search.toString())) search = search.replace(/(^<@!?|>$)/g, '');
