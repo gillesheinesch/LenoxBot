@@ -27,7 +27,7 @@ const get_instances = async (message, search, { show_hidden, get_types, guild_on
 			get_types.push('all');
 			channel_types.push('all');
 		}
-		if (message.author === global.client.owner || global.client.settings.bot_owners.includes(message.author.id)) {
+		if (message.author === global.client.owner) {
 			if (message.flags['guild-channels'] || message.flags['guildChannels'] || message.flags['guild-members'] || message.flags['guildMembers'] || message.flags['guild-roles'] || message.flags['guildRoles'] || message.flags['guild-all'] || message.flags['guildAll']) guild_only = ['none'];
 			if (!message.flags['guild-all'] && !message.flags['guildAll']) {
 				if (message.flags['guild-channels'] || message.flags['guildChannels']) guild_only.push('channels');
