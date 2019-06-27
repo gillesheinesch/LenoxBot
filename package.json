@@ -2,7 +2,7 @@
   "name": "lenoxbot",
   "version": "1.12.11",
   "description": "",
-  "main": "src/bot.js",
+  "main": "./src/index",
   "directories": {
     "doc": "docs"
   },
