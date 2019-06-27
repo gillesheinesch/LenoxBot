@@ -1006,8 +1006,12 @@ async function run() {
 									req.user.guilds[i].memberscount = guild.memberCount;
 								}
 
-								if (guildconfs.settings && guildconfs.settings.premium.status === true) {
-									req.user.guilds[i].premium = true;
+								if (guildconfs.settings) {
+									if (guildconfs.settings.premium && guildconfs.settings.premium.status === true) {
+										req.user.guilds[i].premium = true;
+									} else {
+										req.user.guilds[i].premium = false;
+									}
 								} else {
 									req.user.guilds[i].premium = false;
 								}
@@ -1021,8 +1025,12 @@ async function run() {
 								req.user.guilds[i].memberscount = guild.memberCount;
 							}
 
-							if (guildconfs.settings && guildconfs.settings.premium.status === true) {
-								req.user.guilds[i].premium = true;
+							if (guildconfs.settings) {
+								if (guildconfs.settings.premium && guildconfs.settings.premium.status === true) {
+									req.user.guilds[i].premium = true;
+								} else {
+									req.user.guilds[i].premium = false;
+								}
 							} else {
 								req.user.guilds[i].premium = false;
 							}
@@ -1036,8 +1044,12 @@ async function run() {
 							req.user.guilds[i].memberscount = guild.memberCount;
 						}
 
-						if (guildconfs && guildconfs.settings.premium.status === true) {
-							req.user.guilds[i].premium = true;
+						if (guildconfs && guildconfs.settings) {
+							if (guildconfs.settings.premium && guildconfs.settings.premium.status === true) {
+								req.user.guilds[i].premium = true;
+							} else {
+								req.user.guilds[i].premium = false;
+							}
 						} else {
 							req.user.guilds[i].premium = false;
 						}
@@ -1057,6 +1069,7 @@ async function run() {
 			}
 			return res.redirect('nologin');
 		} catch (error) {
+			console.log(error)
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {
