@@ -12,7 +12,7 @@ module.exports = class extends Command {
 	}
 
 	run(message, [question]) {
-		if (!question) return message.sendLocale('COMMAND_EIGHTBALL_NOINPUT');
+		if (!question) return message.channel.sendLocale('COMMAND_EIGHTBALL_NOINPUT');
 		const eightballAnswers = message.language.get('COMMAND_EIGHTBALL_ANSWERS');
 		const eightballAnswersIndex = Math.floor(Math.random() * eightballAnswers.length);
 

@@ -55,7 +55,7 @@ module.exports = class extends Command {
 		}
 
 		if (member) {
-			const questionMessage = await message.channel.send(message.language.get('COMMAND_HANGMAN_MENTIONPLAYQUESTION', member, message.author));
+			const questionMessage = await message.channel.sendLocale('COMMAND_HANGMAN_MENTIONPLAYQUESTION', member, message.author);
 
 			await questionMessage.react('👍');
 			await questionMessage.react('👎');
@@ -232,7 +232,7 @@ module.exports = class extends Command {
 								message.channel.send(message.language.get('COMMAND_HANGMAN_NOLETTER'));
 							}
 						} catch (error) {
-							const noanswermention = message.language.get('COMMAND_HANGMAN_NOANSWERMENTION', turn === 1 ? message.author : member, turn === 1 ? member : message.author);
+							const noanswermention = message.language.get('COMMAND_HANGMAN_NOANSWERMENTION', turn === 1 ? message.author : member, turn === 1 ? member : message.author, wordToGuess);
 							return message.channel.send(noanswermention);
 						}
 					}

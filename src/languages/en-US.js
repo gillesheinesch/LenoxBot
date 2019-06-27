@@ -99,6 +99,21 @@ module.exports = class extends Language {
 			COMMAND_ROCKPAPERSCISSORS_ROCK: "rock",
 			COMMAND_ROCKPAPERSCISSORS_PAPER: "paper",
 			COMMAND_ROCKPAPERSCISSORS_SCISSORS: "scissors",
+			COMMAND_PENISSIZECALCULATOR_ANSWERS: ["Your penis is 2.30 millimeters small. There's still more to go on!", "Your penis is 2.80 millimeters long. You did a major step forward, I'm proud of you!", "Your penis is 3.00 meters long. I think you set a new world record, congratulations!", "Your penis isn't even 1 millimeter small. I would recommend you to consult a doctor.", "Your penis is so small that there isn't a unit. Sorry :(", "Your penis is very big ... 30 meters! I'm speechless...", "Where is your penis?", "Do you even have a penis?", "Oh god that resembles a big sausage", "Wow, that's crazy! 40 centimeters"],
+			COMMAND_TICTACTOE_NOMENTION: "You must mention a user to play TicTacToe!",
+			COMMAND_TICTACTOE_NOTONLINE: "The mentioned user has to be online to play TicTacToe against you!",
+			COMMAND_TICTACTOE_BOTMENTION: "You cannot mention a bot to play TicTacToe!",
+			COMMAND_TICTACTOE_ERROR: "You cannot play with yourself. You have to mention a user against whom you want to play.",
+			COMMAND_TICTACTOE_GAMECREATED: "New TicTacToe Game created!",
+			COMMAND_TICTACTOE_TURN: "It's your turn",
+			COMMAND_TICTACTOE_TITLE: "TicTacToe game",
+			COMMAND_TICTACTOE_NOANSWERTITLE: "Time's up!",
+			COMMAND_TICTACTOE_NOANSWER: (author, user) => `${author} did not answer for 15 seconds why ${user} won this round.`,
+			COMMAND_TICTACTOE_WIN: (user) => `${user} won this round!`,
+			COMMAND_TICTACTOE_WANNAPLAY: (mention, author) => `${mention}, do you want to play TicTacToe against ${author}? If yes, answer with '**YES**'!`,
+			COMMAND_TICTACTOE_GAMECANCELED: (mention) => `Game canceled because ${mention} didn't answer or doesn't want to play!`,
+			COMMAND_TICTACTOE_GAMEEND: "Game is over!",
+			COMMAND_TICTACTOE_DRAW: "No one has won, it's draw! The next round may be better.",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -139,8 +154,12 @@ module.exports = class extends Language {
 			COMMAND_HANGMAN_DESCRIPTION: "Play hangman alone or with your Discord friends.",
 			COMMAND_EIGHTBALL_DESCRIPTION: "Ask the bot a question.",
 			COMMAND_EIGHTBALL_EXTENDEDHELP: "eightball Am I pretty?",
-			COMMAND_ROCKPAPERSCISSORS_DESCRIPTION: "Play a round of rock–paper–scissors with the bot.",
+			COMMAND_ROCKPAPERSCISSORS_DESCRIPTION: "Play a round of rock-paper-scissors with the bot.",
 			COMMAND_ROCKPAPERSCISSORS_EXTENDEDHELP: "rockpaperscissors scissors",
+			COMMAND_PENISSIZECALCULATOR_DESCRIPTION: "Calculates the size of the penis of you or a user.",
+			COMMAND_PENISSIZECALCULATOR_EXTENDEDHELP: ["penissizecalculator", "penissizecalculator @Tester#8234"].join("\n"),
+			COMMAND_TICTACTOE_DESCRIPTION: "Play a round of TicTacToe against another Discord user.",
+			COMMAND_TICTACTOE_EXTENDEDHELP: "tictactoe @Tester#7584",
 		}
 	}
 
