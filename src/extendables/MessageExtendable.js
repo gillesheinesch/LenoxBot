@@ -7,6 +7,16 @@ module.exports = class extends Extendable {
 		super(...args, { appliesTo: [Message] });
 	}
 
+	/**
+	 * Register's this message as a Command Message
+	 * @since 0.5.0
+	 * @param {Object} commandInfo The info about the command and prefix used
+	 * @property {Command} command The command run
+	 * @property {RegExp} prefix The prefix used
+	 * @property {number} prefixLength The length of the prefix used
+	 * @returns {this}
+	 * @private
+	 */
 	_registerCommand({ command, prefix, prefixLength }) {
 		this.command = command;
 		this.prefix = prefix;

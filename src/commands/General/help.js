@@ -63,7 +63,7 @@ module.exports = class extends Command {
 
 	async buildHelp (message) {
 		const commands = await this._fetchCommands(message);
-		const { prefix } = message.guildSettings;
+		const prefix = message.guildSettings.get('prefix');
 
 		const helpMessage = [];
 		for (const [category, list] of commands) {
@@ -75,7 +75,7 @@ module.exports = class extends Command {
 
 	async buildDisplay (message) {
 		const commands = await this._fetchCommands(message);
-		const { prefix } = message.guildSettings;
+		const prefix = message.guildSettings.get('prefix');
 		const display = new RichDisplay();
 		for (const [category, list] of commands) {
 			display.addPage(new MessageEmbed()
@@ -96,7 +96,7 @@ module.exports = class extends Command {
 	async _fetchCommands (message) {
 		const run = this.client.inhibitors.run.bind(this.client.inhibitors, message);
 		const commands = new Map();
-		await Promise.all(this.client.commands.map((command) => !command.hidden && run(command, true)//this.client.inhibitors.run(message, command, true)
+		await Promise.all(this.client.commands.map((command) => !command.hidden && run(command, true)
 			.then(() => {
 				const category = commands.get(command.category);
 				if (category) category.push(command);
