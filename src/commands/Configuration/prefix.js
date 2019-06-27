@@ -44,7 +44,7 @@ module.exports = class extends Command {
 	};
 
 	async _reset(message) {
-		const settings = message.guild.settings;
+		const { settings } = message.guild;
 		await settings.reset('prefix');
 		return message.send({
 			embed: {
