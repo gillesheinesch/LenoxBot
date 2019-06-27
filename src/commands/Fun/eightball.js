@@ -16,7 +16,7 @@ module.exports = class extends Command {
 		const eightballAnswers = message.language.get('COMMAND_EIGHTBALL_ANSWERS');
 		const eightballAnswersIndex = Math.floor(Math.random() * eightballAnswers.length);
 
-		message.channel.send(new MessageEmbed()
+		return message.channel.send(new MessageEmbed()
 			.addField(message.language.get('COMMAND_EIGHTBALL_QUESTION'), question)
 			.addField(message.language.get('COMMAND_EIGHTBALL_EMBEDFIELD'), eightballAnswers[eightballAnswersIndex])
 			.setColor('#ff6666')

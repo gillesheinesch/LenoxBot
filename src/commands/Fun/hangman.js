@@ -55,7 +55,7 @@ module.exports = class extends Command {
 		}
 
 		if (member) {
-			const questionMessage = await message.channel.sendLocale('COMMAND_HANGMAN_MENTIONPLAYQUESTION', member, message.author);
+			const questionMessage = await message.channel.sendLocale('COMMAND_HANGMAN_MENTIONPLAYQUESTION', [member, message.author]);
 
 			await questionMessage.react('👍');
 			await questionMessage.react('👎');
