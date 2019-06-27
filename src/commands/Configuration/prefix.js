@@ -13,7 +13,8 @@ module.exports = class extends Command {
 	}
 
 	async run (message, [new_prefix]) {
-		const prefix = message.guildSettings.get('prefix');
+		const { settings } = message.guild;
+		const prefix = settings.get('prefix');
 		const { broke, permission } = await this.client.permissionLevels.run(message, 6);
 		if (!new_prefix) return message.send({
 			embed: {
