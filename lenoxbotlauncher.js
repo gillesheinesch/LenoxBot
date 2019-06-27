@@ -839,9 +839,11 @@ async function run() {
 				botconfs: 'botconfs'
 			});
 			const newcommandlist = [];
+			const lenoxbotLang = require(`./languages/${req.getLocale()}`);
 			// eslint-disable-next-line guard-for-in
 			for (const key in commandlist.settings.commands) {
 				commandlist.settings.commands[key].usage = `?${commandlist.settings.commands[key].usage}`;
+				commandlist.settings.commands[key].description = lenoxbotLang[`${commandlist.settings.commands[key].name}_description`];
 				newcommandlist.push(commandlist.settings.commands[key]);
 			}
 
