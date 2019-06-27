@@ -1,10 +1,10 @@
 {
 	"provider": "mongodb",
 	"mongodb": {
-		"user": "",
-		"password": "",
-		"host": "",
-		"port": "",
-		"db": ""
+		"user": "admin",
+		"password": "admin",
+		"host": "localhost",
+		"port": 27017,
+		"db": "klasa"
 	}
 }
