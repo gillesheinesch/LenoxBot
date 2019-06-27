@@ -2,8 +2,8 @@ const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
 
 module.exports = class extends Command {
-	constructor(client) {
-		super(client, {
+	constructor(...args) {
+		super(...args, {
 			description: (language) => language.get('COMMAND_EIGHTBALL_DESCRIPTION'),
 			extendedHelp: (language) => language.get('COMMAND_EIGHTBALL_EXTENDEDHELP'),
 			usage: '<Question:str>',

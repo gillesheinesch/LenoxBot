@@ -3,8 +3,8 @@ const { MessageEmbed } = require('discord.js');
 const { JSDOM } = require('jsdom');
 
 module.exports = class extends Command {
-	constructor(client) {
-		super(client, {
+	constructor(...args) {
+		super(...args, {
 			description: 'Play hangman alone or with your Discord friends',
 			extendedHelp: [
 				'hangman',

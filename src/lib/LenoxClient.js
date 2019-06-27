@@ -20,7 +20,6 @@ module.exports = class LenoxClient extends Client {
 	async shutdown(restart = true) {
 		if (this.shuttingDown) return;
 		this.shuttingDown = true;
-		this.logger.uninject();
 		if (this.ready) await this.destroy();
 		if (restart) {
 			console.log('Process has exited. Rebooting... (3 seconds)');
