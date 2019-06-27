@@ -895,7 +895,7 @@
     "application_reactionnumber": "Primeramente, un administrador de este servidor debe definir un número de reacciones necesitadas para la aceptación o la negación de una candidatura. Puedes hacerlo utilizando %prefixreactionnumber",
     "application_undefinedmessages": "Primero, un administrador de este servidor tiene que definir los mensajes que reciben las aplicaciones aceptadas y rechazadas. Esto se puede hacer utilizando %prefixsetacceptedmessage y %prefixsetrejectedmessage",
     "application_newapplication": "¡%author, se ha creado un nuevo formulario de aplicación!",
-    "application_timeerror": "You didn't reply within 5 minutes, so your application has been canceled. If you want to write a new one, you can do this easily by using %prefixapplication.",
+    "application_timeerror": "No has respondido en menos de 5 minutos, por lo que tu aplicación se cancelará. Si deseas escribir una nueva aplicación, puedes hacerlo utilizando %prefixapplication.",
     "application_applicatiosent": "¡La aplicación fue enviada satisfactoriamente! Ahora solo tienes que esperar hasta que tu aplicación haya sido calificada. ¡Si tu aplicación ha sido procesada, recibirás un mensaje directo del bot!",
     "application_description": "Crea un nuevo formulario de aplicación en este servidor",
     "deleteentry_noinput": "¡Debes decidir qué entrada quieres eliminar de la plantilla!",
