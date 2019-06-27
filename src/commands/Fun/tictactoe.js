@@ -13,11 +13,12 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [member]) {
+		console.log(member);
 		const validation = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 		if (!member) return messsage.channel.sendLocale('COMMAND_TICTACTOE_NOMENTION');
-		if (member.presence.status === 'offline') return message.reply(message.language.get('COMMAND_TICTACTOE_NOTONLINE'));
 		if (member.user.bot) return message.channel.sendLocale('COMMAND_TICTACTOE_BOTMENTION');
+		if (member.presence.status === 'offline') return message.reply(message.language.get('COMMAND_TICTACTOE_NOTONLINE'));
 		if (message.author.id === member.id) return message.channel.sendLocale('COMMAND_TICTACTOE_ERROR');
 
 		let wantToPlayMessage;
