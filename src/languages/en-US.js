@@ -41,7 +41,7 @@ module.exports = class extends Language {
 			COMMAND_CONF_SERVER: (key, list) => `**guild Settings${key}**\n${list}`,
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_PING: "Ping?",
-			COMMAND_PINGPONG: (latencyms, latencyapims) => `Latency: ${latencyms} \nAPI Latency: ${latencyapims}`,
+			COMMAND_PINGPONG: (latencyms, latencyapims) => `Latency: ${latencyms}ms \nAPI Latency: ${latencyapims}ms`,
 			SETTING_CURRENT_SERVER_PREFIX: (prefix) => `The current server prefix is \`${prefix}\``,
 			SETTING_PREFIX_CAN_ALSO_MENTION: "You can also mention me and I will answer to your commands.",
 			SETTING_PREFIX_YOU_CAN_NOW_USE: (new_prefix) => `You can now use \`${new_prefix}\` to run my commands in this server.`,
