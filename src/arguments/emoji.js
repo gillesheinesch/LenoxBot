@@ -1,10 +1,10 @@
 // Copyright (c) 2018-2019 BannerBomb. All rights reserved. MIT license.
-const { Argument } = require('klasa');
+const { Argument, Type } = require('klasa');
 
 module.exports = class extends Argument {
 
 	async run(arg, possible, message) {
-		const items = [...await this._get_channel(message, arg)];
+		const items = [...await this._get_emoji(message, arg)];
 		let emoji = null;
 		if (items.length) {
 			if (items.length > 6) items.splice(6, items.length); // splice the array to 6 items
@@ -30,7 +30,7 @@ module.exports = class extends Argument {
 		throw message.language.get('RESOLVER_INVALID_CHANNEL', possible.name);
 	}
 
-	async _get_channel(message, search) {
+	async _get_emoji(message, search) {
 		if (RegExp(/(<a?:\w{2,32}:\d{17,19}>)/g).test(search.toString())) search = search.replace(/(^<a?:\w{2,32}:|>$)/g,'');
 		const items = [];
 		const instances = [];

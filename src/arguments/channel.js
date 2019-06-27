@@ -1,5 +1,5 @@
 // Copyright (c) 2018-2019 BannerBomb. All rights reserved. MIT license.
-const { Argument } = require('klasa');
+const { Argument, Type, util: { isFunction } } = require('klasa');
 
 module.exports = class extends Argument {
 

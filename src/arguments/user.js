@@ -19,7 +19,7 @@ module.exports = class extends Argument {
 					}
 				}).then((choices) => {
 					if (choices.content.toLowerCase() === message.language.get('ANSWER_CANCEL_PROMPT') || !parseInt(choices.content)) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
-					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > instance.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
+					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > items.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
 					user = items[parseInt(choices.content) - 1];
 				}).catch(console.error);
 			} else if (items.length === 1) {
@@ -35,10 +35,10 @@ module.exports = class extends Argument {
 		const items = [];
 		const instances = [];
 		instances.push(this.client.users);
-		const member_store = new Map(...instances.filter((store) => ['UserStore'].includes(new Type(store).is)));
+		const member_store = new Map(...instances.filter((store) => ['KlasaUserStore'].includes(new Type(store).is)));
 		member_store
 			.filter((user) => user === search || user.toString() === search || user.id === search || user.tag.toString().toLowerCase().includes(search.toString().toLowerCase()))
 			.map((user) => items.push(user));
-		return items.filter((item) => !['UserStore'].includes(new Type(item).is));
+		return items.filter((item) => !['KlasaUserStore'].includes(new Type(item).is));
 	}
 };
