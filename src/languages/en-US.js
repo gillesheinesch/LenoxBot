@@ -17,9 +17,36 @@ module.exports = class extends Language {
 			MULTIPLE_ITEMS_FOUND_PROMPT: (results) => `Multiple items found. Please choose one of the following, or type cancel.${results}`,
 			ANSWER_CANCEL_PROMPT: "cancel",
 
+			/**
+			 * @Inhibitors
+			 */
+			INHIBITOR_COOLDOWN: (remaining) => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? "" : "s"}.`,
+			INHIBITOR_DISABLED: "This command is currently disabled.",
+			INHIBITOR_MISSING_BOT_PERMS: (missing) => `Insufficient permissions, missing: **${missing}**`,
+			INHIBITOR_NSFW: "You may not use NSFW commands in this channel.",
+			INHIBITOR_PERMISSIONS: "You do not have permission to use this command.",
+			INHIBITOR_REQUIRED_SETTINGS: (settings) => `The guild is missing the **${settings.join(", ")}** guild setting${settings.length !== 1 ? "s" : ""} and thus the command cannot run.`,
+			INHIBITOR_RUNIN: (types) => `This command is only available in ${types} channels.`,
+
 			// Commands
+			COMMAND_CONF_NOKEY: "You must provide a key",
+			COMMAND_CONF_NOVALUE: "You must provide a value",
+			COMMAND_CONF_GUARDED: (name) => `${util.toTitleCase(name)} may not be disabled.`,
+			COMMAND_CONF_UPDATED: (key, response) => `Successfully updated the key **${key}**: \`${response}\``,
+			COMMAND_CONF_KEY_NOT_ARRAY: "This key is not array type. Use the action 'reset' instead.",
+			COMMAND_CONF_GET_NOEXT: (key) => `The key **${key}** does not seem to exist.`,
+			COMMAND_CONF_GET: (key, value) => `The value for the key **${key}** is: \`${value}\``,
+			COMMAND_CONF_RESET: (key, response) => `The key **${key}** has been reset to: \`${response}\``,
+			COMMAND_CONF_NOCHANGE: (key) => `The value for **${key}** was already that value.`,
+			COMMAND_CONF_SERVER: (key, list) => `**guild Settings${key}**\n${list}`,
+			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_PING: "Ping?",
 			COMMAND_PINGPONG: (latencyms, latencyapims) => `Latency: ${latencyms} \nAPI Latency: ${latencyapims}`,
+			SETTING_CURRENT_SERVER_PREFIX: (prefix) => `The current server prefix is \`${prefix}\``,
+			SETTING_PREFIX_CAN_ALSO_MENTION: "You can also mention me and I will answer to your commands.",
+			SETTING_PREFIX_YOU_CAN_NOW_USE: (new_prefix) => `You can now use \`${new_prefix}\` to run my commands in this server.`,
+			SETTING_PREFIX_ILL_ANSWER_TO_MENTIONS: "I'll still answer to your commands if you mention me.",
+			SETTING_RESET_PREFIX: `Switched back the guild's prefix back to \`${this.client.options.prefix}\`!`,
 			COMMAND_HELP_DESCRIPTION: "Display help for a command.",
 			COMMAND_HELP_DM: "📥 | The list of commands you have access to has been sent to your DMs.",
 			COMMAND_HELP_NODM: "❌ | You have DMs disabled, I couldn't send you the commands in DMs.",
@@ -117,6 +144,7 @@ module.exports = class extends Language {
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
+			COMMAND_PREFIX_DESCRIPTION: "Change the command prefix the bot uses in your server.",
 			COMMAND_TRANSLATE_DESCRIPTION: "Gives you informations about our translation project.",
 			COMMAND_VOTE_DESCRIPTION: "All details about voting for LenoxBot.",
 			COMMAND_GITHUB_DESCRIPTION: "All details about our GitHub Repository of LenoxBot.",
