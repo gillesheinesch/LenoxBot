@@ -45,7 +45,7 @@
     "stats_templesearch": "🔦 %prefixtemplesearch ausgeführt:",
     "stats_description": "Bot Statistiken über einen bestimmten Benutzer",
     "github_embedtitle": "LenoxBot‘s GitHub Repository:",
-    "github_embeddescription": "Unser Quellcode von LenoxBot (inklusive der Webseite) ist in unserem GitHub Repository verfügbar.\n\nDer Unterabteilung **master** ist der Zweig, der derzeit auf LenoxBot online ist.\nDie Unterabteilung **testing** ist der Zweig, in dem wir alle neuen Updates testen, bevor wir sie veröffentlichen.",
+    "github_embeddescription": "Unser LenoxBot-Quellcode (inklusive der Webseite) ist in unserem GitHub-Repository zu finden.\n\nDer Zweig **master** ist der, der derzeit auf LenoxBot online ist.\nDer Zweig **testing** ist der, in dem wir alle neuen Updates testen, bevor wir sie veröffentlichen.",
     "github_fieldtitlecontribute": "Wie trage ich dazu bei?",
     "github_fielddescriptioncontribute": "Wir würden uns sehr über Hilfe von Entwicklern freuen, die uns beim Beheben von Fehlern, oder beim Hinzuzufügen von neue Funktionen helfen können. Derzeit sind wir nur zwei Entwickler, die an LenoxBot arbeiten können. Wenn du uns helfen möchtest, lies bitte das folgende Dokument: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
     "github_fieldtitlelink": "LenoxBot's GitHub Repository-Link:",
