@@ -17,7 +17,7 @@ module.exports = class extends Command {
 		if (!fetchedMember.roles.find(r => r.name.toLowerCase() === 'partner')) return message.reply(message.language.get('COMMAND_PARTNER_ERROR'));
 
 		const validation = ['lenoxbot', 'keinemxl', 'evilturtle', 'dadi'];
-		const margs = [server_owner];
+		const margs = ['this is just here to be used as a placeholder', server_owner];
 
 		for (let i = 0; i < margs.length; i++) {
 			if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
