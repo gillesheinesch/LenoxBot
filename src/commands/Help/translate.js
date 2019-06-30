@@ -16,7 +16,6 @@ module.exports = class extends Command {
 			.setDescription(message.language.get('COMMAND_TRANSLATE_EMBED_DESCRIPTION'))
 			.addField(message.language.get('COMMAND_TRANSLATE_EMBEDFIELDTITLE'), 'https://crowdin.com/project/lenoxbot')
 			.setURL('https://crowdin.com/project/lenoxbot')
-			.setColor('BLUE')
-		);
+			.setColor('BLUE'));
 	}
 };

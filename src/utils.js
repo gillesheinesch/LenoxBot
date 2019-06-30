@@ -5,25 +5,23 @@ const fetch = require('node-fetch');
 const got = require('got');
 
 const parseArgs = (args, options) => {
-	if (!options)
-		return args;
-	if (typeof options === 'string')
-		options = [options];
+	if (!options) { return args; }
+	if (typeof options === 'string') { options = [options]; }
 
-	let optionValues = {};
+	const optionValues = {};
 
 	let i;
 	for (i = 0; i < args.length; i++) {
-		let arg = args[i];
+		const arg = args[i];
 		if (!arg.startsWith('--')) {
 			break;
 		}
 
-		let label = arg.substr(1);
+		const label = arg.substr(1);
 
-		if (args.indexOf(label + ':') > -1) {
-			let leftover = args.slice(i + 1).join(' ');
-			let matches = leftover.match(/^"(.+?)"/);
+		if (args.indexOf(`${label}:`) > -1) {
+			const leftover = args.slice(i + 1).join(' ');
+			const matches = leftover.match(/^"(.+?)"/);
 			if (matches) {
 				optionValues[label] = matches[1];
 				i += matches[0].split(' ').length;
@@ -56,10 +54,10 @@ const multiSend = (channel, messages, delay) => {
 
 const sendLarge = (channel, largeMessage, status = '', options = {}) => {
 	let message = largeMessage;
-	let messages = [];
-	let prefix = options.prefix || '';
-	let suffix = options.suffix || '';
-	let max = 2000 - prefix.length - suffix.length;
+	const messages = [];
+	const prefix = options.prefix || '';
+	const suffix = options.suffix || '';
+	const max = 2000 - prefix.length - suffix.length;
 	while (message.length >= max) {
 		let part = message.substr(0, max);
 		let cutTo = max;
@@ -100,7 +98,7 @@ const hastebinUpload = async (data, language = 'js') => {
 	const key = await fetch('https://hastebin.com/documents', {
 		method: 'POST',
 		body: data
-	}).then((response) => response.json()).then((body) => body.key);
+	}).then(response => response.json()).then(body => body.key);
 	return `https://hastebin.com/${key}.${language}`;
 };
 
@@ -108,28 +106,25 @@ const mystbinUpload = async (data, language = 'js') => {
 	const key = await fetch('https://mystb.in/documents', {
 		method: 'POST',
 		body: data
-	}).then((response) => response.json()).then((body) => body.key);
+	}).then(response => response.json()).then(body => body.key);
 	return `https://mystb.in/${key}.${language}`;
 };
 
-const ixUpload = (evalResult) => {
-	return got('http://ix.io', { body: { 'f:1': evalResult }, form: true }).then((response) => {
-		if (response && response.body) {
-			return {
-				success: true,
-				url: response.body,
-				rawUrl: response.body
-			};
-		} else {
-			return {
-				success: false
-			};
-		}
-	});
-};
+const ixUpload = evalResult => got('http://ix.io', { body: { 'f:1': evalResult }, form: true }).then(response => {
+	if (response && response.body) {
+		return {
+			success: true,
+			url: response.body,
+			rawUrl: response.body
+		};
+	}
+	return {
+		success: false
+	};
+});
 
-const formURLEncoded = (data) => Object.keys(data).reduce((url, key) => `${url}&${key}=${encodeURIComponent(data[key])}`, '');
-const fileioUpload = async (data) => {
+const formURLEncoded = data => Object.keys(data).reduce((url, key) => `${url}&${key}=${encodeURIComponent(data[key])}`, '');
+const fileioUpload = async data => {
 	const link = await axios({
 		method: 'POST',
 		url: 'https://file.io',
@@ -137,13 +132,13 @@ const fileioUpload = async (data) => {
 			'Content-Type': 'application/x-www-form-urlencoded'
 		},
 		data: formURLEncoded({
-			'text': data
+			text: data
 		})
-	}).then((res) => res.data.link).catch((e) => {
+	}).then(res => res.data.link).catch(e => {
 		throw e;
 	});
 	return link;
-}
+};
 
 module.exports = {
 	// Additional argument parsing

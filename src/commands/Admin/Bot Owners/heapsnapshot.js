@@ -4,7 +4,6 @@ const { join } = require('path');
 const writeSnapshot = require('util').promisify(require('heapdump').writeSnapshot);
 
 module.exports = class extends Command {
-
 	constructor(...args) {
 		super(...args, {
 			permissionLevel: 10,
@@ -24,5 +23,4 @@ module.exports = class extends Command {
 
 		return message.sendLocale('COMMAND_HEAPSNAPSHOT_CAPTURED_DONE', path);
 	}
-
 };

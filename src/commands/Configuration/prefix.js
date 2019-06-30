@@ -1,34 +1,36 @@
-const { Command } = require("klasa");
+const { Command } = require('klasa');
 
 module.exports = class extends Command {
-	constructor (...args) {
+	constructor(...args) {
 		super(...args, {
-			runIn: ["text"],
+			runIn: ['text'],
 			description: language => language.get('COMMAND_PREFIX_DESCRIPTION'),
-			usage: "[reset|prefix:str{,12}]",
+			usage: '[reset|prefix:str{,12}]',
 			requiredPermissions: ['EMBED_LINKS'],
 			cooldown: 5,
 			aliases: ['set-prefix']
 		});
 	}
 
-	async run (message, [new_prefix]) {
+	async run(message, [new_prefix]) {
 		const { settings } = message.guild;
 		const prefix = settings.get('prefix');
 		const { broke, permission } = await this.client.permissionLevels.run(message, 6);
-		if (!new_prefix) return message.send({
-			embed: {
-				color: 0x3669FA,
-				description: message.language.get('SETTING_CURRENT_SERVER_PREFIX', prefix),
-				footer: {
-					text: message.language.get('SETTING_PREFIX_CAN_ALSO_MENTION')
+		if (!new_prefix) {
+			return message.send({
+				embed: {
+					color: 0x3669FA,
+					description: message.language.get('SETTING_CURRENT_SERVER_PREFIX', prefix),
+					footer: {
+						text: message.language.get('SETTING_PREFIX_CAN_ALSO_MENTION')
+					}
 				}
-			}
-		});
+			});
+		}
 		if (permission) {
-			if (['reset','default'].includes(new_prefix)) return this._reset(message);
+			if (['reset', 'default'].includes(new_prefix)) return this._reset(message);
 			if (prefix === new_prefix) throw message.language.get('COMMAND_CONF_NOCHANGE');
-			await settings.update("prefix", new_prefix);
+			await settings.update('prefix', new_prefix);
 			return message.send({
 				embed: {
 					color: 0x43B581,
@@ -38,10 +40,9 @@ module.exports = class extends Command {
 					}
 				}
 			});
-		} else {
-			throw message.language.get('INHIBITOR_PERMISSIONS');
 		}
-	};
+		throw message.language.get('INHIBITOR_PERMISSIONS');
+	}
 
 	async _reset(message) {
 		const { settings } = message.guild;
@@ -52,5 +53,5 @@ module.exports = class extends Command {
 				description: message.language.get('SETTING_RESET_PREFIX')
 			}
 		});
-	};
+	}
 };

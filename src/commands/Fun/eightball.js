@@ -4,8 +4,8 @@ const { MessageEmbed } = require('discord.js');
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
-			description: (language) => language.get('COMMAND_EIGHTBALL_DESCRIPTION'),
-			extendedHelp: (language) => language.get('COMMAND_EIGHTBALL_EXTENDEDHELP'),
+			description: language => language.get('COMMAND_EIGHTBALL_DESCRIPTION'),
+			extendedHelp: language => language.get('COMMAND_EIGHTBALL_EXTENDEDHELP'),
 			usage: '<Question:str>',
 			requiredPermissions: ['SEND_MESSAGES']
 		});
@@ -20,7 +20,6 @@ module.exports = class extends Command {
 			.addField(message.language.get('COMMAND_EIGHTBALL_QUESTION'), question)
 			.addField(message.language.get('COMMAND_EIGHTBALL_EMBEDFIELD'), eightballAnswers[eightballAnswersIndex])
 			.setColor('#ff6666')
-			.setAuthor(message.author.tag, message.author.displayAvatarURL())
-		);
+			.setAuthor(message.author.tag, message.author.displayAvatarURL()));
 	}
 };

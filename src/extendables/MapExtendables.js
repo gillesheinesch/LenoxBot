@@ -1,7 +1,6 @@
 const { Extendable } = require('klasa');
 
 module.exports = class extends Extendable {
-
 	constructor(...args) {
 		super(...args, { appliesTo: [Map] });
 	}
@@ -22,5 +21,4 @@ module.exports = class extends Extendable {
 		}
 		return results;
 	}
-
-}
+};

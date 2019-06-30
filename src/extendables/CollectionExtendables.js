@@ -2,7 +2,6 @@ const { Extendable } = require('klasa');
 const { Collection } = require('discord.js');
 
 module.exports = class extends Extendable {
-
 	constructor(...args) {
 		super(...args, { appliesTo: [Collection] });
 	}
@@ -13,5 +12,4 @@ module.exports = class extends Extendable {
 		for (const [key, value] of this) collection.set(key, fn(value, key, this));
 		return collection;
 	}
-
-}
+};

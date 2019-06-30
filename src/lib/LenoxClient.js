@@ -1,5 +1,5 @@
-const { Client, util: { sleep } } = require("klasa");
-const os = require("os");
+const { Client, util: { sleep } } = require('klasa');
+const os = require('os');
 
 module.exports = class LenoxClient extends Client {
 	async getCPUUsage() {
@@ -30,11 +30,11 @@ module.exports = class LenoxClient extends Client {
 			process.exit(0);
 		}
 	}
-}
+};
 
-function getCPUInfo () {
-	let cpus = os.cpus();
-	let user = 0, nice = 0, sys = 0, idle = 0, irq = 0, total = 0;
+function getCPUInfo() {
+	const cpus = os.cpus();
+	let user = 0; let nice = 0; let sys = 0; let idle = 0; let irq = 0; let total = 0;
 	for (let i = 0; i < cpus.length; i++) {
 		user += cpus[i].times.user;
 		nice += cpus[i].times.nice;

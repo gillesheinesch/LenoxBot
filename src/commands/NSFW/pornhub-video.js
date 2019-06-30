@@ -38,8 +38,7 @@ module.exports = class extends Command {
 				.setColor('#ff0000')
 				.setFooter(url)
 				.setURL(url)
-				.setAuthor(title)
-			);
+				.setAuthor(title));
 		} catch (err) {
 			return message.reply(message.language.get('COMMAND_PORNHUBGIF_COULDFINDNOTHING'));
 		}
