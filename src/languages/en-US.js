@@ -141,6 +141,7 @@ module.exports = class extends Language {
 			COMMAND_TICTACTOE_GAMECANCELED: (mention) => `Game canceled because ${mention} didn't answer or doesn't want to play!`,
 			COMMAND_TICTACTOE_GAMEEND: "Game is over!",
 			COMMAND_TICTACTOE_DRAW: "No one has won, it's draw! The next round may be better.",
+			COMMAND_HENTAIHAVEN_NOTFIND: "Could not find any videos to your request",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -188,6 +189,7 @@ module.exports = class extends Language {
 			COMMAND_PENISSIZECALCULATOR_EXTENDEDHELP: ["penissizecalculator", "penissizecalculator @Tester#8234"].join("\n"),
 			COMMAND_TICTACTOE_DESCRIPTION: "Play a round of TicTacToe against another Discord user.",
 			COMMAND_TICTACTOE_EXTENDEDHELP: "tictactoe @Tester#7584",
+			COMMAND_HENTAIHAVEN_DESCRIPTION: "Random HentaiHaven videos",
 		}
 	}
 
