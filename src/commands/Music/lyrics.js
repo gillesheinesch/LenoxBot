@@ -8,7 +8,8 @@ module.exports = class extends Command {
 			extendedHelp: [
 				'lyrics Parkway Drive - Boneyards'
 			],
-			usage: '<query:str>'
+			usage: '<query:str>',
+			permissionLevel: 10 // admin only as long as we must pay for the api
 		});
 		this.MESSAGE_CHAR_LIMIT = 2000;
 	}
