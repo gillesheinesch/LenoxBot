@@ -7,6 +7,7 @@ global.startTime = new Date(); // start recording time of boot
 Client.use(require("klasa-member-gateway"));
 
 Client.defaultGuildSchema
+	.add("joinroles", "role", { array: true })
 	.add("bot", (folder) => folder
 		.add("channel", "textchannel")
 		.add("redirect", "boolean"))

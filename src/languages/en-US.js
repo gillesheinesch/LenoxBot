@@ -146,6 +146,17 @@ module.exports = class extends Language {
 			COMMAND_PORNHUBGIF_TYPE: "You have to decide what type of pornography you want to see",
 			COMMAND_PORNHUBGIF_ERROR: "Your input may not have any spaces!",
 			SEXVIDEO_DURATIONEMBED: (duration) => `Duration: ${duration} minutes`,
+			COMMAND_JOINROLE_NOINPUT: "You forgot to enter the name of the role you want to add to the list of the joinroles!",
+			COMMAND_JOINROLE_ROLENOTEXIST: "This role doesn't exist. Please check if you entered the right name of the role!",
+			COMMAND_JOINROLE_ALREADYADDED: "You have already added this role to the joinroles of this Discord server!",
+			COMMAND_JOINROLE_MAXIMUM: "This Discord server has reached the maximum of allowed joinroles. The limit is 5!",
+			COMMAND_JOINROLE_ROLEADDED: "Role has been successfully added to the list of the joinroles!",
+			COMMAND_JOINROLE_NOINPUTREMOVE: "You forgot to enter the name of the role you want to remove from the list of the joinroles!",
+			COMMAND_JOINROLE_ROLENOTADDED: "You haven't added this role to the joinroles of this Discord server!",
+			COMMAND_JOINROLE_ROLEREMOVED: "Role has been successfully removed from the list of the joinroles!",
+			COMMAND_JOINROLE_NOJOINROLES: "There are no roles on this Discord server which new members will get when they join!",
+			COMMAND_JOINROLE_EMBEDTITLE: "All joinroles:",
+			COMMAND_JOINROLE_INVALIDVALIDATION: `You used the command incorrectly. Please use **${this.client.options.prefix}help joinrole** to read the correct usage of the command!`,
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -204,6 +215,8 @@ module.exports = class extends Language {
 			COMMAND_SEXGIF_EXTENDEDHELP: ['sexgif ass', 'sexgif tits'].join('\n'),
 			COMMAND_SEXVIDEO_DESCRIPTION: "Searches for sex videos.",
 			COMMAND_SEXVIDEO_EXTENDEDHELP: ['sexvideo ass', 'sexvideo tits'].join('\n'),
+			COMMAND_JOINROLE_DESCRIPTION: "Roles that new guildmembers will get when they join the Discord server.",
+			COMMAND_JOINROLE_EXTENDEDHELP: ['joinrole list', 'joinrole add test', 'joinrole remove test'].join('\n'),
 		}
 	}
 
