@@ -14,7 +14,6 @@ module.exports = class extends Command {
 		return message.channel.send(new MessageEmbed()
 			.setAuthor(message.language.get('COMMAND_VOTE_EMBEDAUTHOR'))
 			.setColor('BLUE')
-			.setDescription(message.language.get('COMMAND_VOTE_EMBEDDESCRIPTION', 'https://discordbots.org/bot/lenoxbot/vote'))
-		);
+			.setDescription(message.language.get('COMMAND_VOTE_EMBEDDESCRIPTION', 'https://discordbots.org/bot/lenoxbot/vote')));
 	}
 };

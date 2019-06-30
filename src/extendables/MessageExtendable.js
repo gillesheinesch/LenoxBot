@@ -2,7 +2,6 @@ const { Message } = require('discord.js');
 const { Extendable } = require('klasa');
 
 module.exports = class extends Extendable {
-
 	constructor(...args) {
 		super(...args, { appliesTo: [Message] });
 	}
@@ -43,4 +42,4 @@ module.exports = class extends Extendable {
 		if (responses.size === 0) throw this.language.get('MESSAGE_PROMPT_TIMEOUT');
 		return responses.first();
 	}
-}
+};

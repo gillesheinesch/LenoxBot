@@ -1,21 +1,21 @@
-const { Command } = require("klasa");
+const { Command } = require('klasa');
 const { exec } = require('child_process');
 
 module.exports = class extends Command {
-	constructor (...args) {
+	constructor(...args) {
 		super(...args, {
-			aliases: ["execute"],
+			aliases: ['execute'],
 			description: language => language.get('COMMAND_EXEC_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_EXEC_EXTENDEDHELP'),
 			guarded: true,
 			permissionLevel: 10,
-			usage: "<expression:str>",
+			usage: '<expression:str>',
 			hidden: true
 		});
 	}
 
-	async run (msg, [input]) {
-		let parsed = this.client.utils.parseArgs([input], ['r', 'd', 's', 'f', 'w', 'fn:', 'l:']);
+	async run(msg, [input]) {
+		const parsed = this.client.utils.parseArgs([input], ['r', 'd', 's', 'f', 'w', 'fn:', 'l:']);
 		if (parsed.length < 1) {
 			throw 'You must provide a command to run!';
 		}
@@ -24,7 +24,7 @@ module.exports = class extends Command {
 			msg.delete();
 		}
 
-		let ps = exec(parsed.leftover.join(' '), { timeout: "timeout" in msg.flags ? Number(msg.flags.timeout) : 60000 });
+		const ps = exec(parsed.leftover.join(' '), { timeout: 'timeout' in msg.flags ? Number(msg.flags.timeout) : 60000 });
 		if (!ps) {
 			throw 'Failed to start process!';
 		}
@@ -33,7 +33,7 @@ module.exports = class extends Command {
 			return;
 		}
 
-		let opts = {
+		const opts = {
 			delay: 10,
 			cutOn: '\n'
 		};
@@ -47,7 +47,7 @@ module.exports = class extends Command {
 			let output = '';
 
 			ps.stdout.on('data', data => output += data.toString());
-			await new Promise((resolve) => {
+			await new Promise(resolve => {
 				ps.once('exit', async () => {
 					if (!output) {
 						return resolve();
@@ -69,36 +69,34 @@ module.exports = class extends Command {
 					resolve();
 				});
 			});
-		} else {
-			if (msg.flags.wait) {
-				let output = '';
-				let handler = data => output += data.toString();
+		} else if (msg.flags.wait) {
+			let output = '';
+			const handler = data => output += data.toString();
 
-				[ps.stdout, ps.stderr].forEach((stream) => stream.on('data', handler));
+			[ps.stdout, ps.stderr].forEach(stream => stream.on('data', handler));
 
-				await new Promise((resolve) => {
-					ps.once('exit', async () => {
-						if (!output) {
-							return resolve();
-						}
+			await new Promise(resolve => {
+				ps.once('exit', async () => {
+					if (!output) {
+						return resolve();
+					}
 
-						await this.client.utils.sendLarge(msg, `${this.clean(output)}`, `**\`OUTPUT\`**`, opts);
+					await this.client.utils.sendLarge(msg, `${this.clean(output)}`, `**\`OUTPUT\`**`, opts);
 
-						resolve();
-					});
+					resolve();
 				});
-			} else {
-				ps.stdout.on('data', data => this.client.utils.sendLarge(msg, `${this.clean(data)}`, `**\`OUTPUT\`**`, opts));
-				ps.stderr.on('data', data => this.client.utils.sendLarge(msg, `${this.clean(data)}`, `**\`ERROR\`**`, opts));
+			});
+		} else {
+			ps.stdout.on('data', data => this.client.utils.sendLarge(msg, `${this.clean(data)}`, `**\`OUTPUT\`**`, opts));
+			ps.stderr.on('data', data => this.client.utils.sendLarge(msg, `${this.clean(data)}`, `**\`ERROR\`**`, opts));
 
-				await new Promise((resolve) => ps.once('exit', resolve));
-			}
+			await new Promise(resolve => ps.once('exit', resolve));
 		}
-	};
+	}
 
-	clean (data) {
+	clean(data) {
 		return `${data}`
 			.replace(/`/g, '\u200b$&')
 			.replace(/\[[0-9]*m/g, '');
-	};
+	}
 };

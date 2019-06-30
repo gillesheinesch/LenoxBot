@@ -1,13 +1,12 @@
 const { Event } = require('klasa');
 
 module.exports = class extends Event {
-
 	async run(messages) {
 		if (this.client.ready) {
 			for (const message of messages.values()) {
 				if (message.guild && message.guild.me && message.guild.me.permissions.has('VIEW_AUDIT_LOG', true)) {
-					const entry = await message.guild.fetchAuditLogs({ type: 'MESSAGE_DELETE' }).then((audit) => audit.entries.first());
-					let user = "";
+					const entry = await message.guild.fetchAuditLogs({ type: 'MESSAGE_DELETE' }).then(audit => audit.entries.first());
+					let user = '';
 					try {
 						if (entry.extra.channel.id === message.channel.id && (entry.target.id === message.author.id) && (entry.createdTimestamp > (Date.now() - 5000)) && (entry.extra.count >= 1)) {
 							user = entry.executor;
@@ -29,5 +28,4 @@ module.exports = class extends Event {
 			}
 		}
 	}
-
 };

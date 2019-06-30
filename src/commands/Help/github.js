@@ -17,7 +17,6 @@ module.exports = class extends Command {
 			.setColor('BLUE')
 			.setDescription(message.language.get('COMMAND_GITHUB_EMBEDDESCRIPTION'))
 			.addField(message.language.get('COMMAND_GITHUB_FIELDTITLECONTRIBUTE'), message.language.get('COMMAND_GITHUB_FIELDDESCRIPTIONCONTRIBUTE'))
-			.addField(message.language.get('COMMAND_GITHUB_FIELDTITLELINK'), 'https://github.com/LenoxBot')
-		);
+			.addField(message.language.get('COMMAND_GITHUB_FIELDTITLELINK'), 'https://github.com/LenoxBot'));
 	}
 };

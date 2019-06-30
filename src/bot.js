@@ -4,14 +4,14 @@ const config = require('../config.json');
 
 global.startTime = new Date(); // start recording time of boot
 
-Client.use(require("klasa-member-gateway"));
+Client.use(require('klasa-member-gateway'));
 
 Client.defaultGuildSchema
-	.add("joinroles", "role", { array: true })
-	.add("skipnumber", "int", { default: 1 })
-	.add("bot", (folder) => folder
-		.add("channel", "textchannel")
-		.add("redirect", "boolean"))
+	.add('joinroles', 'role', { array: true })
+	.add('skipnumber', 'int', { 'default': 1 })
+	.add('bot', folder => folder
+		.add('channel', 'textchannel')
+		.add('redirect', 'boolean'));
 
 const client = global.client = new Client({
 	autoReconnect: true,
@@ -31,15 +31,15 @@ const client = global.client = new Client({
 	restTimeOffset: 0,
 	regexPrefix: /^(?:hey |hi )?lenoxbot[,!\w]?/i,
 	providers: {
-		default: config.provider,
-		mongodb: config.mongodb
+		'default': config.provider,
+		'mongodb': config.mongodb
 	},
 	gateways: {
 		clientStorage: { provider: config.provider },
 		members: { providers: config.provider }
 	},
 	schedule: { inerval: 1000 },
-	disabledCorePieces: ["commands"],
+	disabledCorePieces: ['commands'],
 	console: { useColor: true }
 });
 
@@ -61,7 +61,7 @@ client.setInterval(() => { // update the clients presence every set interval, be
 			type: 0
 		},
 		status: 'online'
-	}).then(() => {}).catch((e)=>{});
+	}).then(() => {}).catch(e => {});
 }, 3600000); // 1 hour
 
 if (!client.ready) client.start();

@@ -3,7 +3,6 @@ const { Provider, util: { mergeDefault, mergeObjects, isObject } } = require('kl
 const { MongoClient: Mongo } = require('mongodb');
 
 module.exports = class extends Provider {
-
 	constructor(...args) {
 		super(...args, { description: 'Allows use of MongoDB functionality throughout Klasa' });
 		this.db = null;
@@ -84,10 +83,9 @@ module.exports = class extends Provider {
 	replace(table, id, doc) {
 		return this.db.collection(table).replaceOne(resolveQuery(id), this.parseUpdateInput(doc));
 	}
-
 };
 
-const resolveQuery = query => isObject(query) ? query : { id: query };
+const resolveQuery = query => (isObject(query) ? query : { id: query });
 
 function flatten(obj, path = '') {
 	let output = {};

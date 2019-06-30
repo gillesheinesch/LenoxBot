@@ -39,9 +39,9 @@ module.exports = class extends Command {
 			'https://imgur.com/vWoekpB.png'
 		];
 
-		let wordToGuess = "";
+		let wordToGuess = '';
 		if (message.language.name !== 'en-US') {
-			const hangmanWords = message.language.get('COMMAND_HANGMAN_WORDSTOGUESS')
+			const hangmanWords = message.language.get('COMMAND_HANGMAN_WORDSTOGUESS');
 			const hangmanIndex = Math.floor(Math.random() * hangmanWords.length);
 			wordToGuess = hangmanWords[hangmanIndex].toLowerCase();
 		} else {
@@ -129,7 +129,7 @@ module.exports = class extends Command {
 											hangmanEmbed.edit({
 												embed: firstEmbed
 											});
-											
+
 											turn = turn === 1 ? 2 : 1;
 
 											if (!newWordString.includes('_') && turn === 1) {
@@ -145,7 +145,7 @@ module.exports = class extends Command {
 												triedLetters.push(response.first().content.toLowerCase());
 											}
 
-											let embedtitlewrong = message.language.get('COMMAND_HANGMAN_EMBEDTITLEWRONG', turn === 1 ? message.author.tag : member.tag, response.first().content.toLowerCase());
+											const embedtitlewrong = message.language.get('COMMAND_HANGMAN_EMBEDTITLEWRONG', turn === 1 ? message.author.tag : member.tag, response.first().content.toLowerCase());
 
 											const embeddescriptionwithtried = message.language.get('COMMAND_HANGMAN_EMBEDDESCRIPTIONWITHTRIED', triedLetters.join(', '), `\`\`${newWordString.join(' ')}\`\``);
 											embedtitlechances = message.language.get('COMMAND_HANGMAN_EMBEDTITLECHANCES', chances);
@@ -209,7 +209,7 @@ module.exports = class extends Command {
 											const embedtitlewrong = message.language.get('COMMAND_HANGMAN_EMBEDTITLEWRONGWORD', turn === 1 ? message.author.tag : member.tag, response.first().content.toLowerCase());
 											firstEmbed.setTitle(embedtitlewrong);
 
-											embedtitlechances = message.language.get('COMMAND_HANGMAN_EMBEDTITLECHANCES', chances)
+											embedtitlechances = message.language.get('COMMAND_HANGMAN_EMBEDTITLECHANCES', chances);
 											const embeddescriptionwithtried = message.language.get('COMMAND_HANGMAN_EMBEDDESCRIPTIONWITHTRIED', triedLetters.join(', '), `\`\`${newWordString.join(' ')}\`\``);
 											firstEmbed.setFooter(embedtitlechances);
 											firstEmbed.setDescription(embeddescriptionwithtried);
@@ -242,7 +242,7 @@ module.exports = class extends Command {
 				}
 			});
 		} else {
-			embedtitlechances = message.language.get('COMMAND_HANGMAN_EMBEDTITLECHANCES', chances)
+			embedtitlechances = message.language.get('COMMAND_HANGMAN_EMBEDTITLECHANCES', chances);
 			const embeddescription = message.language.get('COMMAND_HANGMAN_EMBEDDESCRIPTION', `\`\`${newWordString.join(' ')}\`\``);
 			const firstEmbed = new MessageEmbed()
 				.setColor('BLUE')

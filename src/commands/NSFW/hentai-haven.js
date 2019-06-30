@@ -14,12 +14,12 @@ module.exports = class extends Command {
 	async run(message) {
 		try {
 			/* eslint no-undef: 0 */
-			JSDOM.fromURL('https://hentaihaven.org').then((res) => {
+			JSDOM.fromURL('https://hentaihaven.org').then(res => {
 				const elements = res.window.document.querySelectorAll('head > script');
 				const element = Array.from(elements).filter(elem => elem.text.startsWith('/*  */\nvar Pukka = '))[0];
 				const Pukka = JSON.parse(element.text.replace(/^\/\* {2}\*\/\nvar Pukka = |\;\n\/\* {2}\*\/$/g, ''));
 				const random_category = Pukka.category_links[Math.floor(Math.random() * (Pukka.category_links.length - 1))];
-				JSDOM.fromURL(random_category).then((resource) => {
+				JSDOM.fromURL(random_category).then(resource => {
 					const document = resource.window.document;
 					const title = document.getElementsByClassName('archive-title')[0].textContent;
 					const videos = document.getElementsByClassName('hidden animate_video');
@@ -31,12 +31,11 @@ module.exports = class extends Command {
 						.setURL(video_url)
 						.setFooter(video_url)
 						.setColor('BLUE')
-						.setTitle(title)
-					);
-				}).catch((err) => {
+						.setTitle(title));
+				}).catch(err => {
 					throw err;
 				});
-			}).catch((err) => {
+			}).catch(err => {
 				throw err;
 			});
 		} catch (err) {
