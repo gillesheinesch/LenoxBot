@@ -18,9 +18,9 @@ module.exports = class extends Command {
 		if (!role) return message.reply(message.language.get('COMMAND_JOINROLE_NOINPUT'));
 		const settings = this.client.settings;
 		const joinrole_settings = settings.get('joinroles');
-		if (joinrole_settings.includes(role.id)) return message.reply(message.language.get('COMMAND_JOINROLE_ALREADYADDED'));
+		if (joinrole_settings.includes(role.id) || joinrole_settings.includes(role)) return message.reply(message.language.get('COMMAND_JOINROLE_ALREADYADDED'));
 		if (joinrole_settings.length >= 5) return message.reply(message.language.get('COMMAND_JOINROLE_MAXIMUM'));
-		await settings.update('joinroles', role.id, { action: 'add' });
+		await settings.update('joinroles', role, { action: 'add' });
 		return message.reply(message.language.get('COMMAND_JOINROLE_ROLEADDED'));
 	}
 
@@ -28,8 +28,8 @@ module.exports = class extends Command {
 		if (!role) return message.reply(message.language.get('COMMAND_JOINROLE_NOINPUTREMOVE'));
 		const settings = this.client.settings;
 		const joinrole_settings = settings.get('joinroles');
-		if (!joinrole_settings.includes(role.id)) return message.reply(message.language.get('COMMAND_JOINROLE_NOTADDED'));
-		await settings.update('joinroles', role.id, { action: 'remove' });
+		if (!joinrole_settings.includes(role.id) || !joinrole_settings.includes(role)) return message.reply(message.language.get('COMMAND_JOINROLE_NOTADDED'));
+		await settings.update('joinroles', role, { action: 'remove' });
 		return message.reply(message.language.get('COMMAND_JOINROLE_ROLEREMOVED'));
 	}
 
@@ -49,7 +49,7 @@ module.exports = class extends Command {
 				currentJoinroles.splice(indexOfTheRole, 1);
 				await settings.update('joinroles', currentJoinroles, { action: 'remove' });
 			}
-			if (joinrole_settings.length !== 0) {
+			if (joinrole_settings.length) {
 				const joinrole = message.guild.roles.get(joinrole_settings[index]);
 				arrayForEmbedDescription.push(`${joinrole.name} (${joinrole.id})`);
 			}
