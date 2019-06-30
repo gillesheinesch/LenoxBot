@@ -1,6 +1,5 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
-const settings = require('../../settings.json');
 
 module.exports = class extends Command {
 	constructor(...args) {
