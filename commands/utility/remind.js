@@ -43,7 +43,7 @@ module.exports = class remindCommand extends LenoxCommand {
 					const remind_invalidtime = lang.remind_invalidtime.replace('%prefix', prefix);
 					if (typeof msTime === 'undefined') return msg.channel.send(remind_invalidtime);
 
-					const remindText = args.slice(2, 3).join(' ');
+					const remindText = args.slice(2).join(' ');
 					if (!remindText) return msg.reply(lang.remind_notext);
 					if (remindText.length > 300) return msg.reply(lang.remind_textmax);
 
