@@ -21,7 +21,7 @@ const client = global.client = new Client({
 	pieceDefaults: { commands: { deletable: true } },
 	presence: {
 		activity: {
-			name: `...Initializing`,
+			name: '...Initializing',
 			type: 0
 		}
 	},
