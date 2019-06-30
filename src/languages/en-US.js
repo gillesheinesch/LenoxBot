@@ -161,6 +161,11 @@ module.exports = class extends Language {
 			COMMAND_SKIPNUMBER_NOINPUT: 'You must enter a number',
 			COMMAND_SKIPNUMBER_CANNOTBE0: 'The number cannot be 0',
 			COMMAND_SKIPNUMBER_CHANGEDSKIPVOTE: newskipnumber => `The number of votes to skip music has been changed to ${newskipnumber}`,
+			COMMAND_GIVEXP_MESSAGEEVENT_LEVELUP: (author, level) => `Congratulations ${author}! You just advanced to level ${level}!`,
+			COMMAND_GIVEXP_DONE: 'XP has been successfully given to the user!',
+			COMMAND_GIVEXP_NOAMOUNT: "You didn't enter an amount of XP!",
+			COMMAND_GIVEXP_AMOUNTNAN: "You didn't enter an amount of XP!",
+			COMMAND_GIVEXP_ATLEAST1: "Your amount of XP has to be at least 1!",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
@@ -222,7 +227,9 @@ module.exports = class extends Language {
 			COMMAND_JOINROLE_DESCRIPTION: 'Roles that new guildmembers will get when they join the Discord server.',
 			COMMAND_JOINROLE_EXTENDEDHELP: ['joinrole list', 'joinrole add test', 'joinrole remove test'].join('\n'),
 			COMMAND_SKIPNUMBER_DESCRIPTION: 'Changes the necessary votes to skip music for users.',
-			COMMAND_SKIPNUMBER_EXTENDEDHELP: ['skipnumber 3'].join('\n')
+			COMMAND_SKIPNUMBER_EXTENDEDHELP: ['skipnumber 3'].join('\n'),
+			COMMAND_GIVEXP_DESCRIPTION: 'Gives an user a specific amount of XP on this discord server.',
+			COMMAND_GIVEXP_EXTENDEDHELP: ['givexp 327533963923161090 1000'].join('\n')
 		};
 	}
 

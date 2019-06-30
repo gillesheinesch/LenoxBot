@@ -6,12 +6,20 @@ global.startTime = new Date(); // start recording time of boot
 
 Client.use(require('klasa-member-gateway'));
 
+Client.defaultClientSchema
+	.add('owners', 'string', { array: true, configurable: false, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+
 Client.defaultGuildSchema
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'int', { 'default': 1 })
+	.add('xpmessages', 'string')
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
-		.add('redirect', 'boolean'));
+		.add('redirect', 'boolean'))
+
+Client.defaultMemberSchema
+	.add('points', 'number', { default: 0 })
+	.add('level', 'number', { default: 0 })
 
 const client = global.client = new Client({
 	autoReconnect: true,
