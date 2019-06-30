@@ -98,7 +98,7 @@ module.exports = class remindCommand extends LenoxCommand {
 					return undefined;
 				} else if (margs[1].toLowerCase() === 'remove') {
 					console.log('tets');
-					const reminderText = args.slice(1, 2).join(' ');
+					const reminderText = args.slice(1).join(' ');
 					if (!reminderText) return msg.reply(lang.remind_notextfordelete);
 
 					const currentBotReminder = msg.client.provider.getBotsettings('botconfs', 'reminder');
