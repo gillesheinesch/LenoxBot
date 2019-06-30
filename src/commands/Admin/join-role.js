@@ -7,6 +7,8 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_JOINROLE_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_JOINROLE_EXTENDEDHELP'),
 			usage: '<add|remove|list:default> [GuildRole:role]',
+			usageDelim: ' ',
+			guarded: true,
 			requiredPermissions: ['SEND_MESSAGES'],
 			permissionLevel: 10,
 			subcommands: true

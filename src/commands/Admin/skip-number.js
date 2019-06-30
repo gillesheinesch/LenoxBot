@@ -7,6 +7,7 @@ module.exports = class extends Command {
 			extendedHelp: language => language.get('COMMAND_SKIPNUMBER_EXTENDEDHELP'),
 			usage: '<Number:int>',
 			requiredPermissions: ['SEND_MESSAGES'],
+			guarded: true,
 			permissionLevel: 10
 		});
 	}
