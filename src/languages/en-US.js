@@ -141,7 +141,10 @@ module.exports = class extends Language {
 			COMMAND_TICTACTOE_GAMECANCELED: (mention) => `Game canceled because ${mention} didn't answer or doesn't want to play!`,
 			COMMAND_TICTACTOE_GAMEEND: "Game is over!",
 			COMMAND_TICTACTOE_DRAW: "No one has won, it's draw! The next round may be better.",
-			COMMAND_HENTAIHAVEN_NOTFIND: "Could not find any videos to your request",
+			COMMAND_HENTAIHAVEN_NOTFIND: "Could not find any videos to your request.",
+			COMMAND_PORNHUBGIF_COULDFINDNOTHING: "Could not find any gifs to your request.",
+			COMMAND_PORNHUBGIF_TYPE: "You have to decide what type of pornography you want to see",
+			COMMAND_PORNHUBGIF_ERROR: "Your input may not have any spaces!",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -190,6 +193,8 @@ module.exports = class extends Language {
 			COMMAND_TICTACTOE_DESCRIPTION: "Play a round of TicTacToe against another Discord user.",
 			COMMAND_TICTACTOE_EXTENDEDHELP: "tictactoe @Tester#7584",
 			COMMAND_HENTAIHAVEN_DESCRIPTION: "Random HentaiHaven videos",
+			COMMAND_PORNHUBGIF_DESCRIPTION: "Searches for Pornhub gifs",
+			COMMAND_PORNHUBGIF_EXTENDEDHELP: ['pornhubgif ass', 'pornhubgif tits'].join('\n'),
 		}
 	}
 

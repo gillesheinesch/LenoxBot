@@ -24,6 +24,7 @@
     "node-fetch": "^2.6.0",
     "heapdump": "^0.3.14",
     "jsdom": "^15.1.1",
-    "mongodb": "^3.2.7"
+    "mongodb": "^3.2.7",
+    "pornsearch": "^2.4.3"
   }
 }
