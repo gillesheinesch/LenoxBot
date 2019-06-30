@@ -145,6 +145,7 @@ module.exports = class extends Language {
 			COMMAND_PORNHUBGIF_COULDFINDNOTHING: "Could not find any gifs to your request.",
 			COMMAND_PORNHUBGIF_TYPE: "You have to decide what type of pornography you want to see",
 			COMMAND_PORNHUBGIF_ERROR: "Your input may not have any spaces!",
+			SEXVIDEO_DURATIONEMBED: (duration) => `Duration: ${duration} minutes`,
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -191,10 +192,18 @@ module.exports = class extends Language {
 			COMMAND_PENISSIZECALCULATOR_DESCRIPTION: "Calculates the size of the penis of you or a user.",
 			COMMAND_PENISSIZECALCULATOR_EXTENDEDHELP: ["penissizecalculator", "penissizecalculator @Tester#8234"].join("\n"),
 			COMMAND_TICTACTOE_DESCRIPTION: "Play a round of TicTacToe against another Discord user.",
-			COMMAND_TICTACTOE_EXTENDEDHELP: "tictactoe @Tester#7584",
-			COMMAND_HENTAIHAVEN_DESCRIPTION: "Random HentaiHaven videos",
-			COMMAND_PORNHUBGIF_DESCRIPTION: "Searches for Pornhub gifs",
+			COMMAND_TICTACTOE_EXTENDEDHELP: ["tictactoe @Tester#7584"].join('\n'),
+			COMMAND_HENTAIHAVEN_DESCRIPTION: "Random HentaiHaven videos.",
+			COMMAND_PORNHUBGIF_DESCRIPTION: "Searches for Pornhub gifs.",
 			COMMAND_PORNHUBGIF_EXTENDEDHELP: ['pornhubgif ass', 'pornhubgif tits'].join('\n'),
+			COMMAND_PORNHUBVIDEO_DESCRIPTION: "Searches for Pornhub videos.",
+			COMMAND_PORNHUBVIDEO_EXTENDEDHELP: ['pornhubvideo ass', 'pornhubvideo tits'].join('\n'),
+			COMMAND_REDTUBE_DESCRIPTION: "Searches for Redtube gifs.",
+			COMMAND_REDTUBE_EXTENDEDHELP: ['redtube ass', 'redtube tits'].join('\n'),
+			COMMAND_SEXGIF_DESCRIPTION: "Searches for sex gifs.",
+			COMMAND_SEXGIF_EXTENDEDHELP: ['sexgif ass', 'sexgif tits'].join('\n'),
+			COMMAND_SEXVIDEO_DESCRIPTION: "Searches for sex videos.",
+			COMMAND_SEXVIDEO_EXTENDEDHELP: ['sexvideo ass', 'sexvideo tits'].join('\n'),
 		}
 	}
 
