@@ -20,7 +20,7 @@ module.exports = class extends Command {
 		const joinrole_settings = settings.get('joinroles');
 		if (joinrole_settings.includes(role.id)) return message.reply(message.language.get('COMMAND_JOINROLE_ALREADYADDED'));
 		if (joinrole_settings.length >= 5) return message.reply(message.language.get('COMMAND_JOINROLE_MAXIMUM'));
-		await settings.update('joinroles', role.id, { action: 'add' });
+		await settings.update('joinroles', role, { action: 'add' });
 		return message.reply(message.language.get('COMMAND_JOINROLE_ROLEADDED'));
 	}
 
@@ -29,7 +29,7 @@ module.exports = class extends Command {
 		const settings = this.client.settings;
 		const joinrole_settings = settings.get('joinroles');
 		if (!joinrole_settings.includes(role.id)) return message.reply(message.language.get('COMMAND_JOINROLE_NOTADDED'));
-		await settings.update('joinroles', role.id, { action: 'remove' });
+		await settings.update('joinroles', role, { action: 'remove' });
 		return message.reply(message.language.get('COMMAND_JOINROLE_ROLEREMOVED'));
 	}
 
