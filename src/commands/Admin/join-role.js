@@ -49,7 +49,7 @@ module.exports = class extends Command {
 				currentJoinroles.splice(indexOfTheRole, 1);
 				await settings.update('joinroles', currentJoinroles, { action: 'remove' });
 			}
-			if (joinrole_settings.length !== 0) {
+			if (joinrole_settings.length) {
 				const joinrole = message.guild.roles.get(joinrole_settings[index]);
 				arrayForEmbedDescription.push(`${joinrole.name} (${joinrole.id})`);
 			}
