@@ -1,5 +1,4 @@
 const { Command } = require('klasa');
-const settings = require('../../settings.json');
 
 module.exports = class extends Command {
 	constructor(...args) {
