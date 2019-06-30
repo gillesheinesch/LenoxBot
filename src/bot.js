@@ -8,6 +8,7 @@ Client.use(require("klasa-member-gateway"));
 
 Client.defaultGuildSchema
 	.add("joinroles", "role", { array: true })
+	.add("skipnumber", "int", { default: 1 })
 	.add("bot", (folder) => folder
 		.add("channel", "textchannel")
 		.add("redirect", "boolean"))
