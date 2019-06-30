@@ -162,6 +162,7 @@ module.exports = class extends Language {
 			COMMAND_SKIPNUMBER_NOINPUT: "You must enter a number",
 			COMMAND_SKIPNUMBER_CANNOTBE0: "The number cannot be 0",
 			COMMAND_SKIPNUMBER_CHANGEDSKIPVOTE: (newskipnumber) => `The number of votes to skip music has been changed to ${newskipnumber}`,
+			COMMAND_PARTNER_ERROR: "You are not affiliated with LenoxBot!",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: "Runs a connection test to Discord.",
@@ -224,6 +225,8 @@ module.exports = class extends Language {
 			COMMAND_JOINROLE_EXTENDEDHELP: ['joinrole list', 'joinrole add test', 'joinrole remove test'].join('\n'),
 			COMMAND_SKIPNUMBER_DESCRIPTION: "Changes the necessary votes to skip music for users.",
 			COMMAND_SKIPNUMBER_EXTENDEDHELP: ['skipnumber 3'].join('\n'),
+			COMMAND_PARTNER_DESCRIPTION: "With this command you can use the embed of LenoxBot and your partnered server.",
+			COMMAND_PARTNER_EXTENDEDHELP: ['partner lenoxbot'].join('\n'),
 		}
 	}
 
