@@ -164,7 +164,7 @@ module.exports = class muteCommand extends LenoxCommand {
 			const punishmentConfig2 = {
 				id: currentPunishments2.length + 1,
 				userId: user.id,
-				reason: 1,
+				reason: lang.mute_automaticunmute,
 				date: Date.now(),
 				moderatorId: msg.client.user.id,
 				type: 'unmute'

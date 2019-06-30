@@ -839,9 +839,11 @@ async function run() {
 				botconfs: 'botconfs'
 			});
 			const newcommandlist = [];
+			const lenoxbotLang = require(`./languages/${req.getLocale()}`);
 			// eslint-disable-next-line guard-for-in
 			for (const key in commandlist.settings.commands) {
 				commandlist.settings.commands[key].usage = `?${commandlist.settings.commands[key].usage}`;
+				commandlist.settings.commands[key].description = lenoxbotLang[`${commandlist.settings.commands[key].name}_description`];
 				newcommandlist.push(commandlist.settings.commands[key]);
 			}
 
@@ -1006,8 +1008,12 @@ async function run() {
 									req.user.guilds[i].memberscount = guild.memberCount;
 								}
 
-								if (guildconfs.settings && guildconfs.settings.premium.status === true) {
-									req.user.guilds[i].premium = true;
+								if (guildconfs.settings) {
+									if (guildconfs.settings.premium && guildconfs.settings.premium.status === true) {
+										req.user.guilds[i].premium = true;
+									} else {
+										req.user.guilds[i].premium = false;
+									}
 								} else {
 									req.user.guilds[i].premium = false;
 								}
@@ -1021,8 +1027,12 @@ async function run() {
 								req.user.guilds[i].memberscount = guild.memberCount;
 							}
 
-							if (guildconfs.settings && guildconfs.settings.premium.status === true) {
-								req.user.guilds[i].premium = true;
+							if (guildconfs.settings) {
+								if (guildconfs.settings.premium && guildconfs.settings.premium.status === true) {
+									req.user.guilds[i].premium = true;
+								} else {
+									req.user.guilds[i].premium = false;
+								}
 							} else {
 								req.user.guilds[i].premium = false;
 							}
@@ -1036,8 +1046,12 @@ async function run() {
 							req.user.guilds[i].memberscount = guild.memberCount;
 						}
 
-						if (guildconfs && guildconfs.settings.premium.status === true) {
-							req.user.guilds[i].premium = true;
+						if (guildconfs && guildconfs.settings) {
+							if (guildconfs.settings.premium && guildconfs.settings.premium.status === true) {
+								req.user.guilds[i].premium = true;
+							} else {
+								req.user.guilds[i].premium = false;
+							}
 						} else {
 							req.user.guilds[i].premium = false;
 						}
@@ -1057,6 +1071,7 @@ async function run() {
 			}
 			return res.redirect('nologin');
 		} catch (error) {
+			console.log(error)
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {

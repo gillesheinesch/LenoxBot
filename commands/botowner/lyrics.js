@@ -6,7 +6,7 @@ module.exports = class lyricsCommand extends LenoxCommand {
 	constructor(client) {
 		super(client, {
 			name: 'lyrics',
-			group: 'music',
+			group: 'botowner',
 			memberName: 'lyrics',
 			description: 'Fetch lyrics for a given artist and song',
 			format: 'lyrics {query}',
@@ -22,6 +22,9 @@ module.exports = class lyricsCommand extends LenoxCommand {
 	async run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
+
+		if (!config.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
+
 		const text_truncate = (str, length, ending) => {
 			if (length === null) length = 100;
 			if (ending === null) ending = '...';
