@@ -140,12 +140,12 @@ module.exports = class extends Language {
 			COMMAND_TICTACTOE_GAMECANCELED: mention => `Game canceled because ${mention} didn't answer or doesn't want to play!`,
 			COMMAND_TICTACTOE_GAMEEND: 'Game is over!',
 			COMMAND_TICTACTOE_DRAW: "No one has won, it's draw! The next round may be better.",
-			COMMAND_HENTAIHAVEN_NOTFIND: "Could not find any videos to your request.",
-			COMMAND_PORNHUBGIF_COULDFINDNOTHING: "Could not find any gifs to your request.",
-			COMMAND_PORNHUBGIF_TYPE: "You have to decide what type of pornography you want to see.",
-			COMMAND_PORNHUBGIF_ERROR: "Your input may not have any spaces!",
-			SEXVIDEO_DURATIONEMBED: (duration) => `Duration: ${duration} minutes.`,
-			COMMAND_JOINROLE_NOINPUT: "You forgot to enter the name of the role you want to add to the list of the joinroles!",
+			COMMAND_HENTAIHAVEN_NOTFIND: 'Could not find any videos to your request.',
+			COMMAND_PORNHUBGIF_COULDFINDNOTHING: 'Could not find any gifs to your request.',
+			COMMAND_PORNHUBGIF_TYPE: 'You have to decide what type of pornography you want to see.',
+			COMMAND_PORNHUBGIF_ERROR: 'Your input may not have any spaces!',
+			SEXVIDEO_DURATIONEMBED: duration => `Duration: ${duration} minutes.`,
+			COMMAND_JOINROLE_NOINPUT: 'You forgot to enter the name of the role you want to add to the list of the joinroles!',
 			COMMAND_JOINROLE_ROLENOTEXIST: "This role doesn't exist. Please check if you entered the right name of the role!",
 			COMMAND_JOINROLE_ALREADYADDED: 'You have already added this role to the joinroles of this Discord server!',
 			COMMAND_JOINROLE_MAXIMUM: 'This Discord server has reached the maximum of allowed joinroles. The limit is 5!',
@@ -156,11 +156,11 @@ module.exports = class extends Language {
 			COMMAND_JOINROLE_NOJOINROLES: 'There are no roles on this Discord server which new members will get when they join!',
 			COMMAND_JOINROLE_EMBEDTITLE: 'All joinroles:',
 			COMMAND_JOINROLE_INVALIDVALIDATION: `You used the command incorrectly. Please use **${this.client.options.prefix}help joinrole** to read the correct usage of the command!`,
-			COMMAND_SKIPNUMBER_CURRENTVOTENUMBER: (skipnumber) => `The current vote number to skip music is ${skipnumber}`,
-			COMMAND_SKIPNUMBER_ERROR: "Your new number of votes to skip music cannot have spaces!",
-			COMMAND_SKIPNUMBER_NOINPUT: "You must enter a number",
-			COMMAND_SKIPNUMBER_CANNOTBE0: "The number cannot be 0",
-			COMMAND_SKIPNUMBER_CHANGEDSKIPVOTE: (newskipnumber) => `The number of votes to skip music has been changed to ${newskipnumber}`,
+			COMMAND_SKIPNUMBER_CURRENTVOTENUMBER: skipnumber => `The current vote number to skip music is ${skipnumber}`,
+			COMMAND_SKIPNUMBER_ERROR: 'Your new number of votes to skip music cannot have spaces!',
+			COMMAND_SKIPNUMBER_NOINPUT: 'You must enter a number',
+			COMMAND_SKIPNUMBER_CANNOTBE0: 'The number cannot be 0',
+			COMMAND_SKIPNUMBER_CHANGEDSKIPVOTE: newskipnumber => `The number of votes to skip music has been changed to ${newskipnumber}`,
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
@@ -219,11 +219,11 @@ module.exports = class extends Language {
 			COMMAND_SEXGIF_EXTENDEDHELP: ['sexgif ass', 'sexgif tits'].join('\n'),
 			COMMAND_SEXVIDEO_DESCRIPTION: 'Searches for sex videos.',
 			COMMAND_SEXVIDEO_EXTENDEDHELP: ['sexvideo ass', 'sexvideo tits'].join('\n'),
-			COMMAND_JOINROLE_DESCRIPTION: "Roles that new guildmembers will get when they join the Discord server.",
+			COMMAND_JOINROLE_DESCRIPTION: 'Roles that new guildmembers will get when they join the Discord server.',
 			COMMAND_JOINROLE_EXTENDEDHELP: ['joinrole list', 'joinrole add test', 'joinrole remove test'].join('\n'),
-			COMMAND_SKIPNUMBER_DESCRIPTION: "Changes the necessary votes to skip music for users.",
-			COMMAND_SKIPNUMBER_EXTENDEDHELP: ['skipnumber 3'].join('\n'),
-		}
+			COMMAND_SKIPNUMBER_DESCRIPTION: 'Changes the necessary votes to skip music for users.',
+			COMMAND_SKIPNUMBER_EXTENDEDHELP: ['skipnumber 3'].join('\n')
+		};
 	}
 
 	async init() {
