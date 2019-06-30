@@ -1,5 +1,7 @@
 files:
   - source: /languages/src/lenoxbot.json
     translation: /languages/%locale%.json
+    update_option: update_as_unapproved
   - source: /languages/src/website.json
     translation: /languages/website_%locale%.json
+    update_option: update_as_unapproved
