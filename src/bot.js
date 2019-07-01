@@ -1,4 +1,4 @@
-const { Collection } = require('discord.js');
+const { Collection, Permissions: { FLAGS } } = require('discord.js');
 const { Client } = require('./');
 const config = require('../config.json');
 
@@ -6,13 +6,19 @@ global.startTime = new Date(); // start recording time of boot
 
 Client.use(require('klasa-member-gateway'));
 
+Client.defaultPermissionLevels
+.add(4, ({ guild, member }) => guild && member.permissions.has(FLAGS.BAN_MEMBERS), { fetch: true })
+
 Client.defaultClientSchema
 	.add('owners', 'string', { array: true, configurable: false, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+	.add('punishments', { array: true })
 
 Client.defaultGuildSchema
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'int', { 'default': 1 })
 	.add('xpmessages', 'string')
+	.add('modlog', 'string')
+	.add('modlogchannel', 'channel')
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
 		.add('redirect', 'boolean'))
