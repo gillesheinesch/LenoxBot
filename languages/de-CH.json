@@ -727,7 +727,7 @@
     "activatemodule_administration": "Administrationsbefehl sind immer aktiviert!",
     "activatemodule_partner": "Partnerbefehl sind immer aktiviert!",
     "activatemodule_alreadyactivated": "Das Modul isch scho aktiviert",
-    "activatemodule_moduleactivated": "S Modul %modulname isch erfolgriich aktiviert worde!",
+    "activatemodule_moduleactivated": "S Modul %modulename isch erfolgriich aktiviert worde!",
     "activatemodule_error": "Das Modul existiert nöd. Bitte stell sicher, öb du dich nöd vertippt häsch!",
     "activatemodule_description": "Aktiviert es Modul und sini Befehl uf emene Discord-Server",
     "addautomaticrole_noinput": "Du muesch di erforderliche Pünkt aageh, damit d Benutzer die Rolle chönd übercho.",
