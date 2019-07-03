@@ -8,7 +8,7 @@ global.startTime = new Date(); // start recording time of boot
 Client.use(require('klasa-member-gateway'));
 
 Client.defaultPermissionLevels
-.add(4, ({ guild, member }) => guild && member.permissions.has(FLAGS.BAN_MEMBERS), { fetch: true })
+	.add(4, ({ guild, member }) => guild && member.permissions.has(FLAGS.BAN_MEMBERS), { fetch: true })
 
 Client.defaultClientSchema
 	.add('owners', 'string', { array: true, configurable: false, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
@@ -16,17 +16,23 @@ Client.defaultClientSchema
 Client.defaultGuildSchema
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'int', { 'default': 1 })
-	.add('xpmessages_enabled', 'boolean', { default: false })
-	.add('punishments', 'any', { array: true })
-	.add('modlog_enabled', 'boolean', { default: false })
-	.add('modlogchannel', 'channel', { filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+	.add('xp', folder => folder
+		.add('xpmessages_enabled', 'boolean', { default: false })
+	)
+	.add('moderations', folder => folder
+		.add('modlogs_enabled', 'boolean', { default: false })
+		.add('punishments', 'any', { array: true })
+		.add('modlog_channel', 'string', { filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+	)
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
 		.add('redirect', 'boolean'))
 
 Client.defaultMemberSchema
-	.add('points', 'number', { default: 0 })
-	.add('level', 'number', { default: 0 })
+	.add('scores', folder => folder
+		.add('points', 'number', { default: 0 })
+		.add('level', 'number', { default: 0 })
+	)
 
 const client = global.client = new Client({
 	autoReconnect: true,

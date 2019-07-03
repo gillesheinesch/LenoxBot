@@ -40,19 +40,19 @@ module.exports = class extends Command {
 			.setDescription(bandescription);
 
 		const guild_settings = message.guildSettings;
-		if (guild_settings.get('modlog_enabled')) {
-			const modlogchannel = this.client.channels.get(guild_settings.get('modlogchannel'));
+		if (guild_settings.get('moderations.modlogs_enabled')) {
+			const modlogchannel = this.client.channels.get(guild_settings.get('moderations.modlogchannel'));
 			modlogchannel.send({ embed: embed });
 		}
 
 		const punishmentConfig = {
-			id: guild_settings.get('punishments').length + 1,
+			id: guild_settings.get('moderations.punishments').length + 1,
 			userId: user.id,
 			reason: reason,
 			date: Date.now(),
 			moderatorId: message.author.id,
 			type: 'ban'
 		};
-		await guild_settings.update('punishments', punishmentConfig, { action: 'add' });
+		await guild_settings.update('moderations.punishments', punishmentConfig, { action: 'add' });
 	}
 };

@@ -14,37 +14,35 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [member, amount]) {
-		const settings = member.settings;
+		const member_settings = member.settings;
 		const guild_settings = message.guildSettings;
 		const xpAmount = parseInt(amount, 10);
 
 		if (!amount) return message.reply(message.language.get('COMMAND_GIVEXP_NOAMOUNT'));
 		if (isNaN(xpAmount)) return message.reply(message.language.get('COMMAND_GIVEXP_AMOUNTNAN'));
 		if (xpAmount <= 0) return message.reply(message.language.get('COMMAND_GIVEXP_ATLEAST1'));
-		const xpmessages = guild_settings.get('xpmessages');
+		const xpmessages = guild_settings.get('xp.xpmessages_enabled');
 		const currentScores = {
-			points: settings.get('points'),
-			level: settings.get('level')
+			points: member_settings.get('scores.points') += xpAmount,
+			level: member_settings.get('scores.level')
 		}
-		await settings.update('points', currentScores.points += xpAmount);
-
 		const curLevel = Math.floor(0.3 * Math.sqrt(currentScores.points + 1));
 		if (curLevel > currentScores.level) {
 			currentScores.level = curLevel;
 
-			if (xpmessages === 'true') {
+			if (xpmessages) {
 				message.channel.sendLocale('MESSAGEEVENT_LEVELUP', [message.author, currentScores.level]);
 			}
 		}
 		if (curLevel < currentScores.level) {
 			currentScores.level = curLevel;
 
-			if (xpmessages === 'true') {
+			if (xpmessages) {
 				message.channel.sendLocale('MESSAGEEVENT_LEVELUP', [message.author, currentScores.level]);
 			}
 		}
 
-		//await message.client.provider.setGuild(message.guild.id, 'scores', currentScores); remove this unless needed
+		await member_settings.update({ scores: { points: currentScores.points, level: currentScores.level } });
 
 		return message.reply(message.language.get('COMMAND_GIVEXP_DONE'));
 	}
