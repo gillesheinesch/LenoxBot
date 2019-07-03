@@ -59,7 +59,7 @@ const client = global.client = new Client({
 		clientStorage: { provider: config.provider },
 		members: { providers: config.provider }
 	},
-	schedule: { inerval: 1000 },
+	schedule: { interval: 1000 },
 	disabledCorePieces: ['commands'],
 	console: { useColor: true }
 });
