@@ -17,9 +17,6 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [user, ...given_reason]) {
-		const langSet = message.client.provider.getGuild(message.guild.id, 'language');
-		const lang = require(`../../languages/${langSet}.json`);
-
 		const reason = given_reason.join(' ');
 
 		if (user === message.author) return message.channel.sendLocale('COMMAND_BAN_YOURSELF');
@@ -43,24 +40,19 @@ module.exports = class extends Command {
 			.setDescription(bandescription);
 
 		const guild_settings = message.guildSettings;
-		if (guild_settings.get('modlog') === 'true') {
+		if (guild_settings.get('modlog_enabled')) {
 			const modlogchannel = this.client.channels.get(guild_settings.get('modlogchannel'));
 			modlogchannel.send({ embed: embed });
 		}
 
-		// will finish another day (I ended here)
-
-		const currentPunishments = message.client.provider.getGuild(message.guild.id, 'punishments');
 		const punishmentConfig = {
-			id: currentPunishments.length + 1,
+			id: guild_settings.get('pushments').length + 1,
 			userId: user.id,
 			reason: reason,
 			date: Date.now(),
 			moderatorId: message.author.id,
 			type: 'ban'
 		};
-
-		currentPunishments.push(punishmentConfig);
-		await message.client.provider.setGuild(message.guild.id, 'punishments', currentPunishments);
+		await guild_settings.update('punishments', punishmentConfig, { action: 'add' });
 	}
 };

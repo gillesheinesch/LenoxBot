@@ -1,6 +1,7 @@
 const { Collection, Permissions: { FLAGS } } = require('discord.js');
 const { Client } = require('./');
 const config = require('../config.json');
+const { constants: { MENTION_REGEX } } = require('klasa');
 
 global.startTime = new Date(); // start recording time of boot
 
@@ -11,14 +12,14 @@ Client.defaultPermissionLevels
 
 Client.defaultClientSchema
 	.add('owners', 'string', { array: true, configurable: false, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
-	.add('punishments', { array: true })
 
 Client.defaultGuildSchema
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'int', { 'default': 1 })
-	.add('xpmessages', 'string')
-	.add('modlog', 'string')
-	.add('modlogchannel', 'channel')
+	.add('xpmessages_enabled', 'boolean', { default: false })
+	.add('punishments', 'any', { array: true })
+	.add('modlog_enabled', 'boolean', { default: false })
+	.add('modlogchannel', 'channel', { filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
 		.add('redirect', 'boolean'))
