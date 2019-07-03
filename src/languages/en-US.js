@@ -191,6 +191,10 @@ module.exports = class extends Language {
 			COMMAND_BAN_BANNED: (usertag) => `${usertag} was successfully banned!`,
 			COMMAND_BAN_BANNEDBY: "Banned by",
 			COMMAND_BAN_BANDESCRIPTION: (usertag, userid, reason) => `**Action**: Ban \n**User**: ${usertag} (${userid}) \n**Reason**: ${reason}`,
+			BOTOWNERCOMMANDS_ERROR: "You don't have permissions to execute this command!",
+			COMMAND_LEAVESERVER_NOTGUILDID: "You must enter a guild id. For example: `352896116812939264`",
+			COMMAND_LEAVESERVER_NOFETCH: "Couldn't fetch this server. Please check if the server ID is correct and the bot is currently on this Discord server!",
+			COMMAND_LEAVESERVER_DONE: (guildid) => `The bot has successfully left the server (ID: ${guildid})!`,
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
@@ -262,6 +266,8 @@ module.exports = class extends Language {
 			COMMAND_CURRENTLYMUTED_DESCRIPTION: "Shows you all currently muted users on this Discord server.",
 			COMMAND_CURRENTLYBANNED_DESCRIPTION: "Shows you all currently banned users on this Discord server.",
 			COMMAND_TEMPORARYBAN_DESCRIPTION: "Bans a user temporarily.",
+			COMMAND_LEAVESERVER_DESCRIPTION: "Leaves a discord server on which the bot has joined.",
+			COMMAND_LEAVESERVER_EXTENDEDHELP: ['leaveserver 8738704872894987'].join('\n')
 		};
 	}
 
