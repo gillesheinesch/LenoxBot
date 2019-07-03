@@ -46,7 +46,7 @@ module.exports = class extends Command {
 		}
 
 		const punishmentConfig = {
-			id: guild_settings.get('pushments').length + 1,
+			id: guild_settings.get('punishments').length + 1,
 			userId: user.id,
 			reason: reason,
 			date: Date.now(),
