@@ -22,7 +22,7 @@ Client.defaultGuildSchema
 	.add('moderations', folder => folder
 		.add('modlogs_enabled', 'boolean', { default: false })
 		.add('punishments', 'any', { array: true })
-		.add('modlog_channel', 'string', { filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+		.add('modlog_channel', 'channel') //{ filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 	)
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')

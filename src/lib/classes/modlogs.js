@@ -47,8 +47,9 @@ module.exports = class ModLog {
     // Checks if the modlog channel still exsists if not it throws an error to the console
 
     async send() {
-        const channel = this.guild.channels.get(this.guild.settings.channels.modlog);
-        if (!channel) throw 'The modlog channel does not exist, did it get deleted?';
+        const guild_settings = this.guildSettings;
+        const channel = guild_settings.get('moderations.modlog_channel');
+        if (!channel) throw 'The modlog channel does not exist or has not been setup, did it get deleted?';
         await this.getCase();
         return channel.send({ embed: this.embed });
     }
@@ -56,13 +57,14 @@ module.exports = class ModLog {
     // Here we build the modlog embed
 
     get embed() {
+        const guild_settings = this.guildSettings;
         const embed = new MessageEmbed()
             .setAuthor(this.moderator.tag, this.moderator.avatar)
-            .setColor(ModLog.colour(this.type))
+            .setColor(ModLog.color(this.type))
             .setDescription([
                 `**Type**: ${this.type[0].toUpperCase() + this.type.slice(1)}`,
                 `**User**: ${this.user.tag} (${this.user.id})`,
-                `**Reason**: ${this.reason || `Use \`${this.guild.settings.prefix}reason ${this.case}\` to claim this log.`}`
+                `**Reason**: ${this.reason || `Use \`${guild_settings.get('prefix')}reason ${this.case}\` to claim this log.`}`
             ])
             .setFooter(`Case ${this.case}`)
             .setTimestamp();
@@ -72,8 +74,9 @@ module.exports = class ModLog {
     // Here we get the case number and create a modlog provider entry
 
     async getCase() {
-        this.case = this.guild.settings.modlogs.length;
-        const { errors } = await this.guild.settings.update('modlogs', this.pack);
+        const guild_settings = this.guildSettings;
+        this.case = guild_settings.get('moderations.punishments').length;
+        const { errors } = await guild_settings.update('moderations.punishments', this.pack, { arrayAction: 'add' });
         if (errors.length) throw errors[0];
         return this.case;
     }
