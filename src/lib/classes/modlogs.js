@@ -62,8 +62,8 @@ module.exports = class ModLog {
             .setAuthor(this.moderator.tag, this.moderator.avatar)
             .setColor(ModLog.color(this.type))
             .setDescription([
-                `**Type**: ${this.type[0].toUpperCase() + this.type.slice(1)}`,
-                `**User**: ${this.user.tag} (${this.user.id})`,
+                `**Member**: ${this.user.tag} (${this.user.id})`,
+                `**Action**: ${this.type[0].toUpperCase() + this.type.slice(1)}`,
                 `**Reason**: ${this.reason || `Use \`${guild_settings.get('prefix')}reason ${this.case}\` to claim this log.`}`
             ])
             .setFooter(`Case ${this.case}`)
@@ -76,7 +76,7 @@ module.exports = class ModLog {
     async getCase() {
         const guild_settings = this.guildSettings;
         this.case = guild_settings.get('moderations.punishments').length;
-        const { errors } = await guild_settings.update('moderations.punishments', this.pack, { arrayAction: 'add' });
+        const { errors } = await guild_settings.update('moderations.punishments', this.pack);
         if (errors.length) throw errors[0];
         return this.case;
     }
