@@ -30,7 +30,8 @@ Client.defaultGuildSchema
 	)
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
-		.add('redirect', 'boolean'))
+		.add('redirect', 'boolean')
+	)
 
 Client.defaultMemberSchema
 	.add('scores', folder => folder
