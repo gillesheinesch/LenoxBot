@@ -20,7 +20,7 @@ Client.defaultGuildSchema
 		.add('utility', 'boolean', { default: true })
 	)
 	.add('togglexp', folder => folder
-		.add('channelids', 'textchannel', { array: true })
+		.add('channel_ids', 'string', { array: true, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 	)
 	.add('xp', folder => folder
 		.add('xpmessages_enabled', 'boolean', { default: false })
@@ -34,7 +34,7 @@ Client.defaultGuildSchema
 		.add('chatfilter_enabled', 'boolean', { default: false })
 		.add('chatfilter_array', 'string', { array: true })
 		.add('chatfilterlog_enabled', 'boolean', { default: false })
-		.add('chatfilterlogchannel', 'textchannel')
+		.add('chatfilterlog_channel', 'textchannel')
 	)
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
