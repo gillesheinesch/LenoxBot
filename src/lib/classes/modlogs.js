@@ -1,40 +1,55 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Collection } = require('discord.js');
 module.exports = class ModLog {
 
     constructor(guild) {
         this.guild = guild;
         this.client = guild.client;
 
-        this.type = null;
+        this.action = null;
         this.user = null;
-		this.moderator = null;
-		this.duration = null;
+        this.moderator = null;
+        this.duration = null;
         this.reason = null;
+        this.removed_by = null;
+        this.date_given = null;
+        this.automatic = false;
 
         this.case = null;
     }
 
-    setType(type) {
-        this.type = type;
+    setAction(action) {
+        this.action = action;
         return this;
     }
 
     setUser(user) {
-        this.user = {
+        /*this.user = {
             id: user.id,
             tag: user.tag
-        };
+        };*/
+        this.user = user;
+        return this;
+    }
+
+    setAutomatic(bool = false) {
+        this.automatic = bool;
+        return this;
+    }
+
+    setRemovedBy(user) {
+        this.removed_by = user;
         return this;
     }
 
     // Here we get all the info about the executing Moderator
 
     setModerator(user) {
-        this.moderator = {
+        /*this.moderator = {
             id: user.id,
             tag: user.tag,
             avatar: user.displayAvatarURL()
-        };
+        };*/
+        this.moderator = user;
         return this;
     }
 
@@ -44,41 +59,97 @@ module.exports = class ModLog {
         return this;
     }
 
+    setDateGiven(date = new Date()) {
+        if (typeof (date) !== 'number' || !date instanceof Date) date = new Date();
+        this.date_given = date;
+        return this;
+    }
+
     // Checks if the modlog channel still exsists if not it throws an error to the console
 
     async send() {
-        const guild_settings = this.guildSettings;
+        const guild_settings = this.guild.settings;
         const channel = guild_settings.get('moderations.modlog_channel');
         if (!channel) throw 'The modlog channel does not exist or has not been setup, did it get deleted?';
-        await this.getCase();
+        this.date_given = new Date();
+        if (!this.automatic) await this.addCase();
         return channel.send({ embed: this.embed });
     }
 
     // Here we build the modlog embed
 
     get embed() {
-        const guild_settings = this.guildSettings;
         const embed = new MessageEmbed()
-            .setAuthor(this.moderator.tag, this.moderator.avatar)
-            .setColor(ModLog.color(this.type))
+            .setAuthor(this.moderator.tag, this.moderator.displayAvatarURL())
+            .setColor(ModLog.color(this.action))
             .setDescription([
                 `**Member**: ${this.user.tag} (${this.user.id})`,
-                `**Action**: ${this.type[0].toUpperCase() + this.type.slice(1)}`,
-                `**Reason**: ${this.reason || `Use \`${guild_settings.get('prefix')}reason ${this.case}\` to claim this log.`}`
-            ])
-            .setFooter(`Case ${this.case}`)
-            .setTimestamp();
+                `**Action**: ${this.action[0].toUpperCase() + this.action.slice(1)}`,
+                this.removed_by ? `**Removed By**: ${this.removed_by}` : undefined,
+                this.duration ? `**Duration**: ${this.duration}` : undefined,
+                this.reason ? `**Reason**: ${this.reason}` : undefined
+            ].filter((value) => value !== undefined))
+            .setFooter(`Case #${this.case}`)
+            .setTimestamp(this.date_given);
         return embed;
     }
 
     // Here we get the case number and create a modlog provider entry
 
-    async getCase() {
-        const guild_settings = this.guildSettings;
+    async addCase() {
+        const guild_settings = this.guild.settings;
         this.case = guild_settings.get('moderations.punishments').length;
-        const { errors } = await guild_settings.update('moderations.punishments', this.pack);
+        const { errors } = await guild_settings.update('moderations.punishments', this.pack, { arrayAction: 'add' });
         if (errors.length) throw errors[0];
         return this.case;
+    }
+
+/*    static async removeCase() {
+        const guild_settings = this.guild.settings;
+        this.case = guild_settings.get('moderations.punishments').length;
+        const { errors } = await guild_settings.update('moderations.punishments', this.pack, { arrayAction: 'add' });
+        if (errors.length) throw errors[0];
+        return this.case;
+    }*/
+
+    _getPunishments() {
+        const collection = new Collection();
+        this.guild.settings.get('moderations.punishments').map((moderation) => collection.set(moderation.case, moderation));
+        return collection;
+    }
+
+    static viewPunishment(message, caseNumber) {
+        caseNumber = parseInt(caseNumber);
+        const punishments = this._getPunishments();
+        if (!punishments.has(caseNumber)) throw new MessageEmbed().setColor(15684432).setDescription(`There is no punishment for case #${caseNumber}.`);
+        const punishment = punishments.get(caseNumber);
+        return message.channel.send(new MessageEmbed()
+            .setAuthor(punishment.moderator.tag, punishment.moderator.displayAvatarURL())
+            .setColor(ModLog.color(punishment.action))
+            .setDescription([
+                `**Member**: ${punishment.user.tag} (${punishment.user.id})`,
+                `**Action**: ${punishment.action[0].toUpperCase() + punishment.action.slice(1)}`,
+                punishment.duration ? `**Duration**: ${punishment.duration}` : undefined,
+                punishment.reason ? `**Reason**: ${punishment.reason}` : undefined
+            ].filter((value) => value !== undefined))
+            .setFooter(`Case #${punishment.case}`)
+            .setTimestamp(punishment.date_given)
+        );
+    }
+
+    static viewPunishments(message, user) {
+        const count = { warn: 0, mute: 0, kick: 0, ban: 0 };
+        const { warn, mute, kick, ban } = count;
+        const punishments = this._getPunishments();
+        const users_punishments = punishments.filter((punishment) => punishment.user === user);
+        if (!users_punishments.length) throw new MessageEmbed().setColor(15684432).setDescription('This user has no punishments!');
+        users_punishments.filter((punishment) => ['warn', 'mute', 'kick', 'ban'].includes(punishment.action)).map((punishment) => count[punishment.action] += 1);
+        return message.channel.send(new MessageEmbed()
+            .setAuthor(user.tag, user.displayAvatarURL())
+            .setColor(240116)
+            .setDescription(users_punishments.map((punishment) => `\`Case #${punishment.case}\` - **${punishment.action}**${punishment.reason ? ` - ${punishment.reason}` : ''}`))
+            .setFooter(`Warned: ${warn} | Muted: ${mute} | Kicked: ${kick} | Banned: ${ban}`)
+        );
     }
 
     // Here we pack all the info together
@@ -86,26 +157,32 @@ module.exports = class ModLog {
     get pack() {
         return {
             action: this.action,
-            user: this.user.id,
-			moderator: this.moderator.id,
-			duration: this.duration,
+            user: this.user,
+            moderator: this.moderator,
+            duration: this.duration,
+            date_given: this.date_given,
             reason: this.reason,
+            removed_by: this.removed_by,
             case: this.case
         };
     }
 
     // And here we just define the color for a certain type of offence or action
 
-    static color(type) {
-        switch (type) {
+    static color(action) {
+        switch (action) {
             case 'ban': return 16724253;
+            case 'un-ban':
             case 'unban': return 6730090;
-			case 'warn': return 16771899;
-			case 'kick': return 16747777;
-			case 'mute': return 65506;
-			case 'unmute': return 6730090;
-			case 'softban': return 15014476;
-			case 'tempban': return 15684432;
+            case 'warn': return 16771899;
+            case 'kick': return 16747777;
+            case 'mute': return 65506;
+            case 'un-mute':
+            case 'unmute': return 6730090;
+            case 'soft-ban':
+            case 'softban': return 15014476;
+            case 'temp-ban':
+            case 'tempban': return 15684432;
             default: return 16777215;
         }
     }

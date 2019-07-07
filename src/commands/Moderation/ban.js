@@ -1,5 +1,6 @@
 const { Command } = require('klasa');
 const { MessageEmbed } = require('discord.js');
+const { ModLog } = require('../../');
 
 module.exports = class extends Command {
 	constructor(...args) {
@@ -31,18 +32,14 @@ module.exports = class extends Command {
 			.setDescription(`✅ ${banned}`)
 		);
 
-		const bandescription = message.language.get('COMMAND_BAN_BANDESCRIPTION', user.tag, user.id, reason);
-		const embed = new MessageEmbed()
-			.setAuthor(`${message.language.get('COMMAND_BAN_BANNEDBY')} ${message.author.tag}`, message.author.displayAvatarURL())
-			.setThumbnail(user.displayAvatarURL())
-			.setColor('#FF0000')
-			.setTimestamp()
-			.setDescription(bandescription);
-
 		const guild_settings = message.guildSettings;
 		if (guild_settings.get('moderations.modlogs_enabled')) {
-			const modlogchannel = this.client.channels.get(guild_settings.get('moderations.modlogchannel'));
-			modlogchannel.send({ embed: embed });
+			new ModLog(message.guild)
+				.setAction('ban')
+				.setModerator(message.author)
+				.setUser(user)
+				.setReason(reason)
+				.send()
 		}
 
 		const punishmentConfig = {
