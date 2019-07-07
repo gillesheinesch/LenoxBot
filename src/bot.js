@@ -16,6 +16,12 @@ Client.defaultClientSchema
 Client.defaultGuildSchema
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'int', { 'default': 1 })
+	.add('modules', folder => folder
+		.add('utility', 'boolean', { default: true })
+	)
+	.add('togglexp', folder => folder
+		.add('channelids', 'channel', { array: true })
+	)
 	.add('xp', folder => folder
 		.add('xpmessages_enabled', 'boolean', { default: false })
 	)
@@ -27,6 +33,8 @@ Client.defaultGuildSchema
 	.add('chatfilter', folder => folder
 		.add('chatfilter_enabled', 'boolean', { default: false })
 		.add('chatfilter_array', 'string', { array: true })
+		.add('chatfilterlog_enabled', 'boolean', { default: false })
+		.add('chatfilterlogchannel', 'channel')
 	)
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
