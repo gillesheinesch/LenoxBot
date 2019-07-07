@@ -26,6 +26,6 @@
     "jsdom": "^15.1.1",
     "mongodb": "^3.2.7",
     "pornsearch": "^2.4.3",
-    "better-ms": "^1.0.0"
+    "better-ms": "^1.0.3"
   }
 }
