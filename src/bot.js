@@ -49,7 +49,7 @@ Client.defaultMemberSchema
 
 Client.defaultUserSchema
 	.add('stats', folder => folder
-		.add('creditshighestcredits', 'number', { default: 0, configurable: false })
+		.add('highest_credits', 'number', { default: 0, configurable: false })
 	)
 	.add('credits', 'number', { default: 0, configurable: false })
 
