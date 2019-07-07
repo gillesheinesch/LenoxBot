@@ -20,7 +20,7 @@ Client.defaultGuildSchema
 		.add('utility', 'boolean', { default: true })
 	)
 	.add('togglexp', folder => folder
-		.add('channelids', 'channel', { array: true })
+		.add('channelids', 'textchannel', { array: true })
 	)
 	.add('xp', folder => folder
 		.add('xpmessages_enabled', 'boolean', { default: false })
@@ -28,13 +28,13 @@ Client.defaultGuildSchema
 	.add('moderations', folder => folder
 		.add('modlogs_enabled', 'boolean', { default: false })
 		.add('punishments', 'any', { array: true })
-		.add('modlog_channel', 'channel') //{ filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+		.add('modlog_channel', 'textchannel') //{ filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 	)
 	.add('chatfilter', folder => folder
 		.add('chatfilter_enabled', 'boolean', { default: false })
 		.add('chatfilter_array', 'string', { array: true })
 		.add('chatfilterlog_enabled', 'boolean', { default: false })
-		.add('chatfilterlogchannel', 'channel')
+		.add('chatfilterlogchannel', 'textchannel')
 	)
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
