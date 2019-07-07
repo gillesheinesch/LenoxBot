@@ -24,6 +24,10 @@ Client.defaultGuildSchema
 		.add('punishments', 'any', { array: true })
 		.add('modlog_channel', 'channel') //{ filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 	)
+	.add('chatfilter', folder => folder
+		.add('chatfilter_enabled', 'boolean', { default: false })
+		.add('chatfilter_array', 'string', { array: true })
+	)
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
 		.add('redirect', 'boolean'))
@@ -33,6 +37,12 @@ Client.defaultMemberSchema
 		.add('points', 'number', { default: 0 })
 		.add('level', 'number', { default: 0 })
 	)
+
+Client.defaultUserSchema
+	.add('stats', folder => folder
+		.add('creditshighestcredits', 'number', { default: 0, configurable: false })
+	)
+	.add('credits', 'number', { default: 0, configurable: false })
 
 const client = global.client = new Client({
 	autoReconnect: true,
