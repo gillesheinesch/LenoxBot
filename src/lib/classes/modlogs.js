@@ -129,7 +129,7 @@ module.exports = class ModLog {
         if (!punishments.has(caseNumber)) throw new MessageEmbed().setColor(15684432).setDescription(`There is no punishment for case #${caseNumber}.`);
         const punishment = punishments.get(caseNumber);
         return message.channel.send(new MessageEmbed()
-            .setAuthor(punishment.moderator.tag, punishment.moderator.displayAvatarURL
+            .setAuthor(punishment.moderator.tag, punishment.moderator.displayAvatarURL)
             .setColor(ModLog.color(punishment.action))
             .setDescription([
                 `**Member**: ${punishment.user.tag} (${punishment.user.id})`,
