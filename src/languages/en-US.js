@@ -41,7 +41,9 @@ module.exports = class extends Language {
 			BOT_MAIN_SERVER_NOT_SET: 'Please set the BOT_MAIN_SERVER key to the bot\'s main server id in the .env file!',
 			BOT_MAIN_SERVER_INVALID: 'An invalid server id was provided for the BOT_MAIN_SERVER key in the .env file!',
 
-			// Commands
+			/**
+			 * @Commands
+			 */
 			COMMAND_CONF_NOKEY: 'You must provide a key',
 			COMMAND_CONF_NOVALUE: 'You must provide a value',
 			COMMAND_CONF_GUARDED: name => `${util.toTitleCase(name)} may not be disabled.`,
@@ -216,7 +218,9 @@ module.exports = class extends Language {
 			COMMAND_MEMBERSTATUS_DND: count => `${count} member${count !== 1 ? 's do' : ' does'} not want to be disturbed.`,
 			COMMAND_MEMBERSTATUS_OFFLINE: count => `${count} member${count !== 1 ? 's are' : ' is'} offline`,
 
-			// Command Descriptions
+			/**
+			 * @Command_Dscriptions
+			 */
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
 			COMMAND_PREFIX_DESCRIPTION: 'Change the command prefix the bot uses in your server.',
 			COMMAND_TRANSLATE_DESCRIPTION: 'Gives you informations about our translation project.',
