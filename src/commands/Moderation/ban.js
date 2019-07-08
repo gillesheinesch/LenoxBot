@@ -50,6 +50,6 @@ module.exports = class extends Command {
 			moderatorId: message.author.id,
 			type: 'ban'
 		};
-		await guild_settings.update('moderations.punishments', punishmentConfig, { action: 'add' });
+		await guild_settings.update('moderations.punishments', punishmentConfig, { arrayAction: 'add' });
 	}
 };
