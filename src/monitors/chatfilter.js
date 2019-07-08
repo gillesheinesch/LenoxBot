@@ -31,7 +31,7 @@ module.exports = class extends Monitor {
 
 		await message.delete()
 			.then((msg) => {
-				return message.channel.sendLocale('MONITOR_CHATFILTER_MSGDELETED', [msg.author]);
+				return msg.channel.sendLocale('MONITOR_CHATFILTER_MSGDELETED', [msg.author]);
 			}).catch((error) => { })
 	}
 
