@@ -51,7 +51,7 @@ module.exports = class extends Language {
 			COMMAND_CONF_GET: (key, value) => `The value for the key **${key}** is: \`${value}\``,
 			COMMAND_CONF_RESET: (key, response) => `The key **${key}** has been reset to: \`${response}\``,
 			COMMAND_CONF_NOCHANGE: key => `The value for **${key}** was already that value.`,
-			COMMAND_CONF_SERVER: (key, list) => `**guild Settings${key}**\n${list}`,
+			COMMAND_CONF_SERVER: (key, list) => `**Guild Settings${key}**\n${list}`,
 			COMMAND_CONF_USER: (key, list) => `**User Settings${key}**\n${list}`,
 			COMMAND_PING: 'Ping?',
 			COMMAND_PINGPONG: (latencyms, latencyapims) => `Latency: ${latencyms}ms \nAPI Latency: ${latencyapims}ms`,
