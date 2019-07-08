@@ -117,12 +117,6 @@ module.exports = class ModLog {
         return this.case;
     }*/
 
-    get _getPunishments() {
-        const collection = new Collection();
-        this.guild.settings.get('moderations.punishments').map((moderation) => collection.set(moderation.case, moderation));
-        return collection;
-    }
-
     static viewPunishment(message, caseNumber) {
         caseNumber = parseInt(caseNumber);
         const punishments = this._getPunishments;
@@ -154,6 +148,12 @@ module.exports = class ModLog {
             .setDescription(users_punishments.map((punishment) => `\`Case #${punishment.case}\` - **${punishment.action}**${punishment.reason ? ` - ${punishment.reason}` : ''}`))
             .setFooter(`Warned: ${warn} | Muted: ${mute} | Kicked: ${kick} | Banned: ${ban}`)
         );
+    }
+
+    get _getPunishments() {
+        const collection = new Collection();
+        this.guild.settings.get('moderations.punishments').map((moderation) => collection.set(moderation.case, moderation));
+        return collection;
     }
 
     // Here we pack all the info together
