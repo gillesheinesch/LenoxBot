@@ -12,6 +12,7 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [server_owner]) {
+		if (!process.env.BOT_MAIN_SERVER) throw 'Please set the BOT_MAIN_SERVER value in the .env file!';
 		const fetchedMember = await this.client.guilds.get(process.env.BOT_MAIN_SERVER).members.fetch(message.author.id);
 		if (!fetchedMember.roles.find(r => r.name.toLowerCase() === 'partner')) return message.reply(message.language.get('COMMAND_PARTNER_ERROR'));
 
