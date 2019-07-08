@@ -41,7 +41,7 @@ module.exports = class extends Command {
 			}).catch((error) => {
 				message.channel.send(new MessageEmbed()
 					.setColor(16724253)
-					.setDescription(`❌ ${message.language.get('COMMAND_BAN_BANNED_FAILED', user.tag, error)}`)
+					.setDescription(`❌ ${message.language.get('COMMAND_BAN_BANNED_FAILED', user.tag, error.toString())}`)
 				);
 			});
 		} catch (error) {

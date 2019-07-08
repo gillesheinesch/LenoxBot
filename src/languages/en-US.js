@@ -205,7 +205,7 @@ module.exports = class extends Language {
 			COMMAND_BAN_IDCHECK: "This user was not found on this Discord server!",
 			COMMAND_BAN_NOPERMISSION: "I cannot ban this user!",
 			COMMAND_BAN_BANNED: (usertag) => `${usertag} was successfully banned!`,
-			COMMAND_BAN_BANNED_FAILED: (usertag, error) => `${usertag} was unable to be banned! ${error.toString()}`,
+			COMMAND_BAN_BANNED_FAILED: (usertag, error) => `${usertag} was unable to be banned! ${error}`,
 			COMMAND_BAN_BANNEDBY: "Banned by",
 			COMMAND_BAN_BANDESCRIPTION: (usertag, userid, reason) => `**Action**: Ban \n**User**: ${usertag} (${userid}) \n**Reason**: ${reason}`,
 			BOTOWNERCOMMANDS_ERROR: "You don't have permissions to execute this command!",
