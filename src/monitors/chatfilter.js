@@ -16,7 +16,7 @@ module.exports = class extends Monitor {
 		const [enabled, array, logEnabled, logChannel] = message.guildSettings.pluck('chatfilter.chatfilter_enabled', 'chatfilter.chatfilter_array', 'chatfilter.chatfilterlog_enabled', 'chatfilter.chatfilterlog_channel');
 		if (!enabled || !array.length || message.command) return;
 
-		const getFiltered = message.content.split(' ').filter(m => array.includes(m));
+		const getFiltered = message.content.split(' ').filter(word => array.includes(word));
 		if (!getFiltered.length) return;
 
 		if (logEnabled && logChannel) {
