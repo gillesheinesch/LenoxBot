@@ -39,6 +39,7 @@ module.exports = class extends Language {
 			 * @Processes
 			 */
 			BOT_MAIN_SERVER_NOT_SET: 'Please set the BOT_MAIN_SERVER key to the bot\'s main server id in the .env file!',
+			BOT_MAIN_SERVER_INVALID: 'An invalid server id was provided for the BOT_MAIN_SERVER key in the .env file!',
 
 			// Commands
 			COMMAND_CONF_NOKEY: 'You must provide a key',

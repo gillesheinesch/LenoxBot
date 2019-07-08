@@ -12,7 +12,8 @@ module.exports = class extends Command {
 	}
 
 	async run(message, [server_owner]) {
-		if (!process.env.BOT_MAIN_SERVER) throw message.language,get('BOT_MAIN_SERVER_NOT_SET');
+		if (!process.env.BOT_MAIN_SERVER) throw message.language, get('BOT_MAIN_SERVER_NOT_SET');
+		if (!this.client.guilds.has(process.env.BOT_MAIN_SERVER)) throw message.language.get('BOT_MAIN_SERVER_INVALID');
 		const fetchedMember = await this.client.guilds.get(process.env.BOT_MAIN_SERVER).members.fetch(message.author.id);
 		if (!fetchedMember.roles.find(r => r.name.toLowerCase() === 'partner')) return message.reply(message.language.get('COMMAND_PARTNER_ERROR'));
 
