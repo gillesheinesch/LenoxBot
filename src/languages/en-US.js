@@ -27,6 +27,14 @@ module.exports = class extends Language {
 			INHIBITOR_REQUIRED_SETTINGS: settings => `The guild is missing the **${settings.join(', ')}** guild setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
 			INHIBITOR_RUNIN: types => `This command is only available in ${types} channels.`,
 
+			/**
+			 * @Monitors
+			 */
+			MONITOR_CHATFILTER_AUTHOR: 'Author',
+			MONITOR_CHATFILTER_CHANNEL: 'Channel',
+			MONITOR_CHATFILTER_MESSAGE: 'Message',
+			MONITOR_CHATFILTER_MSGDELETED: author => `${author}, your message was deleted because it contained one or more words that are blocked by this server's chat filter.`,
+
 			// Commands
 			COMMAND_CONF_NOKEY: 'You must provide a key',
 			COMMAND_CONF_NOVALUE: 'You must provide a value',
