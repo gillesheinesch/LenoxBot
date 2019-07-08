@@ -9,9 +9,9 @@ module.exports = class remindCommand extends LenoxCommand {
 			group: 'utility',
 			memberName: 'remind',
 			description: 'Sets a reminder',
-			format: 'remind <time in d, h, m, s> <text>',
+			format: 'remind <add/remove/list> <time in d, h, m, s> <text>',
 			aliases: [],
-			examples: ['remind 1d Give the dog his food'],
+			examples: ['remind add 1d Give the dog his food', 'remind remove Give the dog his food', 'remind list'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
@@ -43,7 +43,7 @@ module.exports = class remindCommand extends LenoxCommand {
 					const remind_invalidtime = lang.remind_invalidtime.replace('%prefix', prefix);
 					if (typeof msTime === 'undefined') return msg.channel.send(remind_invalidtime);
 
-					const remindText = args.slice(2, 3).join(' ');
+					const remindText = args.slice(2).join(' ');
 					if (!remindText) return msg.reply(lang.remind_notext);
 					if (remindText.length > 300) return msg.reply(lang.remind_textmax);
 
@@ -98,7 +98,7 @@ module.exports = class remindCommand extends LenoxCommand {
 					return undefined;
 				} else if (margs[1].toLowerCase() === 'remove') {
 					console.log('tets');
-					const reminderText = args.slice(1, 2).join(' ');
+					const reminderText = args.slice(1).join(' ');
 					if (!reminderText) return msg.reply(lang.remind_notextfordelete);
 
 					const currentBotReminder = msg.client.provider.getBotsettings('botconfs', 'reminder');
