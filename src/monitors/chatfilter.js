@@ -19,7 +19,7 @@ module.exports = class extends Monitor {
 		const getFiltered = message.content.split(' ').filter(m => chatfilter_array.includes(m));
 		if (!getFiltered.length) return;
 
-		if (message.guildSettings.get('chatfilter.chatfilterlog_enabled')) {
+		if (message.guildSettings.get('chatfilter.chatfilterlog_enabled') && message.guildSettings.get('chatfilter.chatfilterlog_channel')) {
 			message.guildSettings.get('chatfilter.chatfilterlog_channel').send(new MessageEmbed()
 				.setAuthor(`A message from ${message.author.tag} was deleted by the chat filter.`)
 				.setColor('RED')
