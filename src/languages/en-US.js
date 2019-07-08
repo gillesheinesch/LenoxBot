@@ -210,6 +210,7 @@ module.exports = class extends Language {
 			COMMAND_LEAVESERVER_NOFETCH: "Couldn't fetch this server. Please check if the server ID is correct and the bot is currently on this Discord server!",
 			COMMAND_LEAVESERVER_DONE: (guildid) => `The bot has successfully left the server (ID: ${guildid})!`,
 			COMMAND_PARTNER_ERROR: "You are not affiliated with LenoxBot!",
+			COMMAND_SETPRESENCE_DONE: 'The presence was updated successfully!',
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
@@ -285,6 +286,8 @@ module.exports = class extends Language {
 			COMMAND_LEAVESERVER_EXTENDEDHELP: ['leaveserver 8738704872894987'].join('\n'),
 			COMMAND_PARTNER_DESCRIPTION: "With this command you can use the embed of LenoxBot and your partnered server.",
 			COMMAND_PARTNER_EXTENDEDHELP: ['partner lenoxbot'].join('\n'),
+			COMMAND_SETPRESENCE_DESCRIPTION: 'Sets a new presence for the bot.',
+			COMMAND_SETPRESENCE_EXTENDEDHELP: ['setpresence LenoxBot'].join('\n')
 		};
 	}
 
