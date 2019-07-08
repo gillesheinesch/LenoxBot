@@ -24,13 +24,17 @@ module.exports = class extends Command {
 		if (!reason) return message.reply(message.language.get('COMMAND_BAN_NOINPUT'));
 
 		if (message.guild.members.has(user.id) && !message.guild.members.get(user.id).bannable) return message.reply(message.language.get('COMMAND_BAN_NOPERMISSION'));
-		message.guild.members.ban(user.id, { reason: reason });
-
-		const banned = message.language.get('COMMAND_BAN_BANNED', user.tag);
-		message.channel.send(new MessageEmbed()
-			.setColor('#99ff66')
-			.setDescription(`✅ ${banned}`)
-		);
+		await message.guild.members.ban(user.id, { reason: reason }).then((usr) => {
+			message.channel.send(new MessageEmbed()
+				.setColor('#99ff66')
+				.setDescription(`✅ ${message.language.get('COMMAND_BAN_BANNED', usr.tag)}`)
+			);
+		}).catch((error) => {
+			message.channel.send(new MessageEmbed()
+				.setColor('')
+				.setDescription(`❌ ${message.language.get('COMMAND_BAN_BANNED_FAILED', user.tag, error)}`)
+			);
+		});
 
 		const guild_settings = message.guildSettings;
 		if (guild_settings.get('moderations.modlogs_enabled')) {
