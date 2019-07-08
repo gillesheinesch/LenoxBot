@@ -119,7 +119,7 @@ module.exports = class ModLog {
 
     static viewPunishment(message, caseNumber) {
         caseNumber = parseInt(caseNumber);
-        const punishments = this._getPunishments;
+        const punishments = ModLog._getPunishments(message.guild);
         if (!punishments.has(caseNumber)) throw new MessageEmbed().setColor(15684432).setDescription(`There is no punishment for case #${caseNumber}.`);
         const punishment = punishments.get(caseNumber);
         return message.channel.send(new MessageEmbed()
@@ -139,7 +139,7 @@ module.exports = class ModLog {
     static viewPunishments(message, user) {
         const count = { warn: 0, mute: 0, kick: 0, ban: 0 };
         const { warn, mute, kick, ban } = count;
-        const users_punishments = this._getPunishments.filter((punishment) => punishment.user.id === user.id);
+        const users_punishments = ModLog._getPunishments(message.guild).filter((punishment) => punishment.user.id === user.id);
         if (!users_punishments.length) throw new MessageEmbed().setColor(15684432).setDescription('This user has no punishments!');
         users_punishments.filter((punishment) => ['warn', 'mute', 'kick', 'ban'].includes(punishment.action)).map((punishment) => count[punishment.action] += 1);
         return message.channel.send(new MessageEmbed()
@@ -150,9 +150,9 @@ module.exports = class ModLog {
         );
     }
 
-    get _getPunishments() {
+    static _getPunishments(guild) {
         const collection = new Collection();
-        this.guild.settings.get('moderations.punishments').map((moderation) => collection.set(moderation.case, moderation));
+        guild.settings.get('moderations.punishments').map((moderation) => collection.set(moderation.case, moderation));
         return collection;
     }
 
