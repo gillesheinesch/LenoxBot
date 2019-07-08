@@ -14,7 +14,7 @@ module.exports = class extends Monitor {
 		if (!message.guild || !message.content || !message.content.length) return;
 
 		const [chatfilter_enabled, chatfilter_array] = message.guildSettings.pluck('chatfilter.chatfilter_enabled', 'chatfilter.chatfilter_array');
-		if (!chatfilter_enabled && !chatfilter_array.length && message.command) return;
+		if (!chatfilter_enabled || !chatfilter_array.length || message.command) return;
 
 		const getFiltered = message.content.split(' ').filter(m => chatfilter_array.includes(m));
 		if (!getFiltered.length) return;
