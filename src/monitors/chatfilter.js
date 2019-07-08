@@ -20,7 +20,7 @@ module.exports = class extends Monitor {
 		if (!getFiltered.length) return;
 
 		if (chatfilter_enabled && chatfilterlog_channel) {
-			chatfilterlog_channel.send(new MessageEmbed()
+			message.guild.channels.get(chatfilterlog_channel).send(new MessageEmbed()
 				.setAuthor(`A message from ${message.author.tag} was deleted by the chat filter.`)
 				.setColor('RED')
 				.addField(`🗣 ${message.language.get('MONITOR_CHATFILTER_AUTHOR')}:`, message.author.tag)
