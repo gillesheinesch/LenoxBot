@@ -42,7 +42,7 @@ module.exports = class extends Command {
 				.send()
 		}
 
-		const punishmentConfig = {
+		/*const punishmentConfig = {
 			id: guild_settings.get('moderations.punishments').length + 1,
 			userId: user.id,
 			reason: reason,
@@ -50,6 +50,6 @@ module.exports = class extends Command {
 			moderatorId: message.author.id,
 			type: 'ban'
 		};
-		await guild_settings.update('moderations.punishments', punishmentConfig, { arrayAction: 'add' });
+		await guild_settings.update('moderations.punishments', punishmentConfig, { arrayAction: 'add' });*/
 	}
 };
