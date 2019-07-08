@@ -8,3 +8,4 @@ enmap.sqlite
 crowdin-copy.yml
 test.js
 db.sqlite
+src/bwd
