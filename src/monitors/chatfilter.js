@@ -20,7 +20,7 @@ module.exports = class extends Monitor {
 		if (!getFiltered.length) return;
 
 		if (message.guildSettings.get('chatfilter.chatfilterlog_enabled')) {
-			await message.guild.channels.get(message.guildSettings.get('chatfilter.chatfilterlog_channel')).sendEmbed(new MessageEmbed()
+			message.guildSettings.get('chatfilter.chatfilterlog_channel').send(new MessageEmbed()
 				.setAuthor(`A message from ${message.author.tag} was deleted by the chat filter.`)
 				.setColor('RED')
 				.addField(`🗣 ${message.language.get('MONITOR_CHATFILTER_AUTHOR')}:`, message.author.tag)
@@ -30,7 +30,7 @@ module.exports = class extends Monitor {
 		}
 
 		await message.delete();
-		return message.channel.sendMessage(message.language.get('MONITOR_CHATFILTER_MSGDELETED', message.author));
+		return message.channel.sendLocale('MONITOR_CHATFILTER_MSGDELETED', [message.author]);
 	}
 
 };
