@@ -211,6 +211,10 @@ module.exports = class extends Language {
 			COMMAND_LEAVESERVER_DONE: (guildid) => `The bot has successfully left the server (ID: ${guildid})!`,
 			COMMAND_PARTNER_ERROR: "You are not affiliated with LenoxBot!",
 			COMMAND_SETPRESENCE_DONE: 'The presence was updated successfully!',
+			COMMAND_MEMBERSTATUS_ONLINE: count => `${count} member${count !== 1 ? 's are' : ' is'} online.`,
+			COMMAND_MEMBERSTATUS_IDLE: count => `${count} member${count !== 1 ? 's are' : ' is'} idle.`,
+			COMMAND_MEMBERSTATUS_DND: count => `${count} member${count !== 1 ? 's do' : ' does'} not want to be disturbed.`,
+			COMMAND_MEMBERSTATUS_OFFLINE: count => `${count} member${count !== 1 ? 's are' : ' is'} offline`,
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
