@@ -13,7 +13,7 @@ module.exports = class extends Command {
 			aliases: ['b', 'bean'],
 			requiredPermissions: ['SEND_MESSAGES', 'BAN_MEMBERS'],
 			permissionLevel: 4,
-			enabled: false
+			enabled: true
 		});
 	}
 
