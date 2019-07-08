@@ -35,6 +35,11 @@ module.exports = class extends Language {
 			MONITOR_CHATFILTER_MESSAGE: 'Message',
 			MONITOR_CHATFILTER_MSGDELETED: author => `${author}, your message was deleted because it contained one or more words that are blocked by this server's chat filter.`,
 
+			/**
+			 * @Processes
+			 */
+			BOT_MAIN_SERVER_NOT_SET: 'Please set the BOT_MAIN_SERVER key to the bot\'s main server id in the .env file!',
+
 			// Commands
 			COMMAND_CONF_NOKEY: 'You must provide a key',
 			COMMAND_CONF_NOVALUE: 'You must provide a value',
