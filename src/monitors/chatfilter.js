@@ -29,8 +29,10 @@ module.exports = class extends Monitor {
 			);
 		}
 
-		await message.delete();
-		return message.channel.sendLocale('MONITOR_CHATFILTER_MSGDELETED', [message.author]);
+		await message.delete()
+			.then((msg) => {
+				return message.channel.sendLocale('MONITOR_CHATFILTER_MSGDELETED', [msg.author]);
+			}).catch((error) => { })
 	}
 
 };
