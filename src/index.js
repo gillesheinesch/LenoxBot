@@ -1,10 +1,10 @@
 require('dotenv').config();
+const path = require('path');
 const shard = false;
 
 module.exports = {
-	Test: __dirname,
-	Client: require('./lib/LenoxClient'),
-	ModLog: require('./lib/classes/modlogs')
+	Client: require(path.resolve(__dirname, './lib/LenoxClient')),
+	ModLog: require(path.resolve(__dirname, './lib/classes/modlogs'))
 };
 
 module.exports = require(`./${shard ? 'shard' : 'bot'}`);
