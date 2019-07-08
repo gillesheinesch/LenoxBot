@@ -208,6 +208,7 @@ module.exports = class extends Language {
 			COMMAND_LEAVESERVER_NOTGUILDID: "You must enter a guild id. For example: `352896116812939264`",
 			COMMAND_LEAVESERVER_NOFETCH: "Couldn't fetch this server. Please check if the server ID is correct and the bot is currently on this Discord server!",
 			COMMAND_LEAVESERVER_DONE: (guildid) => `The bot has successfully left the server (ID: ${guildid})!`,
+			COMMAND_PARTNER_ERROR: "You are not affiliated with LenoxBot!",
 
 			// Command Descriptions
 			COMMAND_PING_DESCRIPTION: 'Runs a connection test to Discord.',
@@ -280,7 +281,9 @@ module.exports = class extends Language {
 			COMMAND_CURRENTLYBANNED_DESCRIPTION: "Shows you all currently banned users on this Discord server.",
 			COMMAND_TEMPORARYBAN_DESCRIPTION: "Bans a user temporarily.",
 			COMMAND_LEAVESERVER_DESCRIPTION: "Leaves a discord server on which the bot has joined.",
-			COMMAND_LEAVESERVER_EXTENDEDHELP: ['leaveserver 8738704872894987'].join('\n')
+			COMMAND_LEAVESERVER_EXTENDEDHELP: ['leaveserver 8738704872894987'].join('\n'),
+			COMMAND_PARTNER_DESCRIPTION: "With this command you can use the embed of LenoxBot and your partnered server.",
+			COMMAND_PARTNER_EXTENDEDHELP: ['partner lenoxbot'].join('\n'),
 		};
 	}
 
