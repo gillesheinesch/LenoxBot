@@ -13,4 +13,10 @@ module.exports = class extends Extendable {
 		});
 		return Object.keys(unique);
 	}
+
+	removeValue(value) {
+		const array = [...this];
+		array.splice(array.indexOf(value), 1);
+		return array;
+	}
 };
