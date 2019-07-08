@@ -23,11 +23,11 @@ module.exports = class ModLog {
     }
 
     setUser(user) {
-        /*this.user = {
+        this.user = {
             id: user.id,
-            tag: user.tag
-        };*/
-        this.user = user;
+            tag: user.tag,
+            displayAvatarURL: user.displayAvatarURL()
+        };
         return this;
     }
 
@@ -37,19 +37,22 @@ module.exports = class ModLog {
     }
 
     setRemovedBy(user) {
-        this.removed_by = user;
+        this.removed_by = {
+            id: user.id,
+            tag: user.tag,
+            displayAvatarURL: user.displayAvatarURL()
+        };;
         return this;
     }
 
     // Here we get all the info about the executing Moderator
 
     setModerator(user) {
-        /*this.moderator = {
+        this.moderator = {
             id: user.id,
             tag: user.tag,
-            avatar: user.displayAvatarURL()
-        };*/
-        this.moderator = user;
+            displayAvatarURL: user.displayAvatarURL()
+        };
         return this;
     }
 
@@ -79,13 +82,14 @@ module.exports = class ModLog {
     // Here we build the modlog embed
 
     get embed() {
+        const users = this.client.users;
         const embed = new MessageEmbed()
-            .setAuthor(this.moderator.tag, this.moderator.displayAvatarURL())
+            .setAuthor(this.moderator.tag, this.moderator.displayAvatarURL)
             .setColor(ModLog.color(this.action))
             .setDescription([
                 `**Member**: ${this.user.tag} (${this.user.id})`,
                 `**Action**: ${this.action[0].toUpperCase() + this.action.slice(1)}`,
-                this.removed_by ? `**Removed By**: ${this.removed_by}` : undefined,
+                this.removed_by ? `**Removed By**: ${users.has(this.removed_by.id) ? users.get(this.removed_by.id) : this.removed_by.tag}` : undefined,
                 this.duration ? `**Duration**: ${this.duration}` : undefined,
                 this.reason ? `**Reason**: ${this.reason}` : undefined
             ].filter((value) => value !== undefined))
@@ -125,7 +129,7 @@ module.exports = class ModLog {
         if (!punishments.has(caseNumber)) throw new MessageEmbed().setColor(15684432).setDescription(`There is no punishment for case #${caseNumber}.`);
         const punishment = punishments.get(caseNumber);
         return message.channel.send(new MessageEmbed()
-            .setAuthor(punishment.moderator.tag, punishment.moderator.displayAvatarURL())
+            .setAuthor(punishment.moderator.tag, punishment.moderator.displayAvatarURL
             .setColor(ModLog.color(punishment.action))
             .setDescription([
                 `**Member**: ${punishment.user.tag} (${punishment.user.id})`,
@@ -141,8 +145,7 @@ module.exports = class ModLog {
     static viewPunishments(message, user) {
         const count = { warn: 0, mute: 0, kick: 0, ban: 0 };
         const { warn, mute, kick, ban } = count;
-        const punishments = this._getPunishments;
-        const users_punishments = punishments.filter((punishment) => punishment.user === user);
+        const users_punishments = this._getPunishments.filter((punishment) => punishment.user.id === user.id);
         if (!users_punishments.length) throw new MessageEmbed().setColor(15684432).setDescription('This user has no punishments!');
         users_punishments.filter((punishment) => ['warn', 'mute', 'kick', 'ban'].includes(punishment.action)).map((punishment) => count[punishment.action] += 1);
         return message.channel.send(new MessageEmbed()
