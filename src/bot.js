@@ -15,7 +15,7 @@ Client.defaultClientSchema
 
 Client.defaultGuildSchema
 	.add('joinroles', 'role', { array: true })
-	.add('skipnumber', 'int', { 'default': 1 })
+	.add('skipnumber', 'integer', { 'default': 1 })
 	.add('modules', folder => folder
 		.add('utility', 'boolean', { default: true })
 	)
