@@ -28,7 +28,7 @@ module.exports = class extends Command {
 			await message.guild.members.ban(user.id, { reason: reason }).then((usr) => {
 				message.channel.send(new MessageEmbed()
 					.setColor(10092390)
-					.setDescription(`✅ ${message.language.get('COMMAND_BAN_BANNED', usr.tag ? usr.user.tag)}`)
+					.setDescription(`✅ ${message.language.get('COMMAND_BAN_BANNED', usr.tag ? usr.tag : usr.user.tag)}`)
 				);
 				if (message.guildSettings.get('moderations.modlogs_enabled')) {
 					new ModLog(message.guild)

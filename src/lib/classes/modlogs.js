@@ -98,7 +98,8 @@ module.exports = class ModLog {
 
     async addCase() {
         const guild_settings = this.guild.settings;
-        this.case = guild_settings.get('moderations.punishments').length;
+        const punishments = guild_settings.get('moderations.punishments');
+        this.case = (punishments.length ? Math.max(...punishments.map((moderation) => moderation.case)) : punishments.length) + 1;
         const { errors } = await guild_settings.update('moderations.punishments', this.pack, { arrayAction: 'add' });
         if (errors.length) throw errors[0];
         return this.case;
