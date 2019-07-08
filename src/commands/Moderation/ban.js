@@ -24,25 +24,29 @@ module.exports = class extends Command {
 		if (!reason) return message.reply(message.language.get('COMMAND_BAN_NOINPUT'));
 
 		if (message.guild.members.has(user.id) && !message.guild.members.get(user.id).bannable) return message.reply(message.language.get('COMMAND_BAN_NOPERMISSION'));
-		await message.guild.members.ban(user.id, { reason: reason }).then((usr) => {
-			message.channel.send(new MessageEmbed()
-				.setColor(10092390)
-				.setDescription(`✅ ${message.language.get('COMMAND_BAN_BANNED', usr.tag)}`)
-			);
-			if (message.guildSettings.get('moderations.modlogs_enabled')) {
-				new ModLog(message.guild)
-					.setAction('ban')
-					.setModerator(message.author)
-					.setUser(user)
-					.setReason(reason)
-					.send()
-			}
-		}).catch((error) => {
-			message.channel.send(new MessageEmbed()
-				.setColor(16724253)
-				.setDescription(`❌ ${message.language.get('COMMAND_BAN_BANNED_FAILED', user.tag, error)}`)
-			);
-		});
+		try {
+			await message.guild.members.ban(user.id, { reason: reason }).then((usr) => {
+				message.channel.send(new MessageEmbed()
+					.setColor(10092390)
+					.setDescription(`✅ ${message.language.get('COMMAND_BAN_BANNED', usr.tag)}`)
+				);
+				if (message.guildSettings.get('moderations.modlogs_enabled')) {
+					new ModLog(message.guild)
+						.setAction('ban')
+						.setModerator(message.author)
+						.setUser(user)
+						.setReason(reason)
+						.send()
+				}
+			}).catch((error) => {
+				message.channel.send(new MessageEmbed()
+					.setColor(16724253)
+					.setDescription(`❌ ${message.language.get('COMMAND_BAN_BANNED_FAILED', user.tag, error)}`)
+				);
+			});
+		} catch (error) {
+			throw error;
+		}
 
 		/*const punishmentConfig = {
 			id: guild_settings.get('moderations.punishments').length + 1,
