@@ -31,7 +31,7 @@ module.exports = class extends Command {
 					.setDescription(`✅ ${message.language.get('COMMAND_BAN_BANNED', usr.tag ? usr.tag : usr.user.tag)}`)
 				);
 				if (message.guildSettings.get('moderations.modlogs_enabled')) {
-					ModLog.setGuild(message.guild).setModerator(message.author);
+					ModLog.setGuild(message.guild).setModerator(message.author).setReason(reason);
 					/*new ModLog(message.guild)
 						.setAction('ban')
 						.setModerator(message.author)

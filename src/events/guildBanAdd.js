@@ -8,7 +8,6 @@ module.exports = class extends Event {
 				ModLog()
 					.setAction('ban')
 					.setUser(user)
-					.setReason(reason)
 					.send()
 			}
 		}
