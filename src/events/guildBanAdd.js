@@ -1,16 +1,16 @@
 const { Event } = require('klasa');
+const ModLog = require('../lib/classes/modlogs');
 
 module.exports = class extends Event {
 	run(guild, user) {
-		/*if (this.client.ready) {
+		if (this.client.ready) {
 			if (guild.guild.get('moderations.modlogs_enabled')) {
-				new ModLog(guild)
+				ModLog()
 					.setAction('ban')
-					.setModerator(message.author)
 					.setUser(user)
 					.setReason(reason)
 					.send()
 			}
-		}*/
+		}
 	}
 };

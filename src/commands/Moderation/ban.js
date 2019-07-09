@@ -31,12 +31,13 @@ module.exports = class extends Command {
 					.setDescription(`✅ ${message.language.get('COMMAND_BAN_BANNED', usr.tag ? usr.tag : usr.user.tag)}`)
 				);
 				if (message.guildSettings.get('moderations.modlogs_enabled')) {
-					new ModLog(message.guild)
+					ModLog.setGuild(message.guild).setModerator(message.author);
+					/*new ModLog(message.guild)
 						.setAction('ban')
 						.setModerator(message.author)
 						.setUser(user)
 						.setReason(reason)
-						.send()
+						.send()*/
 				}
 			}).catch((error) => {
 				message.channel.send(new MessageEmbed()
