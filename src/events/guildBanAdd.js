@@ -5,7 +5,7 @@ module.exports = class extends Event {
 	run(guild, user) {
 		if (this.client.ready) {
 			if (guild.settings.get('moderations.modlogs_enabled')) {
-				ModLog()
+				ModLog
 					.setAction('ban')
 					.setUser(user)
 					.send()
