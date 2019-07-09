@@ -1,9 +1,9 @@
 const { MessageEmbed, Collection } = require('discord.js');
 module.exports = class ModLog {
 
-    constructor() {
-        this.guild = null;
-        this.client = null;
+    constructor(guild) {
+        this.guild = guild;
+        this.client = guild.client;
 
         this.action = null;
         this.user = null;
@@ -16,19 +16,13 @@ module.exports = class ModLog {
 
         this.case = null;
     }
-    
-    static setGuild(guild) {
-        this.guild = guild;
-        this.client = this.guild.client;
-        return this;
-    }
 
-    static setAction(action) {
+    setAction(action) {
         this.action = action;
         return this;
     }
 
-    static setUser(user) {
+    setUser(user) {
         this.user = {
             id: user.id,
             tag: user.tag,
@@ -37,12 +31,12 @@ module.exports = class ModLog {
         return this;
     }
 
-    static setAutomatic(bool = false) {
+    setAutomatic(bool = false) {
         this.automatic = bool;
         return this;
     }
 
-    static setRemovedBy(user) {
+    setRemovedBy(user) {
         this.removed_by = {
             id: user.id,
             tag: user.tag,
@@ -53,7 +47,7 @@ module.exports = class ModLog {
 
     // Here we get all the info about the executing Moderator
 
-    static setModerator(user) {
+    setModerator(user) {
         this.moderator = {
             id: user.id,
             tag: user.tag,
@@ -62,13 +56,13 @@ module.exports = class ModLog {
         return this;
     }
 
-    static setReason(reason = null) {
+    setReason(reason = null) {
         if (reason instanceof Array) reason = reason.join(' ');
         this.reason = reason;
         return this;
     }
 
-    static setDateGiven(date = new Date()) {
+    setDateGiven(date = new Date()) {
         if (typeof (date) !== 'number' || !date instanceof Date) date = new Date();
         this.date_given = date;
         return this;
@@ -76,14 +70,13 @@ module.exports = class ModLog {
 
     // Checks if the modlog channel still exsists if not it throws an error to the console
 
-    static async send() {
+    async send() {
         const guild_settings = this.guild.settings;
         const channel = guild_settings.get('moderations.modlog_channel');
         //if (!channel) throw 'The modlog channel does not exist or has not been setup, did it get deleted?';
         this.date_given = new Date();
-        if (!this.automatic) await ModLog.addCase();
-        if (channel && this.guild.channels.has(channel)) this.guild.channels.get(channel).send({ embed: this.embed });
-        return new ModLog();
+        if (!this.automatic) await this.addCase();
+        if (channel && this.guild.channels.has(channel)) return this.guild.channels.get(channel).send({ embed: this.embed });
     }
 
     // Here we build the modlog embed
