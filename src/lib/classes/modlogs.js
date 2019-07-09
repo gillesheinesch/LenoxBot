@@ -81,7 +81,7 @@ module.exports = class ModLog {
         const channel = guild_settings.get('moderations.modlog_channel');
         //if (!channel) throw 'The modlog channel does not exist or has not been setup, did it get deleted?';
         this.date_given = new Date();
-        if (!this.automatic) await this.addCase();
+        if (!this.automatic) await ModLog.addCase();
         if (channel && this.guild.channels.has(channel)) this.guild.channels.get(channel).send({ embed: this.embed });
         return new ModLog();
     }
