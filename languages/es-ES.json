@@ -1,6 +1,6 @@
 {
     "lenoxbotteam_embedtitle": "Miembros del equipo de LenoxBot:",
-    "lenoxbotteam_embedfooter": "You can find this list also on our website via https://lenoxbot.com/team",
+    "lenoxbotteam_embedfooter": "También puedes encontrar esta lista en nuestra página web: https://lenoxbot.com/team",
     "lenoxbotteam_description": "Miembros del equipo de LenoxBot",
     "hentaihaven_notfind": "No se pudo encontrar ningún vídeo a tu consulta",
     "hentaihaven_description": "Vídeos HentaiHaven aleatorios",
@@ -399,7 +399,7 @@
     "temporaryban_bannedby": "Baneado temporalmente por",
     "temporaryban_bandescription": "**Acción**: Ban temporal\n**Usuario**: %usertag (%userid) \n**Razón**: %reason \n**Tiempo del ban**: %bantime",
     "temporaryban_automaticbandescription": "**Acción**: Desban automático\n**Usuario**: %usertag (%userid) \n**Razón**: El tiempo del ban ha expirado",
-    "temporaryban_automaticunban": "The bantime has expired",
+    "temporaryban_automaticunban": "El baneo ha expirado",
     "temporaryban_description": "Banea a un usuario temporalmente",
     "playplaylist_error": "¡Has olvidado introducir el nombre de la playlist!",
     "playplaylist_description": "Reproduce una música de la playlist",
