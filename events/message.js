@@ -160,7 +160,7 @@ module.exports = {
 
 		if (msg.client.provider.getGuild(msg.guild.id, 'chatfilter').chatfilter === 'true' && msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length !== 0 && !client.registry.commands.get(command)) {
 			const words = msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array;
-			const filtered = msg.content.split(' ').filter(m => words.includes(m));
+			const filtered = msg.content.toLowerCase().split(' ').filter(m => words.includes(m));
 
 			if (filtered.length) {
 				if (msg.client.provider.getGuild(msg.guild.id, 'chatfilterlog') === 'true') {
