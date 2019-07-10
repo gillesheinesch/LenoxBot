@@ -1,6 +1,6 @@
 {
     "lenoxbotteam_embedtitle": "All LenoxBot staff members:",
-    "lenoxbotteam_embedfooter": "You can find this list also on our website under https://lenoxbot.com/team",
+    "lenoxbotteam_embedfooter": "You can find this list also on our website via https://lenoxbot.com/team",
     "lenoxbotteam_description": "All LenoxBot staff members",
 
     "hentaihaven_notfind": "Could not find any videos to your request",
@@ -447,7 +447,7 @@
     "temporaryban_bannedby": "Temporarily banned by",
     "temporaryban_bandescription": "**Action**: Temporary ban \n**User**: %usertag (%userid) \n**Reason**: %reason \n**Banned for**: %bantime",
     "temporaryban_automaticbandescription": "**Action**: Automatic unban \n**User**: %usertag (%userid) \n**Reason**: The bantime has expired",
-    "temporaryban_automaticunban": "The ban has expired",
+    "temporaryban_automaticunban": "The bantime has expired",
     "temporaryban_description": "Bans a user temporarily",
 
     "playplaylist_error": "You forgot to enter the name of the playlist!",
@@ -524,7 +524,7 @@
     "templesearch_description": "Search for something valuable in the long-abandoned temple in the Sahara",
 
     "job_farmertitle": "Harvest fields",
-    "job_farmerdescription": "You always wanted to drive a tractor? Then this is the right job for you, you can help the farmer to harvest his fields! You need a tractor (🚜).",
+    "job_farmerdescription": "You always wanted to drive a tractor? Then that is the right job for you, you can help the farmer to harvest their fields! You need a tractor (🚜).",
     "job_techniciantitle": "Assemble electronic devices",
     "job_techniciandescription": "Help the IT technician repair the computers, cameras, and smartphones! You need a hammer (🔨).",
     "job_trainertitle": "Kids Football",
@@ -538,7 +538,7 @@
     "job_taxidrivertitle": "Taxi driver",
     "job_taxidriverdescription": "The taxi union is looking for new dedicated drivers who would like to help out. You need a car (🚙).",
     "job_paramedictitle": "Provide First aid",
-    "job_paramedicdescription": "There are more and more First aid missions, so the paramedics need your help. You need a syringe (💉).",
+    "job_paramedicdescription": "There are more and more first aid missions, so the paramedics need your help. You need a syringe (💉).",
     "job_policetitle": "Grab the robber",
     "job_policedescription": "You always wanted to hunt robbers? Now you have the chance! You need a pistol (🔫).",
     "job_cheftitle": "Kitchen Help",
