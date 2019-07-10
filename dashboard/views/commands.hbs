@@ -1,0 +1,65 @@
+<main id="commands">
+    <section class="lb-bg-white">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 my-4">
+                    <h3 class="font-weight-light">{{lang.commands.modules}} <button class="btn lb-btn-trans-black d-lg-none float-right" id="toggle-menu"><i class="mdi mdi-menu"></i></button></h3>
+                    <div id="list-modules" class="list-group menu">
+                        <button class="list-group-item list-group-item-action lb-btn-list lb-btn-list-focus" id="command">All</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="administration">Administration</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="moderation">Moderation</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="help">Help</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="music">Music</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="fun">Fun</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="searches">Searches</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="nsfw">NSFW</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="application">Application</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="currency">Currency</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="utility">Utility</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="tickets">Tickets</button>
+                    </div>
+                </div>
+                <div class="col-lg-9">
+                    <div class="row">
+                        <div class="col-12 pr-0 mt-4">
+                            <h3 class="font-weight-light">{{lang.commands.title}}</h3>
+                            <div class="form-group">
+                                <input class="form-control lb-input" id="search-input" type="text" placeholder="Search...">
+                            </div>
+                        </div>
+                        <div class="col-12 lb-commands pr-0 lb-mcsp">
+                            <div class="lb-mcsp">
+                                <div class="table-responsive">
+                                <table id="table" class="table table-hover mb-0">
+                                    <thead>
+                                        <tr>
+                                            <th>{{lang.commands.commandname}}</th>
+                                            <th>{{lang.commands.description}}</th>
+                                            <th>{{lang.commands.permissions}}</th>
+                                            <th>{{lang.commands.aliases}}</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {{#each commands}}
+                                        <tr class="command {{category}}">
+                                            <td>{{name}} {{usage.usageString}}</td>
+                                            <td>{{description}}</td>
+                                            <td>{{permissionLevel}}</td>
+                                            <td>{{aliases}}</td>
+                                        </tr>
+                                        {{/each}}
+                                        <tr id="notfound"  style="display: none;">
+                                            <td align="center" colspan="4">{{lang.commands.cmdnotfound}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<script src="javascripts/commands.js"></script>

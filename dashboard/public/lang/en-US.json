@@ -1,0 +1,43 @@
+{
+  "navigation": {
+    "home": "Home",
+    "commands": "Commands",
+    "documentation": "Documentation",
+    "support": "Support",
+    "vote": "Vote",
+    "donate": "Donate",
+    "profile": "My Profile"
+  },
+  "home": {
+    "title": "LenoxBot offers many cool new features to your Discord server!",
+    "title_invite": "Invite me to your server",
+    "title_guilds": "guilds",
+    "title_members": "members",
+    "title_commands": "commands executed",
+    "features": "Features",
+    "features_commands": "Commands",
+    "features_commands_description": "LenoxBot offers you a large number of commands so that you and your Discord server members can have fun together!",
+    "features_commands_link": "View commands list",
+    "features_configurable": "Configurable",
+    "features_configurable_description": "You can change almost every settings of the bot and customize it to your Discord server!",
+    "features_allinone": "All-in-One",
+    "features_allinone_description": "You need some moderation and administration commands or would you rather gamble with other users and play minigames? No matter what - this bot is just the best one for you! It has a lot of different modules (?modules) with many commands which you can explore.",
+    "features_allinone_link": "View modules",
+    "features_free": "Free",
+    "features_free_description": "We want to offer the Discord users a bot where you do not have to pay anything and have a lot of functions. There is, of course, the opportunity to donate and get some extra features but otherwise the bot is free!",
+    "features_dashboard": "Dashboard",
+    "features_dashboard_description": "A well structured online dashboard makes it easy for you to manage all the settings of your Discord server.",
+    "features_dashboard_link": "My servers",
+    "features_uptime": "99.99% Uptime",
+    "features_uptime_description": "We carry out maintenance times of a maximum of 1 day 1-3 times a year, otherwise the bot is always online! We want to offer the users a bot to rely on."
+  } ,
+  "commands": {
+    "title": "Commands",
+    "modules": "Modules",
+    "commandname": "Command name",
+    "description": "Description",
+    "permissions": "Permissions",
+    "aliases": "Aliases",
+    "cmdnotfound": "Command not found"
+  }
+}

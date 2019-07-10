@@ -6,12 +6,14 @@ const { constants: { MENTION_REGEX } } = require('klasa');
 global.startTime = new Date(); // start recording time of boot
 
 Client.use(require('klasa-member-gateway'));
+Client.use(require('klasa-dashboard-hooks'));
 
 Client.defaultPermissionLevels
 	.add(4, ({ guild, member }) => guild && member.permissions.has(FLAGS.BAN_MEMBERS), { fetch: true })
 
 Client.defaultClientSchema
 	.add('owners', 'string', { array: true, configurable: false, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+	.add('commandsused', 'integer', { default: 0 });
 
 Client.defaultGuildSchema
 	.add('joinroles', 'role', { array: true })
@@ -80,7 +82,9 @@ const client = global.client = new Client({
 	},
 	schedule: { interval: 1000 },
 	disabledCorePieces: ['commands'],
-	console: { useColor: true }
+	console: { useColor: true },
+	clientID: process.env.CLIENT_ID,
+	clientSecret: process.env.CLIENT_SECRET,
 });
 
 if (!config) return; // prevent any further loading if we're prompting them.
