@@ -38,17 +38,16 @@ module.exports = class extends Command {
 		/* Planned Removal */
 
 		const executeQueue = ((queue) => {
-			const voice_connections = this.client.voice.connections;
+			const voice_connection = message.guild.voice.connection;
 			// If the queue is empty
 			if (queue.length <= 0) {
-				music_settings.queue_position = 0;
 				message.channel.send('<:check:411976443522711552> Playback finished.');
-				if (voice_connections.has(message.guild.id)) return voice_connections.get(message.guild.id).disconnect(); // Leave the voice channel.
+				if (voice_connection) return voice_connection.disconnect(); // Leave the voice channel.
 			}
 			
 			new Promise((resolve, reject) => {
 				// Join the voice channel if not already in one.
-				if (!voice_connections.has(message.guild.id)) {
+				if (!voice_connection) {
 					if (!voice_channel) return message.channel.send('<:redx:411978781226696705> You must be in a voice channel!');
 					// Check if the user is in a voice channel.
 					if (voice_channel && voice_channel.joinable) {
@@ -66,14 +65,14 @@ module.exports = class extends Command {
 						reject();
 					} else {
 						// Otherwise, clear the queue and do nothing.
-						queue.length = 0;//queue.splice(0, queue.length);
+						queue.length = 0;
 						reject();
 					}
 				} else {
-					resolve(voice_connections.get(message.guild.id));
+					resolve(voice_connection);
 				}
 			}).then((connection) => {
-				const video = (music_settings.loop || music_settings.repeat) ? queue[music_settings.queue_position].url : queue[0].url; // Get the audio to play from the queue.
+				const video = queue[0].url; // Get the audio to play from the queue.
 				
 				// Play the video.
 				try {
@@ -81,7 +80,7 @@ module.exports = class extends Command {
 					
 					if (!video) return message.channel.send('<:redx:411978781226696705> I was unable to play that video.');
 					
-					const dispatcher = !music_settings.stream_mode ? connection.play(ytdl(video.toString(), { filter: 'audioonly' }), { volume: music_settings.volume / 100 }) : connection.play(stream(video.toString()), { volume: music_settings.volume / 100 });
+					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(ytdl(video.toString(), { filter: 'audioonly' }), { volume: music_settings.volume / 100 });
 
 					connection.once('failed', (reason) => {
 						console.error(reason.toString());
@@ -107,7 +106,7 @@ module.exports = class extends Command {
 							music_settings.queue_position = 0;
 							if (queue.length > 0) {
 								queue.shift(); // Skip to the next song.
-							}
+							}ary.push(ary.shift());
 						}
 						executeQueue(queue);
 					});
