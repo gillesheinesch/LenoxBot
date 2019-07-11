@@ -39,6 +39,7 @@ module.exports = class extends Command {
 
 		const executeQueue = ((queue) => {
 			const voice_connection = message.guild.voice.connection;
+			const current_audio = queue[0];
 			// If the queue is empty
 			if (queue.length <= 0) {
 				message.channel.send('<:check:411976443522711552> Playback finished.');
@@ -72,7 +73,7 @@ module.exports = class extends Command {
 					resolve(voice_connection);
 				}
 			}).then((connection) => {
-				const video = queue[0].url; // Get the audio to play from the queue.
+				const video = current_audio.url; // Get the audio to play from the queue.
 				
 				// Play the video.
 				try {
@@ -95,18 +96,14 @@ module.exports = class extends Command {
 						// Skip to the next song.
 						console.error(`Dispatcher/connection: ${err.stack ? err.stack : err.toString()}`);
 						if (message && message.channel) message.channel.send(`<:redx:411978781226696705> Dispatcher error!\n\`${err.toString()}\``);
-						//queue.shift();
-						if (music_settings.loop || music_settings.repeat) {
-							if (music_settings.queue_position >= queue.length - 1) {
-								music_settings.queue_position = 0;
+						if (queue.length > 0) {
+							if (music_settings.loop && !current_audio.repeat) {
+								queue.push(queue.shift()); // Push first item to end
+							} else if (!music_settings.loop && current_audio.repeat) {
+								// do nothing
 							} else {
-								music_settings.queue_position++;
-							}
-						} else {
-							music_settings.queue_position = 0;
-							if (queue.length > 0) {
 								queue.shift(); // Skip to the next song.
-							}ary.push(ary.shift());
+							}
 						}
 						executeQueue(queue);
 					});
@@ -114,16 +111,12 @@ module.exports = class extends Command {
 					dispatcher.once('error', (err) => {
 						console.error(`Dispatcher: ${err.stack ? err.stack : err.toString()}`);
 						if (message && message.channel) message.channel.send(`<:redx:411978781226696705> Dispatcher error!\n\`${err.toString()}\``);
-						//queue.shift(); // Skip to the next song.
-						if (music_settings.loop || music_settings.repeat) {
-							if (music_settings.queue_position >= queue.length - 1) {
-								music_settings.queue_position = 0;
+						if (queue.length > 0) {
+							if (music_settings.loop && !current_audio.repeat) {
+								queue.push(queue.shift()); // Push first item to end
+							} else if (!music_settings.loop && current_audio.repeat) {
+								// do nothing
 							} else {
-								music_settings.queue_position++;
-							}
-						} else {
-							music_settings.queue_position = 0;
-							if (queue.length > 0) {
 								queue.shift(); // Skip to the next song.
 							}
 						}
@@ -133,21 +126,13 @@ module.exports = class extends Command {
 					dispatcher.once('end', () => {
 						// Wait a second before continuing
 						setTimeout(() => {
-							if (music_settings.loop && !music_settings.repeat) {
-								if (music_settings.queue_position >= queue.length - 1) {
-									music_settings.queue_position = 0;
+							if (queue.length > 0) {
+								if (music_settings.loop && !current_audio.repeat) {
+									queue.push(queue.shift()); // Push first item to end
+								} else if (!music_settings.loop && current_audio.repeat) {
+									// do nothing
 								} else {
-									music_settings.queue_position++;
-								}
-								//executeQueue(queue);
-							} else if (!music_settings.loop && music_settings.repeat) {
-								// do nothing
-								//executeQueue(queue);
-							} else {
-								music_settings.queue_position = 0;
-								if (queue.length > 0) {
 									queue.shift(); // Skip to the next song.
-									//executeQueue(queue);
 								}
 							}
 							executeQueue(queue);
