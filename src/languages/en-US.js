@@ -308,7 +308,7 @@ module.exports = class extends Language {
 			COMMAND_CREDITS_EXTENDEDHELP: ['credits', 'credits @Monkeyyy11#7584'].join('\n'),
 			COMMAND_PLAY_DESCRIPTION: 'Searches for music that matches to your request.',
 			COMMAND_PLAY_EXTENDEDHELP: ['play Parkway Drive - Boneyards'].join('\n'),
-			COMMAND_LOOP_DESCRIPTION: 'Loop (or unloop) the music queue.',
+			COMMAND_LOOP_DESCRIPTION: '(Un)Loop the music queue.',
 			COMMAND_LOOP_EXTENDEDHELP: ['loop'].join('\n'),
 		};
 	}

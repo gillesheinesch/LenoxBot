@@ -5,9 +5,9 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			runIn: ['text'],
-			aliases: [],
-			description: '',
-			extendedHelp: 'No extended help available.',
+			description: language => language.get('COMMAND_LOOP_DESCRIPTION'),
+			extendedHelp: language => language.get('COMMAND_LOOP_EXTENDEDHELP'),
+			requiredPermissions: ['SEND_MESSAGES', 'CONNECT', 'SPEAK']
 		});
 	}
 
