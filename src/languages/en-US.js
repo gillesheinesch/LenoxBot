@@ -296,7 +296,9 @@ module.exports = class extends Language {
 			COMMAND_PARTNER_DESCRIPTION: "With this command you can use the embed of LenoxBot and your partnered server.",
 			COMMAND_PARTNER_EXTENDEDHELP: ['partner lenoxbot'].join('\n'),
 			COMMAND_SETPRESENCE_DESCRIPTION: 'Sets a new presence for the bot.',
-			COMMAND_SETPRESENCE_EXTENDEDHELP: ['setpresence LenoxBot'].join('\n')
+			COMMAND_SETPRESENCE_EXTENDEDHELP: ['setpresence LenoxBot'].join('\n'),
+			COMMAND_PLAY_DESCRIPTION: "Searches for music that matches to your request.",
+			COMMAND_PLAY_EXTENDEDHELP: ['play Parkway Drive - Boneyards'].join('\n')
 		};
 	}
 
