@@ -13,6 +13,7 @@ const youtube = new YouTube(config.googlekey);
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
+			runIn: ['text'],
 			description: language => language.get('COMMAND_PLAY_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_PLAY_EXTENDEDHELP'),
 			usage: '<query:str>',
