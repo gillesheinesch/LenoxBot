@@ -37,12 +37,20 @@ module.exports = class extends Command {
 		}
 		/* Planned Removal */
 
+		const regexes = {
+			youtube: /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/gi
+		}
+
+		if (regexes.youtube.test(query)) {
+			// do youtube stuff here
+		}
+
 		const executeQueue = ((queue) => {
 			const voice_connection = message.guild.voice.connection;
 			const current_audio = queue[0];
 			// If the queue is empty
 			if (queue.length <= 0) {
-				message.channel.send('<:check:411976443522711552> Playback finished.');
+				message.channel.send('Playback finished.');
 				if (voice_connection) return voice_connection.disconnect(); // Leave the voice channel.
 			}
 			
@@ -73,15 +81,13 @@ module.exports = class extends Command {
 					resolve(voice_connection);
 				}
 			}).then((connection) => {
-				const video = current_audio.url; // Get the audio to play from the queue.
-				
 				// Play the video.
 				try {
 					music_settings.is_streaming = false;
 					
-					if (!video) return message.channel.send('<:redx:411978781226696705> I was unable to play that video.');
+					if (!current_audio) return message.channel.send('I was unable to play that video.');
 					
-					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(ytdl(video.toString(), { filter: 'audioonly' }), { volume: music_settings.volume / 100 });
+					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(ytdl(current_audio.url, { filter: 'audioonly' }), { volume: music_settings.volume / 100 });
 
 					connection.once('failed', (reason) => {
 						console.error(reason.toString());
@@ -93,10 +99,9 @@ module.exports = class extends Command {
 					});
 					
 					connection.once('error', (err) => {
-						// Skip to the next song.
-						console.error(`Dispatcher/connection: ${err.stack ? err.stack : err.toString()}`);
-						if (message && message.channel) message.channel.send(`<:redx:411978781226696705> Dispatcher error!\n\`${err.toString()}\``);
-						if (queue.length > 0) {
+						console.error(`Connection: ${err.stack ? err.stack : err.toString()}`);
+						if (message && message.channel) message.channel.send(`Connection error!\n\`${err.toString()}\``);
+						if (queue.length) {
 							if (music_settings.loop && !current_audio.repeat) {
 								queue.push(queue.shift()); // Push first item to end
 							} else if (!music_settings.loop && current_audio.repeat) {
@@ -110,8 +115,8 @@ module.exports = class extends Command {
 					
 					dispatcher.once('error', (err) => {
 						console.error(`Dispatcher: ${err.stack ? err.stack : err.toString()}`);
-						if (message && message.channel) message.channel.send(`<:redx:411978781226696705> Dispatcher error!\n\`${err.toString()}\``);
-						if (queue.length > 0) {
+						if (message && message.channel) message.channel.send(`Dispatcher error!\n\`${err.toString()}\``);
+						if (queue.length) {
 							if (music_settings.loop && !current_audio.repeat) {
 								queue.push(queue.shift()); // Push first item to end
 							} else if (!music_settings.loop && current_audio.repeat) {
@@ -126,7 +131,7 @@ module.exports = class extends Command {
 					dispatcher.once('end', () => {
 						// Wait a second before continuing
 						setTimeout(() => {
-							if (queue.length > 0) {
+							if (queue.length) {
 								if (music_settings.loop && !current_audio.repeat) {
 									queue.push(queue.shift()); // Push first item to end
 								} else if (!music_settings.loop && current_audio.repeat) {
@@ -145,6 +150,10 @@ module.exports = class extends Command {
 				return console.error(err.stack ? err.stack : err.toString());
 			});
 		});
+
+		const pushToQueue = (item) => {
+			music_settings.queue.push(item)
+		}
 
 
 
