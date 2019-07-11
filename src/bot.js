@@ -9,56 +9,48 @@ Client.use(require('klasa-member-gateway'));
 Client.use(require('klasa-dashboard-hooks'));
 
 Client.defaultPermissionLevels
-	.add(4, ({ guild, member }) => guild && member.permissions.has(FLAGS.BAN_MEMBERS), { fetch: true })
+	.add(4, ({ guild, member }) => guild && member.permissions.has(FLAGS.BAN_MEMBERS), { fetch: true });
 
 Client.defaultClientSchema
 	.add('owners', 'string', { array: true, configurable: false, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
-	.add('commandsused', 'integer', { default: 0 })
+	.add('commandsused', 'integer', { 'default': 0 });
 
 Client.defaultGuildSchema
-	.add('music', 'any', { configurable: false, default: { queue: [], loop: false, volume: 100 } })
+	.add('music', 'any', { 'configurable': false, 'default': { queue: [], loop: false, volume: 100 } })
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'integer', { 'default': 1 })
-	.add('momentLanguage', 'string', { default: 'en' })
+	.add('momentLanguage', 'string', { 'default': 'en' })
 	.add('premium', folder => folder
-		.add('status', 'boolean', { default: false, configurable: false })
-	)
+		.add('status', 'boolean', { 'default': false, 'configurable': false }))
 	.add('modules', folder => folder
-		.add('utility', 'boolean', { default: true })
-	)
+		.add('utility', 'boolean', { 'default': true }))
 	.add('togglexp', folder => folder
-		.add('channel_ids', 'string', { array: true, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
-	)
+		.add('channel_ids', 'string', { array: true, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) }))
 	.add('xp', folder => folder
-		.add('xpmessages_enabled', 'boolean', { default: false })
-	)
+		.add('xpmessages_enabled', 'boolean', { 'default': false }))
 	.add('moderations', folder => folder
-		.add('modlogs_enabled', 'boolean', { default: false })
+		.add('modlogs_enabled', 'boolean', { 'default': false })
 		.add('punishments', 'any', { array: true })
-		.add('modlog_channel', 'textchannel') //{ filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
+		.add('modlog_channel', 'textchannel') // { filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 	)
 	.add('chatfilter', folder => folder
-		.add('chatfilter_enabled', 'boolean', { default: false })
+		.add('chatfilter_enabled', 'boolean', { 'default': false })
 		.add('chatfilter_array', 'string', { array: true })
-		.add('chatfilterlog_enabled', 'boolean', { default: false })
-		.add('chatfilterlog_channel', 'textchannel')
-	)
+		.add('chatfilterlog_enabled', 'boolean', { 'default': false })
+		.add('chatfilterlog_channel', 'textchannel'))
 	.add('bot', folder => folder
 		.add('channel', 'textchannel')
-		.add('redirect', 'boolean')
-	)
+		.add('redirect', 'boolean'));
 
 Client.defaultMemberSchema
 	.add('scores', folder => folder
-		.add('points', 'number', { default: 0 })
-		.add('level', 'number', { default: 0 })
-	)
+		.add('points', 'number', { 'default': 0 })
+		.add('level', 'number', { 'default': 0 }));
 
 Client.defaultUserSchema
 	.add('stats', folder => folder
-		.add('highest_credits', 'number', { default: 0, configurable: false })
-	)
-	.add('credits', 'number', { default: 0, configurable: false })
+		.add('highest_credits', 'number', { 'default': 0, 'configurable': false }))
+	.add('credits', 'number', { 'default': 0, 'configurable': false });
 
 const client = global.client = new Client({
 	autoReconnect: true,
@@ -89,7 +81,7 @@ const client = global.client = new Client({
 	disabledCorePieces: ['commands'],
 	console: { useColor: true },
 	clientID: process.env.CLIENT_ID,
-	clientSecret: process.env.CLIENT_SECRET,
+	clientSecret: process.env.CLIENT_SECRET
 });
 
 if (!config) return; // prevent any further loading if we're prompting them.
