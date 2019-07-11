@@ -59,8 +59,6 @@ module.exports = class extends Command {
 
 			search.search(query, { type: 'video' }).then((searchResult) => {
 				let result = searchResult.first;
-				//if (!result) return msg.channel.send(`<:redx:411978781226696705> Could not find this video.`).catch(err => console.error)
-				// result.id = video id // result.channelID = channel id // result.url = full video url // result.title = video name // result.description = video description
 				if (!result || !result.url || !result.id) return message.channel.send('I was unable to find that video.');
 				music_settings.queue.push({
 					channelId: result.channelId,
