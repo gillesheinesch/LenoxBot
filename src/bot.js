@@ -13,12 +13,13 @@ Client.defaultPermissionLevels
 
 Client.defaultClientSchema
 	.add('owners', 'string', { array: true, configurable: false, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
-	.add('commandsused', 'integer', { default: 0 });
+	.add('commandsused', 'integer', { default: 0 })
 
 Client.defaultGuildSchema
 	.add('music', 'any', { configurable: false, default: { queue: [], loop: false, volume: 100 } })
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'integer', { 'default': 1 })
+	.add('momentLanguage', 'string', { default: 'en' })
 	.add('modules', folder => folder
 		.add('utility', 'boolean', { default: true })
 	)

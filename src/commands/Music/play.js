@@ -22,30 +22,34 @@ module.exports = class extends Command {
 
 	async run(message, [query]) {
 		const music_settings = message.guildSettings.get('music');
-		const langSet = message.client.provider.getGuild(message.guild.id, 'language');
-		const lang = require(`../../languages/${langSet}.json`);
-		const queue = message.client.queue;
-		const skipvote = message.client.skipvote;
-		const input = message.content.split(' ');
-		const searchString = input.slice(1).join(' ');
-		const url = input[1] ? input[1].replace(/<(.+)>/g, '$1') : '';
-		moment.locale(message.client.provider.getGuild(message.guild.id, 'momentLanguage'));
+		//const skipvote = message.client.skipvote;
+		//const url = input[1] ? input[1].replace(/<(.+)>/g, '$1') : '';
+		moment.locale(message.guildSettings.get('momentLanguage'));
 
 		const voice_channel = message.member.voice.channel;
-		if (!voice_channel) return message.channel.send(lang.play_notvoicechannel);
+		if (!voice_channel) return message.channel.send('You must be in a voice channel!');
 
 		/* Planned Removal */
-		for (let i = 0; i < message.client.provider.getGuild(message.guild.id, 'musicchannelblacklist').length; i++) {
+		/*for (let i = 0; i < message.client.provider.getGuild(message.guild.id, 'musicchannelblacklist').length; i++) {
 			if (voiceChannel.id === message.client.provider.getGuild(message.guild.id, 'musicchannelblacklist')[i]) return message.reply(lang.play_blacklistchannel);
-		}
+		}*/
 		/* Planned Removal */
+
+		const voice_connection = message.guild.voice.connection;
 
 		const regexes = {
-			youtube: /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/gi
+			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,34})/gi
 		}
 
 		if (!regexes.youtube.test(query)) {
 			// radio
+			music_settings.queue.push({
+				title: 'Stream', // fix this later
+				url: query, // make a preset radio queue also
+				description: 'Stream', // fix this later
+				requester: message.author,
+				total_duration: ''
+			});
 		} else {
 			const search = new YTSearcher({
 				key: process.env.YOUTUBE_API_KEY,
@@ -56,12 +60,12 @@ module.exports = class extends Command {
 				let result = searchResult.first;
 				//if (!result) return msg.channel.send(`<:redx:411978781226696705> Could not find this video.`).catch(err => console.error)
 				// result.id = video id // result.channelID = channel id // result.url = full video url // result.title = video name // result.description = video description
-				if (!result || !result.url || !result.id) return msg.channel.send('<:redx:411978781226696705> I was unable to find that video.');
+				if (!result || !result.url || !result.id) return message.channel.send('I was unable to find that video.');
 				music_settings.queue.push({
 					channelId: result.channelId,
 					channelTitle: result.channelTitle,
-					liveBroadcastContent: result.liveBroadcastContent || 'N/A',
-					kind: result.kind,
+					//liveBroadcastContent: result.liveBroadcastContent || 'N/A',
+					//kind: result.kind,
 					title: result.title || 'N/A',
 					url: result.url,
 					id: result.id,
@@ -71,22 +75,33 @@ module.exports = class extends Command {
 					requester: message.author,
 					total_duration: ''
 				});
+				//if (music_settings.queue.length === 1 || !voice_connection) executeQueue(music_settings.queue);
 			});
 		}
+		if (music_settings.queue.length) executeQueue(music_settings.queue);
 
 		const executeQueue = ((queue) => {
-			const voice_connection = message.guild.voice.connection;
 			const current_audio = queue[0];
-			// If the queue is empty
-			if (queue.length <= 0) {
+			if (!queue.length) { // If the queue is empty
 				message.channel.send('Playback finished.');
 				if (voice_connection) return voice_connection.disconnect(); // Leave the voice channel.
+			} else {
+				const embed = new MessageEmbed()
+					.setColor(3447003)
+					.setTitle(current_audio.channelTitle ? `${current_audio.title.replace(/\&quot;/g, '"') || 'N/A'} by ${current_audio.channelTitle || 'N/A'}` : current_audio.title.replace(/\&quot;/g, '"'))
+					.setURL(current_audio.url)
+					.setTimestamp()
+
+				if (current_audio.thumbnails) embed.setThumbnail(current_audio.thumbnails.high.url || current_audio.thumbnails.medium.url || current_audio.thumbnails.default.url);
+				if (current_audio.description) embed.setDescription(current_audio.description)
+				message.channel.send({ embed: embed });
+				//if (voice_connection) return;
 			}
 			
 			new Promise((resolve, reject) => {
 				// Join the voice channel if not already in one.
 				if (!voice_connection) {
-					if (!voice_channel) return message.channel.send('<:redx:411978781226696705> You must be in a voice channel!');
+					if (!voice_channel) return message.channel.send('You must be in a voice channel!');
 					// Check if the user is in a voice channel.
 					if (voice_channel && voice_channel.joinable) {
 						voice_channel.join().then((connection) => {
@@ -96,9 +111,9 @@ module.exports = class extends Command {
 						});
 					} else if (!voice_channel.joinable) {
 						if (voice_channel.full) {
-							message.channel.send('<:redx:411978781226696705> I do not have permission to join your voice channel; it is full.');
+							message.channel.send('I do not have permission to join your voice channel; it is full.');
 						} else {
-							message.channel.send('<:redx:411978781226696705> I do not have permission to join your voice channel!');
+							message.channel.send('I do not have permission to join your voice channel!');
 						}
 						reject();
 					} else {
@@ -116,7 +131,7 @@ module.exports = class extends Command {
 					
 					if (!current_audio) return message.channel.send('I was unable to play that video.');
 					
-					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(ytdl(current_audio.url, { filter: 'audioonly' }), { volume: music_settings.volume / 100 });
+					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(regexes.youtube.test(query) ? ytdl(current_audio.url, { filter: 'audioonly' }) : current_audio.url, { volume: music_settings.volume / 100 });
 
 					connection.once('failed', (reason) => {
 						console.error(reason.toString());
@@ -180,232 +195,227 @@ module.exports = class extends Command {
 			});
 		});
 
-		const pushToQueue = (item) => {
-			music_settings.queue.push(item)
-		}
 
 
 
-
-
-		async function play(guild, song) {
-			const serverQueue = await queue.get(guild.id);
-
-			if (!song) {
-				await serverQueue.voiceChannel.leave();
-				await queue.delete(guild.id);
-				return;
-			}
-
-			const stream = await ytdl(song.url, {
-				filter: 'audioonly'
-			});
-			const dispatcher = await serverQueue.connection.play(stream)
-				.on('end', async reason => {
-					if (reason === 'Stream is not generating quickly enough.');
-					if (serverQueue.songs[0].repeat) serverQueue.songs.unshift(serverQueue.songs.shift('Stream is not generating quickly enough'));
-					else if (serverQueue.loop) serverQueue.songs.push(serverQueue.songs.shift('Stream is not generating quickly enough'));
-					else serverQueue.songs.shift('Stream is not generating quickly enough');
-					await play(guild, serverQueue.songs[0]);
-				})
-				.on('error', error => console.error(error));
-			dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
-
-			const vote = {
-				users: []
-			};
-			skipvote.set(message.guild.id, vote);
-
-			const duration = lang.play_duration.replace('%duration', song.duration);
-			const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-			const embed = new Discord.MessageEmbed()
-				.setAuthor(lang.play_startplaying)
-				.setDescription(duration)
-				.setThumbnail(song.thumbnail)
-				.setColor('#009900')
-				.setURL(song.url)
-				.setFooter(published)
-				.setTitle(song.title);
-
-			return message.channel.send({
-				embed
-			});
-		}
-
-		async function handleVideo(video, playlist) {
-			const serverQueue = queue.get(message.guild.id);
-			const song = {
-				duration: moment.duration(video.duration).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`),
-				thumbnail: video.thumbnails.default.url,
-				publishedat: video.publishedAt,
-				id: video.id,
-				repeat: false,
-				title: Util.escapeMarkdown(video.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
-					.replace(/&quot;/g, '"')
-					.replace(/&OElig;/g, 'Œ')
-					.replace(/&oelig;/g, 'œ')
-					.replace(/&Scaron;/g, 'Š')
-					.replace(/&scaron;/g, 'š')
-					.replace(/&Yuml;/g, 'Ÿ')
-					.replace(/&circ;/g, 'ˆ')
-					.replace(/&tilde;/g, '˜')
-					.replace(/&ndash;/g, '–')
-					.replace(/&mdash;/g, '—')
-					.replace(/&lsquo;/g, '‘')
-					.replace(/&rsquo;/g, '’')
-					.replace(/&sbquo;/g, '‚')
-					.replace(/&ldquo;/g, '“')
-					.replace(/&rdquo;/g, '”')
-					.replace(/&bdquo;/g, '„')
-					.replace(/&dagger;/g, '†')
-					.replace(/&Dagger;/g, '‡')
-					.replace(/&permil;/g, '‰')
-					.replace(/&lsaquo;/g, '‹')
-					.replace(/&rsaquo;/g, '›')
-					.replace(/&euro;/g, '€')
-					.replace(/&copy;/g, '©')
-					.replace(/&trade;/g, '™')
-					.replace(/&reg;/g, '®')
-					.replace(/&nbsp;/g, ' ')),
-				url: `https://www.youtube.com/watch?v=${video.id}`
-			};
-
-			if (moment.duration(video.duration).format('m') > 30 && message.client.provider.getUser(message.author.id, 'premium').status === false) return message.reply(lang.play_songlengthlimit);
-
-			if (serverQueue) {
-				if (serverQueue.songs.length > 8 && message.client.provider.getGuild(message.guild.id, 'premium').status === false) return message.reply(lang.play_limitreached);
-				await serverQueue.songs.push(song);
-				if (playlist) return;
-
-				const duration = lang.play_duration.replace('%duration', song.duration);
-				const published = lang.play_published.replace('%publishedatdate', song.publishedat);
-				const embed = new Discord.MessageEmbed()
-					.setAuthor(lang.play_songadded)
-					.setDescription(duration)
-					.setThumbnail(song.thumbnail)
-					.setColor('#009900')
-					.setURL(song.url)
-					.setFooter(published)
-					.setTitle(song.title);
-
-				return message.channel.send({
-					embed
-				});
-			} else {
-			/* eslint no-else-return: 0 */
-				const queueConstruct = {
-					textChannel: message.channel,
-					voiceChannel: voiceChannel,
-					connection: null,
-					songs: [],
-					volume: 2,
-					playing: true
-				};
-				await queue.set(message.guild.id, queueConstruct);
-
-				await queueConstruct.songs.push(song);
-
-				const vote = {
-					users: []
-				};
-
-				skipvote.set(message.guild.id, vote);
-
-				try {
-					const connection = await voiceChannel.join();
-					queueConstruct.connection = connection;
-					await play(message.guild, queueConstruct.songs[0]);
-				} catch (error) {
-					console.log(error);
-					await queue.delete(message.guild.id);
-					await skipvote.delete(message.guild.id);
-					return message.channel.send(lang.play_errorjoin);
-				}
-			}
-		}
-
-		if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
-			const playlist = await youtube.getPlaylist(url);
-			const videos = await playlist.getVideos();
-			const serverQueue = queue.get(message.guild.id);
-
-			if ((Object.keys(videos).length + (serverQueue ? serverQueue.songs.length : 0)) > 8 && message.client.provider.getGuild(message.guild.id, 'premium').status === false) return message.reply(lang.play_limitreached);
-
-			for (const video of Object.values(videos)) {
-				const video2 = await youtube.getVideoByID(video.id);
-				await handleVideo(video2, true);
-			}
-			const playlistadded = lang.play_playlistadded.replace('%playlisttitle', `**${playlist.title}**`);
-			return message.channel.send(playlistadded);
-		}
-		let video;
-		try {
-			video = await youtube.getVideo(url);
-		} catch (error) {
-			try {
-				const videos = await youtube.searchVideos(searchString, 10);
-
-				if (videos.length === 0) return message.channel.send(lang.play_noresult);
-
-				let index = 0;
-				const embed = new Discord.MessageEmbed()
-					.setColor('#7BB3FF')
-					.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
-						.replace(/&quot;/g, '"')
-						.replace(/&OElig;/g, 'Œ')
-						.replace(/&oelig;/g, 'œ')
-						.replace(/&Scaron;/g, 'Š')
-						.replace(/&scaron;/g, 'š')
-						.replace(/&Yuml;/g, 'Ÿ')
-						.replace(/&circ;/g, 'ˆ')
-						.replace(/&tilde;/g, '˜')
-						.replace(/&ndash;/g, '–')
-						.replace(/&mdash;/g, '—')
-						.replace(/&lsquo;/g, '‘')
-						.replace(/&rsquo;/g, '’')
-						.replace(/&sbquo;/g, '‚')
-						.replace(/&ldquo;/g, '“')
-						.replace(/&rdquo;/g, '”')
-						.replace(/&bdquo;/g, '„')
-						.replace(/&dagger;/g, '†')
-						.replace(/&Dagger;/g, '‡')
-						.replace(/&permil;/g, '‰')
-						.replace(/&lsaquo;/g, '‹')
-						.replace(/&rsaquo;/g, '›')
-						.replace(/&euro;/g, '€')
-						.replace(/&copy;/g, '©')
-						.replace(/&trade;/g, '™')
-						.replace(/&reg;/g, '®')
-						.replace(/&nbsp;/g, ' ')}`).join('\n')}`)
-					.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
-
-				const embed2 = new Discord.MessageEmbed()
-					.setColor('#0066CC')
-					.setDescription(lang.play_value);
-				message.channel.send({
-					embed
-				});
-				message.channel.send({
-					embed: embed2
-				});
-
-				let response;
-				try {
-					response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && message.author.id === msg2.author.id, {
-						max: 1,
-						time: 20000,
-						errors: ['time']
+		/*
+				async function play(guild, song) {
+					const serverQueue = await queue.get(guild.id);
+		
+					if (!song) {
+						await serverQueue.voiceChannel.leave();
+						await queue.delete(guild.id);
+						return;
+					}
+		
+					const stream = await ytdl(song.url, {
+						filter: 'audioonly'
 					});
-				} catch (err) {
-					return message.channel.send(lang.play_error);
+					const dispatcher = await serverQueue.connection.play(stream)
+						.on('end', async reason => {
+							if (reason === 'Stream is not generating quickly enough.');
+							if (serverQueue.songs[0].repeat) serverQueue.songs.unshift(serverQueue.songs.shift('Stream is not generating quickly enough'));
+							else if (serverQueue.loop) serverQueue.songs.push(serverQueue.songs.shift('Stream is not generating quickly enough'));
+							else serverQueue.songs.shift('Stream is not generating quickly enough');
+							await play(guild, serverQueue.songs[0]);
+						})
+						.on('error', error => console.error(error));
+					dispatcher.setVolumeLogarithmic(serverQueue.volume / 5);
+		
+					const vote = {
+						users: []
+					};
+					skipvote.set(message.guild.id, vote);
+		
+					const duration = lang.play_duration.replace('%duration', song.duration);
+					const published = lang.play_published.replace('%publishedatdate', song.publishedat);
+					const embed = new Discord.MessageEmbed()
+						.setAuthor(lang.play_startplaying)
+						.setDescription(duration)
+						.setThumbnail(song.thumbnail)
+						.setColor('#009900')
+						.setURL(song.url)
+						.setFooter(published)
+						.setTitle(song.title);
+		
+					return message.channel.send({
+						embed
+					});
 				}
-				const videoIndex = parseInt(response.first().content, 10);
-				video = await youtube.getVideoByID(videos[videoIndex - 1].id);
-			} catch (err) {
-				return message.channel.send(lang.play_noresult);
-			}
-		}
-		handleVideo(video, false);
+		
+				async function handleVideo(video, playlist) {
+					const serverQueue = queue.get(message.guild.id);
+					const song = {
+						duration: moment.duration(video.duration).format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`),
+						thumbnail: video.thumbnails.default.url,
+						publishedat: video.publishedAt,
+						id: video.id,
+						repeat: false,
+						title: Util.escapeMarkdown(video.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+							.replace(/&quot;/g, '"')
+							.replace(/&OElig;/g, 'Œ')
+							.replace(/&oelig;/g, 'œ')
+							.replace(/&Scaron;/g, 'Š')
+							.replace(/&scaron;/g, 'š')
+							.replace(/&Yuml;/g, 'Ÿ')
+							.replace(/&circ;/g, 'ˆ')
+							.replace(/&tilde;/g, '˜')
+							.replace(/&ndash;/g, '–')
+							.replace(/&mdash;/g, '—')
+							.replace(/&lsquo;/g, '‘')
+							.replace(/&rsquo;/g, '’')
+							.replace(/&sbquo;/g, '‚')
+							.replace(/&ldquo;/g, '“')
+							.replace(/&rdquo;/g, '”')
+							.replace(/&bdquo;/g, '„')
+							.replace(/&dagger;/g, '†')
+							.replace(/&Dagger;/g, '‡')
+							.replace(/&permil;/g, '‰')
+							.replace(/&lsaquo;/g, '‹')
+							.replace(/&rsaquo;/g, '›')
+							.replace(/&euro;/g, '€')
+							.replace(/&copy;/g, '©')
+							.replace(/&trade;/g, '™')
+							.replace(/&reg;/g, '®')
+							.replace(/&nbsp;/g, ' ')),
+						url: `https://www.youtube.com/watch?v=${video.id}`
+					};
+		
+					if (moment.duration(video.duration).format('m') > 30 && message.client.provider.getUser(message.author.id, 'premium').status === false) return message.reply(lang.play_songlengthlimit);
+		
+					if (serverQueue) {
+						if (serverQueue.songs.length > 8 && message.client.provider.getGuild(message.guild.id, 'premium').status === false) return message.reply(lang.play_limitreached);
+						await serverQueue.songs.push(song);
+						if (playlist) return;
+		
+						const duration = lang.play_duration.replace('%duration', song.duration);
+						const published = lang.play_published.replace('%publishedatdate', song.publishedat);
+						const embed = new Discord.MessageEmbed()
+							.setAuthor(lang.play_songadded)
+							.setDescription(duration)
+							.setThumbnail(song.thumbnail)
+							.setColor('#009900')
+							.setURL(song.url)
+							.setFooter(published)
+							.setTitle(song.title);
+		
+						return message.channel.send({
+							embed
+						});
+					} else {
+						const queueConstruct = {
+							textChannel: message.channel,
+							voiceChannel: voiceChannel,
+							connection: null,
+							songs: [],
+							volume: 2,
+							playing: true
+						};
+						await queue.set(message.guild.id, queueConstruct);
+		
+						await queueConstruct.songs.push(song);
+		
+						const vote = {
+							users: []
+						};
+		
+						skipvote.set(message.guild.id, vote);
+		
+						try {
+							const connection = await voiceChannel.join();
+							queueConstruct.connection = connection;
+							await play(message.guild, queueConstruct.songs[0]);
+						} catch (error) {
+							console.log(error);
+							await queue.delete(message.guild.id);
+							await skipvote.delete(message.guild.id);
+							return message.channel.send(lang.play_errorjoin);
+						}
+					}
+				}
+		
+				if (url.match(/^https?:\/\/(www.youtube.com|youtube.com)\/playlist(.*)$/)) {
+					const playlist = await youtube.getPlaylist(url);
+					const videos = await playlist.getVideos();
+					const serverQueue = queue.get(message.guild.id);
+		
+					if ((Object.keys(videos).length + (serverQueue ? serverQueue.songs.length : 0)) > 8 && message.client.provider.getGuild(message.guild.id, 'premium').status === false) return message.reply(lang.play_limitreached);
+		
+					for (const video of Object.values(videos)) {
+						const video2 = await youtube.getVideoByID(video.id);
+						await handleVideo(video2, true);
+					}
+					const playlistadded = lang.play_playlistadded.replace('%playlisttitle', `**${playlist.title}**`);
+					return message.channel.send(playlistadded);
+				}
+				let video;
+				try {
+					video = await youtube.getVideo(url);
+				} catch (error) {
+					try {
+						const videos = await youtube.searchVideos(searchString, 10);
+		
+						if (videos.length === 0) return message.channel.send(lang.play_noresult);
+		
+						let index = 0;
+						const embed = new Discord.MessageEmbed()
+							.setColor('#7BB3FF')
+							.setDescription(`${videos.map(video2 => `**${++index} -** ${video2.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<')
+								.replace(/&quot;/g, '"')
+								.replace(/&OElig;/g, 'Œ')
+								.replace(/&oelig;/g, 'œ')
+								.replace(/&Scaron;/g, 'Š')
+								.replace(/&scaron;/g, 'š')
+								.replace(/&Yuml;/g, 'Ÿ')
+								.replace(/&circ;/g, 'ˆ')
+								.replace(/&tilde;/g, '˜')
+								.replace(/&ndash;/g, '–')
+								.replace(/&mdash;/g, '—')
+								.replace(/&lsquo;/g, '‘')
+								.replace(/&rsquo;/g, '’')
+								.replace(/&sbquo;/g, '‚')
+								.replace(/&ldquo;/g, '“')
+								.replace(/&rdquo;/g, '”')
+								.replace(/&bdquo;/g, '„')
+								.replace(/&dagger;/g, '†')
+								.replace(/&Dagger;/g, '‡')
+								.replace(/&permil;/g, '‰')
+								.replace(/&lsaquo;/g, '‹')
+								.replace(/&rsaquo;/g, '›')
+								.replace(/&euro;/g, '€')
+								.replace(/&copy;/g, '©')
+								.replace(/&trade;/g, '™')
+								.replace(/&reg;/g, '®')
+								.replace(/&nbsp;/g, ' ')}`).join('\n')}`)
+							.setAuthor(lang.play_songselection, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg');
+		
+						const embed2 = new Discord.MessageEmbed()
+							.setColor('#0066CC')
+							.setDescription(lang.play_value);
+						message.channel.send({
+							embed
+						});
+						message.channel.send({
+							embed: embed2
+						});
+		
+						let response;
+						try {
+							response = await message.channel.awaitMessages(msg2 => msg2.content > 0 && msg2.content < 11 && message.author.id === msg2.author.id, {
+								max: 1,
+								time: 20000,
+								errors: ['time']
+							});
+						} catch (err) {
+							return message.channel.send(lang.play_error);
+						}
+						const videoIndex = parseInt(response.first().content, 10);
+						video = await youtube.getVideoByID(videos[videoIndex - 1].id);
+					} catch (err) {
+						return message.channel.send(lang.play_noresult);
+					}
+				}
+				handleVideo(video, false);*/
 	}
 
-};
+}
