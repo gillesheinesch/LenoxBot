@@ -48,6 +48,7 @@ module.exports = class extends Command {
 				url: query, // make a preset radio queue also
 				description: 'Stream', // fix this later
 				requester: message.author,
+				repeat: false,
 				total_duration: ''
 			});
 		} else {
@@ -73,6 +74,7 @@ module.exports = class extends Command {
 					publishedAt: result.publishedAt,
 					thumbnails: result.thumbnails,
 					requester: message.author,
+					repeat: false,
 					total_duration: ''
 				});
 				//if (music_settings.queue.length === 1 || !voice_connection) executeQueue(music_settings.queue);
