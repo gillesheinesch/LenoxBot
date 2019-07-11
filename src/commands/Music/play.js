@@ -38,7 +38,7 @@ module.exports = class extends Command {
 		const voice_connection = message.guild.voice.connection;
 
 		const regexes = {
-			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,34})/gi
+			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/gi
 		}
 
 		if (!regexes.youtube.test(query)) {
