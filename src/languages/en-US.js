@@ -218,6 +218,12 @@ module.exports = class extends Language {
 			COMMAND_MEMBERSTATUS_IDLE: count => `${count} member${count !== 1 ? 's are' : ' is'} idle.`,
 			COMMAND_MEMBERSTATUS_DND: count => `${count} member${count !== 1 ? 's do' : ' does'} not want to be disturbed.`,
 			COMMAND_MEMBERSTATUS_OFFLINE: count => `${count} member${count !== 1 ? 's are' : ' is'} offline`,
+			COMMAND_CREDITS_CREDITHINT: 'Hint how to earn credits quickly:',
+			COMMAND_CREDITS_CREDITHINTBODY: prefix => `You ran the command **${prefix}credits** for the first time, so let's give you a little hint on how to earn 30,000 credits within 30 days.\n\nEvery day you have the opportunity to upvote the LenoxBot here: https://discordbots.org/bot/354712333853130752/vote\nEach upvote gives you between 100-1000 credits (In the weekend you can get up to 200-2000).\nAfter 12 hours you can then vote again...`,
+			COMMAND_CREDITS_CREDITS: 'Credits:',
+			COMMAND_LOOP_NOCHANNEL: 'You need to be in a voice channel to toggle looping.',
+			COMMAND_LOOP_NOQUEUE: 'The sound of silence is always looping, please add some music to the queue first!',
+			COMMAND_LOOP_IS: (loop, wasRepeating) => `Queue looping has been ${loop ? '`enabled`' : '`disabled`'}${wasRepeating ? ' and repeat has been disabled.' : '' }.`,
 
 			/**
 			 * @Command_Dscriptions
@@ -297,8 +303,12 @@ module.exports = class extends Language {
 			COMMAND_PARTNER_EXTENDEDHELP: ['partner lenoxbot'].join('\n'),
 			COMMAND_SETPRESENCE_DESCRIPTION: 'Sets a new presence for the bot.',
 			COMMAND_SETPRESENCE_EXTENDEDHELP: ['setpresence LenoxBot'].join('\n'),
-			COMMAND_PLAY_DESCRIPTION: "Searches for music that matches to your request.",
-			COMMAND_PLAY_EXTENDEDHELP: ['play Parkway Drive - Boneyards'].join('\n')
+			COMMAND_CREDITS_DESCRIPTION: 'Shows how many credits you or another user has.',
+			COMMAND_CREDITS_EXTENDEDHELP: ['credits', 'credits @Monkeyyy11#7584'].join('\n'),
+			COMMAND_PLAY_DESCRIPTION: 'Searches for music that matches to your request.',
+			COMMAND_PLAY_EXTENDEDHELP: ['play Parkway Drive - Boneyards'].join('\n'),
+			COMMAND_LOOP_DESCRIPTION: 'Loop (or unloop) the music queue.',
+			COMMAND_LOOP_EXTENDEDHELP: '',
 		};
 	}
 
