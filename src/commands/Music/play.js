@@ -1,6 +1,9 @@
 const { Command } = require('klasa');
 const { Util } = require('discord.js');
 const ytdl = require('ytdl-core');
+const { YTSearcher } = require('ytsearcher');
+
+
 const config = require('../../settings.json');
 const moment = require('moment');
 require('moment-duration-format');
@@ -41,8 +44,34 @@ module.exports = class extends Command {
 			youtube: /(?:youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=))|youtu\.be\/)([a-zA-Z0-9_-]{6,11})/gi
 		}
 
-		if (regexes.youtube.test(query)) {
-			// do youtube stuff here
+		if (!regexes.youtube.test(query)) {
+			// radio
+		} else {
+			const search = new YTSearcher({
+				key: process.env.YOUTUBE_API_KEY,
+				revealkey: true
+			});
+
+			search.search(query, { type: 'video' }).then((searchResult) => {
+				let result = searchResult.first;
+				//if (!result) return msg.channel.send(`<:redx:411978781226696705> Could not find this video.`).catch(err => console.error)
+				// result.id = video id // result.channelID = channel id // result.url = full video url // result.title = video name // result.description = video description
+				if (!result || !result.url || !result.id) return msg.channel.send('<:redx:411978781226696705> I was unable to find that video.');
+				music_settings.queue.push({
+					channelId: result.channelId,
+					channelTitle: result.channelTitle,
+					liveBroadcastContent: result.liveBroadcastContent || 'N/A',
+					kind: result.kind,
+					title: result.title || 'N/A',
+					url: result.url,
+					id: result.id,
+					description: result.description || 'N/A',
+					publishedAt: result.publishedAt,
+					thumbnails: result.thumbnails,
+					requester: message.author,
+					total_duration: ''
+				});
+			});
 		}
 
 		const executeQueue = ((queue) => {

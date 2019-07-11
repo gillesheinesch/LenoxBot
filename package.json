@@ -31,6 +31,7 @@
     "ffmpeg-static": "^2.5.0",
     "ytdl-core": "^0.29.3",
     "moment": "^2.24.0",
-    "moment-duration-format": "^2.3.2"
+    "moment-duration-format": "^2.3.2",
+    "ytsearcher": "^1.2.2"
   }
 }
