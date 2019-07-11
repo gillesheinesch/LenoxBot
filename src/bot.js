@@ -14,6 +14,7 @@ Client.defaultClientSchema
 	.add('owners', 'string', { array: true, configurable: false, filter: (__, value) => !MENTION_REGEX.snowflake.test(value) })
 
 Client.defaultGuildSchema
+	.add('music', 'any', { configurable: false, default: { queue: [], loop: false } })
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'integer', { 'default': 1 })
 	.add('modules', folder => folder
