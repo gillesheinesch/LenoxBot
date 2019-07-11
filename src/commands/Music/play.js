@@ -31,14 +31,14 @@ module.exports = class extends Command {
 		const voice_channel = message.member.voice.channel;
 		if (!voice_channel) return message.channel.send(lang.play_notvoicechannel);
 
-		/* Remove */
+		/* Planned Removal */
 		for (let i = 0; i < message.client.provider.getGuild(message.guild.id, 'musicchannelblacklist').length; i++) {
 			if (voiceChannel.id === message.client.provider.getGuild(message.guild.id, 'musicchannelblacklist')[i]) return message.reply(lang.play_blacklistchannel);
 		}
-		/* Remove */
+		/* Planned Removal */
 
 		const executeQueue = ((queue) => {
-			const voice_connections = this.cient.voice.connections;
+			const voice_connections = this.client.voice.connections;
 			// If the queue is empty
 			if (queue.length <= 0) {
 				music_settings.queue_position = 0;
@@ -66,30 +66,23 @@ module.exports = class extends Command {
 						reject();
 					} else {
 						// Otherwise, clear the queue and do nothing.
-						queue.splice(0, queue.length);
+						queue.length = 0;//queue.splice(0, queue.length);
 						reject();
 					}
 				} else {
 					resolve(voice_connections.get(message.guild.id));
 				}
 			}).then((connection) => {
-				const video = (fetched_queue.loop || fetched_queue.repeat) ? queue[fetched_queue.queue_position].url : queue[0].url; // Get the audio to play from the queue.
+				const video = (music_settings.loop || music_settings.repeat) ? queue[music_settings.queue_position].url : queue[0].url; // Get the audio to play from the queue.
 				
 				// Play the video.
 				try {
-					fetched_queue.is_streaming = false;
+					music_settings.is_streaming = false;
 					
 					if (!video) return message.channel.send('<:redx:411978781226696705> I was unable to play that video.');
 					
-					let dispatcher = fetched_queue.stream_mode === 0 ? connection.play(ytdl(video.toString(), { filter: 'audioonly' }), { volume: (fetched_queue.volume / 100) }) : connection.play(stream(video.toString()), { volume: (fetched_queue.volume / 100) }); // Will Fix Soon // connection.playStream(stream(video.toString()), { volume: (music_items[message.guild.id].volume / 100) }); // playStream
-					
-					/*connection.once('authenticated', () => {
-						console.log('Connection has been successfully authenticated');
-						connection.once('ready', () => {
-							console.log('Connection is ready');
-						});
-					});*/
-					
+					const dispatcher = !music_settings.stream_mode ? connection.play(ytdl(video.toString(), { filter: 'audioonly' }), { volume: music_settings.volume / 100 }) : connection.play(stream(video.toString()), { volume: music_settings.volume / 100 });
+
 					connection.once('failed', (reason) => {
 						console.error(reason.toString());
 						try {
@@ -104,70 +97,74 @@ module.exports = class extends Command {
 						console.error(`Dispatcher/connection: ${err.stack ? err.stack : err.toString()}`);
 						if (message && message.channel) message.channel.send(`<:redx:411978781226696705> Dispatcher error!\n\`${err.toString()}\``);
 						//queue.shift();
-						if (fetched_queue.loop || fetched_queue.repeat) {
-							if (fetched_queue.queue_position >= fetched_queue.queue.length - 1) {
-								fetched_queue.queue_position = 0;
+						if (music_settings.loop || music_settings.repeat) {
+							if (music_settings.queue_position >= queue.length - 1) {
+								music_settings.queue_position = 0;
 							} else {
-								fetched_queue.queue_position++;
+								music_settings.queue_position++;
 							}
 						} else {
-							fetched_queue.queue_position = 0;
+							music_settings.queue_position = 0;
 							if (queue.length > 0) {
 								queue.shift(); // Skip to the next song.
 							}
 						}
-						executeQueue(fetched_queue.queue);
+						executeQueue(queue);
 					});
 					
 					dispatcher.once('error', (err) => {
 						console.error(`Dispatcher: ${err.stack ? err.stack : err.toString()}`);
 						if (message && message.channel) message.channel.send(`<:redx:411978781226696705> Dispatcher error!\n\`${err.toString()}\``);
 						//queue.shift(); // Skip to the next song.
-						if (fetched_queue.loop || fetched_queue.repeat) {
-							if (fetched_queue.queue_position >= fetched_queue.queue.length - 1) {
-								fetched_queue.queue_position = 0;
+						if (music_settings.loop || music_settings.repeat) {
+							if (music_settings.queue_position >= queue.length - 1) {
+								music_settings.queue_position = 0;
 							} else {
-								fetched_queue.queue_position++;
+								music_settings.queue_position++;
 							}
 						} else {
-							fetched_queue.queue_position = 0;
+							music_settings.queue_position = 0;
 							if (queue.length > 0) {
 								queue.shift(); // Skip to the next song.
 							}
 						}
-						executeQueue(fetched_queue.queue);
+						executeQueue(queue);
 					});
 					
 					dispatcher.once('end', () => {
 						// Wait a second before continuing
 						setTimeout(() => {
-							if (fetched_queue.loop && !fetched_queue.repeat) {
-								if (fetched_queue.queue_position >= fetched_queue.queue.length - 1) {
-									fetched_queue.queue_position = 0;
+							if (music_settings.loop && !music_settings.repeat) {
+								if (music_settings.queue_position >= queue.length - 1) {
+									music_settings.queue_position = 0;
 								} else {
-									fetched_queue.queue_position++;
+									music_settings.queue_position++;
 								}
-								//executeQueue(fetched_queue.queue);
-							} else if (!fetched_queue.loop && fetched_queue.repeat) {
+								//executeQueue(queue);
+							} else if (!music_settings.loop && music_settings.repeat) {
 								// do nothing
-								//executeQueue(fetched_queue.queue);
+								//executeQueue(queue);
 							} else {
-								fetched_queue.queue_position = 0;
+								music_settings.queue_position = 0;
 								if (queue.length > 0) {
 									queue.shift(); // Skip to the next song.
-									//executeQueue(fetched_queue.queue);
+									//executeQueue(queue);
 								}
 							}
-							executeQueue(fetched_queue.queue);
+							executeQueue(queue);
 						}, 1000);
 					});
 				} catch (err) {
-					return console.error(`${err.stack ? err.stack : err.toString()}`);
+					return console.error(err.stack ? err.stack : err.toString());
 				};
 			}).catch((err) => {
-				return console.error(`${err.stack ? err.stack : err.toString()}`);
+				return console.error(err.stack ? err.stack : err.toString());
 			});
 		});
+
+
+
+
 
 		async function play(guild, song) {
 			const serverQueue = await queue.get(guild.id);
