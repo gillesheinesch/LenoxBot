@@ -20,6 +20,9 @@ Client.defaultGuildSchema
 	.add('joinroles', 'role', { array: true })
 	.add('skipnumber', 'integer', { 'default': 1 })
 	.add('momentLanguage', 'string', { default: 'en' })
+	.add('premium', folder => folder
+		.add('status', 'boolean', { default: false, configurable: false })
+	)
 	.add('modules', folder => folder
 		.add('utility', 'boolean', { default: true })
 	)

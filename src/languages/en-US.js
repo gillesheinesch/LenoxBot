@@ -223,7 +223,8 @@ module.exports = class extends Language {
 			COMMAND_CREDITS_CREDITS: 'Credits:',
 			COMMAND_LOOP_NOCHANNEL: 'You need to be in a voice channel to toggle looping.',
 			COMMAND_LOOP_NOQUEUE: 'The sound of silence is always looping, please add some music to the queue first!',
-			COMMAND_LOOP_IS: (loop, wasRepeating) => `Queue looping has been ${loop ? '`enabled`' : '`disabled`'}${wasRepeating ? ' and repeat has been disabled.' : '' }.`,
+			COMMAND_LOOP_IS: (loop) => `Queue looping has been ${loop ? '`enabled`' : '`disabled`'}.`,
+			COMMAND_PLAY_QUEUELIMIT_REACHED: "Only a maximum of 8 songs can be queued on this Discord server. If you want to add more, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
 
 			/**
 			 * @Command_Dscriptions
@@ -308,7 +309,7 @@ module.exports = class extends Language {
 			COMMAND_PLAY_DESCRIPTION: 'Searches for music that matches to your request.',
 			COMMAND_PLAY_EXTENDEDHELP: ['play Parkway Drive - Boneyards'].join('\n'),
 			COMMAND_LOOP_DESCRIPTION: 'Loop (or unloop) the music queue.',
-			COMMAND_LOOP_EXTENDEDHELP: '',
+			COMMAND_LOOP_EXTENDEDHELP: ['loop'].join('\n'),
 		};
 	}
 

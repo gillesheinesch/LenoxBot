@@ -1,5 +1,5 @@
 const { Command } = require('klasa');
-const { Util } = require('discord.js');
+const { Util, MessageEmbed } = require('discord.js');
 const ytdl = require('ytdl-core');
 const { YTSearcher } = require('ytsearcher');
 
@@ -41,6 +41,8 @@ module.exports = class extends Command {
 			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/gi
 		}
 
+		if (music_settings.queue.length > 8 && !message.guildSettings.get('premium.status')) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
+
 		if (!regexes.youtube.test(query)) {
 			// radio
 			music_settings.queue.push({
@@ -65,7 +67,7 @@ module.exports = class extends Command {
 					channelTitle: result.channelTitle,
 					//liveBroadcastContent: result.liveBroadcastContent || 'N/A',
 					//kind: result.kind,
-					title: result.title || 'N/A',
+					title: Util.escapeMarkdown((result.title || 'N/A').replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ')),
 					url: result.url,
 					id: result.id,
 					description: result.description || 'N/A',
