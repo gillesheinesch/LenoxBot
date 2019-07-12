@@ -1,8 +1,10 @@
 const { Command } = require('klasa');
 const { MessageEmbed, Util: { escapeMarkdown } } = require('discord.js');
 const ytdl = require('ytdl-core');
+const youtubeInfo = require("youtube-info");
 const ytlist = require("youtube-playlist");
 const { YTSearcher } = require('ytsearcher');
+const { humanize } = require("better-ms");
 
 
 const config = require('../../settings.json');
@@ -40,13 +42,23 @@ module.exports = class extends Command {
 		const voice_connection = message.guild.voice.connection;
 
 		const regexes = {
-			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/gi
+			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/gi,
+			youtube_playlist: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/gi
 		}
 
 		if (music_settings.queue.length > 8 && !message.guildSettings.get('premium.status')) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
 
-		if (!regexes.youtube.test(query)) {
-			// radio
+		if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
+			/**
+			 * @property { videoId, url, title, description, owner, channelId, thumbnailUrl, embedURL, datePublished, genre, paid, unlisted, isFamilyFriendly, duration, views, regionsAllowed, dislikeCount, likeCount, channelThumbnailUrl, commentCount }
+			*/
+			pushToQueue(await getYoutubeVideoInfo(query));
+		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) {
+			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/gi.test(query) && query.length >= 6 && query.length <= 34) query = `https://youtube.com/playlist?list=${query}`;
+			(await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info));
+		}
+		/*
+		// radio
 			music_settings.queue.push({
 				title: 'Stream', // fix this later
 				url: query, // make a preset radio queue also
@@ -56,10 +68,8 @@ module.exports = class extends Command {
 				skipvotes: [],
 				total_duration: ''
 			});
-		} else {
-			
-			
-		}
+			*/
+
 		if (music_settings.queue.length) executeQueue(music_settings.queue);
 
 		const executeQueue = ((queue) => {
@@ -177,18 +187,33 @@ module.exports = class extends Command {
 			});
 		});
 
-		const getYoutubeVideoInfo = ((video_url) => {
-			ytdl.getInfo(search, (err, info) => {
-				if (err) throw err.message;
+		const pushToQueue = ((options = {}) => {
+			return music_settings.queue.push({
+				description: options.description || 'N/A',
+				duration: options.duration * 1000 || 0,
+				genre: options.genre || 'N/A',
+				thumbnailUrl: options.thumbnailUrl || 'N/A',
+				title: options.title || 'N/A',
+				url: options.url,
+				videoId: options.videoId
 			});
 		});
 
+		const getYoutubeVideoInfo = (async (video_url, playlist = false) => {
+			try {
+				return await youtubeInfo(video_url);
+			} catch (e) {
+				if (!playlist) throw e.message; // ignore error if retrieving from playlist otherwise the playlist array will include rejected promises
+			}
+		});
+
 		const getYoutubePlaylistVideos = (async (playlist_url) => {
-			await ytlist(playlist_url, ['id', 'name', 'url']).then((res) => {
-				return res.data.playlist;
-			}).catch((error) => {
+			try {
+				const videos = await ytlist(playlist_url, "id");
+				return await Promise.all(videos.data.playlist.map((id) => getYoutubeVideoInfo(id, true)));
+			} catch (error) {
 				throw error.message;
-			});
+			}
 		});
 
 		const searchForYoutubeVideo = ((search) => {
