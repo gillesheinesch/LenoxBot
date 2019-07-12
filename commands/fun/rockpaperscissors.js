@@ -22,6 +22,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const margs = msg.content.split(' ');
 		const validation = ['scissors', 'rock', 'paper'];
@@ -130,6 +131,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 				}
 			}
 		}
-		return msg.reply(lang.rockpaperscissors_error);
+		const rockpaperscissors_error = lang.rockpaperscissors_error.replace('%prefix', prefix)
+		return msg.reply(rockpaperscissors_error);
 	}
 };
