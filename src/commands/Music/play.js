@@ -1,10 +1,11 @@
 const { Command } = require('klasa');
-const { MessageEmbed, Util: { escapeMarkdown, mergeDefault } } = require('discord.js');
+const { MessageEmbed, Util: { escapeMarkdown } } = require('discord.js');
 const ytdl = require('ytdl-core');
 const youtubeInfo = require("youtube-info");
 const ytlist = require("youtube-playlist");
 const { YTSearcher } = require('ytsearcher');
 const { humanize } = require("better-ms");
+const axios = require('axios');
 
 
 const config = require('../../settings.json');
@@ -48,19 +49,19 @@ module.exports = class extends Command {
 
 		if (music_settings.queue.length > 8 && !message.guildSettings.get('premium.status')) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
 
-		if (await isValidURL(query)) {
-			// radio stuff here
-		} else if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
+		if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
 			/**
 			 * @property { videoId, url, title, description, owner, channelId, thumbnailUrl, embedURL, datePublished, genre, paid, unlisted, isFamilyFriendly, duration, views, regionsAllowed, dislikeCount, likeCount, channelThumbnailUrl, commentCount }
 			*/
-			pushToQueue(await getYoutubeVideoInfo(query));
-		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) {
+			pushToQueue(message, await getYoutubeVideoInfo(query));
+		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) { // youtube playlist
 			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/gi.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
 			message.send({ embed: { description: 'Loading...', color: 7506394 } });
-			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info));
+			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(message, info));
 			message.send({ embed: { description: `Done, Added \`${videos.length}\` items to the queue.`, color: 7506394 } });
-		} else {
+		} else if (await isValidURL(query)) { // radio stream
+			pushToQueue(message, { url: query, duration: Infinity });
+		} else { // radio name or youtube search
 			// search for builtin radio name or youtube video
 		}
 		/*
@@ -193,24 +194,19 @@ module.exports = class extends Command {
 			});
 		});
 
-		const pushToQueue = ((options = {}) => {
-			return music_settings.queue.push(mergeDefault({
-				description: undefined,
-				duration: 0,
-				genre: undefined,
-				thumbnailUrl: undefined,
-				title: undefined,
-				url: undefined,
-				videoId: undefined
-			}, {
-				description: options.description || 'N/A',
-				duration: options.duration * 1000 || 0,
-				genre: options.genre || 'N/A',
-				thumbnailUrl: options.thumbnailUrl || 'N/A',
-				title: options.title || 'N/A',
-				url: options.url,
-				videoId: options.videoId
-			}));
+		const pushToQueue = (message, (options = {}) => {
+			return music_settings.queue.push({
+				description: options.description || undefined,
+				duration: options.duration || 0,
+				genre: options.genre || undefined,
+				repeat: false,
+				requester: message.author,
+				skipvotes: [],
+				thumbnailUrl: options.thumbnailUrl || undefined,
+				title: escapeMarkdown(options.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ')) || undefined,
+				url: decodeURIComponent(options.url),
+				videoId: options.videoId || undefined
+			});
 		});
 
 		const isValidURL = (async (url) => {
