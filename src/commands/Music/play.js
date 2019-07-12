@@ -53,7 +53,7 @@ module.exports = class extends Command {
 			/**
 			 * @property { videoId, url, title, description, owner, channelId, thumbnailUrl, embedURL, datePublished, genre, paid, unlisted, isFamilyFriendly, duration, views, regionsAllowed, dislikeCount, likeCount, channelThumbnailUrl, commentCount }
 			*/
-			pushToQueue(message, await getYoutubeVideoInfo(query));
+			pushToQueue(message, await getYoutubeVideoInfo(ytdl.getVideoID(query)));
 		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) { // youtube playlist
 			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/gi.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
 			message.send({ embed: { description: 'Loading...', color: 7506394 } });
@@ -63,7 +63,8 @@ module.exports = class extends Command {
 			pushToQueue(message, { url: query, duration: Infinity });
 		} else { // radio name or youtube search
 			// search for builtin radio name or youtube video
-			throw 'This feature is not yet implemented!';
+			// check if string is a valid radio station name, otherwise it's a search query for youtube
+			pushToQueue(message, await searchForYoutubeVideo(query));
 		}
 
 		if (music_settings.queue.length) executeQueue(music_settings.queue);
@@ -207,9 +208,9 @@ module.exports = class extends Command {
 			}
 		});
 
-		const getYoutubeVideoInfo = (async (video_url, playlist = false) => {
+		const getYoutubeVideoInfo = (async (video_id, playlist = false) => {
 			try {
-				return await youtubeInfo(video_url);
+				return await youtubeInfo(video_id);
 			} catch (e) {
 				if (!playlist) throw e.message; // ignore error if retrieving from playlist otherwise the playlist array will include rejected promises
 			}
@@ -224,29 +225,12 @@ module.exports = class extends Command {
 			}
 		});
 
-		const searchForYoutubeVideo = ((search) => {
+		const searchForYoutubeVideo = (async (search) => {
+			if (!process.env.YOUTUBE_API_KEY) throw 'You must set a YouTube API V3 Key in the .env file!';
 			const search = new YTSearcher({ key: process.env.YOUTUBE_API_KEY, revealkey: true });
-			search.search(search, { type: 'video' }).then((searchResult) => {
-				let result = searchResult.first;
-				if (!result || !result.url || !result.id) throw 'I was unable to find that video.';
-				music_settings.queue.push({
-					channelId: result.channelId,
-					channelTitle: result.channelTitle,
-					//liveBroadcastContent: result.liveBroadcastContent || 'N/A',
-					//kind: result.kind,
-					title: escapeMarkdown((result.title || 'N/A').replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ')),
-					url: result.url,
-					id: result.id,
-					description: result.description || 'N/A',
-					publishedAt: result.publishedAt,
-					thumbnails: result.thumbnails,
-					requester: message.author,
-					repeat: false,
-					skipvotes: [],
-					total_duration: ''
-				});
-				//if (music_settings.queue.length === 1 || !voice_connection) executeQueue(music_settings.queue);
-			});
+			const videos = await search.search(search, { type: 'video' });
+			if (!videos.first || !videos.first.id) throw 'I was unable to find that video!';
+			return await getYoutubeVideoInfo(videos.first.id);
 		});
 
 
