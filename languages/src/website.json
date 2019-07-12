@@ -114,6 +114,7 @@
     "website_commands_permissions": "Permissions",
     "website_commands_aliases": "Aliases",
     "website_commands_cmdnotfound": "Command not found",
+    "website_commands_all": "All",
 
     "website_servers_warning": "Please note: if you cannot find your server in the list, log in again!",
     "website_servers_members": "members",
