@@ -225,6 +225,7 @@ module.exports = class extends Language {
 			COMMAND_LOOP_NOQUEUE: 'The sound of silence is always looping, please add some music to the queue first!',
 			COMMAND_LOOP_IS: (loop) => `Queue looping has been ${loop ? '`enabled`' : '`disabled`'}.`,
 			COMMAND_PLAY_QUEUELIMIT_REACHED: "Only a maximum of 8 songs can be queued on this Discord server. If you want to add more, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+			COMMAND_PLAY_SONGLENGTHLIMIT: "You can only add videos that are less than 30 minutes to the queue. If you want to queue longer videos, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
 
 			/**
 			 * @Command_Dscriptions

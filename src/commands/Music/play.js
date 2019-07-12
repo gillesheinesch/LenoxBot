@@ -6,6 +6,7 @@ const ytlist = require("youtube-playlist");
 const { YTSearcher } = require('ytsearcher');
 const { humanize } = require("better-ms");
 const axios = require('axios');
+const parseMilliseconds = require('parse-ms');
 
 
 const config = require('../../settings.json');
@@ -27,6 +28,7 @@ module.exports = class extends Command {
 
 	async run(message, [query]) {
 		const music_settings = message.guildSettings.get('music');
+		const premium = message.guildSettings.get('premium.status');
 		//const skipvote = message.client.skipvote;
 		//const url = input[1] ? input[1].replace(/<(.+)>/g, '$1') : '';
 		moment.locale(message.guildSettings.get('momentLanguage'));
@@ -47,7 +49,12 @@ module.exports = class extends Command {
 			youtube_playlist: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/gi
 		}
 
-		if (music_settings.queue.length > 8 && !message.guildSettings.get('premium.status')) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
+		if (music_settings.queue.length && !premium) {
+			if (music_settings.queue.length > 8) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
+			let duration = 0;
+			music_settings.queue.map((audio) => duration += audio.duration);
+			if (parseMilliseconds(duration).minutes >= 30) return message.reply(message.language.get('COMMAND_PLAY_SONGLENGTHLIMIT'));
+		}
 
 		if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
 			/**
@@ -67,7 +74,7 @@ module.exports = class extends Command {
 			pushToQueue(message, await searchForYoutubeVideo(query));
 		}
 
-		if (music_settings.queue.length) executeQueue(music_settings.queue);
+		if (music_settings.queue.length === 1 || !voice_connection) executeQueue(music_settings.queue);
 
 		const executeQueue = ((queue) => {
 			const current_audio = queue[0];
@@ -77,16 +84,16 @@ module.exports = class extends Command {
 			} else {
 				const embed = new MessageEmbed()
 					.setColor(3447003)
-					.setTitle(current_audio.channelTitle ? `${current_audio.title.replace(/\&quot;/g, '"') || 'N/A'} by ${current_audio.channelTitle || 'N/A'}` : current_audio.title.replace(/\&quot;/g, '"'))
+					.setTitle(current_audio.owner ? `${current_audio.title ? current_audio.title.replace(/\&quot;/g, '"') : 'N/A'} by ${current_audio.owner}` : current_audio.title ? current_audio.title.replace(/\&quot;/g, '"') : 'N/A')
 					.setURL(current_audio.url)
 					.setTimestamp()
 
-				if (current_audio.thumbnails) embed.setThumbnail(current_audio.thumbnails.high.url || current_audio.thumbnails.medium.url || current_audio.thumbnails.default.url);
+				if (current_audio.thumbnailUrl) embed.setThumbnail(current_audio.thumbnailUrl);
 				if (current_audio.description) embed.setDescription(current_audio.description)
 				message.channel.send({ embed: embed });
 				//if (voice_connection) return;
 			}
-			
+
 			new Promise((resolve, reject) => {
 				// Join the voice channel if not already in one.
 				if (!voice_connection) {
@@ -189,6 +196,7 @@ module.exports = class extends Command {
 				description: options.description || undefined,
 				duration: options.duration * 1000 || 0,
 				genre: options.genre || undefined,
+				owner: options.owner || undefined,
 				repeat: false,
 				requester: message.author,
 				skipvotes: [],
