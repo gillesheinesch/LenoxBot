@@ -7,11 +7,13 @@ const { YTSearcher } = require('ytsearcher');
 const { humanize } = require("better-ms");
 const axios = require('axios');
 const parseMilliseconds = require('parse-ms');
+const moment = require('moment');
+require('moment-duration-format');
+
+
 
 
 /*const config = require('../../settings.json');
-const moment = require('moment');
-require('moment-duration-format');
 const YouTube = require('simple-youtube-api');
 const youtube = new YouTube(config.googlekey);*/
 
