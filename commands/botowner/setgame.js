@@ -22,11 +22,13 @@ module.exports = class setgameCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
 		const input = args.slice();
-		if (!input || input.length === 0) return msg.reply(lang.setgame_error);
+		const setgame_error = lang.setgame_error.replace('%prefix', prefix);
+		if (!input || input.length === 0) return msg.reply(setgame_error);
 
 		await msg.client.user.setPresence({ game: { name: `${input.join(' ')}`, type: 0 } });
 

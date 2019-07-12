@@ -22,6 +22,7 @@ module.exports = class socialmediaCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
+		const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
 		const validation = ['delete', 'edit', 'list'];
 		const validation2 = ['youtube', 'twitch', 'instagram', 'twitter', 'facebook', 'github', 'pinterest', 'reddit'];
@@ -87,7 +88,8 @@ module.exports = class socialmediaCommand extends LenoxCommand {
 							}
 						}
 					}
-					return msg.reply(lang.socialmedia_error4);
+					const error4 = lang.socialmedia_error4.replace('%prefix', prefix);
+					return msg.reply(error4);
 				} else if (margs[1].toLowerCase() === 'delete') {
 					if (args.slice(1).length === 0) return msg.reply(lang.socialmedia_error2);
 					for (let index = 0; index < margs.length; index++) {
@@ -151,7 +153,8 @@ module.exports = class socialmediaCommand extends LenoxCommand {
 							}
 						}
 					}
-					return msg.reply(lang.socialmedia_error4);
+					const error4 = lang.socialmedia_error4.replace('%prefix', prefix);
+					return msg.reply(error4);
 				} else if (margs[1].toLowerCase() === 'list') {
 					const embed = new Discord.MessageEmbed()
 						.setTimestamp()
@@ -168,6 +171,7 @@ module.exports = class socialmediaCommand extends LenoxCommand {
 				}
 			}
 		}
-		return msg.reply(lang.socialmedia_error4);
+		const error4 = lang.socialmedia_error4.replace('%prefix', prefix);
+		return msg.reply(error4);
 	}
 };
