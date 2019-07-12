@@ -364,7 +364,7 @@
     "rockpaperscissors_error": "You didn't specify correctly if you want to take rock, paper or scissors. Please use %prefixhelp rockpaperscissors to read the correct usage of this command!",
     "rockpaperscissors_description": "Play a round of rock–paper–scissors with the bot",
 
-    "setgame_error": "You have to enter a new game status for your bot!",
+    "setgame_error": "You have to enter a new game status for your bot. Please use %prefixhelp setgame to read the correct usage of this command!",
     "setgame_done": "The new game status has been set successfully!",
     "setgame_description": "Sets a new game status for the bot",
 
