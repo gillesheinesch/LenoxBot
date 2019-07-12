@@ -1,5 +1,5 @@
 const { Command } = require('klasa');
-const { MessageEmbed, Util: { escapeMarkdown } } = require('discord.js');
+const { MessageEmbed, Util: { escapeMarkdown, mergeDefault } } = require('discord.js');
 const ytdl = require('ytdl-core');
 const youtubeInfo = require("youtube-info");
 const ytlist = require("youtube-playlist");
@@ -48,14 +48,20 @@ module.exports = class extends Command {
 
 		if (music_settings.queue.length > 8 && !message.guildSettings.get('premium.status')) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
 
-		if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
+		if (await isValidURL(query)) {
+			// radio stuff here
+		} else if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
 			/**
 			 * @property { videoId, url, title, description, owner, channelId, thumbnailUrl, embedURL, datePublished, genre, paid, unlisted, isFamilyFriendly, duration, views, regionsAllowed, dislikeCount, likeCount, channelThumbnailUrl, commentCount }
 			*/
 			pushToQueue(await getYoutubeVideoInfo(query));
 		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) {
-			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/gi.test(query) && query.length >= 6 && query.length <= 34) query = `https://youtube.com/playlist?list=${query}`;
-			(await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info));
+			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/gi.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
+			message.send({ embed: { description: 'Loading...', color: 7506394 } });
+			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info));
+			message.send({ embed: { description: `Done, Added \`${videos.length}\` items to the queue.`, color: 7506394 } });
+		} else {
+			// search for builtin radio name or youtube video
 		}
 		/*
 		// radio
@@ -188,7 +194,15 @@ module.exports = class extends Command {
 		});
 
 		const pushToQueue = ((options = {}) => {
-			return music_settings.queue.push({
+			return music_settings.queue.push(mergeDefault({
+				description: undefined,
+				duration: 0,
+				genre: undefined,
+				thumbnailUrl: undefined,
+				title: undefined,
+				url: undefined,
+				videoId: undefined
+			}, {
 				description: options.description || 'N/A',
 				duration: options.duration * 1000 || 0,
 				genre: options.genre || 'N/A',
@@ -196,7 +210,16 @@ module.exports = class extends Command {
 				title: options.title || 'N/A',
 				url: options.url,
 				videoId: options.videoId
-			});
+			}));
+		});
+
+		const isValidURL = (async (url) => {
+			try {
+				await axios.get(url);
+				return true;
+			} catch (error) {
+				return false;
+			}
 		});
 
 		const getYoutubeVideoInfo = (async (video_url, playlist = false) => {
