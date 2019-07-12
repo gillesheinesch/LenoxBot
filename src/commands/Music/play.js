@@ -9,11 +9,11 @@ const axios = require('axios');
 const parseMilliseconds = require('parse-ms');
 
 
-const config = require('../../settings.json');
+/*const config = require('../../settings.json');
 const moment = require('moment');
 require('moment-duration-format');
 const YouTube = require('simple-youtube-api');
-const youtube = new YouTube(config.googlekey);
+const youtube = new YouTube(config.googlekey);*/
 
 module.exports = class extends Command {
 	constructor(...args) {
