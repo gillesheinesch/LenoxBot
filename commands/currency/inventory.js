@@ -9,9 +9,9 @@ module.exports = class inventoryCommand extends LenoxCommand {
 			group: 'currency',
 			memberName: 'inventory',
 			description: 'Shows you your inventory',
-			format: 'inventory [upgrade]',
+			format: 'inventory [upgrade] [number of upgrades]',
 			aliases: ['inv'],
-			examples: ['inventory', 'inventory upgrade'],
+			examples: ['inventory', 'inventory upgrade 2'],
 			clientpermissions: ['SEND_MESSAGES'],
 			userpermissions: [],
 			shortDescription: 'General',
@@ -31,16 +31,19 @@ module.exports = class inventoryCommand extends LenoxCommand {
 		for (let i = 0; i < args.slice().length; i++) {
 			if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
 				if (args.slice()[0].toLowerCase() === 'upgrade') {
-					if (msg.client.provider.getUser(msg.author.id, 'inventory').inventoryslotticket === 0) return msg.reply(lang.inventory_notickets);
+					if (isNaN(args.slice(1, 2))) return msg.reply(lang.inventory_morethan0);
+					if (parseInt(args.slice(1, 2), 10) <= 0) return msg.reply(lang.inventory_notenough);
+					if (msg.client.provider.getUser(msg.author.id, 'inventory').inventoryslotticket < parseInt(args.slice(1, 2), 10)) return msg.reply(lang.inventory_notenough);
+
 					const currentInventory = msg.client.provider.getUser(msg.author.id, 'inventory');
-					currentInventory.inventoryslotticket -= 1;
+					currentInventory.inventoryslotticket -= parseInt(args.slice(1, 2), 10);
 					msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);
 
 					let currentInventoryslots = msg.client.provider.getUser(msg.author.id, 'inventoryslots');
-					currentInventoryslots += 1;
+					currentInventoryslots += parseInt(args.slice(1, 2), 10);
 					msg.client.provider.setUser(msg.author.id, 'inventoryslots', currentInventoryslots);
 
-					const ticketbought = lang.inventory_ticketbought.replace('%currentslots', `\`${msg.client.provider.getUser(msg.author.id, 'inventoryslots')}\``);
+					const ticketbought = lang.inventory_ticketbought.replace('%numberofusedtickets', `\`${parseInt(args.slice(1, 2), 10)}\``).replace('%currentslots', `\`${msg.client.provider.getUser(msg.author.id, 'inventoryslots')}\``);
 					return msg.reply(ticketbought);
 				}
 			}
