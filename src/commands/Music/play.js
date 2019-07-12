@@ -63,19 +63,8 @@ module.exports = class extends Command {
 			pushToQueue(message, { url: query, duration: Infinity });
 		} else { // radio name or youtube search
 			// search for builtin radio name or youtube video
+			throw 'This feature is not yet implemented!';
 		}
-		/*
-		// radio
-			music_settings.queue.push({
-				title: 'Stream', // fix this later
-				url: query, // make a preset radio queue also
-				description: 'Stream', // fix this later
-				requester: message.author,
-				repeat: false,
-				skipvotes: [],
-				total_duration: ''
-			});
-			*/
 
 		if (music_settings.queue.length) executeQueue(music_settings.queue);
 
@@ -197,7 +186,7 @@ module.exports = class extends Command {
 		const pushToQueue = (message, (options = {}) => {
 			return music_settings.queue.push({
 				description: options.description || undefined,
-				duration: options.duration || 0,
+				duration: options.duration * 1000 || 0,
 				genre: options.genre || undefined,
 				repeat: false,
 				requester: message.author,
