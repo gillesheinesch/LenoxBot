@@ -6,7 +6,7 @@ module.exports = class extends Command {
 		super(...args, {
 			description: language => language.get('COMMAND_ROCKPAPERSCISSORS_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_ROCKPAPERSCISSORS_EXTENDEDHELP'),
-			usage: '<Scissors|Rock|Paper:str>{4,8}',
+			usage: '<Scissors|Rock|Paper:str{4,8}>',
 			aliases: ['rps'],
 			requiredPermissions: ['SEND_MESSAGES']
 		});
