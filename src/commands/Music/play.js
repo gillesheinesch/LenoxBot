@@ -1,6 +1,7 @@
 const { Command } = require('klasa');
-const { Util, MessageEmbed } = require('discord.js');
+const { MessageEmbed, Util: { escapeMarkdown } } = require('discord.js');
 const ytdl = require('ytdl-core');
+const ytlist = require("youtube-playlist");
 const { YTSearcher } = require('ytsearcher');
 
 
@@ -52,34 +53,12 @@ module.exports = class extends Command {
 				description: 'Stream', // fix this later
 				requester: message.author,
 				repeat: false,
+				skipvotes: [],
 				total_duration: ''
 			});
 		} else {
-			const search = new YTSearcher({
-				key: process.env.YOUTUBE_API_KEY,
-				revealkey: true
-			});
-
-			search.search(query, { type: 'video' }).then((searchResult) => {
-				let result = searchResult.first;
-				if (!result || !result.url || !result.id) return message.channel.send('I was unable to find that video.');
-				music_settings.queue.push({
-					channelId: result.channelId,
-					channelTitle: result.channelTitle,
-					//liveBroadcastContent: result.liveBroadcastContent || 'N/A',
-					//kind: result.kind,
-					title: Util.escapeMarkdown((result.title || 'N/A').replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ')),
-					url: result.url,
-					id: result.id,
-					description: result.description || 'N/A',
-					publishedAt: result.publishedAt,
-					thumbnails: result.thumbnails,
-					requester: message.author,
-					repeat: false,
-					total_duration: ''
-				});
-				//if (music_settings.queue.length === 1 || !voice_connection) executeQueue(music_settings.queue);
-			});
+			
+			
 		}
 		if (music_settings.queue.length) executeQueue(music_settings.queue);
 
@@ -195,6 +174,45 @@ module.exports = class extends Command {
 				};
 			}).catch((err) => {
 				return console.error(err.stack ? err.stack : err.toString());
+			});
+		});
+
+		const getYoutubeVideoInfo = ((video_url) => {
+			ytdl.getInfo(search, (err, info) => {
+				if (err) throw err.message;
+			});
+		});
+
+		const getYoutubePlaylistVideos = (async (playlist_url) => {
+			await ytlist(playlist_url, ['id', 'name', 'url']).then((res) => {
+				return res.data.playlist;
+			}).catch((error) => {
+				throw error.message;
+			});
+		});
+
+		const searchForYoutubeVideo = ((search) => {
+			const search = new YTSearcher({ key: process.env.YOUTUBE_API_KEY, revealkey: true });
+			search.search(search, { type: 'video' }).then((searchResult) => {
+				let result = searchResult.first;
+				if (!result || !result.url || !result.id) throw 'I was unable to find that video.';
+				music_settings.queue.push({
+					channelId: result.channelId,
+					channelTitle: result.channelTitle,
+					//liveBroadcastContent: result.liveBroadcastContent || 'N/A',
+					//kind: result.kind,
+					title: escapeMarkdown((result.title || 'N/A').replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ')),
+					url: result.url,
+					id: result.id,
+					description: result.description || 'N/A',
+					publishedAt: result.publishedAt,
+					thumbnails: result.thumbnails,
+					requester: message.author,
+					repeat: false,
+					skipvotes: [],
+					total_duration: ''
+				});
+				//if (music_settings.queue.length === 1 || !voice_connection) executeQueue(music_settings.queue);
 			});
 		});
 
