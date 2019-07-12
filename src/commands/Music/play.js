@@ -47,8 +47,8 @@ module.exports = class extends Command {
 		const voice_connection = message.guild.voice.connection;
 
 		const regexes = {
-			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/gi,
-			youtube_playlist: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/gi
+			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/i,
+			youtube_playlist: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/i
 		}
 
 		if (music_settings.queue.length && !premium) {
@@ -64,16 +64,17 @@ module.exports = class extends Command {
 			*/
 			pushToQueue(message, await getYoutubeVideoInfo(ytdl.getVideoID(query)));
 		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) { // youtube playlist
-			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/gi.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
+			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/i.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
 			message.send({ embed: { description: 'Loading...', color: 7506394 } });
 			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(message, info));
 			message.send({ embed: { description: `Done, Added \`${videos.length}\` items to the queue.`, color: 7506394 } });
 		} else if (await isValidURL(query)) { // radio stream
 			pushToQueue(message, { url: query, duration: Infinity });
-		} else { // radio name or youtube search
+		} else { // play from stream [only supports youtube currently]
+			if (query.toLowerCase().startsWith('yt:')) pushToQueue(message, await searchForYoutubeVideo(query.replace(/^yt\:/i, ''))); // if query starts with `yt:` search for youtube video
+			else pushToQueue(message, await searchForYoutubeVideo(query)); // if none match default to youtube
 			// search for builtin radio name or youtube video
-			// check if string is a valid radio station name, otherwise it's a search query for youtube
-			pushToQueue(message, await searchForYoutubeVideo(query));
+			//otherwise it's a search query for youtube
 		}
 
 		if (music_settings.queue.length === 1 || !voice_connection) executeQueue(music_settings.queue);
