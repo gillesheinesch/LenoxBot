@@ -31,7 +31,7 @@ module.exports = class extends Command {
 				.setAuthor(audio_queue, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg')
 		);
 		display.setFooterPrefix(message.language.get('COMMAND_QUEUE_EMBEDFOOTER', getDuration(total_duration_ms)));
-		const queueChunks = chunk(queue, 15);
+		const queueChunks = chunk(queue, 10);
 		const chunks = queueChunks.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(audio.duration - voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`);
 		for (const chunky of chunks) {
 			display.addPage(
