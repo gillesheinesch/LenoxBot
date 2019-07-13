@@ -257,8 +257,12 @@ module.exports = class extends Language {
 			MUSIC_ANOTHERSKIPVOTE: (author, currentvotes, skipnumber) => `${author} also wants to skip the current audio. ${currentvotes}/${skipnumber} votes are needed to skip the current audio.`,
 			COMMAND_SKIPVOTEDEACTIVATED: "The skipvote function has to be activated before you can use this command",
 			COMMAND_QUEUE_NOWPLAYING: (title) => `Now playing: ${title}`,
-			COMMAND_QUEUE_AUDIOQUEUE: "Audio queue",
+			COMMAND_QUEUE_AUDIOQUEUE: (play_pause, repeat) => `Audio queue | ${play_pause} ${repeat}`,
 			COMMAND_QUEUE_EMBEDFOOTER: (duration) => `Total Duration: ${duration} | Page `,
+			COMMAND_NOPREMIUM: "This is a premium-only command. To get access to the premium-only features, you only have to pay 1€! More information can be found on <https://lenoxbot.com/donate> or join our Discord support server: <https://lenoxbot.com/discord>.",
+			COMMAND_VOLUME_CURRENTVOLUME: (volume) => `The current volume is: \`${volume}%\`.`,
+			COMMAND_VOLUME_MUSTBEBETWEEN: "Volume must be between `0-200`!",
+			COMMAND_VOLUME_VOLSETTO: (newVolume) => `Volume set to \`${newVolume}%\`.`,
 
 			/**
 			 * @Command_Dscriptions
@@ -351,7 +355,9 @@ module.exports = class extends Language {
 			COMMAND_SKIP_DESCRIPTION: "Allows the users to skip a song with a poll.",
 			COMMAND_SKIP_EXTENDEDHELP: ['skip'].join('\n'),
 			COMMAND_QUEUE_DESCRIPTION: "Shows the current audio queue.",
-			COMMAND_QUEUE_EXTENDEDHELP: ['queue'].join('\n')
+			COMMAND_QUEUE_EXTENDEDHELP: ['queue'].join('\n'),
+			COMMAND_VOLUME_DESCRIPTION: "Changes the volume of the bot.",
+			COMMAND_VOLUME_EXTENDEDHELP: ['volume 100', 'volume 200'].join('\n'),
 		};
 	}
 

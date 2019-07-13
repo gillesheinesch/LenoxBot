@@ -14,12 +14,15 @@ module.exports = class extends Command {
 	}
 
 	run(message) {
-		const { queue } = message.guildSettings.get('music');
+		const { queue, loop } = message.guildSettings.get('music');
 		const voice_connection = message.guild.voice ? message.guild.voice.connection : null;
 		if (!queue.length || !voice_connection) return message.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
 		let total_duration_ms = 0;
 
-		const audio_queue = message.language.get('COMMAND_QUEUE_AUDIOQUEUE', queue[0].title);
+		const paused_play_symbol = voice_connection.dispatcher.paused ? '⏸' : '▶️';
+		const repeat_symbol = loop ? '🔁' : queue[0].repeat ? '🔂' : '';
+
+		const audio_queue = message.language.get('COMMAND_QUEUE_AUDIOQUEUE', paused_play_symbol, repeat_symbol);
 		const getDuration = ((ms = 0) => {
 			const { days, hours, minutes, seconds } = parseMilliseconds(ms);
 			return `${days ? `${days.toString().padStart(2, '0')}:` : ''}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;

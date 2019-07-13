@@ -51,6 +51,9 @@ Client.defaultMemberSchema
 		.add('level', 'number', { 'default': 0 }));
 
 Client.defaultUserSchema
+	.add('premium', folder => folder
+		.add('status', 'boolean', { configurable: false, default: false })
+	)
 	.add('stats', folder => folder
 		.add('highest_credits', 'number', { 'default': 0, 'configurable': false }))
 	.add('credits', 'number', { 'default': 0, 'configurable': false });

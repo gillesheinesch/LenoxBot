@@ -293,20 +293,21 @@ module.exports = class extends Command {
 			} catch (error) {
 				if (error.message === 'No token') throw message.language.get('MUSIC_YOUTUBEAPIKEYNOTSET');
 				else if (error.message.startsWith("Error code: 400")) throw message.language.get('MUSIC_INVALIDYOUTUBEAPIKEY');
+				else throw error;
 			}
 		});
 		
-		if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
+		if ((ytdl.validateURL(query) || ytdl.validateID(query)) && !query.includes(' ')) { // youtube video
 			/**
 			 * @property { videoId, url, title, description, owner, channelId, thumbnailUrl, embedURL, datePublished, genre, paid, unlisted, isFamilyFriendly, duration, views, regionsAllowed, dislikeCount, likeCount, channelThumbnailUrl, commentCount }
 			*/
 			pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(query)));
-		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) { // youtube playlist
+		} else if ((regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) && !query.includes(' ')) { // youtube playlist
 			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/i.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
 			message.send({ embed: { description: message.language.get('LOADING_MESSAGE'), color: 7506394 } });
 			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info, { is_playlist: true }));
 			message.send({ embed: { description: message.language.get('MUSIC_ADDEDNUMITEMSTOQUEUE', videos.length), color: 7506394 } });
-		} else if (await isValidURL(query)) { // radio stream
+		} else if (!query.includes(' ') && await isValidURL(encodeURIComponent(query))) { // radio stream
 			pushToQueue({ url: query, duration: Infinity }, { is_stream: true });
 		} else { // play from stream [only supports youtube currently]
 			if (query.toLowerCase().startsWith('yt:')) pushToQueue(await searchForYoutubeVideo(query.replace(/^yt\:/i, ''))); // if query starts with `yt:` search for youtube video
