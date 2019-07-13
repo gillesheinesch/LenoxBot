@@ -34,8 +34,7 @@ module.exports = class extends Command {
 		const queueChunks = chunk(queue, 15);
 		for (const chunky of queueChunks) {
 			display.addPage(
-				(template) => template.setTitle(message.language.get('TOTAL_WORDS_ADDED_TITLE', chunky))
-					.setDescription(chunky.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(audio.duration - voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`).join('\n'))
+				(template) => template.setDescription(chunky.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(audio.duration - voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`).join('\n'))
 			);
 		}
 

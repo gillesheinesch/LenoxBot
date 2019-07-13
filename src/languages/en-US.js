@@ -257,8 +257,8 @@ module.exports = class extends Language {
 			MUSIC_ANOTHERSKIPVOTE: (author, currentvotes, skipnumber) => `${author} also wants to skip the current audio. ${currentvotes}/${skipnumber} votes are needed to skip the current audio.`,
 			COMMAND_SKIPVOTEDEACTIVATED: "The skipvote function has to be activated before you can use this command",
 			COMMAND_QUEUE_NOWPLAYING: (title) => `Now playing: ${title}`,
-			COMMAND_QUEUE_AUDIOQUEUE: (title) => `Audio queue: ${title}`,
-			COMMAND_QUEUE_EMBEDFOOTER: (duration) => `Total Duration: ${duration}`,
+			COMMAND_QUEUE_AUDIOQUEUE: "Audio queue",
+			COMMAND_QUEUE_EMBEDFOOTER: (duration) => `Total Duration: ${duration} | Page `,
 
 			/**
 			 * @Command_Dscriptions
