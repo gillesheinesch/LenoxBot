@@ -134,14 +134,13 @@ module.exports = class extends Command {
 			}).then((connection) => {
 				// Play the video.
 				try {
-					music_settings.is_streaming = false;
-					
 					if (!current_audio) return message.channel.sendLocale('MUSIC_UNABLETOPLAYAUDIO');
 					
 					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(ytdl.validateURL(current_audio.url) ? ytdl(current_audio.url, { filter: 'audioonly' }) : current_audio.url, { volume: music_settings.volume / 100 });
 
 					connection.once('failed', (reason) => {
-						console.error(reason.toString());
+						console.error(`Connection failed: ${reason.toString()}`);
+						if (message && message.channel) message.channel.send(reason.toString());
 						try {
 							if (connection) connection.disconnect();
 						} catch (err) {
@@ -150,7 +149,7 @@ module.exports = class extends Command {
 					});
 					
 					connection.once('error', (err) => {
-						console.error(`Connection Error: ${err.stack ? err.stack : err.toString()}`);
+						console.error(`Connection error: ${err.stack ? err.stack : err.toString()}`);
 						if (message && message.channel) message.channel.sendLocale('MUSIC_CONNECTIONERROR', [err.toString()]);
 						if (queue.length) {
 							if (music_settings.loop && !current_audio.repeat) {
@@ -163,9 +162,13 @@ module.exports = class extends Command {
 						}
 						executeQueue(queue);
 					});
+
+					/*connection.once('disconnect', () => {
+						//
+					});*/
 					
 					dispatcher.once('error', (err) => {
-						console.error(`Dispatcher Error: ${err.stack ? err.stack : err.toString()}`);
+						console.error(`Dispatcher error: ${err.stack ? err.stack : err.toString()}`);
 						if (message && message.channel) message.channel.sendLocale('MUSIC_DISPATCHERERROR', [err.toString()]);
 						if (queue.length) {
 							if (music_settings.loop && !current_audio.repeat) {
@@ -182,7 +185,7 @@ module.exports = class extends Command {
 					dispatcher.once('end', () => {
 						// Wait a second before continuing
 						setTimeout(() => {
-							if (queue.length) {
+							if (queue.length && !current_audio.isStream) {
 								if (music_settings.loop && !current_audio.repeat) {
 									queue.push(queue.shift()); // Push first item to end
 								} else if (!music_settings.loop && current_audio.repeat) {
@@ -209,6 +212,7 @@ module.exports = class extends Command {
 				description: options.description || undefined,
 				duration: is_stream ? Infinity : (options.duration * 1000 || 0),
 				genre: options.genre || undefined,
+				isStream: is_stream,
 				owner: options.owner || undefined,
 				repeat: false,
 				requester: message.author,
@@ -224,7 +228,9 @@ module.exports = class extends Command {
 				music_settings.queue.map((audio) => duration += audio.duration);
 				if (parseMilliseconds(duration).minutes >= 30 || (parseMilliseconds(duration) + parseMilliseconds(audio_info.duration).minutes) >= 30) return message.reply(message.language.get('COMMAND_PLAY_SONGLENGTHLIMIT'));
 			}
+			if (music_settings.queue.length > 1 && is_stream) music_settings.queue.length = 0;
 			music_settings.queue.push(audio_info);
+			if (music_settings.queue.length > 1 && is_stream && getVoiceConnection()) getVoiceConnection().dispatcher.end();
 			if (music_settings.queue.length === 1 || is_playlist) return;
 			const { hours, minutes, seconds } = parseMilliseconds(audio_info.duration);
 			return message.channel.send({

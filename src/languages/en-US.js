@@ -331,7 +331,9 @@ module.exports = class extends Language {
 			COMMAND_LOOP_DESCRIPTION: '(Un)Loop the music queue.',
 			COMMAND_LOOP_EXTENDEDHELP: ['loop'].join('\n'),
 			COMMAND_STOP_DESCRIPTION: 'Stops the current music and the bot leaves the voice channel.',
-			COMMAND_STOP_EXTENDEDHELP: ['stop'].join('\n')
+			COMMAND_STOP_EXTENDEDHELP: ['stop'].join('\n'),
+			COMMAND_PAUSE_DESCRIPTION: "Forces the bot to skip the current song without a poll!",
+			COMMAND_PAUSE_EXTENDEDHELP: ['pause'].join('\n')
 		};
 	}
 
