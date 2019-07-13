@@ -20,7 +20,7 @@ module.exports = class extends Command {
 		let total_duration_ms = 0;
 
 		const audio_queue = message.language.get('COMMAND_QUEUE_AUDIOQUEUE', queue[0].title);
-		const getDuration = ((ms) => {
+		const getDuration = ((ms = 0) => {
 			const { days, hours, minutes, seconds } = parseMilliseconds(ms);
 			return `${days ? `${days.toString().padStart(2, '0')}:` : ''}${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 		});
@@ -31,9 +31,9 @@ module.exports = class extends Command {
 				.setAuthor(audio_queue, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg')
 		);
 		display.setFooterPrefix(message.language.get('COMMAND_QUEUE_EMBEDFOOTER', getDuration(total_duration_ms)));
-		const queueChunks = chunk(queue, 10);
-		const chunks = queueChunks.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(audio.duration - voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`);
-		for (const chunky of chunks) {
+		const chunks = queue.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`);
+		const queueChunks = chunk(chunks, 10);
+		for (const chunky of queueChunks) {
 			display.addPage(
 				(template) => template.setDescription(chunky.join('\n'))
 			);
