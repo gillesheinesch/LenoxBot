@@ -20,20 +20,20 @@ class LenoxCommand extends Command {
 			if (channel) {
 				await channel.send(`${message.author},`);
 				return display.pages.length === 1
-					? channel.send(display.pages[0])
+					? display.run(await channel.send('Loading...'), { time, stop: false, jump: false, firstLast: false })
 					: (message.channel.permissionsFor(message.guild.me).has('ADD_REACTIONS') && message.channel.permissionsFor(message.guild.me).has('MANAGE_MESSAGES'))
 						? display.run(
 							await channel.send('Loading...'),
 							{ time, stop: display.pages.length > 1, filter: (reaction, user) => user === message.author, jump: false, firstLast: false }
 						)
-						: message.send(display.pages[0]);
+						: display.run(await channel.send('Loading...'), { time, stop: false, jump: false, firstLast: false });
 			}
 		}
 		return display.pages.length === 1
-			? message.send(display.pages[0])
+			? display.run(await message.send('Loading...'), { time, stop: false, jump: false, firstLast: false })
 			: (message.channel.permissionsFor(message.guild.me).has('ADD_REACTIONS') && message.channel.permissionsFor(message.guild.me).has('MANAGE_MESSAGES'))
 				? display.run(await message.send('Loading...'), { time, stop: display.pages.length > 1, filter: (reaction, user) => user === message.author, jump: false, firstLast: false })
-				: message.send(display.pages[0]);
+				: display.run(await message.send('Loading...'), { time, stop: false, jump: false, firstLast: false });
 	}
 }
 
