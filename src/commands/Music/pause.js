@@ -6,7 +6,6 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			description: language => language.get('COMMAND_PAUSE_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_PAUSE_EXTENDEDHELP'),
-			examples: ['pause'],
 			requiredPermissions: ['SEND_MESSAGES', 'CONNECT'],
 			userPermissions: ['CONNECT']
 		});
