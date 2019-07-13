@@ -245,6 +245,10 @@ module.exports = class extends Language {
 			MUSIC_NOWPLAYINGFOOTER: "Now Playing",
 			MUSIC_SUCCESSFULLYDISCONNECTED: "Successfully disconnected from voice channel.",
 			MUSIC_FAILEDTODISCONNECT: "Failed to disconnect from voice channel!",
+			MUSIC_STREAMSCANNOTBEPAUSED: "Streams cannot be paused.",
+			MUSIC_ALREADYPAUSED: "The playback is already paused.",
+			MUSIC_PAUSED: "The playback has been paused.",
+			MUSIC_PAUSEDFAILED: "The playback has failed to pause.",
 
 			/**
 			 * @Command_Dscriptions

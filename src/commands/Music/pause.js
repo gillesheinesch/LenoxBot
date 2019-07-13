@@ -18,31 +18,15 @@ module.exports = class extends Command {
 		const voice_channel = message.member.voice.channel;
 		if (!voice_channel) return message.channel.sendLocale('MUSIC_NOTINVOICECHANNEL');
 		if (!queue.length || !voice_connection) return message.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
-
-
-		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
-		const lang = require(`../../languages/${langSet}.json`);
-
-		if (serverQueue && serverQueue.playing) {
-			serverQueue.playing = false;
-			serverQueue.connection.dispatcher.pause();
-			return msg.channel.send(lang.pause_paused);
-		}
-		return msg.channel.send(lang.pause_nothing);
-	}
-};
-
-
-		const voice_connection = msg.guild.voice.connection;
-		
-		
-		if (fetched_queue.is_streaming) return msg.channel.send('<:redx:411978781226696705> Streams cannot be paused.');
-		if (voice_connection.player.dispatcher) {
-			if (!voice_connection.player.dispatcher.pause) return msg.channel.send('<:redx:411978781226696705> Playback already paused!');
+		if (queue[0].isStream) return message.channel.sendLocale('MUSIC_STREAMSCANNOTBEPAUSED');
+		if (voice_connection.dispatcher) {
+			if (voice_connection.dispatcher.paused) return message.channel.sendLocale('MUSIC_ALREADYPAUSED');
 			try {
-				voice_connection.player.dispatcher.pause();
-				msg.channel.send('<:check:411976443522711552> Playback paused.');
+				voice_connection.dispatcher.pause();
+				message.channel.sendLocale('MUSIC_PAUSED');
 			} catch (e) {
-				msg.channel.send('<:redx:411978781226696705> Failed to pause playback.');
+				message.channel.sendLocale('MUSIC_PAUSEDFAILED');
 			}
 		}
+	}
+};
