@@ -225,7 +225,7 @@ module.exports = class extends Command {
 				if (parseMilliseconds(duration).minutes >= 30 || (parseMilliseconds(duration) + parseMilliseconds(audio_info.duration).minutes) >= 30) return message.reply(message.language.get('COMMAND_PLAY_SONGLENGTHLIMIT'));
 			}
 			music_settings.queue.push(audio_info);
-			if (is_playlist) return;
+			if (music_settings.queue.length === 1 || is_playlist) return;
 			const { hours, minutes, seconds } = parseMilliseconds(audio_info.duration);
 			return message.channel.send({
 				embed: {
