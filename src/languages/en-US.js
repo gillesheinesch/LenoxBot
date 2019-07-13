@@ -21,8 +21,8 @@ module.exports = class extends Language {
 			 */
 			INHIBITOR_COOLDOWN: remaining => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
 			INHIBITOR_DISABLED: 'This command is currently disabled.',
-			INHIBITOR_MISSING_BOT_PERMS: (missing) => `I don't have enough permissions to execute this command.\n\t   Missing: \`${missing}\``,
-			INHIBITOR_MISSING_USER_PERMS: (missing) => `You don't have enough permissions to execute this command.\n\t   Missing: \`${missing}\``,
+			INHIBITOR_MISSING_BOT_PERMS: (missing) => `I don't have enough permissions to execute this command.\n	   Missing: \`${missing}\``,
+			INHIBITOR_MISSING_USER_PERMS: (missing) => `You don't have enough permissions to execute this command.\n	   Missing: \`${missing}\``,
 			INHIBITOR_NSFW: 'You may not use NSFW commands in this channel.',
 			INHIBITOR_PERMISSIONS: 'You do not have permission to use this command.',
 			INHIBITOR_REQUIRED_SETTINGS: settings => `The guild is missing the \`${settings.join('` `')}\` guild setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
