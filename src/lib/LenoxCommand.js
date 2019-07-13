@@ -1,9 +1,9 @@
-const { MessageEmbed } = require('discord.js');
+const { MessageEmbed, Permissions } = require('discord.js');
 const { Command } = require('klasa');
 
 class LenoxCommand extends Command {
-	constructor(client, store, file, directory, options = {}) {
-		super(client, store, file, directory, options);
+	constructor(store, file, directory, options = {}) {
+		super(store, file, directory, options);
 		this.userPermissions = new Permissions(options.userPermissions).freeze();
 	}
 
