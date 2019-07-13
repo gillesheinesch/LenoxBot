@@ -2,6 +2,11 @@ const { MessageEmbed } = require('discord.js');
 const { Command } = require('klasa');
 
 class LenoxCommand extends Command {
+	constructor(client, store, file, directory, options = {}) {
+		super(client, store, file, directory, options);
+		this.userPermissions = new Permissions(options.userPermissions).freeze();
+	}
+
 	async redirectDisplay(message, display, time = 120000) {
 		const settings = message.guildSettings;
 		if (settings.get('bot.redirect') && settings.get('bot.channel') && message.channel.id !== settings.get('bot.channel')) {

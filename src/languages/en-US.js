@@ -21,12 +21,12 @@ module.exports = class extends Language {
 			 */
 			INHIBITOR_COOLDOWN: remaining => `You have just used this command. You can use this command again in ${remaining} second${remaining === 1 ? '' : 's'}.`,
 			INHIBITOR_DISABLED: 'This command is currently disabled.',
-			INHIBITOR_MISSING_BOT_PERMS: missing => `Insufficient permissions, missing: **${missing}**`,
+			INHIBITOR_MISSING_BOT_PERMS: (missing) => `I don't have enough permissions to execute this command.\n\t   Missing: \`${missing.join('` `')}\``,
+			INHIBITOR_MISSING_USER_PERMS: (missing) => `You don't have enough permissions to execute this command.\n\t   Missing: \`${missing.join('` `')}\``,
 			INHIBITOR_NSFW: 'You may not use NSFW commands in this channel.',
 			INHIBITOR_PERMISSIONS: 'You do not have permission to use this command.',
 			INHIBITOR_REQUIRED_SETTINGS: settings => `The guild is missing the **${settings.join(', ')}** guild setting${settings.length !== 1 ? 's' : ''} and thus the command cannot run.`,
 			INHIBITOR_RUNIN: types => `This command is only available in ${types} channels.`,
-
 			/**
 			 * @Monitors
 			 */
@@ -44,6 +44,7 @@ module.exports = class extends Language {
 			/**
 			 * @Commands
 			 */
+			LOADING_MESSAGE: "Loading...",
 			COMMAND_CONF_NOKEY: 'You must provide a key',
 			COMMAND_CONF_NOVALUE: 'You must provide a value',
 			COMMAND_CONF_GUARDED: name => `${util.toTitleCase(name)} may not be disabled.`,
@@ -226,6 +227,24 @@ module.exports = class extends Language {
 			COMMAND_LOOP_IS: (loop) => `Queue looping has been ${loop ? '`enabled`' : '`disabled`'}.`,
 			COMMAND_PLAY_QUEUELIMIT_REACHED: "Only a maximum of 8 songs can be queued on this Discord server. If you want to add more, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
 			COMMAND_PLAY_SONGLENGTHLIMIT: "You can only add videos that are less than 30 minutes to the queue. If you want to queue longer videos, you only have to pay 1€! More information can be found on https://lenoxbot.com/donate or join our Discord support server: https://lenoxbot.com/discord",
+			MUSIC_NOTINVOICECHANNEL: "You must be in a voice channel!",
+			MUSIC_NOAUDIOBEINGPLAYED: "There is no audio being played.",
+			MUSIC_PLAYBACKFINISHED: "Playback finished.",
+			MUSIC_VOICECHANNELFULL: "I do not have permission to join your voice channel; it is full.",
+			MUSIC_JOINVOICECHANNELNOPERMS: "I do not have permission to join your voice channel!",
+			MUSIC_UNABLETOPLAYAUDIO: "I was unable to play that audio!",
+			MUSIC_UNABLETOFINDVIDEO: "I was unable to find that video!",
+			MUSIC_CONNECTIONERROR: (error) => `Connection error!\n\`${error}\``,
+			MUSIC_DISPATCHERERROR: (error) => `Dispatcher error!\n\`${error}\``,
+			MUSIC_YOUTUBEAPIKEYNOTSET: "You must set a YouTube API V3 Key in the .env file!",
+			MUSIC_INVALIDYOUTUBEAPIKEY: "You must provide a valid YouTube API V3 Key in the .env file!",
+			MUSIC_ADDEDNUMITEMSTOQUEUE: (amount) => `Done, Added \`${amount}\` items to the queue.`,
+			MUSIC_UNKNOWNTITLETITLE: "Unknown title",
+			MUSIC_DURATIONDESCRIPTION: "Duration",
+			MUSIC_ADDEDTOQUEUEFOOTER: "Added to queue",
+			MUSIC_NOWPLAYINGFOOTER: "Now Playing",
+			MUSIC_SUCCESSFULLYDISCONNECTED: "Successfully disconnected from voice channel.",
+			MUSIC_FAILEDTODISCONNECT: "Failed to disconnect from voice channel!",
 
 			/**
 			 * @Command_Dscriptions
@@ -311,6 +330,8 @@ module.exports = class extends Language {
 			COMMAND_PLAY_EXTENDEDHELP: ['play Parkway Drive - Boneyards'].join('\n'),
 			COMMAND_LOOP_DESCRIPTION: '(Un)Loop the music queue.',
 			COMMAND_LOOP_EXTENDEDHELP: ['loop'].join('\n'),
+			COMMAND_STOP_DESCRIPTION: 'Stops the current music and the bot leaves the voice channel.',
+			COMMAND_STOP_EXTENDEDHELP: ['stop'].join('\n')
 		};
 	}
 

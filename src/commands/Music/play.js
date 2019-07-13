@@ -1,4 +1,4 @@
-const { Command } = require('klasa');
+const Command = require("../../lib/LenoxCommand");
 const { Util: { escapeMarkdown } } = require('discord.js');
 const ytdl = require('ytdl-core');
 const youtubeInfo = require("youtube-info");
@@ -23,7 +23,8 @@ module.exports = class extends Command {
 			description: language => language.get('COMMAND_PLAY_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_PLAY_EXTENDEDHELP'),
 			usage: '<query:str>',
-			requiredPermissions: ['SEND_MESSAGES', 'CONNECT', 'SPEAK']
+			requiredPermissions: ['SEND_MESSAGES', 'CONNECT', 'SPEAK'],
+			userPermissions: ['CONNECT']
 		});
 	}
 
@@ -42,7 +43,7 @@ module.exports = class extends Command {
 			return message.guild.voice ? message.guild.voice.connection : null;
 		});
 
-		if (!getVoiceChannel()) return message.channel.send('You must be in a voice channel!');
+		if (!getVoiceChannel()) return message.channel.sendlocale('MUSIC_NOTINVOICECHANNEL');
 
 		/* Planned Removal */
 		/*for (let i = 0; i < message.client.provider.getGuild(message.guild.id, 'musicchannelblacklist').length; i++) {
@@ -68,7 +69,7 @@ module.exports = class extends Command {
 			const { hours, minutes, seconds } = parseMilliseconds(audio.duration);
 			return await message.channel.send({
 				embed: {
-					title: audio.title ? audio.title.replace(/\&quot;/g, '"') : 'Unknown title',
+					title: audio.title ? audio.title.replace(/\&quot;/g, '"') : message.language.get('MUSIC_UNKNOWNTITLETITLE'),
 					url: audio.url,
 					color: 3447003,
 					thumbnail: {
@@ -80,11 +81,11 @@ module.exports = class extends Command {
 						icon_url: audio.channelThumbnailUrl
 					},
 					description: [
-						`**Duration**: \`${audio.duration === Infinity ? 'Infinity' : `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}\``
+						`**${message.language.get('MUSIC_DURATIONDESCRIPTION')}**: \`${audio.duration === Infinity ? 'Infinity' : `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}\``
 					].join('\n'),
 					timestamp: new Date(),
 					footer: {
-						text: 'Now Playing'
+						text: message.language.get('MUSIC_NOWPLAYINGFOOTER')
 					}
 				}
 			});
@@ -94,7 +95,7 @@ module.exports = class extends Command {
 			const current_audio = queue[0];
 			if (!queue.length) { // If the queue is empty
 				if (getVoiceConnection()) getVoiceConnection().disconnect(); // Leave the voice channel.
-				return message.channel.send('Playback finished.');
+				return message.channel.sendLocale('MUSIC_PLAYBACKFINISHED');
 			} else {
 				try {
 					await nowPlaying(current_audio);
@@ -107,7 +108,7 @@ module.exports = class extends Command {
 			new Promise((resolve, reject) => {
 				// Join the voice channel if not already in one.
 				if (!getVoiceConnection()) {
-					if (!getVoiceChannel()) return message.channel.send('You must be in a voice channel!');
+					if (!getVoiceChannel()) return message.channel.sendlocale('MUSIC_NOTINVOICECHANNEL');
 					// Check if the user is in a voice channel.
 					if (getVoiceChannel() && getVoiceChannel().joinable) {
 						getVoiceChannel().join().then((connection) => {
@@ -117,9 +118,9 @@ module.exports = class extends Command {
 						});
 					} else if (!getVoiceChannel().joinable) {
 						if (getVoiceChannel().full) {
-							message.channel.send('I do not have permission to join your voice channel; it is full.');
+							message.channel.sendLocale('MUSIC_VOICECHANNELFULL');
 						} else {
-							message.channel.send('I do not have permission to join your voice channel!');
+							message.channel.sendLocale('MUSIC_JOINVOICECHANNELNOPERMS');
 						}
 						reject();
 					} else {
@@ -135,7 +136,7 @@ module.exports = class extends Command {
 				try {
 					music_settings.is_streaming = false;
 					
-					if (!current_audio) return message.channel.send('I was unable to play that video.');
+					if (!current_audio) return message.channel.sendLocale('MUSIC_UNABLETOPLAYAUDIO');
 					
 					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(ytdl.validateURL(current_audio.url) ? ytdl(current_audio.url, { filter: 'audioonly' }) : current_audio.url, { volume: music_settings.volume / 100 });
 
@@ -149,8 +150,8 @@ module.exports = class extends Command {
 					});
 					
 					connection.once('error', (err) => {
-						console.error(`Connection: ${err.stack ? err.stack : err.toString()}`);
-						if (message && message.channel) message.channel.send(`Connection error!\n\`${err.toString()}\``);
+						console.error(`Connection Error: ${err.stack ? err.stack : err.toString()}`);
+						if (message && message.channel) message.channel.sendLocale('MUSIC_CONNECTIONERROR', [err.toString()]);
 						if (queue.length) {
 							if (music_settings.loop && !current_audio.repeat) {
 								queue.push(queue.shift()); // Push first item to end
@@ -164,8 +165,8 @@ module.exports = class extends Command {
 					});
 					
 					dispatcher.once('error', (err) => {
-						console.error(`Dispatcher: ${err.stack ? err.stack : err.toString()}`);
-						if (message && message.channel) message.channel.send(`Dispatcher error!\n\`${err.toString()}\``);
+						console.error(`Dispatcher Error: ${err.stack ? err.stack : err.toString()}`);
+						if (message && message.channel) message.channel.sendLocale('MUSIC_DISPATCHERERROR', [err.toString()]);
 						if (queue.length) {
 							if (music_settings.loop && !current_audio.repeat) {
 								queue.push(queue.shift()); // Push first item to end
@@ -228,7 +229,7 @@ module.exports = class extends Command {
 			const { hours, minutes, seconds } = parseMilliseconds(audio_info.duration);
 			return message.channel.send({
 				embed: {
-					title: audio_info.title ? audio_info.title.replace(/\&quot;/g, '"') : 'Unknown title',
+					title: audio_info.title ? audio_info.title.replace(/\&quot;/g, '"') : message.language.get('MUSIC_UNKNOWNTITLETITLE'),
 					url: audio_info.url,
 					color: 3447003,
 					thumbnail: {
@@ -240,11 +241,11 @@ module.exports = class extends Command {
 						icon_url: audio_info.channelThumbnailUrl
 					},
 					description: [
-						`**Duration**: \`${audio_info.duration === Infinity ? 'Infinity' : `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}\``
+						`**${message.language.get('MUSIC_DURATIONDESCRIPTION')}**: \`${audio_info.duration === Infinity ? 'Infinity' : `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}\``
 					].join('\n'),
 					timestamp: new Date(),
 					footer: {
-						text: 'Added to queue'
+						text: message.language.get('MUSIC_ADDEDTOQUEUEFOOTER')
 					}
 				}
 			});
@@ -277,11 +278,16 @@ module.exports = class extends Command {
 		});
 
 		const searchForYoutubeVideo = (async (query) => {
-			if (!process.env.YOUTUBE_API_KEY) throw 'You must set a YouTube API V3 Key in the .env file!';
-			const search = new YTSearcher({ key: process.env.YOUTUBE_API_KEY, revealkey: true });
-			const videos = await search.search(query, { type: 'video' });
-			if (!videos.first || !videos.first.id) throw 'I was unable to find that video!';
-			return await getYoutubeVideoInfo(videos.first.id);
+			if (!process.env.YOUTUBE_API_V3_KEY || process.env.YOUTUBE_API_V3_KEY === 'YOUTUBE_API_V3_KEY') throw message.language.get('MUSIC_YOUTUBEAPIKEYNOTSET');
+			try {
+				const search = new YTSearcher({ key: process.env.YOUTUBE_API_V3_KEY, revealkey: true });
+				const videos = await search.search(query, { type: 'video' });
+				if (!videos.first || !videos.first.id) throw message.language.get('MUSIC_UNABLETOFINDVIDEO');
+				return await getYoutubeVideoInfo(videos.first.id);
+			} catch (error) {
+				if (error.message === 'No token') throw message.language.get('MUSIC_YOUTUBEAPIKEYNOTSET');
+				else if (error.message.startsWith("Error code: 400")) throw message.language.get('MUSIC_INVALIDYOUTUBEAPIKEY');
+			}
 		});
 		
 		if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
@@ -291,9 +297,9 @@ module.exports = class extends Command {
 			pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(query)));
 		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) { // youtube playlist
 			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/i.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
-			message.send({ embed: { description: 'Loading...', color: 7506394 } });
+			message.send({ embed: { description: message.language.get('LOADING_MESSAGE'), color: 7506394 } });
 			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info, { is_playlist: true }));
-			message.send({ embed: { description: `Done, Added \`${videos.length}\` items to the queue.`, color: 7506394 } });
+			message.send({ embed: { description: message.language.get('MUSIC_ADDEDNUMITEMSTOQUEUE', videos.length), color: 7506394 } });
 		} else if (await isValidURL(query)) { // radio stream
 			pushToQueue({ url: query, duration: Infinity }, { is_stream: true });
 		} else { // play from stream [only supports youtube currently]
