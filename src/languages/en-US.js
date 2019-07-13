@@ -249,6 +249,13 @@ module.exports = class extends Language {
 			MUSIC_ALREADYPAUSED: "The playback is already paused.",
 			MUSIC_PAUSED: "The playback has been paused.",
 			MUSIC_PAUSEDFAILED: "The playback has failed to pause.",
+			MUSIC_SKIPPEDALONE: "The playback was successfully skipped without poll, because there is only one user in the channel.",
+			MUSIC_SKIPPED: "The playback has been skipped by the poll successfully.",
+			MUSIC_FAILEDTOSKIP: "The playback has failed to skip.",
+			MUSIC_ALREADYSKIPVOTED: "You have already voted to skip this audio!",
+			MUSIC_NEWSKIPVOTE: (author, skipnumber) => `${author} started a new quote to skip the current audio! ${skipnumber} votes are needed to skip the current audio.`,
+			MUSIC_ANOTHERSKIPVOTE: (author, currentvotes, skipnumber) => `${author} also wants to skip the current audio. ${currentvotes}/${skipnumber} votes are needed to skip the current audio.`,
+			COMMAND_SKIPVOTEDEACTIVATED: "The skipvote function has to be activated before you can use this command",
 
 			/**
 			 * @Command_Dscriptions
@@ -337,7 +344,9 @@ module.exports = class extends Language {
 			COMMAND_STOP_DESCRIPTION: 'Stops the current music and the bot leaves the voice channel.',
 			COMMAND_STOP_EXTENDEDHELP: ['stop'].join('\n'),
 			COMMAND_PAUSE_DESCRIPTION: "Forces the bot to skip the current song without a poll!",
-			COMMAND_PAUSE_EXTENDEDHELP: ['pause'].join('\n')
+			COMMAND_PAUSE_EXTENDEDHELP: ['pause'].join('\n'),
+			COMMAND_SKIP_DESCRIPTION: "Allows the users to skip a song with a poll.",
+			COMMAND_SKIP_EXTENDEDHELP: ['skip'].join('\n'),
 		};
 	}
 

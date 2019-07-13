@@ -16,9 +16,12 @@ Client.defaultClientSchema
 	.add('commandsused', 'integer', { 'default': 0 });
 
 Client.defaultGuildSchema
-	.add('music', 'any', { 'configurable': false, 'default': { queue: [], loop: false, volume: 100, is_streaming: false } })
+	.add('music', 'any', { 'configurable': false, 'default': { queue: [], loop: false, volume: 100 } })
+	.add('music_settings', folder => folder
+		.add('skip_vote', 'boolean', { default: false })
+		.add('skip_number', 'integer', { 'default': 1 })
+	)
 	.add('joinroles', 'role', { array: true })
-	.add('skipnumber', 'integer', { 'default': 1 })
 	.add('momentLanguage', 'string', { 'default': 'en' })
 	.add('premium', folder => folder
 		.add('status', 'boolean', { 'default': false, 'configurable': false }))
