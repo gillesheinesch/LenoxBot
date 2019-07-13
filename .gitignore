@@ -9,3 +9,5 @@ crowdin-copy.yml
 test.js
 db.sqlite
 src/bwd
+.env
+config.json
