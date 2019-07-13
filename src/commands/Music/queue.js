@@ -32,9 +32,10 @@ module.exports = class extends Command {
 		);
 		display.setFooterPrefix(message.language.get('COMMAND_QUEUE_EMBEDFOOTER', getDuration(total_duration_ms)));
 		const queueChunks = chunk(queue, 15);
-		for (const chunky of queueChunks) {
+		const chunks = queueChunks.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(audio.duration - voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`);
+		for (const chunky of chunks) {
 			display.addPage(
-				(template) => template.setDescription(chunky.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(audio.duration - voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`).join('\n'))
+				(template) => template.setDescription(chunky.join('\n'))
 			);
 		}
 
