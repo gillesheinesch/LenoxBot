@@ -1,10 +1,9 @@
 const { Command } = require('klasa');
-const { MessageEmbed, Util: { escapeMarkdown } } = require('discord.js');
+const { Util: { escapeMarkdown } } = require('discord.js');
 const ytdl = require('ytdl-core');
 const youtubeInfo = require("youtube-info");
 const ytlist = require("youtube-playlist");
 const { YTSearcher } = require('ytsearcher');
-const { humanize } = require("better-ms");
 const axios = require('axios');
 const parseMilliseconds = require('parse-ms');
 const moment = require('moment');
@@ -34,9 +33,16 @@ module.exports = class extends Command {
 		//const skipvote = message.client.skipvote;
 		//const url = input[1] ? input[1].replace(/<(.+)>/g, '$1') : '';
 		moment.locale(message.guildSettings.get('momentLanguage'));
+		
+		const getVoiceChannel = (() => {
+			return message.member.voice.channel;
+		});
+		
+		const getVoiceConnection = (() => {
+			return message.guild.voice ? message.guild.voice.connection : null;
+		});
 
-		const voice_channel = message.member.voice.channel;
-		if (!voice_channel) return message.channel.send('You must be in a voice channel!');
+		if (!getVoiceChannel()) return message.channel.send('You must be in a voice channel!');
 
 		/* Planned Removal */
 		/*for (let i = 0; i < message.client.provider.getGuild(message.guild.id, 'musicchannelblacklist').length; i++) {
@@ -44,72 +50,73 @@ module.exports = class extends Command {
 		}*/
 		/* Planned Removal */
 
-		const voice_connection = message.guild.voice.connection;
-
 		const regexes = {
 			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/i,
 			youtube_playlist: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/i
 		}
+		
+		const nowPlaying = (async(audio = {}) => {
+			/*const embed = new MessageEmbed()
+				.setColor(3447003)
+				.setTitle(audio.owner ? `${audio.title ? audio.title.replace(/\&quot;/g, '"') : 'N/A'} by ${audio.owner}` : audio.title ? audio.title.replace(/\&quot;/g, '"') : 'N/A')
+				.setURL(audio.url)
+				.setTimestamp()
 
-		if (music_settings.queue.length && !premium) {
-			if (music_settings.queue.length > 8) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
-			let duration = 0;
-			music_settings.queue.map((audio) => duration += audio.duration);
-			if (parseMilliseconds(duration).minutes >= 30) return message.reply(message.language.get('COMMAND_PLAY_SONGLENGTHLIMIT'));
-		}
+			if (audio.thumbnailUrl) embed.setThumbnail(audio.thumbnailUrl);
+			if (audio.description) embed.setDescription(String.truncate(audio.description, 2048))
+			return await message.channel.send(embed);*/
+			const { hours, minutes, seconds } = parseMilliseconds(audio.duration);
+			return await message.channel.send({
+				embed: {
+					title: audio.title ? audio.title.replace(/\&quot;/g, '"') : 'Unknown title',
+					url: audio.url,
+					color: 3447003,
+					thumbnail: {
+						url: audio.thumbnailUrl
+					},
+					author: {
+						name: audio.owner,
+						url: audio.channelUrl,
+						icon_url: audio.channelThumbnailUrl
+					},
+					description: [
+						`**Duration**: \`${audio.duration === Infinity ? 'Infinity' : `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}\``
+					].join('\n'),
+					timestamp: new Date(),
+					footer: {
+						text: 'Now Playing'
+					}
+				}
+			});
+		});
 
-		if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
-			/**
-			 * @property { videoId, url, title, description, owner, channelId, thumbnailUrl, embedURL, datePublished, genre, paid, unlisted, isFamilyFriendly, duration, views, regionsAllowed, dislikeCount, likeCount, channelThumbnailUrl, commentCount }
-			*/
-			pushToQueue(message, await getYoutubeVideoInfo(ytdl.getVideoID(query)));
-		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) { // youtube playlist
-			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/i.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
-			message.send({ embed: { description: 'Loading...', color: 7506394 } });
-			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(message, info));
-			message.send({ embed: { description: `Done, Added \`${videos.length}\` items to the queue.`, color: 7506394 } });
-		} else if (await isValidURL(query)) { // radio stream
-			pushToQueue(message, { url: query, duration: Infinity });
-		} else { // play from stream [only supports youtube currently]
-			if (query.toLowerCase().startsWith('yt:')) pushToQueue(message, await searchForYoutubeVideo(query.replace(/^yt\:/i, ''))); // if query starts with `yt:` search for youtube video
-			else pushToQueue(message, await searchForYoutubeVideo(query)); // if none match default to youtube
-			// search for builtin radio name or youtube video
-			//otherwise it's a search query for youtube
-		}
-
-		if (music_settings.queue.length === 1 || !voice_connection) executeQueue(music_settings.queue);
-
-		const executeQueue = ((queue) => {
+		const executeQueue = (async(queue) => {
 			const current_audio = queue[0];
 			if (!queue.length) { // If the queue is empty
-				message.channel.send('Playback finished.');
-				if (voice_connection) return voice_connection.disconnect(); // Leave the voice channel.
+				if (getVoiceConnection()) getVoiceConnection().disconnect(); // Leave the voice channel.
+				return message.channel.send('Playback finished.');
 			} else {
-				const embed = new MessageEmbed()
-					.setColor(3447003)
-					.setTitle(current_audio.owner ? `${current_audio.title ? current_audio.title.replace(/\&quot;/g, '"') : 'N/A'} by ${current_audio.owner}` : current_audio.title ? current_audio.title.replace(/\&quot;/g, '"') : 'N/A')
-					.setURL(current_audio.url)
-					.setTimestamp()
-
-				if (current_audio.thumbnailUrl) embed.setThumbnail(current_audio.thumbnailUrl);
-				if (current_audio.description) embed.setDescription(current_audio.description)
-				message.channel.send({ embed: embed });
+				try {
+					await nowPlaying(current_audio);
+				} catch (e) {
+					throw e;
+				}
 				//if (voice_connection) return;
 			}
 
 			new Promise((resolve, reject) => {
 				// Join the voice channel if not already in one.
-				if (!voice_connection) {
-					if (!voice_channel) return message.channel.send('You must be in a voice channel!');
+				if (!getVoiceConnection()) {
+					if (!getVoiceChannel()) return message.channel.send('You must be in a voice channel!');
 					// Check if the user is in a voice channel.
-					if (voice_channel && voice_channel.joinable) {
-						voice_channel.join().then((connection) => {
+					if (getVoiceChannel() && getVoiceChannel().joinable) {
+						getVoiceChannel().join().then((connection) => {
 							resolve(connection);
 						}).catch((error) => {
 							return console.error(error.stack ? error.stack : error.toString());
 						});
-					} else if (!voice_channel.joinable) {
-						if (voice_channel.full) {
+					} else if (!getVoiceChannel().joinable) {
+						if (getVoiceChannel().full) {
 							message.channel.send('I do not have permission to join your voice channel; it is full.');
 						} else {
 							message.channel.send('I do not have permission to join your voice channel!');
@@ -121,7 +128,7 @@ module.exports = class extends Command {
 						reject();
 					}
 				} else {
-					resolve(voice_connection);
+					resolve(getVoiceConnection());
 				}
 			}).then((connection) => {
 				// Play the video.
@@ -130,7 +137,7 @@ module.exports = class extends Command {
 					
 					if (!current_audio) return message.channel.send('I was unable to play that video.');
 					
-					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(regexes.youtube.test(query) ? ytdl(current_audio.url, { filter: 'audioonly' }) : current_audio.url, { volume: music_settings.volume / 100 });
+					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(ytdl.validateURL(current_audio.url) ? ytdl(current_audio.url, { filter: 'audioonly' }) : current_audio.url, { volume: music_settings.volume / 100 });
 
 					connection.once('failed', (reason) => {
 						console.error(reason.toString());
@@ -194,10 +201,12 @@ module.exports = class extends Command {
 			});
 		});
 
-		const pushToQueue = (message, (options = {}) => {
-			return music_settings.queue.push({
+		const pushToQueue = ((options = {}, { is_playlist, is_stream } = { is_playlist: false, is_stream: false }) => {
+			const audio_info = {
+				channelUrl: options.channelId ? "https://www.youtube.com/channel/" + options.channelId : undefined,
+				channelThumbnailUrl: options.channelThumbnailUrl || undefined,
 				description: options.description || undefined,
-				duration: options.duration * 1000 || 0,
+				duration: is_stream ? Infinity : (options.duration * 1000 || 0),
 				genre: options.genre || undefined,
 				owner: options.owner || undefined,
 				repeat: false,
@@ -207,6 +216,37 @@ module.exports = class extends Command {
 				title: options.title ? escapeMarkdown(options.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ')) : undefined,
 				url: decodeURIComponent(options.url),
 				videoId: options.videoId || undefined
+			};
+			if (music_settings.queue.length && !premium) {
+				if ((music_settings.queue.length + 1) > 8) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
+				let duration = 0;
+				music_settings.queue.map((audio) => duration += audio.duration);
+				if (parseMilliseconds(duration).minutes >= 30 || (parseMilliseconds(duration) + parseMilliseconds(audio_info.duration).minutes) >= 30) return message.reply(message.language.get('COMMAND_PLAY_SONGLENGTHLIMIT'));
+			}
+			music_settings.queue.push(audio_info);
+			if (is_playlist) return;
+			const { hours, minutes, seconds } = parseMilliseconds(audio_info.duration);
+			return message.channel.send({
+				embed: {
+					title: audio_info.title ? audio_info.title.replace(/\&quot;/g, '"') : 'Unknown title',
+					url: audio_info.url,
+					color: 3447003,
+					thumbnail: {
+						url: audio_info.thumbnailUrl
+					},
+					author: {
+						name: audio_info.owner,
+						url: audio_info.channelUrl,
+						icon_url: audio_info.channelThumbnailUrl
+					},
+					description: [
+						`**Duration**: \`${audio_info.duration === Infinity ? 'Infinity' : `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`}\``
+					].join('\n'),
+					timestamp: new Date(),
+					footer: {
+						text: 'Added to queue'
+					}
+				}
 			});
 		});
 
@@ -236,17 +276,38 @@ module.exports = class extends Command {
 			}
 		});
 
-		const searchForYoutubeVideo = (async (search) => {
+		const searchForYoutubeVideo = (async (query) => {
 			if (!process.env.YOUTUBE_API_KEY) throw 'You must set a YouTube API V3 Key in the .env file!';
 			const search = new YTSearcher({ key: process.env.YOUTUBE_API_KEY, revealkey: true });
-			const videos = await search.search(search, { type: 'video' });
+			const videos = await search.search(query, { type: 'video' });
 			if (!videos.first || !videos.first.id) throw 'I was unable to find that video!';
 			return await getYoutubeVideoInfo(videos.first.id);
 		});
+		
+		if (ytdl.validateURL(query) || ytdl.validateID(query)) { // youtube video
+			/**
+			 * @property { videoId, url, title, description, owner, channelId, thumbnailUrl, embedURL, datePublished, genre, paid, unlisted, isFamilyFriendly, duration, views, regionsAllowed, dislikeCount, likeCount, channelThumbnailUrl, commentCount }
+			*/
+			pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(query)));
+		} else if (regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) { // youtube playlist
+			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/i.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
+			message.send({ embed: { description: 'Loading...', color: 7506394 } });
+			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info, { is_playlist: true }));
+			message.send({ embed: { description: `Done, Added \`${videos.length}\` items to the queue.`, color: 7506394 } });
+		} else if (await isValidURL(query)) { // radio stream
+			pushToQueue({ url: query, duration: Infinity }, { is_stream: true });
+		} else { // play from stream [only supports youtube currently]
+			if (query.toLowerCase().startsWith('yt:')) pushToQueue(await searchForYoutubeVideo(query.replace(/^yt\:/i, ''))); // if query starts with `yt:` search for youtube video
+			else pushToQueue(await searchForYoutubeVideo(query)); // if none match default to youtube
+			// search for builtin radio name or youtube video
+			//otherwise it's a search query for youtube
+		}
+
+		if (music_settings.queue.length === 1 || !getVoiceConnection()) await executeQueue(music_settings.queue);
 
 
 
-
+// extra code to look through later
 		/*
 				async function play(guild, song) {
 					const serverQueue = await queue.get(guild.id);
