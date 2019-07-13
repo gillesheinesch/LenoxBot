@@ -1,5 +1,5 @@
 const { Inhibitor, util } = require('klasa');
-const { Permissions, Permissions: { FLAGS } } = require('discord.js');
+const { MessageEmbed, Permissions, Permissions: { FLAGS } } = require('discord.js');
 
 module.exports = class extends Inhibitor {
 
@@ -20,7 +20,11 @@ module.exports = class extends Inhibitor {
 			message.channel.permissionsFor(this.client.user).missing(command.requiredPermissions, false) :
 			this.impliedPermissions.missing(command.requiredPermissions, false);
 
-		if (missing.length) throw message.language.get('INHIBITOR_MISSING_BOT_PERMS', missing.map(key => this.friendlyPerms[key]));
+		if (missing.length) throw new MessageEmbed()
+			.setColor(15684432)
+			.setAuthor(message.author.tag, message.author.displayAvatarURL())
+			.setDescription(message.language.get('INHIBITOR_MISSING_BOT_PERMS', missing.map(key => this.friendlyPerms[key]).join('` `')))
+			.setTimestamp()
 	}
 
 };

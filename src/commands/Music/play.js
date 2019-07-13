@@ -43,7 +43,7 @@ module.exports = class extends Command {
 			return message.guild.voice ? message.guild.voice.connection : null;
 		});
 
-		if (!getVoiceChannel()) return message.channel.sendlocale('MUSIC_NOTINVOICECHANNEL');
+		if (!getVoiceChannel()) return message.channel.sendLocale('MUSIC_NOTINVOICECHANNEL');
 
 		/* Planned Removal */
 		/*for (let i = 0; i < message.client.provider.getGuild(message.guild.id, 'musicchannelblacklist').length; i++) {
@@ -108,7 +108,7 @@ module.exports = class extends Command {
 			new Promise((resolve, reject) => {
 				// Join the voice channel if not already in one.
 				if (!getVoiceConnection()) {
-					if (!getVoiceChannel()) return message.channel.sendlocale('MUSIC_NOTINVOICECHANNEL');
+					if (!getVoiceChannel()) return message.channel.sendLocale('MUSIC_NOTINVOICECHANNEL');
 					// Check if the user is in a voice channel.
 					if (getVoiceChannel() && getVoiceChannel().joinable) {
 						getVoiceChannel().join().then((connection) => {
