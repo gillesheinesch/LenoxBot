@@ -15,7 +15,8 @@ module.exports = class extends Command {
 
 	run(message) {
 		const { queue } = message.guildSettings.get('music');
-		if (!queue.length) return message.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
+		const voice_connection = message.guild.voice ? message.guild.voice.connection : null;
+		if (!queue.length || !voice_connection) return message.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
 		let total_duration_ms = 0;
 
 		const audio_queue = message.language.get('COMMAND_QUEUE_AUDIOQUEUE', queue[0].title);
