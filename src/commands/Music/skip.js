@@ -18,8 +18,6 @@ module.exports = class extends Command {
 		const voice_channel = message.member.voice.channel;
 		const voice_connection = message.guild.voice ? message.guild.voice.connection : null;
 
-
-
 		if (!skip_vote) return message.channel.sendLocale('COMMAND_SKIPVOTEDEACTIVATED');
 		if (!voice_channel) return message.channel.sendLocale('MUSIC_NOTINVOICECHANNEL');
 		if (!queue.length || !voice_connection) return message.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
