@@ -8,3 +8,5 @@ enmap.sqlite
 crowdin-copy.yml
 test.js
 db.sqlite
+.env
+config.json
