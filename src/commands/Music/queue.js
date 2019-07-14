@@ -10,6 +10,7 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			description: language => language.get('COMMAND_QUEUE_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_QUEUE_EXTENDEDHELP'),
+			alises: ['q'],
 			requiredPermissions: ['SEND_MESSAGES']
 		});
 	}
