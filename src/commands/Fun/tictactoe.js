@@ -36,8 +36,8 @@ module.exports = class extends Command {
 		}
 
 		if (wantToPlay.first().content.toLowerCase() !== 'yes') {
-			const gamecanceled = message.language.get('COMMAND_TICTACTOE_GAMECANCELED', member.user.tag);
-			return message.reply(gamecanceled);
+			const gamecancelled = message.language.get('COMMAND_TICTACTOE_GAMECANCELLED', member.user.tag);
+			return message.reply(gamecancelled);
 		}
 
 		await wantToPlayMessage.delete();

@@ -12,7 +12,7 @@ module.exports = class extends Language {
 
 			// Prompts
 			MESSAGE_PROMPT_TIMEOUT: 'The prompt has timed out.',
-			MESSAGE_PROMPT_CANCELED: 'Canceled command.',
+			MESSAGE_PROMPT_CANCELLED: 'Cancelled command.',
 			MULTIPLE_ITEMS_FOUND_PROMPT: results => `Multiple items found. Please choose one of the following, or type cancel.${results}`,
 			ANSWER_CANCEL_PROMPT: 'cancel',
 
@@ -154,7 +154,7 @@ module.exports = class extends Language {
 			COMMAND_TICTACTOE_NOANSWER: (author, user) => `${author} did not answer for 15 seconds why ${user} won this round.`,
 			COMMAND_TICTACTOE_WIN: user => `${user} won this round!`,
 			COMMAND_TICTACTOE_WANNAPLAY: (mention, author) => `${mention}, do you want to play TicTacToe against ${author}? If yes, answer with '**YES**'!`,
-			COMMAND_TICTACTOE_GAMECANCELED: mention => `Game canceled because ${mention} didn't answer or doesn't want to play!`,
+			COMMAND_TICTACTOE_GAMECANCELLED: mention => `Game cancelled because ${mention} didn't answer or doesn't want to play!`,
 			COMMAND_TICTACTOE_GAMEEND: 'Game is over!',
 			COMMAND_TICTACTOE_DRAW: "No one has won, it's draw! The next round may be better.",
 			COMMAND_HENTAIHAVEN_NOTFIND: 'Could not find any videos to your request.',
