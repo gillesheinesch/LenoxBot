@@ -11,12 +11,14 @@ module.exports = class extends Command {
 		});
 	}
 
-	async run(message) {
-		if (!message.member.voice.channel) throw message.language.get('COMMAND_LOOP_NOCHANNEL');
-		const music_settings = message.guildSettings.get('music');
-		if (!music_settings.queue.length) throw message.language.get('COMMAND_LOOP_NOQUEUE');
-		music_settings.loop = !music_settings.loop;
-		music_settings.queue[0].repeat = false;
+	run(message) {
+		const { queue, loop } = message.guildSettings.get('music');
+		const voice_connection = message.guild.voice ? message.guild.voice.connection : null;
+		const voice_channel = message.member.voice.channel;
+		if (!voice_channel) throw message.language.get('COMMAND_LOOP_NOCHANNEL');
+		if (!queue.length || !voice_connection) throw message.language.get('COMMAND_LOOP_NOQUEUE');
+		loop = !loop;
+		queue[0].repeat = false;
 		return message.channel.sendLocale('COMMAND_LOOP_IS', [music_settings.loop]);
 	}
 

@@ -264,6 +264,10 @@ module.exports = class extends Language {
 			COMMAND_VOLUME_CURRENTVOLUME: (volume) => `The current volume is: \`${volume}%\`.`,
 			COMMAND_VOLUME_MUSTBEBETWEEN: "Volume must be between `0-200`!",
 			COMMAND_VOLUME_VOLSETTO: (newVolume) => `Volume set to \`${newVolume}%\`.`,
+			COMMAND_VOLUME_SETVOLUMEFAILED: "I have failed to set the volume!",
+			COMMAND_SHUFFLE_SHUFFLED: "The queue has been shuffled.",
+			COMMAND_SHUFFLE_NOTHING: "I cannot shuffle the queue because it is empty!",
+			COMMAND_SHUFFLE_SHUFFLEFAILED: "I have failed to shuffle the queue!",
 
 			/**
 			 * @Command_Dscriptions
@@ -359,6 +363,8 @@ module.exports = class extends Language {
 			COMMAND_QUEUE_EXTENDEDHELP: ['queue'].join('\n'),
 			COMMAND_VOLUME_DESCRIPTION: "Changes the volume of the bot.",
 			COMMAND_VOLUME_EXTENDEDHELP: ['volume 100', 'volume 200'].join('\n'),
+			COMMAND_SHUFFLE_DESCRIPTION: "Shuffle the queue.",
+			COMMAND_SHUFFLE_EXTENDEDHELP: ['shuffle'].join('\n'),
 		};
 	}
 

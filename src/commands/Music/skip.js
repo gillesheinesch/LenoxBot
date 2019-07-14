@@ -24,9 +24,10 @@ module.exports = class extends Command {
 
 		if (voice_connection.dispatcher && voice_channel.members.size === 2) {
 			try {
-				voice_connection.dispatcher.end();
+				await voice_connection.dispatcher.end();
 				return message.channel.sendLocale('MUSIC_SKIPPEDALONE');
 			} catch (e) {
+				console.error(e.stack);
 				return message.channel.sendLocale('MUSIC_FAILEDTOSKIP')
 			}
 		}
@@ -47,11 +48,11 @@ module.exports = class extends Command {
 		if (skip_votes.length !== amount) return;
 
 		try {
-			if (voice_connection && voice_connection.dispatcher && voice_connection.dispatcher.paused) voice_connection.dispatcher.resume();
-			voice_connection.dispatcher.end();
+			if (voice_connection && voice_connection.dispatcher && voice_connection.dispatcher.paused) await voice_connection.dispatcher.resume();
+			await voice_connection.dispatcher.end();
 			message.channel.sendLocale('MUSIC_SKIPPED');
 		} catch (e) {
-			message.channel.sendLocale('MUSIC_FAILEDTOSKIP');
+			throw message.language.get('MUSIC_FAILEDTOSKIP');
 		}
 	}
 };

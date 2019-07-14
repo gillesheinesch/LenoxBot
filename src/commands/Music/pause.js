@@ -11,7 +11,7 @@ module.exports = class extends Command {
 		});
 	}
 
-	run(message) {
+	async run(message) {
 		const { queue } = message.guildSettings.get('music');
 		const voice_connection = message.guild.voice ? message.guild.voice.connection : null;
 		const voice_channel = message.member.voice.channel;
@@ -21,10 +21,10 @@ module.exports = class extends Command {
 		if (voice_connection.dispatcher) {
 			if (voice_connection.dispatcher.paused) return message.channel.sendLocale('MUSIC_ALREADYPAUSED');
 			try {
-				voice_connection.dispatcher.pause();
+				await voice_connection.dispatcher.pause();
 				message.channel.sendLocale('MUSIC_PAUSED');
 			} catch (e) {
-				message.channel.sendLocale('MUSIC_PAUSEDFAILED');
+				throw message.language.get('MUSIC_PAUSEDFAILED');
 			}
 		}
 	}

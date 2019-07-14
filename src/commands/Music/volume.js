@@ -28,11 +28,14 @@ module.exports = class extends Command {
 		if (!set_volume) return message.channel.sendLocale('COMMAND_VOLUME_CURRENTVOLUME', [parseFloat(voice_connection.dispatcher.volume) * 100]);
 		if (set_volume < 0 || set_volume > 200) return message.channel.sendLocale('COMMAND_VOLUME_MUSTBEBETWEEN');
 
-		volume = set_volume;
-		voice_connection.dispatcher.setVolume(parseFloat(set_volume) / 100);
-
-		voice_connection.dispatcher.once('volumeChange', (oldVolume, newVolume) => {
-			message.channel.sendLocale('COMMAND_VOLUME_VOLSETTO', [newVolume * 100]);
-		});
+		try {
+			voice_connection.dispatcher.setVolume(parseFloat(set_volume) / 100);
+			voice_connection.dispatcher.once('volumeChange', (oldVolume, newVolume) => {
+				volume = newVolume;
+				message.channel.sendLocale('COMMAND_VOLUME_VOLSETTO', [newVolume * 100]);
+			});
+		} catch (e) {
+			throw message.language.get('COMMAND_VOLUME_SETVOLUMEFAILED');
+		}
 	}
 };
