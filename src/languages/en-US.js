@@ -238,6 +238,7 @@ module.exports = class extends Language {
 			MUSIC_DISPATCHERERROR: (error) => `Dispatcher error!\n\`${error}\``,
 			MUSIC_YOUTUBEAPIKEYNOTSET: "You must set a YouTube API V3 Key in the .env file!",
 			MUSIC_INVALIDYOUTUBEAPIKEY: "You must provide a valid YouTube API V3 Key in the .env file!",
+			MUSIC_EXCEEDEDQUOTA: "You have exceeded your quota for that YouTube API V3 Key, please change it or get more quota!",
 			MUSIC_ADDEDNUMITEMSTOQUEUE: (amount) => `Done, Added \`${amount}\` items to the queue.`,
 			MUSIC_UNKNOWNTITLETITLE: "Unknown title",
 			MUSIC_DURATIONDESCRIPTION: "Duration",

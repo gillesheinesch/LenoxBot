@@ -3,7 +3,7 @@ const { Util: { escapeMarkdown } } = require('discord.js');
 const ytdl = require('ytdl-core');
 const youtubeInfo = require("youtube-info");
 const ytlist = require("youtube-playlist");
-const { YTSearcher } = require('ytsearcher');
+const crawl = require('youtube-crawl');
 const axios = require('axios');
 const parseMilliseconds = require('parse-ms');
 const moment = require('moment');
@@ -53,7 +53,7 @@ module.exports = class extends Command {
 
 		const regexes = {
 			youtube: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:(?:\/e(?:mbed))?\/|watch\/?\?(?:\S*?&?v\=)|playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/i,
-			youtube_playlist: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{6,34})/i
+			youtube_playlist: /(?:(?:https?\:\/\/)?(?:w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))|youtu\.be\/)([A-z0-9_-]{20,34})/i
 		}
 		
 		const nowPlaying = (async(audio = {}) => {
@@ -283,17 +283,34 @@ module.exports = class extends Command {
 			}
 		});
 
+		const promptVideoSelect = (async (queue) => {
+			if (queue.length > 6) queue.splice(6, queue.length);
+			let results = '';
+			await queue.map((video, index) => results += `\n${index + 1}. [${video.title}](${video.uri})`);
+			if (queue.length > 1) {
+				await message.prompt({
+					embed: {
+						color: 0x43B581,
+						description: message.language.get('MULTIPLE_ITEMS_FOUND_PROMPT', results)
+					}
+				}).then((choices) => {
+					if (choices.content.toLowerCase() === message.language.get('ANSWER_CANCEL_PROMPT') || !parseInt(choices.content)) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
+					const answer = queue[parseInt(choices.content) - 1];
+					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > queue.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
+					return await getYoutubeVideoInfo(ytdl.getVideoID(answer.uri));
+				}).catch(console.error);
+			} else if (queue.length === 1) {
+				return await getYoutubeVideoInfo(ytdl.getVideoID(queue[0].uri));
+			}
+		});
+
 		const searchForYoutubeVideo = (async (query) => {
-			if (!process.env.YOUTUBE_API_V3_KEY || process.env.YOUTUBE_API_V3_KEY === 'YOUTUBE_API_V3_KEY') throw message.language.get('MUSIC_YOUTUBEAPIKEYNOTSET');
 			try {
-				const search = new YTSearcher({ key: process.env.YOUTUBE_API_V3_KEY, revealkey: true });
-				const videos = await search.search(query, { type: 'video' });
-				if (!videos.first || !videos.first.id) throw message.language.get('MUSIC_UNABLETOFINDVIDEO');
-				return await getYoutubeVideoInfo(videos.first.id);
+				const videos = await crawl(query).filter((video) => video.title && video.uri && ytdl.validateURL(video.uri));
+				if (!videos.length) throw message.language.get('MUSIC_UNABLETOFINDVIDEO');
+				return await promptVideoSelect(videos);
 			} catch (error) {
-				if (error.message === 'No token') throw message.language.get('MUSIC_YOUTUBEAPIKEYNOTSET');
-				else if (error.message.startsWith("Error code: 400")) throw message.language.get('MUSIC_INVALIDYOUTUBEAPIKEY');
-				else throw error;
+				throw error.message;
 			}
 		});
 		
@@ -302,8 +319,8 @@ module.exports = class extends Command {
 			 * @property { videoId, url, title, description, owner, channelId, thumbnailUrl, embedURL, datePublished, genre, paid, unlisted, isFamilyFriendly, duration, views, regionsAllowed, dislikeCount, likeCount, channelThumbnailUrl, commentCount }
 			*/
 			pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(query)));
-		} else if ((regexes.youtube_playlist.test(query) || (query.length >= 6 && query.length <= 34)) && !query.includes(' ')) { // youtube playlist
-			if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/i.test(query) && query.length >= 6 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
+		} else if ((regexes.youtube_playlist.test(query) || (query.length >= 20 && query.length <= 34)) && !query.includes(' ') && decodeURIComponent(query).includes('/playlist?list=')) { // youtube playlist
+			//if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/i.test(query) && query.length >= 20 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
 			message.send({ embed: { description: message.language.get('LOADING_MESSAGE'), color: 7506394 } });
 			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info, { is_playlist: true }));
 			message.send({ embed: { description: message.language.get('MUSIC_ADDEDNUMITEMSTOQUEUE', videos.length), color: 7506394 } });
