@@ -57,15 +57,6 @@ module.exports = class extends Command {
 		}
 		
 		const nowPlaying = (async(audio = {}) => {
-			/*const embed = new MessageEmbed()
-				.setColor(3447003)
-				.setTitle(audio.owner ? `${audio.title ? audio.title.replace(/\&quot;/g, '"') : 'N/A'} by ${audio.owner}` : audio.title ? audio.title.replace(/\&quot;/g, '"') : 'N/A')
-				.setURL(audio.url)
-				.setTimestamp()
-
-			if (audio.thumbnailUrl) embed.setThumbnail(audio.thumbnailUrl);
-			if (audio.description) embed.setDescription(String.truncate(audio.description, 2048))
-			return await message.channel.send(embed);*/
 			const { hours, minutes, seconds } = parseMilliseconds(audio.duration);
 			return await message.channel.send({
 				embed: {
@@ -102,7 +93,6 @@ module.exports = class extends Command {
 				} catch (e) {
 					throw e;
 				}
-				//if (voice_connection) return;
 			}
 
 			new Promise((resolve, reject) => {
@@ -144,7 +134,7 @@ module.exports = class extends Command {
 						try {
 							if (connection) connection.disconnect();
 						} catch (err) {
-							console.error(err.toString());
+							console.error(err.stack ? err.stack : err.toString());
 						};
 					});
 					
