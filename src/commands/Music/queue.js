@@ -4,6 +4,9 @@ const { Util: { escapeMarkdown }, MessageEmbed } = require('discord.js');
 const parseMilliseconds = require('parse-ms');
 const columnify = require('columnify');
 
+const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
+const wrapText = ((content, language = 'js') => `\`\`\`${language}\n${escapeMarkdown(content)}\n\`\`\``);
+
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
@@ -42,23 +45,24 @@ module.exports = class extends Command {
 				}
 			}).split('\n');
 		});
-		const wrapText = ((text, lang = 'js') => {
-			return `\`\`\`${lang}\n${escapeMarkdown(text)}\n\`\`\``;
-		});
-		const display = new RichDisplay(
-			new MessageEmbed()
-				.setColor(38550)
-				.setAuthor(audio_queue, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg')
-		);
-		display.setFooterPrefix(message.language.get('COMMAND_QUEUE_EMBEDFOOTER', getDuration(total_duration_ms)));
-		//const chunks = queue.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`);
-		const queueChunks = chunk(formatQueue(), 10);
-		for (const chunky of queueChunks) {
-			display.addPage(
-				(template) => template.setDescription(wrapText(chunky.join('\n'), 'dos'))
+		if (message.channel.permissionsFor(this.client.user).has(PERMISSIONS_RICHDISPLAY)) {
+			const display = new RichDisplay(
+				new MessageEmbed()
+					.setColor(38550)
+					.setAuthor(audio_queue, 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg')
 			);
-		}
+			display.setFooterPrefix(message.language.get('COMMAND_QUEUE_EMBEDFOOTER', getDuration(total_duration_ms)));
+			//const chunks = queue.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`);
+			const queueChunks = chunk(formatQueue(), 10);
+			for (const chunky of queueChunks) {
+				display.addPage(
+					(template) => template.setDescription(wrapText(chunky.join('\n'), 'dos'))
+				);
+			}
 
-		return this.redirectDisplay(message, display);
+			return this.redirectDisplay(message, display);
+		} else {
+			return message.channel.send(wrapText(formatQueue().join('\n'), 'dos'));
+		}
 	}
 };
