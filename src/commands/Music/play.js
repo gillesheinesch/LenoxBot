@@ -206,6 +206,7 @@ module.exports = class extends Command {
 		});
 
 		const pushToQueue = ((options = {}, { is_playlist, is_stream } = { is_playlist: false, is_stream: false }) => {
+			console.log(options);
 			const audio_info = {
 				channelUrl: options.channelId ? "https://www.youtube.com/channel/" + options.channelId : undefined,
 				channelThumbnailUrl: options.channelThumbnailUrl || undefined,
@@ -222,6 +223,7 @@ module.exports = class extends Command {
 				url: decodeURIComponent(options.url),
 				videoId: options.videoId || undefined
 			};
+			console.log(audio_info.url)
 			if (music_settings.queue.length && !premium) {
 				if ((music_settings.queue.length + 1) > 8) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
 				let duration = 0;
@@ -268,6 +270,7 @@ module.exports = class extends Command {
 
 		const getYoutubeVideoInfo = (async (video_id, playlist = false) => {
 			try {
+				console.log(video_id);
 				return await youtubeInfo(video_id);
 			} catch (e) {
 				if (!playlist) throw e.message; // ignore error if retrieving from playlist otherwise the playlist array will include rejected promises
@@ -283,11 +286,11 @@ module.exports = class extends Command {
 			}
 		});
 
-		const promptVideoSelect = (async (queue) => {
-			if (queue.length > 6) queue.splice(6, queue.length);
+		const promptVideoSelect = (async (video_queue) => {
+			if (video_queue.length > 10) video_queue.splice(10, video_queue.length);
 			let results = '';
-			await queue.map((video, index) => results += `\n${index + 1}. [${video.title}](${video.uri})`);
-			if (queue.length > 1) {
+			await video_queue.map((video, index) => results += `\n${index + 1}. [${video.title}](${video.uri})`);
+			if (video_queue.length > 1) {
 				await message.prompt({
 					embed: {
 						color: 0x43B581,
@@ -295,12 +298,12 @@ module.exports = class extends Command {
 					}
 				}).then(async(choices) => {
 					if (choices.content.toLowerCase() === message.language.get('ANSWER_CANCEL_PROMPT') || !parseInt(choices.content)) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
-					const answer = queue[parseInt(choices.content) - 1];
-					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > queue.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
-					return await getYoutubeVideoInfo(ytdl.getVideoID(answer.uri));
+					const answer = video_queue[parseInt(choices.content) - 1];
+					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > video_queue.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
+					return pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(answer.uri)));
 				}).catch(console.error);
-			} else if (queue.length === 1) {
-				return await getYoutubeVideoInfo(ytdl.getVideoID(queue[0].uri));
+			} else if (video_queue.length === 1) {
+				return pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(video_queue[0].uri)));
 			}
 		});
 
@@ -327,8 +330,8 @@ module.exports = class extends Command {
 		} else if (!query.includes(' ') && await isValidURL(encodeURIComponent(query))) { // radio stream
 			pushToQueue({ url: query, duration: Infinity }, { is_stream: true });
 		} else { // play from stream [only supports youtube currently]
-			if (query.toLowerCase().startsWith('yt:')) pushToQueue(await searchForYoutubeVideo(query.replace(/^yt\:/i, ''))); // if query starts with `yt:` search for youtube video
-			else pushToQueue(await searchForYoutubeVideo(query)); // if none match default to youtube
+			if (query.toLowerCase().startsWith('yt:')) await searchForYoutubeVideo(query.replace(/^yt\:/i, '')); // if query starts with `yt:` search for youtube video
+			else await searchForYoutubeVideo(query); // if none match default to youtube
 			// search for builtin radio name or youtube video
 			//otherwise it's a search query for youtube
 		}
