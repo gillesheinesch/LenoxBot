@@ -286,7 +286,7 @@ module.exports = class extends Command {
 		const promptVideoSelect = (async (video_queue) => {
 			if (video_queue.length > 10) video_queue.splice(10, video_queue.length);
 			let results = '';
-			await video_queue.map((video, index) => results += `\n${index + 1}. [${video.title}](${video.uri})`);
+			await video_queue.map((video, index) => results += `\n${index + 1}. [${escapeMarkdown(video.title)}](${video.uri})`);
 			if (video_queue.length > 1) {
 				await message.prompt({
 					embed: {
