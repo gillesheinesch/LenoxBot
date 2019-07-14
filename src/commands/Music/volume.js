@@ -16,7 +16,7 @@ module.exports = class extends Command {
 	run(message, [set_volume = undefined]) {
 		const guild_premium = message.guildSettings.get('premium.status');
 		const user_premium = message.author.settings.get('premium.status');
-		const { queue, volume } = message.guildSettings.get('music');
+		const music_settings = message.guildSettings.get('music');
 
 		if (!guild_premium && !user_premium) return message.reply(message.language.get('COMMAND_NOPREMIUM'));
 
@@ -24,14 +24,14 @@ module.exports = class extends Command {
 		const voice_channel = message.member.voice.channel;
 
 		if (!voice_channel) return message.channel.sendLocale('MUSIC_NOTINVOICECHANNEL');
-		if (!voice_connection || !queue.length) return messag.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
+		if (!voice_connection || !music_settings.queue.length) return messag.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
 		if (!set_volume) return message.channel.sendLocale('COMMAND_VOLUME_CURRENTVOLUME', [parseFloat(voice_connection.dispatcher.volume) * 100]);
 		if (set_volume < 0 || set_volume > 200) return message.channel.sendLocale('COMMAND_VOLUME_MUSTBEBETWEEN');
 
 		try {
 			voice_connection.dispatcher.setVolume(parseFloat(set_volume) / 100);
+			music_settings.volume = set_volume;
 			voice_connection.dispatcher.once('volumeChange', (oldVolume, newVolume) => {
-				volume = newVolume;
 				message.channel.sendLocale('COMMAND_VOLUME_VOLSETTO', [newVolume * 100]);
 			});
 		} catch (e) {

@@ -12,7 +12,7 @@ module.exports = class extends Command {
 	}
 
 	run(message) {
-		const { queue } = message.guildSettings.get('music');
+		const music_settings = message.guildSettings.get('music');
 		const voice_connection = message.guild.voice ? message.guild.voice.connection : null;
 		const voice_channel = message.member.voice.channel;
 		const shuffle = a => a.reduce((l, e, i) => {
@@ -36,10 +36,10 @@ module.exports = class extends Command {
 		});
 
 		if (!voice_channel) return message.channel.sendLocale('MUSIC_NOTINVOICECHANNEL');
-		if (!queue.length || !voice_connection) return message.channel.sendLocale('COMMAND_SHUFFLE_NOTHING');
+		if (!music_settings.queue.length || !voice_connection) return message.channel.sendLocale('COMMAND_SHUFFLE_NOTHING');
 
 		try {
-			queue = fixedAllDifferentShuffle(queue, [true]);
+			music_settings.queue = fixedAllDifferentShuffle(music_settings.queue, [true]);
 			message.channel.sendLocale('COMMAND_SHUFFLE_SHUFFLED');
 		} catch (e) {
 			throw message.language.get('COMMAND_SHUFFLE_SHUFFLEFAILED');
