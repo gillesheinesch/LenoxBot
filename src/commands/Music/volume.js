@@ -13,7 +13,7 @@ module.exports = class extends Command {
 		});
 	}
 
-	run(message, [set_volume = undefined]) {
+	async run(message, [set_volume = undefined]) {
 		const guild_premium = message.guildSettings.get('premium.status');
 		const user_premium = message.author.settings.get('premium.status');
 		const music_settings = message.guildSettings.get('music');
@@ -28,12 +28,13 @@ module.exports = class extends Command {
 		if (!set_volume) return message.channel.sendLocale('COMMAND_VOLUME_CURRENTVOLUME', [parseFloat(voice_connection.dispatcher.volume) * 100]);
 		if (set_volume < 0 || set_volume > 200) return message.channel.sendLocale('COMMAND_VOLUME_MUSTBEBETWEEN');
 
+		voice_connection.dispatcher.once('volumeChange', (oldVolume, newVolume) => {
+			message.channel.sendLocale('COMMAND_VOLUME_VOLSETTO', [newVolume * 100]);
+		});
+
 		try {
-			voice_connection.dispatcher.setVolume(parseFloat(set_volume) / 100);
+			await voice_connection.dispatcher.setVolume(parseFloat(set_volume) / 100);
 			music_settings.volume = set_volume;
-			voice_connection.dispatcher.once('volumeChange', (oldVolume, newVolume) => {
-				message.channel.sendLocale('COMMAND_VOLUME_VOLSETTO', [newVolume * 100]);
-			});
 		} catch (e) {
 			throw message.language.get('COMMAND_VOLUME_SETVOLUMEFAILED');
 		}
