@@ -9,13 +9,6 @@ const parseMilliseconds = require('parse-ms');
 const moment = require('moment');
 require('moment-duration-format');
 
-
-
-
-/*const config = require('../../settings.json');
-const YouTube = require('simple-youtube-api');
-const youtube = new YouTube(config.googlekey);*/
-
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
@@ -31,8 +24,6 @@ module.exports = class extends Command {
 	async run(message, [query]) {
 		const music_settings = message.guildSettings.get('music');
 		const premium = message.guildSettings.get('premium.status');
-		//const skipvote = message.client.skipvote;
-		//const url = input[1] ? input[1].replace(/<(.+)>/g, '$1') : '';
 		moment.locale(message.guildSettings.get('momentLanguage'));
 		
 		const getVoiceChannel = (() => {
@@ -310,7 +301,6 @@ module.exports = class extends Command {
 			*/
 			pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(query)));
 		} else if ((regexes.youtube_playlist.test(query) || (query.length >= 20 && query.length <= 34)) && !query.includes(' ') && decodeURIComponent(query).includes('/playlist?list=')) { // youtube playlist
-			//if (!/^(https?\:\/\/)?(w{1,4}\.)?youtube\.com\/\S*(?:playlist\/?\?(?:\S*?&?list\=))/i.test(query) && query.length >= 20 && query.length <= 34) query = `https://www.youtube.com/playlist?list=${query}`;
 			message.send({ embed: { description: message.language.get('LOADING_MESSAGE'), color: 7506394 } });
 			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info, { is_playlist: true }));
 			message.send({ embed: { description: message.language.get('MUSIC_ADDEDNUMITEMSTOQUEUE', videos.length), color: 7506394 } });

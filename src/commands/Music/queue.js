@@ -61,5 +61,3 @@ module.exports = class extends Command {
 		return this.redirectDisplay(message, display);
 	}
 };
-
-
