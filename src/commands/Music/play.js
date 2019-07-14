@@ -206,7 +206,6 @@ module.exports = class extends Command {
 		});
 
 		const pushToQueue = ((options = {}, { is_playlist, is_stream } = { is_playlist: false, is_stream: false }) => {
-			console.log(options);
 			const audio_info = {
 				channelUrl: options.channelId ? "https://www.youtube.com/channel/" + options.channelId : undefined,
 				channelThumbnailUrl: options.channelThumbnailUrl || undefined,
@@ -223,7 +222,6 @@ module.exports = class extends Command {
 				url: decodeURIComponent(options.url),
 				videoId: options.videoId || undefined
 			};
-			console.log(audio_info.url)
 			if (music_settings.queue.length && !premium) {
 				if ((music_settings.queue.length + 1) > 8) return message.reply(message.language.get('COMMAND_PLAY_QUEUELIMIT_REACHED'));
 				let duration = 0;
@@ -270,7 +268,6 @@ module.exports = class extends Command {
 
 		const getYoutubeVideoInfo = (async (video_id, playlist = false) => {
 			try {
-				console.log(video_id);
 				return await youtubeInfo(video_id);
 			} catch (e) {
 				if (!playlist) throw e.message; // ignore error if retrieving from playlist otherwise the playlist array will include rejected promises
