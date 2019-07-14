@@ -6,7 +6,7 @@ module.exports = class extends Command {
 			runIn: ['text'],
 			description: language => language.get('COMMAND_VOLUME_DESCRIPTION'),
 			extendedHelp: language => language.get('COMMAND_VOLUME_EXTENDEDHELP'),
-			usage: '[volume:integer{0,200}',
+			usage: '[volume:integer{0,200}]',
 			aliases: ['vol'],
 			requiredPermissions: ['SEND_MESSAGES', 'CONNECT'],
 			userPermissions: ['CONNECT']

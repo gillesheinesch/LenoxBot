@@ -293,7 +293,7 @@ module.exports = class extends Command {
 						color: 0x43B581,
 						description: message.language.get('MULTIPLE_ITEMS_FOUND_PROMPT', results)
 					}
-				}).then((choices) => {
+				}).then(async(choices) => {
 					if (choices.content.toLowerCase() === message.language.get('ANSWER_CANCEL_PROMPT') || !parseInt(choices.content)) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
 					const answer = queue[parseInt(choices.content) - 1];
 					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > queue.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
