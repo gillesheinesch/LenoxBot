@@ -1,6 +1,6 @@
 const Command = require("../../lib/LenoxCommand");
 const { RichDisplay, util: { chunk } } = require('klasa');
-const { Util: { escapeMarkdown }, MessageEmbed } = require('discord.js');
+const { Util: { escapeMarkdown }, MessageEmbed, Permissions } = require('discord.js');
 const parseMilliseconds = require('parse-ms');
 const columnify = require('columnify');
 
