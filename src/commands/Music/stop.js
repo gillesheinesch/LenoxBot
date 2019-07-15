@@ -16,7 +16,7 @@ module.exports = class extends Command {
 	async run(message) {
 		const music_settings = message.guildSettings.get('music');
 		const voice_connection = message.guild.voice ? message.guild.voice.connection : null;
-		if (!voice_connection || !queue.length) return message.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
+		if (!voice_connection || !music_settings.queue.length) return message.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
 		try {
 			if (music_settings.queue.length) queue.length = 0;
 			music_settings.loop = false;
