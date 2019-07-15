@@ -18,9 +18,8 @@ Client.defaultClientSchema
 Client.defaultGuildSchema
 	.add('music', 'any', { 'configurable': false, 'default': { queue: [], loop: false, volume: 100 } })
 	.add('music_settings', folder => folder
-		.add('skip_vote', 'boolean', { default: false })
-		.add('skip_number', 'integer', { 'default': 1 })
-	)
+		.add('skip_vote', 'boolean', { 'default': false })
+		.add('skip_number', 'integer', { 'default': 1 }))
 	.add('joinroles', 'role', { array: true })
 	.add('momentLanguage', 'string', { 'default': 'en' })
 	.add('premium', folder => folder
@@ -52,8 +51,7 @@ Client.defaultMemberSchema
 
 Client.defaultUserSchema
 	.add('premium', folder => folder
-		.add('status', 'boolean', { configurable: false, default: false })
-	)
+		.add('status', 'boolean', { 'configurable': false, 'default': false }))
 	.add('stats', folder => folder
 		.add('highest_credits', 'number', { 'default': 0, 'configurable': false }))
 	.add('credits', 'number', { 'default': 0, 'configurable': false });
