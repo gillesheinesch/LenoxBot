@@ -119,6 +119,10 @@ module.exports = class extends Command {
 					
 					const dispatcher =/*!music_settings.stream_mode ?*/ connection.play(ytdl.validateURL(current_audio.url) ? ytdl(current_audio.url, { filter: 'audioonly' }) : current_audio.url, { volume: music_settings.volume / 100 });
 
+					connection.once('disconnect', () => {
+						queue.length = 0;
+					});
+
 					connection.once('failed', (reason) => {
 						console.error(`Connection failed: ${reason.toString()}`);
 						if (message && message.channel) message.channel.send(reason.toString());
