@@ -304,7 +304,7 @@ module.exports = class extends Command {
 			message.send({ embed: { description: message.language.get('LOADING_MESSAGE'), color: 7506394 } });
 			const videos = (await getYoutubePlaylistVideos(query)).map((info) => pushToQueue(info, { is_playlist: true }));
 			message.send({ embed: { description: message.language.get('MUSIC_ADDEDNUMITEMSTOQUEUE', videos.length), color: 7506394 } });
-		} else if (!query.includes(' ') && await isValidURL(encodeURI(query)) { // radio stream
+		} else if (!query.includes(' ') && await isValidURL(encodeURI(query))) { // radio stream
 			pushToQueue({ url: query, duration: Infinity }, { is_stream: true });
 		} else { // play from stream [only supports youtube currently]
 			if (query.toLowerCase().startsWith('yt:')) await searchForYoutubeVideo(query.replace(/^yt\:/i, '')); // if query starts with `yt:` search for youtube video
