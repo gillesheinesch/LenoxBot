@@ -23,8 +23,8 @@ module.exports = class extends Argument {
 						description: message.language.get('MULTIPLE_ITEMS_FOUND_PROMPT', results)
 					}
 				}).then(choices => {
-					if (choices.content.toLowerCase() === message.language.get('ANSWER_CANCEL_PROMPT') || !parseInt(choices.content)) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
-					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > items.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELED');
+					if (choices.content.toLowerCase() === message.language.get('ANSWER_CANCEL_PROMPT') || !parseInt(choices.content)) return message.sendLocale('MESSAGE_PROMPT_CANCELLED');
+					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > items.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELLED');
 					role = items[parseInt(choices.content) - 1];
 				}).catch(console.error);
 			} else if (items.length === 1) {
