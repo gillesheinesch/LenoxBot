@@ -278,7 +278,7 @@ module.exports = class extends Command {
 					if (choices.content.toLowerCase() === message.language.get('ANSWER_CANCEL_PROMPT') || !parseInt(choices.content)) return message.sendLocale('MESSAGE_PROMPT_CANCELLED');
 					const answer = video_queue[parseInt(choices.content) - 1];
 					if (parseInt(choices.content) - 1 < 0 || parseInt(choices.content) - 1 > video_queue.length - 1) return message.sendLocale('MESSAGE_PROMPT_CANCELLED');
-					if (choices.content.toLowerCase() !== message.language.get('ANSWER_CANCEL_PROMPT') && parseInt(choices.content)) return pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(answer.uri)));
+					return pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(answer.uri)));
 				}).catch(console.error);
 			} else if (video_queue.length === 1) {
 				return pushToQueue(await getYoutubeVideoInfo(ytdl.getVideoID(video_queue[0].uri)));
