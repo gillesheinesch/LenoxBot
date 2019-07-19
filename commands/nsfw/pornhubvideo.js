@@ -23,15 +23,13 @@ module.exports = class pornhubvideoCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const input = args.slice();
 		if (!msg.channel.nsfw) return msg.channel.send(lang.pornhubgif_nsfw);
-		if (!input || input.length === 0) return msg.channel.send(lang.pornhubgif_type);
-		if (args.slice() > 1) return msg.channel.send(lang.pornhubgif_error);
+		if (args.length === 0) return msg.channel.send(lang.pornhubgif_error);
 		const Pornsearch = require('pornsearch');
 
 		try {
 			/* eslint no-undef: 0 */
-			const Searcher = await Pornsearch.search(args.slice().join(' ')).videos();
+			const Searcher = await Pornsearch.search(args.join(' ')).videos();
 
 			const result = Math.floor(Math.random() * Searcher.length);
 
