@@ -24,7 +24,7 @@ module.exports = class pornhubvideoCommand extends LenoxCommand {
 		const args = msg.content.split(' ').slice(1);
 
 		if (!msg.channel.nsfw) return msg.channel.send(lang.pornhubgif_nsfw);
-		if (args.length === 0) return msg.channel.send(lang.pornhubgif_error);
+		if (args.length === 0) return msg.channel.send(lang.pornhubgif_type);
 		const Pornsearch = require('pornsearch');
 
 		try {
