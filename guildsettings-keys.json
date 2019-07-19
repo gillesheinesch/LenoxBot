@@ -78,7 +78,7 @@
     "playlist": {},
     "tickets": {
 		"notificationstatus": false,
-		"notficationchannel": ""
+		"notificationchannel": ""
     },
     "globallogs": [],
     "muteanonymous": "false",

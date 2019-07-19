@@ -68,7 +68,7 @@ module.exports = class ticketCommand extends LenoxCommand {
 
 		const ticket = msg.client.provider.getBotsettings('botconfs', 'tickets')[key];
 
-		if (msg.client.provider.getGuild(msg.guild.id, 'tickets').status === true) {
+		if (msg.client.provider.getGuild(msg.guild.id, 'tickets').notificationstatus === true) {
 			const ticketembed = lang.mainfile_ticketembed.replace('%ticketid', ticket.ticketid);
 			const embed = new Discord.MessageEmbed()
 				.setURL(`https://lenoxbot.com/dashboard/${ticket.guildid}/tickets/${key}/overview`)
