@@ -1071,7 +1071,7 @@ async function run() {
 			}
 			return res.redirect('nologin');
 		} catch (error) {
-			console.log(error)
+			console.log(error);
 			return res.redirect(url.format({
 				pathname: `/error`,
 				query: {

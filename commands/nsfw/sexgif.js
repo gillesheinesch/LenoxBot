@@ -24,13 +24,12 @@ module.exports = class sexgifCommand extends LenoxCommand {
 		const args = msg.content.split(' ').slice(1);
 
 		if (!msg.channel.nsfw) return msg.channel.send(lang.pornhubgif_nsfw);
-		if (!args.slice().length === 0) return msg.channel.send(lang.pornhubgif_type);
-		if (args.slice() > 1) return msg.channel.send(lang.pornhubgif_error);
+		if (args.length === 0) return msg.channel.send(lang.pornhubgif_type);
 		const Pornsearch = require('pornsearch');
 
 		try {
 		/* eslint no-undef: 0 */
-			const Searcher = new Pornsearch(args.slice().join(' '), 'sex');
+			const Searcher = new Pornsearch(args.join(' '), 'sex');
 			const gifs = await Searcher.gifs();
 
 			const result = Math.floor(Math.random() * gifs.length);

@@ -23,16 +23,13 @@ module.exports = class redtubeCommand extends LenoxCommand {
 		const lang = require(`../../languages/${langSet}.json`);
 		const args = msg.content.split(' ').slice(1);
 
-		const input = args.slice();
-
 		if (!msg.channel.nsfw) return msg.channel.send(lang.pornhubgif_nsfw);
-		if (!input || input.length === 0) return msg.channel.send(lang.pornhubgif_type);
-		if (args.slice() > 1) return msg.channel.send(lang.pornhubgif_error);
+		if (args.length === 0) return msg.channel.send(lang.pornhubgif_type);
 		const Pornsearch = require('pornsearch');
 
 		try {
 		/* eslint no-undef: 0 */
-			const Searcher = new Pornsearch(args.slice().join(' '), 'redtube');
+			const Searcher = new Pornsearch(args.join(' '), 'redtube');
 			const videos = await Searcher.videos();
 
 			const result = Math.floor(Math.random() * videos.length);

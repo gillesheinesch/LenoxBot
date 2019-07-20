@@ -24,13 +24,12 @@ module.exports = class pornhubgifCommand extends LenoxCommand {
 		const args = msg.content.split(' ').slice(1);
 
 		if (!msg.channel.nsfw) return msg.channel.send(lang.pornhubgif_nsfw);
-		if (!args.slice().length === 0) return msg.channel.send(lang.pornhubgif_type);
-		if (args.slice() > 1) return msg.channel.send(lang.pornhubgif_error);
+		if (args.length === 0) return msg.channel.send(lang.pornhubgif_type);
 		const Pornsearch = require('pornsearch');
 
 		try {
 		/* eslint no-undef: 0 */
-			const Searcher = await Pornsearch.search(args.slice().join(' ')).gifs();
+			const Searcher = await Pornsearch.search(args.join(' ')).gifs();
 
 			const result = Math.floor(Math.random() * Searcher.length);
 			const url = Searcher[result - 1].url;
@@ -45,6 +44,7 @@ module.exports = class pornhubgifCommand extends LenoxCommand {
 				embed: embed
 			});
 		} catch (error) {
+			console.log(error)
 			return msg.reply(lang.pornhubgif_couldfindnothing);
 		}
 	}
