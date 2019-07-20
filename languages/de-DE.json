@@ -1351,6 +1351,7 @@
     "punishments_punishmentremoved": "Der Eintrag wurde erfolgreich gelöscht!",
     "punishments_nopunishmentwithid": "Wir entschuldigen uns... Wir konnten keine Bestrafung mit dieser ID finden, bitte überprüfe nochmals, ob du die richtige Strafen-ID angegeben hast!",
     "punishments_description": "Zeigt dir alle Bestrafungen von einem Benutzer",
+    "serverwarns_erroroldsystem": "Your Discord server does currently not support the serverwarns command. Do not worry, you can do nothing against it. We have to rewrite our serverwarns command! Sorry for any inconveniences!",
     "serverwarns_error": "Bis jetzt wurde noch kein Benutzer auf diesem Server verwarnt!",
     "serverwarns_reason": "**Grund:**",
     "serverwarns_warnedbyandon": "%username wurde von %membername am %date verwarnt",
