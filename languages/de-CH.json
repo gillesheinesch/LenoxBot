@@ -1351,6 +1351,7 @@
     "punishments_punishmentremoved": "De Iitrag isch erfolgriich glöscht worde!",
     "punishments_nopunishmentwithid": "Es tuet üs Leid... Mit händ kei Bestrafig mit dere ID chöne finde, bitte überprüef nomal, öb du di korrekti Bestrafigs-ID iigeh häsch!",
     "punishments_description": "Zeigt dir alli Bestrafige vomene Benutzer",
+    "serverwarns_erroroldsystem": "Your Discord server does currently not support the serverwarns command. Do not worry, you can do nothing against it. We have to rewrite our serverwarns command! Sorry for any inconveniences!",
     "serverwarns_error": "Kein Benutzer isch bis jetzt uf dem Server verwarnt worde!",
     "serverwarns_reason": "**Grund:**",
     "serverwarns_warnedbyandon": "%username isch vo %membername am %date verwarnt worde",
