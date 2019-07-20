@@ -19,11 +19,11 @@ module.exports = class extends Event {
 					message.deleted_by = user;
 				} // if client has `VIEW_AUDIT_LOG` permission then it will get who deleted the message and apply the property `deleted_by` to the message object then store it into `this.client.deted`
 				this.client.deleted.set(message.id, message);
-			}
 
-			if (message.command && message.command.deletable) {
-				for (const msg of message.responses) {
-					msg.delete();
+				if (message.command && message.command.deletable) {
+					for (const msg of message.responses) {
+						msg.delete();
+					}
 				}
 			}
 		}
