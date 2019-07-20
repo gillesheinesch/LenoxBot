@@ -22,6 +22,8 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
+		if (!msg.client.provider.getGuild(msg.guild.id, 'warnlog')) return msg.reply('Your Discord server does currently not support the ?serverwarns command. Do not worry, you can do nothing against it. We have to rewrite our serverwarns command! Sorry for any inconveniences!');
+
 		if (msg.client.provider.getGuild(msg.guild.id, 'warnlog').length === 0) return msg.channel.send(lang.serverwarns_error);
 		const firstfield = [];
 		const secondfield = [];
