@@ -31,7 +31,8 @@ module.exports = class inventoryCommand extends LenoxCommand {
 		for (let i = 0; i < args.slice().length; i++) {
 			if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
 				if (args.slice()[0].toLowerCase() === 'upgrade') {
-					if (isNaN(args.slice(1, 2))) return msg.reply(lang.inventory_morethan0);
+					if (!args.slice(1, 2) || args.slice(1, 2).length === 0) return msg.reply(lang.inventory_notanumber);
+					if (isNaN(args.slice(1, 2))) return msg.reply(lang.inventory_notanumber);
 					if (parseInt(args.slice(1, 2), 10) <= 0) return msg.reply(lang.inventory_notenough);
 					if (msg.client.provider.getUser(msg.author.id, 'inventory').inventoryslotticket < parseInt(args.slice(1, 2), 10)) return msg.reply(lang.inventory_notenough);
 
