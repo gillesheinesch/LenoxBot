@@ -28,6 +28,11 @@ module.exports = class inventoryCommand extends LenoxCommand {
 		const inventory = lang.inventory_inventory.replace('%authortag', msg.author.tag);
 		const validation = ['upgrade'];
 
+		// To check if value is NaN due to a bug...
+		if (isNaN(msg.client.provider.getUser(msg.author.id, 'inventoryslots'))) {
+			msg.client.provider.setUser(msg.author.id, 'inventoryslots', 30);
+		}
+
 		for (let i = 0; i < args.slice().length; i++) {
 			if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
 				if (args.slice()[0].toLowerCase() === 'upgrade') {
