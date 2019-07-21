@@ -1351,7 +1351,7 @@
     "punishments_punishmentremoved": "¡El castigo ha sido eliminado satisfactoriamente!",
     "punishments_nopunishmentwithid": "Lo sentimos... ¡No pudimos encontrar un castigo con este ID, por favor, compruebe de nuevo si ha introducido el ID correcto del castigo!",
     "punishments_description": "Muestra los castigos de un usuario",
-    "serverwarns_erroroldsystem": "Your Discord server does currently not support the serverwarns command. Do not worry, you can do nothing against it. We have to rewrite our serverwarns command! Sorry for any inconveniences!",
+    "serverwarns_erroroldsystem": "Tu servidor de Discord aún no soporta el comando de avisos de servidor. No te preocupes, no puedes hacer nada al respecto. ¡Te avisaremos cuando reprogramemos el comando de avisos de servidor! ¡Sentimos cualquier inconveniente causado por esto!",
     "serverwarns_error": "¡Hasta ahora, ningún usuario fue advertido en este servidor!",
     "serverwarns_reason": "**Razón:**",
     "serverwarns_warnedbyandon": "%username fue advertido por %membername el %date",
