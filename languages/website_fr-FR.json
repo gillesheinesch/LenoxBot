@@ -35,7 +35,7 @@
     "website_globalmodlog_anonymoustempban": "Updated the settings of the anonymous temporary ban",
     "website_globalmodlog_anonymousmute": "Updated the settings of the anonymous mute",
     "website_globalmodlog_blacklistmusicchannels": "Updated blacklisted musicchannels",
-    "website_globalmodlog_sentembed": "An embed was sent to #%nameofthechannel",
+    "website_globalmodlog_sentembed": "Un embed a été envoyé à #%nameofthechannel",
     "website_globalmodlog_applicationacceptedmsg": "Updated the application accepted message",
     "website_globalmodlog_applicationrejectedmsg": "Updated the application rejected message",
     "website_globalmodlog_applicationrolerejected": "Updated the application role for rejected canidates",
