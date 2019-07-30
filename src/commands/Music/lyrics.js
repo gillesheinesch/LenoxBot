@@ -34,7 +34,7 @@ module.exports = class extends Command {
 				}
 			}).then(async res => {
 				if (!res.data.result.length) return message.channel.send(`Couldn't find lyrics for the song \`${query}\`.`);
-				const audd_song = res.data.result[0];
+				let audd_song = res.data.result[0];
 				const ksoft_res = await axios.get(`https://ksoft.derpyenterprises.org/lyrics?input=${encodeURIComponent(`${audd_song.artist} - ${audd_song.title}`)}`);
 				if (ksoft_res.data.data.length) {
 					const ksoft_song = ksoft_res.data.data[0];
@@ -46,15 +46,18 @@ module.exports = class extends Command {
 							audd_song.lyrics = mip_lyrics.data;
 						} catch (e) { }
 					}
-					audd_song.album = ksoft_song.album;
-					audd_song.album_ids = ksoft_song.album_ids;
-					audd_song.album_year = ksoft_song.album_year;
-					audd_song.album_art = ksoft_song.album_art;
-					audd_song.artist_id = ksoft_song.artist_id;
-					audd_song.search_str = ksoft_song.search_str;
-					audd_song.popularity = ksoft_song.popularity;
-					audd_song.id = ksoft_song.id;
-					audd_song.search_score = ksoft_song.search_score;
+					audd_song = {
+						album: ksoft_song.album,
+						album_ids: ksoft_song.album_ids,
+						album_year: ksoft_song.album_year,
+						album_art: ksoft_song.album_art,
+						artist_id: ksoft_song.artist_id,
+						search_str: ksoft_song.search_str,
+						popularity: ksoft_song.popularity,
+						id: ksoft_song.id,
+						search_score: ksoft_song.search_score,
+						...audd_song
+					}
 				}
 				audd_song.lyrics = audd_song.lyrics.replace(/^\n+/, '').replace(/\n{3,}/g, '\n\n').replace(/&amp;/g, '&')
 					.replace(/&gt;/g, '>')

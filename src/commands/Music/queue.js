@@ -7,6 +7,12 @@ const columnify = require('columnify');
 const PERMISSIONS_RICHDISPLAY = new Permissions([Permissions.FLAGS.MANAGE_MESSAGES, Permissions.FLAGS.ADD_REACTIONS]);
 const wrapText = ((content, language = 'js') => `\`\`\`${language}\n${escapeMarkdown(content)}\n\`\`\``);
 
+//Imagine Dragons - Whatever It Takes
+//David Guetta featuring Sia - Titanium
+//"Usher - DJ Got Us Fallin in Love"
+//"Panic! at the Disco - High Hopes"
+
+
 module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {

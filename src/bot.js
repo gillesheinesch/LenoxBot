@@ -1,5 +1,5 @@
 const { Collection, Permissions: { FLAGS } } = require('discord.js');
-const { Client } = require('./');
+const { Client, Music: { AudioBase } } = require('./');
 const config = require('../config.json');
 const { constants: { MENTION_REGEX } } = require('klasa');
 
@@ -16,7 +16,7 @@ Client.defaultClientSchema
 	.add('commandsused', 'integer', { 'default': 0 });
 
 Client.defaultGuildSchema
-	.add('music', 'any', { 'configurable': false, 'default': { queue: [], loop: false, volume: 100 } })
+	.add('music', 'any', { 'configurable': false, 'default': { queue: [], loop: false, volume: 100 } }) //new AudioBase()
 	.add('music_settings', folder => folder
 		.add('skip_vote', 'boolean', { 'default': false })
 		.add('skip_number', 'integer', { 'default': 1 }))
