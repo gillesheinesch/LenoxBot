@@ -17,9 +17,9 @@ module.exports = class extends Command {
 		const voice_channel = message.member.voice.channel;
 		if (!voice_channel) throw message.language.get('COMMAND_REPEAT_NOCHANNEL');
 		if (!music_settings.queue.length || !voice_connection) throw message.language.get('COMMAND_REPEAT_NOQUEUE');
-		music_settings.queue[0].repeat = !music_settings.queue[0].repeat;
-		music_settings.loop = false;
-		return message.channel.sendLocale('COMMAND_REPEAT_IS', [music_settings.queue[0].repeat]);
+		if (music_settings.queue[0].isStream) return message.channel.sendLocale('MUSIC_STREAMSCANNOTBEREPEATED');
+		music_settings.toggleRepeat();
+		return message.channel.sendLocale('COMMAND_REPEAT_IS', [music_settings.repeat]);
 	}
 
 };

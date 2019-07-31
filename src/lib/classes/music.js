@@ -1,33 +1,55 @@
 const axios = require('axios');
 const Parser = require('icecast-parser');
 const youtubeInfo = require("youtube-info");
+const { once } = require('events');
 const { Util: { escapeMarkdown }, MessageEmbed } = require('discord.js');
+const escape_markdown = (text) => escapeMarkdown(text.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' '));
+const shuffle = a => a.reduce((_, __, i) => { const j = Math.floor(Math.random() * (a.length - i) + i); [a[i], a[j]] = [a[j], a[i]]; return a; }, a);
+const fixedAllDifferentShuffle = ((array, fixed_array) => { /* memorize position of fixed elements */ const fixed = array.reduce((acc, e, i) => { if (fixed_array[i]) acc.push([e, i]); return acc; }, []); array = shuffle(array); /* swap fixed elements back to their original position */ fixed.forEach(([item, initialIndex]) => { const currentIndex = array.indexOf(item); [array[initialIndex], array[currentIndex]] = [array[currentIndex], array[initialIndex]]; }); return array; });
 
 class AudioBase {
 	constructor() {
-		this._settings_queue = [];
+		this.queue = [];
 		this.loop = false;
 		this.volume = 100;
 	}
-
-	set queue(track = {}) {
-		return this._settings_queue.push(track);
+	
+	get total_duration() {
+		return Array.arraySum(this.queue.map((track) => track.duration));
 	}
 
-	get queue() {
-		return this._settings_queue;
-	}
-
-	get playing() {
+	get currently_playing() {
 		return this.queue[0] || null;
 	}
 
 	get repeat() {
-		return this.playing ? this.playing.repeat : null;
+		return this.currently_playing ? this.currently_playing.repeat : null;
+	}
+
+	set repeat(boolean) {
+		return this.currently_playing.repeat = boolean;
+	}
+
+	async _updateTrack() {
+		if (!this.currently_playing) throw new Error('There are no tracks in the queue!');
+		if (!(this.currently_playing instanceof StreamTrack)) return this;
+		const data = new Parser({ url: this.currently_playing.url, autoUpdate: false });
+		await this.currently_playing._autoFill(data);
+		return this;
 	}
 
 	toggleLoop() {
+		if (!this.currently_playing) throw new Error('There are no tracks in the queue!');
+		if (this.currently_playing instanceof StreamTrack) throw new Error('Streams cannot be looped!');
+		this.repeat = false;
 		return this.loop = !this.loop;
+	}
+
+	toggleRepeat() {
+		if (!this.currently_playing) throw new Error('There are no tracks in the queue!');
+		if (this.currently_playing instanceof StreamTrack) throw new Error('Streams cannot be repeated!');
+		this.loop = false;
+		return this.currently_playing.toggleRepeat();
 	}
 
 	setVolume(integer) {
@@ -39,7 +61,7 @@ class AudioBase {
 	}
 
 	next() {
-		if (!this.queue.length) throw new Error('There is no audio in the queue!');
+		if (!this.queue.length) throw new Error('There are no tracks in the queue!');
 		if (this.loop) {
 			this.queue.push(this.queue.shift());
 		} else if (this.repeat) {
@@ -47,6 +69,10 @@ class AudioBase {
 		} else {
 			this.queue.shift();
 		}
+	}
+
+	shuffleQueue() {
+		return this.queue = fixedAllDifferentShuffle(this.queue, [true]);
 	}
 }
 
@@ -65,128 +91,57 @@ class AudioBase {
 	}
 }*/
 
-class StreamTrack {
+class StreamTrack extends Parser {
 	constructor(message, url) {
-		this._track_requester = message.author;
+		super({ url: url, autoUpdate: false });
+		this.requester = message.author;
 		this.url = decodeURIComponent(url);
 		this.repeat = false;
-		this._skipvotes = [];
-		this._duration = 'Infinity';
-		this._name = 'Unknown name';
-		this._artist = 'Unknown artist';
-		this._album = 'Unknown album';
-		this._album_year = null;
-		this._album_ids = null;
-		this._album_art = null;
-		this._artist_id = null;
-		this._search_str = null;
-		this._popularity = null;
-		this._id = null;
-		this._search_score = null;
-		this._autoFill();
-	}
-
-	get requester() {
-		return this._track_requester;
-	}
-
-	get duration() {
-		return this._duration;
-	}
-
-	set skipvotes(author_id) {
-		return this._skipvotes.push(author_id)
-	}
-
-	get skipvotes() {
-		return this._skipvotes;
-	}
-
-	get name() {
-		return this._name;
-	}
-
-	get artist() {
-		return this._artist;
+		this.skipvotes = [];
+		this.isStream = true;
+		this.duration = Infinity;
+		this.name = 'Unknown name';
+		this.artist = 'Unknown artist';
+		this.album = 'Unknown album';
+		this.album_year = null;
+		this.album_ids = null;
+		this.album_art = null;
+		this.artist_id = null;
+		this.search_str = null;
+		this.popularity = null;
+		this.search_score = null;
+		this.id = null;
 	}
 
 	get title() {
-		return this.artist !== 'Unknown artist' && this.name !== 'Unknown name' ? escapeMarkdown(`${this.artist} - ${this.name}`.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ')) : 'Unknown title';
-	}
-
-	get album_art() {
-		return this._album_art;
-	}
-
-	get artist_id() {
-		return this._artist_id;
-	}
-
-	get search_str() {
-		return this._search_str;
-	}
-
-	get popularity() {
-		return this._popularity;
-	}
-
-	get id() {
-		return this._id;
-	}
-
-	get search_score() {
-		return this._search_score;
-	}
-
-	get album() {
-		return this._album;
-	}
-
-	get album_year() {
-		return this._album_year;
-	}
-
-	get album_ids() {
-		return this._album_ids;
+		return this.artist !== 'Unknown artist' && this.name !== 'Unknown name' ? escape_markdown(`${this.artist} - ${this.name}`) : 'Unknown title';
 	}
 
 	toggleRepeat() {
 		return this.repeat = !this.repeat;
 	}
 
-	_autoFill() {
-		const radioStation = new Parser({
-			url: this.url,
-			autoUpdate: false,
-			keepListen: false
-		});
-
-		radioStation.once('end', (error) => { throw new Error(error.message); });
-
-		radioStation.once('error', (error) => { throw new Error(error.message); });
-
-		radioStation.once('metadata', async(metadata) => {
-			//const song_title = .split(/ - (.+)/i);
-			const ksoft_res = await axios.get(`https://ksoft.derpyenterprises.org/lyrics?input=${encodeURIComponent(metadata.StreamTitle)}`).catch((e) => {
-				throw new Error(e.message);
-			});
-			if (ksoft_res.data.data.length) {
-				const { artist, album, album_ids, album_year, album_art, artist_id, search_str, popularity, id, search_score, name } = ksoft_res.data.data[0];
-				this._artist = artist;
-				this._album = album;
-				this._album_ids = album_ids;
-				this._album_year = album_year;
-				this._album_art = album_art;
-				this._artist_id = artist_id;
-				this._search_str = search_str;
-				this._popularity = popularity;
-				this._id = id;
-				this._search_score = search_score;
-				this.name = name;
-			}
-		});
-
-		radioStation.once('empty', () => { /* do nothing */ });
+	async _autoFill(self = this) {
+		self.once('end', (error) => {/* do nothing */});
+		self.once('error', (error) => {/* do nothing */});
+		self.once('empty', () => {/* do nothing */});
+		const [metadata] = await once(self, 'metadata');
+		const { data: { data } } = await axios.get(`https://ksoft.derpyenterprises.org/lyrics?input=${encodeURIComponent(metadata.StreamTitle)}`, { timeout: 5000 }).catch((error) => {});
+		if (data.length) {
+			const { artist, album, album_ids, album_year, album_art, artist_id, search_str, popularity, id, search_score, name } = data[0];
+			this.artist = artist;
+			this.album = album;
+			this.album_ids = album_ids;
+			this.album_year = album_year;
+			this.album_art = album_art;
+			this.artist_id = artist_id;
+			this.search_str = search_str;
+			this.popularity = popularity;
+			this.id = id;
+			this.search_score = search_score;
+			this.name = name;
+		}
+		return this;
 	}
 
 	toJSON() {
@@ -206,15 +161,15 @@ class StreamTrack {
 			artist_id: this.artist_id,
 			search_str: this.search_str,
 			popularity: this.popularity,
-			id: this.id,
-			search_score: this.search_score
+			search_score: this.search_score,
+			id: this.id
 		}
 	}
 }
 
 class YouTubeTrack {
 	constructor(message, url, playlist = false) {
-		this._track_requester = message.author;
+		this.requester = message.author;
 		this.url = decodeURIComponent(url);
 		this.artist = null;
 		this.channelUrl = null; //"https://www.youtube.com/channel/" + options.channelId : undefined,
@@ -229,16 +184,7 @@ class YouTubeTrack {
 		this.thumbnailUrl = null;
 		this.title = null;// options.title ? escapeMarkdown(options.title.replace(/&amp;/g, '&').replace(/&gt;/g, '>').replace(/&lt;/g, '<').replace(/&quot;/g, '"').replace(/&OElig;/g, 'Œ').replace(/&oelig;/g, 'œ').replace(/&Scaron;/g, 'Š').replace(/&scaron;/g, 'š').replace(/&Yuml;/g, 'Ÿ').replace(/&circ;/g, 'ˆ').replace(/&tilde;/g, '˜').replace(/&ndash;/g, '–').replace(/&mdash;/g, '—').replace(/&lsquo;/g, '‘').replace(/&rsquo;/g, '’').replace(/&sbquo;/g, '‚').replace(/&ldquo;/g, '“').replace(/&rdquo;/g, '”').replace(/&bdquo;/g, '„').replace(/&dagger;/g, '†').replace(/&Dagger;/g, '‡').replace(/&permil;/g, '‰').replace(/&lsaquo;/g, '‹').replace(/&rsaquo;/g, '›').replace(/&euro;/g, '€').replace(/&copy;/g, '©').replace(/&trade;/g, '™').replace(/&reg;/g, '®').replace(/&nbsp;/g, ' ')) : undefined,
 		this.videoId = null;
-		this._playlist = playlist;
-		this._autoFill();
-	}
-
-	get playlist() {
-		return this._playlist;
-	}
-
-	get requester() {
-		return this._track_requester;
+		this.is_playlist = playlist;
 	}
 
 	async _autoFill() {

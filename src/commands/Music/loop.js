@@ -17,8 +17,8 @@ module.exports = class extends Command {
 		const voice_channel = message.member.voice.channel;
 		if (!voice_channel) throw message.language.get('COMMAND_LOOP_NOCHANNEL');
 		if (!music_settings.queue.length || !voice_connection) throw message.language.get('COMMAND_LOOP_NOQUEUE');
-		music_settings.loop = !music_settings.loop;
-		music_settings.queue[0].repeat = false;
+		if (music_settings.queue[0].isStream) return message.channel.sendLocale('MUSIC_STREAMSCANNOTBELOOPED');
+		music_settings.toggleLoop();
 		return message.channel.sendLocale('COMMAND_LOOP_IS', [music_settings.loop]);
 	}
 

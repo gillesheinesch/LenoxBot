@@ -14,7 +14,7 @@ module.exports = class extends Command {
 
 	async run(message, [number]) {
 		const settings = this.client.settings;
-		if (!number) return message.channel.sendLocale('COMMAND_SKIPNUMBER_CURRENTVOTENUMBER', [setting.get('skipnumber')]);
+		if (!number) return message.channel.sendLocale('COMMAND_SKIPNUMBER_CURRENTVOTENUMBER', [settings.get('skipnumber')]);
 		if (isNaN(number)) return message.channel.sendLocale('COMMAND_SKIPNUMBER_NOINPUT');
 		if (number < 1) return message.channel.sendLocale('COMMAND_SKIPNUMBER_CANNOTBE0');
 
