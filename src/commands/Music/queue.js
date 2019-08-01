@@ -32,9 +32,6 @@ module.exports = class extends Command {
 		await music_settings._updateTrack();
 		const { queue, loop, total_duration, repeat } = music_settings;
 
-		const paused_play_symbol = voice_connection.dispatcher.paused ? '⏸' : '▶️';
-		const repeat_symbol = loop ? '🔁' : repeat ? '🔂' : '';
-
 		const formatQueue = (() => {
 			return columnify(queue.map((track, index) => ({ title: `${index + 1}. ${track.title}`, duration: index + 1 === 1 ? `[${this.humanize_duration(voice_connection.dispatcher.streamTime)}${isFinite(track.duration) ? `/${this.humanize_duration(track.duration)}` : ''}]` : `[${this.humanize_duration(track.duration)}]`})), {
 				truncate: true,
@@ -51,7 +48,7 @@ module.exports = class extends Command {
 			const display = new RichDisplay(
 				new MessageEmbed()
 					.setColor(38550)
-					.setAuthor(message.language.get('COMMAND_QUEUE_AUDIOQUEUE', paused_play_symbol, repeat_symbol), 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg')
+					.setAuthor(message.language.get('COMMAND_QUEUE_AUDIOQUEUE', voice_connection.dispatcher.paused ? '⏸' : '▶️', loop ? '🔁' : repeat ? '🔂' : ''), 'https://cdn.discordapp.com/attachments/355972323590930432/357097120580501504/unnamed.jpg')
 			);
 			display.setFooterPrefix(message.language.get('COMMAND_QUEUE_EMBEDFOOTER', this.humanize_duration(total_duration)));
 			//const chunks = queue.map((audio, index) => `**${index + 1}**. ${audio.title} ${index + 1 === 1 ? `\`[${getDuration(voice_connection.dispatcher.streamTime)}/${getDuration(audio.duration)}]\`` : `\`[${getDuration(audio.duration)}]\``}`);
