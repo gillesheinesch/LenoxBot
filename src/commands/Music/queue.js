@@ -1,4 +1,5 @@
 const Command = require("../../lib/LenoxCommand");
+const { StreamTrack } = require('../../lib/classes/music');
 const { RichDisplay, util: { chunk } } = require('klasa');
 const { Util: { escapeMarkdown }, MessageEmbed, Permissions } = require('discord.js');
 const parseMilliseconds = require('parse-ms');
@@ -29,7 +30,7 @@ module.exports = class extends Command {
 		const music_settings = message.guildSettings.get('music');
 		const voice_connection = message.guild.voice ? message.guild.voice.connection : null;
 		if (!music_settings.queue.length || !voice_connection) return message.channel.sendLocale('MUSIC_NOAUDIOBEINGPLAYED');
-		await music_settings._updateTrack();
+		if (music_settings.currently_playing instanceof StreamTrack) await music_settings._updateTrack();
 		const { queue, loop, total_duration, repeat } = music_settings;
 
 		const formatQueue = (() => {
