@@ -280,7 +280,7 @@
     "unbanuser_notbanned": "This user isn't banned!",
     "unbanuser_description": "Removes a user from the blacklist",
     "banuser_noguildid": "You didn't enter a Discord user ID!",
-    "banuser_noreason": "Bir sebep girin!",
+    "banuser_noreason": "You have to enter a reason!",
     "banuser_already": "Bu kullanıcı daha önce banlanmış!",
     "banuser_embedtitle": "Şu kullanıcı engellendi: %username (ID: %userid)",
     "banuser_usernamenotknown": "Sorun şu ki kullanıcı adı bilinmiyor",
