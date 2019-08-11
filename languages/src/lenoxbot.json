@@ -631,7 +631,7 @@
     "inventory_inventoryslots": "Inventoryslots: %slots",
     "inventory_error": "You do not have any items yet. You can receive items by using %prefixloot",
     "inventory_price": "Price:",
-    "inventory_description": "Shows you your inventory and allows you to upgrade your inventory slots",
+    "inventory_description": "Shows you your inventory and allows you to upgrade your inventoryslots",
 
     "loot_tractor": "tractor",
     "loot_syringe": "syringe",
