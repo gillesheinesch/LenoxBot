@@ -13,7 +13,7 @@
 
     "lyrics_nosongname": "You must provide a song name. Example: `parkway drive - boneyards`.",
     "lyrics_page": "Page:",
-    "lyrics_description": "Fetches lyrics for a given artist or song",
+    "lyrics_description": "Fetches lyrics of a given artist or song",
 
     "remind_maxreachednopremium": "You reached the maximum amount of 5 reminders. To get more reminder slots, you have to donate to LenoxBot via https://lenoxbot.com/donate",
     "remind_maxwithpremium": "You reached the maximum amount of 25 reminders!",
