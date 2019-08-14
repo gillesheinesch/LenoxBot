@@ -47,7 +47,7 @@
     "website_globalmodlog_customcommand": "Paramètres de la commande personnalisée '%nameofthecustomcommand' mis à jour",
     "website_globalmodlog_addedcustomcommand": "Nouvelle commande personnalisée nommée '%nameofthecostumcommand' ajoutée",
     "website_globalmodlog_togglemodule": "Module '%nameofthemodule' basculé",
-    "website_globalmodlog_togglecommand": "Toggled the '%nameofthecommand' command",
+    "website_globalmodlog_togglecommand": "Commande '%nameofthecommand' basculée",
     "website_navigation_home": "Accueil",
     "website_navigation_commands": "Commandes",
     "website_navigation_documentation": "Documentation",
