@@ -8,7 +8,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 			group: 'fun',
 			memberName: 'hangman',
 			description: 'Play hangman alone or with your Discord friends',
-			format: 'eightball {question}',
+			format: 'hangman {question}',
 			aliases: ['hg'],
 			examples: ['hangman', 'hangman @Tester#0001'],
 			clientpermissions: ['SEND_MESSAGES'],
