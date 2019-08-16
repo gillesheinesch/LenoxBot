@@ -557,7 +557,7 @@
     "shop_description": "Tu peux voir la liste de tous les items achetables et vendre ou acheter des items",
     "inventory_notanumber": "You have to enter a number of how many inventoryslottickets you want to use! For further information check out **%prefixhelp inventory**.",
     "inventory_morethan0": "Ton nombre de mises à jour doit être supérieur à 0 !",
-    "inventory_notenough": "You do not have enough inventoryslottickets! Please use **%prefixhelp shop** to check out how to buy some",
+    "inventory_notenough": "Tu n'as pas assez de tickets de case d'inventaire ! Merci d'utiliser **%prefixhelp shop** pour te renseigner comment acheter quelques-uns",
     "inventory_ticketbought": "Tu as utilisé avec succès %numberofusedtickets ticket(s) de case d'inventaire. Maintenant, tu as %currentslots cases d'inventaire",
     "inventory_inventory": "Inventaire de %authortag",
     "inventory_inventoryslots": "Cases d'inventaire : %slots",
