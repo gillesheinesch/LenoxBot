@@ -136,7 +136,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 											hangmanEmbed.edit({
 												embed: firstEmbed
 											});
-											
+
 											turn = turn === 1 ? 2 : 1;
 
 											if (!newWordString.includes('_') && turn === 1) {
@@ -152,7 +152,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 												triedLetters.push(response.first().content.toLowerCase());
 											}
 
-											let embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', turn === 1 ? msg.author.tag : mention.tag).replace('%letter', response.first().content.toLowerCase());;
+											const embedtitlewrong = lang.hangman_embedtitlewrong.replace('%author', turn === 1 ? msg.author.tag : mention.tag).replace('%letter', response.first().content.toLowerCase());
 
 											const embeddescriptionwithtried = lang.hangman_embeddescriptionwithtried.replace('%triedletters', triedLetters.join(', ')).replace('%word', `\`\`${newWordString.join(' ')}\`\``);
 											embedtitlechances = lang.hangman_embedtitlechances.replace('%chances', chances);
