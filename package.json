@@ -2,7 +2,7 @@
   "name": "lenoxbot",
   "version": "1.13.19",
   "description": "",
-  "main": "lenoxbotapp.js",
+  "main": "lenoxbotlauncher.js",
   "directories": {
     "doc": "docs"
   },
