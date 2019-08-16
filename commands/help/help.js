@@ -45,7 +45,6 @@ module.exports = class helpCommand extends LenoxCommand {
 			command = msg.client.registry.commands.get(command);
 
 			if (command.groupID === 'botowner' && msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
-			if (command.groupID === 'staff' && !msg.member.roles.get('386627285119402006')) return msg.channel.send(lang.botownercommands_error);
 
 			const aliases = [];
 			if (command.aliases.length !== 0) {
@@ -80,7 +79,6 @@ module.exports = class helpCommand extends LenoxCommand {
 					command = msg.client.registry.commands.array()[key];
 
 					if (command.groupID === 'botowner' && msg.author.id !== '238590234135101440') return msg.channel.send(lang.botownercommands_error);
-					if (command.groupID === 'staff' && !msg.member.roles.get('386627285119402006')) return msg.channel.send(lang.botownercommands_error);
 
 					const aliases = [];
 					if (command.aliases.length !== 0) {
