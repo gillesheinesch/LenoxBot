@@ -759,7 +759,7 @@ async function run() {
 		try {
 			const islenoxbot = islenoxboton(req);
 			const team = [];
-			const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader', 'pr manager'];
+			const teamroles = ['administrator', 'developer', 'pr manager', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader'];
 
 			let guild;
 			await shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
