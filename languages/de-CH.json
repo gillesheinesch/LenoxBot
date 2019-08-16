@@ -557,7 +557,7 @@
     "shop_description": "Du chunsch e Liiste mit allne chaufbare Gägeständ über und chasch Gägeständ chaufe oder verchaufe",
     "inventory_notanumber": "Du musst eine Anzahl an Inventartickets angeben, die du einlösen möchtest! Für weitere Informationen, sieh dir **%prefixhelp inventory** an.",
     "inventory_morethan0": "Dini Aazahl a Upgrades mues grösser als 0 sii!",
-    "inventory_notenough": "Du hast nicht genug Inventartickets. Bitte verwende **%prefixhelp shop**, um die korrekte Verwendung des Befehls anzusehen. wie du dir welche kaufen kannst.",
+    "inventory_notenough": "You do not have enough inventoryslottickets! Please use **%prefixhelp shop** to check out how to buy some",
     "inventory_ticketbought": "Du häsch erfolgriich %numberofusedtickets Inventarupgrade-Ticket(s) iiglöst. Du häsch jetzt %currentslots Inventarplätz",
     "inventory_inventory": "Inventar vo %authortag",
     "inventory_inventoryslots": "Inventarplätz: %slots",
