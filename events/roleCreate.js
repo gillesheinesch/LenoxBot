@@ -14,7 +14,7 @@ module.exports = {
 			.setColor('GREEN')
 			.setTimestamp()
 			.setAuthor(lang.rolecreateevent_created)
-			.addField(`📎 ${lang.rolecreateevent_id}:`, role.id)
+			.addField(`📎 ${lang.rolecreateevent_id}`, role.id)
 			.addField(`🔰 ${lang.rolecreateevent_color}:`, role.hexColor)
 			.addField(`📝 ${lang.rolecreateevent_name}:`, role.name);
 		messagechannel.send({ embed: embed });

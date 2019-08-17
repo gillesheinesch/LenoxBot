@@ -1653,7 +1653,7 @@
     "presenceupdateevent_new": "New presence",
 
     "rolecreateevent_created": "Role created!",
-    "rolecreateevent_id": "RoleID",
+    "rolecreateevent_id": "RoleID:",
     "rolecreateevent_rolename": "Rolename",
     "rolecreateevent_color": "Hexcolor",
     "rolecreateevent_name": "Name",
