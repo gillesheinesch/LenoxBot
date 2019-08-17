@@ -1456,7 +1456,7 @@
     "presenceupdateevent_old": "Alter Anwesenheitsstatus",
     "presenceupdateevent_new": "Neuer Anwesenheitsstatus",
     "rolecreateevent_created": "Rolle erstellt!",
-    "rolecreateevent_id": "Rollen-ID\n",
+    "rolecreateevent_id": "RoleID:",
     "rolecreateevent_rolename": "Rollenname",
     "rolecreateevent_color": "Hex-Farbe",
     "rolecreateevent_name": "Name",
