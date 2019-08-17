@@ -131,7 +131,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 				}
 			}
 		}
-		const rockpaperscissors_error = lang.rockpaperscissors_error.replace('%prefix', prefix)
+		const rockpaperscissors_error = lang.rockpaperscissors_error.replace('%prefix', prefix);
 		return msg.reply(rockpaperscissors_error);
 	}
 };
