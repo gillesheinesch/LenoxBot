@@ -587,7 +587,7 @@ async function run() {
 
 			let isstaff = false;
 			let ispremium = false;
-			const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation-leader', 'translation-proofreader'];
+			const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader', 'pr manager'];
 
 			let guild;
 			await shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
