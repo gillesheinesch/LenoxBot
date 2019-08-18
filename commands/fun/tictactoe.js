@@ -1,24 +1,24 @@
-const LenoxCommand = require('../LenoxCommand.js');
 const Discord = require('discord.js');
+const LenoxCommand = require('../LenoxCommand.js');
 
 module.exports = class tictactoeCommand extends LenoxCommand {
-	constructor(client) {
-		super(client, {
-			name: 'tictactoe',
-			group: 'fun',
-			memberName: 'tictactoe',
-			description: 'Play a round of TicTacToe against another Discord user',
-			format: 'tictactoe {@User}',
-			aliases: ['ttt'],
-			examples: ['tictactoe @Tester#7584'],
-			clientpermissions: ['SEND_MESSAGES'],
-			userpermissions: [],
-			shortDescription: 'Games',
-			dashboardsettings: true
-		});
-	}
+  constructor(client) {
+    super(client, {
+      name: 'tictactoe',
+      group: 'fun',
+      memberName: 'tictactoe',
+      description: 'Play a round of TicTacToe against another Discord user',
+      format: 'tictactoe {@User}',
+      aliases: ['ttt'],
+      examples: ['tictactoe @Tester#7584'],
+      clientpermissions: ['SEND_MESSAGES'],
+      userpermissions: [],
+      shortDescription: 'Games',
+      dashboardsettings: true
+    });
+  }
 
-	async run(msg) {
+  async run(msg) {
 		const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
 		const lang = require(`../../languages/${langSet}.json`);
 
@@ -541,91 +541,91 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[2] === 1 && validation[5] === 1 && validation[8] === 1) {
+		} if (validation[2] === 1 && validation[5] === 1 && validation[8] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[6] === 1 && validation[7] === 1 && validation[8] === 1) {
+		} if (validation[6] === 1 && validation[7] === 1 && validation[8] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 1 && validation[3] === 1 && validation[6] === 1) {
+		} if (validation[0] === 1 && validation[3] === 1 && validation[6] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 1 && validation[4] === 1 && validation[8] === 1) {
+		} if (validation[0] === 1 && validation[4] === 1 && validation[8] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[2] === 1 && validation[4] === 1 && validation[6] === 1) {
+		} if (validation[2] === 1 && validation[4] === 1 && validation[6] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[1] === 1 && validation[4] === 1 && validation[7] === 1) {
+		} if (validation[1] === 1 && validation[4] === 1 && validation[7] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[3] === 1 && validation[4] === 1 && validation[6] === 1) {
+		} if (validation[3] === 1 && validation[4] === 1 && validation[6] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 2 && validation[1] === 2 && validation[2] === 2) {
+		} if (validation[0] === 2 && validation[1] === 2 && validation[2] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[2] === 2 && validation[5] === 2 && validation[8] === 2) {
+		} if (validation[2] === 2 && validation[5] === 2 && validation[8] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[6] === 2 && validation[7] === 2 && validation[8] === 2) {
+		} if (validation[6] === 2 && validation[7] === 2 && validation[8] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 2 && validation[3] === 2 && validation[6] === 2) {
+		} if (validation[0] === 2 && validation[3] === 2 && validation[6] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 2 && validation[4] === 2 && validation[8] === 2) {
+		} if (validation[0] === 2 && validation[4] === 2 && validation[8] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[2] === 2 && validation[4] === 2 && validation[6] === 2) {
+		} if (validation[2] === 2 && validation[4] === 2 && validation[6] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[1] === 2 && validation[4] === 2 && validation[7] === 2) {
+		} if (validation[1] === 2 && validation[4] === 2 && validation[7] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[3] === 2 && validation[4] === 2 && validation[6] === 2) {
+		} if (validation[3] === 2 && validation[4] === 2 && validation[6] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
@@ -673,91 +673,91 @@ module.exports = class tictactoeCommand extends LenoxCommand {
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[2] === 1 && validation[5] === 1 && validation[8] === 1) {
+		} if (validation[2] === 1 && validation[5] === 1 && validation[8] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[6] === 1 && validation[7] === 1 && validation[8] === 1) {
+		} if (validation[6] === 1 && validation[7] === 1 && validation[8] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 1 && validation[3] === 1 && validation[6] === 1) {
+		} if (validation[0] === 1 && validation[3] === 1 && validation[6] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 1 && validation[4] === 1 && validation[8] === 1) {
+		} if (validation[0] === 1 && validation[4] === 1 && validation[8] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[2] === 1 && validation[4] === 1 && validation[6] === 1) {
+		} if (validation[2] === 1 && validation[4] === 1 && validation[6] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[1] === 1 && validation[4] === 1 && validation[7] === 1) {
+		} if (validation[1] === 1 && validation[4] === 1 && validation[7] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[3] === 1 && validation[4] === 1 && validation[6] === 1) {
+		} if (validation[3] === 1 && validation[4] === 1 && validation[6] === 1) {
 			const win = lang.tictactoe_win.replace('%user', msg.author);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 2 && validation[1] === 2 && validation[2] === 2) {
+		} if (validation[0] === 2 && validation[1] === 2 && validation[2] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[2] === 2 && validation[5] === 2 && validation[8] === 2) {
+		} if (validation[2] === 2 && validation[5] === 2 && validation[8] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[6] === 2 && validation[7] === 2 && validation[8] === 2) {
+		} if (validation[6] === 2 && validation[7] === 2 && validation[8] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 2 && validation[3] === 2 && validation[6] === 2) {
+		} if (validation[0] === 2 && validation[3] === 2 && validation[6] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[0] === 2 && validation[4] === 2 && validation[8] === 2) {
+		} if (validation[0] === 2 && validation[4] === 2 && validation[8] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[2] === 2 && validation[4] === 2 && validation[6] === 2) {
+		} if (validation[2] === 2 && validation[4] === 2 && validation[6] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[1] === 2 && validation[4] === 2 && validation[7] === 2) {
+		} if (validation[1] === 2 && validation[4] === 2 && validation[7] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
 				embed: winnerEmbed
 			});
-		} else if (validation[3] === 2 && validation[4] === 2 && validation[6] === 2) {
+		} if (validation[3] === 2 && validation[4] === 2 && validation[6] === 2) {
 			const win = lang.tictactoe_win.replace('%user', mention);
 			winnerEmbed.setDescription(win);
 			return msg.channel.send({
