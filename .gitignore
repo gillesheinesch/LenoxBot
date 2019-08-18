@@ -10,3 +10,5 @@ test.js
 db.sqlite
 .env
 config.json
+combined.log
+error.log
