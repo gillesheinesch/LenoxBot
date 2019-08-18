@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 // exports.run = (client, oldPresence, newPresence) => {
 module.exports = {
 	run: (oldPresence, newPresence) => {
-		try {
+		/* try {
 			if (!client.provider.isReady); // return
 			if (!client.provider.getGuild(newPresence.guild.id, 'prefix')) return;
 
@@ -25,6 +25,6 @@ module.exports = {
 			}
 		} catch (error) {
 			console.error(error);
-		}
+		}*/
 	}
 };
