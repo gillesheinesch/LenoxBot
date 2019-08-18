@@ -1456,7 +1456,7 @@
     "presenceupdateevent_old": "Vecchia presenza",
     "presenceupdateevent_new": "Nuova presenza",
     "rolecreateevent_created": "Ruolo creato!",
-    "rolecreateevent_id": "IDRuolo",
+    "rolecreateevent_id": "IDRuolo:",
     "rolecreateevent_rolename": "Nomeruolo",
     "rolecreateevent_color": "Coloreesadecimale",
     "rolecreateevent_name": "Name",
