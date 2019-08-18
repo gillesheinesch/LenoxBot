@@ -31,7 +31,7 @@ module.exports = {
 				await client.provider.setBotsettings('botconfs', 'market', marketconfs);
 
 				// Sets the prefix for every guild
-				for (let i = 0; i < client.guilds.array().length; i++) {
+				for (let i = 0; i < client.guilds.array().length; i += 1) {
 					if (client.provider.getGuild(client.guilds.array()[i].id, 'prefix')) {
 						client.guilds.array()[i]._commandPrefix = client.provider.getGuild(client.guilds.array()[i].id, 'prefix');
 					}
@@ -302,8 +302,8 @@ module.exports = {
 				const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 				const commandsArray = [];
 				const englishLang = require(`../languages/en-US.json`);
-				for (let i = 0; i < validation.length; i++) {
-					for (let index = 0; index < client.registry.commands.filter(c => c.groupID === validation[i]).array().length; index++) {
+				for (let i = 0; i < validation.length; i += 1) {
+					for (let index = 0; index < client.registry.commands.filter(c => c.groupID === validation[i]).array().length; index += 1) {
 						const commandObject = {};
 						commandObject.category = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].groupID;
 						commandObject.name = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name;
@@ -319,8 +319,8 @@ module.exports = {
 
 				setInterval(async () => {
 					const commandsArray2 = [];
-					for (let i = 0; i < validation.length; i++) {
-						for (let index = 0; index < client.registry.commands.filter(c => c.groupID === validation[i]).array().length; index++) {
+					for (let i = 0; i < validation.length; i += 1) {
+						for (let index = 0; index < client.registry.commands.filter(c => c.groupID === validation[i]).array().length; index += 1) {
 							const commandObject = {};
 							commandObject.category = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].groupID;
 							commandObject.name = client.registry.commands.filter(c => c.groupID === validation[i]).array()[index].name;
@@ -361,7 +361,7 @@ module.exports = {
 					}
 					return 0;
 				});
-				for (let i = 0; i < userInfo.length; i++) {
+				for (let i = 0; i < userInfo.length; i += 1) {
 					userInfo[i].rank = (i + 1);
 				}
 				await client.provider.setBotsettings('botconfs', 'top100credits', userInfo);*/

@@ -30,7 +30,7 @@ module.exports = class googleCommand extends LenoxCommand {
 
     const filter = ['porno', 'xnxx', 'pornhub', 'porn', 'livesex', 'nsfw'];
 
-    for (let i = 0; i < filter.length; i++) {
+    for (let i = 0; i < filter.length; i += 1) {
       if (args.includes(filter[i])) return msg.channel.send(lang.google_nsfw);
     }
 

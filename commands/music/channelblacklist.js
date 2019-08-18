@@ -26,7 +26,7 @@ module.exports = class channelblacklistCommand extends LenoxCommand {
 
     const array = [];
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i += 1) {
       try {
         const channelname = msg.guild.channels.get(msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]).name;
         array.push(`${channelname} (${msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]})`);

@@ -68,7 +68,7 @@ module.exports = class opencrateCommand extends LenoxCommand {
       return msg.reply(lang.opencrate_nocratekey);
     }
 
-    for (let i = 0; i < validation.length; i++) {
+    for (let i = 0; i < validation.length; i += 1) {
       const currentInventory = msg.client.provider.getUser(msg.author.id, 'inventory');
       currentInventory[validation[i]] += 1;
       await msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);

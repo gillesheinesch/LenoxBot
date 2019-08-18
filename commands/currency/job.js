@@ -178,7 +178,7 @@ module.exports = class jobCommand extends LenoxCommand {
 
     const arrayOfJobs = [];
 
-    for (let i = 0; i < jobslist.length; i++) {
+    for (let i = 0; i < jobslist.length; i += 1) {
       arrayOfJobs.push([`${++index}. ${lang[`job_${jobslist[i][0]}title`]} (${moment.duration(jobslist[i][1], 'minutes').format(`d[ ${lang.messageevent_days}], h[ ${lang.messageevent_hours}], m[ ${lang.messageevent_minutes}] s[ ${lang.messageevent_seconds}]`)})`, `${lang[`job_${jobslist[i][0]}description`]}`]);
     }
 

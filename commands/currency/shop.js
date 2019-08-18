@@ -61,7 +61,7 @@ module.exports = class shopCommand extends LenoxCommand {
       const firstembed = array1.slice(0, 14);
       const secondembed = array2.slice(0, 14);
 
-      for (let i = 0; i < firstembed.length; i++) {
+      for (let i = 0; i < firstembed.length; i += 1) {
         embed.addField(firstembed[i], secondembed[i], true);
       }
 
@@ -96,7 +96,7 @@ module.exports = class shopCommand extends LenoxCommand {
             .setThumbnail('https://imgur.com/7qLINgn.png')
             .setAuthor(shop, msg.client.user.displayAvatarURL());
 
-          for (let i = 0; i < embedaddfield1.length; i++) {
+          for (let i = 0; i < embedaddfield1.length; i += 1) {
             newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
           }
 
@@ -118,7 +118,7 @@ module.exports = class shopCommand extends LenoxCommand {
             .setThumbnail('https://imgur.com/7qLINgn.png')
             .setAuthor(shop, msg.client.user.displayAvatarURL());
 
-          for (let i = 0; i < embedaddfield1.length; i++) {
+          for (let i = 0; i < embedaddfield1.length; i += 1) {
             newembed.addField(embedaddfield1[i], embedaddfield2[i], true);
           }
 
@@ -133,7 +133,7 @@ module.exports = class shopCommand extends LenoxCommand {
       return;
     }
 
-    for (let i = 0; i < sellorbuycheck.length; i++) {
+    for (let i = 0; i < sellorbuycheck.length; i += 1) {
       if (validationForBuySell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
         if (sellorbuycheck[0].toLowerCase() === 'sell') {
           // Check if the item exists in the user's inventory
@@ -193,7 +193,7 @@ module.exports = class shopCommand extends LenoxCommand {
             });
           }
 
-          for (i = 0; i < itemcheck.length; i++) {
+          for (i = 0; i < itemcheck.length; i += 1) {
             if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
               i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
               if (itemcheck[0] === validationforitemsbuysell[i] || itemcheck[0] === lang[`loot_${nameOfTheItems[i]}`]) {
@@ -255,7 +255,7 @@ module.exports = class shopCommand extends LenoxCommand {
             });
           }
           // Check if the use can buy this item
-          for (i = 0; i < itemcheck.length; i++) {
+          for (i = 0; i < itemcheck.length; i += 1) {
             if (validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase()) >= 0) {
               i = validationforitemsbuysell.indexOf(itemcheck[i].toLowerCase());
               if (itemcheck[0] === validationforitemsbuysell[i]) {

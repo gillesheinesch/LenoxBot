@@ -45,7 +45,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 
     if (!voiceChannel) return msg.channel.send(lang.play_notvoicechannel);
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i += 1) {
       if (voiceChannel.id === msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]) return msg.reply(lang.play_blacklistchannel);
     }
 

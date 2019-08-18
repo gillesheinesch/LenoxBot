@@ -32,7 +32,7 @@ module.exports = class banserverCommand extends LenoxCommand {
     if (!guildId || isNaN(guildId)) return msg.reply(lang.banserver_noguildid);
     if (args.slice(1).length === 0) return msg.reply(lang.banserver_noreason);
 
-    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'banlist').length; i++) {
+    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'banlist').length; i += 1) {
       if (msg.client.provider.getBotsettings('botconfs', 'banlist')[i].discordServerID === guildId) return msg.reply(lang.banserver_alreadybanned);
     }
 

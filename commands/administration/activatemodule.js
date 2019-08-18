@@ -27,7 +27,7 @@ module.exports = class activatemoduleCommand extends LenoxCommand {
     const margs = msg.content.split(' ');
     const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'moderation', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'administration') {
           return msg.channel.send(lang.activatemodule_administration);

@@ -44,10 +44,10 @@ module.exports = class serverinfoCommand extends LenoxCommand {
       let emojislength = '';
       let status = false;
 
-      for (let i = 0; i < emojis.length; i++) {
+      for (let i = 0; i < emojis.length; i += 1) {
         if (emojislength.length > 1020 && status === false) {
           status = true;
-          for (let index = 0; index < i - 2; index++) {
+          for (let index = 0; index < i - 2; index += 1) {
             emojisembed.push(emojis[index]);
           }
         }

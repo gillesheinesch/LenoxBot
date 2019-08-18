@@ -68,11 +68,11 @@ module.exports = class creditsCommand extends LenoxCommand {
 			return 0;
 		});
 
-		for (let i = 0; i < userArray.length; i++) {
+		for (let i = 0; i < userArray.length; i += 1) {
 			tempArray.push((i + 1));
 		}
 
-		for (let index = 0; index < userArray.length; index++) {
+		for (let index = 0; index < userArray.length; index += 1) {
 			if (userArray[index].userId === user1.id) {
 				globalrank = tempArray[index];
 			}

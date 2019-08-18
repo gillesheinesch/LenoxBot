@@ -26,7 +26,7 @@ module.exports = class listentryCommand extends LenoxCommand {
 
     const templates = [];
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i += 1) {
       templates.push(`\`${i + 1}.\` ${msg.client.provider.getGuild(msg.guild.id, 'application').template[i]}`);
     }
 

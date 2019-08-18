@@ -24,7 +24,7 @@ module.exports = class deletecustomcommandCommand extends LenoxCommand {
 
     if (args.slice(0).length === 0) return msg.reply(lang.deletecustomcommand_noinput);
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i += 1) {
       if (msg.client.provider.getGuild(msg.guild.id, 'customcommands')[i].name.toLowerCase() === args.slice(0).join(' ').toLowerCase()) {
         const currentCustomcommands = msg.client.provider.getGuild(msg.guild.id, 'customcommands');
         currentCustomcommands.splice(i, 1);

@@ -37,7 +37,7 @@ module.exports = class banserverlistCommand extends LenoxCommand {
       .setTitle(lang.banserverlist_embedtitle)
       .setFooter(embedfooter);
 
-    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'banlist').length; i++) {
+    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'banlist').length; i += 1) {
       banlist.push(msg.client.provider.getBotsettings('botconfs', 'banlist')[i]);
     }
     banlist.forEach((r) => embed.addField(`${r.discordServerID}`, lang.banserverlist_embedfield.replace('%moderatortag', msg.client.users.has(r.moderator) ? msg.client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));

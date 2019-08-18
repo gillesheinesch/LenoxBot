@@ -36,7 +36,7 @@ module.exports = class channelblacklistremoveCommand extends LenoxCommand {
 
     if (channel.type !== 'voice') return msg.reply(lang.channelblacklistremove_wrongtype);
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i += 1) {
       if (channel.id === msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist')[i]) {
         const currentMusicchannelblacklist = msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist');
         currentMusicchannelblacklist.splice(i, 1);

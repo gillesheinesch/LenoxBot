@@ -28,10 +28,10 @@ module.exports = class removeselfassignableroleCommand extends LenoxCommand {
     if (addedrole.length < 1) return msg.reply(lang.removeselfassignablerole_noinput);
     if (!foundRole) return msg.reply(lang.removeselfassignablerole_rolenotexist);
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i += 1) {
       if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[i]) {
         const roleId = foundRole.id;
-        for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; index++) {
+        for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; index += 1) {
           if (roleId === msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[index]) {
             const currentSelfassignableroles = msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles');
             currentSelfassignableroles.splice(index, 1);

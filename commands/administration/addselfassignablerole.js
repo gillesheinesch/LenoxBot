@@ -27,7 +27,7 @@ module.exports = class addselfassignableroleCommand extends LenoxCommand {
 
     if (addedrole.length < 1) return msg.reply(lang.addselfassignablerole_norolename);
     if (!foundRole) return msg.reply(lang.addselfassignablerole_rolenotexist);
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i += 1) {
       if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[i]) return msg.channel.send(lang.addselfassignablerole_alreadyadded);
     }
     const roleId = foundRole.id;

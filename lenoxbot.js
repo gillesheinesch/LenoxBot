@@ -101,7 +101,7 @@ client.dispatcher.addInhibitor(msg => {
 	let customcommand;
 
 	let customcommandstatus = false;
-	for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; index++) {
+	for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; index += 1) {
 		if (msg.client.provider.getGuild(msg.guild.id, 'customcommands')[index].name === command) {
 			customcommandstatus = true;
 			customcommand = msg.client.provider.getGuild(msg.guild.id, 'customcommands')[index];
@@ -148,7 +148,7 @@ client.dispatcher.addInhibitor(msg => {
 	const blackbanlist = client.provider.getBotsettings('botconfs', 'blacklist');
 	const banlist = client.provider.getBotsettings('botconfs', 'banlist');
 	if (banlist.length) {
-		for (let i = 0; i < banlist.length; i++) {
+		for (let i = 0; i < banlist.length; i += 1) {
 			if (msg.guild.id === banlist[i].discordServerID) {
 				banlistembed.addField(lang.messageevent_banlistreason, banlist[i].reason);
 				msg.channel.send({
@@ -159,7 +159,7 @@ client.dispatcher.addInhibitor(msg => {
 		}
 	}
 	if (blackbanlist.length) {
-		for (let i = 0; i < blackbanlist.length; i++) {
+		for (let i = 0; i < blackbanlist.length; i += 1) {
 			if (msg.author.id === blackbanlist[i].userID) {
 				blacklistembed.addField(lang.messageevent_blacklistreason, blackbanlist[i].reason);
 				msg.channel.send({
@@ -236,7 +236,7 @@ client.dispatcher.addInhibitor(msg => {
 
 		// eslint-disable-next-line no-negated-condition
 		if (!msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].whitelistedroles.length) {
-			for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles.length; index++) {
+			for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles.length; index += 1) {
 				if (msg.member.roles.has(msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].bannedroles[index])) {
 					msg.reply(lang.messageevent_bannedrole);
 					return 'Banned role';

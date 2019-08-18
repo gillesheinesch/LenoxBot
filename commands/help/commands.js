@@ -27,9 +27,9 @@ module.exports = class commandsCommand extends LenoxCommand {
     const validation = ['administration', 'help', 'music', 'fun', 'searches', 'nsfw', 'utility', 'botowner', 'moderation', 'staff', 'application', 'currency', 'partner', 'tickets', 'customcommands'];
     const margs = msg.content.split(' ');
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-        for (let index = 0; index < validation.length; index++) {
+        for (let index = 0; index < validation.length; index += 1) {
           if (margs[1].toLowerCase() === validation[index]) {
             if (validation[index] === 'botowner' && !settings.owners.includes(msg.author.id)) {
               return msg.channel.send(lang.botownercommands_error);

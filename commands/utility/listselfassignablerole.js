@@ -30,7 +30,7 @@ module.exports = class listselfassignableroleCommand extends LenoxCommand {
       .setColor('#ABCDEF')
       .setFooter(help);
     try {
-      for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i++) {
+      for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i += 1) {
         roles.push(msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[i]).name);
       }
       embed.addField(lang.listselfassignablerole_embed, roles.join('\n'), true);

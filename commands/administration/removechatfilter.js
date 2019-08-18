@@ -32,7 +32,7 @@ module.exports = class removechatfilterCommand extends LenoxCommand {
       });
     }
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i += 1) {
       if (input.join(' ').toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i]) {
         const currentChatfilter = msg.client.provider.getGuild(msg.guild.id, 'chatfilter');
         currentChatfilter.array.splice(i, 1);

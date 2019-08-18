@@ -26,7 +26,7 @@ module.exports = class createcustomcommandCommand extends LenoxCommand {
     if (args.slice(1).length === 0) return msg.reply(lang.createcustomcommand_nocommandanswer);
     if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false && msg.client.provider.getGuild(msg.guild.id, 'customcommands').length >= 5) return msg.reply(lang.createcustomcommand_premiumneeded);
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i += 1) {
       if (msg.client.provider.getGuild(msg.guild.id, 'customcommands')[i].name.toLowerCase() === args.slice(0, 1).join(' ').toLowerCase()) return msg.reply(lang.createcustomcommand_already);
     }
 

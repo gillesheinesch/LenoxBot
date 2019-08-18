@@ -29,8 +29,8 @@ module.exports = {
 		}
 		const input = newMsg.content.split(' ').slice();
 		if (client.provider.getGuild(newMsg.guild.id, 'chatfilter').chatfilter === 'true' && client.provider.getGuild(newMsg.guild.id, 'chatfilter').array.length !== 0) {
-			for (let i = 0; i < client.provider.getGuild(newMsg.guild.id, 'chatfilter').array.length; i++) {
-				for (let index = 0; index < input.length; index++) {
+			for (let i = 0; i < client.provider.getGuild(newMsg.guild.id, 'chatfilter').array.length; i += 1) {
+				for (let index = 0; index < input.length; index += 1) {
 					if (input[index].toLowerCase() === client.provider.getGuild(newMsg.guild.id, 'chatfilter').array[i].toLowerCase()) {
 						if (client.provider.getGuild(newMsg.guild.id, 'chatfilterlog') === 'true') {
 							const chatfilterembed = lang.messageevent_chatfilterembed.replace('%authortag', newMsg.author.tag);

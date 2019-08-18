@@ -30,7 +30,7 @@ module.exports = class remindCommand extends LenoxCommand {
     const validation = ['add', 'remove', 'list'];
     const margs = msg.content.split(' ');
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'add') {
           if (currentReminder.length === 5 && msg.client.provider.getUser(msg.author.id, 'premium').status === false) return msg.reply(lang.remind_maxreachednopremium);
@@ -103,7 +103,7 @@ module.exports = class remindCommand extends LenoxCommand {
 
           const currentBotReminder = msg.client.provider.getBotsettings('botconfs', 'reminder');
 
-          for (let i = 0; i < currentReminder.length; i++) {
+          for (let i = 0; i < currentReminder.length; i += 1) {
             console.log(currentBotReminder[currentReminder[i]].text.toLowerCase(), reminderText.toLowerCase());
             if (currentBotReminder[currentReminder[i]].text.toLowerCase() === reminderText.toLowerCase()) {
               const currentReminders2 = msg.client.provider.getBotsettings('botconfs', 'reminder');
@@ -128,11 +128,11 @@ module.exports = class remindCommand extends LenoxCommand {
 
           const arrayOfReminder = [];
           const currentReminders = msg.client.provider.getBotsettings('botconfs', 'reminder');
-          for (let i = 0; i < currentReminder.length; i++) {
+          for (let i = 0; i < currentReminder.length; i += 1) {
             arrayOfReminder.push(currentReminders[currentReminder[i]]);
           }
 
-          for (let index = 0; index < arrayOfReminder.slice(0, 5).length; index++) {
+          for (let index = 0; index < arrayOfReminder.slice(0, 5).length; index += 1) {
             reminderEmbed.addField(`${lang.remind_embedreminder} \`${arrayOfReminder[index].text}\``, `${lang.remind_duration} ${ms(arrayOfReminder[index].remindEndDate - Date.now())}`);
           }
 
@@ -161,7 +161,7 @@ module.exports = class remindCommand extends LenoxCommand {
                 .setColor('BLUE')
                 .setTimestamp();
 
-              for (let index = 0; index < reminder.slice(firsttext, secondtext).length; index++) {
+              for (let index = 0; index < reminder.slice(firsttext, secondtext).length; index += 1) {
                 reminderEmbed.addField(`${lang.remind_embedreminder} \`${reminder[index].text}\``, `${lang.remind_duration} ${ms(reminder[index].remindEndDate - Date.now())}`);
               }
 
@@ -178,7 +178,7 @@ module.exports = class remindCommand extends LenoxCommand {
                 .setColor('BLUE')
                 .setTimestamp();
 
-              for (let index = 0; index < reminder.slice(firsttext, secondtext).length; index++) {
+              for (let index = 0; index < reminder.slice(firsttext, secondtext).length; index += 1) {
                 reminderEmbed.addField(`${lang.remind_embedreminder} \`${reminder[index].text}\``, `${lang.remind_duration} ${ms(reminder[index].remindEndDate - Date.now())}`);
               }
 

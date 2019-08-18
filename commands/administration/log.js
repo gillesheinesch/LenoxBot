@@ -30,7 +30,7 @@ module.exports = class logCommand extends LenoxCommand {
     const noinput = lang.log_noinput.replace('%prefix', prefix);
     if (!content) return msg.channel.send(noinput);
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'messagedelete') {
           if (msg.client.provider.getGuild(msg.guild.id, 'messagedellog') === 'false') {

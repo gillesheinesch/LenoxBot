@@ -29,7 +29,7 @@ module.exports = class createmuteroleCommand extends LenoxCommand {
     const message = await msg.channel.send(lang.createmuterole_waitmessage);
     await message.channel.startTyping();
 
-    for (let i = 0; i < msg.guild.channels.array().length; i++) {
+    for (let i = 0; i < msg.guild.channels.array().length; i += 1) {
       await msg.guild.channels.array()[i].overwritePermissions(newMuteRole, {
         SEND_MESSAGES: false,
         SPEAK: false,

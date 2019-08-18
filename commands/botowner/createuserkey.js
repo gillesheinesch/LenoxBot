@@ -28,7 +28,7 @@ module.exports = class createuserkeyCommand extends LenoxCommand {
 
     let key = '';
 
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1000; i += 1) {
       key = keygenerator.generateKey();
 
       if (!msg.client.provider.getBotsettings('botconfs', 'premium').keys.userkeys.includes(key)) {

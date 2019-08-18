@@ -34,7 +34,7 @@ module.exports = class newsCommand extends LenoxCommand {
       .setColor('#76c65d');
 
     if (!margs[1]) return msg.channel.send({ embed: newspaper });
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validationofnewspaper.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'bild') {
           const r = await api.articles({

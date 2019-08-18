@@ -34,7 +34,7 @@ module.exports = class ticketCommand extends LenoxCommand {
     const input = args.slice();
 
     let key = '';
-    for (let i = 0; i < 1000; i++) {
+    for (let i = 0; i < 1000; i += 1) {
       key = keygenerator.generateKey();
 
       if (!msg.client.provider.getBotsettings('botconfs', 'ticketids').includes(key)) {

@@ -32,7 +32,7 @@ module.exports = class lenoxbotteamCommand extends LenoxCommand {
       .setFooter(lang.lenoxbotteam_embedfooter);
 
     const team = [];
-    for (let i = 0; i < teamroles.length; i++) {
+    for (let i = 0; i < teamroles.length; i += 1) {
       const teamSettings = {};
       const role = msg.client.guilds.get(settings.botMainDiscordServer).roles.find((r) => r.name.toLowerCase() === teamroles[i]);
 

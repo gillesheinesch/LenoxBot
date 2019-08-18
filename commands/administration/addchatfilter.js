@@ -33,7 +33,7 @@ module.exports = class addchatfilterCommand extends LenoxCommand {
       });
     }
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i += 1) {
       if (input.join(' ').toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i].toLowerCase()) return msg.channel.send(lang.addchatfilter_already);
     }
 

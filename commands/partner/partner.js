@@ -29,7 +29,7 @@ module.exports = class partnerCommand extends LenoxCommand {
     const validation = ['lenoxbot', 'keinemxl', 'evilturtle', 'dadi'];
     const margs = msg.content.split(' ');
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'lenoxbot') {
           const embed = new Discord.MessageEmbed()

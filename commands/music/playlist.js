@@ -45,7 +45,7 @@ module.exports = class playlistCommand extends LenoxCommand {
 
     if (msg.client.provider.getGuild(msg.guild.id, 'premium').status === false) return msg.reply(lang.playlist_noguildpremium);
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'new') {
           if (Object.keys(msg.client.provider.getGuild(msg.guild.id, 'playlist')).length >= 8) return msg.reply(lang.playlist_maxplaylist);

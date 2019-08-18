@@ -28,7 +28,7 @@ module.exports = class joinroleCommand extends LenoxCommand {
     const validation = ['add', 'list', 'remove'];
     const margs = msg.content.split(' ');
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'add') {
           if (!args || args.length === 0) return msg.reply(lang.joinrole_noinput);
@@ -66,7 +66,7 @@ module.exports = class joinroleCommand extends LenoxCommand {
             .setColor('BLUE');
 
           const arrayForEmbedDescription = [];
-          for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'joinroles').length; index++) {
+          for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'joinroles').length; index += 1) {
             if (!msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'joinroles')[index])) {
               const indexOfTheRole = msg.client.provider.getGuild(msg.guild.id, 'joinroles').indexOf(msg.client.provider.getGuild(msg.guild.id, 'joinroles')[index]);
               const currentJoinroles = msg.client.provider.getGuild(msg.guild.id, 'joinroles');

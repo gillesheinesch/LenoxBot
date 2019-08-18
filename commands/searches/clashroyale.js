@@ -30,7 +30,7 @@ module.exports = class clashroyaleCommand extends LenoxCommand {
 
     if (!args[0] && !args[1]) return msg.channel.send(lang.clashroyale_noinput);
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'profile') {
           try {

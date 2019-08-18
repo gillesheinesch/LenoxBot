@@ -119,7 +119,7 @@ async function run() {
 	function islenoxboton(req) {
 		const islenoxbot = [];
 		if (req.user) {
-			for (let i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i += 1) {
 				if (((req.user.guilds[i].permissions) & 8) === 8 && req.user.guilds[i].lenoxbot === true) {
 					islenoxbot.push(req.user.guilds[i]);
 				}
@@ -132,7 +132,7 @@ async function run() {
 	async function isLenoxBotAndUserOn(req) {
 		const islenoxbotNonPerm = [];
 		if (req.user) {
-			for (let i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i += 1) {
 				let result;
 				await shardingManager.broadcastEval(`this.guilds.get('${req.user.guilds[i].id}')`).then(guildArray => {
 					result = guildArray.find(g => g);
@@ -244,7 +244,7 @@ async function run() {
 		}];
 
 		const currentLanguage = req.getLocale();
-		for (let i = 0; i < languagesList.length; i++) {
+		for (let i = 0; i < languagesList.length; i += 1) {
 			if (languagesList[i].fileName === currentLanguage) {
 				languagesList[i].status = true;
 			}
@@ -256,7 +256,7 @@ async function run() {
 		try {
 			const check = [];
 			if (req.user) {
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (((req.user.guilds[i].permissions) & 8) === 8) {
 						check.push(req.user.guilds[i]);
 					}
@@ -429,7 +429,7 @@ async function run() {
 			}).limit(100)
 				.toArray();
 
-			for (let i = 0; i < users.length; i++) {
+			for (let i = 0; i < users.length; i += 1) {
 				const user = {};
 				user.userId = users[i].userId;
 				user.credits = users[i].settings.credits;
@@ -522,7 +522,7 @@ async function run() {
 			scores = scores.slice(0, 100);
 
 			let user;
-			for (let i = 0; i < scores.length; i++) {
+			for (let i = 0; i < scores.length; i += 1) {
 				user = await shardingManager.shards.get(0).eval(`this.users.get("${scores[i].userId}")`);
 
 				if (user) {
@@ -601,7 +601,7 @@ async function run() {
 			const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("352896116812939264").channels.array()`);
 			guild.channels = evaledChannels;
 
-			for (let i = 0; i < teamroles.length; i++) {
+			for (let i = 0; i < teamroles.length; i += 1) {
 				const roleMembers = await shardingManager.shards.get(guild.shardID).eval(`
 					(() => {
 						const roleFound = this.guilds.get("352896116812939264").roles.find(r => r.name.toLowerCase() === "${teamroles[i]}");
@@ -646,7 +646,7 @@ async function run() {
 			}
 
 			const badgesAndTitles = [];
-			for (let i = 0; i < badges.length; i++) {
+			for (let i = 0; i < badges.length; i += 1) {
 				const settingsForBadgesAndTitles = {
 					emoji: badges[i].emoji,
 					name: badges[i].name
@@ -666,11 +666,11 @@ async function run() {
 				userArray.push(member ? member.tag : row.userId);
 				moneyArray.push(row.medals);
 			});
-			for (let i = 0; i < userArray.length; i++) {
+			for (let i = 0; i < userArray.length; i += 1) {
 				tempArray.push((i + 1));
 			}
 
-			for (let index = 0; index < userArray.length; index++) {
+			for (let index = 0; index < userArray.length; index += 1) {
 				if (useridsArray[index] === req.params.id) {
 					globalrank.push(tempArray[index]);
 				}
@@ -774,7 +774,7 @@ async function run() {
 			const evaledRoles = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("352896116812939264").roles.array()`);
 			guild.roles = evaledRoles;
 
-			for (let i = 0; i < teamroles.length; i++) {
+			for (let i = 0; i < teamroles.length; i += 1) {
 				const teamSettings = {};
 				const role = guild.roles.find(r => r.name.toLowerCase() === teamroles[i]);
 
@@ -872,7 +872,7 @@ async function run() {
 		try {
 			const check = [];
 			if (req.user) {
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (((req.user.guilds[i].permissions) & 8) === 8) {
 						check.push(req.user.guilds[i]);
 					}
@@ -925,7 +925,7 @@ async function run() {
 		try {
 			const check = [];
 			if (req.user) {
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (((req.user.guilds[i].permissions) & 8) === 8) {
 						let guild;
 						await shardingManager.broadcastEval(`this.guilds.get("${req.user.guilds[i].id}")`)
@@ -961,7 +961,7 @@ async function run() {
 			if (req.user) {
 				const check = [];
 
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					const dashboardid = req.user.guilds[i].id;
 					const guildconfs = await guildSettingsCollection.findOne({
 						guildId: dashboardid
@@ -1331,7 +1331,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -1349,7 +1349,7 @@ async function run() {
 						}
 					}
 
-					for (let i = 0; i < client.commands.array().length; i++) {
+					for (let i = 0; i < client.commands.array().length; i += 1) {
 						if (!tableload.commands[client.commands.array()[i].help.name]) {
 							tableload.commands[client.commands.array()[i].help.name] = {
 								name: client.commands.array()[i].help.name,
@@ -1373,7 +1373,7 @@ async function run() {
 
 					await guildSettingsCollection.updateOne({ guildId: dashboardid }, { $set: { settings: guildconfs.settings } });;
 				} else {
-					for (let i = 0; i < client.commands.array().length; i++) {
+					for (let i = 0; i < client.commands.array().length; i += 1) {
 						if (!guildsettingskeys.commands[client.commands.array()[i].help.name]) {
 							guildsettingskeys.commands[client.commands.array()[i].help.name] = {
 								name: client.commands.array()[i].help.name,
@@ -1488,7 +1488,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -1559,7 +1559,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -1585,7 +1585,7 @@ async function run() {
 					const array = [];
 
 					if (Array.isArray(newselfassignableroles)) {
-						for (let i = 0; i < newselfassignableroles.length; i++) {
+						for (let i = 0; i < newselfassignableroles.length; i += 1) {
 							array.push(newselfassignableroles[i]);
 						}
 						guildconfs.settings.selfassignableroles = array;
@@ -1637,7 +1637,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -1665,7 +1665,7 @@ async function run() {
 				const array = [];
 
 				if (Array.isArray(newxpchannels)) {
-					for (let i = 0; i < newxpchannels.length; i++) {
+					for (let i = 0; i < newxpchannels.length; i += 1) {
 						array.push(guild.channels.find(c => c.name === newxpchannels[i]).id);
 					}
 					guildconfs.settings.togglexp.channelids = array;
@@ -1714,7 +1714,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -1779,7 +1779,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -1844,7 +1844,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -1916,7 +1916,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -1982,7 +1982,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2047,7 +2047,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2112,7 +2112,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2177,7 +2177,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2243,7 +2243,7 @@ async function run() {
 			let index;
 			if (req.user) {
 				index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2266,7 +2266,7 @@ async function run() {
 
 				const newchatfilterarray = req.body.newchatfilterarray.replace(/\s/g, '').split(',');
 
-				for (let i = 0; i < newchatfilterarray.length; i++) {
+				for (let i = 0; i < newchatfilterarray.length; i += 1) {
 					for (let index3 = 0; index3 < newchatfilterarray.length; index3++) {
 						if (newchatfilterarray[i].toLowerCase() === newchatfilterarray[index3].toLowerCase() && i !== index3) {
 							newchatfilterarray.splice(index3, 1);
@@ -2316,7 +2316,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2386,7 +2386,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2456,7 +2456,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2527,7 +2527,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2590,7 +2590,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2653,7 +2653,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2683,7 +2683,7 @@ async function run() {
 					const array = [];
 
 					if (Array.isArray(newpermissiondashboard)) {
-						for (let i = 0; i < newpermissiondashboard.length; i++) {
+						for (let i = 0; i < newpermissiondashboard.length; i += 1) {
 							array.push(newpermissiondashboard[i]);
 						}
 						guildconfs.settings.dashboardpermissionroles = array;
@@ -2735,7 +2735,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -2776,7 +2776,7 @@ async function run() {
 				const channels = guild.channels.filter(textChannel => textChannel.type === `text`);
 
 				if (guildconfs.settings.togglexp) {
-					for (let i = 0; i < channels.length; i++) {
+					for (let i = 0; i < channels.length; i += 1) {
 						if (guildconfs.settings.togglexp.channelids.includes(channels[i].id)) {
 							channels[i].togglexpset = true;
 						}
@@ -2807,7 +2807,7 @@ async function run() {
 				}
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'administration' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -2857,7 +2857,7 @@ async function run() {
 
 				const confs = {};
 				if (guildconfs.settings) {
-					for (let i = 0; i < channels.length; i++) {
+					for (let i = 0; i < channels.length; i += 1) {
 						if (channels[i].id === guildconfs.settings.modlogchannel) {
 							if (guildconfs.settings.modlog === 'true') {
 								channels[i].modlogset = true;
@@ -3063,7 +3063,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3148,7 +3148,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3233,7 +3233,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3270,7 +3270,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'moderation' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -3342,7 +3342,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3379,7 +3379,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'help' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -3427,7 +3427,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3455,7 +3455,7 @@ async function run() {
 				const array = [];
 
 				if (Array.isArray(newchannelblacklist)) {
-					for (let i = 0; i < newchannelblacklist.length; i++) {
+					for (let i = 0; i < newchannelblacklist.length; i += 1) {
 						array.push(guild.channels.find(c => c.name === newchannelblacklist[i]).id);
 					}
 					guildconfs.settings.musicchannelblacklist = array;
@@ -3504,7 +3504,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3571,7 +3571,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3609,7 +3609,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				if (guildconfs.settings.musicchannelblacklist) {
-					for (let i = 0; i < channels.length; i++) {
+					for (let i = 0; i < channels.length; i += 1) {
 						if (guildconfs.settings.musicchannelblacklist.includes(channels[i].id)) {
 							channels[i].channelblacklistset = true;
 						}
@@ -3617,7 +3617,7 @@ async function run() {
 				}
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'music' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -3683,7 +3683,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3720,7 +3720,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'fun' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -3768,7 +3768,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3805,7 +3805,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'searches' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -3853,7 +3853,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -3890,7 +3890,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'nsfw' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -3938,7 +3938,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4035,7 +4035,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4072,7 +4072,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'utility' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -4120,7 +4120,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4184,7 +4184,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4300,7 +4300,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4384,7 +4384,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4469,7 +4469,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4534,7 +4534,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4599,7 +4599,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4667,7 +4667,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4735,7 +4735,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4800,7 +4800,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4865,7 +4865,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -4906,7 +4906,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				if (guildconfs.settings.application) {
-					for (let i = 0; i < channels.length; i++) {
+					for (let i = 0; i < channels.length; i += 1) {
 						if (guildconfs.settings.application.votechannel === channels[i].id) {
 							channels[i].votechannelset = true;
 						}
@@ -4929,7 +4929,7 @@ async function run() {
 				}
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'application' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -4975,7 +4975,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5012,7 +5012,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'currency' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -5060,7 +5060,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5155,7 +5155,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5262,7 +5262,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5378,7 +5378,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5447,7 +5447,7 @@ async function run() {
 				}
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'tickets' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -5499,7 +5499,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5520,7 +5520,7 @@ async function run() {
 
 				permissionsCheck(guildconfs, guild, req, res, index);
 
-				for (let i = 0; i < guildconfs.settings.customcommands.length; i++) {
+				for (let i = 0; i < guildconfs.settings.customcommands.length; i += 1) {
 					if (guildconfs.settings.customcommands[i].name === req.params.command.toLowerCase()) {
 						guildconfs.settings.customcommands.splice(i, 1);
 					}
@@ -5566,7 +5566,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5587,7 +5587,7 @@ async function run() {
 
 				permissionsCheck(guildconfs, guild, req, res, index);
 
-				for (let i = 0; i < guildconfs.settings.customcommands.length; i++) {
+				for (let i = 0; i < guildconfs.settings.customcommands.length; i += 1) {
 					if (guildconfs.settings.customcommands[i].name === req.params.command.toLowerCase()) {
 						guildconfs.settings.customcommands[i].enabled = req.body.statuschange;
 					}
@@ -5633,7 +5633,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5660,7 +5660,7 @@ async function run() {
 					newDescription = req.body.newdescription;
 				}
 
-				for (let i = 0; i < guildconfs.settings.customcommands.length; i++) {
+				for (let i = 0; i < guildconfs.settings.customcommands.length; i += 1) {
 					if (guildconfs.settings.customcommands[i].name === req.params.command.toLowerCase()) {
 						guildconfs.settings.customcommands[i].description = newDescription;
 						guildconfs.settings.customcommands[i].commandanswer = newResponse;
@@ -5707,7 +5707,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5735,7 +5735,7 @@ async function run() {
 					newDescription = req.body.newdescription;
 				}
 
-				for (let i = 0; i < guildconfs.settings.customcommands.length; i++) {
+				for (let i = 0; i < guildconfs.settings.customcommands.length; i += 1) {
 					if (guildconfs.settings.customcommands[i].name === newCommandName.toLowerCase()) {
 						return res.redirect(url.format({
 							pathname: `/error`,
@@ -5799,7 +5799,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5833,7 +5833,7 @@ async function run() {
 				const check = req.user.guilds[index];
 
 				const commands = botconfs.settings.commands.filter(r => r.category === 'customcommands' && r.dashboardsettings === true);
-				for (let i = 0; i < commands.length; i++) {
+				for (let i = 0; i < commands.length; i += 1) {
 					const englishstrings = require('./languages/en-US.json');
 					commands[i].description = englishstrings[`${commands[i].name}_description`];
 					if (guildconfs.settings.commands[commands[i].name].status === 'true') {
@@ -5911,7 +5911,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -5978,7 +5978,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -6009,7 +6009,7 @@ async function run() {
 				const moduleslist = ['Moderation', 'Help', 'Music', 'Fun', 'Searches', 'NSFW', 'Utility', 'Application', 'Currency', 'Tickets', 'Customcommands'];
 				const modulesIconsList = ['gavel', 'help', 'music', 'gamepad', 'magnify', 'alert', 'lightbulb-on', 'file-document-box-outline', 'currency-usd', 'ticket-account', 'console'];
 
-				for (let i = 0; i < moduleslist.length; i++) {
+				for (let i = 0; i < moduleslist.length; i += 1) {
 					const config = {
 						name: '',
 						description: '',
@@ -6062,7 +6062,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -6130,7 +6130,7 @@ async function run() {
 	app.get('/error', (req, res) => {
 		const check = [];
 		if (req.user) {
-			for (let i = 0; i < req.user.guilds.length; i++) {
+			for (let i = 0; i < req.user.guilds.length; i += 1) {
 				if (((req.user.guilds[i].permissions) & 8) === 8) {
 					check.push(req.user.guilds[i]);
 				}
@@ -6171,7 +6171,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -6238,7 +6238,7 @@ async function run() {
 			const dashboardid = req.params.id;
 			if (req.user) {
 				let index = -1;
-				for (let i = 0; i < req.user.guilds.length; i++) {
+				for (let i = 0; i < req.user.guilds.length; i += 1) {
 					if (req.user.guilds[i].id === dashboardid) {
 						index = i;
 					}
@@ -6270,7 +6270,7 @@ async function run() {
 				let newcooldown = '';
 				if (req.body.newblacklistedchannels) {
 					if (Array.isArray(req.body.newblacklistedchannels)) {
-						for (let i = 0; i < req.body.newblacklistedchannels.length; i++) {
+						for (let i = 0; i < req.body.newblacklistedchannels.length; i += 1) {
 							channelsarray.push(req.body.newblacklistedchannels[i]);
 						}
 						guildconfs.settings.commands[req.params.command].bannedchannels = channelsarray;
@@ -6284,7 +6284,7 @@ async function run() {
 
 				if (req.body.newblacklistedroles) {
 					if (Array.isArray(req.body.newblacklistedroles)) {
-						for (let i = 0; i < req.body.newblacklistedroles.length; i++) {
+						for (let i = 0; i < req.body.newblacklistedroles.length; i += 1) {
 							rolesarray.push(req.body.newblacklistedroles[i]);
 						}
 						guildconfs.settings.commands[req.params.command].bannedroles = rolesarray;
@@ -6298,7 +6298,7 @@ async function run() {
 
 				if (req.body.newwhitelistedroles) {
 					if (Array.isArray(req.body.newwhitelistedroles)) {
-						for (let i = 0; i < req.body.newwhitelistedroles.length; i++) {
+						for (let i = 0; i < req.body.newwhitelistedroles.length; i += 1) {
 							whitelistedrolesarray.push(req.body.newwhitelistedroles[i]);
 						}
 						guildconfs.settings.commands[req.params.command].whitelistedroles = whitelistedrolesarray;

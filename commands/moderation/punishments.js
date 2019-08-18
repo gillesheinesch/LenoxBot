@@ -60,7 +60,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
 
     const punishmentsArrayOfTheUser = [];
     let indexCount = 0;
-    for (let i = 0; i < currentPunishments.length; i++) {
+    for (let i = 0; i < currentPunishments.length; i += 1) {
       if (user.id === currentPunishments[i].userId) {
         const moderator = msg.guild.member(currentPunishments[i].moderatorId) ? msg.guild.member(currentPunishments[i].moderatorId).user.tag : currentPunishments[i].moderatorId;
 
@@ -83,7 +83,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
     const margs = msg.content.split(' ');
     let message;
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'show') {
           const embed = new Discord.MessageEmbed()
@@ -92,7 +92,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
 
           const embedFields = punishmentsArrayOfTheUser.slice(0, 5);
 
-          for (let index = 0; index < embedFields.length; index++) {
+          for (let index = 0; index < embedFields.length; index += 1) {
             embed.addField(embedFields[index].title, embedFields[index].description);
           }
 
@@ -161,7 +161,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
           if (args.slice(2, 3).length === 0) return msg.reply(lang.punishments_noreportid);
           if (isNaN(args.slice(2, 3).join(' '))) return msg.reply(lang.punishments_nonumber);
 
-          for (let index = 0; index < punishmentsArrayOfTheUser.length; index++) {
+          for (let index = 0; index < punishmentsArrayOfTheUser.length; index += 1) {
             if (punishmentsArrayOfTheUser[index].shownID === Number(args.slice(2, 3).join(' '))) {
               currentPunishments.splice(punishmentsArrayOfTheUser[index].realID, 1);
 

@@ -80,7 +80,7 @@ module.exports = class userinfoCommand extends LenoxCommand {
         return 0;
       });
 
-      for (let i = 0; i < badges.length; i++) {
+      for (let i = 0; i < badges.length; i += 1) {
         topBadges.push(badges[i].emoji);
       }
     }

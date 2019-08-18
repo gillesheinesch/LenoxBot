@@ -33,7 +33,7 @@ module.exports = class joinCommand extends LenoxCommand {
     if (msg.member.roles.has(foundRole.id)) return msg.reply(lang.join_alreadyhave);
 
     const selfAssignableRoles = msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles', '[]');
-    for (let i = 0; i < selfAssignableRoles.length; i++) {
+    for (let i = 0; i < selfAssignableRoles.length; i += 1) {
       if (foundRole.id === selfAssignableRoles[i]) {
         try {
           return author.roles.add(foundRole).then((m) => m.guild.channels.get(channelID).send(lang.join_roleassigned));

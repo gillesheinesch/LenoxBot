@@ -28,7 +28,7 @@ module.exports = class listeventsCommand extends LenoxCommand {
       .setColor('0066CC')
       .setAuthor(lang.listevents_embed);
 
-    for (let i = 0; i < eventslist.length; i++) {
+    for (let i = 0; i < eventslist.length; i += 1) {
       const x = eventslist[i].toLowerCase();
       embed.addField(eventslist[i], lang[`listevents_${x}`]);
     }

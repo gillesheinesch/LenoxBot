@@ -33,7 +33,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
       msg.client.provider.setUser(msg.author.id, 'inventoryslots', 30);
     }
 
-    for (let i = 0; i < args.slice().length; i++) {
+    for (let i = 0; i < args.slice().length; i += 1) {
       if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
         if (args.slice()[0].toLowerCase() === 'upgrade') {
           if (!args.slice(1, 2) || args.slice(1, 2).length === 0) return msg.reply(lang.inventory_notanumber);
@@ -90,7 +90,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
     }
 
     if (array1.length <= 7) {
-      for (let i = 0; i < array1.length; i++) {
+      for (let i = 0; i < array1.length; i += 1) {
         embed.addField(array1[i], array2[i]);
       }
       return msg.channel.send({
@@ -101,7 +101,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
     const firstembed = array1.slice(0, 7);
     const secondembed = array2.slice(0, 7);
 
-    for (let i = 0; i < firstembed.length; i++) {
+    for (let i = 0; i < firstembed.length; i += 1) {
       embed.addField(firstembed[i], secondembed[i]);
     }
 
@@ -135,7 +135,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
           .setAuthor(inventory, msg.author.displayAvatarURL())
           .setColor('#009933');
 
-        for (let i = 0; i < embedaddfield1.length; i++) {
+        for (let i = 0; i < embedaddfield1.length; i += 1) {
           newembed.addField(embedaddfield1[i], embedaddfield2[i]);
         }
 
@@ -156,7 +156,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
           .setAuthor(inventory, msg.author.displayAvatarURL())
           .setColor('#009933');
 
-        for (let i = 0; i < embedaddfield1.length; i++) {
+        for (let i = 0; i < embedaddfield1.length; i += 1) {
           newembed.addField(embedaddfield1[i], embedaddfield2[i]);
         }
 

@@ -48,14 +48,14 @@ module.exports = class helpCommand extends LenoxCommand {
 
       const aliases = [];
       if (command.aliases.length !== 0) {
-        for (let i = 0; i < command.aliases.length; i++) {
+        for (let i = 0; i < command.aliases.length; i += 1) {
           aliases.push(`${prefix}${command.aliases[i]}`);
         }
       }
 
       const examples = [];
       if (command.examples.length !== 0) {
-        for (let i = 0; i < command.examples.length; i++) {
+        for (let i = 0; i < command.examples.length; i += 1) {
           examples.push(`${prefix}${command.examples[i]}`);
         }
       }
@@ -83,14 +83,14 @@ module.exports = class helpCommand extends LenoxCommand {
 
           const aliases = [];
           if (command.aliases.length !== 0) {
-            for (let i = 0; i < command.aliases.length; i++) {
+            for (let i = 0; i < command.aliases.length; i += 1) {
               aliases.push(`${prefix}${command.aliases[i]}`);
             }
           }
 
           const examples = [];
           if (command.examples.length !== 0) {
-            for (let i = 0; i < command.examples.length; i++) {
+            for (let i = 0; i < command.examples.length; i += 1) {
               examples.push(`${prefix}${command.examples[i]}`);
             }
           }

@@ -27,7 +27,7 @@ module.exports = class deleteentryCommand extends LenoxCommand {
     if (input.length < 1) return msg.reply(lang.deleteentry_noinput);
 
     if (isNaN(input)) {
-      for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i++) {
+      for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i += 1) {
         if (input.toLowerCase() === msg.client.provider.getGuild(msg.guild.id, 'application').template[i].toLowerCase()) {
           const currentApplication = msg.client.provider.getGuild(msg.guild.id, 'application');
           currentApplication.template.splice(i, 1);

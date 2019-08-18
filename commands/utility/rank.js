@@ -53,7 +53,7 @@ module.exports = class rankCommand extends LenoxCommand {
       return 0;
     });
 
-    for (let i = 0; i < allMembersArray.length; i++) {
+    for (let i = 0; i < allMembersArray.length; i += 1) {
       if (allMembersArray[i].userId === user1.id) {
         rank = i + 1;
       }

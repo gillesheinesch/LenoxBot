@@ -30,12 +30,12 @@ module.exports = class socialmediaCommand extends LenoxCommand {
 
     if (args.slice().length === 0) return msg.reply(lang.socialmedia_error1);
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'edit') {
           if (args.slice(1).length === 0) return msg.reply(lang.socialmedia_error2);
           if (args.slice(2).length === 0) return msg.reply(lang.socialmedia_error3);
-          for (let index = 0; index < margs.length; index++) {
+          for (let index = 0; index < margs.length; index += 1) {
             if (validation2.indexOf(margs[index].toLowerCase()) >= 0) {
               if (margs[2].toLowerCase() === 'youtube') {
                 const currentSocialmedia = msg.client.provider.getUser(msg.author.id, 'socialmedia');
@@ -92,7 +92,7 @@ module.exports = class socialmediaCommand extends LenoxCommand {
           return msg.reply(error4);
         } if (margs[1].toLowerCase() === 'delete') {
           if (args.slice(1).length === 0) return msg.reply(lang.socialmedia_error2);
-          for (let index = 0; index < margs.length; index++) {
+          for (let index = 0; index < margs.length; index += 1) {
             if (validation2.indexOf(margs[index].toLowerCase()) >= 0) {
               if (margs[2].toLowerCase() === 'youtube') {
                 if (msg.client.provider.getUser(msg.author.id, 'socialmedia').youtube === '') return msg.reply(lang.socialmedia_notsetup);

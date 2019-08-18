@@ -41,7 +41,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
       .setAuthor(msg.guild.name, msg.guild.iconURL());
     const x = firstfield.slice(0, 5);
     const xx = secondfield.slice(0, 5);
-    for (let i = 0; i < x.length; i++) {
+    for (let i = 0; i < x.length; i += 1) {
       embed.addField(x[i], xx[i]);
     }
     const message = await msg.channel.send({
@@ -67,7 +67,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
         const newembed = new Discord.MessageEmbed()
           .setColor('#fff024')
           .setAuthor(msg.guild.name, msg.guild.iconURL());
-        for (let i = 0; i < thefirst.length; i++) {
+        for (let i = 0; i < thefirst.length; i += 1) {
           newembed.addField(thefirst[i], thesecond[i]);
         }
         message.edit({
@@ -83,7 +83,7 @@ module.exports = class serverwarnsCommand extends LenoxCommand {
         const newembed = new Discord.MessageEmbed()
           .setColor('#fff024')
           .setAuthor(msg.guild.name, msg.guild.iconURL());
-        for (let i = 0; i < thefirst.length; i++) {
+        for (let i = 0; i < thefirst.length; i += 1) {
           newembed.addField(thefirst[i], thesecond[i]);
         }
         message.edit({

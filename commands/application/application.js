@@ -39,7 +39,7 @@ module.exports = class applicationCommand extends LenoxCommand {
 
     const array = [];
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i += 1) {
       try {
         await msg.channel.send(`${msg.author}, ${msg.client.provider.getGuild(msg.guild.id, 'application').template[i]}`);
         const response = await msg.channel.awaitMessages((msg2) => msg2.attachments.size === 0 && msg.author.id === msg2.author.id && !msg2.author.bot, {
@@ -57,7 +57,7 @@ module.exports = class applicationCommand extends LenoxCommand {
     }
 
     const temparray = [];
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i += 1) {
       temparray.push(`${msg.client.provider.getGuild(msg.guild.id, 'application').template[i]} \n${array[i]}`);
     }
 

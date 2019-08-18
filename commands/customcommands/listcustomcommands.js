@@ -30,7 +30,7 @@ module.exports = class listcustomcommandsCommand extends LenoxCommand {
     const embed = new Discord.MessageEmbed()
       .setColor('#ff9900');
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'customcommands').length; i += 1) {
       arrayOfCustomCommands.push(`${prefix}${msg.client.provider.getGuild(msg.guild.id, 'customcommands')[i].name}`);
     }
 

@@ -3,7 +3,7 @@ function generateKey() {
 	let keyOut = '';
 
 	// segments
-	for (let i = 0; i < 5; i++) {
+	for (let i = 0; i < 5; i += 1) {
 		for (let y = 0; y < 4; y++) {
 			const random = Math.floor((Math.random() * 35) + 1);
 			const char = tokens.charAt(random);

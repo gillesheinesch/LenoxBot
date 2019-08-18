@@ -30,7 +30,7 @@ module.exports = class togglexpCommand extends LenoxCommand {
 
     if (!input || input.length === 0) return msg.reply(lang.togglexp_noinput);
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'add') {
           try {
@@ -43,7 +43,7 @@ module.exports = class togglexpCommand extends LenoxCommand {
           if (channel.type !== 'text') return msg.reply(lang.togglexp_notextchannel);
 
           if (msg.client.provider.getGuild(msg.guild.id, 'togglexp').channelids.length !== 0) {
-            for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'togglexp').channelids.length; index++) {
+            for (let index = 0; index < msg.client.provider.getGuild(msg.guild.id, 'togglexp').channelids.length; index += 1) {
               if (msg.client.provider.getGuild(msg.guild.id, 'togglexp').channelids[index] === channel.id) return msg.reply(lang.togglexp_alreadyadd);
             }
           }

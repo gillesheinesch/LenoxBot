@@ -51,7 +51,7 @@ module.exports = class creditranklistCommand extends LenoxCommand {
       return 0;
     });
 
-    for (let i = 0; i < userArray.length; i++) {
+    for (let i = 0; i < userArray.length; i += 1) {
       userArray[i].final = `${i + 1}. ${userArray[i].user}`;
     }
 

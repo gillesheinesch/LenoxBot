@@ -55,7 +55,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
     const wordToGuessInArray = wordToGuess.split('');
 
     const newWordString = [];
-    for (let i = 0; i < wordToGuess.length; i++) {
+    for (let i = 0; i < wordToGuess.length; i += 1) {
       newWordString.push('_');
     }
 
@@ -92,7 +92,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
 
           let turn = 1;
 
-          for (let i = 0; i < 1000; i++) {
+          for (let i = 0; i < 1000; i += 1) {
             try {
               if (message) {
                 await message.delete();
@@ -276,7 +276,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
       let message;
       let response;
 
-      for (let i = 0; i < 1000; i++) {
+      for (let i = 0; i < 1000; i += 1) {
         try {
           if (message) {
             await message.delete();

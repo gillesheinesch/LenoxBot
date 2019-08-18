@@ -32,7 +32,7 @@ module.exports = class unbanuserCommand extends LenoxCommand {
     if (!userId || isNaN(userId)) return msg.reply(lang.unbanuser_noguildid);
     if (args.slice(1).length === 0) return msg.reply(lang.unbanuser_noreason);
 
-    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'blacklist').length; i++) {
+    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'blacklist').length; i += 1) {
       if (msg.client.provider.getBotsettings('botconfs', 'blacklist')[i].userID === userId) {
         const embedtitle = lang.unbanuser_embedtitle.replace('%userid', userId);
         const embeddescription = lang.unbanuser_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));

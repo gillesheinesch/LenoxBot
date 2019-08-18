@@ -31,7 +31,7 @@ module.exports = class languageCommand extends LenoxCommand {
 
     if (!input || input.length === 0) return msg.reply(lang.language_noinput);
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'english') {
           if (langSet === 'en-US') return msg.channel.send(already);

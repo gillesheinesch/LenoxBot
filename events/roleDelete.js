@@ -4,7 +4,7 @@ module.exports = {
 		if (!client.provider.isReady) return;
 		if (!client.provider.getGuild(role.guild.id, 'prefix')) return;
 
-		for (let i = 0; i < client.provider.getGuild(role.guild.id, 'selfassignableroles').length; i++) {
+		for (let i = 0; i < client.provider.getGuild(role.guild.id, 'selfassignableroles').length; i += 1) {
 			if (role.id === client.provider.getGuild(role.guild.id, 'selfassignableroles')[i]) {
 				const currentSelfassignableroles = client.provider.getGuild(role.guild.id, 'selfassignableroles');
 				currentSelfassignableroles.splice(i, 1);

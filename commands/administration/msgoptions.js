@@ -28,7 +28,7 @@ module.exports = class msgoptionsCommand extends LenoxCommand {
       .setColor('#7FFFD4')
       .setAuthor(lang.msgoptions_embed);
 
-    for (let i = 0; i < validation.length; i++) {
+    for (let i = 0; i < validation.length; i += 1) {
       embed.addField(validation[i], lang[`msgoptions_${validation[i]}`]);
     }
 

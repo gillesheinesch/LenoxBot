@@ -36,7 +36,7 @@ module.exports = class listchatfilterCommand extends LenoxCommand {
     const embed = new Discord.MessageEmbed()
       .setColor('#ABCDEF');
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array.length; i += 1) {
       array.push(msg.client.provider.getGuild(msg.guild.id, 'chatfilter').array[i]);
     }
 

@@ -30,7 +30,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
 
     if (!args.slice() || args.slice().length === 0) return msg.reply(lang.rockpaperscissors_noinput);
 
-    for (let i = 0; i < margs.length; i++) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'rock') {
           if (randomofvalidation === 'rock') {

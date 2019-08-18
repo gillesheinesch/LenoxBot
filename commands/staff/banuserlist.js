@@ -38,7 +38,7 @@ module.exports = class banuserlistCommand extends LenoxCommand {
       .setFooter(embedfooter);
 
     if (msg.client.provider.getBotsettings('botconfs', 'blacklist').length < 1) return msg.channel.send('There are no banned Discord users!');
-    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'blacklist').length; i++) {
+    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'blacklist').length; i += 1) {
       blacklist.push(msg.client.provider.getBotsettings('botconfs', 'blacklist')[i]);
     }
     blacklist.forEach((r) => embed.addField(`${r.userID}`, lang.banuserlist_embedfield.replace('%moderatortag', msg.client.users.has(r.moderator) ? msg.client.users.get(r.moderator).tag : r.moderator).replace('%reason', r.reason)));

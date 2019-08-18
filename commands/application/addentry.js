@@ -26,7 +26,7 @@ module.exports = class addentryCommand extends LenoxCommand {
 
     if (input.length < 1) return msg.reply(lang.addentry_noinput);
 
-    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i++) {
+    for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'application').template.length; i += 1) {
       if (msg.client.provider.getGuild(msg.guild.id, 'application').template[i].toLowerCase() === input.toLowerCase()) return msg.channel.send(lang.addentry_alreadyexists);
     }
 

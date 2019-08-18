@@ -32,7 +32,7 @@ module.exports = class banuserCommand extends LenoxCommand {
     if (!userId || isNaN(userId)) return msg.reply(lang.banuser_noguildid);
     if (args.slice(1).length === 0) return msg.reply(lang.banuser_noreason);
 
-    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'blacklist').length; i++) {
+    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'blacklist').length; i += 1) {
       if (msg.client.provider.getBotsettings('botconfs', 'blacklist')[i].userID === userId) return msg.reply(lang.banuser_already);
     }
 
