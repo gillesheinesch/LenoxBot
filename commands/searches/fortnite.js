@@ -44,7 +44,7 @@ module.exports = class fortniteCommand extends LenoxCommand {
       .setColor('BLUE')
       .setAuthor(`${stats.username} || ${stats.platformNameLong}`);
 
-    for (let i = 0; i < stats.lifetimeStats.length; i += 1= 1) {
+    for (let i = 0; i < stats.lifetimeStats.length; i += 1) {
       const { stat } = stats.lifetimeStats[i];
       const { value } = stats.lifetimeStats[i];
       statsEmbed.addField(stat, value, true);

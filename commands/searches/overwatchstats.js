@@ -34,7 +34,7 @@ module.exports = class overwatchstatsCommand extends LenoxCommand {
     if (!arg.includes('#')) return msg.reply(lang.overwatchstats_accounterror).then((m) => m.delete(15000));
     if (arg.split('#').length > 6) return msg.reply(lang.overwatchstats_incorrecttag).then((m) => m.delete(15000));
 
-    for (let i = 0; i < margs.length; i += 1= 1) {
+    for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
         if (margs[1].toLowerCase() === 'profile') {
           OWStats.load(arg)

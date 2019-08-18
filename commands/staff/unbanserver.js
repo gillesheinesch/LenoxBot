@@ -32,7 +32,7 @@ module.exports = class unbanserverCommand extends LenoxCommand {
     if (!guildId || isNaN(guildId)) return msg.reply(lang.unbanserver_noguildid);
     if (args.slice(1).length === 0) return msg.reply(lang.unbanserver_noreason);
 
-    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'banlist').length; i += 1= 1) {
+    for (let i = 0; i < msg.client.provider.getBotsettings('botconfs', 'banlist').length; i += 1) {
       if (msg.client.provider.getBotsettings('botconfs', 'banlist')[i].discordServerID === guildId) {
         const embedtitle = lang.unbanserver_embedtitle.replace('%guildid', guildId);
         const embeddescription = lang.unbanserver_embeddescription.replace('%moderatortag', msg.author.tag).replace('%moderatorid', msg.author.id).replace('%reason', args.slice(1).join(' '));
