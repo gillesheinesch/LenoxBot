@@ -55,6 +55,7 @@
         "underscore.string": "^3.3.5",
         "url": "^0.11.0",
         "util": "^0.12.0",
+        "winston": "^3.2.1",
         "ytdl-core": "^0.29.2"
     },
     "devDependencies": {
