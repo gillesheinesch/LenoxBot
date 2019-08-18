@@ -106,6 +106,9 @@
             ],
             "class-methods-use-this": [
                 "off"
+            ],
+            "max-len": [
+                "off"
             ]
         }
     }
