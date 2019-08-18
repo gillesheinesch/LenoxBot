@@ -33,7 +33,7 @@ module.exports = class youtubeCommand extends LenoxCommand {
     const url = `https://www.googleapis.com/youtube/v3/search?part=id,snippet&q=${args}&maxResults=1&type=video&key=${config.googlekey}`;
     request(url, (err, response, body) => {
       if (err) {
-        console.log(`[ERROR]${err}`);
+        msg.client.logger.error(err);
         return msg.channel.send(lang.youtube_error);
       }
       const search = JSON.parse(body);

@@ -97,14 +97,12 @@ module.exports = class remindCommand extends LenoxCommand {
           }, msTime);
           return undefined;
         } if (margs[1].toLowerCase() === 'remove') {
-          console.log('tets');
           const reminderText = args.slice(1).join(' ');
           if (!reminderText) return msg.reply(lang.remind_notextfordelete);
 
           const currentBotReminder = msg.client.provider.getBotsettings('botconfs', 'reminder');
 
           for (let i = 0; i < currentReminder.length; i += 1) {
-            console.log(currentBotReminder[currentReminder[i]].text.toLowerCase(), reminderText.toLowerCase());
             if (currentBotReminder[currentReminder[i]].text.toLowerCase() === reminderText.toLowerCase()) {
               const currentReminders2 = msg.client.provider.getBotsettings('botconfs', 'reminder');
               delete currentReminders2[currentReminder[i].id];
