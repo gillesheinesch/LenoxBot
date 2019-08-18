@@ -22,7 +22,6 @@ module.exports = class githubCommand extends LenoxCommand {
     const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
     const lang = require(`../../languages/${langSet}.json`);
 
-
     const embed = new Discord.MessageEmbed()
       .setTitle(lang.github_embedtitle)
       .setURL('https://github.com/LenoxBot')

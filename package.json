@@ -102,6 +102,9 @@
             ],
             "guard-for-in": [
                 "off"
+            ],
+            "class-methods-use-this": [
+                "off"
             ]
         }
     }
