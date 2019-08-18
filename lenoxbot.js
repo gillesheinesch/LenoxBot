@@ -8,6 +8,7 @@ const englishlang = require(`./languages/en-US.json`);
 const Discord = require('discord.js');
 const NewsAPI = require('newsapi');
 const moment = require('moment');
+const winston = require('winston');
 require('moment-duration-format');
 
 // const shardId = process.env.SHARD_COUNT;
@@ -78,6 +79,32 @@ client.registry
 		['utility', 'Utility']
 	])
 	.registerCommandsIn(path.join(__dirname, 'commands'));
+
+// Logger:
+// TODO Review this logger
+client.logger = winston.createLogger({
+	level: 'info',
+	format: winston.format.json(),
+	defaultMeta: { service: 'user-service' },
+	transports: [
+		//
+		// - Write to all logs with level `info` and below to `combined.log`
+		// - Write all logs error (and below) to `error.log`.
+		//
+		new winston.transports.File({ filename: 'error.log', level: 'error' }),
+		new winston.transports.File({ filename: 'combined.log' })
+	]
+  });
+  
+  //
+  // If we're not in production then log to the `console` with the format:
+  // `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
+  //
+  if (process.env.NODE_ENV !== 'production') {
+	client.logger.add(new winston.transports.Console({
+		format: winston.format.simple()
+	}));
+  }
 
 
 client.dispatcher.addInhibitor(msg => {
