@@ -1456,7 +1456,7 @@
     "presenceupdateevent_old": "Oude aanwezigheidsstatus",
     "presenceupdateevent_new": "Nieuwe aanwezigheidsstatus",
     "rolecreateevent_created": "Rol gemaakt!",
-    "rolecreateevent_id": "Rol-ID",
+    "rolecreateevent_id": "RoleID:",
     "rolecreateevent_rolename": "Rolename",
     "rolecreateevent_color": "Hex kleur",
     "rolecreateevent_name": "Name",
