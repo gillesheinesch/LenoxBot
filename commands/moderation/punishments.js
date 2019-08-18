@@ -28,7 +28,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
 
 		moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
-		let user = msg.mentions.users.first();
+		let user = msg.mentions.users.first() || msg.client.users.get(args[1]) || msg.author;
 
 		if (!user && (!args || args.length === 0)) return msg.reply(lang.punishments_noinput);
 
