@@ -587,7 +587,7 @@ async function run() {
 
 			let isstaff = false;
 			let ispremium = false;
-			const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation-leader', 'translation-proofreader'];
+			const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader', 'pr manager'];
 
 			let guild;
 			await shardingManager.broadcastEval(`this.guilds.get("352896116812939264")`)
@@ -1460,7 +1460,7 @@ async function run() {
 
 						const islenoxbot = islenoxboton(req);
 						const lang = require(`./languages/website_${req.getLocale()}`);
-						return res.render('dashboard', {
+						return res.render('dashboard/overview', {
 							languages: languages(req),
 							lang: lang,
 							user: req.user,
@@ -3025,7 +3025,7 @@ async function run() {
 				}
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardadministration', {
+				return res.render('dashboard/administration', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -3311,7 +3311,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardmoderation', {
+				return res.render('dashboard/moderation', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -3398,7 +3398,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardhelp', {
+				return res.render('dashboard/help', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -3649,7 +3649,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardmusic', {
+				return res.render('dashboard/music', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -3739,7 +3739,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardfun', {
+				return res.render('dashboard/fun', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -3824,7 +3824,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardsearches', {
+				return res.render('dashboard/searches', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -3909,7 +3909,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardnsfw', {
+				return res.render('dashboard/nsfw', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -4091,7 +4091,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardutility', {
+				return res.render('dashboard/utility', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -4440,7 +4440,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardapplications', {
+				return res.render('dashboard/applications', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -4946,7 +4946,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardapplication', {
+				return res.render('dashboard/application', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -5031,7 +5031,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardcurrency', {
+				return res.render('dashboard/currency', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -5350,7 +5350,7 @@ async function run() {
 				}
 
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardticket', {
+				return res.render('dashboard/ticket', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -5466,7 +5466,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardtickets', {
+				return res.render('dashboard/tickets', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -5880,7 +5880,7 @@ async function run() {
 				}
 
 				const islenoxbot = islenoxboton(req);
-				return res.render('dashboardcustomcommands', {
+				return res.render('dashboard/customcommands', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -6035,7 +6035,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardmodules', {
+				return res.render('dashboard/modules', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
@@ -6106,7 +6106,7 @@ async function run() {
 
 				const islenoxbot = islenoxboton(req);
 				const lang = require(`./languages/website_${req.getLocale()}`);
-				return res.render('dashboardlastlogs', {
+				return res.render('dashboard/lastlogs', {
 					languages: languages(req),
 					lang: lang,
 					user: req.user,
