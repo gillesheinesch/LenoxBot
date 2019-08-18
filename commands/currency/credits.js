@@ -80,7 +80,7 @@ module.exports = class creditsCommand extends LenoxCommand {
 
 		const embed = new Discord.MessageEmbed()
 			.setAuthor(`${user1.tag}`, user1.avatarURL())
-			.setDescription(`**${lang.credits_credits}** ${isNaN(msg.client.provider.getUser(user1.id, 'credits')) || msg.client.provider.getUser(user1.id, 'credits') === 0 ? "0" : msg.client.provider.getUser(user1.id, 'credits')} 💸`)
+			.setDescription(`**${lang.credits_credits}** ${isNaN(msg.client.provider.getUser(user1.id, 'credits')) ? "0" : msg.client.provider.getUser(user1.id, 'credits')} 💸`)
 			.setColor('GREEN');
 
 		msg.channel.send({
