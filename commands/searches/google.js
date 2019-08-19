@@ -1,6 +1,8 @@
 const Discord = require('discord.js');
 const request = require('request-promise');
 const LenoxCommand = require('../LenoxCommand.js');
+const config = require('../../settings.json').googleKey;
+const config2 = require('../../settings.json').googlekey;
 
 module.exports = class googleCommand extends LenoxCommand {
   constructor(client) {
@@ -34,8 +36,6 @@ module.exports = class googleCommand extends LenoxCommand {
       if (args.includes(filter[i])) return msg.channel.send(lang.google_nsfw);
     }
 
-    const config = require('../../settings.json').googleKey;
-    const config2 = require('../../settings.json').googlekey;
     const response = await request({
       headers: { 'User-Agent': 'Mozilla/5.0' },
       uri: 'https://www.googleapis.com/customsearch/v1',
