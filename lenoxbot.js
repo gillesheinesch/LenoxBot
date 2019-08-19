@@ -14,8 +14,39 @@ require('moment-duration-format');
 // const shardId = process.env.SHARD_COUNT;
 const token = process.env.CLIENT_TOKEN;
 
-if (!settings.token || !settings.prefix || !settings.owners || !settings.owners.length || !settings.keychannel || !settings.websiteport || isNaN(settings.websiteport)) {
-	console.error(chalk.red('\nsettings.json file is not correctly configuered!\n'));
+// settings.json checks
+if (!settings.owners.length) {
+	console.error('You have to enter at least one owner in the settings.json')
+	return process.exit(42);
+}
+
+if (!settings.token) {
+	console.error('You forgot to enter your Discord super secret token! You can get this token from the following page: https://discordapp.com/developers/applications/');
+	return process.exit(42);
+}
+
+if (!settings.prefix) {
+	console.error('You can\'t start the bot without setting a standard prefix')
+	return process.exit(42);
+}
+
+if (!settings.keychannel) {
+	console.error('You have to set the channel in which premium keys are sent')
+	return process.exit(42);
+}
+
+if (!settings.websiteport || isNaN(settings.websiteport)) {
+	console.error('You have to set a port for your website to listen to. The standard port is 80')
+	return process.exit(42);
+}
+
+if (!settings.db || !settings.db.user || !settings.db.password || !settings.db.host || !settings.db.port) {
+	console.error('You need to enter your db (database) credentials before starting the bot. \nThe user is the username with which one you login into your database. \nThe password is the password which you need for the authentication \nThe host is "localhost" if you run mongodb on your local server. \nThe standard port of mongodb is 27017')
+	return process.exit(42);
+}
+
+if (!settings.botMainDiscordServer) {
+	console.error('You have to set the main Discord server id')
 	return process.exit(42);
 }
 
