@@ -2,6 +2,7 @@
 
 > LenoxBot is a Discord bot that offers many cool new features to your Discord server!
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/64a1b4026ff74584b91c5e78dce50854)](https://app.codacy.com/app/LenoxBot/LenoxBot?utm_source=github.com&utm_medium=referral&utm_content=LenoxBot/LenoxBot&utm_campaign=Badge_Grade_Dashboard)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/693843fef1e5475498fb45d5205fb5d3)](https://app.codacy.com/app/Monkeyyy11/LenoxBot?utm_source=github.com&utm_medium=referral&utm_content=LenoxBot/LenoxBot&utm_campaign=Badge_Grade_Settings)
 [![Build Status](https://travis-ci.com/LenoxBot/LenoxBot.svg?branch=testing)](https://travis-ci.com/LenoxBot/LenoxBot)
 [![Discord](https://discordapp.com/api/guilds/352896116812939264/widget.png)](https://lenoxbot.com/discord)
