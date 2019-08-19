@@ -125,17 +125,18 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
             .setTimestamp();
 
           bansOfThisServer.slice(first, second).forEach((rr) => {
-            if (!rr.moderatorid) {
-              rr.moderatorid = msg.client.user.id;
+            const ban = rr;
+            if (!ban.moderatorid) {
+              ban.moderatorid = msg.client.user.id;
             }
 
-            if (!rr.reason) {
-              rr.reason = 'undefined';
+            if (!ban.reason) {
+              ban.reason = 'undefined';
             }
 
-            const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', msg.client.users.get(rr.moderatorid).tag).replace('%banneddate', new Date(rr.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(rr.banEndDate - Date.now()))
-              .replace('%reason', rr.reason);
-            newembed.addField(msg.client.users.get(rr.memberid).tag, embeddescription);
+            const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', msg.client.users.get(ban.moderatorid).tag).replace('%banneddate', new Date(ban.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(ban.banEndDate - Date.now()))
+              .replace('%reason', ban.reason);
+            newembed.addField(msg.client.users.get(ban.memberid).tag, embeddescription);
           });
 
           message.edit({
@@ -154,17 +155,18 @@ module.exports = class currentlybannedCommand extends LenoxCommand {
             .setTimestamp();
 
           bansOfThisServer.slice(first, second).forEach((rr) => {
-            if (!rr.moderatorid) {
-              rr.moderatorid = msg.client.user.id;
+            const ban = rr;
+            if (!ban.moderatorid) {
+              ban.moderatorid = msg.client.user.id;
             }
 
-            if (!rr.reason) {
-              rr.reason = 'undefined';
+            if (!ban.reason) {
+              ban.reason = 'undefined';
             }
 
-            const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', msg.client.users.get(rr.moderatorid).tag).replace('%banneddate', new Date(rr.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(rr.banEndDate - Date.now()))
-              .replace('%reason', rr.reason);
-            newembed.addField(msg.client.users.get(rr.memberid).tag, embeddescription);
+            const embeddescription = lang.currentlybanned_embeddescription.replace('%moderatortag', msg.client.users.get(ban.moderatorid).tag).replace('%banneddate', new Date(ban.banCreatedAt).toUTCString()).replace('%remainingbantime', ms(ban.banEndDate - Date.now()))
+              .replace('%reason', ban.reason);
+            newembed.addField(msg.client.users.get(ban.memberid).tag, embeddescription);
           });
 
           message.edit({
