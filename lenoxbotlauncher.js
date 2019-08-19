@@ -1,7 +1,18 @@
 const Discord = require('discord.js');
 const chalk = require('chalk');
 const moment = require('moment');
-const winston = require('winston');
+const express = require('express');
+const session = require('express-session');
+const passport = require('passport');
+const { Strategy } = require('passport-discord');
+const handlebars = require('express-handlebars');
+const handlebarshelpers = require('handlebars-helpers')();
+const i18n = require('i18n');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const bodyParser = require('body-parser');
+const url = require('url');
+const mongodb = require('mongodb');
 const settings = require('./settings.json');
 require('moment-duration-format');
 const marketitemskeys = require('./marketitems-keys.json');
@@ -18,14 +29,6 @@ shardingManager.spawn().then(() => {
 
 // Website:
 async function run() {
-  const express = require('express');
-  const session = require('express-session');
-  const passport = require('passport');
-  const { Strategy } = require('passport-discord');
-  const handlebars = require('express-handlebars');
-  const handlebarshelpers = require('handlebars-helpers')();
-
-  const i18n = require('i18n');
   i18n.configure({
     locales: ['en-US', 'de-DE', 'fr-FR', 'es-ES', 'de-CH'],
     directory: `${__dirname}/languages`,
@@ -34,11 +37,6 @@ async function run() {
   });
 
   const app = express();
-  const path = require('path');
-  const cookieParser = require('cookie-parser');
-  const bodyParser = require('body-parser');
-  const url = require('url');
-  const mongodb = require('mongodb');
 
   const mongoUrl = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT&authSource=admin`;
   const dbClient = await mongodb.MongoClient.connect(mongoUrl, {
@@ -122,7 +120,7 @@ async function run() {
     const islenoxbot = [];
     if (req.user) {
       for (let i = 0; i < req.user.guilds.length; i += 1) {
-        if (((req.user.guilds[i].permissions) & 8) === 8 && req.user.guilds[i].lenoxbot === true) {
+        if (((req.user.guilds[i].permissions) && 8) === 8 && req.user.guilds[i].lenoxbot === true) {
           islenoxbot.push(req.user.guilds[i]);
         }
       }
@@ -262,7 +260,7 @@ async function run() {
       const check = [];
       if (req.user) {
         for (let i = 0; i < req.user.guilds.length; i += 1) {
-          if (((req.user.guilds[i].permissions) & 8) === 8) {
+          if (((req.user.guilds[i].permissions) && 8) === 8) {
             check.push(req.user.guilds[i]);
           }
         }
