@@ -42,7 +42,13 @@ async function run() {
   const dbClient = await mongodb.MongoClient.connect(mongoUrl, {
     useNewUrlParser: true
   });
-  const db = dbClient.db('lenoxbot');
+  let db;
+  if (settings.NODE_ENV === 'production') {
+    db = dbClient.db('lenoxbot');
+  }
+  else {
+    db = dbClient.db('betalenoxbot');
+  }
   const guildSettingsCollection = db.collection('guildSettings');
   const userSettingsCollection = db.collection('userSettings');
   const botSettingsCollection = db.collection('botSettings');
