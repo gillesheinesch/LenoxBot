@@ -264,7 +264,7 @@ module.exports = class shopCommand extends LenoxCommand {
                   inventoryslotcheck += parseInt(msg.client.provider.getUser(msg.author.id, 'inventory')[nameOfTheItems[x]], 10);
                 }
 
-                const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix);
+                const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix).replace('%prefix', prefix);
                 if ((inventoryslotcheck + parseInt(howmanycheck[0], 10)) > msg.client.provider.getUser(msg.author.id, 'inventoryslots')) return msg.reply(inventoryfull);
 
                 const msgauthortable = msg.client.provider.getUser(msg.author.id, 'credits');
@@ -296,7 +296,7 @@ module.exports = class shopCommand extends LenoxCommand {
                   inventoryslotcheck += parseInt(msg.client.provider.getUser(msg.author.id, 'inventory')[nameOfTheItems[x]], 10);
                 }
 
-                const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix);
+                const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix).replace('%prefix', prefix);
                 if ((inventoryslotcheck + parseInt(howmanycheck[0], 10)) > msg.client.provider.getUser(msg.author.id, 'inventoryslots')) return msg.reply(inventoryfull);
 
                 const msgauthortable = msg.client.provider.getUser(msg.author.id, 'credits');
