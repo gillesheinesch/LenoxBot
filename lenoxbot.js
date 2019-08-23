@@ -145,7 +145,8 @@ client.dispatcher.addInhibitor(msg => {
 	}
 	if (!client.provider.isReady) return 'notinitialized';
 
-	if (msg.guild.id === settings.botMainDiscordServer && msg.channel.parentID !== '614462453337686038') return 'Not the beta category on LenoxBot Server';
+	if (settings.NODE_ENV === 'development' && msg.guild.id === settings.botMainDiscordServer && msg.channel.parentID !== '614462453337686038') return 'Not the beta category on LenoxBot Server';
+	if (settings.NODE_ENV === 'production' && msg.channel.parentID === '614462453337686038') return 'Category only for beta bot';
 
 	if (client.user.id === '353115097318555649') {
 		if (msg.guild.id !== '332612123492483094') return 'This is not the Test LenoxBot Server';
