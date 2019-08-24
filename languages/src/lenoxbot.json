@@ -788,7 +788,7 @@
     "togglechatfilter_disabled": "The chatfilter was successfully disabled",
     "togglechatfilter_description": "Toggles the chatfilter",
 
-    "toggleapplication_error": "The application system is currently disabled for this server! You can reactivate it by using **%prefixtoggleapplication**",
+    "toggleapplication_error": "The application system is currently disabled for this server! You can reactivate it by using **%prefixtoggleapplication**.",
     "toggleapplication_activated": "The application system was successfully activated!",
     "toggleapplication_disabled": "The application system was successfully deactivated!",
     "toggleapplication_description": "Toggles the applications",
@@ -1624,7 +1624,7 @@
     "messageevent_blacklistreason": "Reason:",
     "messageevent_botnopermission": "It looks like the bot hasn't enough permissions to execute this command! (Required permissions: %missingpermissions)",
     "messageevent_usernopermission": "It looks like you haven't enough permissions to execute this command! (Required permissions: %missingpermissions)",
-    "messageevent_moduledeactivated": "The module **%modulename** is currently disabled. You can reactivate disabled modules by using %prefixactivatemodule.",
+    "messageevent_moduledeactivated": "The module **%modulename** is currently disabled. You can reactivate disabled modules by using **%prefixactivatemodule**.",
     "messageevent_seconds": "seconds",
     "messageevent_minutes": "minutes and",
     "messageevent_hours": "hours",
@@ -1632,7 +1632,7 @@
     "messageevent_anticommandspam": "Please wait %time before reusing the %commandname command.",
     "messageevent_chatfilterembed": "Message from %authortag was deleted by the chatfilter",
     "messageevent_messagedeleted": "%author, your message has been deleted because you have used a word/number which has been blocked by the chatfilter!",
-    "messageevent_commanddeactivated": "This command is currently disabled! You can reactivate it by using **%prefixtogglecommand**",
+    "messageevent_commanddeactivated": "This command is currently disabled! You can reactivate it by using **%prefixtogglecommand**.",
     "messageevent_earnednewbadge": "Congratulations! 🎉 You got a new badge on your profile: \"**%badgename**\"",
 
     "messagedeleteevent_deleted": "Message deleted!",
