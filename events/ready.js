@@ -152,7 +152,7 @@ module.exports = {
             const fetchedbans = fetchedbansfromfunction;
 
             if (fetchedbans.has(bansconf.memberid)) {
-              const user = fetchedbans.get(bansconf.memberid);
+              const user = client.users.get(bansconf.memberid);
 
               client.guilds.get(bansconf.discordserverid).members.unban(bansconf.memberid);
 
