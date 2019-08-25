@@ -1288,7 +1288,7 @@
     "nicknamelog_new": "Nuevo apodo",
     "nicknamelog_changedat": "Cambiado a",
     "nicknamelog_description": "Muestra el registro de tu no nombre o el de otro usuario",
-    "paycredits_nomention": "¡Debes mencionar a un usuario para darle créditos!",
+    "paycredits_nomention": "You must mention an user or enter an userid to give some credits!",
     "paycredits_yourself": "¡No puedes dar créditos a ti mismo!",
     "paycredits_noinput": "¡Debes especificar cuántos créditos quieres dar al usuario!",
     "paycredits_number": "¡El nombre del créditos debe ser una cifra!",
