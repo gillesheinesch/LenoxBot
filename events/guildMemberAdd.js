@@ -30,7 +30,7 @@ module.exports = {
 		const rolesGiven = [];
 		const rolesNotGiven = [];
 		if (client.provider.getGuild(member.guild.id, 'joinroles') && client.provider.getGuild(member.guild.id, 'joinroles').length !== 0) {
-			for (let i = 0; i < client.provider.getGuild(member.guild.id, 'joinroles').length; i++) {
+			for (let i = 0; i < client.provider.getGuild(member.guild.id, 'joinroles').length; i += 1) {
 				if (!member.guild.roles.get(client.provider.getGuild(member.guild.id, 'joinroles')[i])) {
 					const indexOfTheRole = client.provider.getGuild(member.guild.id, 'joinroles').indexOf(client.provider.getGuild(member.guild.id, 'joinroles')[i]);
 					const currentJoinroles = client.provider.getGuild(member.guild.id, 'joinroles');

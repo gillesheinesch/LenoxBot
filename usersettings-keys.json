@@ -118,5 +118,6 @@
     },
     "badgeslist": [],
     "description": "",
-    "currentReminder": []
+    "currentReminder": [],
+    "doubleLootAndDaily": false
 }

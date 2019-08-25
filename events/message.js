@@ -19,7 +19,7 @@ module.exports = {
 			await client.provider.setGuildComplete(msg.guild.id, settings);
 
 			const currentCommands = client.provider.getGuild(msg.guild.id, 'commands');
-			for (let i = 0; i < client.registry.commands.array().length; i++) {
+			for (let i = 0; i < client.registry.commands.array().length; i += 1) {
 				if (!client.provider.getGuild(msg.guild.id, 'commands')[client.registry.commands.array()[i].name]) {
 					currentCommands[client.registry.commands.array()[i].name] = {
 						name: client.registry.commands.array()[i].name,
@@ -44,7 +44,7 @@ module.exports = {
 			await msg.client.provider.setGuild(msg.guild.id, 'commands', currentCommands);
 		} else {
 			const commandsObject = {};
-			for (let i = 0; i < client.registry.commands.array().length; i++) {
+			for (let i = 0; i < client.registry.commands.array().length; i += 1) {
 				if (!commandsObject[client.registry.commands.array()[i].name]) {
 					commandsObject[client.registry.commands.array()[i].name] = {
 						name: client.registry.commands.array()[i].name,

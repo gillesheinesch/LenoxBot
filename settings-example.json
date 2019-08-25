@@ -25,5 +25,6 @@
 	    "logs": "channel id to log console logs to",
 	    "warnings": "channel id to log console warnings to",
 	    "errors": "channel id to log console errors to"
-    }
+    },
+    "NODE_ENV": "production"
 }
