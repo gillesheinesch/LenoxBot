@@ -14,6 +14,7 @@
     "website_global_delete": "Delete",
     "website_global_activate": "Activate",
     "website_global_deactivate": "Deactivate",
+    "website_global_savechanges": "Save changes",
 
     "website_globalmodlog_updatedlog": "Updated the '%nameofthelog' log settings",
     "website_globalmodlog_selfassignableroles": "Updated self-assignable roles",
@@ -296,6 +297,14 @@
 
     "website_nav_dashboard_welcome": "Welcome",
     "website_nav_dashboard_overview": "Overview",
+    "website_nav_dashboard_modules": "Modules",
+
+    "website_commandsection_title": "Commands",
+    "website_commandsection_modaltitle": "Settings of %name command",
+    "website_commandsection_blacklistedchannels": "Blacklisted channels:",
+    "website_commandsection_whitelistedroles": "Whitelisted roles:",
+    "website_commandsection_blacklistedroles": "Blacklisted roles:",
+    "website_commandsection_cooldown": "Cooldown (in seconds):",
 
     "website_leaderboard_htmltitle": "Leaderboards 🏆",
 
