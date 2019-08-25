@@ -70,7 +70,7 @@ module.exports = class dailyCommand extends LenoxCommand {
     if (!mentioncheck) {
       let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
       const currentDailystreak = msg.client.provider.getUser(msg.author.id, 'dailystreak');
-      if (msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
+      if (msg.client.provider.getUser(msg.author.id, 'premium').status === true || msg.client.provider.getUser(msg.author.id, 'doubleLootAndDaily')) {
         await msg.client.provider.setUser(msg.author.id, 'credits', (currentCredits += 400 + (currentDailystreak.streak * 2)));
       }
       else {
@@ -105,7 +105,7 @@ module.exports = class dailyCommand extends LenoxCommand {
 
     let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
     const currentDailystreak = msg.client.provider.getUser(msg.author.id, 'dailystreak').streak;
-    if (msg.client.provider.getUser(msg.author.id, 'premium').status === true) {
+    if (msg.client.provider.getUser(msg.author.id, 'premium').status === true || msg.client.provider.getUser(msg.author.id, 'doubleLootAndDaily')) {
       await msg.client.provider.setUser(mentioncheck.id, 'credits', (currentCredits += 400 + (currentDailystreak * 2)));
     }
     else {

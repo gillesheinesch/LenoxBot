@@ -7,6 +7,7 @@ module.exports = {
     if (!client.provider.getGuild(newMember.guild.id, 'prefix')) return;
 
     const validationForPremium = ['administrator', 'moderator', 'developer', 'pr manager', 'pr agent', 'moderator', 'test-moderator', 'translation manager', 'translation proofreader', 'designer'];
+    const validationForDoubleDailyAndLoot = ['issue judger', 'beta tester'];
 
     const lang = require(`../languages/${client.provider.getGuild(newMember.guild.id, 'language')}.json`);
     if (oldMember.nickname !== newMember.nickname) {
@@ -75,6 +76,24 @@ module.exports = {
               await client.channels.get(settings.keychannel).send({ embed: embed2 });
             }
           }
+
+          if (newMember.guild.id === settings.botMainDiscordServer && validationForDoubleDailyAndLoot.includes(oldMember.guild.roles.get(role).name.toLowerCase())) {
+            console.log('premium added')
+            const currentDoubleLootAndDaily = client.provider.getUser(oldMember.id, 'doubleLootAndDaily');
+
+            if (currentDoubleLootAndDaily === false) {
+              console.log('premium added 2')
+              await client.provider.setUser(oldMember.id, 'doubleLootAndDaily', true);
+
+              const doubleLootAndDailyEmbed = new Discord.MessageEmbed()
+                .setDescription('This user member was automatically credited with LenoxBot double loot and daily!')
+                .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
+                .setTimestamp()
+                .setColor('LUMINOUS_VIVID_PINK')
+                .setTitle('Userkey used!');
+              await client.channels.get(settings.keychannel).send({ embed: doubleLootAndDailyEmbed });
+            }
+          }
         }
       }
       messagechannel.send({
@@ -108,6 +127,24 @@ module.exports = {
                 .setColor('BLUE')
                 .setTitle('Userkey used!');
               await client.channels.get(settings.keychannel).send({ embed });
+            }
+          }
+
+          if (newMember.guild.id === settings.botMainDiscordServer && validationForDoubleDailyAndLoot.includes(oldMember.guild.roles.get(role).name.toLowerCase())) {
+            console.log('premium removed')
+            const currentDoubleLootAndDaily = client.provider.getUser(oldMember.id, 'doubleLootAndDaily');
+
+            if (currentDoubleLootAndDaily === true) {
+              console.log('premium removed 2')
+              await client.provider.setUser(oldMember.id, 'doubleLootAndDaily', false);
+
+              const doubleLootAndDailyEmbed = new Discord.MessageEmbed()
+                .setDescription('This user member was automatically deducted with LenoxBot double loot and daily!')
+                .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
+                .setTimestamp()
+                .setColor('LUMINOUS_VIVID_PINK')
+                .setTitle('Userkey used!');
+              await client.channels.get(settings.keychannel).send({ embed: doubleLootAndDailyEmbed });
             }
           }
         }
