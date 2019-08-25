@@ -157,7 +157,7 @@
     "hangman_embedtitlewrong": "%author hat den Buchstaben „**%letter**“ falsch erraten! 😢",
     "hangman_embedtitlewrongword": "%author hat das Wort „**%word**“ falsch erraten! 😢",
     "hangman_mentionnowin": "Niemand hat gewonnen! Das Wort zu erraten war: „**%word**“",
-    "hangman_mentioncorrectword": "%author hat das Spiel gewonnen! Das Wort zu erraten war: „**%word**“",
+    "hangman_mentioncorrectword": "%author hat das Spiel gewonnen! Das Wort zu erraten war: **%word**",
     "hangman_notwordcharacters": "Das Wort muss %letterscount Buchstaben haben!",
     "hangman_noletter": "Du hast ein ungültiges Zeichen eingegeben!",
     "hangman_noanswermention": "%author hat nicht geantwortet! %mention hat das Spiel gewonnen! Das Wort zu erraten war: „**%word**“",
