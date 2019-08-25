@@ -1288,7 +1288,7 @@
     "nicknamelog_new": "Nouveau pseudo",
     "nicknamelog_changedat": "Changé le",
     "nicknamelog_description": "Affiche ton registre pseudo ou celui d'un autre utilisateur",
-    "paycredits_nomention": "You must mention an user or enter an userid to give some credits!",
+    "paycredits_nomention": "You must mention a user or enter a userid to give some credits!",
     "paycredits_yourself": "Tu ne peux pas donner des crédits à toi-même !",
     "paycredits_noinput": "Tu as oublié de spécifier combien de crédits tu veux donner à l'utilisateur !",
     "paycredits_number": "Le nombre de crédits doit être un chiffre !",
