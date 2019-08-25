@@ -1288,7 +1288,7 @@
     "nicknamelog_new": "neue Spitzname",
     "nicknamelog_changedat": "Gwechslet am",
     "nicknamelog_description": "Zeigt dir das Nickname-Protokoll von dir oder emene andere Benutzer",
-    "paycredits_nomention": "Du muesch en Benutzer markiere, zum ihm Credits zgeh!",
+    "paycredits_nomention": "You must mention a user or enter a userid to give some credits!",
     "paycredits_yourself": "Du chasch dir sälber kei Credits geh!",
     "paycredits_noinput": "Du häsch vergässe aazgeh wieviel Credits du dem Benutzer wetsch geh!",
     "paycredits_number": "Die Aazahl a Credits mues e Nummere sii!",
