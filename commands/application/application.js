@@ -23,7 +23,7 @@ module.exports = class applicationCommand extends LenoxCommand {
     const lang = require(`../../languages/${langSet}.json`);
     const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
-    const error = lang.toggleapplication_error.replace('%prefix', prefix)
+    const error = lang.toggleapplication_error.replace('%prefix', prefix);
     if (msg.client.provider.getGuild(msg.guild.id, 'application').status === 'false') return msg.channel.send(error);
 
     const addentry = lang.application_addentry.replace('%prefix', prefix);
