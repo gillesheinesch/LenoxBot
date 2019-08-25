@@ -1288,7 +1288,7 @@
     "nicknamelog_new": "Neuer Nickname",
     "nicknamelog_changedat": "Geändert am",
     "nicknamelog_description": "Zeigt dir den Nickname-Log von dir, oder einem anderen Benutzer",
-    "paycredits_nomention": "You must mention a user or enter a userid to give some credits!",
+    "paycredits_nomention": "You must mention an user or enter an userid to give some credits!",
     "paycredits_yourself": "Du kannst dir nicht selbst Credits geben!",
     "paycredits_noinput": "Du hast vergessen anzugeben, wie viele Credits du dem Benutzer geben möchtest!",
     "paycredits_number": "Die Anzahl an Credits muss eine Zahl sein!",
