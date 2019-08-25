@@ -285,12 +285,14 @@ client.dispatcher.addInhibitor((msg) => {
 
   if (botCommandExists) {
     if (msg.client.provider.getGuild(msg.guild.id, 'commands')[cmd.name].status === 'false') {
-      msg.reply(lang.messageevent_commanddeactivated);
+      const commanddeactivated = lang.replace('%prefix', prefix);
+      msg.reply(commanddeactivated);
       return 'command deactivated';
     }
   }
   else if (customcommand.enabled === 'false') {
-    msg.reply(lang.messageevent_commanddeactivated);
+    const commanddeactivated = lang.replace('%prefix', prefix);
+    msg.reply(commanddeactivated);
     return 'customcommand deactivated';
   }
 
