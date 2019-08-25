@@ -71,25 +71,23 @@ module.exports = {
                 .setDescription('This LenoxBot team member was automatically credited with LenoxBot Premium!')
                 .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
                 .setTimestamp()
-                .setColor('BLUE')
+                .setColor('GREEN')
                 .setTitle('Userkey used!');
               await client.channels.get(settings.keychannel).send({ embed: embed2 });
             }
           }
 
           if (newMember.guild.id === settings.botMainDiscordServer && validationForDoubleDailyAndLoot.includes(oldMember.guild.roles.get(role).name.toLowerCase())) {
-            console.log('premium added')
             const currentDoubleLootAndDaily = client.provider.getUser(oldMember.id, 'doubleLootAndDaily');
 
             if (currentDoubleLootAndDaily === false) {
-              console.log('premium added 2')
               await client.provider.setUser(oldMember.id, 'doubleLootAndDaily', true);
 
               const doubleLootAndDailyEmbed = new Discord.MessageEmbed()
                 .setDescription('This user member was automatically credited with LenoxBot double loot and daily!')
                 .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
                 .setTimestamp()
-                .setColor('LUMINOUS_VIVID_PINK')
+                .setColor('GREEN')
                 .setTitle('Userkey used!');
               await client.channels.get(settings.keychannel).send({ embed: doubleLootAndDailyEmbed });
             }
@@ -114,7 +112,15 @@ module.exports = {
           if (newMember.guild.id === settings.botMainDiscordServer && validationForPremium.includes(oldMember.guild.roles.get(role).name.toLowerCase())) {
             const currentPremium = client.provider.getUser(oldMember.id, 'premium');
 
-            if (currentPremium.status === true) {
+            const isTeamMember = false;
+            for (let i = 0; i < newMember.roles.array().length; i += 1) {
+              if (validationForPremium.includes(newMember.roles.array()[i].name.toLowerCase())) {
+                isTeamMember = true;
+              }
+            }
+
+
+            if (currentPremium.status === true && !isTeamMember) {
               currentPremium.status = false;
               currentPremium.bought = [];
               currentPremium.end = '';
@@ -124,25 +130,30 @@ module.exports = {
                 .setDescription('This LenoxBot team member was automatically deducted with LenoxBot Premium!')
                 .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
                 .setTimestamp()
-                .setColor('BLUE')
+                .setColor('RED')
                 .setTitle('Userkey used!');
               await client.channels.get(settings.keychannel).send({ embed });
             }
           }
 
           if (newMember.guild.id === settings.botMainDiscordServer && validationForDoubleDailyAndLoot.includes(oldMember.guild.roles.get(role).name.toLowerCase())) {
-            console.log('premium removed')
             const currentDoubleLootAndDaily = client.provider.getUser(oldMember.id, 'doubleLootAndDaily');
 
-            if (currentDoubleLootAndDaily === true) {
-              console.log('premium removed 2')
+            const isTeamMember = false;
+            for (let i = 0; i < newMember.roles.array().length; i += 1) {
+              if (validationForDoubleDailyAndLoot.includes(newMember.roles.array()[i].name.toLowerCase())) {
+                isTeamMember = true;
+              }
+            }
+
+            if (currentDoubleLootAndDaily === true && !isTeamMember) {
               await client.provider.setUser(oldMember.id, 'doubleLootAndDaily', false);
 
               const doubleLootAndDailyEmbed = new Discord.MessageEmbed()
                 .setDescription('This user member was automatically deducted with LenoxBot double loot and daily!')
                 .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
                 .setTimestamp()
-                .setColor('LUMINOUS_VIVID_PINK')
+                .setColor('RED')
                 .setTitle('Userkey used!');
               await client.channels.get(settings.keychannel).send({ embed: doubleLootAndDailyEmbed });
             }
