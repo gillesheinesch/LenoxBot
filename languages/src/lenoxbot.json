@@ -1167,7 +1167,7 @@
     "ban_banned": "%usertag was successfully banned!",
     "ban_bannedby": "Banned by",
     "ban_bandescription": "**Action**: Ban \n**User**: %usertag (%userid) \n**Reason**: %reason",
-    "ban_description": "Bans an user from the Discord server with a certain reason",
+    "ban_description": "Bans a user from the Discord server with a certain reason",
 
     "clear_error": "You forgot to specify how many messages you want to delete",
     "clear_number": "The number of messages you want to delete have to be a number!",
@@ -1183,7 +1183,7 @@
     "kick_kicked": "%usertag was successfully kicked!",
     "kick_kickedby": "Kicked by %authortag",
     "kick_kickdescription": "**Action**: Kick \n**User**: %usertag (%userid) \n**Reason**: %reason",
-    "kick_description": "Kicks an user from the Discord server with a certain reason",
+    "kick_description": "Kicks a user from the Discord server with a certain reason",
 
     "mute_muteroleundefined": "First of all, you have to define the mute role by using the **%prefixmuterole** command",
     "mute_idcheck": "This user was not found on this Discord server!",
@@ -1463,7 +1463,7 @@
     "nicknamelog_changedat": "Changed at",
     "nicknamelog_description": "Shows you the nickname log of you or another user",
 
-    "paycredits_nomention": "You must mention an user or enter an userid to give some credits!",
+    "paycredits_nomention": "You must mention a user or enter a userid to give some credits!",
     "paycredits_yourself": "You cannot give yourself credits!",
     "paycredits_noinput": "You forgot to specify how many credits you want to give the user!",
     "paycredits_number": "The amount of credits has to be a number!",
