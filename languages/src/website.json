@@ -149,6 +149,7 @@
     "website_dashboard_date": "Time",
     "website_dashboard_none": "None",
     "website_dashboard_showall": "Show all",
+    "website_dashboard_htmltitle": "Overview Dashboard",
 
     "website_dashboardadministration_generalsettings": "General Settings",
     "website_dashboardadministration_prefix": "Prefix:",
@@ -173,6 +174,7 @@
     "website_dashboardadministration_setnewbye": "Set a new bye message:",
     "website_dashboardadministration_chatfilter": "Chatfilter",
     "website_dashboardadministration_chatfilterinfo": "Update chatfilter entries (separate entries with a comma):",
+    "website_dashboardadministration_htmltitle": "Administration Dashboard",
 
     "website_team_team": "LenoxBot Team",
     "website_team_htmltitle": "LenoxBot Team",
@@ -199,11 +201,13 @@
     "website_dashboardutility_description": "Description:",
     "website_dashboardutility_footer": "Footer:",
     "website_dashboardutility_timestamp": "Timestamp",
+    "website_dashboardutility_htmltitle": "Utility Dashboard",
 
     "website_dashboardtickets_allopen": "All opened tickets:",
     "website_dashboardtickets_noopen": "No opened tickets!",
     "website_dashboardtickets_allclose": "All closed tickets:",
     "website_dashboardtickets_noclose": "No closed tickets!",
+    "website_dashboardtickets_htmltitle": "Tickets Dashboard",
 
     "website_application_overview": "Application Overview",
     "website_application_info": "Application by %author on %date",
@@ -223,11 +227,13 @@
     "website_dashboardapplication_messageaccepted": "Message for accepted applicants",
     "website_dashboardapplication_newmessage": "New message:",
     "website_dashboardapplication_messagerejected": "Message for rejected applicants",
+    "website_dashboardapplication_htmltitle": "Application Dashboard",
 
     "website_dashboardapplications_allopen": "All opened applications:",
     "website_dashboardapplications_noopen": "No opened applications!",
     "website_dashboardapplications_allclose": "All closed applications:",
     "website_dashboardapplications_noclose": "No closed applications!",
+    "website_dashboardapplications_htmltitle": "Applications Dashboard",
 
     "website_dashboardcustomcommands_all": "All custom commands:",
     "website_dashboardcustomcommands_settings": "Settings of %cmdname command:",
@@ -242,24 +248,40 @@
     "website_dashboardcustomcommands_commandname": "Command name:",
     "website_dashboardcustomcommands_commanddescription": "Description:",
     "website_dashboardcustomcommands_commandresponse": "Response:",
+    "website_dashboardcustomcommands_htmltitle": "Customcommands Dashboard",
 
     "website_dashboardlastlogs_alllogs": "All logs:",
+    "website_dashboardlastlogs_htmltitle": "Last logs",
 
     "website_dashboardmoderation_amute": "Anonymous mute (The user doesn't know who muted them)",
     "website_dashboardmoderation_amute2": "Anonymous mute",
     "website_dashboardmoderation_atempban": "Anonymous temporary ban (The user doesn't know who temporarily banned them)",
     "website_dashboardmoderation_atempban2": "Anonymous temporary ban",
+    "website_dashboardmoderation_htmltitle": "Moderation Dashboard",
 
     "website_dashboardmodules_administration": "Commands to set up the entire Discord server and customize special bot features",
     "website_dashboardmodules_alwaysenabled": "Always enabled",
+    "website_dashboardmodules_htmltitle": "Modules Dashboard",
 
     "website_dashboardmusic_musicplayer": "Music Player",
     "website_dashboardmusic_currentmusic": "Currently playing:",
     "website_dashboardmusic_musicblacklist": "Music Channelblacklist",
     "website_dashboardmusic_musicblacklistinfo": "Set channels where LenoxBot doesn't play music:",
     "website_dashboardmusic_playlists": "Playlists",
+    "website_dashboardmusic_htmltitle": "Music Dashboard",
 
     "website_dashboardticket_newanswer": "New answer:",
+    "website_dashboardticket_htmltitle": "Ticket Dashboard",
+
+    "website_dashboarcurrency_htmltitle": "Currency Dashboard",
+
+    "website_dashboarfun_htmltitle": "Fun Dashboard",
+
+    "website_dashboarhelp_htmltitle": "Help Dashboard",
+
+    "website_dashboarnsfw_htmltitle": "NSFW Dashboard",
+
+    "website_dashboarsearches_htmltitle": "Searches Dashboard",
 
     "website_leaderboard_guild_leaderboard": "Leaderboard",
     "website_leaderboard_guild_noleaderboard": "No Leaderboard for this server!",
