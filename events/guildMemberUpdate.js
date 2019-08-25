@@ -1,9 +1,12 @@
 const Discord = require('discord.js');
+const settings = require('../settings.json');
 
 module.exports = {
   run: async (oldMember, newMember) => {
     if (!client.provider.isReady) return;
     if (!client.provider.getGuild(newMember.guild.id, 'prefix')) return;
+
+    const validationForPremium = ['administrator', 'moderator', 'developer', 'pr manager', 'pr agent', 'moderator', 'test-moderator', 'translation manager', 'translation proofreader', 'designer'];
 
     const lang = require(`../languages/${client.provider.getGuild(newMember.guild.id, 'language')}.json`);
     if (oldMember.nickname !== newMember.nickname) {
@@ -51,6 +54,27 @@ module.exports = {
       for (const role of newMember.roles.map((x) => x.id)) {
         if (!oldMember.roles.has(role)) {
           embed.addField(`📥 ${lang.guildmemberupdateevent_role}`, `${oldMember.guild.roles.get(role).name}`);
+
+          if (newMember.guild.id === settings.botMainDiscordServer && validationForPremium.includes(oldMember.guild.roles.get(role).name.toLowerCase())) {
+            const currentPremium = client.provider.getUser(oldMember.id, 'premium');
+
+            if (currentPremium.status === false) {
+              const now = new Date().getTime();
+
+              currentPremium.status = true;
+              currentPremium.bought.push(new Date().getTime);
+              currentPremium.end = new Date(now + 3154000000000000);
+              await client.provider.setUser(oldMember.id, 'premium', currentPremium);
+
+              const embed2 = new Discord.MessageEmbed()
+                .setDescription('This LenoxBot team member was automatically credited with LenoxBot Premium!')
+                .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
+                .setTimestamp()
+                .setColor('BLUE')
+                .setTitle('Userkey used!');
+              await client.channels.get(settings.keychannel).send({ embed: embed2 });
+            }
+          }
         }
       }
       messagechannel.send({
@@ -67,6 +91,25 @@ module.exports = {
       for (const role of oldMember.roles.map((x) => x.id)) {
         if (!newMember.roles.has(role)) {
           embed.addField(`📥 ${lang.guildmemberupdateevent_role}`, `${oldMember.guild.roles.get(role).name}`);
+
+          if (newMember.guild.id === settings.botMainDiscordServer && validationForPremium.includes(oldMember.guild.roles.get(role).name.toLowerCase())) {
+            const currentPremium = client.provider.getUser(oldMember.id, 'premium');
+
+            if (currentPremium.status === true) {
+              currentPremium.status = false;
+              currentPremium.bought = [];
+              currentPremium.end = '';
+              await client.provider.setUser(oldMember.id, 'premium', currentPremium);
+
+              const embed = new Discord.MessageEmbed()
+                .setDescription('This LenoxBot team member was automatically deducted with LenoxBot Premium!')
+                .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
+                .setTimestamp()
+                .setColor('BLUE')
+                .setTitle('Userkey used!');
+              await client.channels.get(settings.keychannel).send({ embed });
+            }
+          }
         }
       }
       messagechannel.send({
