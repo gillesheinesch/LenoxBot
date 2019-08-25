@@ -330,7 +330,7 @@
     "rockpaperscissors_scissorslost": "¡Escogí tijeras! ✌ \n¡Pierdes!",
     "rockpaperscissors_paperdraw": "¡Escogí papel! ✋ \n¡Empate!",
     "rockpaperscissors_rockwin": "¡Escogí piedra! ✊ \n¡Ganas!",
-    "rockpaperscissors_error": "You didn't specify correctly if you want to take rock, paper or scissors! Please use **%prefixhelp rockpaperscissors** to check out the correct usage of this command.",
+    "rockpaperscissors_error": "No especificaste si quieres escoger piedra, papel o tijeras. Por favor, usa **%prefixhelp rockpaperscissors** para ver el uso correcto de este comando.",
     "rockpaperscissors_description": "Jugar al piedra-papel-tijera con el bot",
     "setgame_error": "You have to enter a new game status for your bot! Please use **%prefixhelp setgame** to check out the correct usage of this command.",
     "setgame_done": "¡El nuevo estado del juego se ha creado satisfactoriamente!",
