@@ -25,7 +25,7 @@
 <script>
     var currentPageId = '#leaderboard';
 </script>
-<title>{{replace lang.website_leaderboard_guild_htmltitle "%name" {{ellipsis guild.name 25}}}} - LenoxBot</title>
+<title>{{replace lang.website_leaderboard_guild_htmltitle "%name" guild.name}} - LenoxBot</title>
 <main>
     <div class="lb-bg-white">
         <div class="container">
@@ -62,7 +62,7 @@
 
                             <!-- Rankinglist-->
                             <tbody>
-                                {{#if user}} {{#if userData.loaded }}
+                                {{#if user}} {{#if userData.loaded}}
                                 <tr class="lb-row-leaderboard-user lb-bg-badgold">
                                     <td class="lb-text-leaderboard-user text-center">
                                         {{userData.place}}
@@ -127,12 +127,12 @@
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-right"><span class="lb-bumer"
                                             data-toggle="tooltip" data-placement="left" title="{{addCommas points}}">
                                             <script>document.write(numeral({{ points }}).format('0a'))</script></span>
-                                        <small class="text-muted">{{lang.website_leaderboard_guild_points}}</small>
+                                        <small class="text-muted">{{../lang.website_leaderboard_guild_points}}</small>
                                     </td>
                                     <td data-rel="{{@index}}txt" class="lb-text-leaderboard text-right"><span class="lb-bumer"
                                             data-toggle="tooltip" data-placement="left" title="{{addCommas level}}">
                                             <script>document.write(numeral({{ level }}).format('0a'))</script></span>
-                                        <small class="text-muted">{{lang.website_leaderboard_guild_level}}</small>
+                                        <small class="text-muted">{{../lang.website_leaderboard_guild_level}}</small>
                                     </td>
                                 </tr>
                                 {{/each}}
