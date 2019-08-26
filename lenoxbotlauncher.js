@@ -287,7 +287,7 @@ async function run() {
   }
 
   app.all('*', async (req, res, next) => {
-    if (settings.NODE_ENV === 'developement') {
+    if (settings.NODE_ENV === 'development') {
       if (req.user) {
         const betaAccess = await betaAccessCheck(req.user, req, res);
 
