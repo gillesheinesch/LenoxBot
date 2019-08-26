@@ -46,7 +46,7 @@
     "github_embedtitle": "Répertoire GitHub de LenoxBot :",
     "github_embeddescription": "Notre code source de LenoxBot (y compris le site internet) est disponible dans notre répertoire GitHub. \n\nLa subdivision **master** est la branche actuelle en ligne sur LenoxBot. \nLa subdivision **testing** est la branche où nous poussons toutes les nouvelles mises à jour et les testons avant de les réaliser.",
     "github_fieldtitlecontribute": "Comment contribuer ?",
-    "github_fielddescriptioncontribute": "Nous serions très heureux de recevoir de l'aide des développeurs qui peuvent nous aider à corriger des bugs ou à ajouter de nouvelles options. Actuellement, nous ne sommes que 2 développeurs qui peuvent travailler sur LenoxBot. Si tu es intéressé à nous aider, tu peux lire le document suivant : https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
+    "github_fielddescriptioncontribute": "We would be very happy to receive help from developers who are able to help us out to fix bugs or add new features. Currently we are only a few developers who can work on LenoxBot. If you're interested in helping us out, you can read the following document: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
     "github_fieldtitlelink": "Lien de répertoire GitHub du LenoxBot :",
     "github_description": "Tous les détails sur notre répertoire GitHub de LenoxBot",
     "currentjob_nojob": "Tu n'as actuellement aucun job actif !",
