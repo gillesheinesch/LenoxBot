@@ -267,7 +267,7 @@
     "website_nav_dashboard_overview": "Overview",
     "website_nav_dashboard_modules": "Module",
     "website_commandsection_title": "Commands",
-    "website_commandsection_modaltitle": "Settings of %name command",
+    "website_commandsection_modaltitle": "Settings of the %name command",
     "website_commandsection_blacklistedchannels": "Blacklisted channels:",
     "website_commandsection_whitelistedroles": "Whitelisted roles:",
     "website_commandsection_blacklistedroles": "Blacklisted roles:",
