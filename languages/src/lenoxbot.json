@@ -52,7 +52,7 @@
     "github_embedtitle": "LenoxBot's GitHub Repository:",
     "github_embeddescription": "Our source code of LenoxBot (including the website) is available in our GitHub Repository. \n\nThe branch **master** is the branch which is currently online on LenoxBot. \nThe branch **testing** is the branch where we push all new updates and test it before realising them.",
     "github_fieldtitlecontribute": "How do you contribute?",
-    "github_fielddescriptioncontribute": "We would be very happy to receive help from developers who are able to help us out to fix bugs or add new features. Currently we are only 2 developers who can work on LenoxBot. If you're interested in helping us out, you can read the following document: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
+    "github_fielddescriptioncontribute": "We would be very happy to receive help from developers who are able to help us out to fix bugs or add new features. Currently we are only a few developers who can work on LenoxBot. If you're interested in helping us out, you can read the following document: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
     "github_fieldtitlelink": "LenoxBot's GitHub Repository link:",
     "github_description": "All details about our GitHub Repository of LenoxBot",
 
