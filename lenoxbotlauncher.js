@@ -103,14 +103,6 @@ async function run() {
     scope: scopes
   }));
 
-  app.get('/callback',
-    passport.authenticate('discord', {
-      failureRedirect: '/error'
-    }),
-    (req, res) => {
-      res.redirect('/servers');
-    });
-
   app.listen(settings.websiteport, (err) => {
     if (err) return console.log(err);
     console.log(chalk.green('Website running on https://lenoxbot.com'));
@@ -176,6 +168,29 @@ async function run() {
     }
     else if (((req.user.guilds[index].permissions) & 8) !== 8) {
       return res.redirect('/servers');
+    }
+  }
+
+  async function betaAccessCheck(user, req, res) {
+    if (user) {
+      let guild;
+      await shardingManager.broadcastEval('this.guilds.get("352896116812939264")')
+        .then((guildArray) => {
+          guild = guildArray.find((g) => g);
+        });
+      if (!guild) return res.redirect('/servers');
+
+      const evaledMembersFromRole = await shardingManager.shards.get(guild.shardID).eval('this.guilds.get("332612123492483094").roles.find(r => r.name.toLowerCase() === \'beta tester\').members.array()');
+
+      let betaAccess = false;
+      evaledMembersFromRole.forEach((member) => {
+        if (member.userID === req.user.id) betaAccess = true;
+      });
+
+      if (!betaAccess) {
+        return false;
+      }
+      return true;
     }
   }
 
@@ -260,6 +275,28 @@ async function run() {
     }
     return languagesList;
   }
+
+  app.get('/callback',
+    passport.authenticate('discord', {
+      failureRedirect: '/error'
+    }),
+    async (req, res) => {
+      if (settings.NODE_ENV === 'developement') {
+        const betaAccess = await betaAccessCheck(req.user, req, res);
+
+        if (!betaAccess) {
+          req.logOut();
+          return res.redirect(url.format({
+            pathname: '/error',
+            query: {
+              statuscode: 401,
+              message: 'You are not a Beta Tester :('
+            }
+          }));
+        }
+      }
+      res.redirect('/servers');
+    });
 
   app.get('/', async (req, res) => {
     try {
