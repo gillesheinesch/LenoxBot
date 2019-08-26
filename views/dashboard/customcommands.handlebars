@@ -33,7 +33,7 @@
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">{{website_dashboardcustomcommands_settings}}</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">{{../lang.website_dashboardcustomcommands_settings}}</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -42,24 +42,24 @@
 
                                                             <form class="form-inline" id="{{name}}formmodal">
                                                                 <div class="modal-body">
-                                                                    <p>{{lang.website_dashboardcustomcommands_created}}</p>
+                                                                    <p>{{../lang.website_dashboardcustomcommands_created}}</p>
                                                                     <hr>
                                                                     <div class="form-group mb-2">
-                                                                        <label for="newdescription">{{lang.website_dashboardcustomcommands_description}}</label>
+                                                                        <label for="newdescription">{{../lang.website_dashboardcustomcommands_description}}</label>
                                                                     </div>
                                                                     <div class="form-group mx-sm-3 mb-2 col-sm-12">
                                                                         <textarea class="form-control" name="newdescription"
                                                                             rows="2" maxlength="60" id="{{name}}inputdesc">{{description}}</textarea>
                                                                     </div>
                                                                     <div class="form-group mb-2">
-                                                                        <label for="newcommandanswer">{{lang.website_dashboardcustomcommands_currentresponse}}</label>
+                                                                        <label for="newcommandanswer">{{../lang.website_dashboardcustomcommands_currentresponse}}</label>
                                                                     </div>
                                                                     <div class="form-group mx-sm-3 mb-2 col-sm-12">
                                                                         <textarea required class="form-control" name="newcommandanswer"
                                                                             rows="2" maxlength="2000">{{commandanswer}}</textarea>
                                                                     </div>
                                                                     <hr>
-                                                                    <button type="submit" id="{{name}}bmodal" class="btn lb-btn-green">{{lang.website_dashboardcustomcommands_savechanges}}</button>
+                                                                    <button type="submit" id="{{name}}bmodal" class="btn lb-btn-green">{{../lang.website_dashboardcustomcommands_savechanges}}</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -71,7 +71,7 @@
                                                     <div class="modal-dialog modal-dialog-centered" role="document">
                                                         <div class="modal-content">
                                                             <div class="modal-header">
-                                                                <h5 class="modal-title" id="exampleModalLongTitle">{{lang.website_dashboardcustomcommands_sure}}</h5>
+                                                                <h5 class="modal-title" id="exampleModalLongTitle">{{../lang.website_dashboardcustomcommands_sure}}</h5>
                                                                 <button type="button" class="close" data-dismiss="modal"
                                                                     aria-label="Close">
                                                                     <span aria-hidden="true">&times;</span>
@@ -80,10 +80,10 @@
 
                                                             <form class="form-inline" id="{{name}}formdelmodal">
                                                                 <div class="modal-body">
-                                                                    <p>{{lang.website_dashboardcustomcommands_suretodelete}}
+                                                                    <p>{{../lang.website_dashboardcustomcommands_suretodelete}}
                                                                     </p>
                                                                     <hr>
-                                                                    <button type="submit" id="{{name}}delb" class="btn lb-btn-green">{{lang.website_global_yes}}</button>
+                                                                    <button type="submit" id="{{name}}delb" class="btn lb-btn-green">{{../lang.website_global_yes}}</button>
                                                                 </div>
                                                             </form>
                                                         </div>
@@ -93,26 +93,26 @@
                                                     <div class="btn-group" role="group">
                                                         <button type="button" class="btn lb-btn-blue" data-toggle="modal"
                                                             data-target="#{{name}}modal">
-                                                            {{lang.website_global_edit}}
+                                                            {{../lang.website_global_edit}}
                                                         </button>
                                                         {{#if newstatus}}
                                                         <form id="{{name}}ccform">
                                                             <input type="hidden" value="false" name="statuschange" id="{{name}}status">
                                                         </form>
                                                         <button type="submit" class="btn lb-btn-red" id="{{name}}b">
-                                                            {{lang.website_global_disable}}
+                                                            {{../lang.website_global_disable}}
                                                         </button>
                                                         {{else}}
                                                         <form id="{{name}}ccform">
                                                             <input type="hidden" value="true" name="statuschange" id="{{name}}status">
                                                         </form>
                                                         <button type="submit" class="btn lb-btn-green" id="{{name}}b">
-                                                            {{lang.website_global_enable}}
+                                                            {{../lang.website_global_enable}}
                                                         </button>
                                                         {{/if}}
                                                         <button type="button" class="btn lb-btn-red" data-toggle="modal"
                                                             data-target="#{{name}}delmodal">
-                                                            {{lang.website_global_delete}}
+                                                            {{../lang.website_global_delete}}
                                                         </button>
                                                     </div>
                                                 </div>
