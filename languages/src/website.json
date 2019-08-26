@@ -30,7 +30,7 @@
     "website_globalmodlog_chatfilterentries": "Changed the chatfilter entries",
     "website_globalmodlog_togglewelcomemessage": "Toggled the welcome message",
     "website_globalmodlog_togglegoodbyemessage": "Toggled the goodbye message",
-    "website_globalmodlog_announcementsettings": "Changed the announcements settings",
+    "website_globalmodlog_announcementsettings": "Changed the announcement settings",
     "website_globalmodlog_permissionsticketz": "Changed the required permissions for the ticket panel",
     "website_globalmodlog_permissionsapplication": "Changed the required permissions for the application panel",
     "website_globalmodlog_permissionsdashboard": "Changed the required permissions for the dashboard serverpage",
@@ -300,7 +300,7 @@
     "website_nav_dashboard_modules": "Modules",
 
     "website_commandsection_title": "Commands",
-    "website_commandsection_modaltitle": "Settings of %name command",
+    "website_commandsection_modaltitle": "Settings of the %name command",
     "website_commandsection_blacklistedchannels": "Blacklisted channels:",
     "website_commandsection_whitelistedroles": "Whitelisted roles:",
     "website_commandsection_blacklistedroles": "Blacklisted roles:",
