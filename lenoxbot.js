@@ -172,7 +172,7 @@ client.dispatcher.addInhibitor((msg) => {
 
   let alias = false;
   let aliasCommand;
-  for (let key = 0; key < msg.client.registry.commands.array().length; key++) {
+  for (let key = 0; key < msg.client.registry.commands.array().length; key += 1) {
     if (msg.client.registry.commands.array()[key].aliases.includes(command)) {
       alias = true;
       aliasCommand = msg.client.registry.commands.array()[key];

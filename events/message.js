@@ -6,7 +6,7 @@ const Discord = require('discord.js');
 module.exports = {
 	run: async msg => {
 		if (msg.author.bot) return;
-		if (msg.channel.type !== 'text') return msg.reply(englishLang.messageevent_error);
+		if (msg.channel.type !== 'text') return;
 		if (!client.provider.isReady) return;
 
 		if (client.provider.getGuild(msg.guild.id, 'language')) { // Everything can be requested here
