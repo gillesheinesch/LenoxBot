@@ -46,7 +46,7 @@
     "github_embedtitle": "Repositorio GitHub de LenoxBot:",
     "github_embeddescription": "Nuestro código fuente de LenoxBot (incluyendo el sitio web) está disponible en nuestro repositorio de GitHub.\n\nLa rama **master** es la rama que está actualmente en línea en LenoxBot.\nLa rama **testing** es la rama en donde colocamos todas las nuevas actualizaciones y las probamos antes de lanzarlas.",
     "github_fieldtitlecontribute": "¿Cómo contribuir?",
-    "github_fielddescriptioncontribute": "Estaremos muy felices de recibir ayuda de desarrolladores quienes puedan ayudarnos a solucionar errores o añadir nuevas características. Actualmente sólo somos 2 desarrolladores quienes pueden trabajar en LenoxBot. Si estás interesado en ayudarnos, puedes leer el siguiente documento: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
+    "github_fielddescriptioncontribute": "We would be very happy to receive help from developers who are able to help us out to fix bugs or add new features. Currently we are only a few developers who can work on LenoxBot. If you're interested in helping us out, you can read the following document: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
     "github_fieldtitlelink": "Enlace del Repositorio GitHub de LenoxBot:",
     "github_description": "Todos los detalles sobre el Repositorio GitHub de LenoxBot",
     "currentjob_nojob": "¡No tienes ningún trabajo activo!",
