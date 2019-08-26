@@ -46,7 +46,7 @@
     "github_embedtitle": "GitHub-Repositorium vom LenoxBot:",
     "github_embeddescription": "Üse Quellcode vom LenoxBot (inklusiv Websiite) isch i üsem GitHub Repositorium verfüegbar.\n\nD'Unterabteilig **master** isch de Zwiig, wo derziit ufem LenoxBot online isch.\nD'Unterabteilig **testing** isch de Zwiig, wo mir alli neue Updates teste, bevor mir sie veröffentliched.",
     "github_fieldtitlecontribute": "Wie chan ich mitmache?",
-    "github_fielddescriptioncontribute": "Mir würded üs sehr freue, wenn Entwickler helfed Fehler zbehebe oder neue Funktione hinzuezfüege. Derziit sind mir nur 2 Entwickler wo am LenoxBot schaffe chönd. Wenn Sie interessiert sind, lesed Sie s'folgende Dokument: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
+    "github_fielddescriptioncontribute": "We would be very happy to receive help from developers who are able to help us out to fix bugs or add new features. Currently we are only a few developers who can work on LenoxBot. If you're interested in helping us out, you can read the following document: https://github.com/LenoxBot/LenoxBot/blob/testing/.github/CONTRIBUTING.md",
     "github_fieldtitlelink": "Link zum GitHub-Repositorium vom LenoxBot:",
     "github_description": "Alli Details über üses GitHub Repositorium vom LenoxBot",
     "currentjob_nojob": "Du häsch momentan kein aktive Job!",
