@@ -9,6 +9,7 @@ const handlebars = require('express-handlebars');
 const handlebarshelpers = require('handlebars-helpers')();
 const i18n = require('i18n');
 const path = require('path');
+const MongoStore = require('connect-mongo')(session);
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const url = require('url');
@@ -92,9 +93,10 @@ async function run() {
   })));
 
   app.use(session({
-    secret: 'keyboard cat',
+    secret: 'lenoxbot session secret',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({ url: `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/sessionStore?authMechanism=DEFAULT&authSource=admin` })
   }));
   app.use(passport.initialize());
   app.use(passport.session());
