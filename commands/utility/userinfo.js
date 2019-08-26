@@ -1,6 +1,7 @@
 const Discord = require('discord.js');
 const moment = require('moment');
 const LenoxCommand = require('../LenoxCommand.js');
+const settings = require('../../settings.json');
 
 module.exports = class userinfoCommand extends LenoxCommand {
   constructor(client) {
@@ -85,6 +86,21 @@ module.exports = class userinfoCommand extends LenoxCommand {
       }
     }
 
+    let team;
+    const teamroles = ['administrator', 'developer', 'pr manager', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader'];
+    for (let i = 0; i < teamroles.length; i += 1) {
+      const role = msg.client.guilds.get(settings.botMainDiscordServer).roles.find((r) => r.name.toLowerCase() === teamroles[i]);
+      if (role) {
+        const evaledMembersFromRole = role.members.array();
+
+        evaledMembersFromRole.forEach(async (member) => {
+          if (member.id === user.id) {
+            team = true;
+          }
+        });
+      }
+    }
+
     const embed = new Discord.MessageEmbed()
       .setURL(`https://lenoxbot.com/profile/${user.id}`)
       .setTitle(`${user.tag} (${user.id})`, user.displayAvatarURL())
@@ -98,6 +114,10 @@ module.exports = class userinfoCommand extends LenoxCommand {
       .addField(`🏷 ${lang.userinfo_roles}`, member.roles.filter((r) => r.name !== '@everyone').map((role) => role.name).join(', ') || lang.userinfo_noroles)
       .addField(`⌚ ${lang.userinfo_status}`, user.presence.status)
       .addField(`🎮 ${lang.userinfo_playing}`, user.presence.activity ? user.presence.activity.name : lang.userinfo_nothing);
+
+    if (team) {
+      embed.setAuthor('👥 LenoxBot Staff:');
+    }
 
     msg.channel.send({
       embed

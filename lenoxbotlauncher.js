@@ -9,6 +9,7 @@ const handlebars = require('express-handlebars');
 const handlebarshelpers = require('handlebars-helpers')();
 const i18n = require('i18n');
 const path = require('path');
+const MongoStore = require('connect-mongo')(session);
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const url = require('url');
@@ -92,12 +93,21 @@ async function run() {
   })));
 
   app.use(session({
-    secret: 'keyboard cat',
+    secret: 'lenoxbot session secret',
     resave: false,
-    saveUninitialized: false
+    saveUninitialized: false,
+    store: new MongoStore({ url: `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/sessionStore?authMechanism=DEFAULT&authSource=admin` })
   }));
   app.use(passport.initialize());
   app.use(passport.session());
+
+  app.get('/callback',
+    passport.authenticate('discord', {
+      failureRedirect: '/error'
+    }),
+    (req, res) => {
+      res.redirect('/servers');
+    });
 
   app.get('/loginpressedbutton', passport.authenticate('discord', {
     scope: scopes
@@ -174,13 +184,13 @@ async function run() {
   async function betaAccessCheck(user, req, res) {
     if (user) {
       let guild;
-      await shardingManager.broadcastEval('this.guilds.get("352896116812939264")')
+      await shardingManager.broadcastEval(`this.guilds.get("${settings.botMainDiscordServer}")`)
         .then((guildArray) => {
           guild = guildArray.find((g) => g);
         });
       if (!guild) return res.redirect('/servers');
 
-      const evaledMembersFromRole = await shardingManager.shards.get(guild.shardID).eval('this.guilds.get("332612123492483094").roles.find(r => r.name.toLowerCase() === \'beta tester\').members.array()');
+      const evaledMembersFromRole = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").roles.find(r => r.name.toLowerCase() === \'beta tester\').members.array()`);
 
       let betaAccess = false;
       evaledMembersFromRole.forEach((member) => {
@@ -276,12 +286,9 @@ async function run() {
     return languagesList;
   }
 
-  app.get('/callback',
-    passport.authenticate('discord', {
-      failureRedirect: '/error'
-    }),
-    async (req, res) => {
-      if (settings.NODE_ENV === 'developement') {
+  app.all('*', async (req, res, next) => {
+    if (settings.NODE_ENV === 'developement') {
+      if (req.user) {
         const betaAccess = await betaAccessCheck(req.user, req, res);
 
         if (!betaAccess) {
@@ -295,8 +302,9 @@ async function run() {
           }));
         }
       }
-      res.redirect('/servers');
-    });
+      next();
+    }
+  });
 
   app.get('/', async (req, res) => {
     try {
@@ -645,21 +653,21 @@ async function run() {
       const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader', 'pr manager'];
 
       let guild;
-      await shardingManager.broadcastEval('this.guilds.get("352896116812939264")')
+      await shardingManager.broadcastEval(`this.guilds.get("${settings.botMainDiscordServer}")`)
         .then((guildArray) => {
           guild = guildArray.find((g) => g);
         });
 
-      const evaledMembers = await shardingManager.shards.get(guild.shardID).eval('this.guilds.get("352896116812939264").members.array()');
+      const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").members.array()`);
       guild.members = evaledMembers;
 
-      const evaledChannels = await shardingManager.shards.get(guild.shardID).eval('this.guilds.get("352896116812939264").channels.array()');
+      const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").channels.array()`);
       guild.channels = evaledChannels;
 
       for (let i = 0; i < teamroles.length; i += 1) {
         const roleMembers = await shardingManager.shards.get(guild.shardID).eval(`
 					(() => {
-						const roleFound = this.guilds.get("352896116812939264").roles.find(r => r.name.toLowerCase() === "${teamroles[i]}");
+						const roleFound = this.guilds.get("${settings.botMainDiscordServer}").roles.find(r => r.name.toLowerCase() === "${teamroles[i]}");
 						if (roleFound) {
 							const roleMembers = roleFound.members.array();
 							return roleMembers;
@@ -819,23 +827,23 @@ async function run() {
       const teamroles = ['administrator', 'developer', 'pr manager', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader'];
 
       let guild;
-      await shardingManager.broadcastEval('this.guilds.get("352896116812939264")')
+      await shardingManager.broadcastEval(`this.guilds.get("${settings.botMainDiscordServer}")`)
         .then((guildArray) => {
           guild = guildArray.find((g) => g);
         });
       if (!guild) return res.redirect('/servers');
 
-      const evaledMembers = await shardingManager.shards.get(guild.shardID).eval('this.guilds.get("352896116812939264").members.array()');
+      const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").members.array()`);
       guild.members = evaledMembers;
 
-      const evaledRoles = await shardingManager.shards.get(guild.shardID).eval('this.guilds.get("352896116812939264").roles.array()');
+      const evaledRoles = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").roles.array()`);
       guild.roles = evaledRoles;
 
       for (let i = 0; i < teamroles.length; i += 1) {
         const teamSettings = {};
         const role = guild.roles.find((r) => r.name.toLowerCase() === teamroles[i]);
 
-        const evaledMembersFromRole = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("352896116812939264").roles.get("${role.id}").members.array()`);
+        const evaledMembersFromRole = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").roles.get("${role.id}").members.array()`);
 
         teamSettings.roleName = role.name;
         teamSettings.roleMembers = [];

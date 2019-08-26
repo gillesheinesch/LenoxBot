@@ -1,6 +1,6 @@
 {
     "name": "lenoxbot",
-    "version": "1.13.34",
+    "version": "1.14.0",
     "description": "",
     "main": "lenoxbotlauncher.js",
     "directories": {
@@ -17,6 +17,7 @@
         "child_process": "^1.0.2",
         "clashroyale": "^1.0.0",
         "cluster": "^0.7.7",
+        "connect-mongo": "^3.0.0",
         "cookie-parser": "^1.4.3",
         "dblapi.js": "^2.3.0",
         "discord.js": "github:discordjs/discord.js",

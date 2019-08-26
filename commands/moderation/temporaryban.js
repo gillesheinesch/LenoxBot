@@ -52,7 +52,9 @@ module.exports = class temporarybanCommand extends LenoxCommand {
 
 
     if (!membermention.bannable) return msg.reply(lang.ban_nopermission);
-    await membermention.ban(user);
+    await membermention.ban(user, {
+      reason
+    });
 
     const bantime = ms(args.slice(1, 2).join(' '));
     if (typeof bantime === 'undefined') return msg.channel.send(lang.temporaryban_invalidtimeformat);

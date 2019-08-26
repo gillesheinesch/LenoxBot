@@ -23,7 +23,7 @@ module.exports = class lenoxbotteamCommand extends LenoxCommand {
     const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
     const lang = require(`../../languages/${langSet}.json`);
 
-    const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'documentation-proofreader', 'designer', 'translation-leader', 'translation-proofreader'];
+    const teamroles = ['administrator', 'developer', 'pr manager', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader'];
 
     const teamEmbed = new Discord.MessageEmbed()
       .setTitle(lang.lenoxbotteam_embedtitle)
