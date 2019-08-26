@@ -26,18 +26,11 @@ module.exports = class banCommand extends LenoxCommand {
     const reason = args.slice(1).join(' ');
     let user = msg.mentions.users.first();
 
-    let member;
-    if (user) {
-      member = await msg.guild.members.fetch(user);
-    }
-
     if (!user) {
       try {
-        const fetchedMember = await msg.guild.members.fetch(args.slice(0, 1).join(' '));
-        if (!fetchedMember) throw new Error('User not found!');
-        member = fetchedMember;
-        user = fetchedMember;
-        user = user.user;
+        const fetchedUser = await msg.client.users.fetch(args.slice(0, 1).join(' '));
+        if (!fetchedUser) throw new Error('User not found!');
+        user = fetchedUser;
       }
       catch (error) {
         return msg.reply(lang.ban_idcheck);
@@ -47,39 +40,38 @@ module.exports = class banCommand extends LenoxCommand {
     if (user === msg.author) return msg.channel.send(lang.ban_yourself);
     if (!reason) return msg.reply(lang.ban_noinput);
 
-    if (!member.bannable) return msg.reply(lang.ban_nopermission);
-    msg.guild.members.ban(user);
+    msg.guild.members.ban(user).then(async () => {
+      const banned = lang.ban_banned.replace('%usertag', user.tag);
+      const banembed = new Discord.MessageEmbed()
+        .setColor('#99ff66')
+        .setDescription(`✅ ${banned}`);
+      msg.channel.send({ embed: banembed });
 
-    const banned = lang.ban_banned.replace('%usertag', user.tag);
-    const banembed = new Discord.MessageEmbed()
-      .setColor('#99ff66')
-      .setDescription(`✅ ${banned}`);
-    msg.channel.send({ embed: banembed });
+      const bandescription = lang.ban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
+      const embed = new Discord.MessageEmbed()
+        .setAuthor(`${lang.ban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL())
+        .setThumbnail(user.displayAvatarURL())
+        .setColor('#FF0000')
+        .setTimestamp()
+        .setDescription(bandescription);
 
-    const bandescription = lang.ban_bandescription.replace('%usertag', `${user.username}#${user.discriminator}`).replace('%userid', user.id).replace('%reason', reason);
-    const embed = new Discord.MessageEmbed()
-      .setAuthor(`${lang.ban_bannedby} ${msg.author.username}${msg.author.discriminator}`, msg.author.displayAvatarURL())
-      .setThumbnail(user.displayAvatarURL())
-      .setColor('#FF0000')
-      .setTimestamp()
-      .setDescription(bandescription);
+      if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
+        const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
+        modlogchannel.send({ embed });
+      }
 
-    if (msg.client.provider.getGuild(msg.guild.id, 'modlog') === 'true') {
-      const modlogchannel = msg.client.channels.get(msg.client.provider.getGuild(msg.guild.id, 'modlogchannel'));
-      modlogchannel.send({ embed });
-    }
+      const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
+      const punishmentConfig = {
+        id: currentPunishments.length + 1,
+        userId: user.id,
+        reason,
+        date: Date.now(),
+        moderatorId: msg.author.id,
+        type: 'ban'
+      };
 
-    const currentPunishments = msg.client.provider.getGuild(msg.guild.id, 'punishments');
-    const punishmentConfig = {
-      id: currentPunishments.length + 1,
-      userId: user.id,
-      reason,
-      date: Date.now(),
-      moderatorId: msg.author.id,
-      type: 'ban'
-    };
-
-    currentPunishments.push(punishmentConfig);
-    await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
+      currentPunishments.push(punishmentConfig);
+      await msg.client.provider.setGuild(msg.guild.id, 'punishments', currentPunishments);
+    }).catch(() => msg.reply(lang.ban_nopermission));
   }
 };
