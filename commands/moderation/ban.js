@@ -40,7 +40,9 @@ module.exports = class banCommand extends LenoxCommand {
     if (user === msg.author) return msg.channel.send(lang.ban_yourself);
     if (!reason) return msg.reply(lang.ban_noinput);
 
-    msg.guild.members.ban(user).then(async () => {
+    msg.guild.members.ban(user, {
+      reason
+    }).then(async () => {
       const banned = lang.ban_banned.replace('%usertag', user.tag);
       const banembed = new Discord.MessageEmbed()
         .setColor('#99ff66')
