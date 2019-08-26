@@ -22,7 +22,7 @@ const shardingManager = new Discord.ShardingManager('./lenoxbot.js', {
   token: settings.token
 });
 
-shardingManager.spawn().then(() => {
+shardingManager.spawn(1).then(() => {
   console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
 }).catch((error) => {
   console.log(error);
@@ -287,7 +287,7 @@ async function run() {
   }
 
   app.all('*', async (req, res, next) => {
-    if (settings.NODE_ENV === 'developement') {
+    if (settings.NODE_ENV === 'development') {
       if (req.user) {
         const betaAccess = await betaAccessCheck(req.user, req, res);
 
