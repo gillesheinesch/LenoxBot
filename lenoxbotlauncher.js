@@ -99,6 +99,14 @@ async function run() {
   app.use(passport.initialize());
   app.use(passport.session());
 
+  app.get('/callback',
+    passport.authenticate('discord', {
+      failureRedirect: '/error'
+    }),
+    (req, res) => {
+      res.redirect('/servers');
+    });
+
   app.get('/loginpressedbutton', passport.authenticate('discord', {
     scope: scopes
   }));
@@ -276,12 +284,9 @@ async function run() {
     return languagesList;
   }
 
-  app.get('/callback',
-    passport.authenticate('discord', {
-      failureRedirect: '/error'
-    }),
-    async (req, res) => {
-      if (settings.NODE_ENV === 'developement') {
+  app.all('*', async (req, res, next) => {
+    if (settings.NODE_ENV === 'developement') {
+      if (req.user) {
         const betaAccess = await betaAccessCheck(req.user, req, res);
 
         if (!betaAccess) {
@@ -295,8 +300,9 @@ async function run() {
           }));
         }
       }
-      res.redirect('/servers');
-    });
+      next();
+    }
+  });
 
   app.get('/', async (req, res) => {
     try {
