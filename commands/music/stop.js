@@ -26,7 +26,7 @@ module.exports = class stopCommand extends LenoxCommand {
     if (!msg.member.voice.channel) return msg.channel.send(lang.stop_notvoicechannel);
     if (!serverQueue) return msg.channel.send(lang.stop_notvoicechannel);
     serverQueue.songs = [];
-    serverQueue.connection.dispatcher.destroy();
+    serverQueue.connection.dispatcher.end();
     return msg.channel.send(lang.stop_leftchannel);
   }
 };

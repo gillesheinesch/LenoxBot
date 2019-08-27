@@ -3683,9 +3683,9 @@ async function run() {
 					}
 				} else if (req.body.newmusicaction === 'stop') {
 					serverQueue.songs = [];
-					serverQueue.connection.dispatcher.destroy();
+					serverQueue.connection.dispatcher.end();
 				} else {
-					serverQueue.connection.dispatcher.destroy();
+					serverQueue.connection.dispatcher.end();
 				}
 
 				return res.redirect(url.format({

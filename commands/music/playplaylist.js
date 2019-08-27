@@ -29,7 +29,7 @@ module.exports = class playplaylistCommand extends LenoxCommand {
 
     const { skipvote } = msg.client;
     const { queue } = msg.client;
-    const serverQueue = await queue.get(msg.guild.id);
+    let serverQueue = await queue.get(msg.guild.id);
     const voiceChannel = msg.member.voice.channel;
     moment.locale(msg.client.provider.getGuild(msg.guild.id, 'momentLanguage'));
 
@@ -54,12 +54,14 @@ module.exports = class playplaylistCommand extends LenoxCommand {
     }
 
     async function play(guild, song) {
+      serverQueue = await queue.get(msg.guild.id);
+
       if (!song) {
         await serverQueue.voiceChannel.leave();
         await queue.delete(guild.id);
         return;
       }
-      const dispatcher = await serverQueue.connection.playStream(ytdl(song.url), {
+      const dispatcher = await serverQueue.connection.play(ytdl(song.url), {
         filter: 'audioonly'
       })
         .on('end', async (reason) => {

@@ -39,6 +39,7 @@
         "ms": "^2.0.0",
         "newsapi": "^2.0.1",
         "node-async-loop": "^1.2.2",
+        "node-opus": "^0.3.2",
         "opusscript": "^0.0.7",
         "os": "^0.1.1",
         "overwatch-stats": "^3.0.2",
@@ -57,7 +58,7 @@
         "url": "^0.11.0",
         "util": "^0.12.0",
         "winston": "^3.2.1",
-        "ytdl-core": "^0.29.2"
+        "ytdl-core": "^0.29.5"
     },
     "devDependencies": {
         "eslint": "^6.1.0",
