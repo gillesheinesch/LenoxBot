@@ -17,7 +17,7 @@
     "website_global_savechanges": "Save changes",
     "website_globalmodlog_updatedlog": "Changed the '%nameofthelog' log settings",
     "website_globalmodlog_selfassignableroles": "Changed self-assignable roles",
-    "website_globalmodlog_togglexpchannels": "Changed the XP channels",
+    "website_globalmodlog_togglexpchannels": "Changed XP channels",
     "website_globalmodlog_goodbyemessage": "Changed the goodbye message",
     "website_globalmodlog_welcomemessage": "Changed the welcome message",
     "website_globalmodlog_prefix": "Changed the prefix",
