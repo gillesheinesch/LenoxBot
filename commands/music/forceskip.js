@@ -25,6 +25,6 @@ module.exports = class forceskipCommand extends LenoxCommand {
     const serverQueue = queue.get(msg.guild.id);
     if (!msg.member.voice.channel) return msg.channel.send(lang.forceskip_notvoicechannel);
     if (!serverQueue) return msg.channel.send(lang.forceskip_noserverqueue);
-    await serverQueue.connection.dispatcher.destroy();
+    await serverQueue.connection.dispatcher.end();
   }
 };

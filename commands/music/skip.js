@@ -30,7 +30,7 @@ module.exports = class skipCommand extends LenoxCommand {
 
     if (msg.member.voice.channel.members.size === 2) {
       msg.channel.send(lang.skip_skippedalone);
-      await serverQueue.connection.dispatcher.destroy();
+      await serverQueue.connection.dispatcher.end();
       return;
     }
 
@@ -61,6 +61,6 @@ module.exports = class skipCommand extends LenoxCommand {
     if (mapload.users.length !== number) return;
 
     msg.channel.send(lang.skip_skipped);
-    await serverQueue.connection.dispatcher.destroy();
+    await serverQueue.connection.dispatcher.end();
   }
 };

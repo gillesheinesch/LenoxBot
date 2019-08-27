@@ -171,7 +171,6 @@ module.exports = class playCommand extends LenoxCommand {
           await play(msg.guild, queueConstruct.songs[0]);
         }
         catch (error) {
-          msg.client.logger.error(error);
           await queue.delete(msg.guild.id);
           await skipvote.delete(msg.guild.id);
           return msg.channel.send(lang.play_errorjoin);
