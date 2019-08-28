@@ -36,21 +36,25 @@ module.exports = class inventoryCommand extends LenoxCommand {
     for (let i = 0; i < args.slice().length; i += 1) {
       if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
         if (args.slice()[0].toLowerCase() === 'upgrade') {
-          const inventory_notanumber = lang.lang.inventory_notanumber.replace('%prefix', prefix);
-          if (!args.slice(1, 2) || args.slice(1, 2).length === 0) return msg.reply(inventory_notanumber);
-          if (isNaN(args.slice(1, 2))) return msg.reply(lang.inventory_notanumber);
-          if (parseInt(args.slice(1, 2), 10) <= 0) return msg.reply(lang.inventory_notenough);
-          if (msg.client.provider.getUser(msg.author.id, 'inventory').inventoryslotticket < parseInt(args.slice(1, 2), 10)) return msg.reply(lang.inventory_notenough);
+          const numberOfUpgrades = !args.slice(1, 2).length ? 1 : args.slice(1, 2).join(' ');
+          console.log(numberOfUpgrades);
+
+          const notanumber = lang.inventory_notanumber.replace('%prefix', prefix);
+          if (isNaN(numberOfUpgrades)) return msg.reply(notanumber);
+          if (parseInt(numberOfUpgrades, 10) <= 0) return msg.reply(lang.inventory_morethan0);
+          
+          const notenough = lang.inventory_notenough.replace('%prefix', prefix);
+          if (msg.client.provider.getUser(msg.author.id, 'inventory').inventoryslotticket < parseInt(numberOfUpgrades, 10)) return msg.reply(notenough);
 
           const currentInventory = msg.client.provider.getUser(msg.author.id, 'inventory');
-          currentInventory.inventoryslotticket -= parseInt(args.slice(1, 2), 10);
+          currentInventory.inventoryslotticket -= parseInt(numberOfUpgrades, 10);
           msg.client.provider.setUser(msg.author.id, 'inventory', currentInventory);
 
           let currentInventoryslots = msg.client.provider.getUser(msg.author.id, 'inventoryslots');
-          currentInventoryslots += parseInt(args.slice(1, 2), 10);
+          currentInventoryslots += parseInt(numberOfUpgrades, 10);
           msg.client.provider.setUser(msg.author.id, 'inventoryslots', currentInventoryslots);
 
-          const ticketbought = lang.inventory_ticketbought.replace('%numberofusedtickets', `\`${parseInt(args.slice(1, 2), 10)}\``).replace('%currentslots', `\`${msg.client.provider.getUser(msg.author.id, 'inventoryslots')}\``);
+          const ticketbought = lang.inventory_ticketbought.replace('%numberofusedtickets', `\`${parseInt(numberOfUpgrades, 10)}\``).replace('%currentslots', `\`${msg.client.provider.getUser(msg.author.id, 'inventoryslots')}\``);
           return msg.reply(ticketbought);
         }
       }
