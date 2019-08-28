@@ -79,7 +79,7 @@
     "website_home_features_free_description": "Queremos ofrecer a los usuarios de Discord un bot por el que no tienes que pagar nada pero tienes muchas funciones. Por supuesto, está la posibilidad de donar y obtener algunas características extra, ¡pero de lo contrario el bot es gratis!",
     "website_home_features_dashboard": "Panel",
     "website_home_features_dashboard_description": "Un panel de ajustes online organizado hace mucho más sencillo el manejo de todas las opciones de tu servidor de Discord.",
-    "website_home_features_dashboard_servers": "Show my servers",
+    "website_home_features_dashboard_servers": "Mostrar mis servidores",
     "website_home_features_dashboard_link": "Log in to see the dashboard",
     "website_home_features_uptime": "99.99% Disponible",
     "website_home_features_uptime_description": "Realizamos mantenimientos de un máximo de 1 día 1-3 veces al año, ¡aparte de esto, el bot siempre está en línea! Queremos ofrecer a los usuarios un bot de confianza.",
@@ -114,7 +114,7 @@
     "website_commands_aliases": "Apodos",
     "website_commands_cmdnotfound": "Comando no encontrado",
     "website_commands_all": "Todos los comandos",
-    "website_commands_search": "Search...",
+    "website_commands_search": "Buscar...",
     "website_commands_htmltitle": "Lista de comandos",
     "website_servers_warning": "Por favor, tenga en cuenta: si no encuentra su servidor en la lista, ¡vuelva a iniciar sesión!",
     "website_servers_members": "miembros",
@@ -279,8 +279,8 @@
     "website_policy_htmltitle": "Aviso del sitio",
     "website_dataprotection_htmltitle": "Protección de datos",
     "website_donate_htmltitle": "Apóyanos",
-    "website_notification_success_title": "Notification:",
-    "website_notification_success_message": "Changes saved successfully!",
-    "website_notification_error_title": "Notification:",
-    "website_notification_error_message": "An error has ocurred. Try later."
+    "website_notification_success_title": "Notificación:",
+    "website_notification_success_message": "¡Cambios guardados con éxito!",
+    "website_notification_error_title": "Notificación:",
+    "website_notification_error_message": "Ha ocurrido un error. Prueba más tarde."
 }
