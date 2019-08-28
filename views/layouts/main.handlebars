@@ -193,8 +193,13 @@
                                 {{#if islenoxbot}}
                                 <small class=" text-muted pl-4">{{lang.website_navigation_dashboards}}</small>
                                 {{#each islenoxbot}}
+                                {{#if premium}}
+                                <a class="dropdown-item lb-dropdown-item lb-textcap"
+                                    href="/dashboard/{{id}}/overview" style="color: rgb(243, 212, 39); text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;"><i class="mdi mdi-star"></i> <strong>{{name}}</strong></i></a>
+                                {{else}}
                                 <a class="dropdown-item lb-dropdown-item lb-textcap"
                                     href="/dashboard/{{id}}/overview">{{name}}</a>
+                                {{/if}}
                                 {{/each}}
                                 <div class="dropdown-divider"></div>
                                 {{/if}}
