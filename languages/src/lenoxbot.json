@@ -282,13 +282,6 @@
     "createmuterole_done": "The 'muted' role has been created!",
     "createmuterole_description": "Creates a mute role and forbids all writing and speaking permissions",
 
-    "languagefinder_noguildid": "You didn't enter a Discord server ID!",
-    "languagefinder_nofetch": "Couldn't find this server in the database!",
-    "languagefinder_embedfield1": "Server owner:",
-    "languagefinder_embedfield2": "Language:",
-    "languagefinder_requestedby": "Requested by %authortag",
-    "languagefinder_description": "Allows the staffs of the bot to find out the language of a Discord server",
-
     "guildinformation_noguildid": "You didn't enter a Discord server ID!",
     "guildinformation_noreason": "You didn't enter a reason for this request!",
     "guildinformation_nofetch": "Couldn't find this server in the database!",
