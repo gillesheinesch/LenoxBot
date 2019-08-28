@@ -82,9 +82,11 @@
     "website_home_features_free_description": "We want to offer the Discord users a bot where you do not have to pay anything and have a lot of functions. There is, of course, the opportunity to donate and get some extra features but otherwise the bot is free!",
     "website_home_features_dashboard": "Dashboard",
     "website_home_features_dashboard_description": "A well structured online dashboard makes it easy for you to manage all the settings of your Discord server.",
-    "website_home_features_dashboard_link": "My servers",
+    "website_home_features_dashboard_servers": "Show my servers",
+    "website_home_features_dashboard_link": "Log in to see the dashboard",
     "website_home_features_uptime": "99.99% Uptime",
     "website_home_features_uptime_description": "We carry out maintenance times of a maximum of 1 day 1-3 times a year, otherwise the bot is always online! We want to offer the users a bot to rely on.",
+    "website_home_features_uptime_statuspage": "Our Statuspage",
     "website_home_htmltitle": "LenoxBot offers many cool and new features for your Discord Server!",
 
     "website_footer_product_title": "Product",
@@ -117,6 +119,7 @@
     "website_commands_aliases": "Aliases",
     "website_commands_cmdnotfound": "Command not found",
     "website_commands_all": "All commands",
+    "website_commands_search": "Search...",
     "website_commands_htmltitle": "Command list",
 
     "website_servers_warning": "Please note: if you cannot find your server in the list, log in again!",
