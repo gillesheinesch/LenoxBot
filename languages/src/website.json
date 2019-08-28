@@ -15,6 +15,7 @@
     "website_global_activate": "Activate",
     "website_global_deactivate": "Deactivate",
     "website_global_savechanges": "Save changes",
+    "website_global_undefined": "Undefined",
 
     "website_globalmodlog_updatedlog": "Changed the '%variable' log settings",
     "website_globalmodlog_selfassignableroles": "Changed self-assignable roles",
@@ -155,6 +156,7 @@
     "website_dashboard_executor": "Executor",
     "website_dashboard_date": "Time",
     "website_dashboard_none": "None",
+    "website_dashboard_executed": "Executed on",
     "website_dashboard_showall": "Show all",
     "website_dashboard_htmltitle": "Overview Dashboard",
 
