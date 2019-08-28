@@ -53,6 +53,12 @@ module.exports = class removecreditsCommand extends LenoxCommand {
       embed
     });
 
+    msg.client.users.fetch(user).then(async (fetchedUser) => {
+      if (fetchedUser) {
+        await fetchedUser.send({ embed });
+      }
+    });
+
     const done = lang.removecredits_done.replace('%credits', amountofcoins);
     return msg.reply(done);
   }
