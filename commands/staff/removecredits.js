@@ -31,10 +31,12 @@ module.exports = class removecreditsCommand extends LenoxCommand {
     if (!msg.member.roles.has(moderatorRole.id) && !msg.member.roles.has(prmanagerRole.id)) return msg.reply(lang.botownercommands_error);
 
     const user = msg.mentions.users.first() ? msg.mentions.users.first().id : args.slice(0, 1).join(' ');
-    const amountofcoins = parseInt(args.slice(1).join(' '), 10);
+    const amountofcoins = parseInt(args.slice(1, 2).join(' '), 10);
+    const reason = args.slice(2);
 
     if (!msg.client.users.has(user)) return msg.reply(lang.removecredits_nomention);
-    if (!amountofcoins) return msg.reply(lang.removecredits_novalue);
+    if (!amountofcoins || isNaN(args.slice(1, 2)) || amountofcoins <= 0) return msg.reply(lang.removecredits_novalue);
+    if (!reason) return msg.reply(lang.removecredits_noreason);
 
     let currentCredits = msg.client.provider.getUser(user, 'credits');
     currentCredits -= amountofcoins;
@@ -44,6 +46,7 @@ module.exports = class removecreditsCommand extends LenoxCommand {
     const embed = new Discord.MessageEmbed()
       .setAuthor(msg.author.tag, msg.author.displayAvatarURL())
       .setDescription(embeddescription)
+      .addField(lang.removecredits_embedfieldtitle, reason.join(' '))
       .setTimestamp()
       .setColor('RED');
     await msg.client.channels.get('497395598182318100').send({
