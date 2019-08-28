@@ -26,6 +26,7 @@
 									<tr>
 										<th>{{lang.website_dashboard_action}}</th>
 										<th>{{lang.website_dashboard_executor}}</th>
+										<th>{{lang.website_dashboard_executed}}</th>
 										<th>{{lang.website_dashboard_date}}</th>
 									</tr>
 								</thead>
@@ -35,10 +36,12 @@
 									<tr>
 										<td>{{action}}</td>
 										<td>{{username}}</td>
+										<td>{{executed}}</td>
 										<td>{{showeddate}}</td>
 									</tr>
 									{{/each}} {{else}}
 									<tr>
+										<td>{{lang.website_dashboard_none}}</td>
 										<td>{{lang.website_dashboard_none}}</td>
 										<td>{{lang.website_dashboard_none}}</td>
 										<td>{{lang.website_dashboard_none}}</td>
