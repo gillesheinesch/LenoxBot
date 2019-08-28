@@ -845,40 +845,42 @@ async function run() {
         const teamSettings = {};
         const role = guild.roles.find((r) => r.name.toLowerCase() === teamroles[i]);
 
-        const evaledMembersFromRole = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").roles.get("${role.id}").members.array()`);
+        if (role) {
+          const evaledMembersFromRole = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").roles.get("${role.id}").members.array()`);
 
-        teamSettings.roleName = role.name;
-        teamSettings.roleMembers = [];
+          teamSettings.roleName = role.name;
+          teamSettings.roleMembers = [];
 
-        evaledMembersFromRole.forEach(async (member) => {
-          const userconfs = await userSettingsCollection.findOne({
-            userId: member.userID
-          });
-          const evaledUser = await shardingManager.shards.get(guild.shardID).eval(`
+          evaledMembersFromRole.forEach(async (member) => {
+            const userconfs = await userSettingsCollection.findOne({
+              userId: member.userID
+            });
+            const evaledUser = await shardingManager.shards.get(guild.shardID).eval(`
 					(async () => {
 						const user = await this.users.fetch("${member.userID}")
 						if (user) return user;
 					})();
 				`);
-          if (userconfs.settings.socialmedia) {
-            let socialmediaCheck = 0;
-            for (const x in userconfs.settings.socialmedia) {
-              if (userconfs.settings.socialmedia[x] === '') socialmediaCheck++;
-            }
+            if (userconfs.settings.socialmedia) {
+              let socialmediaCheck = 0;
+              for (const x in userconfs.settings.socialmedia) {
+                if (userconfs.settings.socialmedia[x] === '') socialmediaCheck++;
+              }
 
-            if (socialmediaCheck !== Object.keys(userconfs.settings.socialmedia).length) {
-              evaledUser.socialmedia = {};
-              for (const index in userconfs.settings.socialmedia) {
-                if (userconfs.settings.socialmedia[index] !== '') {
-                  evaledUser.socialmedia[index] = userconfs.settings.socialmedia[index];
+              if (socialmediaCheck !== Object.keys(userconfs.settings.socialmedia).length) {
+                evaledUser.socialmedia = {};
+                for (const index in userconfs.settings.socialmedia) {
+                  if (userconfs.settings.socialmedia[index] !== '') {
+                    evaledUser.socialmedia[index] = userconfs.settings.socialmedia[index];
+                  }
                 }
               }
             }
-          }
 
-          teamSettings.roleMembers.push(evaledUser);
-        });
-        team.push(teamSettings);
+            teamSettings.roleMembers.push(evaledUser);
+          });
+          team.push(teamSettings);
+        }
       }
 
       const lang = require(`./languages/website_${req.getLocale()}`);
