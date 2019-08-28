@@ -1685,28 +1685,4 @@
     "roleupdateevent_positionupdated": "Roleposition updated!",
     "roleupdateevent_old": "Old position",
     "roleupdateevent_new": "New position",
-
-    "learnmodule_question_physics1": "Which line on this position time graph represents an object standing still?",
-    "learnmodule_question_physics1_possibility1": "Line A",
-    "learnmodule_question_physics1_possibility2": "Line B",
-    "learnmodule_question_physics1_possibility3": "Line C",
-    "learnmodule_question_physics1_possibility4": "Line D",
-
-    "learnmodule_question_physics2": "Which line respresents the negative velocity?",
-    "learnmodule_question_physics2_possibility1": "Line A",
-    "learnmodule_question_physics2_possibility2": "Line B",
-    "learnmodule_question_physics2_possibility3": "Line C",
-    "learnmodule_question_physics2_possibility4": "Line D",
-
-    "learnmodule_question_physics3": "Which is the correct label used to identify **velocity**?",
-    "learnmodule_question_physics3_possibility1": "km/hr West",
-    "learnmodule_question_physics3_possibility2": "km to West",
-    "learnmodule_question_physics3_possibility3": "km/hr",
-    "learnmodule_question_physics3_possibility4": "mph",
-
-    "learnmodule_question_physics4": "The image displayed shows what relationship between distance and time?",
-    "learnmodule_question_physics4_possibility1": "As time stays the same, distance increases",
-    "learnmodule_question_physics4_possibility2": "As time decreases, distance decreases",
-    "learnmodule_question_physics4_possibility3": "As time increases, distance stays the same",
-    "learnmodule_question_physics4_possibility4": "As time decreases, distance decreases"
 }
