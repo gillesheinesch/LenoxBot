@@ -555,7 +555,6 @@
     "shop_price": "Prix :",
     "shop_sellall": "Tu as vendu %items pour un total de %amount crédits",
     "shop_description": "Tu peux voir la liste de tous les items achetables et vendre ou acheter des items",
-    "inventory_notanumber": "You have to enter a number of how many inventoryslottickets you want to use! For further information check out **%prefixhelp inventory**.",
     "inventory_morethan0": "Ton nombre de mises à jour doit être supérieur à 0 !",
     "inventory_notenough": "Tu n'as pas assez de tickets de case d'inventaire ! Merci d'utiliser **%prefixhelp shop** pour te renseigner comment acheter quelques-uns",
     "inventory_ticketbought": "Tu as utilisé avec succès %numberofusedtickets ticket(s) de case d'inventaire. Maintenant, tu as %currentslots cases d'inventaire",
