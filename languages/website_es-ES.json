@@ -50,7 +50,7 @@
     "website_globalmodlog_togglemodule": "Toggled the '%variable' module",
     "website_globalmodlog_togglecommand": "Toggled the '%variable' command",
     "website_globalmodlog_executed_dashboard": "Panel",
-    "website_globalmodlog_executed_discordserver": "Discord server",
+    "website_globalmodlog_executed_discordserver": "Servidor de Discord",
     "website_navigation_home": "Inicio",
     "website_navigation_commands": "Comandos",
     "website_navigation_documentation": "Documentación",
