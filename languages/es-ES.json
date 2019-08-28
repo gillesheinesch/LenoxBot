@@ -555,7 +555,6 @@
     "shop_price": "Precio:",
     "shop_sellall": "Has vendido %items por un total de %amount créditos",
     "shop_description": "Puedes ver la lista de todos los ítems comprables y vender o comprar ítems",
-    "inventory_notanumber": "Debes introducir el número de boletodeinventario que quieres usar. Para más información, usa **%prefixhelp inventory**.",
     "inventory_morethan0": "¡La cantidad de mejoras debe ser mayor que 0!",
     "inventory_notenough": "No tienes suficientes boletodeinventario. Por favor, usa **%prefixhelp shop** para ver cómo comprar más",
     "inventory_ticketbought": "Has usado con éxito %numberofusedtickets boletodeinventario(s). Ahora tienes %currentslots ranuradeinventario",
