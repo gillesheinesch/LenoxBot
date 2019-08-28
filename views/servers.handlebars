@@ -5,7 +5,7 @@
 			<div class="row">
 				<div class="col-12 mt-4">
 					<div class="alert alert-warning alert-dismissible fade show" role="alert">
-						{{lang.website_servers_warning}}
+						<i class="mdi mdi-alert"></i> {{lang.website_servers_warning}}
 						<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 							<span aria-hidden="true">&times;</span>
 						</button>
@@ -15,7 +15,11 @@
 			<div class="row">
 				{{#each guilds}}
 				<div class="col-12 col-md-6 col-lg-4 mb-4 text-center">
-					<div class="card lb-feature-card shadow">
+					{{#if premium}}
+					<div class="card lb-feature-card-premium shadow">
+						{{else}}
+						<div class="card lb-feature-card shadow">
+						{{/if}}
 						<div class="card-body">
 							<figure>
 								{{#if lenoxbot}} {{#if icon}}
@@ -43,7 +47,7 @@
 								{{/if}} {{/if}}
 							</figure>
 							{{#if premium}}
-							<h5 class="card-title lb-textcap" style="color:rgb(219, 197, 73);"><i class="mdi mdi-star" title="LenoxBot Premium"></i> {{name}} <i class="mdi mdi-star"  title="LenoxBot Premium"></i></h5>
+							<h5 class="card-title lb-textcap" style="color: rgb(243, 212, 39)"><i class="mdi mdi-star" title="LenoxBot Premium"></i> {{name}} <i class="mdi mdi-star"  title="LenoxBot Premium"></i></h5>
 							{{else}}
 							<h5 class="card-title lb-textcap">{{name}}</h5>
 							{{/if}}
