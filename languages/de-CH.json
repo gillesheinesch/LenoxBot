@@ -555,7 +555,6 @@
     "shop_price": "Priis:",
     "shop_sellall": "Du häsch %items für insgesamt %amount Credits verchauft",
     "shop_description": "Du chunsch e Liiste mit allne chaufbare Gägeständ über und chasch Gägeständ chaufe oder verchaufe",
-    "inventory_notanumber": "Du muesch mit ere aageh, wieviel Inventarslottickets du wetsch iilöse! Für meh informatione benutz bitte **%prefixhelp inventory**.",
     "inventory_morethan0": "Dini Aazahl a Upgrades mues grösser als 0 sii!",
     "inventory_notenough": "Du häsch nöd gnueg Inventarslot-Tickets. Bitte benutz **%prefixhelp shop** zum usefinde, wie du es paar chasch chaufe",
     "inventory_ticketbought": "Du häsch erfolgriich %numberofusedtickets Inventarupgrade-Ticket(s) iiglöst. Du häsch jetzt %currentslots Inventarplätz",
