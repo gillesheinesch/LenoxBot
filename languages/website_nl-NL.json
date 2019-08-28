@@ -278,5 +278,9 @@
     "website_leaderboard_htmltitle": "Leaderboards 🏆",
     "website_policy_htmltitle": "Afdruk",
     "website_dataprotection_htmltitle": "Data protection",
-    "website_donate_htmltitle": "Support us"
+    "website_donate_htmltitle": "Support us",
+    "website_notification_success_title": "Notification:",
+    "website_notification_success_message": "Changes saved successfully!",
+    "website_notification_error_title": "Notification:",
+    "website_notification_error_message": "An error has ocurred. Try later."
 }
