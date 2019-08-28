@@ -51,6 +51,9 @@
     "website_globalmodlog_togglemodule": "Toggled the '%nameofthemodule' module",
     "website_globalmodlog_togglecommand": "Toggled the '%nameofthecommand' command",
 
+    "website_globalmodlog_executed_dashboard": "Dashboard",
+    "website_globalmodlog_executed_discordserver": "Discord server",
+
     "website_navigation_home": "Home",
     "website_navigation_commands": "Commands",
     "website_navigation_documentation": "Documentation",
