@@ -278,5 +278,9 @@
     "website_leaderboard_htmltitle": "Leaderboards 🏆",
     "website_policy_htmltitle": "Aviso del sitio",
     "website_dataprotection_htmltitle": "Protección de datos",
-    "website_donate_htmltitle": "Apóyanos"
+    "website_donate_htmltitle": "Apóyanos",
+    "website_notification_success_title": "Notification:",
+    "website_notification_success_message": "Changes saved successfully!",
+    "website_notification_error_title": "Notification:",
+    "website_notification_error_message": "An error has ocurred. Try later."
 }
