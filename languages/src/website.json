@@ -32,7 +32,7 @@
     "website_globalmodlog_togglewelcomemessage": "Toggled the welcome message",
     "website_globalmodlog_togglegoodbyemessage": "Toggled the goodbye message",
     "website_globalmodlog_announcementsettings": "Changed the announcement settings",
-    "website_globalmodlog_permissionsticketz": "Changed the required permissions for the ticket panel",
+    "website_globalmodlog_permissionstickets": "Changed the required permissions for the ticket panel",
     "website_globalmodlog_permissionsapplication": "Changed the required permissions for the application panel",
     "website_globalmodlog_permissionsdashboard": "Changed the required permissions for the dashboard serverpage",
     "website_globalmodlog_anonymoustempban": "Changed the settings of the anonymous temporary ban",
