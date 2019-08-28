@@ -1138,6 +1138,16 @@ async function run() {
 
             check.push(req.user.guilds[i]);
           }
+
+          check.sort((a, b) => {
+            if (a.lenoxbot < b.lenoxbot) {
+              return 1;
+            }
+            if (a.lenoxbot > b.lenoxbot) {
+              return -1;
+            }
+            return 0;
+          });
         }
         const islenoxbot = islenoxboton(req);
         const lang = require(`./languages/website_${req.getLocale()}`);
@@ -1152,7 +1162,6 @@ async function run() {
       return res.redirect('nologin');
     }
     catch (error) {
-      console.log(error);
       return res.redirect(url.format({
         pathname: '/error',
         query: {
