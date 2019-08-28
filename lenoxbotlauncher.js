@@ -673,12 +673,14 @@ async function run() {
 							return roleMembers;
 						}
 					})();
-				`);
-        roleMembers.forEach((member) => {
-          if (member.userID === profileId) {
-            isstaff = true;
-          }
-        });
+        `);
+        if (roleMembers) {
+          roleMembers.forEach((member) => {
+            if (member.userID === profileId) {
+              isstaff = true;
+            }
+          });
+        }
       }
       if (userconfs.settings.premium.status) {
         ispremium = true;

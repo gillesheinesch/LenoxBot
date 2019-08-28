@@ -126,11 +126,10 @@
                     </div>
                     <div class="card-footer lb-card-footer mb-2">
                         {{#if user}}
-                        <a href="/servers" class="card-link">{{lang.website_home_features_dashboard_description}}</a>
+                        <a href="/servers" class="card-link">{{lang.website_home_features_dashboard_servers}}</a>
                         {{ else }}
                         <a href="/loginpressedbutton" class="card-link">{{lang.website_home_features_dashboard_link}}</a>
                         {{/if}}
-
                     </div>
                 </div>
             </div>
@@ -141,6 +140,9 @@
                         <h5 class="card-title">{{lang.website_home_features_uptime}}</h5>
                         <hr>
                         <p class="card-text">{{lang.website_home_features_uptime_description}}</p>
+                    </div>
+                    <div class="card-footer lb-card-footer mb-2">
+                        <a href="https://status.lenoxbot.com" class="card-link">{{lang.website_home_features_uptime_statuspage}}</a>
                     </div>
                 </div>
             </div>
