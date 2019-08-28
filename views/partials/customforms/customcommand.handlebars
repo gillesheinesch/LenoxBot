@@ -1,5 +1,9 @@
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script>
-
+    const disable = `{{lang.website_global_disable}}`
+	const disableFunction = Handlebars.compile(templateString);
+    const enable = `{{lang.website_global_enable}}`
+	const enableFunction = Handlebars.compile(templateString);
     // submitcommandstatuschange custom commands
 
     (function ($) {
@@ -15,10 +19,10 @@
                     notifySuccess();
                     if ($('#{{name}}b').hasClass('lb-btn-green')) {
                         $('#{{name}}status').val('false');
-                        $('#{{name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text('Disable');
+                        $('#{{name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text(disableFunction());
                     } else {
                         $('#{{name}}status').val('true');
-                        $('#{{name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text('Enable');
+                        $('#{{name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text(enableFunction());
                     }
                     $('#{{name}}b').removeAttr("disabled");
                 },

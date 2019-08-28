@@ -1,79 +1,91 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+<script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script>
-	function notifySuccess(){
-        $.notify({
-	// options
-	title: '<strong>Notification:</strong>',
-	message: '<strong>Changes saved successfully!</strong>'
-},{
-	// settings
-	element: 'body',
-	position: null,
-	type: "success",
-	allow_dismiss: true,
-	newest_on_top: false,
-	showProgressbar: true,
-	placement: {
-		from: "top",
-		align: "right"
-	},
-	offset: 10,
-	spacing: 5,
-	z_index: 1031,
-	delay: 5000,
-	timer: 1000,
-	animate: {
-		enter: 'animated bounceInRight',
-		exit: 'animated bounceOutRight'
-	},
-    template: '<div data-notify="container" class="col-10 col-sm-3 alert alert-{0}" role="alert">' +
-		'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-		'<span data-notify="icon"></span> ' +
-		'<span data-notify="title">{1}</span> ' +
-		'<span data-notify="message">{2}</span>' +
-		'<div class="progress" data-notify="progressbar" style="height: 2px;">' +
-			'<div class="progress-bar progress-bar-{0} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #4caf50;"></div>' +
-		'</div>' +
-		'<a href="{3}" target="{4}" data-notify="url"></a>' +
-	'</div>' 
-});
+	const successNotificationTitle = `{{lang.website_notification_success_title}}`
+	const successNotificationTitleFunction = Handlebars.compile(templateString);
+	const successNotificationMessage = `{{lang.website_notification_success_message}}`
+	const successNotificationMessageFunction = Handlebars.compile(templateString);
+
+	const errorNotificationTitle = `{{lang.website_notification_error_title}}`
+	const errorNotificationTitleFunction = Handlebars.compile(templateString);
+	const errorNotificationMessage = `{{lang.website_notification_error_message}}`
+	const errorNotificationMessageFunction = Handlebars.compile(templateString);
+
+	function notifySuccess() {
+		$.notify({
+			// options
+			title: `<strong>${notificationTitleFunction()}</strong>`,
+			message: `<strong>${successNotificationMessageFunction()}</strong>`
+		}, {
+			// settings
+			element: 'body',
+			position: null,
+			type: "success",
+			allow_dismiss: true,
+			newest_on_top: false,
+			showProgressbar: true,
+			placement: {
+				from: "top",
+				align: "right"
+			},
+			offset: 10,
+			spacing: 5,
+			z_index: 1031,
+			delay: 5000,
+			timer: 1000,
+			animate: {
+				enter: 'animated bounceInRight',
+				exit: 'animated bounceOutRight'
+			},
+			template: '<div data-notify="container" class="col-10 col-sm-3 alert alert-{0}" role="alert">' +
+				'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+				'<span data-notify="icon"></span> ' +
+				'<span data-notify="title">{1}</span> ' +
+				'<span data-notify="message">{2}</span>' +
+				'<div class="progress" data-notify="progressbar" style="height: 2px;">' +
+				'<div class="progress-bar progress-bar-{0} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #4caf50;"></div>' +
+				'</div>' +
+				'<a href="{3}" target="{4}" data-notify="url"></a>' +
+				'</div>'
+		});
 	}
-	function notifyError(message){
-        $.notify({
-	// options
-	title: '<strong>Notification:</strong>',
-	message: '<strong>An error has ocurred. Try later.</strong>'
-},{
-	// settings
-	element: 'body',
-	position: null,
-	type: "danger",
-	allow_dismiss: true,
-	newest_on_top: false,
-	showProgressbar: true,
-	placement: {
-		from: "top",
-		align: "right"
-	},
-	offset: 10,
-	spacing: 5,
-	z_index: 1031,
-	delay: 5000,
-	timer: 1000,
-	animate: {
-		enter: 'animated bounceInRight',
-		exit: 'animated bounceOutRight'
-	},
-    template: '<div data-notify="container" class="col-10 col-sm-3 alert alert-{0}" role="alert">' +
-		'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
-		'<span data-notify="icon"></span> ' +
-		'<span data-notify="title">{1}</span> ' +
-		'<span data-notify="message">{2}</span>' +
-		'<div class="progress" data-notify="progressbar" style="height: 2px;">' +
-			'<div class="progress-bar progress-bar-{0} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #ef5350;"></div>' +
-		'</div>' +
-		'<a href="{3}" target="{4}" data-notify="url"></a>' +
-	'</div>' 
-});
+
+	function notifyError(message) {
+		$.notify({
+			// options
+			title: `<strong>${errorNotificationTitleFunction()}</strong>`,
+			message: `<strong>${errorNotificationMessageFunction()}</strong>`
+		}, {
+			// settings
+			element: 'body',
+			position: null,
+			type: "danger",
+			allow_dismiss: true,
+			newest_on_top: false,
+			showProgressbar: true,
+			placement: {
+				from: "top",
+				align: "right"
+			},
+			offset: 10,
+			spacing: 5,
+			z_index: 1031,
+			delay: 5000,
+			timer: 1000,
+			animate: {
+				enter: 'animated bounceInRight',
+				exit: 'animated bounceOutRight'
+			},
+			template: '<div data-notify="container" class="col-10 col-sm-3 alert alert-{0}" role="alert">' +
+				'<button type="button" aria-hidden="true" class="close" data-notify="dismiss">×</button>' +
+				'<span data-notify="icon"></span> ' +
+				'<span data-notify="title">{1}</span> ' +
+				'<span data-notify="message">{2}</span>' +
+				'<div class="progress" data-notify="progressbar" style="height: 2px;">' +
+				'<div class="progress-bar progress-bar-{0} progress-bar-striped progress-bar-animated" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%; background-color: #ef5350;"></div>' +
+				'</div>' +
+				'<a href="{3}" target="{4}" data-notify="url"></a>' +
+				'</div>'
+		});
 	}
 </script>
