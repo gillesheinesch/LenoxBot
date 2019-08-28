@@ -280,7 +280,7 @@
     "website_dataprotection_htmltitle": "Protección de datos",
     "website_donate_htmltitle": "Apóyanos",
     "website_notification_success_title": "Notificación:",
-    "website_notification_success_message": "Changes saved successfully!",
+    "website_notification_success_message": "¡Cambios guardados con éxito!",
     "website_notification_error_title": "Notificación:",
-    "website_notification_error_message": "An error has ocurred. Try later."
+    "website_notification_error_message": "Ha ocurrido un error. Prueba más tarde."
 }
