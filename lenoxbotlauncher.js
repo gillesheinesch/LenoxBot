@@ -917,6 +917,42 @@ async function run() {
         newcommandlist.push(commandlist.settings.commands[key]);
       }
 
+      let isstaff = false;
+      if (req.user) {
+        const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader', 'pr manager'];
+
+        let guild;
+        await shardingManager.broadcastEval(`this.guilds.get("${settings.botMainDiscordServer}")`)
+          .then((guildArray) => {
+            guild = guildArray.find((g) => g);
+          });
+
+        const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").members.array()`);
+        guild.members = evaledMembers;
+
+        const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").channels.array()`);
+        guild.channels = evaledChannels;
+
+        for (let i = 0; i < teamroles.length; i += 1) {
+          const roleMembers = await shardingManager.shards.get(guild.shardID).eval(`
+					(() => {
+						const roleFound = this.guilds.get("${settings.botMainDiscordServer}").roles.find(r => r.name.toLowerCase() === "${teamroles[i]}");
+						if (roleFound) {
+							const roleMembers = roleFound.members.array();
+							return roleMembers;
+						}
+					})();
+        `);
+          if (roleMembers) {
+            roleMembers.forEach((member) => {
+              if (member.userID === req.user.id) {
+                isstaff = true;
+              }
+            });
+          }
+        }
+      }
+
       const islenoxbot = islenoxboton(req);
 
       const lang = require(`./languages/website_${req.getLocale()}`);
@@ -925,7 +961,8 @@ async function run() {
         lang,
         user: req.user,
         islenoxbot,
-        commands: newcommandlist
+        commands: newcommandlist,
+        isstaff
       });
     }
     catch (error) {

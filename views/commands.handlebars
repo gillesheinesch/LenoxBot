@@ -24,6 +24,10 @@
                         <button class="list-group-item list-group-item-action lb-btn-list" id="utility"><i class="mdi lb-dashboard-icon mdi-lightbulb-on"></i> Utility</button>
                         <button class="list-group-item list-group-item-action lb-btn-list" id="tickets"><i class="mdi lb-dashboard-icon mdi-ticket-account"></i> Tickets</button>
                         <button class="list-group-item list-group-item-action lb-btn-list" id="customcommands"><i class="mdi lb-dashboard-icon mdi-console"></i> Custom commands</button>
+                        {{#if isstaff}}
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="staff"><i class="mdi lb-dashboard-icon mdi-account-alert"></i> LenoxBot Staff</button>
+                        <button class="list-group-item list-group-item-action lb-btn-list" id="botowner"><i class="mdi lb-dashboard-icon mdi-alert-outline"></i> LenoxBot Botowner</button>
+                        {{/if}}
                     </div>
                 </div>
                 <div class="col-lg-9">
