@@ -290,8 +290,8 @@
     "guildinformation_embedfield2": "Prefix:",
     "guildinformation_embedfield3": "Language:",
     "guildinformation_embedfield4": "LenoxBot Premium:",
-    "guildinformation_embedfield4answer1": "Nein",
-    "guildinformation_embedfield4answer2": "Ja",
+    "guildinformation_embedfield4answer1": "No",
+    "guildinformation_embedfield4answer2": "Yes",
     "guildinformation_requestedby": "Requested by %authortag",
     "guildinformation_description": "Allows the staffs of the bot to find out main informations of a Discord server",
 
