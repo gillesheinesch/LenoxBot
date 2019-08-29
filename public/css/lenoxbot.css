@@ -49,6 +49,11 @@ body {
     width: 100%;
 }
 
+.lb-hr-voting {
+    border-top: 1px solid #4e4a4a;
+    width: 100%;
+}
+
 .lb-dashboard {
     animation: lb-fadein .5s;
 }

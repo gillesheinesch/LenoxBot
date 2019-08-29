@@ -412,6 +412,27 @@ async function run() {
 
   app.get('/status', (req, res) => res.redirect('https://status.lenoxbot.com/'));
 
+  app.get('/vote', (req, res) => {
+    try {
+      const lang = require(`./languages/website_${req.getLocale()}`);
+      return res.render('vote', {
+        languages: languages(req),
+        lang,
+        user: req.user
+
+      });
+    }
+    catch (error) {
+      return res.redirect(url.format({
+        pathname: '/error',
+        query: {
+          statuscode: 500,
+          message: error.message
+        }
+      }));
+    }
+  });
+
   app.get('/policy', (req, res) => {
     try {
       const lang = require(`./languages/website_${req.getLocale()}`);

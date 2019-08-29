@@ -325,5 +325,17 @@
     "website_notification_success_title": "Notification:",
     "website_notification_success_message": "Changes saved successfully!",
     "website_notification_error_title": "Notification:",
-    "website_notification_error_message": "An error has ocurred. Try later."
+    "website_notification_error_message": "An error has ocurred. Try later.",
+
+    "website_vote_voting": "Voting",
+    "website_vote_why": "What's the point of upvoting a bot?",
+    "website_vote_whyanswer": "We need your upvotes. They help us to ascend the Top Lists on Discord Bot Lists and thereby get more attention.",
+    "website_vote_goods": "Do I receive any goods for upvoting LenoxBot?",
+    "website_vote_goodsanswer": "You will receive between 100-1000 credits for the upvote on the weekdays. From Friday to Sunday you will receive between 200-2000 credits.",
+    "website_vote_whatarecredits": "If you don't know what you can do with credits, you can read more here:",
+    "website_vote_howto": "How can I upvote LenoxBot?",
+    "website_vote_link": "Simply click on the following link:",
+    "website_vote_discordbotsexpl": "Then you click on the big blue button to upvote the bot! (It could be that you have to login if you haven't logged in on this site before)",
+    "website_vote_fun": "Have fun with your credits!",
+    "website_vote_htmltitle": "Voting"
 }
