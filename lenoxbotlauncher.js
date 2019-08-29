@@ -994,42 +994,6 @@ async function run() {
 
   app.get('/documentation', (req, res) => res.redirect('https://docs.lenoxbot.com'));
 
-  app.get('/oauth2problem', async (req, res) => {
-    try {
-      const check = [];
-      if (req.user) {
-        for (let i = 0; i < req.user.guilds.length; i += 1) {
-          if (((req.user.guilds[i].permissions) & 8) === 8) {
-            let guild;
-            await shardingManager.broadcastEval(`this.guilds.get("${req.user.guilds[i].id}")`)
-              .then((guildArray) => {
-                guild = guildArray.find((g) => g);
-              });
-            req.user.guilds[i].lenoxbot = !!guild;
-            check.push(req.user.guilds[i]);
-          }
-        }
-      }
-
-      const lang = require(`./languages/website_${req.getLocale()}`);
-      return res.render('oauth2problem', {
-        languages: languages(req),
-        lang,
-        user: req.user,
-        guilds: check
-      });
-    }
-    catch (error) {
-      return res.redirect(url.format({
-        pathname: '/error',
-        query: {
-          statuscode: 500,
-          message: error.message
-        }
-      }));
-    }
-  });
-
   app.get('/servers', async (req, res) => {
     try {
       if (req.user) {
