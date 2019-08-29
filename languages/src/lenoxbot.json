@@ -1204,7 +1204,10 @@
     "clear_number": "The number of messages you want to delete have to be a number!",
     "clear_max100": "You can only delete 100 messages at once!",
     "clear_min2": "You must delete at least 2 messages!",
+    "clear_noreason": "You forgot to specify why you want to delete all these messages!",
     "clear_messagesdeleted": "%messagecount messages have been successfully deleted!",
+    "clear_embedtitle": "%amount messages cleared by %user",
+    "clear_embedreason": "Reason:",
     "clear_description": "Deletes for you the last X messages that were sent in the current channel",
 
     "kick_idcheck": "This user was not found on this Discord server!",
