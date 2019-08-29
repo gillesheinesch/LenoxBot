@@ -1641,7 +1641,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'updatedlog',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard',
@@ -1724,7 +1724,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'selfassignableroles',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -1804,7 +1804,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'togglexpchannels',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -1871,7 +1871,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'goodbyemessage',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -1938,7 +1938,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'welcomemessage',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2005,7 +2005,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'prefix',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2080,7 +2080,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'language',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2147,7 +2147,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'commanddeletion',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2214,7 +2214,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'muterole',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2281,7 +2281,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'togglechatfilter',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2348,7 +2348,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'togglexpmessages',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2424,7 +2424,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'chatfilterentries',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2497,7 +2497,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'togglewelcomemessage',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2570,7 +2570,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'togglegoodbyemessage',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2644,7 +2644,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'announcementsettings',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2709,7 +2709,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'permissionstickets',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2774,7 +2774,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'permissionsapplication',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -2860,7 +2860,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'permissionsdashboard',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -3292,7 +3292,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'anonymoustempban',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -3379,7 +3379,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'anonymousmute',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -3657,7 +3657,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'blacklistmusicchannels',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -4199,7 +4199,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'sentembed',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard',
@@ -4714,7 +4714,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'applicationacceptedmsg',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -4781,7 +4781,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'applicationrejectedmsg',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -4852,7 +4852,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'applicationrolerejected',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -4923,7 +4923,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'applicationroleaccepted',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -4990,7 +4990,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'reactionnumber',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -5057,7 +5057,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'toggleapplication',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -5777,7 +5777,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'deletedcustomcommand',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard',
@@ -5847,7 +5847,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'togglecustomcommand',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard',
@@ -5924,7 +5924,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'customcommand',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard',
@@ -6019,7 +6019,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'addedcustomcommand',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard',
@@ -6203,7 +6203,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard'
@@ -6484,7 +6484,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'togglemodule',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard',
@@ -6609,7 +6609,7 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: 'togglecommand',
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
           showeddate: new Date().toUTCString(),
           executed: 'dashboard',
