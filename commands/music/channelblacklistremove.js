@@ -31,9 +31,10 @@ module.exports = class channelblacklistremoveCommand extends LenoxCommand {
       channel = msg.guild.channels.find((r) => r.name.toLowerCase() === input.join(' ').toLowerCase());
     }
     catch (error) {
-      return msg.channel.send(lang.channelblacklistadd_channelnotfind);
+      return msg.reply(lang.channelblacklistadd_channelnotfind);
     }
 
+    if (!channel) return msg.reply(lang.channelblacklistadd_channelnotfind);
     if (channel.type !== 'voice') return msg.reply(lang.channelblacklistremove_wrongtype);
 
     for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'musicchannelblacklist').length; i += 1) {
