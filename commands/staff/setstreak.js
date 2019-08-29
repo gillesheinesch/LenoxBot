@@ -60,7 +60,7 @@ module.exports = class setstreakCommand extends LenoxCommand {
       .addField(lang.setstreak_embedfieldnewstreak, streak.join(' '))
       .addField(lang.setstreak_embedfieldreason, reason.join(' '));
 
-    await msg.client.channels.get('528316831669288961').send({
+    await msg.client.channels.get('497395598182318100').send({
       embed: infoEmbed
     });
 

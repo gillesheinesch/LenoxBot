@@ -49,7 +49,7 @@ module.exports = class guildinformationCommand extends LenoxCommand {
       .setFooter(requestedby)
       .setAuthor(`${guildload.name} (${guildload.id})`);
 
-    await msg.client.channels.get('528316831669288961').send({ embed });
+    await msg.client.channels.get('497395598182318100').send({ embed });
 
     return msg.reply('Request successful received!');
   }

@@ -80,7 +80,7 @@ module.exports = class senditemCommand extends LenoxCommand {
       .addField(lang.senditem_embedamount, amount.join(' '))
       .addField(lang.senditem_embedreason, reason.join(' '));
 
-    await msg.client.channels.get('528316831669288961').send({
+    await msg.client.channels.get('497395598182318100').send({
       embed: infoEmbed
     });
 
