@@ -300,7 +300,7 @@
     "setstreak_higherthan0": "The new daily streak **number** has to be higher than **0**!",
     "setstreak_noreason": "You forgot to enter a reason why you set a new daily streak to this user!",
     "setstreak_notexist": "This user doesn't exist in our database...",
-    "setstreak_samestreak": "You cann't set a new daily streak because the user has exactly the daily streak you specified!",
+    "setstreak_samestreak": "You can't set a new daily streak because the user has exactly the daily streak you specified!",
     "setstreak_embedfielduser": "User:",
     "setstreak_embedfieldoldstreak": "Old daily streak:",
     "setstreak_embedfieldnewstreak": "New daily streak:",
