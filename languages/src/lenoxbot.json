@@ -1486,7 +1486,7 @@
     "paycredits_not0": "You cannot give 0 credits",
     "paycredits_one": "You have to give away minimal 2 credits",
     "paycredits_notenough": "Unfortunately, you do not have enough credits!",
-    "paycredits_creditsgiven": "%author, %creditscount credits were given to %mentiontag!",
+    "paycredits_creditsgiven": "%creditscount credits were given to %mentiontag!",
     "paycredits_description": "Allows a user to give their credits to someone",
 
     "ping_ping": "Latency: %latencyms \nAPI Latency: %latencyapims",
