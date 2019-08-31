@@ -317,16 +317,32 @@ async function run() {
         }
       }
 
-      const islenoxbot = islenoxboton(req);
+      const lang = require(`./languages/website_${req.getLocale()}`);
+      const ratingsQuotes = [];
+      const ratingsCite = [];
+      for (const x in lang) {
+        if (x.includes('website_rating_quote')) {
+          ratingsQuotes.push(lang[x]);
+        }
+        if (x.includes('website_rating_cite')) {
+          const replaced = lang[x].replace('%', '');
+          ratingsCite.push(replaced);
+        }
+      }
 
+      const ratings = [];
+      for (let i = 0; i < ratingsQuotes.length; i += 1) {
+        ratings.push({ quote: ratingsQuotes[i], cite: ratingsCite[i] });
+      }
+
+      const islenoxbot = islenoxboton(req);
       const botConfs = await botSettingsCollection.findOne({
         botconfs: 'botconfs'
       });
-
-      const lang = require(`./languages/website_${req.getLocale()}`);
       return res.render('index', {
         languages: languages(req),
         lang,
+        ratings,
         user: req.user,
         guilds: check,
         islenoxbot,
