@@ -26,12 +26,12 @@ module.exports = class hentaihavenCommand extends LenoxCommand {
 
     try {
       /* eslint no-undef: 0 */
-      JSDOM.fromURL('https://hentaihaven.org').then((res) => {
+      await JSDOM.fromURL('https://hentaihaven.org').then(async(res) => {
         const elements = res.window.document.querySelectorAll('head > script');
         const element = Array.from(elements).filter((elem) => elem.text.startsWith('/*  */\nvar Pukka = '))[0];
         const Pukka = JSON.parse(element.text.replace(/^\/\* {2}\*\/\nvar Pukka = |\;\n\/\* {2}\*\/$/g, ''));
         const random_category = Pukka.category_links[Math.floor(Math.random() * (Pukka.category_links.length - 1))];
-        JSDOM.fromURL(random_category).then((resource) => {
+        await JSDOM.fromURL(random_category).then((resource) => {
           const { document } = resource.window;
           const title = document.getElementsByClassName('archive-title')[0].textContent;
           const videos = document.getElementsByClassName('hidden animate_video');
