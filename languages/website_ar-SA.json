@@ -87,6 +87,7 @@
     "website_home_features_uptime": "99.99% Uptime",
     "website_home_features_uptime_description": "We carry out maintenance times of a maximum of 1 day 1-3 times a year, otherwise the bot is always online! We want to offer the users a bot to rely on.",
     "website_home_features_uptime_statuspage": "Our Statuspage",
+    "website_home_rating_title": "What our customers say",
     "website_home_htmltitle": "LenoxBot offers many cool and new features for your Discord Server!",
     "website_footer_product_title": "Product",
     "website_footer_product_features": "Features",
@@ -297,5 +298,9 @@
     "website_vote_link": "Simply click on the following link:",
     "website_vote_discordbotsexpl": "Then you click on the big blue button to upvote the bot! (It could be that you have to login if you haven't logged in on this site before)",
     "website_vote_fun": "Have fun with your credits!",
-    "website_vote_htmltitle": "Voting"
+    "website_vote_htmltitle": "Voting",
+    "website_rating_quote_1": "\"I didn't know about the use of bots in Discord, and after using LenoxBot, I cannot believe there is any better one out there. Games, music, organising tools...a jack of all trades!\"",
+    "website_rating_cite_1": "%Caronte, translation proofreader at LenoxBot",
+    "website_rating_quote_2": "\"A bot on which you can see with how much love and enthusiasm the developers and the whole team develop the bot.\"",
+    "website_rating_cite_2": "%Milkzey, LenoxBot User"
 }
