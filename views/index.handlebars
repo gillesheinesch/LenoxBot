@@ -158,33 +158,28 @@
     <div class="container">
         <div class="row">
             <div class="col-12 text-center font-weight-light text-uppercase my-5">
-                <h1>What our customers say ❤</h1>
+                <h1>{{lang.website_home_rating_title}} ❤</h1>
             </div>
             <div class="col-12 text-center" style="margin-bottom: 30px;">
                 <div id="lenoxbotrating" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                        <div class="carousel-item active p-4 text-center">
+                        {{#each ratings}}
+                        <div class="carousel-item p-4 text-center rating-{{@index}}">
                             <div class="card shadow">
                                 <div class="card-body">
-                                    <h4 class="card-title"><i class="mdi mdi-star lb-starchecked"></i><i class="mdi mdi-star lb-starchecked"></i><i class="mdi mdi-star lb-starchecked"></i><i class="mdi mdi-star lb-starchecked"></i><i class="mdi mdi-star lb-starchecked"></i></h4>
+                                    <h4 class="card-title"><i class="mdi mdi-star lb-starchecked"></i><i
+                                            class="mdi mdi-star lb-starchecked"></i><i
+                                            class="mdi mdi-star lb-starchecked"></i><i
+                                            class="mdi mdi-star lb-starchecked"></i><i
+                                            class="mdi mdi-star lb-starchecked"></i></h4>
                                     <blockquote class="card-text lb-blockquote m-4">
-                                        "In my opinion this bot is one of the best bots! It offers many features (over 180 commands). You can make whatever you want with this bot"
-                                    <cite class="lb-cite">Monkeyyy11, creator of LenoxBot</cite>
+                                        {{quote}}
+                                        <cite class="lb-cite">{{cite}}</cite>
                                     </blockquote>
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item p-4 text-center">
-                            <div class="card shadow">
-                                <div class="card-body">
-                                    <h4 class="card-title"><i class="mdi mdi-star lb-starchecked"></i><i class="mdi mdi-star lb-starchecked"></i><i class="mdi mdi-star lb-starchecked"></i><i class="mdi mdi-star lb-starchecked"></i><i class="mdi mdi-star lb-starchecked"></i></h4>
-                                    <blockquote class="card-text lb-blockquote m-4">
-                                        "In my opinion this bot is one of the best bots! It offers many features (over 180 commands). You can make whatever you want with this bot"
-                                    <cite class="lb-cite">Tester2, creator of LenoxBot</cite>
-                                    </blockquote>
-                                </div>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
                     <a class="carousel-control-prev" href="#lenoxbotrating" role="button" data-slide="prev">
                         <span class="carousel-control-prev-icon lb-rating-previcon" aria-hidden="true"></span>
@@ -199,5 +194,8 @@
         </div>
     </div>
 </section>
+<script>
+    $('.rating-0').addClass('active')
+</script>
 <!-- lenoxbot index JS -->
 <script src="js/index.js"></script>
