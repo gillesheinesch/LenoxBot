@@ -43,7 +43,7 @@ module.exports = class paycreditsCommand extends LenoxCommand {
     currentCreditsMention += parseInt(args.slice(1).join(' '), 10);
     await msg.client.provider.setUser(mention.id, 'credits', currentCreditsMention);
 
-    const creditsgiven = lang.paycredits_creditsgiven.replace('%author', msg.author).replace('%creditscount', args.slice(1).join(' ')).replace('%mentiontag', mention.tag);
+    const creditsgiven = lang.paycredits_creditsgiven.replace('%creditscount', args.slice(1).join(' ')).replace('%mentiontag', mention.tag);
     return msg.reply(creditsgiven);
   }
 };

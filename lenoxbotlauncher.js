@@ -317,16 +317,32 @@ async function run() {
         }
       }
 
-      const islenoxbot = islenoxboton(req);
+      const lang = require(`./languages/website_${req.getLocale()}`);
+      const ratingsQuotes = [];
+      const ratingsCite = [];
+      for (const x in lang) {
+        if (x.includes('website_rating_quote')) {
+          ratingsQuotes.push(lang[x]);
+        }
+        if (x.includes('website_rating_cite')) {
+          const replaced = lang[x].replace('%', '');
+          ratingsCite.push(replaced);
+        }
+      }
 
+      const ratings = [];
+      for (let i = 0; i < ratingsQuotes.length; i += 1) {
+        ratings.push({ quote: ratingsQuotes[i], cite: ratingsCite[i] });
+      }
+
+      const islenoxbot = islenoxboton(req);
       const botConfs = await botSettingsCollection.findOne({
         botconfs: 'botconfs'
       });
-
-      const lang = require(`./languages/website_${req.getLocale()}`);
       return res.render('index', {
         languages: languages(req),
         lang,
+        ratings,
         user: req.user,
         guilds: check,
         islenoxbot,
@@ -411,6 +427,27 @@ async function run() {
   app.get('/discord', (req, res) => res.redirect('https://discordapp.com/invite/jmZZQja'));
 
   app.get('/status', (req, res) => res.redirect('https://status.lenoxbot.com/'));
+
+  app.get('/vote', (req, res) => {
+    try {
+      const lang = require(`./languages/website_${req.getLocale()}`);
+      return res.render('vote', {
+        languages: languages(req),
+        lang,
+        user: req.user
+
+      });
+    }
+    catch (error) {
+      return res.redirect(url.format({
+        pathname: '/error',
+        query: {
+          statuscode: 500,
+          message: error.message
+        }
+      }));
+    }
+  });
 
   app.get('/policy', (req, res) => {
     try {
@@ -917,6 +954,42 @@ async function run() {
         newcommandlist.push(commandlist.settings.commands[key]);
       }
 
+      let isstaff = false;
+      if (req.user) {
+        const teamroles = ['administrator', 'developer', 'moderator', 'test-moderator', 'designer', 'translation manager', 'translation proofreader', 'pr manager'];
+
+        let guild;
+        await shardingManager.broadcastEval(`this.guilds.get("${settings.botMainDiscordServer}")`)
+          .then((guildArray) => {
+            guild = guildArray.find((g) => g);
+          });
+
+        const evaledMembers = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").members.array()`);
+        guild.members = evaledMembers;
+
+        const evaledChannels = await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${settings.botMainDiscordServer}").channels.array()`);
+        guild.channels = evaledChannels;
+
+        for (let i = 0; i < teamroles.length; i += 1) {
+          const roleMembers = await shardingManager.shards.get(guild.shardID).eval(`
+					(() => {
+						const roleFound = this.guilds.get("${settings.botMainDiscordServer}").roles.find(r => r.name.toLowerCase() === "${teamroles[i]}");
+						if (roleFound) {
+							const roleMembers = roleFound.members.array();
+							return roleMembers;
+						}
+					})();
+        `);
+          if (roleMembers) {
+            roleMembers.forEach((member) => {
+              if (member.userID === req.user.id) {
+                isstaff = true;
+              }
+            });
+          }
+        }
+      }
+
       const islenoxbot = islenoxboton(req);
 
       const lang = require(`./languages/website_${req.getLocale()}`);
@@ -925,7 +998,8 @@ async function run() {
         lang,
         user: req.user,
         islenoxbot,
-        commands: newcommandlist
+        commands: newcommandlist,
+        isstaff
       });
     }
     catch (error) {
@@ -993,42 +1067,6 @@ async function run() {
   });
 
   app.get('/documentation', (req, res) => res.redirect('https://docs.lenoxbot.com'));
-
-  app.get('/oauth2problem', async (req, res) => {
-    try {
-      const check = [];
-      if (req.user) {
-        for (let i = 0; i < req.user.guilds.length; i += 1) {
-          if (((req.user.guilds[i].permissions) & 8) === 8) {
-            let guild;
-            await shardingManager.broadcastEval(`this.guilds.get("${req.user.guilds[i].id}")`)
-              .then((guildArray) => {
-                guild = guildArray.find((g) => g);
-              });
-            req.user.guilds[i].lenoxbot = !!guild;
-            check.push(req.user.guilds[i]);
-          }
-        }
-      }
-
-      const lang = require(`./languages/website_${req.getLocale()}`);
-      return res.render('oauth2problem', {
-        languages: languages(req),
-        lang,
-        user: req.user,
-        guilds: check
-      });
-    }
-    catch (error) {
-      return res.redirect(url.format({
-        pathname: '/error',
-        query: {
-          statuscode: 500,
-          message: error.message
-        }
-      }));
-    }
-  });
 
   app.get('/servers', async (req, res) => {
     try {
@@ -1542,7 +1580,25 @@ async function run() {
 
             check = req.user.guilds[index];
 
+            const lang = require(`./languages/website_${req.getLocale()}`);
             if (guildconfs.settings.globallogs) {
+              guildconfs.settings.globallogs.forEach((log) => {
+                if (log.action.split(' ').length === 1) {
+                  let newAction = lang[`website_globalmodlog_${log.action}`];
+
+                  if (log.variable) {
+                    newAction = newAction.replace('%variable', log.variable);
+                  }
+                  log.action = newAction;
+                }
+                if (log.executed) {
+                  log.executed = lang[`website_globalmodlog_executed_${log.executed}`];
+                }
+                else {
+                  log.executed = lang.website_global_undefined;
+                }
+              });
+
               const thelogs = guildconfs.settings.globallogs;
               logs = thelogs.sort((a, b) => {
                 if (a.date < b.date) {
@@ -1559,7 +1615,6 @@ async function run() {
             }
 
             const islenoxbot = islenoxboton(req);
-            const lang = require(`./languages/website_${req.getLocale()}`);
             return res.render('dashboard/overview', {
               languages: languages(req),
               lang,
@@ -1623,10 +1678,12 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: `Changed the ${Object.keys(req.body)[0]} settings!`,
-          username: req.user.username,
+          action: 'updatedlog',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard',
+          variable: Object.keys(req.body)[0]
         });
 
         await guildSettingsCollection.updateOne({
@@ -1704,10 +1761,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Updated self-assignable roles!',
-          username: req.user.username,
+          action: 'selfassignableroles',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -1783,10 +1841,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Updated togglexp-channels!',
-          username: req.user.username,
+          action: 'togglexpchannels',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -1849,10 +1908,11 @@ async function run() {
         guildconfs.settings.byemsg = newbyemsg;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the bye message!',
-          username: req.user.username,
+          action: 'goodbyemessage',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -1915,10 +1975,11 @@ async function run() {
         guildconfs.settings.welcomemsg = newwelcomemsg;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the welcome message!',
-          username: req.user.username,
+          action: 'welcomemessage',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -1981,10 +2042,11 @@ async function run() {
         guildconfs.settings.prefix = newprefix;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the prefix of the bot!',
-          username: req.user.username,
+          action: 'prefix',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2055,10 +2117,11 @@ async function run() {
         guildconfs.settings.momentLanguage = newlanguage.momentLanguage;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the language of the bot!',
-          username: req.user.username,
+          action: 'language',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2121,10 +2184,11 @@ async function run() {
         guildconfs.settings.commanddel = newcommanddeletion;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the commanddeletion settings!',
-          username: req.user.username,
+          action: 'commanddeletion',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2187,10 +2251,11 @@ async function run() {
         guildconfs.settings.muterole = newmuterole;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the muterole!',
-          username: req.user.username,
+          action: 'muterole',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2253,10 +2318,11 @@ async function run() {
         guildconfs.settings.chatfilter.chatfilter = newchatfilter;
 
         guildconfs.settings.globallogs.push({
-          action: 'Toggled the chatfilter!',
-          username: req.user.username,
+          action: 'togglechatfilter',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2319,10 +2385,11 @@ async function run() {
         guildconfs.settings.xpmessages = newxpmessages;
 
         guildconfs.settings.globallogs.push({
-          action: 'Toggled the XP messages!',
-          username: req.user.username,
+          action: 'togglexpmessages',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2394,10 +2461,11 @@ async function run() {
         guildconfs.settings.chatfilter.array = newchatfilterarray;
 
         guildconfs.settings.globallogs.push({
-          action: 'Updated the chatfilter entries!',
-          username: req.user.username,
+          action: 'chatfilterentries',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2466,10 +2534,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Toggled the welcome message!',
-          username: req.user.username,
+          action: 'togglewelcomemessage',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2538,10 +2607,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Toggled the bye message!',
-          username: req.user.username,
+          action: 'togglegoodbyemessage',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2611,10 +2681,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the announce settings!',
-          username: req.user.username,
+          action: 'announcementsettings',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2675,10 +2746,11 @@ async function run() {
         guildconfs.settings.dashboardticketpermissions = Number(req.body.newpermissionticket);
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the required permissions for the ticket panel!',
-          username: req.user.username,
+          action: 'permissionstickets',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2739,10 +2811,11 @@ async function run() {
         guildconfs.settings.dashboardapplicationpermissions = Number(req.body.newpermissionapplication);
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the required permissions for the applications panel!',
-          username: req.user.username,
+          action: 'permissionsapplication',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -2824,10 +2897,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the required permissions for the dashboard!',
-          username: req.user.username,
+          action: 'permissionsdashboard',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -3255,10 +3329,11 @@ async function run() {
         guildconfs.settings.tempbananonymous = req.body.newtempbananonymous;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the settings of the anonymous temporary ban!',
-          username: req.user.username,
+          action: 'anonymoustempban',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -3341,10 +3416,11 @@ async function run() {
         guildconfs.settings.muteanonymous = req.body.newmuteanonymous;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the settings of the anonymous mute!',
-          username: req.user.username,
+          action: 'anonymousmute',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -3618,10 +3694,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Updated blacklisted music-channels!',
-          username: req.user.username,
+          action: 'blacklistmusicchannels',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -4159,10 +4236,12 @@ async function run() {
         await shardingManager.shards.get(guild.shardID).eval(`this.guilds.get("${dashboardid}").channels.get("${embedchannel.id}").send({embed: ${JSON.stringify(embed)}})`);
 
         guildconfs.settings.globallogs.push({
-          action: `An embed was sent (#${embedchannel.name}) `,
-          username: req.user.username,
+          action: 'sentembed',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard',
+          variable: embedchannel.name
         });
 
         await guildSettingsCollection.updateOne({
@@ -4672,10 +4751,11 @@ async function run() {
         guildconfs.settings.application.acceptedmessage = newacceptedmsg;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the application accepted message!',
-          username: req.user.username,
+          action: 'applicationacceptedmsg',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -4738,10 +4818,11 @@ async function run() {
         guildconfs.settings.application.rejectedmessage = newrejectedmsg;
 
         guildconfs.settings.globallogs.push({
-          action: 'Changed the application rejected message!',
-          username: req.user.username,
+          action: 'applicationrejectedmsg',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -4808,10 +4889,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Updated the application role for rejected canidates!',
-          username: req.user.username,
+          action: 'applicationrolerejected',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -4878,10 +4960,11 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: 'Updated the application role for accepted canidates!',
-          username: req.user.username,
+          action: 'applicationroleaccepted',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -4944,10 +5027,11 @@ async function run() {
         guildconfs.settings.application.reactionnumber = newreactionnumber;
 
         guildconfs.settings.globallogs.push({
-          action: 'Updated application reactionnumber!',
-          username: req.user.username,
+          action: 'reactionnumber',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -5010,10 +5094,11 @@ async function run() {
         guildconfs.settings.application.status = newapplication;
 
         guildconfs.settings.globallogs.push({
-          action: 'Activated/Deactivated the application system!',
-          username: req.user.username,
+          action: 'toggleapplication',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -5729,10 +5814,12 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: `Deleted the "${req.params.command}" custom command!`,
-          username: req.user.username,
+          action: 'deletedcustomcommand',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard',
+          variable: req.params.command
         });
 
         await guildSettingsCollection.updateOne({
@@ -5797,10 +5884,12 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: `Activated/Deactivated the "${req.params.command}" custom command!`,
-          username: req.user.username,
+          action: 'togglecustomcommand',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard',
+          variable: req.params.command
         });
 
         await guildSettingsCollection.updateOne({
@@ -5872,10 +5961,12 @@ async function run() {
         }
 
         guildconfs.settings.globallogs.push({
-          action: `Changed the settings of the "${req.params.command}" custom command!`,
-          username: req.user.username,
+          action: 'customcommand',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard',
+          variable: req.params.command
         });
 
         await guildSettingsCollection.updateOne({
@@ -5965,10 +6056,12 @@ async function run() {
         guildconfs.settings.customcommands.push(newCustomCommandSettings);
 
         guildconfs.settings.globallogs.push({
-          action: `Added a new custom command: "${req.params.command}"!`,
-          username: req.user.username,
+          action: 'addedcustomcommand',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard',
+          variable: req.params.command
         });
 
         await guildSettingsCollection.updateOne({
@@ -6148,9 +6241,10 @@ async function run() {
 
         guildconfs.settings.globallogs.push({
           action: `Activated/Deactivated the ${Object.keys(req.body)[0]} module!`,
-          username: req.user.username,
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard'
         });
 
         await guildSettingsCollection.updateOne({
@@ -6300,7 +6394,24 @@ async function run() {
         const check = req.user.guilds[index];
         let logs;
 
+        const lang = require(`./languages/website_${req.getLocale()}`);
         if (guildconfs.settings.globallogs) {
+          guildconfs.settings.globallogs.forEach((log) => {
+            if (log.action.split(' ').length === 1) {
+              let newAction = lang[`website_globalmodlog_${log.action}`];
+
+              if (log.variable) {
+                newAction = newAction.replace('%variable', log.variable);
+              }
+              log.action = newAction;
+            }
+            if (log.executed) {
+              log.executed = lang[`website_globalmodlog_executed_${log.executed}`];
+            }
+            else {
+              log.executed = lang.website_global_undefined;
+            }
+          });
           const thelogs = guildconfs.settings.globallogs;
           logs = thelogs.sort((a, b) => {
             if (a.date < b.date) {
@@ -6317,7 +6428,6 @@ async function run() {
         }
 
         const islenoxbot = islenoxboton(req);
-        const lang = require(`./languages/website_${req.getLocale()}`);
         return res.render('dashboard/lastlogs', {
           languages: languages(req),
           lang,
@@ -6411,10 +6521,12 @@ async function run() {
         guildconfs.settings.commands[req.params.command].status = req.body.statuschange;
 
         guildconfs.settings.globallogs.push({
-          action: `Activated/Deactivated the "${req.params.command}" command!`,
-          username: req.user.username,
+          action: 'togglemodule',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard',
+          variable: req.params.command
         });
 
         await guildSettingsCollection.updateOne({
@@ -6534,10 +6646,12 @@ async function run() {
         guildconfs.settings.commands[req.params.command].cooldown = `${newcooldown}`;
 
         guildconfs.settings.globallogs.push({
-          action: `Changed the settings of the "${req.params.command}" command!`,
-          username: req.user.username,
+          action: 'togglecommand',
+          username: `${req.user.username}#${req.user.discriminator}`,
           date: Date.now(),
-          showeddate: new Date().toUTCString()
+          showeddate: new Date().toUTCString(),
+          executed: 'dashboard',
+          variable: req.params.command
         });
 
         await guildSettingsCollection.updateOne({

@@ -30,7 +30,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
 
     let user = msg.mentions.users.first() || msg.client.users.get(args[1]) || msg.author;
 
-    if (!user && (!args || args.length === 0)) return msg.reply(lang.punishments_noinput);
+    if (!user || !args || !args.length < 1) return msg.reply(lang.punishments_noinput);
 
     if (!user) {
       try {

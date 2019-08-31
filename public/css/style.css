@@ -153,6 +153,10 @@ a {
     margin: 2% auto;
 }
 
+#rating {
+    text-align: center;
+}
+
 #features {
     text-align: center;
 }

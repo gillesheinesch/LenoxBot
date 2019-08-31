@@ -1,13 +1,11 @@
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script>
-    const disable = `{{lang.website_global_disable}}`
-	const disableFunction = Handlebars.compile(templateString);
-    const enable = `{{lang.website_global_enable}}`
-	const enableFunction = Handlebars.compile(templateString);
-
-// submitcommandstatuschange global
+    // submitcommandstatuschange global
 
     (function ($) {
+        const disableText = `Disable`
+        const enableText = `Enable`
+
         function processForm(e) {
             $('#{{name}}b').attr('disabled', 'disabled');
             $.ajax({
@@ -20,10 +18,12 @@
                     notifySuccess();
                     if ($('#{{name}}b').hasClass('lb-btn-green')) {
                         $('#{{name}}status').val('false');
-                        $('#{{name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text(disableFunction());
+                        $('#{{name}}b').addClass('lb-btn-red').removeClass('lb-btn-green').text(
+                            disableText);
                     } else {
                         $('#{{name}}status').val('true');
-                        $('#{{name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text(enableFunction());
+                        $('#{{name}}b').addClass('lb-btn-green').removeClass('lb-btn-red').text(
+                            enableText);
                     }
                     $('#{{name}}b').removeAttr("disabled");
                 },
