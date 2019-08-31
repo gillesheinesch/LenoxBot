@@ -2,20 +2,16 @@
 <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
 <script>
 	const successNotificationTitle = `{{lang.website_notification_success_title}}`
-	const successNotificationTitleFunction = Handlebars.compile(templateString);
 	const successNotificationMessage = `{{lang.website_notification_success_message}}`
-	const successNotificationMessageFunction = Handlebars.compile(templateString);
 
 	const errorNotificationTitle = `{{lang.website_notification_error_title}}`
-	const errorNotificationTitleFunction = Handlebars.compile(templateString);
 	const errorNotificationMessage = `{{lang.website_notification_error_message}}`
-	const errorNotificationMessageFunction = Handlebars.compile(templateString);
 
 	function notifySuccess() {
 		$.notify({
 			// options
-			title: `<strong>${notificationTitleFunction()}</strong>`,
-			message: `<strong>${successNotificationMessageFunction()}</strong>`
+			title: `<strong>${successNotificationTitle}</strong>`,
+			message: `<strong>${successNotificationMessage}</strong>`
 		}, {
 			// settings
 			element: 'body',
@@ -53,8 +49,8 @@
 	function notifyError(message) {
 		$.notify({
 			// options
-			title: `<strong>${errorNotificationTitleFunction()}</strong>`,
-			message: `<strong>${errorNotificationMessageFunction()}</strong>`
+			title: `<strong>${errorNotificationTitle}</strong>`,
+			message: `<strong>${errorNotificationMessage}</strong>`
 		}, {
 			// settings
 			element: 'body',
