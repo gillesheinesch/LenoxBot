@@ -9,6 +9,7 @@ module.exports = class extends Event {
 	}
 
 	async run() {
+		require('../../dashboard/app');
 		this.client.setMaxListeners(Infinity); // change the clients event listener max amount
 
 		this.client.user.setPresence({
