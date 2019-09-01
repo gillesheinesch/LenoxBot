@@ -47,5 +47,48 @@
     "youtube-info": "^1.3.2",
     "youtube-playlist": "^1.0.2",
     "ytdl-core": "^0.29.3"
-  }
+  },
+  "devDependencies": {
+    "eslint": "^6.1.0",
+    "eslint-config-airbnb-base": "^14.0.0",
+    "eslint-plugin-import": "^2.18.2"
+  },
+  "eslintConfig": {
+    "extends": "airbnb-base",
+    "env": {
+        "es6": true,
+        "browser": true
+    },
+    "rules": {
+        "brace-style": [
+            "error",
+            "stroustrup"
+        ],
+        "comma-dangle": [
+            "error",
+            "never"
+        ],
+        "no-unused-vars": [
+            "warn"
+        ],
+        "no-var": [
+            "off"
+        ],
+        "one-var": [
+            "off"
+        ],
+        "no-multi-assign": [
+            "off"
+        ],
+        "guard-for-in": [
+            "off"
+        ],
+        "class-methods-use-this": [
+            "off"
+        ],
+        "max-len": [
+            "off"
+        ]
+    }
+}
 }
