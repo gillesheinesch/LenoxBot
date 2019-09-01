@@ -87,7 +87,7 @@
     "website_home_features_uptime": "99.99% Disponible",
     "website_home_features_uptime_description": "Realizamos mantenimientos de un máximo de 1 día 1-3 veces al año, ¡aparte de esto, el bot siempre está en línea! Queremos ofrecer a los usuarios un bot de confianza.",
     "website_home_features_uptime_statuspage": "Nuestra página de estado",
-    "website_home_rating_title": "What our customers say",
+    "website_home_rating_title": "Qué opinan nuestros usuarios",
     "website_home_htmltitle": "¡LenoxBot ofrece nuevas y fantásticas opciones para tu servidor de Discord!",
     "website_footer_product_title": "Producto",
     "website_footer_product_features": "Características",
@@ -299,8 +299,8 @@
     "website_vote_discordbotsexpl": "Then you click on the big blue button to upvote the bot! (It could be that you have to login if you haven't logged in on this site before)",
     "website_vote_fun": "Have fun with your credits!",
     "website_vote_htmltitle": "Votar",
-    "website_rating_quote_1": "\"I didn't know about the use of bots in Discord, and after using LenoxBot, I cannot believe there is any better one out there. Games, music, organising tools...a jack of all trades!\"",
-    "website_rating_cite_1": "%Caronte, translation proofreader at LenoxBot",
-    "website_rating_quote_2": "\"A bot on which you can see with how much love and enthusiasm the developers and the whole team develop the bot.\"",
-    "website_rating_cite_2": "%Milkzey, LenoxBot User"
+    "website_rating_quote_1": "\"No sabía que pudieran usarse bots en Discord, y después de haber usado LenoxBot, no puedo imaginar otro mejor que éste. Juegos, música, opciones de organización...¡un solo bot para todo!\"",
+    "website_rating_cite_1": "%Caronte, revisor de traducciones en LenoxBot",
+    "website_rating_quote_2": "\"Un bot en el que se puede apreciar el cariño y el entusiasmo de los desarrolladores y de su plantilla por su producto.\"",
+    "website_rating_cite_2": "%Milkzey, Usuario de LenoxBot"
 }
