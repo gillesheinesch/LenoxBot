@@ -1,3 +1,4 @@
+/* eslint-disable no-multi-assign */
 const { Collection, Permissions: { FLAGS } } = require('discord.js');
 const { Client, Music: { AudioBase } } = require('./');
 const config = require('../config.json');
@@ -16,7 +17,7 @@ Client.defaultClientSchema
 	.add('commandsused', 'integer', { 'default': 0 });
 
 Client.defaultGuildSchema
-	.add('music', 'any', { 'configurable': false, 'default': { queue: [], loop: false, volume: 100 } }) //new AudioBase()
+	.add('music', 'any', { 'configurable': false, 'default': { queue: [], loop: false, volume: 100 } }) // new AudioBase()
 	.add('music_settings', folder => folder
 		.add('skip_vote', 'boolean', { 'default': false })
 		.add('skip_number', 'integer', { 'default': 1 }))
@@ -106,7 +107,7 @@ client.setInterval(() => { // update the clients presence every set interval, be
 			type: 0
 		},
 		status: 'online'
-	}).then(() => {}).catch(e => {});
+	}).then(() => {}).catch(() => {});
 }, 3600000); // 1 hour
 
 if (!client.ready) client.start();
