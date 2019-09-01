@@ -5,6 +5,7 @@ const axios = require('axios');
 
 /* GET home page. */
 router.get('/', async (req, res, next) => {
+	console.log('Test')
 	const bot = await axios({
 		method: 'get',
 		url: 'http://127.0.0.1:4000/api/application'
