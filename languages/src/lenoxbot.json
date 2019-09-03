@@ -1251,7 +1251,7 @@
     "unban_unbanned": "%userid was successfully unbanned!",
     "unban_unbannedby": "Unbanned by %authortag",
     "unban_unbandescription": "**Action**: Unban \n**UserID**: %userid \n**Reason**: %reason",
-    "unban_description": "Unbans a user from the Discord server with a certain reason",
+    "unban_description": "Unbans a user from the Discord server with a specific reason",
 
     "unmute_muteroleundefined": "First of all, you have to define the mute role by using the **%prefixmuterole** command",
     "unmute_nomention": "You forgot to mention the user who has to be unmuted.",
