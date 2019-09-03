@@ -307,7 +307,7 @@
     "setstreak_embedfieldreason": "Reason:",
     "setstreak_setembed": "New daily streak set!",
     "setstreak_set": "Request successful. The daily streak has been changed!",
-    "setstreak_description": "Sets a daily streak for a specific user",
+    "setstreak_description": "Sets a new daily streak for a specific user",
 
     "senditem_nomention": "You didn't mention a user or enter a Discord user ID!",
     "senditem_noitem": "You forgot to specify which item you want to add to the inventory of the mentioned user!",
