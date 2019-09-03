@@ -326,7 +326,7 @@
     "website_notification_success_title": "Notification:",
     "website_notification_success_message": "Changes saved successfully!",
     "website_notification_error_title": "Notification:",
-    "website_notification_error_message": "An error has ocurred. Try later.",
+    "website_notification_error_message": "An error has ocurred. Try again later.",
 
     "website_vote_voting": "Voting",
     "website_vote_why": "What's the point of upvoting a bot?",
@@ -336,7 +336,7 @@
     "website_vote_whatarecredits": "If you don't know what you can do with credits, you can read more here:",
     "website_vote_howto": "How can I upvote LenoxBot?",
     "website_vote_link": "Simply click on the following link:",
-    "website_vote_discordbotsexpl": "Then you click on the big blue button to upvote the bot! (It could be that you have to login if you haven't logged in on this site before)",
+    "website_vote_discordbotsexpl": "Then you only have to click on the big blue button to upvote the bot! (It could be that you have to login if you haven't logged in on this site before)",
     "website_vote_fun": "Have fun with your credits!",
     "website_vote_htmltitle": "Voting",
 
