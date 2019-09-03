@@ -771,7 +771,7 @@
 
     "channelblacklist_error": "There are no voicechannels on the blacklist yet",
     "channelblacklist_embed": "All blacklisted voicechannel",
-    "channelblacklist_description": "Shows you a list of which voicechannels have been blacklisted",
+    "channelblacklist_description": "Shows you a list of which voice channels have been blacklisted",
 
     "channelblacklistadd_error": "You forgot to enter the name of the voice channel you want to add to the blacklist",
     "channelblacklistadd_channelnotfind": "This voicechannel could not be found.",
