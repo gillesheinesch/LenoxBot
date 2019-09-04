@@ -306,8 +306,8 @@
     "setstreak_embedfieldnewstreak": "New daily streak:",
     "setstreak_embedfieldreason": "Reason:",
     "setstreak_setembed": "New daily streak set!",
-    "setstreak_set": "Request successful. The new daily streak has been set!",
-    "setstreak_description": "Sets a daily streak for a specific user",
+    "setstreak_set": "Request successful. The daily streak has been changed!",
+    "setstreak_description": "Sets a new daily streak for a specific user",
 
     "senditem_nomention": "You didn't mention a user or enter a Discord user ID!",
     "senditem_noitem": "You forgot to specify which item you want to add to the inventory of the mentioned user!",
@@ -771,7 +771,7 @@
 
     "channelblacklist_error": "There are no voicechannels on the blacklist yet",
     "channelblacklist_embed": "All blacklisted voicechannel",
-    "channelblacklist_description": "Shows you a list of which voicechannels have been blacklisted",
+    "channelblacklist_description": "Shows you a list of which voice channels have been blacklisted",
 
     "channelblacklistadd_error": "You forgot to enter the name of the voice channel you want to add to the blacklist",
     "channelblacklistadd_channelnotfind": "This voicechannel could not be found.",
@@ -1251,7 +1251,7 @@
     "unban_unbanned": "%userid was successfully unbanned!",
     "unban_unbannedby": "Unbanned by %authortag",
     "unban_unbandescription": "**Action**: Unban \n**UserID**: %userid \n**Reason**: %reason",
-    "unban_description": "Unbans a user from the Discord server with a certain reason",
+    "unban_description": "Unbans a user from the Discord server with a specific reason",
 
     "unmute_muteroleundefined": "First of all, you have to define the mute role by using the **%prefixmuterole** command",
     "unmute_nomention": "You forgot to mention the user who has to be unmuted.",
