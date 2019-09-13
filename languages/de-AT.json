@@ -274,7 +274,7 @@
     "guildinformation_description": "Ermöglicht den LenoxBot Teammitgliedern einige Informationen über einen Discord-Server zu bekommen",
     "setstreak_nomention": "Du hast keinen Benutzer markiert, oder eine Benutzer-ID angegeben!",
     "setstreak_nostreak": "Du hast vergessen anzugeben, wie hoch die neue Tagesstreak sein soll!",
-    "setstreak_higherthan0": "Die neue Tagesstreak **%number** muss größer als **0** sein!",
+    "setstreak_higherthan0": "The new daily streak **number** has to be higher than **0**!",
     "setstreak_noreason": "Du hast vergessen einen Grund anzugeben, warum du eine neue Tagesstreak für diesen Benutzer gesetzt hast!",
     "setstreak_notexist": "Dieser Benutzer existiert nicht in unserer Datenbank ...",
     "setstreak_samestreak": "Du kannst keine neue Tagesstreak setzen, weil der Benutzer bereits die angegebene Tagesstreak hat!",
