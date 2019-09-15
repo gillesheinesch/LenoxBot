@@ -860,9 +860,9 @@
     "addautomaticrole_inputcannotbe0": "The required number of points for a user to get the role cannot be under 0.",
     "addautomaticrole_norolename": "You have to insert the name of the role.",
     "addautomaticrole_rolenotexist": "This role does not exist at all!",
-    "addautomaticrole_alreadyadded": "You have already added the role to the auto assignable roles.",
-    "addautomaticrole_added": "Role has been successfully added to auto assignable roles!",
-    "addautomaticrole_description": "Adds an auto assignable role",
+    "addautomaticrole_alreadyadded": "You have already added the role to the auto assigning roles.",
+    "addautomaticrole_added": "Role has been successfully added to auto assigning roles!",
+    "addautomaticrole_description": "Adds an auto assigning role",
 
     "addrole_nomention": "You must mention a member to assign him a role!",
     "addrole_norolename": "You must specify the name of the role!",
@@ -914,10 +914,10 @@
     "events_disabled": "disabled",
     "events_description": "Gives you a list of all active/disabled events",
 
-    "listautomaticrole_embed": "Automatic assignable roles",
+    "listautomaticrole_embed": "Automatic assigning roles",
     "listautomaticrole_points": "Points",
     "listautomaticrole_error": "There are no roles that can be gotten by a certain amount of points until now",
-    "listautomaticrole_description": "Lists all auto assignable roles",
+    "listautomaticrole_description": "Lists all auto assigning roles",
 
     "listevents_embed": "List of all events",
     "listevents_modlog": "Logs all bans, unbans, kicks, warns, mutes, unmutes, softbans",
@@ -999,9 +999,9 @@
 
     "removeautomaticrole_noinput": "You have to insert the name of the role.",
     "removeautomaticrole_rolenotexist": "This role does not exist at all!",
-    "removeautomaticrole_roleremoved": "The role was successfully removed from the auto assignable roles.",
-    "removeautomaticrole_error": "This role is not in the list of auto assignable roles.",
-    "removeautomaticrole_description": "Removes an auto assignable role",
+    "removeautomaticrole_roleremoved": "The role was successfully removed from the auto assigning roles.",
+    "removeautomaticrole_error": "This role is not in the list of auto assigning roles.",
+    "removeautomaticrole_description": "Removes an auto assigning role",
 
     "removerole_nomention": "You must mention a member to remove him a role!",
     "removerole_norolename": "You must specify the name of the role!",
@@ -1123,7 +1123,7 @@
 
     "commands_error": "There was an error. See %prefixmodules to get a list of all available modules that you can use!",
     "commands_modules": "Modules",
-    "commands_automaticroles": "Automatic assignable roles",
+    "commands_automaticroles": "Automatic assigning roles",
     "commands_chatfilter": "Chatfilter",
     "commands_roles": "Roles",
     "commands_selfassignableroles": "Self assignable roles",
