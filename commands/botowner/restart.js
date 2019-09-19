@@ -16,7 +16,7 @@ module.exports = class restartCommand extends LenoxCommand {
       userpermissions: [],
       shortDescription: 'General',
       dashboardsettings: true,
-      cooldown: 900000
+      cooldown: 60000
     });
   }
 
