@@ -304,6 +304,7 @@ async function run() {
       }
       next();
     }
+    next();
   });
 
   app.get('/', async (req, res) => {
