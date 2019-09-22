@@ -586,6 +586,7 @@
     "shop_price": "Preis:",
     "shop_sellall": "Du hast %items für insgesamt %amount Credits verkauft",
     "shop_description": "Du erhältst eine Liste mit allen kaufbaren Items und kannst Items verkaufen oder kaufen",
+    "inventory_notanumber": "Your number of upgrades has to be a number! Please use **%prefixhelp inventory** to see how you should use the command",
     "inventory_morethan0": "Deine Anzahl an Upgrades muss größer als 0 sein!",
     "inventory_notenough": "Du hast nicht genug Inventartickets. Bitte verwende **%prefixhelp shop**, um die korrekte Verwendung des Befehls anzusehen. wie du dir welche kaufen kannst",
     "inventory_ticketbought": "Du hast erfolgreich %numberofusedtickets Inventarticket(s) eingelöst. Du hast nun %currentslots Inventarslots",
