@@ -1,6 +1,6 @@
 {
     "name": "lenoxbot",
-    "version": "1.14.20",
+    "version": "1.15.0",
     "description": "",
     "main": "lenoxbotlauncher.js",
     "directories": {
