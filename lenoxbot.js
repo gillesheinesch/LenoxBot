@@ -144,7 +144,7 @@ client.dispatcher.addInhibitor((msg) => {
     msg.reply(englishlang.messageevent_error);
     return 'Not a text channel';
   }
-  if (!client.provider.isReady) return 'notinitialized';
+  if (!client.provider.isReady || !client.ready) return 'notready';
 
   if (settings.NODE_ENV === 'development' && msg.guild.id === settings.botMainDiscordServer && msg.channel.parent.name.toLowerCase() !== 'lenoxbot beta') return 'Not the beta category on LenoxBot Server';
   if (settings.NODE_ENV === 'production' && msg.channel.parentID === '614462453337686038') return 'Category only for beta bot';
