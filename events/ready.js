@@ -273,7 +273,7 @@ module.exports = {
           client.guilds.filter((g) => client.provider.getGuild(g.id, 'prefix')).forEach(async (g) => {
             if (client.provider.getGuild(g.id, 'premium')) {
               if (client.provider.getGuild(g.id, 'premium').status === true) {
-                if (new Date().getTime() >= Date.parse(client.provider.get(g.id, 'premium').end)) {
+                if (new Date().getTime() >= Date.parse(client.provider.getGuild(g.id, 'premium').end)) {
                   const currentPremium = client.provider.getGuild(g.id, 'premium');
                   currentPremium.status = false;
                   currentPremium.bought = [];
