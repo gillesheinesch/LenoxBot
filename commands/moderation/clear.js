@@ -55,6 +55,12 @@ module.exports = class clearCommand extends LenoxCommand {
     const messageclearembed = new Discord.MessageEmbed()
       .setColor('#99ff66')
       .setDescription(`✅ ${messagesdeleted}`);
-    return msg.channel.send({ embed: messageclearembed }).then((message) => message.delete({ timeout: 10000 }));
+    return msg.channel.send({ embed: messageclearembed }).then((message) => {
+      setTimeout(async () => {
+        if (await msg.channel.messages.fetch(message.id)) {
+          message.delete();
+        }
+      }, 10000);
+    });
   }
 };
