@@ -655,6 +655,7 @@
     "shop_sellall": "You sold %items for a total of %amount credits",
     "shop_description": "You can view the list of all purchasable items and sell or buy items",
 
+    "inventory_notanumber": "Your number of upgrades has to be a number! Please use **%prefixhelp inventory** to see how you should use the command",
     "inventory_morethan0": "Your number of upgrades has to be higher than 0!",
     "inventory_notenough": "You do not have enough inventoryslottickets! Please use **%prefixhelp shop** to check out how to buy some",
     "inventory_ticketbought": "You have successfully used %numberofusedtickets inventoryslotticket(s). You now have %currentslots inventoryslots",

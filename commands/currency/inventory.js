@@ -37,7 +37,6 @@ module.exports = class inventoryCommand extends LenoxCommand {
       if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
         if (args.slice()[0].toLowerCase() === 'upgrade') {
           const numberOfUpgrades = !args.slice(1, 2).length ? 1 : args.slice(1, 2).join(' ');
-          console.log(numberOfUpgrades);
 
           const notanumber = lang.inventory_notanumber.replace('%prefix', prefix);
           if (isNaN(numberOfUpgrades)) return msg.reply(notanumber);
