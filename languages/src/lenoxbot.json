@@ -322,7 +322,7 @@
     "senditem_embedamount": "Amount:",
     "senditem_embedreason": "Reason:",
     "senditem_set": "%amountx %item has been added to the inventory of %user!",
-    "senditem_description": "Sends a user an specific item",
+    "senditem_description": "Sends a user a specific item",
 
     "unbanuser_noguildid": "You didn't enter a Discord user ID!",
     "unbanuser_noreason": "You have to enter a reason!",
