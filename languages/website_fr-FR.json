@@ -33,7 +33,7 @@
     "website_globalmodlog_announcementsettings": "Paramètres des annonces changés",
     "website_globalmodlog_permissionstickets": "Permissions requises pour le tableau de ticket changées",
     "website_globalmodlog_permissionsapplication": "Permissions requises pour le panneau de candidature changées",
-    "website_globalmodlog_permissionsdashboard": "Changed the required permissions for the dashboard serverpage",
+    "website_globalmodlog_permissionsdashboard": "Permissions requises pour le dashboard de la page de serveur changées",
     "website_globalmodlog_anonymoustempban": "Paramètres du bannissement temporaire anonyme changés",
     "website_globalmodlog_anonymousmute": "Paramètres de la sourdine anonyme changés",
     "website_globalmodlog_blacklistmusicchannels": "Salons musicaux sur la liste noir changés",
