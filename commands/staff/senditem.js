@@ -64,7 +64,7 @@ module.exports = class senditemCommand extends LenoxCommand {
     const reason = args.slice(3);
     if (!reason || !reason.length) return msg.reply(lang.senditem_noreason);
 
-    if (!msg.client.provider.getUser(user, 'credits')) return msg.reply(lang.senditem_notexist);
+    if (!msg.client.provider.getUser(user, 'inventory')) return msg.reply(lang.senditem_notexist);
 
     const currentInventory = msg.client.provider.getUser(user, 'inventory');
     currentInventory[nameOfTheItems[index]] += Number(amount);
