@@ -47,7 +47,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
       delete timestamps.useuserkey[msg.author.id];
       await msg.client.provider.setBotsettings('botconfs', 'cooldowns', timestamps);
 
-      let currentCredits = msg.client.provider.getUsersettings(msg.author.id, 'credits');
+      let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
       currentCredits += 5000;
       await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
 
