@@ -25,12 +25,8 @@ module.exports = class listautomaticroleCommand extends LenoxCommand {
     const roles = [];
     const points = [];
 
-    if (!msg.client.provider.getGuild(msg.guild.id, 'ara')) {
-      await msg.client.provider.setGuild(msg.guild.id, 'ara', []);
-    }
-
     const embed = new Discord.MessageEmbed()
-      .setColor('#ABCDEF');
+      .setColor('BLUE');
 
     try {
       for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
@@ -41,6 +37,7 @@ module.exports = class listautomaticroleCommand extends LenoxCommand {
       for (let i = 1; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
         points.push(msg.client.provider.getGuild(msg.guild.id, 'ara')[i]);
       }
+
       embed.addField(lang.listautomaticrole_points, points.join('\n'), true);
       return msg.channel.send({ embed });
     }
