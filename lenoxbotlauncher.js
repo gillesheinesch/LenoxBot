@@ -41,7 +41,8 @@ async function run() {
 
   const mongoUrl = `mongodb://${encodeURIComponent(settings.db.user)}:${encodeURIComponent(settings.db.password)}@${encodeURIComponent(settings.db.host)}:${encodeURIComponent(settings.db.port)}/?authMechanism=DEFAULT&authSource=admin`;
   const dbClient = await mongodb.MongoClient.connect(mongoUrl, {
-    useNewUrlParser: true
+    useNewUrlParser: true,
+    useUnifiedTopology: true
   });
   let db;
   if (settings.NODE_ENV === 'production') {
