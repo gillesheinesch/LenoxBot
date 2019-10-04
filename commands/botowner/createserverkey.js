@@ -24,7 +24,7 @@ module.exports = class createserverkeyCommand extends LenoxCommand {
     const lang = require(`../../languages/${langSet}.json`);
 
     const Discord = require('discord.js');
-    if (!settings.owners.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
+    if (!settings.owners.includes(msg.author.id) && !settings.administrators.includes(msg.author.id)) return msg.channel.send(lang.botownercommands_error);
 
     let key = '';
 
