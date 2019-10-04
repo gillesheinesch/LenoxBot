@@ -49,7 +49,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 
       let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
       currentCredits += 5000;
-      await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
+      await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 
       const embed = new Discord.MessageEmbed()
         .setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${msg.client.provider.getUser(msg.author.id, 'premium').end.toUTCString()}`)
@@ -77,7 +77,7 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 
     let currentCredits = msg.client.provider.getUser(msg.author.id, 'credits');
     currentCredits += 5000;
-    await msg.client.provider.setUsersettings(msg.author.id, 'credits', currentCredits);
+    await msg.client.provider.setUser(msg.author.id, 'credits', currentCredits);
 
     const embed = new Discord.MessageEmbed()
       .setDescription(`This user used a premium userkey (Code: ${input.join(' ')})! \n\nThis user has premium until ${new Date(Date.parse(msg.client.provider.getUser(msg.author.id, 'premium').end + 2592000000)).toUTCString()}`)
