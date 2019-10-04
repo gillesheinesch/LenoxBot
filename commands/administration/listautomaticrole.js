@@ -30,7 +30,7 @@ module.exports = class listautomaticroleCommand extends LenoxCommand {
 
     try {
       for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'ara').length; i += 2) {
-        roles.push(msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i]).name);
+        roles.push(msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i]) ? msg.guild.roles.get(msg.client.provider.getGuild(msg.guild.id, 'ara')[i]).name : msg.client.provider.getGuild(msg.guild.id, 'ara')[i]);
       }
       embed.addField(lang.listautomaticrole_embed, roles.join('\n'), true);
 
