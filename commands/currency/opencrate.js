@@ -39,7 +39,7 @@ module.exports = class opencrateCommand extends LenoxCommand {
     for (const index in msg.client.provider.getUser(msg.author.id, 'inventory')) {
       inventoryslotcheck += parseInt(msg.client.provider.getUser(msg.author.id, 'inventory')[index], 10);
     }
-    const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix);
+    const inventoryfull = lang.shop_inventoryfull.replace('%prefix', prefix).replace('%prefix', prefix);
     if (inventoryslotcheck >= msg.client.provider.getUser(msg.author.id, 'inventoryslots')) {
       const timestamps = msg.client.provider.getBotsettings('botconfs', 'cooldowns');
       delete timestamps.opencrate[msg.author.id];
