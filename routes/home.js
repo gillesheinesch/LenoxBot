@@ -1,6 +1,11 @@
+/* eslint-disable no-restricted-syntax */
 var router = require('express').Router();
+const islenoxboton = require('../middleware/islenoxboton');
+const languages = require('../middleware/languages');
+const botSettingsCollection = require('../models/botSettings');
 
 router.get('/', async (req, res) => {
+  console.log('Called / route');
   const check = [];
   if (req.user) {
     for (let i = 0; i < req.user.guilds.length; i += 1) {
@@ -32,6 +37,8 @@ router.get('/', async (req, res) => {
   const botConfs = await botSettingsCollection.findOne({
     botconfs: 'botconfs'
   });
+
+  console.log('Called / route2');
   return res.render('index', {
     languages: languages(req),
     lang,
