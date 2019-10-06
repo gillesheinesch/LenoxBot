@@ -1,6 +1,6 @@
 {
     "name": "lenoxbot",
-    "version": "1.15.6",
+    "version": "1.15.14",
     "description": "",
     "main": "lenoxbotlauncher.js",
     "directories": {
@@ -20,6 +20,7 @@
         "connect-mongo": "^3.0.0",
         "cookie-parser": "^1.4.3",
         "dblapi.js": "^2.3.0",
+        "debug": "^4.1.1",
         "discord.js": "github:discordjs/discord.js",
         "discord.js-commando": "github:discordjs/commando",
         "express": "^4.16.3",
@@ -36,6 +37,7 @@
         "moment": "^2.22.2",
         "moment-duration-format": "^2.2.2",
         "mongodb": "^3.1.9",
+        "morgan": "^1.9.1",
         "ms": "^2.0.0",
         "newsapi": "^2.0.1",
         "node-async-loop": "^1.2.2",
@@ -58,7 +60,7 @@
         "url": "^0.11.0",
         "util": "^0.12.0",
         "winston": "^3.2.1",
-        "ytdl-core": "^0.29.5"
+        "ytdl-core": "^1.0.0"
     },
     "devDependencies": {
         "eslint": "^6.1.0",

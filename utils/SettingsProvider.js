@@ -19,7 +19,7 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
   async init(client) {
     try {
-      this.dbClient = await mongodb.MongoClient.connect(this.url, { useNewUrlParser: true });
+      this.dbClient = await mongodb.MongoClient.connect(this.url, { useNewUrlParser: true, useUnifiedTopology: true });
       console.log('Connected to mongodb');
     }
     catch (err) {
