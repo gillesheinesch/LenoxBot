@@ -26,7 +26,6 @@ module.exports = class leaveCommand extends LenoxCommand {
     const addedrole = args.slice().join(' ');
     const foundRole = msg.guild.roles.find((role) => role.name.toLowerCase() === args.slice().join(' ').toLowerCase());
     const author = await msg.guild.members.fetch(msg.author.id);
-    const channelID = msg.channel.id;
 
     if (addedrole.length < 1) return msg.reply(lang.leave_noinput);
     if (!foundRole) return msg.reply(lang.leave_rolenotexist);
@@ -35,7 +34,7 @@ module.exports = class leaveCommand extends LenoxCommand {
     for (let i = 0; i < msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles').length; i += 1) {
       if (foundRole.id === msg.client.provider.getGuild(msg.guild.id, 'selfassignableroles')[i]) {
         try {
-          return author.roles.remove(foundRole).then((m) => m.guild.channels.get(channelID).send(lang.leave_roleremoved));
+          return author.roles.remove(foundRole).then(() => msg.reply(lang.leave_roleremoved));
         }
         catch (error) {
           return msg.channel.send(lang.leave_nopermission);
