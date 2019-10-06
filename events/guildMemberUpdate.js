@@ -138,7 +138,7 @@ module.exports = {
                 .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
                 .setTimestamp()
                 .setColor('RED')
-                .setTitle('Userkey used!');
+                .setTitle('Userkey removed!');
               await client.channels.get(settings.keychannel).send({ embed });
             }
           }
@@ -161,7 +161,7 @@ module.exports = {
                 .setAuthor(oldMember.user.tag, oldMember.user.displayAvatarURL())
                 .setTimestamp()
                 .setColor('RED')
-                .setTitle('Userkey used!');
+                .setTitle('Userkey removed!');
               await client.channels.get(settings.keychannel).send({ embed: doubleLootAndDailyEmbed });
             }
           }
