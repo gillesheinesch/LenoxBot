@@ -22,7 +22,7 @@ const shardingManager = new Discord.ShardingManager('./lenoxbot.js', {
   token: settings.token
 });
 
-shardingManager.spawn(1).then(() => {
+shardingManager.spawn().then(() => {
   console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
 }).catch((error) => {
   console.log(error);
