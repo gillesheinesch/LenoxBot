@@ -3,7 +3,6 @@ const islenoxboton = require('../middleware/islenoxboton');
 const languages = require('../middleware/languages');
 
 router.get('/', (req, res) => {
-  console.log('Called /error route');
   const check = [];
   if (req.user) {
     for (let i = 0; i < req.user.guilds.length; i += 1) {
@@ -13,7 +12,6 @@ router.get('/', (req, res) => {
       }
     }
   }
-  console.log('Called /error route2');
 
   let fix = false;
   let howtofix = '';
@@ -26,12 +24,10 @@ router.get('/', (req, res) => {
     fix = true;
     howtofix = 'Write a textmessage in a textchannel on your discord server';
   }
-  console.log('Called /error route3');
 
   const islenoxbot = islenoxboton(req);
   const lang = require(`../languages/website_${req.getLocale()}`);
 
-  console.log('Called /error route4');
   res.status(404);
   return res.render('error', {
     lang,
