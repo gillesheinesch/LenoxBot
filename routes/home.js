@@ -5,6 +5,7 @@ const languages = require('../middleware/languages');
 const botSettingsCollection = require('../models/botSettings');
 
 router.get('/', async (req, res) => {
+  try {
   console.log('Called / route');
   const check = [];
   if (req.user) {
@@ -14,8 +15,9 @@ router.get('/', async (req, res) => {
       }
     }
   }
+  console.log(35);
 
-  const lang = require(`./languages/website_${req.getLocale()}`);
+  const lang = require(`../languages/website_${req.getLocale()}`);
   const ratingsQuotes = [];
   const ratingsCite = [];
   for (const x in lang) {
@@ -27,16 +29,20 @@ router.get('/', async (req, res) => {
       ratingsCite.push(replaced);
     }
   }
+  console.log(36);
 
   const ratings = [];
   for (let i = 0; i < ratingsQuotes.length; i += 1) {
     ratings.push({ quote: ratingsQuotes[i], cite: ratingsCite[i] });
   }
+  console.log(31);
 
   const islenoxbot = islenoxboton(req);
+  console.log(3);
   const botConfs = await botSettingsCollection.findOne({
     botconfs: 'botconfs'
   });
+  console.log(4);
 
   console.log('Called / route2');
   return res.render('index', {
@@ -50,6 +56,10 @@ router.get('/', async (req, res) => {
     botmemberscount: botConfs.settings.botstats.botmemberscount,
     botcommands: botConfs.settings.botstats.botcommands
   });
+      
+} catch (error) {
+    console.log(error)
+}
 });
 
 module.exports = router;

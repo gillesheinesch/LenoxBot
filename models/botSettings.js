@@ -17,9 +17,7 @@ async function connectDB() {
     db = dbClient.db('betalenoxbot');
   }
 
-  module.exports = db.collection('botSettings');
+  return db;
 }
 
-connectDB().catch((error) => {
-  console.log(error);
-});
+module.exports = connectDB().collection('botSettings');
