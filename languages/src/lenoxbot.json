@@ -856,6 +856,7 @@
     "activatemodule_moduleactivated": "The module **%modulename** has been activated successfully!",
     "activatemodule_error": "This module doesn't exist. Please make sure that you haven't mistyped!",
     "activatemodule_description": "Activates a module and its commands on a Discord server",
+    "activatemodule_format": "%prefix%commandname {name of the module}",
 
     "addautomaticrole_noinput": "You have to insert the required points for a user to get the role.",
     "addautomaticrole_inputcannotbe0": "The required number of points for a user to get the role cannot be under 0.",
@@ -864,6 +865,7 @@
     "addautomaticrole_alreadyadded": "You have already added the role to the auto assigning roles.",
     "addautomaticrole_added": "Role has been successfully added to auto assigning roles!",
     "addautomaticrole_description": "Adds an auto assigning role",
+    "addautomaticrole_format": "%prefix%commandname {points needed} {name of the role}",
 
     "addrole_nomention": "You must mention a member to assign him a role!",
     "addrole_norolename": "You must specify the name of the role!",
@@ -1175,6 +1177,7 @@
     "help_category": "Module: %category",
     "help_error": "This command name or command alias doesn't exist",
     "help_description": "Gives you information about a command",
+    "help_format": "%prefix%commandname {name of the command}",
 
     "modules_commandscommand": "You can use %prefixcommands {name of the module} to get a list of all commands of a module.",
     "modules_embed": "A list of all modules",
