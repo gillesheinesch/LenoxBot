@@ -1240,7 +1240,7 @@
     "softban_yourself": "You cannot softban yourself!",
     "softban_daysundefined": "You haven't specified the number of days!",
     "softban_nonumber": "You have to specify of how many days you want to have the messages of %user deleted! (Up to 7 days)",
-    "softban_min1": "You need to delete the messages of a least one day!",
+    "softban_min1": "You need to delete the messages of at least one day!",
     "softban_max7": "You can only delete the messages up to the last 7 days!",
     "softban_noinput": "You must specify a reason for the softban!",
     "softban_nopermission": "I cannot softban this user!",
