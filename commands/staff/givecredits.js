@@ -42,7 +42,7 @@ module.exports = class givecreditsCommand extends LenoxCommand {
 
     if (!msg.client.users.has(user)) return msg.reply(lang.givecredits_nomention);
     if (!amountofcoins || isNaN(args.slice(1, 2)) || amountofcoins <= 0) return msg.reply(lang.givecredits_novalue);
-    if (!reason) return msg.reply(lang.givecredits_noreason);
+    if (!reason || !reason.length) return msg.reply(lang.givecredits_noreason);
 
     let currentCredits = msg.client.provider.getUser(user, 'credits');
     currentCredits += amountofcoins;
