@@ -62,7 +62,9 @@ module.exports = class givecreditsCommand extends LenoxCommand {
 
     msg.client.users.fetch(user).then(async (fetchedUser) => {
       if (fetchedUser) {
-        await fetchedUser.send({ embed });
+        await fetchedUser.send({
+          embed
+        });
       }
     });
 
