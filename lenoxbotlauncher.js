@@ -30,8 +30,9 @@ shardingManager.spawn().then(() => {
 
 // Website:
 async function run() {
+  // i18n conifguration
   i18n.configure({
-    locales: ['en-US', 'de-DE', 'fr-FR', 'es-ES', 'de-CH'],
+    locales: ['en-US', 'de-DE', 'fr-FR', 'es-ES', 'de-CH', 'tr-TR'],
     directory: `${__dirname}/languages`,
     defaultLocale: 'en-US',
     cookie: 'ulang'
@@ -275,6 +276,12 @@ async function run() {
       fileName: 'de-CH',
       name: 'Swiss',
       icon: 'ch',
+      status: false
+    },
+    {
+      fileName: 'tr-TR',
+      name: 'Turkish',
+      icon: 'tr',
       status: false
     }];
 
@@ -3051,6 +3058,11 @@ async function run() {
           name: 'swiss',
           alias: 'de-CH',
           momentLanguage: 'de-CH'
+        },
+        {
+          name: 'turkish',
+          alias: 'tr-TR',
+          momentLanguage: 'tr-TR'
         }];
 
         if (guildconfs.settings.language) {

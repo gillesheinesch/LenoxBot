@@ -28,6 +28,12 @@ module.exports = (req) => {
     name: 'Swiss',
     icon: 'ch',
     status: false
+  },
+  {
+    fileName: 'tr-TR',
+    name: 'Turkish',
+    icon: 'ch',
+    status: false
   }];
 
   const currentLanguage = req.getLocale();
