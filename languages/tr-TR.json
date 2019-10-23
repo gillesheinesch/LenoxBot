@@ -442,7 +442,7 @@
     "playlist_alreadyexists": "Bu çalma listesi zaten var. Lütfen çalma listesi henüz varolmayan bir adla oluşturun!",
     "playlist_addnewsong": "Hangi şarkı çalma listenize (%playlistname) eklenmelidir?",
     "playlist_finish": "Çalma listesi kaydedildi!",
-    "playlist_newsongaddedtoplaylist": "Yeni oynatma listenize yeni bir şarkı (%songname) eklendi. Çalma listenize eklemek istediğiniz bir şarkı için yeni bir isim girin!\nÇalma listeniz tamamlandığında, lütfen 'bitiş' yazınız",
+    "playlist_newsongaddedtoplaylist": "Yeni oynatma listenize yeni bir şarkı (%songname) eklendi. Çalma listenize eklemek istediğiniz bir şarkı için yeni bir isim girin!\nÇalma listeniz tamamlandığında, lütfen '**finish**' yazınız",
     "playlist_noplaylistaddedyet": "Şimdiye kadar hiçbir oynatma listesi eklenmedi! Aşağıdaki komutla yeni bir tane oluşturun: %prefixplaylist yeni",
     "playlist_playlistnotexist": "Belirtilen çalma listesi yok!",
     "playlist_embedtitle": "Bu çalma listesindeki tüm şarkıları:",
