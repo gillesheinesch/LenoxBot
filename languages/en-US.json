@@ -1266,7 +1266,7 @@
     "botinfo_runtime": "Runtime since the last restart",
     "botinfo_stats": "Statistics about the bot",
     "botinfo_online": "Online on %guilds Discord servers for %users users",
-    "botinfo_website": "Website (including the new dashboard)",
+    "botinfo_website": "Website",
     "botinfo_support": "Support us",
     "botinfo_invite": "You want this bot on your server? Add it to your Discord server",
     "botinfo_supportserver": "Join our Community&Support Discord server",
