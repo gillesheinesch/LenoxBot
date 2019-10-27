@@ -41,7 +41,7 @@ module.exports = class botinfoCommand extends LenoxCommand {
         usersCount = results.reduce((prev, userCount) => prev + userCount, 0);
       });
 
-    const online = lang.botinfo_online.replace('%guilds', guildsCount).replace('%users', usersCount);
+    const online = lang.botinfo_online.replace('%guilds', guildsCount).replace('%users', usersCount).replace('%shards', msg.client.shard.count);
     const embed = new Discord.MessageEmbed()
       .setAuthor('LenoxBot', msg.client.user.avatarURL())
       .setColor('#0066CC')
