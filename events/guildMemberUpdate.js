@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const Discord = require('discord.js');
 const settings = require('../settings.json');
 
@@ -53,10 +54,6 @@ module.exports = {
         .setAuthor(lang.guildmemberupdateevent_roleassigned)
         .addField(`📎 ${lang.guildmemberupdateevent_member}`, `${oldMember.user.tag} (${oldMember.id})`);
 
-      messagechannel.send({
-        embed
-      });
-
       for (const role of newMember.roles.map((x) => x.id)) {
         if (!oldMember.roles.has(role)) {
           embed.addField(`📥 ${lang.guildmemberupdateevent_role}`, `${oldMember.guild.roles.get(role).name}`);
@@ -99,6 +96,10 @@ module.exports = {
           }
         }
       }
+
+      messagechannel.send({
+        embed
+      });
     }
 
     if (oldMember.roles.size > newMember.roles.size) {
@@ -107,10 +108,6 @@ module.exports = {
         .setTimestamp()
         .setAuthor(lang.guildmemberupdateevent_roleremoved)
         .addField(`📎 ${lang.guildmemberupdateevent_member}`, `${oldMember.user.tag} (${oldMember.id})`);
-
-      messagechannel.send({
-        embed
-      });
 
       for (const role of oldMember.roles.map((x) => x.id)) {
         if (!newMember.roles.has(role)) {
@@ -167,6 +164,10 @@ module.exports = {
           }
         }
       }
+
+      messagechannel.send({
+        embed
+      });
     }
   }
 };
