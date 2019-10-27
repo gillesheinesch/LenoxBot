@@ -369,8 +369,8 @@ module.exports = {
 				await client.provider.setBotsettings('botconfs', 'top100credits', userInfo); */
 
         const embed = new Discord.MessageEmbed()
-          .setTitle('Botrestart')
-          .setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
+          .setTitle(`A shard of LenoxBot has been restarted!`)
+          .setDescription(`LenoxBot's shard ${client.shard.id} had a restart and is back again!\nEveryone can now execute commands!`)
           .setColor('GREEN')
           .setTimestamp()
           .setAuthor(client.user.tag, client.user.displayAvatarURL());
