@@ -23,10 +23,69 @@ module.exports = {
     client.ready = true;
     if (client.provider.isReady) {
       console.log(chalk.green('LenoxBot is ready!'));
+      require('../bin/www');
     }
     else {
       client.provider.whenReady(async () => {
         console.log(chalk.green('LenoxBot is ready!'));
+        console.log('tzestz');
+        // require('../bin/www');
+        console.log('zesz');
+        var http = require('http');
+
+        // The following 4 are the actual values that pertain to your account and this specific metric.
+        var apiKey = 'bf5c8a5f-0db4-4de8-b857-e7cbef2396e1';
+        var pageId = 'h9w5z6ysgc7f';
+        var metricId = 'ylj331dftyzq';
+        var apiBase = 'https://api.statuspage.io/v1';
+
+        var url = `${apiBase}/pages/${pageId}/metrics/${metricId}/data.json`;
+        var authHeader = { Authorization: `OAuth ${apiKey}` };
+        var options = { method: 'POST', headers: authHeader };
+
+        // Need at least 1 data point for every 5 minutes.
+        // Submit random data for the whole day.
+        var totalPoints = 60 / 5 * 24;
+        var epochInSeconds = Math.floor(new Date() / 1000);
+
+        // This function gets called every second.
+        function submit(count) {
+          count += 1;
+
+          if (count > totalPoints) return;
+          console.log(2);
+
+          var currentTimestamp = epochInSeconds - (count - 1) * 5 * 60;
+          var randomValue = Math.floor(Math.random() * 1000);
+          console.log(22);
+
+          var data = {
+            timestamp: currentTimestamp,
+            value: randomValue
+          };
+          console.log(222);
+
+          var request = http.request(url, options, (res) => {
+            console.log(res);
+            res.on('data', () => {
+              console.log(`Submitted point ${count} of ${totalPoints}`);
+            });
+
+            console.log(2222);
+            res.on('end', () => {
+              console.log(232);
+              setTimeout(() => { submit(count); }, 1000);
+            });
+          });
+          console.log(111)
+
+          request.end(JSON.stringify({ data }));
+        }
+
+        // Initial call to start submitting data.
+        console.log(1)
+        submit(100);
+        console.log(21);
 
         // Sets all marketitems
         const marketconfs = require('../marketitems-keys.json');
@@ -369,18 +428,16 @@ module.exports = {
 				await client.provider.setBotsettings('botconfs', 'top100credits', userInfo); */
 
         const embed = new Discord.MessageEmbed()
-          .setTitle(`A shard of LenoxBot has been restarted!`)
-          .setDescription(`LenoxBot's shard ${client.shard.id} had a restart and is back again!\nEveryone can now execute commands!`)
+          .setTitle('Botrestart')
+          .setDescription('LenoxBot had a restart and is back again!\nEveryone can now execute commands!')
           .setColor('GREEN')
           .setTimestamp()
           .setAuthor(client.user.tag, client.user.displayAvatarURL());
 
         if (client.user.id === '354712333853130752') {
-          client.channels.fetch('497400107109580801').then(channel => {
-            channel.send({
+          client.channels.get('497400107109580801').send({
             embed
           });
-        })
         }
       });
     }
