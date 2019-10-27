@@ -303,7 +303,7 @@
     "changeorder_undefined": "One or both application entries IDs don't exist!",
     "changeorder_set": "Both application entries IDs were exchanged!",
     "changeorder_description": "Changes the order of application entries",
-    "changeorder_format": "%prefix%commandname <first application entry ID> <second application entry ID",
+    "changeorder_format": "%prefix%commandname <first application entry ID> <second application entry ID>",
 
     "math_embedauthor": "What is...",
     "math_timepassed": "Your 7 seconds have passed, you lost 10 credits!",
@@ -568,7 +568,7 @@
     "playlist_songnotinplaylist": "This song is not in the playlist!",
     "playlist_error": "You used the command incorrectly. Please use **%prefixhelp playlist** to read the correct usage of the command!",
     "playlist_description": "Creates a new music playlist on this Discord server",
-    "playlist_format": "%prefix%commandname <new, delete, list, addsong, removesong> <name of the playlist",
+    "playlist_format": "%prefix%commandname <new, delete, list, addsong, removesong> <name of the playlist>",
 
     "dailyremind_set": "You have activated the dailyremind! (If you run the %prefixdaily command, you'll be reminded 24 hours later to pick up your daily reward again)",
     "dailyremind_removed": "You have deactivated the dailyremind!",
@@ -586,7 +586,7 @@
     "setacceptedmessage_format": "%prefix%commandname <custom messages for accepted applicants>",
 
     "setrejectedmessage_description": "Defines a custom message that receive applicants who have been rejected",
-    "setrejectedmessage_format": "%prefix%commandname <custom message for rejected applicants",
+    "setrejectedmessage_format": "%prefix%commandname <custom message for rejected applicants>",
 
     "ticketnotification_channelset": "Ticket notifications are now posted in %channelname!",
     "ticketnotification_channeldeleted": "Ticket notifications are now no longer posted!",
@@ -881,7 +881,7 @@
     "channelblacklistremove_removed": "The voicechannel has been successfully removed from the blacklist",
     "channelblacklistremove_channelnotblacklisted": "This voicechannel has not been added to the blacklist",
     "channelblacklistremove_description": "Removes a voicechannel from the blacklist",
-    "channelblacklistremove_format": "%prefix%commandname <name of the voicechannel",
+    "channelblacklistremove_format": "%prefix%commandname <name of the voicechannel>",
 
     "botownercommands_error": "You don't have permissions to execute this command!",
 
@@ -1416,7 +1416,7 @@
     "unmute_automaticunmutedescription": "**Action**: Automatic unmute \n**User**: %usertag (%userid) \n**Reason**: The mutetime has expired",
     "unmute_unmuted": "%username was unmuted successfully.",
     "unmute_description": "Unmutes a user",
-    "unmute_format": "%prefix%commandname <@UserID / UserID> <reason>",
+    "unmute_format": "%prefix%commandname <@User / UserID> <reason>",
 
     "warn_idcheck": "This user was not found on this Discord server!",
     "warn_yourself": "You cannot warn yourself!",
@@ -1606,7 +1606,7 @@
     "botinfo_runtime": "Runtime since the last restart",
     "botinfo_stats": "Statistics about the bot",
     "botinfo_online": "Online on %shards shards, for %guilds Discord servers and for %users users",
-    "botinfo_website": "Website (including the new dashboard)",
+    "botinfo_website": "Website (including the dashboard of the bot)",
     "botinfo_support": "Support us",
     "botinfo_invite": "You want this bot on your server? Add it to your Discord server",
     "botinfo_supportserver": "Join our Community&Support Discord server",
