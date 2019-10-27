@@ -1425,7 +1425,7 @@
     "warn_warnedby": "Warned by %authortag",
     "warn_warndescription": "**Action**: Warning \n**User**: %usertag (%userid) \n**Reason**: %reason",
     "warn_description": "Warns a user on the Discord server with a certain reason",
-    "warn_format": "%prefix%commandname <@UserID / UserID> <reason>",
+    "warn_format": "%prefix%commandname <@User / UserID> <reason>",
 
     "forceskip_notvoicechannel": "You are not in a voice channel, please join a voice channel to play music!",
     "forceskip_noserverqueue": "There is nothing playing that I could skip for you!",
