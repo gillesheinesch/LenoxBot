@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-syntax */
 const Discord = require('discord.js');
 const guildsettingskeys = require('../guildsettings-keys.json');
 const usersettingskeys = require('../usersettings-keys.json');
@@ -29,7 +30,7 @@ module.exports = {
       }
 		  }
 
-    if (client.provider.getGuild(msg.guild.id, 'language')) { // Everything can be requested here
+    if (client.provider.getGuild(msg.guild.id)) { // Everything can be requested here
       const settings = client.provider.guildSettings.get(msg.guild.id);
       for (const key in guildsettingskeys) {
         if (!settings[key] && typeof settings[key] === 'undefined') {
@@ -90,7 +91,7 @@ module.exports = {
       await msg.client.provider.setGuild(msg.guild.id, 'commands', commandsObject);
     }
 
-    if (client.provider.getUser(msg.author.id, 'credits')) {
+    if (client.provider.getUser(msg.author.id)) {
       const settings = client.provider.userSettings.get(msg.author.id);
       // eslint-disable-next-line guard-for-in
       for (const key in usersettingskeys) {
@@ -112,7 +113,7 @@ module.exports = {
       await msg.client.provider.reloadUser(msg.author.id);
     }
 
-    if (client.provider.getBotsettings('botconfs', 'premium')) {
+    if (client.provider.getBotsettings('botconfs')) {
       const settings = client.provider.botSettings.get('botconfs');
       // eslint-disable-next-line guard-for-in
       for (const key in botsettingskeys) {

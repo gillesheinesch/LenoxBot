@@ -27,12 +27,12 @@ module.exports = class remindCommand extends LenoxCommand {
 
     const currentReminder = msg.client.provider.getUser(msg.author.id, 'currentReminder');
 
-    const validation = ['add', 'remove', 'list'];
+    const validation = ['add', 'remove', 'list', lang.remind_parameter_add, lang.remind_parameter_remove, lang.remind_parameter_list];
     const margs = msg.content.split(' ');
 
     for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-        if (margs[1].toLowerCase() === 'add') {
+        if (margs[1].toLowerCase() === 'add' || margs[1].toLowerCase() === lang.remind_parameter_add.toLowerCase()) {
           if (currentReminder.length === 5 && msg.client.provider.getUser(msg.author.id, 'premium').status === false) return msg.reply(lang.remind_maxreachednopremium);
           if (currentReminder.length === 25) return msg.reply(lang.remind_maxwithpremium);
 
@@ -96,7 +96,7 @@ module.exports = class remindCommand extends LenoxCommand {
             msg.reply({ embed: remindPassedEmbed });
           }, msTime);
           return undefined;
-        } if (margs[1].toLowerCase() === 'remove') {
+        } if (margs[1].toLowerCase() === 'remove' || margs[1].toLowerCase() === lang.remind_parameter_remove.toLowerCase()) {
           const reminderText = args.slice(1).join(' ');
           if (!reminderText) return msg.reply(lang.remind_notextfordelete);
 
@@ -117,7 +117,7 @@ module.exports = class remindCommand extends LenoxCommand {
             }
           }
           return msg.reply(lang.remind_remindnoexist);
-        } if (margs[1].toLowerCase() === 'list') {
+        } if (margs[1].toLowerCase() === 'list' || margs[1].toLowerCase() === lang.remind_parameter_list.toLowerCase()) {
           if (currentReminder.length === 0) return msg.reply(lang.remind_noreminder);
 
           const reminderEmbed = new Discord.MessageEmbed()

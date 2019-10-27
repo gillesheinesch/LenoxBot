@@ -9,9 +9,9 @@ module.exports = class guildinformationCommand extends LenoxCommand {
       group: 'staff',
       memberName: 'guildinformation',
       description: 'Allows the staff of the bot to find out main informations of a Discord server',
-      format: 'guildinformation {guildid}',
+      format: 'guildinformation {guildid} {reason}',
       aliases: [],
-      examples: ['guildinformation 352896116812939264'],
+      examples: ['guildinformation 352896116812939264 Server owner doesn\'t know prefix anymore'],
       clientpermissions: ['SEND_MESSAGES'],
       userpermissions: [],
       shortDescription: 'General',
@@ -33,7 +33,7 @@ module.exports = class guildinformationCommand extends LenoxCommand {
     const reason = args.slice(1);
     if (!reason || !reason.length) return msg.reply(lang.guildinformation_noreason);
 
-    if (!msg.client.provider.getGuild(content.join(' '), 'language')) return msg.reply(lang.guildinformation_nofetch);
+    if (!msg.client.provider.getGuild(content.join(' '))) return msg.reply(lang.guildinformation_nofetch);
 
     const guildload = msg.client.guilds.get(content.join(' '));
     const requestedby = lang.guildinformation_requestedby.replace('%authortag', msg.author.tag);

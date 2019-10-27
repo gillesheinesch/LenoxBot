@@ -20,4 +20,4 @@ async function connectDB() {
   return db;
 }
 
-module.exports = connectDB().collection('botSettings');
+module.exports = db;

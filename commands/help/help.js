@@ -1,3 +1,4 @@
+const Discord = require('discord.js');
 const LenoxCommand = require('../LenoxCommand.js');
 
 module.exports = class helpCommand extends LenoxCommand {
@@ -7,7 +8,7 @@ module.exports = class helpCommand extends LenoxCommand {
       group: 'help',
       memberName: 'help',
       description: 'TODO: Setdescription',
-      format: 'help {commandname}',
+      format: 'help [commandname]',
       aliases: ['h'],
       examples: ['help botinfo', 'help'],
       clientpermissions: ['SEND_MESSAGES'],
@@ -18,7 +19,6 @@ module.exports = class helpCommand extends LenoxCommand {
   }
 
   run(msg) {
-    const Discord = require('discord.js');
     const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
     const lang = require(`../../languages/${langSet}.json`);
     const args = msg.content.split(' ').slice(1);
@@ -61,11 +61,22 @@ module.exports = class helpCommand extends LenoxCommand {
       }
 
       const category = lang.help_category.replace('%category', command.groupID);
+
+	  let commandFormat;
+      if (Array.isArray(lang[`${command.name}_format`])) {
+        commandFormat = [];
+        for (let i = 0; i < lang[`${command.name}_format`].length; i += 1) {
+          commandFormat.push(lang[`${command.name}_format`][i].replace('%prefix', prefix).replace('%commandname', command.name));
+        }
+      }
+      else {
+        commandFormat = lang[`${command.name}_format`].replace('%prefix', prefix).replace('%commandname', command.name);
+	  }
       const commandembed = new Discord.MessageEmbed()
         .setColor('BLUE')
         .setAuthor(`${prefix}${command.aliases.length === 0 ? command.name : `${command.name} / `} ${aliases.join(' / ')}`)
         .setDescription(lang[`${command.name}_description`])
-        .addField(lang.help_usage, prefix + command.format)
+        .addField(lang.help_usage, Array.isArray(lang[`${command.name}_format`]) ? commandFormat.join('\n') : commandFormat)
         .addField(lang.help_permissions, command.userpermissions.length === 0 ? '/' : command.userpermissions.join(', '))
         .addField(lang.help_example, examples.length === 0 ? '/' : examples.join('\n'))
         .setFooter(category);
@@ -75,7 +86,7 @@ module.exports = class helpCommand extends LenoxCommand {
     else {
       /* eslint guard-for-in: 0 */
       /* eslint no-else-return: 0 */
-      for (let key = 0; key < msg.client.registry.commands.array().length; key++) {
+      for (let key = 0; key < msg.client.registry.commands.array().length; key += 1) {
         if (msg.client.registry.commands.array()[key].aliases.includes(command)) {
           command = msg.client.registry.commands.array()[key];
 
@@ -96,11 +107,21 @@ module.exports = class helpCommand extends LenoxCommand {
           }
 
           const category = lang.help_category.replace('%category', command.groupID);
+          let commandFormat;
+          if (Array.isArray(lang[`${command.name}_format`])) {
+            commandFormat = [];
+            for (let i = 0; i < lang[`${command.name}_format`].length; i += 1) {
+              commandFormat.push(lang[`${command.name}_format`][i].replace('%prefix', prefix).replace('%commandname', command.name));
+            }
+          }
+          else {
+            commandFormat = lang[`${command.name}_format`].replace('%prefix', prefix).replace('%commandname', command.name);
+	  }
           const aliasembed = new Discord.MessageEmbed()
             .setColor('BLUE')
             .setAuthor(`${prefix}${command.aliases.length === 0 ? command.name : `${command.name} / `} ${aliases.join(' / ')}`)
             .setDescription(lang[`${command.name}_description`])
-            .addField(lang.help_usage, prefix + command.format)
+            .addField(lang.help_usage, Array.isArray(lang[`${command.name}_format`]) ? commandFormat.join('\n') : commandFormat)
             .addField(lang.help_permissions, command.userpermissions.length === 0 ? '/' : command.userpermissions.join(', '))
             .addField(lang.help_example, examples.length === 0 ? '/' : examples.join('\n'))
             .setFooter(category);

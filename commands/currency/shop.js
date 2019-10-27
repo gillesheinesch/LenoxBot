@@ -25,7 +25,7 @@ module.exports = class shopCommand extends LenoxCommand {
     const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
     const args = msg.content.split(' ').slice(1);
 
-    const validationForBuySell = ['sell', 'buy'];
+    const validationForBuySell = ['sell', 'buy', lang.shop_parameter_buy, lang.shop_parameter_sell];
     const validationforitemsbuysell = [];
     const nameOfTheItems = [];
     const nameOfTheItemsInServerLanguage = [];
@@ -135,9 +135,9 @@ module.exports = class shopCommand extends LenoxCommand {
 
     for (let i = 0; i < sellorbuycheck.length; i += 1) {
       if (validationForBuySell.indexOf(sellorbuycheck[i].toLowerCase()) >= 0) {
-        if (sellorbuycheck[0].toLowerCase() === 'sell') {
+        if (sellorbuycheck[0].toLowerCase() === 'sell' || sellorbuycheck[0].toLowerCase() === lang.shop_parameter_sell.toLowerCase()) {
           // Check if the item exists in the user's inventory
-          if (args.slice(1).join(' ').toLowerCase() === 'all') {
+          if (args.slice(1).join(' ').toLowerCase() === 'all' || args.slice(1).join(' ').toLowerCase() === lang.shop_parameter_all.toLowerCase()) {
             let inventoryslotcheck = 0;
             for (let x = 0; x < nameOfTheItems.length; x++) {
               inventoryslotcheck += parseInt(msg.client.provider.getUser(msg.author.id, 'inventory')[nameOfTheItems[x]], 10);
@@ -244,7 +244,7 @@ module.exports = class shopCommand extends LenoxCommand {
             }
           }
         }
-        else if (sellorbuycheck[0].toLowerCase() === 'buy') {
+        else if (sellorbuycheck[0].toLowerCase() === 'buy' || sellorbuycheck[0].toLowerCase() === lang.shop_parameter_buy.toLowerCase()) {
           if (isNaN(howmanycheck[0]) || !howmanycheck[0]) {
             const commanderror = lang.shop_commanderror.replace('%prefix', prefix);
             const commanderrorEmbed = new Discord.MessageEmbed()

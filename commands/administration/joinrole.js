@@ -25,12 +25,12 @@ module.exports = class joinroleCommand extends LenoxCommand {
     const args = msg.content.split(' ').slice(1);
     const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
-    const validation = ['add', 'list', 'remove'];
+    const validation = ['add', 'list', 'remove', lang.joinrole_parameter_remove, lang.joinrole_parameter_add, lang.joinrole_parameter_list];
     const margs = msg.content.split(' ');
 
     for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-        if (margs[1].toLowerCase() === 'add') {
+        if (margs[1].toLowerCase() === 'add' || margs[1].toLowerCase() === lang.joinrole_parameter_add.toLowerCase()) {
           if (!args || args.length === 0) return msg.reply(lang.joinrole_noinput);
           const mentionedRole = args.slice(1).join(' ');
           const foundRole = msg.guild.roles.find((role) => role.name.toLowerCase() === mentionedRole.toLowerCase());
@@ -43,7 +43,7 @@ module.exports = class joinroleCommand extends LenoxCommand {
           await msg.client.provider.setGuild(msg.guild.id, 'joinroles', currentJoinroles);
 
           return msg.reply(lang.joinrole_roleadded);
-        } if (margs[1].toLowerCase() === 'remove') {
+        } if (margs[1].toLowerCase() === 'remove' || margs[1].toLowerCase() === lang.joinrole_parameter_remove.toLowerCase()) {
           if (!args || args.length === 0) return msg.reply(lang.joinrole_noinputremove);
           const mentionedRole = args.slice(1).join(' ');
           const foundRole = msg.guild.roles.find((role) => role.name.toLowerCase() === mentionedRole.toLowerCase());
@@ -57,7 +57,7 @@ module.exports = class joinroleCommand extends LenoxCommand {
           await msg.client.provider.setGuild(msg.guild.id, 'joinroles', currentJoinroles);
 
           return msg.reply(lang.joinrole_roleremoved);
-        } if (margs[1].toLowerCase() === 'list') {
+        } if (margs[1].toLowerCase() === 'list' || margs[1].toLowerCase() === lang.joinrole_parameter_list.toLowerCase()) {
           if (msg.client.provider.getGuild(msg.guild.id, 'joinroles').length === 0) return msg.reply(lang.joinrole_nojoinroles);
 
           const joinroleEmbed = new Discord.MessageEmbed()

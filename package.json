@@ -53,6 +53,7 @@
         "readline": "^1.3.0",
         "request": "^2.88.0",
         "request-promise": "^4.2.2",
+        "saslprep": "^1.0.3",
         "simple-youtube-api": "^5.0.1",
         "snekfetch": "^4.0.4",
         "steamrep": "^1.0.1",

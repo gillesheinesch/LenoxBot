@@ -24,7 +24,7 @@ module.exports = class socialmediaCommand extends LenoxCommand {
     const args = msg.content.split(' ').slice(1);
     const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
-    const validation = ['delete', 'edit', 'list'];
+    const validation = ['delete', 'edit', 'list', lang.socialmedia_parameter_edit, lang.socialmedia_parameter_delete, lang.socialmedia_parameter_list];
     const validation2 = ['youtube', 'twitch', 'instagram', 'twitter', 'facebook', 'github', 'pinterest', 'reddit'];
     const margs = msg.content.split(' ');
 
@@ -35,7 +35,7 @@ module.exports = class socialmediaCommand extends LenoxCommand {
 
     for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-        if (margs[1].toLowerCase() === 'edit') {
+        if (margs[1].toLowerCase() === 'edit' || margs[1].toLowerCase() === lang.socialmedia_parameter_edit.toLowerCase()) {
           if (args.slice(1).length === 0) return msg.reply(lang.socialmedia_error2);
           if (args.slice(2).length === 0) return msg.reply(lang.socialmedia_error3);
           for (let index = 0; index < margs.length; index += 1) {
@@ -95,7 +95,7 @@ module.exports = class socialmediaCommand extends LenoxCommand {
           }
           const error4 = lang.socialmedia_error4.replace('%prefix', prefix);
           return msg.reply(error4);
-        } if (margs[1].toLowerCase() === 'delete') {
+        } if (margs[1].toLowerCase() === 'delete' || margs[1].toLowerCase() === lang.socialmedia_parameter_delete.toLowerCase()) {
           if (args.slice(1).length === 0) return msg.reply(lang.socialmedia_error2);
           for (let index = 0; index < margs.length; index += 1) {
             if (validation2.indexOf(margs[index].toLowerCase()) >= 0) {
@@ -161,7 +161,7 @@ module.exports = class socialmediaCommand extends LenoxCommand {
           }
           const error4 = lang.socialmedia_error4.replace('%prefix', prefix);
           return msg.reply(error4);
-        } if (margs[1].toLowerCase() === 'list') {
+        } if (margs[1].toLowerCase() === 'list' || margs[1].toLowerCase() === lang.socialmedia_parameter_list.toLowerCase()) {
           const embed = new Discord.MessageEmbed()
             .setTimestamp()
             .setColor('BLUE');

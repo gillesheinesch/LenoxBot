@@ -25,10 +25,10 @@ module.exports = class changeorderCommand extends LenoxCommand {
     const firstNumber = args.slice(0, 1);
     const secondNumber = args.slice(1, 2);
 
-    if (firstNumber.length === 0 || secondNumber.length === 0) return msg.reply(lang.entrychangeorder_error);
-    if (isNaN(firstNumber) || isNaN(secondNumber)) return msg.reply(lang.entrychangeorder_notcorrectused);
-    if (firstNumber === secondNumber) return msg.reply(lang.entrychangeorder_same);
-    if (typeof msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(firstNumber) - 1] === 'undefined' || typeof msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(secondNumber) - 1] === 'undefined') return msg.reply(lang.entrychangeorder_undefined);
+    if (firstNumber.length === 0 || secondNumber.length === 0) return msg.reply(lang.changeorder_error);
+    if (isNaN(firstNumber) || isNaN(secondNumber)) return msg.reply(lang.changeorder_notcorrectused);
+    if (firstNumber === secondNumber) return msg.reply(lang.changeorder_same);
+    if (typeof msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(firstNumber) - 1] === 'undefined' || typeof msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(secondNumber) - 1] === 'undefined') return msg.reply(lang.changeorder_undefined);
 
     const firstEntry = msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(firstNumber) - 1];
     const secondEntry = msg.client.provider.getGuild(msg.guild.id, 'application').template[Number(secondNumber) - 1];
@@ -38,6 +38,6 @@ module.exports = class changeorderCommand extends LenoxCommand {
     currentApplication.template[Number(firstNumber) - 1] = secondEntry;
     await msg.client.provider.setGuild(msg.guild.id, 'application', currentApplication);
 
-    msg.reply(lang.entrychangeorder_set);
+    msg.reply(lang.changeorder_set);
   }
 };

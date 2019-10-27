@@ -79,13 +79,13 @@ module.exports = class punishmentsCommand extends LenoxCommand {
     }
     if (punishmentsArrayOfTheUser.length === 0) return msg.channel.send(lang.punishments_notpunished);
 
-    const validation = ['delete', 'show'];
+    const validation = ['delete', 'show', lang.punishments_parameter_show, lang.punishments_parameter_delete];
     const margs = msg.content.split(' ');
     let message;
 
     for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-        if (margs[1].toLowerCase() === 'show') {
+        if (margs[1].toLowerCase() === 'show' || margs[1].toLowerCase() === lang.punishments_parameter_show.toLowerCase()) {
           const embed = new Discord.MessageEmbed()
             .setColor('#fff024')
             .setAuthor(user.tag, user.displayAvatarURL());
@@ -157,7 +157,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
             reaction2.users.remove();
           });
         }
-        else if (margs[1].toLowerCase() === 'delete') {
+        else if (margs[1].toLowerCase() === 'delete' || margs[1].toLowerCase() === lang.punishments_parameter_delete.toLowerCase()) {
           if (args.slice(2, 3).length === 0) return msg.reply(lang.punishments_noreportid);
           if (isNaN(args.slice(2, 3).join(' '))) return msg.reply(lang.punishments_nonumber);
 

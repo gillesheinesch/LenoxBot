@@ -26,7 +26,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
     const args = msg.content.split(' ').slice(1);
 
     const inventory = lang.inventory_inventory.replace('%authortag', msg.author.tag);
-    const validation = ['upgrade'];
+    const validation = ['upgrade', lang.inventory_parameter_upgrade];
 
     // To check if value is NaN due to a bug...
     if (isNaN(msg.client.provider.getUser(msg.author.id, 'inventoryslots'))) {
@@ -35,7 +35,7 @@ module.exports = class inventoryCommand extends LenoxCommand {
 
     for (let i = 0; i < args.slice().length; i += 1) {
       if (validation.indexOf(args.slice()[i].toLowerCase()) >= 0) {
-        if (args.slice()[0].toLowerCase() === 'upgrade') {
+        if (args.slice()[0].toLowerCase() === 'upgrade' || args.slice()[0].toLowerCase() === lang.inventory_parameter_upgrade.toLowerCase()) {
           const numberOfUpgrades = !args.slice(1, 2).length ? 1 : args.slice(1, 2).join(' ');
 
           const notanumber = lang.inventory_notanumber.replace('%prefix', prefix);

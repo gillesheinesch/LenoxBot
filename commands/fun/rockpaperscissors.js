@@ -25,14 +25,14 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
     const prefix = msg.client.provider.getGuild(msg.guild.id, 'prefix');
 
     const margs = msg.content.split(' ');
-    const validation = ['scissors', 'rock', 'paper'];
+    const validation = ['scissors', 'rock', 'paper', lang.rockpaperscissors_parameter_scissors, lang.rockpaperscissors_parameter_paper, lang.rockpaperscissors_parameter_rock];
     const randomofvalidation = validation[Math.floor(Math.random() * validation.length)];
 
     if (!args.slice() || args.slice().length === 0) return msg.reply(lang.rockpaperscissors_noinput);
 
     for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-        if (margs[1].toLowerCase() === 'rock') {
+        if (margs[1].toLowerCase() === 'rock' || margs[1].toLowerCase() === lang.rockpaperscissors_parameter_rock.toLowerCase()) {
           if (randomofvalidation === 'rock') {
             const embed1 = new Discord.MessageEmbed()
               .setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
@@ -65,7 +65,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
             });
           }
         }
-        else if (margs[1].toLowerCase() === 'scissors') {
+        else if (margs[1].toLowerCase() === 'scissors' || margs[1].toLowerCase() === lang.rockpaperscissors_parameter_scissors.toLowerCase()) {
           if (randomofvalidation === 'paper') {
             const embed4 = new Discord.MessageEmbed()
               .setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
@@ -98,7 +98,7 @@ module.exports = class rockpaperscissorsCommand extends LenoxCommand {
             });
           }
         }
-        else if (margs[1].toLowerCase() === 'paper') {
+        else if (margs[1].toLowerCase() === 'paper' || margs[1].toLowerCase() === lang.rockpaperscissors_parameter_paper.toLowerCase()) {
           if (randomofvalidation === 'scissors') {
             const embed7 = new Discord.MessageEmbed()
               .setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.displayAvatarURL())
