@@ -243,9 +243,10 @@ client.dispatcher.addInhibitor((msg) => {
     .setColor('#ff99ff')
     .setTimestamp();
   if (client.provider.getBotsettings('botconfs', 'activity')) {
-    const messagechannel = client.channels.get(client.provider.getBotsettings('botconfs', 'activitychannel'));
-    messagechannel.send({
-      embed: activityembed
+    client.channels.fetch(client.provider.getBotsettings('botconfs', 'activitychannel')).then((messagechannel) => {
+      messagechannel.send({
+        embed: activityembed
+      });
     });
   }
 
