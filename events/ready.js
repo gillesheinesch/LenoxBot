@@ -376,9 +376,11 @@ module.exports = {
           .setAuthor(client.user.tag, client.user.displayAvatarURL());
 
         if (client.user.id === '354712333853130752') {
-          client.channels.get('497400107109580801').send({
+          client.channels.fetch('497400107109580801').then(channel => {
+            channel.send({
             embed
           });
+        })
         }
       });
     }
