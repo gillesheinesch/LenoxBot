@@ -326,6 +326,11 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
   getGuild(guild, key, defVal) {
     const settings = this.guildSettings.get(this.constructor.getGuildID(guild));
+
+    if (!key && !defVal) {
+      return settings;
+    }
+
     return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
   }
 
@@ -398,6 +403,11 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
   getUser(user, key, defVal) {
     const settings = this.userSettings.get(user);
+
+    if (!key && !defVal) {
+      return settings;
+    }
+
     return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
   }
 
@@ -438,6 +448,11 @@ class LenoxBotSettingsProvider extends Commando.SettingProvider {
 
   getBotsettings(index, key, defVal) {
     const settings = this.botSettings.get(index);
+
+    if (!key && !defVal) {
+      return settings;
+    }
+    
     return settings ? typeof settings[key] === 'undefined' ? defVal : settings[key] : defVal;
   }
 
