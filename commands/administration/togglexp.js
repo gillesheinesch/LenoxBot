@@ -23,7 +23,7 @@ module.exports = class togglexpCommand extends LenoxCommand {
     const lang = require(`../../languages/${langSet}.json`);
     const args = msg.content.split(' ').slice(1);
 
-    const validation = ['list', 'add', 'remove'];
+    const validation = ['list', 'add', 'remove', lang.togglexp_parameter_add, lang.togglexp_parameter_remove, lang.togglexp_parameter_list];
     const margs = msg.content.split(' ');
     const input = args.slice();
     let channel;
@@ -32,7 +32,7 @@ module.exports = class togglexpCommand extends LenoxCommand {
 
     for (let i = 0; i < margs.length; i += 1) {
       if (validation.indexOf(margs[i].toLowerCase()) >= 0) {
-        if (margs[1].toLowerCase() === 'add') {
+        if (margs[1].toLowerCase() === 'add' || margs[1].toLowerCase() === lang.togglexp_parameter_add.toLowerCase()) {
           try {
             channel = msg.guild.channels.find((r) => r.name.toLowerCase() === args.slice(1).join(' ').toLowerCase());
             if (channel === null) throw new Error('undefined');
@@ -53,7 +53,7 @@ module.exports = class togglexpCommand extends LenoxCommand {
 
           const add = lang.togglexp_add.replace('%channelname', channel.name);
           return msg.reply(add);
-        } if (margs[1].toLowerCase() === 'remove') {
+        } if (margs[1].toLowerCase() === 'remove' || margs[1].toLowerCase() === lang.togglexp_parameter_remove.toLowerCase()) {
           if (msg.client.provider.getGuild(msg.guild.id, 'togglexp').channelids.length === 0) return msg.reply(lang.togglexp_nochannel);
 
           let channel2;
@@ -77,7 +77,7 @@ module.exports = class togglexpCommand extends LenoxCommand {
             }
           }
           return msg.reply(lang.togglexp_notinthelist);
-        } if (margs[1].toLowerCase() === 'list') {
+        } if (margs[1].toLowerCase() === 'list' || margs[1].toLowerCase() === lang.togglexp_parameter_list.toLowerCase()) {
           if (msg.client.provider.getGuild(msg.guild.id, 'togglexp').channelids.length === 0) return msg.reply(lang.togglexp_nochannel);
 
           const array = [];
