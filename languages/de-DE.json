@@ -1443,7 +1443,7 @@
     "youtube_format": "%prefix%commandname <query>",
     "botinfo_runtime": "Laufzeit seit dem letzten Neustart",
     "botinfo_stats": "Statistiken über den Bot",
-    "botinfo_online": "Online auf %guilds Discord-Servern für %users Benutzer",
+    "botinfo_online": "Online on %shards shards, for %guilds Discord servers and for %users users",
     "botinfo_website": "Webseite (mit dem neuen Dashboard)",
     "botinfo_support": "Unterstütze uns",
     "botinfo_invite": "Du möchtest diesen Bot auf deinem Server haben? Füge ihn zu deinem Discord-Server hinzu",
