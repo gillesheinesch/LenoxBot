@@ -1754,6 +1754,7 @@
     "userinfo_format": "%prefix%commandname [@User / UserID]",
 
     "punishments_noinput": "You forgot to mention a user or to enter a userID.",
+    "punishments_usernotfound": "We could not find the mentioned user!",
     "punishments_error": "No user has been punished on this server until now!",
     "punishments_warn": "%id ⚠Warned by %moderator on %date",
     "punishments_ban": "%id ❌Banned by %moderator on %date",

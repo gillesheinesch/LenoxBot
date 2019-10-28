@@ -40,7 +40,7 @@ module.exports = class punishmentsCommand extends LenoxCommand {
         user = user.user;
       }
       catch (error) {
-        return msg.reply('User not found');
+        return msg.reply(lang.punishments_usernotfound);
       }
     }
 
