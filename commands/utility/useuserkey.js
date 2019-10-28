@@ -27,6 +27,8 @@ module.exports = class useuserkeyCommand extends LenoxCommand {
 
     const input = args.slice();
 
+    const wrongusage = lang.useuserkey_wrongusage.replace('%prefix', msg.client.provider.getGuild(msg.guild.id, 'prefix'));
+    if (msg.mentions.users.first()) return msg.reply(wrongusage);
     if (!input || input.length === 0) return msg.reply(lang.useuserkey_noinput);
     if (!msg.client.provider.getBotsettings('botconfs', 'premium').keys.userkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_notexist);
     if (msg.client.provider.getBotsettings('botconfs', 'premium').keys.redeemeduserkeys.includes(input.join(' '))) return msg.reply(lang.useuserkey_already);

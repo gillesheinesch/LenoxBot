@@ -681,6 +681,7 @@
     "job_description": "A full list of available jobs you can accept to earn credits",
     "job_format": "%prefix%commandname",
 
+    "useuserkey_wrongusage": "You used this command incorrectly! Please take a look at **%prefixuseuserkey** to see the correct usage of this command.",
     "useuserkey_noinput": "You forgot to enter your userkey!",
     "useuserkey_already": "This userkey has already been redeemed!",
     "useuserkey_redeemed": "You have successfully activated your userkey. \nThe premium for your Discord account is activated until the %date!",
@@ -688,6 +689,7 @@
     "useuserkey_description": "With this command you can activate a premium userkey for your Discord account",
     "useuserkey_format": "%prefix%commandname <premium serverkey>",
 
+    "useserverkey_wrongusage": "You used this command incorrectly! Please take a look at **%prefixuseserverkey** to see the correct usage of this command.",
     "useserverkey_noinput": "You forgot to enter your serverkey!",
     "useserverkey_already": "This serverkey has already been redeemed!",
     "useserverkey_redeemed": "You have successfully activated your serverkey. \nThe premium of this Discord server is activated until the %date!",
