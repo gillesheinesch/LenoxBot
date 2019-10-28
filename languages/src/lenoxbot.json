@@ -1353,6 +1353,8 @@
     "clear_max100": "You can only delete 100 messages at once!",
     "clear_min2": "You must delete at least 2 messages!",
     "clear_noreason": "You forgot to specify why you want to delete all these messages!",
+    "clear_error14days": "You can only delete messages that are under 14 days old",
+    "clear_errorgeneral": "There was an error. LenoxBot could not delete the messages. Please check if the bot has the necessary permissions to execute this action!",
     "clear_messagesdeleted": "%messagecount messages have been successfully deleted!",
     "clear_embedtitle": "%amount messages cleared by %user",
     "clear_embedreason": "Reason:",
