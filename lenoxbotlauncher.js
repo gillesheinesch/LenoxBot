@@ -128,7 +128,7 @@ async function run() {
 
   app.listen(settings.websiteport, (err) => {
     if (err) return winstonLogger.error(err);
-    winstonLogger.log('Website running on https://lenoxbot.com');
+    winstonLogger.info('Website running on https://lenoxbot.com');
   });
 
   // Script executes function on shard
