@@ -14,18 +14,29 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const url = require('url');
 const mongodb = require('mongodb');
+const winston = require('winston');
 const settings = require('./settings.json');
 require('moment-duration-format');
 const marketitemskeys = require('./marketitems-keys.json');
+
+// Logger:
+// TODO Review this logger
+const winstonLogger = winston.createLogger({
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'log' })
+  ],
+  format: winston.format.printf((log) => `[${new Date().toLocaleString()}] - [${log.level.toUpperCase()}] - ${log.message}`)
+});
 
 const shardingManager = new Discord.ShardingManager('./lenoxbot.js', {
   token: settings.token
 });
 
 shardingManager.spawn().then(() => {
-  console.log(chalk.green(`[ShardManager] Started ${shardingManager.totalShards} shards`));
+  winstonLogger.info(`[ShardManager] Started ${shardingManager.totalShards} shards`);
 }).catch((error) => {
-  console.log(error);
+  winstonLogger.error(error);
 });
 
 // Website:
@@ -116,8 +127,8 @@ async function run() {
   }));
 
   app.listen(settings.websiteport, (err) => {
-    if (err) return console.log(err);
-    console.log(chalk.green('Website running on https://lenoxbot.com'));
+    if (err) return winstonLogger.error(err);
+    winstonLogger.log('Website running on https://lenoxbot.com');
   });
 
   // Script executes function on shard
@@ -6830,5 +6841,5 @@ async function run() {
 }
 
 run().catch((error) => {
-  console.log(error);
+  winstonLogger.error(error);
 });

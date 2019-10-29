@@ -122,17 +122,6 @@ client.logger = winston.createLogger({
   format: winston.format.printf((log) => `[${new Date().toLocaleString()}] - [${log.level.toUpperCase()}] - ${log.message}`)
 });
 
-//
-// If we're not in production then log to the `console` with the format:
-// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
-//
-if (process.env.NODE_ENV !== 'production') {
-  client.logger.add(new winston.transports.Console({
-    format: winston.format.simple()
-  }));
-}
-
-
 client.dispatcher.addInhibitor((msg) => {
   if (msg.channel.type !== 'text') {
     msg.reply(englishlang.messageevent_error);

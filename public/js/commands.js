@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // COMMANDS JS
 
 // Filter by text
