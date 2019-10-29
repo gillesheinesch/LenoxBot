@@ -22,11 +22,11 @@ module.exports = {
 
     client.ready = true;
     if (client.provider.isReady) {
-      console.log(chalk.green('LenoxBot is ready!'));
+      client.logger.info(`LenoxBot is ready! Shard: ${client.shard.id}`);
     }
     else {
       client.provider.whenReady(async () => {
-        console.log(chalk.green('LenoxBot is ready!'));
+        client.logger.info(`LenoxBot is ready! Shard: ${client.shard.id}`);
 
         // Sets all marketitems
         const marketconfs = require('../marketitems-keys.json');
