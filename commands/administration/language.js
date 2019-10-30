@@ -9,7 +9,7 @@ module.exports = class languageCommand extends LenoxCommand {
       description: 'Changes the language of the bot for this server',
       format: 'language {desired language}',
       aliases: [],
-      examples: ['language', 'language german', 'language english', 'language spanish', 'language french', 'language swiss'],
+      examples: ['language', 'language german', 'language english', 'language spanish', 'language french', 'language swiss', 'language turkish'],
       clientpermissions: ['SEND_MESSAGES'],
       userpermissions: ['ADMINISTRATOR'],
       shortDescription: 'Localization',
@@ -24,7 +24,7 @@ module.exports = class languageCommand extends LenoxCommand {
     const args = msg.content.split(' ').slice(1);
     const input = args.slice();
 
-    const validation = ['english', 'german', 'french', 'spanish', 'swiss'];
+    const validation = ['english', 'german', 'french', 'spanish', 'swiss', 'turkish'];
 
     const already = lang.language_already.replace('%language', `\`${input[0]}\``);
     const changed = lang.language_changed.replace('%input', `\`${input[0]}\``);
