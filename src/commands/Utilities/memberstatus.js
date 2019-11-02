@@ -6,7 +6,7 @@ module.exports = class extends Command {
 	constructor(...args) {
 		super(...args, {
 			runIn: ['text'],
-			description: '',
+			description: 'View the status of members',
 			extendedHelp: 'No extended help available.',
 		});
 	}
