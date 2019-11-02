@@ -22,11 +22,11 @@ module.exports = {
 
     client.ready = true;
     if (client.provider.isReady) {
-      console.log(chalk.green('LenoxBot is ready!'));
+      client.logger.info(`LenoxBot is ready! Shard: ${client.shard.ids[0]}`);
     }
     else {
       client.provider.whenReady(async () => {
-        console.log(chalk.green('LenoxBot is ready!'));
+        client.logger.info(`LenoxBot is ready! Shard: ${client.shard.ids[0]}`);
 
         // Sets all marketitems
         const marketconfs = require('../marketitems-keys.json');
@@ -370,7 +370,7 @@ module.exports = {
 
         const embed = new Discord.MessageEmbed()
           .setTitle(`A shard of LenoxBot has been restarted!`)
-          .setDescription(`LenoxBot's shard ${client.shard.id} had a restart and is back again!\nEveryone can now execute commands!`)
+          .setDescription(`LenoxBot's shard ${client.shard.ids[0]} had a restart and is back again!\nEveryone can now execute commands!`)
           .setColor('GREEN')
           .setTimestamp()
           .setAuthor(client.user.tag, client.user.displayAvatarURL());
