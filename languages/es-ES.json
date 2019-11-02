@@ -18,7 +18,7 @@
     "remind_maxreachednopremium": "Has alcanzado el máximo de 5 recordatorios. Para conseguir más ranuras de recordatorios, haz una donación a LenoxBot en https://lenoxbot.com/donate",
     "remind_maxwithpremium": "¡Has alcanzado el máximo de 25 recordatorios!",
     "remind_notime": "Has olvidado establecer la duración del recordatorio",
-    "remind_invalidtime": "Formato de duración inválido. Por favor, usa **s** para segundos, **m** para minutos, **h** para horas, **d** para días. Para más información sobre cómo usar el comando, por favor introduce el comando **%prefixhelp remind**",
+    "remind_invalidtime": "Invalid format of duration. Please use **s** for seconds, **m** for minutes, **h** for hours or **d** for days. For more information how to use the command, please check out the command **%prefixhelp remind**",
     "remind_notext": "¡Olvidaste escribir el texto de tu recordatorio!",
     "remind_textmax": "El texto de tu recordatorio no puede exceder los 300 caracteres.",
     "remind_addembedtitle": "¡Recordatorio añadido con éxito!",
