@@ -22,7 +22,7 @@
     "remind_maxreachednopremium": "You reached the maximum amount of 5 reminders. To get more reminder slots, you have to donate to LenoxBot via https://lenoxbot.com/donate",
     "remind_maxwithpremium": "You reached the maximum amount of 25 reminders!",
     "remind_notime": "You forgot to enter the duration of the reminder",
-    "remind_invalidtime": "Invalid format of duration. Please use **s** for seconds, **m** for minutes, **h** for hours, **d** for days. For more information how to use the command, please check out the command **%prefixhelp remind**",
+    "remind_invalidtime": "Invalid format of duration. Please use **s** for seconds, **m** for minutes, **h** for hours or **d** for days. For more information how to use the command, please check out the command **%prefixhelp remind**",
     "remind_notext": "You forgot to insert your reminder text!",
     "remind_textmax": "Your reminder text cannot exceed 300 characters!",
     "remind_addembedtitle": "Reminder successfully added!",
