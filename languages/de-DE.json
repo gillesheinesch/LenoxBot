@@ -18,7 +18,7 @@
     "remind_maxreachednopremium": "Du hast die maximale Anzahl von 5 Erinnerungen erreicht. Um mehr Erinnerungsplätze zu erhalten, musst du LenoxBot über https://lenoxbot.com/donate spenden.",
     "remind_maxwithpremium": "Du hast die maximale Anzahl von 25 Erinnerungen erreicht!",
     "remind_notime": "Du hast vergessen, die Dauer der Erinnerung anzugeben",
-    "remind_invalidtime": "Ungültiges Format der Dauer. Bitte verwende **s** für Sekunden, **m** für Minuten, **h** für Stunden, oder **d** für Tage. Für weitere Informationen zur Verwendung des Befehls, sieh dir den Befehl **%prefixhelp remind** an",
+    "remind_invalidtime": "Invalid format of duration. Please use **s** for seconds, **m** for minutes, **h** for hours or **d** for days. For more information how to use the command, please check out the command **%prefixhelp remind**",
     "remind_notext": "Du hast vergessen, deinen Erinnerungstext anzugeben!",
     "remind_textmax": "Dein Erinnerungstext darf nicht 300 Zeichen überschreiten!",
     "remind_addembedtitle": "Erinnerung erfolgreich hinzugefügt!",
