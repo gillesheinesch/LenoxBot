@@ -16,7 +16,7 @@ module.exports = class removecreditsCommand extends LenoxCommand {
       userpermissions: [],
       shortDescription: 'Credits',
       dashboardsettings: true,
-      cooldown: 300000
+      cooldown: 0
     });
   }
 
