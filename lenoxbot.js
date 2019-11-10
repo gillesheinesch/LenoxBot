@@ -279,7 +279,7 @@
 //   }
 // });
 
-const Client = require('./structures/Client');
+const { Client } = require('./src');
 
 const client = new Client({ disableEveryone: true, fetchAllMembers: true });
 
