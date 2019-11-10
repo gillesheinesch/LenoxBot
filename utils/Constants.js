@@ -1,0 +1,20 @@
+module.exports = {
+    default_color: '',
+    client_guild: 'id',
+    role_administrator: 'id',
+    role_developer: 'id',
+    role_manager: 'id',
+    role_translator: 'id',
+    role_prmanager: 'id',
+    role_pragent: 'id',
+    role_moderator: 'id',
+    role_testmoderator: 'id',
+    role_translationmanager: 'id',
+    role_translationproofreader: 'id',
+    role_designer: 'id',
+    role_partner: 'id',
+    role_donator: 'id',
+    role_issuejudger: 'id',
+    role_betatester: 'id',
+    role_nitrobooster: 'id'
+}
