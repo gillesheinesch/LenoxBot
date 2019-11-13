@@ -18,7 +18,7 @@
     "remind_maxreachednopremium": "5 hatırlatıcı hakkını doldurdun. Daha fazla hatırlatıcı almak için bağış yapmalısın; LenoxBot via https://lenoxbot.com/donate",
     "remind_maxwithpremium": "25 hatırlatıcı hakkını doldurdun.",
     "remind_notime": "Hatırlatıcının süresini girmeyi unuttun",
-    "remind_invalidtime": "Invalid format of duration. Please use **s** for seconds, **m** for minutes, **h** for hours or **d** for days. For more information how to use the command, please check out the command **%prefixhelp remind**",
+    "remind_invalidtime": "Uzunluk için geçersiz biçim. Lütfen saniye için **s**, dakika için **m**, saat için **h**, gün için **d** kullanın.\nKomutun nasıl kullanıldığı hakkında daha fazla bilgi almak için **%prefixhelp remind** komutunu kullanın",
     "remind_notext": "Hatırlatma metnini girmeyi unuttun!",
     "remind_textmax": "Hatırlatıcı metniniz 300 karakteri aşamaz!",
     "remind_addembedtitle": "Hatırlatıcı başarıyla eklendi!",
