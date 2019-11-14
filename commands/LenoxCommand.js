@@ -12,6 +12,7 @@ module.exports = class LenoxCommand extends DiscordCommando.Command {
   }
 
   onError(err, message, args, fromPattern, result) { // eslint-disable-line no-unused-vars
+    console.error(err);
     const embed = new Discord.MessageEmbed()
       .setColor('RED')
       .setTimestamp()
