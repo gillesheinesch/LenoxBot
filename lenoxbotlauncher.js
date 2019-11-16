@@ -359,6 +359,14 @@ async function run() {
       const botConfs = await botSettingsCollection.findOne({
         botconfs: 'botconfs'
       });
+
+      let evaledStats = await shardingManager.broadcastEval('[this.guilds.size, this.guilds.reduce((prev, guild) => prev + guild.memberCount, 0)]');
+
+      let finalStats = {
+        guilds: evaledStats.reduce((prev, data) => prev + data[0], 0),
+        members: evaledStats.reduce((prev, data) => prev + data[1], 0)
+      }
+
       return res.render('index', {
         languages: languages(req),
         lang,
@@ -366,8 +374,8 @@ async function run() {
         user: req.user,
         guilds: check,
         islenoxbot,
-        botguildscount: botConfs.settings.botstats.botguildscount,
-        botmemberscount: botConfs.settings.botstats.botmemberscount,
+        botguildscount: finalStats.guilds,
+        botmemberscount: finalStats.members,
         botcommands: botConfs.settings.botstats.botcommands
       });
     }
