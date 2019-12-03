@@ -1,0 +1,14 @@
+{
+    "commands": {
+        "userinfo": {
+            "serversInCommon": "Servers in common"
+        }
+    },
+    "commons": {
+        "tag": "Tag",
+        "usage": "Usage"
+    },
+    "errors": {
+        "userNotFound": "User Not Found"
+    }
+}

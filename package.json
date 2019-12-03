@@ -1,0 +1,49 @@
+{
+  "name": "lenoxbot",
+  "version": "2.0.0",
+  "description": "LenoxBot offers many cool new features to your Discord server!",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start-dev": "nodemon --exec node -r dotenv/config index.js",
+    "test": "mocha src/test --recursive",
+    "fix": "standard --fix",
+    "crowdin": "crowdin upload sources"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/LenoxBot/LenoxBot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/LenoxBot/LenoxBot/issues"
+  },
+  "homepage": "https://github.com/LenoxBot/LenoxBot#readme",
+  "keywords": [
+    "Discord",
+    "Bot",
+    "Discord.js",
+    "LenoxBot"
+  ],
+  "author": "LenoxBot's Team",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "connect-mongo": "^3.2.0",
+    "cookie-parser": "^1.4.4",
+    "discord.js": "^11.5.1",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "fs-nextra": "^0.4.7",
+    "mongoose": "^5.7.13"
+  },
+  "nodemonConfig": {
+    "ignore": [
+      "locales/*"
+    ]
+  },
+  "devDependencies": {
+    "dotenv": "^8.2.0",
+    "eslint": "^6.7.1",
+    "nodemon": "^2.0.1"
+  }
+}
