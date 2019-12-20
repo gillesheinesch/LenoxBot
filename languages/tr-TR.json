@@ -355,7 +355,7 @@
     "banuser_noreason": "You have to enter a reason!",
     "banuser_already": "Bu kullanıcı daha önce banlanmış!",
     "banuser_embedtitle": "Şu kullanıcı engellendi: %username (ID: %userid)",
-    "banuser_usernamenotknown": "Sorun şu ki kullanıcı adı bilinmiyor",
+    "banuser_usernamenotknown": "Kullanıcı adı geçersiz",
     "banuser_embeddescription": "Moderatör: %moderatortag (ID: %moderatorid) \nNeden: %reason",
     "banuser_banned": "Kullanıcı engellendi!",
     "banuser_description": "Kullanıcıyı engellenenler listesine ekler",
