@@ -580,7 +580,7 @@
     "applicationnotification_description": "Defines a channel in which application notifications will be sent",
     "applicationnotification_format": "%prefix%commandname",
 
-    "setacceptedmessage_noinput": "You must enter your message that accepted applicants receive!",
+    "setacceptedmessage_noinput": "You must enter your message that accepted/rejected applicants receive!",
     "setacceptedmessage_set": "Message saved successfully!",
     "setacceptedmessage_description": "Defines a custom message that receive applicants who have been accepted",
     "setacceptedmessage_format": "%prefix%commandname <message for accepted applicants>",
