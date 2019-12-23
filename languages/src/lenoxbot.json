@@ -301,7 +301,7 @@
     "changeorder_notcorrectused": "You used the command incorrectly. You forgot to specify which application entries you want to change in order!",
     "changeorder_same": "You cannot change the order of the same entry!",
     "changeorder_undefined": "One or both application entries IDs don't exist!",
-    "changeorder_set": "The entry IDs were switched!",
+    "changeorder_set": "The entries were switched!",
     "changeorder_description": "Changes the order of two application entries",
     "changeorder_format": "%prefix%commandname <first ID> <second ID>",
 
