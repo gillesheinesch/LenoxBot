@@ -27,6 +27,7 @@ module.exports = class languageCommand extends LenoxCommand {
     const validation = ['english', 'german', 'french', 'spanish', 'swiss', 'turkish'];
 
     const already = lang.language_already.replace('%language', `\`${input[0]}\``);
+    const changed = lang.language_changed.replace('%input', `\`${input[0]}\``);
 
     if (!input || input.length === 0) return msg.reply(lang.language_noinput);
 
@@ -38,7 +39,7 @@ module.exports = class languageCommand extends LenoxCommand {
           await msg.client.provider.setGuild(msg.guild.id, 'language', 'en-US');
           await msg.client.provider.setGuild(msg.guild.id, 'momentLanguage', 'en');
 
-          return msg.channel.send(lang.language_changed.replace('%input', `\`${input[0]}\``));
+          return msg.channel.send(en-US.language_changed.replace('%input', `\`${input[0]}\``));
         }
         if (margs[1].toLowerCase() === 'german') {
           if (langSet === 'de-DE') return msg.channel.send(already);
@@ -46,7 +47,7 @@ module.exports = class languageCommand extends LenoxCommand {
           await msg.client.provider.setGuild(msg.guild.id, 'language', 'de-DE');
           await msg.client.provider.setGuild(msg.guild.id, 'momentLanguage', 'de');
 
-          return msg.channel.send(lang.language_changed.replace('%input', `\`${input[0]}\``));
+          return msg.channel.send(de-DE.language_changed.replace('%input', `\`${input[0]}\``));
         }
         if (margs[1].toLowerCase() === 'french') {
           if (langSet === 'fr-FR') return msg.channel.send(already);
@@ -54,7 +55,7 @@ module.exports = class languageCommand extends LenoxCommand {
           await msg.client.provider.setGuild(msg.guild.id, 'language', 'fr-FR');
           await msg.client.provider.setGuild(msg.guild.id, 'momentLanguage', 'fr');
 
-          return msg.channel.send(lang.language_changed.replace('%input', `\`${input[0]}\``));
+          return msg.channel.send(fr-FR.language_changed.replace('%input', `\`${input[0]}\``));
         }
         if (margs[1].toLowerCase() === 'spanish') {
           if (langSet === 'es-ES') return msg.channel.send(already);
@@ -62,7 +63,7 @@ module.exports = class languageCommand extends LenoxCommand {
           await msg.client.provider.setGuild(msg.guild.id, 'language', 'es-ES');
           await msg.client.provider.setGuild(msg.guild.id, 'momentLanguage', 'es');
 
-          return msg.channel.send(lang.language_changed.replace('%input', `\`${input[0]}\``));
+          return msg.channel.send(es-ES.language_changed.replace('%input', `\`${input[0]}\``));
         }
         if (margs[1].toLowerCase() === 'swiss') {
           if (langSet === 'de-CH') return msg.channel.send(already);
@@ -70,7 +71,7 @@ module.exports = class languageCommand extends LenoxCommand {
           await msg.client.provider.setGuild(msg.guild.id, 'language', 'de-CH');
           await msg.client.provider.setGuild(msg.guild.id, 'momentLanguage', 'de-CH');
 
-          return msg.channel.send(lang.language_changed.replace('%input', `\`${input[0]}\``));
+          return msg.channel.send(de-CH.language_changed.replace('%input', `\`${input[0]}\``));
         }
         if (margs[1].toLowerCase() === 'turkish') {
           if (langSet === 'tr-TR') return msg.channel.send(already);
@@ -78,7 +79,7 @@ module.exports = class languageCommand extends LenoxCommand {
           await msg.client.provider.setGuild(msg.guild.id, 'language', 'tr-TR');
           await msg.client.provider.setGuild(msg.guild.id, 'momentLanguage', 'tr-TR');
 
-          return msg.channel.send(lang.language_changed.replace('%input', `\`${input[0]}\``));
+          return msg.channel.send(tr-TR.language_changed.replace('%input', `\`${input[0]}\``));
         }
       }
     }
