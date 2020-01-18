@@ -20,7 +20,7 @@ module.exports = class googleCommand extends LenoxCommand {
       dashboardsettings: true
     });
   }
-
+  
   async run(msg) {
     const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
     const lang = require(`../../languages/${langSet}.json`);
@@ -29,6 +29,17 @@ module.exports = class googleCommand extends LenoxCommand {
     if (args.length < 1) {
       return msg.reply(lang.google_noinput);
     }
+    
+    if (args.join(' ') == "no you") {
+            const imbed = new Discord.MessageEmbed()
+        .setColor('#0066CC')
+        .setAuthor(`${msg.author.username}#${msg.author.discriminator}`, msg.author.avatarURL())
+        .setURL('https://www.urbandictionary.com/define.php?term=no%20you')
+        .setTitle('no you - Urban Dictionary')
+        .setDescription('the bestest comeback ever. if you\'re getting roasted, you can just say "no you" and you automatically win.')
+        .setFooter('https://www.urbandictionary.com/define.php?term=no%20you', 'https://www.urbandictionary.com/define.php?term=no%20you');
+        return message.channel.send({ imbed });
+    }else{
 
     const filter = ['porno', 'xnxx', 'pornhub', 'porn', 'livesex', 'nsfw'];
 
@@ -66,5 +77,6 @@ module.exports = class googleCommand extends LenoxCommand {
 
       return msg.channel.send({ embed });
     }
+  }
   }
 };
