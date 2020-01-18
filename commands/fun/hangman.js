@@ -118,7 +118,7 @@ module.exports = class hangmanCommand extends LenoxCommand {
                 });
               }
 
-              if (response.first().content.toLowerCase().match(/[a-z]/i)) {
+              if (response.first().content.toLowerCase().match(/['a', 'b', 'c', 'ç', 'd', 'e', 'f', 'g', 'ğ', 'h', 'ı', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'ö', 'p', 'r', 's', 'ş', 't', 'u', 'ü', 'v', 'w', 'x', 'y', 'z']/i)) {
                 // eslint-disable-next-line no-negated-condition
                 if (!triedLetters.includes(response.first().content.toLowerCase())) {
                   if (response.first().content.length === 1) {
