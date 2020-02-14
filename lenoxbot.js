@@ -57,8 +57,8 @@ const client = global.client = new Commando.Client({
   nonCommandEditable: false,
   presence: {
     activity: {
-      name: `${settings.prefix}help | www.lenoxbot.com`,
-      type: 0
+      name: `${settings.gameName}`,
+      type: `${settings.gamePresence}`
     }
   }
 });
@@ -132,8 +132,8 @@ client.dispatcher.addInhibitor((msg) => {
   if (settings.NODE_ENV === 'development' && msg.guild.id === settings.botMainDiscordServer && msg.channel.parent.name.toLowerCase() !== 'lenoxbot beta') return 'Not the beta category on LenoxBot Server';
   if (settings.NODE_ENV === 'production' && msg.channel.parentID === '614462453337686038') return 'Category only for beta bot';
 
-  if (client.user.id === '353115097318555649') {
-    if (msg.guild.id !== '332612123492483094') return 'This is not the Test LenoxBot Server';
+  if (settings.developers.include(client.user.id)) {
+    if (msg.guild.id !== settings.botTestDiscordServer) return 'This is not the Test LenoxBot Server';
   }
 
   const langSet = msg.client.provider.getGuild(msg.guild.id, 'language');
