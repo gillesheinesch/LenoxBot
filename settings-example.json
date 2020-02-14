@@ -1,6 +1,7 @@
 {
     "owners": ["Required", "UserID", "UserID"],
-    "administrators": ["UserID", "UserID", "UserID"],
+    "administrators": ["Required", "UserID", "UserID"],
+    "developers" : ["Required", "UserID", "UserID"],
     "token": "Required. Your Super Secret Token",
     "prefix": "Required. Standard Prefix",
     "auddKey": "Audd Lyrics API Key",
@@ -21,10 +22,13 @@
     },
     "dblAuthorization": "Autorization Code for API verification",
     "botMainDiscordServer": "Required. The main/support Discord Server ID of this bot",
+    "botTestDiscordServer": "Required. The test/qa Discord Server ID of this bot",
     "log_channels": {
 	    "logs": "channel id to log console logs to",
 	    "warnings": "channel id to log console warnings to",
 	    "errors": "channel id to log console errors to"
     },
+    "gameName": "Presence activity name",
+    "gamePresence": "Presence activity type",
     "NODE_ENV": "production"
 }
