@@ -24,7 +24,7 @@
         "discord.js": "github:discordjs/discord.js",
         "discord.js-commando": "github:discordjs/commando",
         "express": "^4.16.3",
-        "express-handlebars": "^3.0.0",
+        "express-handlebars": "^5.2.1",
         "express-session": "^1.15.6",
         "fortnite": "^4.3.2",
         "got": "^10.2.1",
