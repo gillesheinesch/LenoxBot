@@ -17,7 +17,7 @@
         "child_process": "^1.0.2",
         "clashroyale": "^1.0.0",
         "cluster": "^0.7.7",
-        "connect-mongo": "^3.0.0",
+        "connect-mongo": "^4.4.1",
         "cookie-parser": "^1.4.3",
         "dblapi.js": "^2.3.0",
         "debug": "^4.1.1",
