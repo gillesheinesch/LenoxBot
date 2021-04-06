@@ -13,7 +13,7 @@
         "btc-value": "^2.0.0",
         "canvas": "^2.0.1",
         "canvas-constructor": "^3.0.1",
-        "chalk": "^3.0.0",
+        "chalk": "^4.1.0",
         "child_process": "^1.0.2",
         "clashroyale": "^1.0.0",
         "cluster": "^0.7.7",
